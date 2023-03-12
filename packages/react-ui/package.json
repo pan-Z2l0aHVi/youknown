@@ -1,0 +1,42 @@
+{
+    "name": "@youknown/react-ui",
+    "version": "1.0.0",
+    "description": "",
+    "type": "module",
+    "main": "dist/main.es.js",
+    "types": "types/index.d.ts",
+    "files": [
+        "src",
+        "dist",
+        "types"
+    ],
+    "scripts": {
+        "build": "rm -rf ./types && tsc && vite build",
+        "watch": "concurrently --kill-others \"tsc -w\" \"vite build --watch\""
+    },
+    "author": "Grey",
+    "license": "MIT",
+    "dependencies": {
+        "@emotion/react": "^11.9.0",
+        "@emotion/styled": "^11.8.1",
+        "@floating-ui/react-dom": "^1.0.1",
+        "@mui/material": "^5.8.1",
+        "@youknown/react-hook": "workspace:*",
+        "@youknown/utils": "workspace:*",
+        "modern-css-reset": "^1.4.0",
+        "react-countup": "^6.2.0",
+        "react-textarea-autosize": "^8.3.4",
+        "react-transition-group": "^4.4.2"
+    },
+    "devDependencies": {
+        "@types/react-transition-group": "^4.4.4"
+    },
+    "lint-staged": {
+        "*.{js,ts,jsx,tsx}": "eslint --cache --fix"
+    },
+    "browserslist": [
+        "last 1 version",
+        "> 1%",
+        "not dead"
+    ]
+}

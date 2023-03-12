@@ -1,0 +1,106 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-button';
+.#{$prefix} {
+	@include basic;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: max-content;
+	padding: 4px 12px;
+	outline: none;
+	border: 1px solid $bd-line;
+	border-radius: $radius-m;
+	background-color: $bg-1;
+	user-select: none;
+	cursor: pointer;
+	transition: background-color $duration-f;
+
+	&-inner-ml {
+		margin-left: 8px;
+	}
+
+	&-small {
+		height: 24px;
+		&.#{$prefix}-circle,
+		&.#{$prefix}-square {
+			width: 24px;
+		}
+	}
+
+	&-medium {
+		height: 32px;
+		&.#{$prefix}-circle,
+		&.#{$prefix}-square {
+			width: 32px;
+		}
+	}
+
+	&-large {
+		height: 40px;
+		&.#{$prefix}-circle,
+		&.#{$prefix}-square {
+			width: 40px;
+		}
+	}
+
+	&-primary {
+		border: 1px solid $color-primary;
+		background-color: $color-primary;
+		color: #fff;
+	}
+
+	&:not(&-disabled) {
+		&:hover {
+			background-color: $color-hover;
+
+			&.#{$prefix}-primary {
+				background-color: $color-primary-hover;
+			}
+		}
+
+		&:active {
+			background-color: $color-active;
+			
+			&.#{$prefix}-primary {
+				background-color: $color-primary-active;
+			}
+		}
+	}
+
+	&-disabled {
+		cursor: not-allowed;
+		opacity: $opacity-disabled;;
+	}
+
+	&-text {
+		background-color: transparent;
+		border: none;
+	
+		&:not(.#{$prefix}-disabled) {
+			&:hover {
+				background-color: $color-hover;
+			}
+
+			&:active {
+				background-color: $color-active;
+			}
+		}
+	}
+
+	&-round {
+		border-radius: $round;
+	}
+
+	&-circle {
+		padding: 0;
+		width: 32px;
+		border-radius: $round;
+	}
+
+	&-square {
+		padding: 0;
+		width: 32px;
+		border-radius: $radius-m;
+	}
+}

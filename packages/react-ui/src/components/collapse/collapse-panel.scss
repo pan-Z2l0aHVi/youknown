@@ -1,0 +1,41 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-collapse-panel';
+.#{$prefix} {
+	@include basic;
+	padding: 4px;
+
+	&-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 32px;
+		padding: 4px 8px;
+		cursor: pointer;
+
+		&-icon {
+			background-color: inherit;
+
+			> svg {
+				transition: transform $duration-n;
+			}
+		}
+	}
+
+	&-box {
+		transition: max-height $duration-n ease-out, opacity $duration-n ease-out;
+		overflow: hidden;
+
+		&-entered {
+			opacity: 1;
+		}
+
+		&-exited {
+			opacity: 0;
+		}
+	}
+
+	&:not(&-is-custom-header) {
+		border-bottom: 1px solid $bd-line;
+	}
+}

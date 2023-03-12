@@ -1,0 +1,9 @@
+@use '../../../styles/base.scss' as *;
+@use '../../../styles/mixins.scss' as *;
+
+.g-order-list-icon {
+    @extend .g-editor-icon;
+    @include interactive;
+    padding: 4px;
+    border-radius: $radius-m;
+}

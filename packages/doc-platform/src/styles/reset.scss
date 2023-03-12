@@ -1,0 +1,74 @@
+body {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+		'Droid Sans', 'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: auto;
+	-moz-osx-font-smoothing: auto;
+
+	overflow: hidden;
+	font-size: var(--font-size);
+	color: var(--text-1);
+	background-color: var(--bg-0);
+}
+
+:root {
+	--text-1: #1f2329;
+	--text-2: #666;
+	--text-3: #999;
+	
+	--bg-0: #fff;
+	--bg-1: #fff;
+	--bg-2: #f4f4f4;
+	--bg-3: #eee;
+
+	--bd-line: #dee0e3;
+	--scrollbar: 27,27,27;
+
+	--radius-s: 4px;
+	--radius-m: 8px;
+	--radius-l: 12px;
+	--font-size: 14px;
+	--color-hover: rgba(0,0,0,0.05);
+	--color-active: rgba(0,0,0,0.1);
+	--color-primary: #165dff;
+	--color-primary-hover: #165dff;
+	--color-primary-active: #165dff;
+	--color-danger: #d03050;
+	--color-danger-hover: #d03050;
+	--color-danger-active: #d03050;
+
+	--shadow-m: 0 4px 8px 0 rgba(31, 35, 41, 0.1);
+	--shadow-l: 0 4px 14px rgba(0,0,0,0.1);
+
+	// ==========================
+	// react-ui & react-editor vars
+	// ==========================
+	--g-text-1: var(--text-1);
+	--g-text-2: var(--text-2);
+	--g-text-3: var(--text-3);
+
+	--g-bg-0: var(--bg-0);
+	--g-bg-1: var(--bg-1);
+	--g-bg-2: var(--bg-2);
+	--g-bg-3: var(--bg-3);
+
+	--g-bd-line: var(--bd-line);
+	--g-scrollbar: var(--scrollbar);
+
+	--g-radius-s: var(--radius-s);
+	--g-radius-m: var(--radius-m);
+	--g-radius-l: var(--radius-l);
+
+	--g-shadow-m: var(--shadow-m);
+	--g-shadow-l: var(--shadow-l);
+
+	--g-font-size-m: var(--font-size);
+
+	--g-color-hover: var(--color-hover);
+	--g-color-active: var(--color-active);
+	--g-color-primary: var(--color-primary);
+	--g-color-primary-hover: var(--color-primary-hover);
+	--g-color-primary-active: var(--color-primary-active);
+	--g-color-danger: var(--color-danger);
+	--g-color-danger-hover: var(--color-danger-hover);
+	--g-color-danger-active: var(--color-danger-active);
+}

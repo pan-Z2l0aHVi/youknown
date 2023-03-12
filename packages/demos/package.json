@@ -1,0 +1,26 @@
+{
+  "name": "@youknown/demos",
+  "version": "1.0.0",
+  "description": "DEMO",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build"
+  },
+  "author": "Grey",
+  "license": "MIT",
+  "dependencies": {
+    "@youknown/react-editor": "workspace:*",
+    "@youknown/react-hook": "workspace:*",
+    "@youknown/react-ui": "workspace:*",
+    "@youknown/utils": "workspace:*"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": "eslint --cache --fix"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "not dead"
+  ]
+}

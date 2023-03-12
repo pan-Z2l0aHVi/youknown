@@ -1,0 +1,109 @@
+@use '../../styles/vars.scss' as *;
+
+.slip {
+  	// enter
+	&-top-enter,
+	&-left-enter,
+	&-bottom-enter,
+	&-right-enter {
+		opacity: 0;
+	}
+
+	&-top-enter {
+		transform: translateY(-100%);
+	}
+
+	&-bottom-enter {
+		transform: translateY(100%);
+	}
+
+	&-left-enter {
+		transform: translateX(-100%);
+	}
+
+	&-right-enter {
+		transform: translateX(100%);
+	}
+
+  	// enter-active
+	&-top-enter-active,
+	&-left-enter-active,
+	&-bottom-enter-active,
+	&-right-enter-active {
+		opacity: 1;
+		transition: opacity $duration-n cubic-bezier(0.4, 0, 0.2, 1), transform $duration-n cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	&-top-enter-active {
+		transform-origin: bottom;
+		transform: translateY(0);
+	}
+
+	&-bottom-enter-active {
+		transform-origin: top;
+		transform: translateY(0);
+	}
+
+	&-left-enter-active {
+		transform-origin: right;
+		transform: translateX(0);
+	}
+
+	&-right-enter-active {
+		transform-origin: left;
+		transform: translateX(0);
+	}
+
+  	// exit
+	&-top-exit,
+	&-left-exit,
+	&-bottom-exit,
+	&-right-exit {
+		opacity: 1;
+	}
+
+	&-top-exit {
+		transform: translateY(0);
+	}
+
+	&-bottom-exit {
+		transform: translateY(0);
+	}
+
+	&-left-exit {
+		transform: translateX(0);
+	}
+
+	&-right-exit {
+		transform: translateX(0);
+	}
+
+  	// exit-active
+	&-top-exit-active,
+	&-left-exit-active,
+	&-bottom-exit-active,
+	&-right-exit-active {
+		opacity: 0;
+		transition: opacity $duration-n cubic-bezier(0.4, 0, 0.2, 1), transform $duration-n cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	&-top-exit-active {
+		transform-origin: bottom;
+		transform: translateY(-100%);
+	}
+
+	&-bottom-exit-active {
+		transform-origin: top;
+		transform: translateY(100%);
+	}
+
+	&-left-exit-active {
+		transform-origin: right;
+		transform: translateX(-100%);
+	}
+
+	&-right-exit-active {
+		transform-origin: left;
+		transform: translateX(100%);
+	}
+}

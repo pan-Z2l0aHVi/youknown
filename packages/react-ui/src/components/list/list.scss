@@ -1,0 +1,12 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-list';
+.#{$prefix} {
+	@include basic;
+	background: $bg-1;
+	
+	&-bordered {
+		border: 1px solid $bd-line;
+		border-radius: $radius-l;
+	}
+}

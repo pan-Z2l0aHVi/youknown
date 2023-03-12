@@ -1,0 +1,27 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-circle';
+.#{$prefix} {
+	@include basic;
+	position: relative;
+	user-select: none;
+
+	> svg {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&-circle {
+		fill: none;
+		stroke: $color-primary;
+		transform: rotate(-90deg);
+		transform-origin: center;
+		transform-box: fill-box;
+		transition: all;
+
+		&-round {
+			stroke-linecap: round;
+		}
+	}
+}

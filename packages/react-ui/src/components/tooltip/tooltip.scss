@@ -1,0 +1,25 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-tooltip';
+.#{$prefix} {
+	&-content {
+		@include basic;
+		width: max-content;
+		padding: 6px 8px;
+		border-radius: $radius-m;
+		box-shadow: $shadow-l;
+		font-size: $font-size-s;
+
+		&-light {
+			color: #000;
+			background: #fff;
+			border: 1px solid #ddd;
+		}
+
+		&-dark {
+			color: #fff;
+			background: #222;
+			border: 1px solid #444;
+		}
+	}
+}

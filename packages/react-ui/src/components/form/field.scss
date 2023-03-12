@@ -1,0 +1,49 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-field';
+.#{$prefix} {
+	@include basic;
+	margin-bottom: 20px;
+
+	&-align {
+		&-top {
+			display: block;
+		}
+
+		&-left {
+			display: flex;
+
+			.#{$prefix}-label {
+				text-align: left;
+			}
+		}
+
+		&-right {
+			display: flex;
+
+			.#{$prefix}-label {
+				text-align: right;
+			}
+		}
+	}
+
+	&-label {
+		padding-right: 16px;
+		line-height: 32px;
+	}
+
+	&-control {
+		flex: 1;
+
+		&-inner {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			min-height: 32px;
+		}
+	}
+
+	&-message {
+		color: #d03050;
+	}
+}

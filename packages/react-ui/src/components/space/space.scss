@@ -1,0 +1,38 @@
+@use '../../styles/mixins.scss' as *;
+@use '../../styles/polyfills.scss' as polyfills;
+
+$prefix: 'g-space';
+.#{$prefix} {
+	@include basic;
+	color: unset;
+	font-size: unset;
+	flex-wrap: nowrap;
+
+	&-horizontal {
+		width: max-content;
+
+		&-small {
+			@include polyfills.flex-gap(4px, 'row nowrap');
+		}
+		&-medium {
+			@include polyfills.flex-gap(12px, 'row nowrap');
+		}
+		&-large {
+			@include polyfills.flex-gap(24px, 'row nowrap');
+		}
+	}
+
+	&-vertical {
+		height: max-content;
+		
+		&-small {
+			@include polyfills.flex-gap(4px, 'column nowrap');
+		}
+		&-medium {
+			@include polyfills.flex-gap(12px, 'column nowrap');
+		}
+		&-large {
+			@include polyfills.flex-gap(24px, 'column nowrap');
+		}
+	}
+}

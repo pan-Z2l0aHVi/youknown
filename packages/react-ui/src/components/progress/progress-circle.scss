@@ -1,0 +1,51 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-progress-circle';
+.#{$prefix} {
+	@include basic;
+
+	&-detail {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	&-small {
+		.#{$prefix}-detail {
+			&-num {
+				font-size: $font-size-m;
+			}
+
+			&-suffix {
+				font-size: 10px;
+			}
+		}
+	}
+
+	&-medium {
+		.#{$prefix}-detail {
+			&-num {
+				font-size: 18px;
+			}
+
+			&-suffix {
+				padding-left: 2px;
+				font-size: 12px;
+			}
+		}
+	}
+
+	&-large {
+		.#{$prefix}-detail {
+			&-num {
+				font-size: 22px;
+			}
+
+			&-suffix {
+				padding-left: 2px;
+				font-size: $font-size-m;
+			}
+		}
+	}
+}

@@ -1,0 +1,44 @@
+@use '../../../styles/base.scss' as *;
+@use '../../../styles/mixins.scss' as *;
+
+.g-img-editor {
+    @extend .g-editor-icon;
+    @include interactive;
+    padding: 4px;
+    border-radius: $radius-m;
+}
+
+.g-img-popup {
+	width: 280px;
+
+	.g-img-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 16px;
+
+		.g-img-close {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 24px;
+			height: 24px;
+			border-radius: $radius-m;
+			cursor: pointer;
+			&:hover {
+				background: $bg-3;
+			}
+		}
+	}
+
+	.g-img-footer {
+		justify-content: flex-end;
+		margin-top: 16px;
+	}
+	
+	.g-textarea {
+		.g-textarea-inner {
+			resize: none;
+		}
+	}
+}

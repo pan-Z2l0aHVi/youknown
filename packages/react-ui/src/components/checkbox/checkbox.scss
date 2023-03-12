@@ -1,0 +1,86 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-checkbox';
+.#{$prefix} {
+	@include basic;
+	position: relative;
+	display: flex;
+	align-items: center;
+	width: max-content;
+	user-select: none;
+	transition: filter $duration-f;
+	cursor: pointer;
+	
+	&-input {
+		padding: 0;
+		outline: 0;
+		border: 0;
+	}
+	
+	&-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 1em;
+		height: 1em;
+		border: 1px solid $bd-line;
+		border-radius: $radius-s;
+		background: $bg-1;
+		transition: all ease-out $duration-f;
+		margin-right: 8px;
+		
+		&-inner {
+			color: #fff;
+			transition: all ease-out $duration-f;
+			transform: scale(0);
+		}
+	}
+	
+	&-checked {
+		.#{$prefix}-icon {
+			background-color: $color-primary;
+			border-color: $color-primary;
+			
+			&-inner {
+				transform: scale(1);
+			}
+		}
+	}
+	
+	&-disabled {
+		cursor: not-allowed;
+		opacity: $opacity-disabled;
+	}
+	
+	&:not(&-checked):not(&-disabled) {
+		&:hover {
+			.#{$prefix}-icon {
+				background-color: $color-hover;
+			}
+		}
+
+		&:active {
+			.#{$prefix}-icon {
+				background-color: $color-active;
+			}
+		}
+	}
+	
+	&-small {
+		.#{$prefix}-icon {
+			font-size: 12px;
+		}
+	}
+	
+	&-medium {
+		.#{$prefix}-icon {
+			font-size: 16px;
+		}
+	}
+	
+	&-large {
+		.#{$prefix}-icon {
+			font-size: 20px;
+		}
+	}
+}

@@ -1,0 +1,36 @@
+@use '../../../styles/base.scss' as *;
+@use '../../../styles/mixins.scss' as *;
+
+.g-link-picker {
+    @extend .g-editor-icon;
+    margin-left: 12px;
+}
+
+.g-link-popup {
+	width: 280px;
+
+	.g-link-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 16px;
+
+		.g-link-close {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 24px;
+			height: 24px;
+			border-radius: $radius-m;
+			cursor: pointer;
+			&:hover {
+				background: $bg-3;
+			}
+		}
+	}
+	
+	.g-link-footer {
+		justify-content: flex-end;
+		margin-top: 16px;
+	}
+}

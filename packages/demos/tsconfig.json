@@ -1,0 +1,26 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"jsx": "react",
+		"target": "ESNext",
+		"module": "CommonJS",
+		"esModuleInterop": true,
+		"declaration": false,
+		"paths": {
+			"@editor/*": [
+				"editor-views/*"
+			],
+			"@ui/*": [
+				"ui-views/*"
+			]
+		},
+	},
+	"exclude": [
+		"./dist/**/*",
+		"**/*.test.ts",
+		"**/*.spec.ts",
+		"**/*.test.tsx",
+		"**/*.spec.tsx"
+	]
+}

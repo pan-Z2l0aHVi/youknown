@@ -1,0 +1,48 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-dropdown-item';
+.#{$prefix} {
+	@include basic;
+	display: flex;
+	align-items: center;
+	padding: 4px 12px 4px 20px;
+	min-height: 36px;
+	background: $bg-1;
+	user-select: none;
+	cursor: pointer;
+	transition: background-color $duration-f;
+
+	&:hover {
+		background-color: $color-hover;
+	}
+
+	&:active {
+		background-color: $color-active;
+	}
+
+	&-with-prefix {
+		padding-left: 8px;
+	}
+
+	&-with-suffix {
+		padding-right: 8px;
+	}
+
+	&-prefix-wrap {
+		display: flex;
+		align-items: center;
+		width: max-content;
+		margin-right: 8px;
+	}
+
+	&-children-wrap {
+		flex: 1;
+	}
+
+	&-suffix-wrap {
+		display: flex;
+		align-items: center;
+		width: max-content;
+		margin-left: 8px;
+	}
+}

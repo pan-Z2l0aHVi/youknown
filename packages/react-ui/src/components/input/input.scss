@@ -1,0 +1,78 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-input';
+.#{$prefix} {
+	@include basic;
+	position: relative;
+	display: flex;
+	align-items: center;
+	width: 240px;
+	padding: 4px 8px;
+	background: $bg-1;
+	transition: all $duration-n ease-out;
+
+	&-bordered {
+		border-radius: $radius-m;
+		border: 1px solid $bd-line;
+	}
+
+	&-inner {
+		flex: 1;
+		padding: 0 4px;
+		outline: 0;
+		border: 0;
+		background: transparent;
+		height: 100%;
+		resize: vertical;
+		line-height: 1.7;
+		color: $text-1;
+
+		&::placeholder {
+			color: $text-3;
+		}
+	}
+
+	&-clear-icon {
+		padding-right: 4px;
+		color: $text-3;
+		font-size: 18px;
+		cursor: pointer;
+	}
+
+	&-round {
+		border-radius: $round;
+	}
+
+	&-disabled {
+		cursor: not-allowed;
+		opacity: $opacity-disabled;
+
+		.#{$prefix}-inner {
+			cursor: not-allowed;
+		}
+	}
+
+	&:not(&-disabled) {
+		&.#{$prefix}-focus,
+		&:active {
+			&.#{$prefix}-bordered {
+				&.#{$prefix}-outline {
+					border-color: $color-primary;
+					box-shadow: inset 0 0 0 2px $color-primary;
+				}
+			}
+		}
+	}
+
+	&-small {
+		height: 26px;
+	}
+
+	&-medium {
+		height: 32px;
+	}
+
+	&-large {
+		height: 38px;
+	}
+}

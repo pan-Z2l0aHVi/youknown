@@ -1,0 +1,35 @@
+$color-hover: var(--g-color-hover, rgba(0,0,0,0.05));
+$color-active: var(--g-color-active, rgba(0,0,0,0.1));
+$color-primary: var(--g-color-primary, #007bca);
+$color-primary-hover: var(--g-color-primary-hover, #0095da);
+$color-primary-active: var(--g-color-primary-active, #0063a7);
+$color-danger: var(--g-color-danger, #d52515);
+$color-danger-hover: var(--g-color-danger-hover, #f93920);
+$color-danger-active: var(--g-color-danger-active, #b2140c);
+
+$text-1: var(--g-text-1, #333);
+$text-2: var(--g-text-2, #666);
+$text-3: var(--g-text-3, #999);
+$bg-0: var(--g-bg-0, #fff);
+$bg-1: var(--g-bg-1, #fff);
+$bg-2: var(--g-bg-2, #f5f5f5);
+$bg-3: var(--g-bg-3, #eee);
+$bd-line: var(--g-bd-line, #dee0e3);
+
+$font-size-s: var(--g-font-size-s, 12px);
+$font-size-m: var(--g-font-size-m, 14px);
+$font-size-l: var(--g-font-size-l, 16px);
+
+$shadow-m: var(--g-shadow-m, 0 1px 2px -2px rgba(0, 0, 0, 0.08), 0 3px 6px 0 rgba(0, 0, 0, 0.06), 0 5px 12px 4px rgba(0, 0, 0, 0.04));
+$shadow-l: var(--g-shadow-l, 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05));
+
+$radius-s: var(--g-radius-s, 2px);
+$radius-m: var(--g-radius-m, 4px);
+$radius-l: var(--g-radius-l, 8px);
+$round: 999vmax;
+
+$opacity-disabled: var(--g-opacity-disabled, 0.4);
+
+$duration-f: var(--g-duration-f, 150ms);
+$duration-n: var(--g-duration-n, 225ms);
+$duration-s: var(--g-duration-s, 350ms);

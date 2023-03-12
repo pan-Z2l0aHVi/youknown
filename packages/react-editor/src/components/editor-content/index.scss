@@ -1,0 +1,130 @@
+// @import url('https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.min.css'); // bad request
+@use '../../styles/mixins.scss' as *;
+
+.ProseMirror {
+	padding: 8px 8px 8px 16px;
+	line-height: 1.75;
+	font-size: $font-size-l;
+	color: $text-1;
+	background-color: $bg-0;
+	outline: none;
+	::selection {
+		background: rgba(200, 200, 255, 0.4);
+	}
+	> * + * {
+		margin-top: 0.75em;
+	}
+	&.resize-cursor {
+		cursor: ew-resize;
+		cursor: col-resize;
+	}
+
+	/* ----------------------- PLACEHOLDER ------------------------- */
+	p.is-editor-empty:first-child::before {
+		color: #adb5bd;
+		content: attr(data-placeholder);
+		float: left;
+		height: 0;
+		pointer-events: none;
+	}
+
+	/* ----------------------- BLOCKQUOTE ------------------------- */
+	blockquote {
+		border-left: 4px solid $color-primary;
+		padding: 0 16px;
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	/* ----------------------- CODE ------------------------- */
+	code {
+		padding: 0 4px;
+		background: $bg-1;
+		border: 1px solid $bd-line;
+		border-radius: $radius-m;
+		-webkit-box-decoration-break: clone;
+		box-decoration-break: clone;
+		font-size: $font-size-m;
+		font-weight: 600;
+    	font-family: Menlo, Consolas, monospace;
+	}
+
+	/* ----------------------- CODEBLOCK ------------------------- */
+	pre {
+		background: $bg-2;
+		border: 1px solid $bd-line;
+		border-radius: $radius-m;
+		padding: 8px 16px;
+		margin: 0;
+    	margin-top: 0.75em;
+		code {
+			padding: 0;
+			background: unset;
+			border: unset;
+			font-weight: 400;
+		}
+	}
+
+	/* ----------------------- TABLE ------------------------- */
+	table {
+		border-collapse: collapse;
+		margin: 0;
+		max-width: 100%;
+		overflow: hidden;
+		table-layout: fixed;
+		td,
+		th {
+			border: 1px solid $bd-line;
+			box-sizing: border-box;
+			min-width: 4em;
+			padding: 3px 5px;
+			position: relative;
+			vertical-align: top;
+
+			> * {
+				margin-bottom: 0;
+			}
+		}
+		th {
+			background-color: $bg-1;
+			font-weight: bold;
+			text-align: left;
+		}
+		.selectedCell:after {
+			background: rgba(200, 200, 255, 0.4);
+			content: '';
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			pointer-events: none;
+			position: absolute;
+			z-index: 2;
+		}
+		.column-resize-handle {
+			background-color: $color-primary;
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			top: 0;
+			pointer-events: none;
+			width: 3px;
+		}
+		p {
+			margin: 0;
+		}
+	}
+	.tableWrapper {
+		padding: 1rem 0;
+		overflow-x: auto;
+	}
+
+	/* ----------------------- IMAGE ------------------------- */
+	img {
+		height: auto;
+		max-width: 100%;
+		&.ProseMirror-selectednode {
+		  outline: 3px solid $color-primary;
+		}
+	}
+}

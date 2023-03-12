@@ -1,0 +1,18 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-radio-group';
+.#{$prefix} {
+	@include basic;
+	width: max-content;
+	
+	&-disabled {
+		cursor: not-allowed;
+	}
+
+	&-tab {
+		display: flex;
+		background: $bg-3;
+		padding: 2px;
+		border-radius: calc($radius-m + 2px);
+	}
+}

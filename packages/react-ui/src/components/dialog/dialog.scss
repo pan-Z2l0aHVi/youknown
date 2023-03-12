@@ -1,0 +1,34 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-dialog';
+.#{$prefix} {
+	@include basic;
+	position: relative;
+
+	&-close-icon {
+		position: absolute;
+		top: 24px;
+		right: 24px;
+	}
+	
+	&-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		padding: 24px 24px 0 24px;
+		
+		&-title {
+			font-size: 20px;
+			margin-right: 16px;
+		}
+	}
+	
+	&-content {
+	}
+	
+	&-footer {
+		display: flex;
+		flex-direction: row-reverse;
+		padding: 0 24px 24px 24px;
+	}
+}

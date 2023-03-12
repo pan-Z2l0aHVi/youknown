@@ -1,0 +1,23 @@
+@use '../../styles/mixins.scss' as *;
+@use '../../styles/polyfills.scss' as polyfills;
+
+$prefix: 'g-form';
+.#{$prefix} {
+	@include basic;
+	
+	&-horizontal {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	&-vertical {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	&-inline {
+		display: flex;
+		flex-wrap: wrap;
+		@include polyfills.flex-gap(32px, 'row nowrap');
+	}
+}

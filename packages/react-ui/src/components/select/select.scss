@@ -1,0 +1,73 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-select';
+.#{$prefix} {
+	@include basic;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: max-content;
+	min-width: 120px;
+	min-height: 32px;
+	border: 1px solid $bd-line;
+	background-color: $bg-1;
+	border-radius: $radius-m;
+	cursor: pointer;
+	
+	&-disabled {
+		cursor: not-allowed;
+		opacity: $opacity-disabled;
+	}
+	
+	&-selector {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		user-select: none;
+		margin-left: 12px;
+		min-height: 22px;
+		
+		&-no-margin {
+			margin-left: 0;
+		}
+		
+		&-filter {
+			width: 100%;
+			
+			&-placeholder-darker {
+				> input {
+					&::placeholder {
+						color: $text-1;
+					}
+				}
+			}
+		}
+	}
+	
+	&-arrow {
+		font-size: 16px;
+		color: $text-2;
+		margin-right: 4px;
+	}
+	
+	&-placeholder {
+		color: $text-3;
+	}
+	
+	&-item-icon {
+		@include flex-center;
+		width: 16px;
+		font-size: 16px;
+		color: $color-primary;
+	}
+
+	&-item-selected {
+		background-color: $color-hover;
+	}
+	
+	&-empty {
+		@include flex-center;
+		height: 48px;
+		color: $text-3;
+	}
+}

@@ -1,0 +1,13 @@
+@use '../../styles/mixins.scss' as *;
+
+.g-bubble-menu {
+	padding: 6px 8px;
+	background: $bg-1;
+	border-radius: $radius-m;
+	border: 1px solid $bd-line;
+	box-shadow: $shadow-l;
+}
+
+.toolbar-divider {
+	height: 24px;
+}

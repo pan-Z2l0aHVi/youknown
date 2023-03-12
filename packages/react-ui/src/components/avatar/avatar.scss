@@ -1,0 +1,54 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-avatar';
+.#{$prefix} {
+	@include basic;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: $radius-m;
+	color: $bg-1;
+
+	&-img {
+		width: 100%;
+		height: 100%;
+		border-radius: inherit;
+		object-fit: cover;
+	}
+
+	&-badge {
+		position: absolute;
+		top: 0;
+		right: 0;
+		transform: translate(50%, -50%);
+		background: $color-danger;
+		border-radius: $round;
+		padding: 2px 6px;
+		font-size: $font-size-s;
+		color: #fff;
+		line-height: 1.4em;
+	}
+
+	&-round {
+		border-radius: $round;
+	}
+
+	&-small {
+		min-width: 24px;
+		width: 24px;
+		height: 24px;
+	}
+
+	&-medium {
+		min-width: 40px;
+		width: 40px;
+		height: 40px;
+	}
+
+	&-large {
+		min-width: 56px;
+		width: 56px;
+		height: 56px;
+	}
+}

@@ -1,0 +1,37 @@
+{
+  "name": "@youknown/doc-platform",
+  "version": "1.0.0",
+  "description": "Documentation platform frontend project",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "author": "Grey",
+  "license": "MIT",
+  "dependencies": {
+    "@youknown/react-editor": "workspace:*",
+    "@youknown/react-hook": "workspace:*",
+    "@youknown/react-ui": "workspace:*",
+    "@youknown/utils": "workspace:*",
+    "@reduxjs/toolkit": "^1.9.1",
+    "@types/chroma-js": "^2.4.0",
+    "chroma-js": "^2.4.2",
+    "dayjs": "^1.11.7",
+    "react-redux": "^8.0.5"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": "eslint --cache --fix"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "not dead"
+  ],
+  "devDependencies": {
+    "@unocss/preset-rem-to-px": "^0.47.5",
+    "unocss": "^0.47.5",
+    "unocss-scrollbar-variant": "^0.37.2"
+  }
+}

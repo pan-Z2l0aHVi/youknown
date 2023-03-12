@@ -1,0 +1,49 @@
+@use './vars.scss' as *;
+@forward './vars.scss';
+
+@mixin basic {
+	font-size: $font-size-m;
+	color: $text-1;
+}
+
+@mixin flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@mixin scroll-y($overlay: false) {
+	overflow-y: auto;
+	@if $overlay {
+		overflow-y: overlay;
+	}
+}
+
+@mixin scrollbar(
+	$round: 2px,
+    $thumb-color: rgba($scrollbar, 0.3),
+    $thumb-color-hover: rgba($scrollbar, 0.5),
+    $track-color: transparent,
+    $x-width: 4px,
+    $y-width: 4px
+) {
+    &::-webkit-scrollbar {
+		border-radius: $round;
+		width: $x-width; //y轴滚动条宽度
+		height: $y-width; //x轴滚动条高度
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: $round; //滚动条的圆角
+		background: $thumb-color; //滚动条的背景颜色
+
+		&:hover {
+			background: $thumb-color-hover; //滚动条的背景颜色
+		}
+	}
+
+	&::-webkit-scrollbar-track {
+		border-radius: $round;
+		background: $track-color;
+	}
+}

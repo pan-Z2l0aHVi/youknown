@@ -1,0 +1,30 @@
+@use '../../styles/mixins.scss' as *;
+.g-divider {
+	@include basic;
+	&-horizontal {
+		width: 100%;
+		border-bottom: 1px solid $bd-line;
+		&-small {
+			margin: 4px 0;
+		}
+		&-medium {
+			margin: 16px 0;
+		}
+		&-large {
+			margin: 32px 0;
+		}
+	}
+	&-vertical {
+		height: 100%;
+		border-right: 1px solid $bd-line;
+		&-small {
+			margin: 0 4px;
+		}
+		&-medium {
+			margin: 0 16px;
+		}
+		&-large {
+			margin: 0 32px;
+		}
+	}
+}

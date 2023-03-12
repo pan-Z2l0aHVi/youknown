@@ -1,0 +1,26 @@
+@use './vars.scss' as *;
+@forward './vars.scss';
+
+@mixin flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@mixin interactive {
+	&.disabled {
+		opacity: 0.4;
+	}
+
+	&:not(.disabled) {
+		&:focus,
+		&:hover,
+		&.active {
+			background-color: $color-hover;
+		}
+
+		&:active {
+			background-color: $color-active;
+		}
+	}
+}

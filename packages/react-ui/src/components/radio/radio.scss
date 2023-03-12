@@ -1,0 +1,159 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-radio';
+.#{$prefix} {
+	@include basic;
+	display: flex;
+	align-items: center;
+	width: max-content;
+	user-select: none;
+	transition: background-color $duration-f;
+	cursor: pointer;
+	
+	&-inner {
+		padding: 0;
+		outline: 0;
+		border: 0;
+	}
+	
+	&-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid $bd-line;
+		border-radius: $round;
+		background-color: $bg-1;
+		transition: all ease-out $duration-f;
+		margin-right: 8px;
+		
+		&::after {
+			content: '';
+			border-radius: $round;
+			background-color: #fff;
+			transition: all ease-out $duration-f;
+			transform: scale(0);
+		}
+	}
+	
+	&-checked {
+		.#{$prefix}-icon {
+			background-color: $color-primary;
+			border-color: $color-primary;
+			
+			&::after {
+				transform: scale(1);
+			}
+		}
+	}
+	
+	&-disabled {
+		cursor: not-allowed;
+		opacity: $opacity-disabled;
+	}
+	
+	&:not(&-checked):not(&-disabled) {
+		&:hover {
+			.#{$prefix}-icon {
+				background-color: $color-hover;
+			}
+		}
+
+		&:active {
+			.#{$prefix}-icon {
+				background-color: $color-active;
+			}
+		}
+	}
+	
+	&-small {
+		.#{$prefix}-icon {
+			width: 12px;
+			height: 12px;
+			
+			&::after {
+				width: 4px;
+				height: 4px;
+			}
+		}
+	}
+	
+	&-medium {
+		.#{$prefix}-icon {
+			width: 16px;
+			height: 16px;
+			
+			&::after {
+				width: 6px;
+				height: 6px;
+			}
+		}
+	}
+	
+	&-large {
+		.#{$prefix}-icon {
+			width: 20px;
+			height: 20px;
+			
+			&::after {
+				width: 8px;
+				height: 8px;
+			}
+		}
+	}
+
+	&-tab {
+		@include basic;
+		display: flex;
+		align-items: center;
+		background-color: $bg-3;
+		border-radius: $radius-m;
+		user-select: none;
+		cursor: pointer;
+		
+		&-disabled {
+			cursor: not-allowed;
+			opacity: $opacity-disabled;
+		}
+		
+		&-checked {
+			background-color: $bg-0;
+			box-shadow: 0 1px 4px rgba($color: #000000, $alpha: 0.1);
+			z-index: 1;
+		}
+		
+		&:not(&-checked) {
+			&:not(.#{$prefix}-tab-disabled) {
+				color: $text-2;
+				
+				&:hover {
+					background-color: $color-hover;
+				}
+
+				&:active {
+					background-color: $color-active;
+				}
+			}
+		}
+		
+		&-small {
+			&.#{$prefix}-tab {
+				height: 20px;
+				padding: 2px 12px;
+			}
+		}
+		
+		&-medium {
+			&.#{$prefix}-tab {
+				height: 28px;
+				padding: 4px 16px;
+			}
+		}
+		
+		&-large {
+			&.#{$prefix}-tab {
+				height: 36px;
+				padding: 6px 20px;
+			}
+		}
+	}
+}

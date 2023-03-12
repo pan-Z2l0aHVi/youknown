@@ -1,0 +1,99 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-tabs';
+.#{$prefix} {
+	@include basic;
+
+	&-header {
+		display: flex;
+	}
+
+	&-tab {
+		user-select: none;
+		cursor: default;
+
+		&-line {
+			display: flex;
+			align-items: center;
+			margin: 0 16px;
+			border-bottom: 2px solid transparent;
+
+			&-active {
+				border-bottom-color: $color-primary;
+			}
+		}
+
+		&-round {
+			display: flex;
+			align-items: center;
+			margin: 0 6px;
+
+			.#{$prefix}-round-wrap {
+				border-radius: $round;
+			}
+
+			&-active {
+				.#{$prefix}-round-wrap {
+					background: $color-primary;
+					color: #fff;
+				}
+			}
+		}
+
+		&-small {
+			&.#{$prefix}-tab {
+				&-line {
+					height: 32px;
+				}
+
+				&-round {
+					height: 32px;
+
+					.#{$prefix}-round-wrap {
+						padding: 2px 8px;
+					}
+				}
+			}
+		}
+
+		&-medium {
+			&.#{$prefix}-tab {
+				&-line {
+					height: 40px;
+				}
+
+				&-round {
+					height: 40px;
+
+					.#{$prefix}-round-wrap {
+						padding: 4px 10px;
+					}
+				}
+			}
+		}
+
+		&-large {
+			&.#{$prefix}-tab {
+				&-line {
+					height: 48px;
+				}
+
+				&-round {
+					height: 48px;
+
+					.#{$prefix}-round-wrap {
+						padding: 6px 12px;
+					}
+				}
+			}
+		}
+	}
+
+	&-container {
+		padding-top: 16px;
+
+		&:not(&-segment-type) {
+			border-top: 1px solid $bd-line;
+		}
+	}
+}

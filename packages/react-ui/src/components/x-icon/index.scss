@@ -1,0 +1,23 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-x-icon';
+.#{$prefix} {
+    @include flex-center;
+    width: 24px;
+    height: 24px;
+    border-radius: $round;
+    font-size: 16px;
+    color: $text-2;
+    cursor: pointer;
+    user-select: none;
+    background-color: $bg-3;
+    transition: background-color $duration-f;
+    
+    &:hover {
+        background-color: $color-hover;
+    }
+
+    &:active {
+        background-color: $color-active;
+    }
+}

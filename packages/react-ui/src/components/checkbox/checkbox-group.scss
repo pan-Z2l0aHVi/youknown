@@ -1,0 +1,10 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: 'g-checkbox-group';
+.#{$prefix} {
+	@include basic;
+	
+	&-disabled {
+		cursor: not-allowed;
+	}
+}
