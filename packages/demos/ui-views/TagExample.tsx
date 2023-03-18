@@ -6,6 +6,7 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Tag</h1>
+			<Divider />
 			<Space>
 				<Tag>Basic</Tag>
 				<Tag round>Round</Tag>

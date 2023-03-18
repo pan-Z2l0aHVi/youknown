@@ -25,7 +25,6 @@ interface RadioGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange
 	}[]
 	direction?: 'horizontal' | 'vertical'
 	disabled?: boolean
-	type?: 'default' | 'tab'
 	onChange?: (value: string | number) => void
 }
 
@@ -35,7 +34,6 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, propRef) 
 		className,
 		direction = 'horizontal',
 		size = 'medium',
-		type = 'default',
 		options = [],
 		disabled = false,
 		defaultValue,
@@ -56,7 +54,6 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, propRef) 
 	const prefixCls = `${UI_PREFIX}-radio-group`
 
 	const isControlled = !is.undefined(value)
-	const isTab = type === 'tab'
 
 	const getValueProps = (label?: string | number) => {
 		if (is.undefined(label)) return
@@ -74,7 +71,6 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, propRef) 
 						key={option.label}
 						label={option.label}
 						size={size}
-						type={type}
 						disabled={disabled || option.disabled}
 						onChange={getHandleSubChange(option.label)}
 						{...getValueProps(option.label)}
@@ -87,7 +83,6 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, propRef) 
 				isValidElement<ComponentProps<typeof Radio>>(child)
 					? cloneElement(child, {
 							size,
-							type,
 							disabled: disabled || child.props.disabled,
 							onChange: getHandleSubChange(child.props.label),
 							...getValueProps(child.props.label)
@@ -101,17 +96,11 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, propRef) 
 		<div
 			ref={propRef}
 			className={cls(className, prefixCls, {
-				[`${prefixCls}-disabled`]: disabled,
-				[`${prefixCls}-tab`]: isTab
+				[`${prefixCls}-disabled`]: disabled
 			})}
 			{...rest}
 		>
-			{isTab ? (
-				// <div style={{ display: 'flex' }}>{radiosEle}</div>
-				radiosEle
-			) : (
-				<Space direction={direction}>{radiosEle}</Space>
-			)}
+			<Space direction={direction}>{radiosEle}</Space>
 		</div>
 	)
 })

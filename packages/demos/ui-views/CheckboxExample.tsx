@@ -20,6 +20,7 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Checkbox</h1>
+			<Divider />
 			<Space>
 				<Checkbox defaultValue={true}>Basic</Checkbox>
 				<Checkbox
@@ -76,9 +77,9 @@ export default () => {
 				<Checkbox.Group
 					direction="horizontal"
 					options={[
-						{ label: 0, child: 'Horizontal a' },
-						{ label: 1, child: 'Horizontal b' },
-						{ label: 2, child: 'Horizontal c' }
+						{ label: 0, child: 'Horizontal A' },
+						{ label: 1, child: 'Horizontal B' },
+						{ label: 2, child: 'Horizontal C' }
 					]}
 					value={horizontalVal}
 					onChange={value => {
@@ -88,9 +89,9 @@ export default () => {
 				<Checkbox.Group
 					direction="vertical"
 					options={[
-						{ label: 0, child: 'Vertical a' },
-						{ label: 1, child: 'Vertical b' },
-						{ label: 2, child: 'Vertical c' }
+						{ label: 0, child: 'Vertical A' },
+						{ label: 1, child: 'Vertical B' },
+						{ label: 2, child: 'Vertical C' }
 					]}
 					value={verticalVal}
 					onChange={value => {
@@ -118,18 +119,18 @@ export default () => {
 			<Checkbox.Group
 				direction="vertical"
 				options={[
-					{ label: 0, child: 'Options a' },
-					{ label: 1, child: 'Options b' },
-					{ label: 2, child: 'Options c' }
+					{ label: 0, child: 'Options A' },
+					{ label: 1, child: 'Options B' },
+					{ label: 2, child: 'Options C' }
 				]}
 				value={jsxGroupVal}
 				onChange={value => {
 					setJsxGroupVal(value)
 				}}
 			>
-				<Checkbox label={3}>JSX a</Checkbox>
-				<Checkbox label={4}>JSX b</Checkbox>
-				<Checkbox label={5}>JSX c</Checkbox>
+				<Checkbox label={3}>JSX A</Checkbox>
+				<Checkbox label={4}>JSX B</Checkbox>
+				<Checkbox label={5}>JSX C</Checkbox>
 			</Checkbox.Group>
 		</div>
 	)

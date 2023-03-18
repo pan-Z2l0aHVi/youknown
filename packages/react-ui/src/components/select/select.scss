@@ -9,51 +9,64 @@ $prefix: 'g-select';
 	width: max-content;
 	min-width: 120px;
 	min-height: 32px;
+	margin: 0;
+	padding: 0;
+	padding-left: 12px;
 	border: 1px solid $bd-line;
 	background-color: $bg-1;
 	border-radius: $radius-m;
 	cursor: pointer;
-	
+
+	&:not(&-disabled) {
+		&:focus-visible {
+			@include focus-outline;
+		}
+	}
+
 	&-disabled {
 		cursor: not-allowed;
 		opacity: $opacity-disabled;
 	}
-	
+
 	&-selector {
 		flex: 1;
 		display: flex;
 		align-items: center;
 		user-select: none;
-		margin-left: 12px;
 		min-height: 22px;
-		
-		&-no-margin {
-			margin-left: 0;
-		}
-		
+
 		&-filter {
 			width: 100%;
-			
+			padding-left: 0;
+
+			.g-input-inner {
+				padding-left: 0;
+			}
+
 			&-placeholder-darker {
-				> input {
+				.g-input-inner {
 					&::placeholder {
 						color: $text-1;
 					}
 				}
 			}
 		}
+
+		&-tag-list {
+			padding-right: 12px;
+		}
 	}
-	
+
 	&-arrow {
 		font-size: 16px;
 		color: $text-2;
 		margin-right: 4px;
 	}
-	
+
 	&-placeholder {
 		color: $text-3;
 	}
-	
+
 	&-item-icon {
 		@include flex-center;
 		width: 16px;
@@ -62,9 +75,11 @@ $prefix: 'g-select';
 	}
 
 	&-item-selected {
-		background-color: $color-hover;
+		&.g-dropdown-item {
+			background-color: $color-hover;
+		}
 	}
-	
+
 	&-empty {
 		@include flex-center;
 		height: 48px;

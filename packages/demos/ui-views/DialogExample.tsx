@@ -8,6 +8,7 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Dialog</h1>
+			<Divider />
 			<Button onClick={show}>Show dialog</Button>
 			<Dialog open={open} title="Basic Dialog" onCancel={hide}>
 				<div style={{ width: 300 }}>Content</div>

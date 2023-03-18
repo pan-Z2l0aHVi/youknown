@@ -1,27 +1,14 @@
 @use '../../styles/mixins.scss' as *;
-@use '../../styles/polyfills.scss' as polyfills;
 
 $prefix: 'g-modal';
 .#{$prefix} {
 	@include basic;
 	z-index: 1000;
-	position: fixed;
-	@include polyfills.inset(0, 0, 0, 0);
+	background: rgba($color: #000000, $alpha: 0.5);
+	display: flex;
+	justify-content: center;
 
-	&-mask {
-		position: fixed;
-		@include polyfills.inset(0, 0, 0, 0);
-		background: rgba($color: #000000, $alpha: 0.5);
-	}
-
-	&-wrap {
-		position: fixed;
-		@include polyfills.inset(0, 0, 0, 0);
-		display: flex;
-		justify-content: center;
-
-		&.#{$prefix}-align-center {
-			align-items: center;
-		}
+	&.#{$prefix}-align-center {
+		align-items: center;
 	}
 }

@@ -10,11 +10,18 @@ $prefix: 'g-checkbox';
 	user-select: none;
 	transition: filter $duration-f;
 	cursor: pointer;
+
+	&:has(:focus-visible) {
+		.#{$prefix}-icon {
+			@include focus-outline;
+		}
+	}
 	
-	&-input {
-		padding: 0;
-		outline: 0;
-		border: 0;
+	&-inner {
+		opacity: 0;
+		width: 0;
+		height: 0;
+		margin: 0;
 	}
 	
 	&-icon {
@@ -34,6 +41,7 @@ $prefix: 'g-checkbox';
 			transition: all ease-out $duration-f;
 			transform: scale(0);
 		}
+
 	}
 	
 	&-checked {

@@ -11,23 +11,22 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Popover</h1>
+			<Divider />
 			<Space>
 				<Popover trigger="hover" content="Show by hover">
-					<Button>Hover</Button>
+					<Button>Hover me</Button>
 				</Popover>
 				<Popover trigger="click" content="Show by click">
-					<Button>Click</Button>
+					<Button>Click me</Button>
 				</Popover>
 				<Popover
 					trigger="manual"
 					content="Show by manual"
 					open={open}
-					onOpenChange={val => {
-						console.log('val', val)
-						setOpen(val)
-					}}
+					onOpenChange={setOpen}
+					onClickOutside={() => setOpen(false)}
 				>
-					<Button onClick={() => setOpen(p => !p)}>Manual</Button>
+					<Button onClick={() => setOpen(true)}>Manual</Button>
 				</Popover>
 			</Space>
 			<Divider />

@@ -17,7 +17,7 @@ import Space from '../space'
 import Modal from '../modal'
 import Tooltip from '../tooltip'
 import Loading from '../loading'
-import { TbDownload, TbResize, TbRotate, TbRotateClockwise, TbX, TbZoomIn, TbZoomOut } from 'react-icons/tb'
+import { TbDownload, TbRelationOneToOne, TbRotate, TbRotateClockwise, TbX, TbZoomIn, TbZoomOut } from 'react-icons/tb'
 import Button from '../button'
 
 type Coordinate = {
@@ -189,39 +189,39 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 	const toolbarList = [
 		{
 			id: 0,
-			title: '逆时针旋转90°',
+			title: '下载',
+			icon: <TbDownload className={`${prefixCls}-detail-icon`} />,
+			handler: handleDownload
+		},
+		{
+			id: 1,
+			title: '逆时针旋转',
 			icon: <TbRotate className={`${prefixCls}-detail-icon`} />,
 			handler: handleLeftRotate
 		},
 		{
-			id: 1,
-			title: '顺时针旋转90°',
+			id: 2,
+			title: '顺时针旋转',
 			icon: <TbRotateClockwise className={`${prefixCls}-detail-icon`} />,
 			handler: handleRightRotate
 		},
 		{
-			id: 2,
+			id: 3,
 			title: '缩小',
 			icon: <TbZoomOut className={`${prefixCls}-detail-icon`} />,
 			handler: handleZoomOut
 		},
 		{
-			id: 3,
+			id: 4,
 			title: '放大',
 			icon: <TbZoomIn className={`${prefixCls}-detail-icon`} />,
 			handler: handleZoomIn
 		},
 		{
-			id: 4,
-			title: '重置',
-			icon: <TbResize className={`${prefixCls}-detail-icon`} />,
-			handler: handleReset
-		},
-		{
 			id: 5,
-			title: '下载',
-			icon: <TbDownload className={`${prefixCls}-detail-icon`} />,
-			handler: handleDownload
+			title: '原始尺寸',
+			icon: <TbRelationOneToOne className={`${prefixCls}-detail-icon`} />,
+			handler: handleReset
 		},
 		{
 			id: 6,
@@ -238,7 +238,13 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 				<Space size="small">
 					{toolbarList.map(item => (
 						<Tooltip key={item.id} spacing={12} placement="top" title={item.title}>
-							<Button circle text disabled={detailLoading} onClick={item.handler}>
+							<Button
+								className={`${prefixCls}-detail-icon-wrap`}
+								circle
+								text
+								disabled={detailLoading}
+								onClick={item.handler}
+							>
 								{item.icon}
 							</Button>
 						</Tooltip>
@@ -260,33 +266,32 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 				}}
 			>
 				{detailLoading && <Loading className={`${prefixCls}-detail-loading-icon`} size="large" />}
-				{detailOpen && (
-					<img
-						ref={imgDetailRef}
-						className={cls(`${prefixCls}-detail-pic`, {
-							[`${prefixCls}-detail-pic-loaded`]: !detailLoading
-						})}
-						src={_detailSrc}
-						draggable={false}
-						style={{
-							transform: `scale(${scale}) rotate(${rotate}deg)`,
-							...(offset
-								? {
-										position: 'fixed',
-										left: offset.x,
-										top: offset.y
-								  }
-								: {})
-						}}
-						onMouseDown={handleDragDetailStart}
-						onLoad={handleDetailLoaded}
-						onClick={() => {
-							if (detailLoading) {
-								hideDetail()
-							}
-						}}
-					/>
-				)}
+
+				<img
+					ref={imgDetailRef}
+					className={cls(`${prefixCls}-detail-pic`, {
+						[`${prefixCls}-detail-pic-loaded`]: !detailLoading
+					})}
+					src={_detailSrc}
+					draggable={false}
+					style={{
+						transform: `scale(${scale}) rotate(${rotate}deg)`,
+						...(offset
+							? {
+									position: 'fixed',
+									left: offset.x,
+									top: offset.y
+							  }
+							: {})
+					}}
+					onMouseDown={handleDragDetailStart}
+					onLoad={handleDetailLoaded}
+					onClick={() => {
+						if (detailLoading) {
+							hideDetail()
+						}
+					}}
+				/>
 			</div>
 			{ratioVisible && <div className={`${prefixCls}-detail-ratio`}>{scalePercent}</div>}
 			{toolbarEle}
@@ -297,8 +302,7 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 		<>
 			<img
 				className={cls(className, prefixCls, {
-					[`${prefixCls}-bordered`]: src,
-					[`${prefixCls}-shadow`]: src
+					[`${prefixCls}-disabled`]: detailDisabled
 				})}
 				ref={imgRef}
 				src={src}

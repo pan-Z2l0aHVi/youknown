@@ -9,6 +9,14 @@ $prefix: 'g-switch';
 	background-color: $bg-3;
 	transition: all $duration-n;
 	cursor: pointer;
+	user-select: none;
+
+	&-inner {
+		opacity: 0;
+		width: 0;
+		height: 0;
+		margin: 0;
+	}
 
 	&::after {
 		content: '';
@@ -19,6 +27,12 @@ $prefix: 'g-switch';
 		border-radius: $round;
 		box-shadow: 0 1px 4px rgba($color: #000000, $alpha: 0.2);
 		transition: all $duration-n;
+	}
+
+	&:not(&-disabled) {
+		&:has(:focus-visible) {
+			@include focus-outline;
+		}
 	}
 
 	&-disabled {

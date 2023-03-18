@@ -66,6 +66,7 @@ const Popover = forwardRef<HTMLElement, PopoverProps>((props, propRef) => {
 			onOpenChange={onOpenChange}
 			motion="grow"
 			growTransformOrigin={growTransformOrigin}
+			ariaRole="tooltip"
 		>
 			{cloneElement(Children.only(children), {
 				...pick(rest, ...EventsByTriggerNeed),

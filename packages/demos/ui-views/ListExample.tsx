@@ -1,29 +1,31 @@
 import React, { useState } from 'react'
-import { Avatar, Divider, List, Radio } from '@youknown/react-ui/src'
+import { Avatar, Divider, List, Tabs } from '@youknown/react-ui/src'
 
 export default () => {
 	const [size, setSize] = useState<'small' | 'medium' | 'large'>('small')
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>List</h1>
+			<Divider />
 			<List>
 				<List.Item>List item 1</List.Item>
 				<List.Item>List item 2</List.Item>
 				<List.Item>List item 2</List.Item>
 			</List>
 			<Divider />
-			<Radio.Group
+			<Tabs
 				style={{ marginBottom: 8 }}
-				type="tab"
+				type="segment"
 				value={size}
 				onChange={value => {
-					setSize(value as any)
+					setSize(value as typeof size)
 				}}
-			>
-				<Radio label="small">Small</Radio>
-				<Radio label="medium">Medium</Radio>
-				<Radio label="large">Large</Radio>
-			</Radio.Group>
+				tabList={[
+					{ key: 'small', name: 'Small' },
+					{ key: 'medium', name: 'Medium' },
+					{ key: 'large', name: 'Large' }
+				]}
+			/>
 			<List size={size}>
 				<List.Item>List item 1</List.Item>
 				<List.Item>List item 2</List.Item>

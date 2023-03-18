@@ -31,6 +31,7 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Progress</h1>
+			<Divider />
 			{operationEle}
 			<br />
 			<Space direction="vertical" style={{ width: 400 }}>

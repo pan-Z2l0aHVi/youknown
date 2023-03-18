@@ -1,28 +1,28 @@
 import BackTop from '@/app/components/back-top'
 import Header from '@/app/components/header'
 import { useBoolean } from '@youknown/react-hook/src'
-import { Card, Input, List, Modal, Radio } from '@youknown/react-ui/src'
+import { Card, Input, List, Modal, Tabs } from '@youknown/react-ui/src'
 import React, { useState } from 'react'
 import { TbSearch } from 'react-icons/tb'
 import FeedList from './components/feed-list'
 
 export default function Browse() {
 	const [search_modal_open, { setTrue: show_search_modal, setFalse: hide_search_modal }] = useBoolean(false)
-	const [feed_tab, set_feed_tab] = useState<string | number>(0)
+	const [feed_tab, set_feed_tab] = useState<string>('0')
 	const result = []
 
 	return (
 		<>
 			<Header heading="浏览" sticky bordered>
-				<Radio.Group
-					type="tab"
-					options={[
-						{ label: 0, child: '最新' },
-						{ label: 1, child: '关注' }
-					]}
+				<Tabs
+					type="segment"
 					value={feed_tab}
 					onChange={set_feed_tab}
-				></Radio.Group>
+					tabList={[
+						{ key: '0', name: '最新' },
+						{ key: '1', name: '关注' }
+					]}
+				/>
 
 				<Input
 					className="w-240px!"

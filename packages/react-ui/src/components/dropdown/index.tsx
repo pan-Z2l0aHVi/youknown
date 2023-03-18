@@ -4,6 +4,7 @@ import DropdownItem from './DropdownItem'
 import DropdownTitle from './DropdownTitle'
 import Trigger, { EventsByTriggerNeed } from '../trigger'
 import { pick, pickDataAttrs } from '@youknown/utils/src'
+import { closeDropdown } from './closeDropdown'
 
 interface DropdownProps extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'growTransformOrigin' | 'motion'> {
 	content?: ReactNode
@@ -22,8 +23,8 @@ const Dropdown = forwardRef<HTMLElement, DropdownProps>((props, propRef) => {
 		spacing,
 		crossOffset,
 		disabled,
-		unmountOnExit,
 		appendTo,
+		unmountOnExit,
 		onClickOutside,
 		onOpenChange,
 		...rest
@@ -47,6 +48,7 @@ const Dropdown = forwardRef<HTMLElement, DropdownProps>((props, propRef) => {
 			onClickOutside={onClickOutside}
 			onOpenChange={onOpenChange}
 			motion="stretch"
+			ariaRole="menu"
 		>
 			{cloneElement(Children.only(children), {
 				...pick(rest, ...EventsByTriggerNeed),
@@ -61,9 +63,11 @@ const ExportDropdown = Dropdown as typeof Dropdown & {
 	Menu: typeof DropdownMenu
 	Item: typeof DropdownItem
 	Title: typeof DropdownTitle
+	close: typeof closeDropdown
 }
 ExportDropdown.Menu = DropdownMenu
 ExportDropdown.Item = DropdownItem
 ExportDropdown.Title = DropdownTitle
+ExportDropdown.close = closeDropdown
 
 export default ExportDropdown

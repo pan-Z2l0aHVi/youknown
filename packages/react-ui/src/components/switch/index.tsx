@@ -1,21 +1,10 @@
+import { useComposeRef } from '@youknown/react-hook/src'
 import { cls, is } from '@youknown/utils/src'
-import React, {
-	ChangeEventHandler,
-	forwardRef,
-	InputHTMLAttributes,
-	MutableRefObject,
-	useEffect,
-	useRef,
-	useState
-} from 'react'
+import React, { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useEffect, useRef, useState } from 'react'
 import { UI_PREFIX } from '../../constants'
 import './switch.scss'
 
-interface SwitchProps
-	extends Omit<
-		InputHTMLAttributes<HTMLElement>,
-		'defaultValue' | 'value' | 'onChange' | 'checked' | 'defaultChecked' | 'size'
-	> {
+interface SwitchProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultValue'> {
 	size?: 'small' | 'medium' | 'large'
 	disabled?: boolean
 	defaultValue?: boolean
@@ -23,12 +12,12 @@ interface SwitchProps
 	onChange?: ChangeEventHandler<HTMLInputElement> & ((value?: boolean) => void)
 }
 
-const Switch = forwardRef<HTMLLabelElement, SwitchProps>((props, propRef) => {
+const Switch = forwardRef<HTMLInputElement, SwitchProps>((props, propRef) => {
 	const { className, size = 'medium', disabled = false, defaultValue, value = false, onChange, ...rest } = props
 
 	const isControlled = is.undefined(defaultValue)
 	const innerRef = useRef<HTMLInputElement>(null)
-	const switchRef = (propRef ?? innerRef) as MutableRefObject<HTMLInputElement>
+	const switchRef = useComposeRef(innerRef, propRef)
 	const defaultChecked = isControlled ? value : defaultValue ?? false
 	const [checked, setChecked] = useState(defaultChecked)
 
@@ -44,11 +33,10 @@ const Switch = forwardRef<HTMLLabelElement, SwitchProps>((props, propRef) => {
 
 	const prefixCls = `${UI_PREFIX}-switch`
 
-	const checkedProps = isControlled ? { checked } : { defaultChecked: defaultValue }
+	const checkedProps = isControlled ? { defaultChecked: true } : { defaultChecked: true }
 
 	return (
 		<label
-			ref={propRef}
 			className={cls(className, prefixCls, `${prefixCls}-${size}`, {
 				[`${prefixCls}-disabled`]: disabled,
 				[`${prefixCls}-checked`]: checked
@@ -56,12 +44,13 @@ const Switch = forwardRef<HTMLLabelElement, SwitchProps>((props, propRef) => {
 			{...rest}
 		>
 			<input
-				className="g-inner"
+				className={`${prefixCls}-inner`}
 				ref={switchRef}
 				type="checkbox"
-				hidden
 				disabled={disabled}
 				onChange={handleChange}
+				role="switch"
+				aria-checked={checked}
 				{...checkedProps}
 			/>
 		</label>

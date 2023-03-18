@@ -9,7 +9,7 @@ const XIcon = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>((props,
 	const prefixCls = `${UI_PREFIX}-x-icon`
 	return (
 		<div ref={ref} className={cls(className, prefixCls)} {...rest}>
-			<TbX className="text-16px color-text-2" />
+			<TbX />
 		</div>
 	)
 })

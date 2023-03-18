@@ -8,17 +8,28 @@ interface DropdownItemProps extends Omit<HTMLAttributes<HTMLElement>, 'prefix'> 
 	prefix?: ReactNode
 	suffix?: ReactNode
 	closeAfterItemClick?: boolean
+	disabled?: boolean
 }
 
 const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>((props, ref) => {
-	const { className, children, prefix = null, suffix = null, closeAfterItemClick, onClick, ...rest } = props
+	const {
+		className,
+		children,
+		prefix = null,
+		suffix = null,
+		closeAfterItemClick,
+		disabled = false,
+		onClick,
+		...rest
+	} = props
 
 	const menuCtx = useContext(MenuCtx)
 	const closeAfterClick = closeAfterItemClick ?? menuCtx.closeAfterItemClick ?? false
 
 	const handleItemClick: MouseEventHandler<HTMLElement> = e => {
-		onClick?.(e)
+		if (disabled) return
 
+		onClick?.(e)
 		if (closeAfterClick) {
 			menuCtx.closeDropdown?.()
 		}
@@ -29,9 +40,12 @@ const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>((props, ref) 
 		<div
 			ref={ref}
 			className={cls(className, prefixCls, {
+				[`${prefixCls}-disabled`]: disabled,
 				[`${prefixCls}-with-prefix`]: Boolean(prefix),
 				[`${prefixCls}-with-suffix`]: Boolean(suffix)
 			})}
+			role="option"
+			aria-disabled={disabled}
 			onClick={handleItemClick}
 			{...rest}
 		>

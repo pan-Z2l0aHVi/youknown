@@ -7,6 +7,7 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Select</h1>
+			<Divider />
 			<Select
 				style={{ width: 140 }}
 				defaultValue={1}
@@ -21,7 +22,12 @@ export default () => {
 					},
 					{
 						value: 2,
-						label: 'Banana'
+						label: 'Banana',
+						disabled: true
+					},
+					{
+						value: 3,
+						label: 'Cherry'
 					}
 				]}
 			></Select>

@@ -1,23 +1,12 @@
 import { cls, is } from '@youknown/utils/src'
 import { GoCheck } from 'react-icons/go'
-import React, {
-	ChangeEventHandler,
-	forwardRef,
-	InputHTMLAttributes,
-	MutableRefObject,
-	useEffect,
-	useRef,
-	useState
-} from 'react'
+import React, { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useEffect, useRef, useState } from 'react'
 import './checkbox.scss'
 import CheckboxGroup from './CheckboxGroup'
 import { UI_PREFIX } from '../../constants'
+import { useComposeRef } from '@youknown/react-hook/src'
 
-interface CheckboxProps
-	extends Omit<
-		InputHTMLAttributes<HTMLInputElement>,
-		'onChange' | 'defaultValue' | 'defaultChecked' | 'checked' | 'value' | 'size'
-	> {
+interface CheckboxProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultValue'> {
 	size?: 'small' | 'medium' | 'large'
 	label?: string | number
 	disabled?: boolean
@@ -40,8 +29,8 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, propRef) =>
 
 	const isControlled = !is.undefined(value)
 
-	const ref = useRef<HTMLInputElement>(null)
-	const checkboxRef = (propRef ?? ref) as MutableRefObject<HTMLInputElement>
+	const innerRef = useRef<HTMLInputElement>(null)
+	const checkboxRef = useComposeRef(innerRef, propRef)
 	const [checked, setChecked] = useState(isControlled ? value : defaultValue)
 
 	useEffect(() => {
@@ -66,15 +55,15 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, propRef) =>
 				[`${prefixCls}-disabled`]: disabled,
 				[`${prefixCls}-checked`]: checked
 			})}
+			{...rest}
 		>
 			<input
-				{...rest}
 				{...checkedProps}
-				hidden
 				disabled={disabled}
-				className={`${prefixCls}-input`}
+				className={`${prefixCls}-inner`}
 				ref={checkboxRef}
 				type="checkbox"
+				aria-checked={checked}
 				onChange={handleChange}
 			/>
 			<div className={`${prefixCls}-icon`}>

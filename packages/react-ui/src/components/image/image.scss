@@ -3,6 +3,11 @@
 $prefix: 'g-image';
 .#{$prefix} {
 	@include basic;
+	cursor: pointer;
+
+	&-disabled {
+		cursor: default;
+	}
 }
 
 .#{$prefix}-detail {
@@ -31,6 +36,12 @@ $prefix: 'g-image';
 
 		&-loaded {
 			opacity: 1;
+		}
+	}
+
+	&-icon-wrap {
+		&:hover {
+			color: $color-primary;
 		}
 	}
 

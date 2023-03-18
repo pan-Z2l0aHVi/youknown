@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Divider, Drawer, Radio } from '@youknown/react-ui/src'
+import { Button, Divider, Drawer, Tabs } from '@youknown/react-ui/src'
 
 export default () => {
 	const [placement, setPlacement] = useState<'left' | 'top' | 'right' | 'bottom'>('left')
@@ -8,18 +8,20 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Drawer</h1>
-			<Radio.Group
-				type="tab"
+			<Divider />
+			<Tabs
+				type="segment"
 				value={placement}
 				onChange={value => {
-					setPlacement(value as any)
+					setPlacement(value as typeof placement)
 				}}
-			>
-				<Radio label="left">Left</Radio>
-				<Radio label="top">Top</Radio>
-				<Radio label="right">Right</Radio>
-				<Radio label="bottom">Bottom</Radio>
-			</Radio.Group>
+				tabList={[
+					{ key: 'left', name: 'Left' },
+					{ key: 'top', name: 'Top' },
+					{ key: 'right', name: 'Right' },
+					{ key: 'bottom', name: 'Bottom' }
+				]}
+			/>
 			<Divider />
 			<Button onClick={() => setOpen(true)}>Show drawer</Button>
 			<Drawer open={open} placement={placement} onCancel={() => setOpen(false)}>

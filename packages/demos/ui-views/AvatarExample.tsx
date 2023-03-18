@@ -7,6 +7,7 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Avatar</h1>
+			<Divider />
 			<Space size="large">
 				<Avatar round size="small" src={picSrc} />
 				<Avatar round size="medium" src={picSrc} />
@@ -23,7 +24,7 @@ export default () => {
 				<TbUser size="20px" />
 			</Avatar>
 			<Divider />
-			<Avatar src={picSrc}>text</Avatar>
+			<Avatar src={picSrc}>Text</Avatar>
 			<Divider />
 			<Avatar src="http://error.path.jpg" fallback={<TbPhotoOff size="20px" />} />
 			<Divider />

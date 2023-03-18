@@ -56,7 +56,14 @@ export default function TablePicker() {
 	)
 
 	return (
-		<Popover trigger="hover" open={open} onOpenChange={setOpen} placement="right-start" content={contentEle}>
+		<Popover
+			trigger="hover"
+			open={open}
+			onOpenChange={setOpen}
+			spacing={-2}
+			placement="right-start"
+			content={contentEle}
+		>
 			<Dropdown.Item
 				prefix={
 					<div className="g-table-picker">

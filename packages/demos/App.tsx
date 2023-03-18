@@ -23,6 +23,7 @@ const App = () => {
 			root.style.setProperty('--g-text-3', isDark ? '#999' : '#999')
 			root.style.setProperty('--g-color-hover', isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.05)')
 			root.style.setProperty('--g-color-active', isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.1)')
+			root.style.setProperty('--g-color-focus', isDark ? '#999' : '#333')
 			root.style.setProperty('--g-color-primary', '#007bca')
 			root.style.setProperty('--g-color-primary-hover', '#0095da')
 			root.style.setProperty('--g-color-primary-active', '#0063a7')

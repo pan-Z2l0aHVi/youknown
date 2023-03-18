@@ -3,7 +3,6 @@
 $prefix: 'g-trigger';
 .#{$prefix} {
 	&-content {
-		z-index: 2000;
 		position: absolute;
 		width: max-content;
 	}

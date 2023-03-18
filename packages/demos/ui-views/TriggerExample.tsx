@@ -21,33 +21,42 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Trigger</h1>
+			<Divider />
 			<Space>
 				<Trigger trigger="hover" popup={createContent('tooltip')}>
-					<Button>hover</Button>
+					<Button>Hover me</Button>
 				</Trigger>
 				<Trigger trigger="click" popup={createContent('tooltip')}>
-					<Button>click</Button>
+					<Button>Click me</Button>
 				</Trigger>
-				<Trigger trigger="manual" popup={createContent('tooltip')} open={open} onOpenChange={setOpen}>
-					<Button onClick={() => setOpen(p => !p)}>manual</Button>
+				<Trigger
+					trigger="manual"
+					popup={createContent('tooltip')}
+					open={open}
+					onOpenChange={setOpen}
+					onClickOutside={() => {
+						setOpen(false)
+					}}
+				>
+					<Button onClick={() => setOpen(true)}>Manual</Button>
 				</Trigger>
 			</Space>
 			<Divider />
 			<Space>
 				<Trigger motion="none" popup={createContent('tooltip')}>
-					<Button>no motion</Button>
+					<Button>Without motion</Button>
 				</Trigger>
 				<Trigger motion="grow" popup={createContent('tooltip')}>
-					<Button>grow</Button>
+					<Button>With grow</Button>
 				</Trigger>
 				<Trigger motion="stretch" popup={createContent('tooltip')}>
-					<Button>stretch</Button>
+					<Button>With stretch</Button>
 				</Trigger>
 				<Trigger motion="fade" popup={createContent('tooltip')}>
-					<Button>fade</Button>
+					<Button>With fade</Button>
 				</Trigger>
 				<Trigger motion="zoom" popup={createContent('tooltip')}>
-					<Button>zoom</Button>
+					<Button>With zoom</Button>
 				</Trigger>
 			</Space>
 		</div>

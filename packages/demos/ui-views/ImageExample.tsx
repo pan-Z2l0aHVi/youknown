@@ -6,6 +6,7 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Image</h1>
+			<Divider />
 			<Image src={picSrc} width="300px" />
 			<Divider />
 			<Image src={picSrc} width="300px" scaleRange={[0.5, 1, 2]} />

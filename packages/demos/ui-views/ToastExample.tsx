@@ -6,6 +6,7 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Toast</h1>
+			<Divider />
 			<Button
 				onClick={() => {
 					Toast.show({ title: 'Title' })

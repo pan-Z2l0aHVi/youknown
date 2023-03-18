@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Divider, Dropdown, Space } from '@youknown/react-ui/src'
-import { TbCheck, TbCheckbox, TbChevronRight } from 'react-icons/tb'
+import { TbCheckbox, TbChevronRight } from 'react-icons/tb'
 
 export default () => {
 	const [open, setOpen] = useState(false)
@@ -12,33 +12,30 @@ export default () => {
 				<Dropdown
 					content={
 						<Dropdown.Menu>
-							<Dropdown.Item>dropdown item 1</Dropdown.Item>
-							<Dropdown.Item>dropdown item 2</Dropdown.Item>
-							<Dropdown.Item>dropdown item 3</Dropdown.Item>
+							<Dropdown.Item>Dropdown item 1</Dropdown.Item>
+							<Dropdown.Item>Dropdown item 2</Dropdown.Item>
+							<Dropdown.Item>Dropdown item 3</Dropdown.Item>
 						</Dropdown.Menu>
 					}
 				>
-					<Button>hover</Button>
+					<Button>Hover me</Button>
 				</Dropdown>
 				<Dropdown
 					trigger="click"
 					content={
 						<Dropdown.Menu>
-							<Dropdown.Item>dropdown item 1</Dropdown.Item>
-							<Dropdown.Item>dropdown item 2</Dropdown.Item>
-							<Dropdown.Item>dropdown item 3</Dropdown.Item>
+							<Dropdown.Item>Dropdown item 1</Dropdown.Item>
+							<Dropdown.Item>Dropdown item 2</Dropdown.Item>
+							<Dropdown.Item>Dropdown item 3</Dropdown.Item>
 						</Dropdown.Menu>
 					}
 				>
-					<Button>click</Button>
+					<Button>Click me</Button>
 				</Dropdown>
 				<Dropdown
 					trigger="manual"
 					open={open}
-					onOpenChange={val => {
-						console.log('val: ', val)
-						setOpen(val)
-					}}
+					onOpenChange={setOpen}
 					onClickOutside={() => {
 						setOpen(false)
 					}}
@@ -49,34 +46,47 @@ export default () => {
 									setOpen(false)
 								}}
 							>
-								dropdown item 1
+								Dropdown item 1
 							</Dropdown.Item>
 							<Dropdown.Item
 								onClick={() => {
 									setOpen(false)
 								}}
 							>
-								dropdown item 2
+								Dropdown item 2
 							</Dropdown.Item>
 						</Dropdown.Menu>
 					}
 				>
 					<Button
 						onClick={() => {
-							setOpen(p => !p)
+							setOpen(true)
 						}}
 					>
-						manual
+						Manual
 					</Button>
 				</Dropdown>
 			</Space>
+			<Divider />
+			<Dropdown
+				content={
+					<Dropdown.Menu>
+						<Dropdown.Item>Dropdown item 1</Dropdown.Item>
+						<Dropdown.Item>Dropdown item 2</Dropdown.Item>
+						<Dropdown.Item disabled>Dropdown item 3</Dropdown.Item>
+						<Dropdown.Item>Dropdown item 4</Dropdown.Item>
+					</Dropdown.Menu>
+				}
+			>
+				<Button>Hover me</Button>
+			</Dropdown>
 			<Divider />
 			<Space>
 				<Dropdown
 					content={
 						<Dropdown.Menu closeAfterItemClick>
-							<Dropdown.Item>dropdown item 1</Dropdown.Item>
-							<Dropdown.Item>dropdown item 2</Dropdown.Item>
+							<Dropdown.Item>Dropdown item 1</Dropdown.Item>
+							<Dropdown.Item>Dropdown item 2</Dropdown.Item>
 						</Dropdown.Menu>
 					}
 				>
@@ -95,16 +105,15 @@ export default () => {
 			</Space>
 			<Divider />
 			<Dropdown
-				trigger="click"
 				content={
 					<Dropdown.Menu>
 						<Dropdown.Title>Group 1</Dropdown.Title>
-						<Dropdown.Item>dropdown item 1</Dropdown.Item>
-						<Dropdown.Item>dropdown item 2</Dropdown.Item>
+						<Dropdown.Item>Dropdown item 1</Dropdown.Item>
+						<Dropdown.Item>Dropdown item 2</Dropdown.Item>
 						<Divider size="small" />
 						<Dropdown.Title>Group 2</Dropdown.Title>
-						<Dropdown.Item>dropdown item 1</Dropdown.Item>
-						<Dropdown.Item>dropdown item 2</Dropdown.Item>
+						<Dropdown.Item>Dropdown item 1</Dropdown.Item>
+						<Dropdown.Item>Dropdown item 2</Dropdown.Item>
 					</Dropdown.Menu>
 				}
 			>
@@ -115,9 +124,9 @@ export default () => {
 				<Dropdown
 					content={
 						<Dropdown.Menu>
-							<Dropdown.Item prefix={<TbCheckbox />}>dropdown item 1</Dropdown.Item>
-							<Dropdown.Item prefix={<TbCheckbox />}>dropdown item 2</Dropdown.Item>
-							<Dropdown.Item prefix={<TbCheckbox />}>dropdown item 3</Dropdown.Item>
+							<Dropdown.Item prefix={<TbCheckbox />}>Dropdown item 1</Dropdown.Item>
+							<Dropdown.Item prefix={<TbCheckbox />}>Dropdown item 2</Dropdown.Item>
+							<Dropdown.Item prefix={<TbCheckbox />}>Dropdown item 3</Dropdown.Item>
 						</Dropdown.Menu>
 					}
 				>
@@ -126,9 +135,9 @@ export default () => {
 				<Dropdown
 					content={
 						<Dropdown.Menu>
-							<Dropdown.Item suffix={<TbChevronRight />}>dropdown item 1</Dropdown.Item>
-							<Dropdown.Item suffix={<TbChevronRight />}>dropdown item 2</Dropdown.Item>
-							<Dropdown.Item suffix={<TbChevronRight />}>dropdown item 3</Dropdown.Item>
+							<Dropdown.Item suffix={<TbChevronRight />}>Dropdown item 1</Dropdown.Item>
+							<Dropdown.Item suffix={<TbChevronRight />}>Dropdown item 2</Dropdown.Item>
+							<Dropdown.Item suffix={<TbChevronRight />}>Dropdown item 3</Dropdown.Item>
 						</Dropdown.Menu>
 					}
 				>
@@ -139,39 +148,41 @@ export default () => {
 			<Dropdown
 				content={
 					<Dropdown.Menu>
-						<Dropdown.Item closeAfterItemClick>dropdown item 1</Dropdown.Item>
+						<Dropdown.Item closeAfterItemClick>Dropdown item 1</Dropdown.Item>
 						<Dropdown
+							appendTo={null}
 							spacing={-6}
 							placement="right-start"
 							content={
 								<Dropdown.Menu>
 									<Dropdown
+										appendTo={null}
 										spacing={-6}
 										placement="right-start"
 										content={
 											<Dropdown.Menu closeAfterItemClick>
-												<Dropdown.Item>dropdown item 1</Dropdown.Item>
-												<Dropdown.Item>dropdown item 2</Dropdown.Item>
-												<Dropdown.Item>dropdown item 3</Dropdown.Item>
-												<Dropdown.Item>dropdown item 4</Dropdown.Item>
-												<Dropdown.Item>dropdown item 5</Dropdown.Item>
-												<Dropdown.Item>dropdown item 6</Dropdown.Item>
+												<Dropdown.Item>Dropdown item 1</Dropdown.Item>
+												<Dropdown.Item>Dropdown item 2</Dropdown.Item>
+												<Dropdown.Item>Dropdown item 3</Dropdown.Item>
+												<Dropdown.Item>Dropdown item 4</Dropdown.Item>
+												<Dropdown.Item>Dropdown item 5</Dropdown.Item>
+												<Dropdown.Item>Dropdown item 6</Dropdown.Item>
 											</Dropdown.Menu>
 										}
 									>
-										<Dropdown.Item suffix={<TbChevronRight />}>dropdown item 3</Dropdown.Item>
+										<Dropdown.Item suffix={<TbChevronRight />}>Dropdown item 3</Dropdown.Item>
 									</Dropdown>
-									<Dropdown.Item closeAfterItemClick>dropdown item 2</Dropdown.Item>
-									<Dropdown.Item closeAfterItemClick>dropdown item 3</Dropdown.Item>
-									<Dropdown.Item closeAfterItemClick>dropdown item 4</Dropdown.Item>
+									<Dropdown.Item closeAfterItemClick>Dropdown item 2</Dropdown.Item>
+									<Dropdown.Item closeAfterItemClick>Dropdown item 3</Dropdown.Item>
+									<Dropdown.Item closeAfterItemClick>Dropdown item 4</Dropdown.Item>
 								</Dropdown.Menu>
 							}
 						>
-							<Dropdown.Item suffix={<TbChevronRight />}>dropdown item 2</Dropdown.Item>
+							<Dropdown.Item suffix={<TbChevronRight />}>Dropdown item 2</Dropdown.Item>
 						</Dropdown>
-						<Dropdown.Item closeAfterItemClick>dropdown item 3</Dropdown.Item>
-						<Dropdown.Item closeAfterItemClick>dropdown item 3</Dropdown.Item>
-						<Dropdown.Item closeAfterItemClick>dropdown item 4</Dropdown.Item>
+						<Dropdown.Item closeAfterItemClick>Dropdown item 3</Dropdown.Item>
+						<Dropdown.Item closeAfterItemClick>Dropdown item 3</Dropdown.Item>
+						<Dropdown.Item closeAfterItemClick>Dropdown item 4</Dropdown.Item>
 					</Dropdown.Menu>
 				}
 			>
@@ -179,16 +190,21 @@ export default () => {
 			</Dropdown>
 			<Divider />
 			<Dropdown
-				trigger="click"
 				content={
-					<Dropdown.Menu>
-						<Dropdown.Item prefix={<TbCheck />}>Dropdown item 1</Dropdown.Item>
-						<Dropdown.Item prefix={<TbCheck />}>Dropdown item 2</Dropdown.Item>
-						<Dropdown.Item prefix={<TbCheck />}>Dropdown item 3</Dropdown.Item>
+					<Dropdown.Menu style={{ padding: 16 }}>
+						<div style={{ height: 40 }}>Any thing...</div>
+						<Button
+							primary
+							onClick={() => {
+								Dropdown.close()
+							}}
+						>
+							Click me to close
+						</Button>
 					</Dropdown.Menu>
 				}
 			>
-				<Button>icon dropdown</Button>
+				<Button>Hover me</Button>
 			</Dropdown>
 		</div>
 	)

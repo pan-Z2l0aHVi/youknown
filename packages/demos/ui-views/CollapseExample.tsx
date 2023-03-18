@@ -7,6 +7,7 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Collapse</h1>
+			<Divider />
 			<Collapse>
 				<Collapse.Panel itemKey="1" title="Panel title1">
 					<div style={{ padding: 8, color: '#999' }}>

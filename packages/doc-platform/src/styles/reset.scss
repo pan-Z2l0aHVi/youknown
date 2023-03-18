@@ -3,6 +3,7 @@ body {
 		'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: auto;
 	-moz-osx-font-smoothing: auto;
+	overscroll-behavior: none;
 
 	overflow: hidden;
 	font-size: var(--font-size);

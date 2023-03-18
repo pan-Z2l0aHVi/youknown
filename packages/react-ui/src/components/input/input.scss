@@ -58,7 +58,7 @@ $prefix: 'g-input';
 			&.#{$prefix}-bordered {
 				&.#{$prefix}-outline {
 					border-color: $color-primary;
-					box-shadow: inset 0 0 0 2px $color-primary;
+					box-shadow: inset 0 0 0 1px $color-primary;
 				}
 			}
 		}

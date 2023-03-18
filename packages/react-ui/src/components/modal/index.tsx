@@ -4,6 +4,8 @@ import React, { FC, HTMLAttributes, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { UI_PREFIX } from '../../constants'
 import './modal.scss'
+import { FloatingOverlay } from '@floating-ui/react'
+import { useZIndex } from '../../hooks/use-z-index'
 
 // TODO: 弹出位置动画
 let mousePosition: { x: number; y: number } | null = null
@@ -33,12 +35,13 @@ const Modal: FC<ModalProps> = props => {
 	const {
 		children,
 		className,
-		maskClassName,
 		maskClosable = true,
 		unmountOnExit = false,
 		alignCenter = true,
 		open = false,
 		onCancel,
+		onClick,
+		style,
 		...rest
 	} = props
 
@@ -53,6 +56,8 @@ const Modal: FC<ModalProps> = props => {
 		document.body.style.setProperty('overflow', preBodyOverflowRef.current)
 	}
 
+	const zIndex = useZIndex(open)
+
 	const prefixCls = `${UI_PREFIX}-modal`
 
 	return createPortal(
@@ -63,25 +68,24 @@ const Modal: FC<ModalProps> = props => {
 			onEnter={setBodyOverflowHidden}
 			onExited={resetBodyOverflowHidden}
 		>
-			<div className={cls(className, prefixCls)} {...rest}>
-				<div className={cls(maskClassName, `${prefixCls}-mask`)}></div>
-				<div
-					className={cls(`${prefixCls}-wrap`, {
-						[`${prefixCls}-align-center`]: alignCenter
-					})}
-					onClick={
-						maskClosable
-							? event => {
-									if (event.target === event.currentTarget) {
-										onCancel?.()
-									}
-							  }
-							: undefined
+			<FloatingOverlay
+				className={cls(className, prefixCls, {
+					[`${prefixCls}-align-center`]: alignCenter
+				})}
+				lockScroll
+				onClick={event => {
+					if (event.target === event.currentTarget) {
+						onClick?.(event)
+						if (maskClosable) {
+							onCancel?.()
+						}
 					}
-				>
-					{children}
-				</div>
-			</div>
+				}}
+				style={{ zIndex, ...style }}
+				{...rest}
+			>
+				{children}
+			</FloatingOverlay>
 		</Motion.Fade>,
 		document.body
 	)

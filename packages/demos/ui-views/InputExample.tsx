@@ -3,15 +3,16 @@ import React, { useRef, useState } from 'react'
 import { TbEyeOff, TbSearch } from 'react-icons/tb'
 
 export default () => {
-	const [inputVal, setInputVal] = useState('controlled input')
-	const [textareaVal, setTextareaVal] = useState('controlled textarea')
+	const [inputVal, setInputVal] = useState('Controlled input')
+	const [textareaVal, setTextareaVal] = useState('Controlled textarea')
 	const inputRef = useRef<HTMLInputElement>(null)
 	const textareaRef = useRef<HTMLTextAreaElement>(null)
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Input</h1>
+			<Divider />
 			<Space>
-				<Input defaultValue="hi" placeholder="Basic" />
+				<Input defaultValue="Hi" placeholder="Basic" />
 				<Input
 					placeholder="Controlled"
 					value={inputVal}
@@ -33,7 +34,7 @@ export default () => {
 			</Space>
 			<Divider />
 			<Space>
-				<Input placeholder="Allow clear" allowClear defaultValue="allow clear" />
+				<Input placeholder="Allow clear" allowClear defaultValue="Allow clear" />
 			</Space>
 			<Divider />
 			<Space direction="vertical">
@@ -59,7 +60,7 @@ export default () => {
 						inputRef.current?.focus()
 					}}
 				>
-					Focus
+					Manual focus
 				</Button>
 				<Button
 					primary
@@ -67,11 +68,11 @@ export default () => {
 						inputRef.current?.blur()
 					}}
 				>
-					Blur
+					Manual blur
 				</Button>
 			</Space>
 			<Divider />
-			<Input.Textarea defaultValue="hi" placeholder="Basic textarea" />
+			<Input.Textarea defaultValue="Hi" placeholder="Basic textarea" />
 			<Divider />
 			<Input.Textarea
 				placeholder="Controlled textarea"
@@ -96,7 +97,7 @@ export default () => {
 						textareaRef.current?.focus()
 					}}
 				>
-					Focus
+					Manual focus
 				</Button>
 				<Button
 					primary
@@ -104,7 +105,7 @@ export default () => {
 						textareaRef.current?.blur()
 					}}
 				>
-					Blur
+					Manual blur
 				</Button>
 			</Space>
 			<Divider />

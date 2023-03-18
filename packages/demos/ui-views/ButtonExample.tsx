@@ -6,6 +6,7 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Button</h1>
+			<Divider />
 			<Space>
 				<Button>Click me</Button>
 				<Button primary>Primary</Button>

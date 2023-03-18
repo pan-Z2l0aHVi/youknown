@@ -72,6 +72,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
 			})}
 			ref={ref}
 			type={type}
+			disabled={disabled || loading}
+			aria-disabled={disabled || loading}
 			{...rest}
 		>
 			{renderContentEle()}

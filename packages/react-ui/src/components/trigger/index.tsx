@@ -1,11 +1,24 @@
-import { autoUpdate, flip, offset, Placement, useFloating } from '@floating-ui/react-dom'
-import { useComposeRef } from '@youknown/react-hook/src'
+import {
+	autoUpdate,
+	flip,
+	offset,
+	Placement,
+	safePolygon,
+	shift,
+	useClick,
+	useDismiss,
+	useFloating,
+	useFocus,
+	useHover,
+	useInteractions,
+	useMergeRefs,
+	useRole
+} from '@floating-ui/react'
 import React, {
 	Children,
 	cloneElement,
 	forwardRef,
 	HTMLAttributes,
-	MouseEvent,
 	ReactElement,
 	ReactNode,
 	useEffect,
@@ -15,6 +28,7 @@ import React, {
 import { createPortal } from 'react-dom'
 import { UI_PREFIX } from '../../constants'
 import Motion from '../motion'
+import { useZIndex } from '../../hooks/use-z-index'
 import './trigger.scss'
 
 export const EventsByTriggerNeed = [
@@ -52,7 +66,8 @@ interface TriggerProps extends HTMLAttributes<HTMLElement> {
 	unmountOnExit?: boolean
 	motion?: 'none' | 'grow' | 'stretch' | 'fade' | 'zoom'
 	growTransformOrigin?: string
-	appendTo?: HTMLElement
+	appendTo?: HTMLElement | null
+	ariaRole?: 'dialog' | 'alertdialog' | 'tooltip' | 'menu' | 'listbox' | 'grid' | 'tree'
 	onClickOutside?: (event: globalThis.MouseEvent) => void
 	onOpenChange?: (open: boolean) => void
 }
@@ -61,7 +76,7 @@ const Trigger = forwardRef<HTMLElement, TriggerProps>((props, propRef) => {
 	const {
 		children,
 		popup,
-		defaultOpen: defaultOpen = false,
+		defaultOpen = false,
 		open = defaultOpen,
 		trigger = 'hover',
 		placement = 'bottom-start',
@@ -74,111 +89,81 @@ const Trigger = forwardRef<HTMLElement, TriggerProps>((props, propRef) => {
 		motion = 'none',
 		growTransformOrigin = 'center',
 		appendTo = document.body,
+		ariaRole = 'tooltip',
 		onClickOutside,
-		onOpenChange
+		onOpenChange,
+		style,
+		...rest
 	} = props
 
 	const isHover = trigger === 'hover'
 	const isClick = trigger === 'click'
 	const isManual = trigger === 'manual'
 
+	const refRef = useRef<HTMLElement | null>(null)
 	const [_open, _setOpen] = useState(isManual ? open : defaultOpen)
-	const { x, y, floating, strategy, refs } = useFloating({
+	const { x, y, strategy, refs, context } = useFloating({
+		open: _open,
+		onOpenChange: val => {
+			_setOpen(val)
+			onOpenChange?.(val)
+		},
 		placement,
-		whileElementsMounted: (...args) =>
-			autoUpdate(...args, {
-				animationFrame: true
-			}),
-		middleware: [flip(), offset({ mainAxis: spacing, crossAxis: crossOffset })]
+		whileElementsMounted: autoUpdate,
+		middleware: [offset({ mainAxis: spacing, crossAxis: crossOffset }), flip(), shift()]
 	})
 
-	const timerRef = useRef(0)
-	const clearTimer = () => {
-		clearTimeout(timerRef.current)
-	}
-	const setDelayOpen = (val: boolean, delay: number) => {
-		if (delay) {
-			clearTimer()
-			timerRef.current = window.setTimeout(() => {
-				onOpenChange?.(val)
-				_setOpen(val)
-			}, delay)
-		} else {
-			console.log('delay: ', delay)
-			onOpenChange?.(val)
-			_setOpen(val)
+	const hover = useHover(context, {
+		enabled: isHover,
+		move: false,
+		delay: {
+			open: mouseEnterDelay,
+			close: mouseLeaveDelay
+		},
+		handleClose: safePolygon()
+	})
+	const click = useClick(context, {
+		enabled: isClick
+	})
+	const focus = useFocus(context, {
+		enabled: !isManual
+	})
+	const dismiss = useDismiss(context, {
+		outsidePressEvent: 'pointerdown',
+		outsidePress: event => {
+			if (!refRef.current?.contains(event.target as HTMLElement)) {
+				onClickOutside?.(event)
+			}
+			return !isManual
 		}
-	}
+	})
+	const role = useRole(context, { role: ariaRole })
+
+	const { getReferenceProps, getFloatingProps } = useInteractions([hover, click, focus, dismiss, role])
 
 	const child = Children.only(children)
-	const doChildEvent = (eventName: string, event: MouseEvent) => {
-		child.props[eventName]?.(event)
-	}
-
-	const onMouseEnter = (event: MouseEvent) => {
-		doChildEvent('onMouseEnter', event)
-		setDelayOpen(true, mouseEnterDelay)
-	}
-	const onMouseLeave = (event: MouseEvent) => {
-		doChildEvent('onMouseLeave', event)
-		setDelayOpen(false, mouseLeaveDelay)
-	}
-	const onClick = (event: MouseEvent) => {
-		doChildEvent('onClick', event)
-		event.nativeEvent.stopImmediatePropagation()
-		_setOpen(p => !p)
-	}
-
-	const mixProps: Record<string, any> = {
-		[`data-open`]: _open ? 1 : 0
-	}
-	if (isHover) {
-		mixProps.onMouseEnter = onMouseEnter
-		mixProps.onMouseLeave = onMouseLeave
-	} else if (isClick) {
-		mixProps.onClick = onClick
-	}
-
-	const popupProps: Record<string, any> = {}
-	if (isHover) {
-		popupProps.onMouseEnter = clearTimer
-		popupProps.onMouseLeave = onMouseLeave
-	}
-
-	useEffect(() => {
-		const hide = (event: globalThis.MouseEvent) => {
-			if (!_open) return
-			if (isClick || isHover) {
-				_setOpen(false)
-			}
-			onClickOutside?.(event)
-		}
-		document.addEventListener('click', hide)
-		return () => {
-			document.removeEventListener('click', hide)
-		}
-	}, [_open, isClick, isHover, onClickOutside])
 
 	useEffect(() => {
 		_setOpen(open)
 	}, [open])
 
+	const zIndex = useZIndex(_open)
+
 	const prefixCls = `${UI_PREFIX}-trigger`
 
 	const popupEle = (
 		<div
-			ref={floating}
+			ref={refs.setFloating}
 			className={`${prefixCls}-content`}
 			style={{
 				position: strategy,
 				top: y ?? 0,
 				left: x ?? 0,
-				width: 'max-content'
+				width: 'max-content',
+				zIndex,
+				...style
 			}}
-			{...mixProps}
-			onClick={event => {
-				event.nativeEvent.stopImmediatePropagation()
-			}}
+			{...getFloatingProps(rest)}
 		>
 			{popup}
 		</div>
@@ -226,10 +211,13 @@ const Trigger = forwardRef<HTMLElement, TriggerProps>((props, propRef) => {
 			break
 	}
 
-	const ref = useComposeRef(propRef, refs.reference)
+	const ref = useMergeRefs([propRef, refs.setReference])
 	const triggerEle = cloneElement(child, {
-		ref,
-		...mixProps
+		ref: (node: HTMLElement) => {
+			refRef.current = node
+			ref?.(node)
+		},
+		...getReferenceProps(child.props)
 	})
 
 	return disabled ? (
@@ -237,7 +225,7 @@ const Trigger = forwardRef<HTMLElement, TriggerProps>((props, propRef) => {
 	) : (
 		<>
 			{triggerEle}
-			{createPortal(portalEle, appendTo)}
+			{appendTo ? createPortal(portalEle, appendTo) : portalEle}
 		</>
 	)
 })

@@ -7,17 +7,25 @@ $prefix: 'g-dropdown-item';
 	align-items: center;
 	padding: 4px 12px 4px 20px;
 	min-height: 36px;
+	border-radius: $radius-m;
 	background: $bg-1;
 	user-select: none;
 	cursor: pointer;
 	transition: background-color $duration-f;
 
-	&:hover {
-		background-color: $color-hover;
+	&-disabled {
+		cursor: not-allowed;
+		opacity: $opacity-disabled;
 	}
 
-	&:active {
-		background-color: $color-active;
+	&:not(&-disabled) {
+		&:hover {
+			background-color: $color-hover;
+		}
+
+		&:active {
+			background-color: $color-active;
+		}
 	}
 
 	&-with-prefix {

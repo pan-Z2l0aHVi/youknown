@@ -7,6 +7,7 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Loading</h1>
+			<Divider />
 			<Loading spinning />
 			<Divider />
 			<Space size="large">
@@ -32,16 +33,16 @@ export default () => {
 				<Space>
 					<Loading spinning={spinning} />
 					<Loading spinning={spinning}>
-						<Card header="loading wrapper">Content</Card>
+						<Card header="Loading wrapper">Content</Card>
 					</Loading>
 					<Loading icon={<TbLoader />} spinning={spinning}>
-						<Card header="custom spinning icon">Content</Card>
+						<Card header="Custom spinning icon">Content</Card>
 					</Loading>
 				</Space>
 			</Space>
 			<Divider />
 			<Loading description="Loading..." spinning>
-				<Card header="description">Content</Card>
+				<Card header="Description">Content</Card>
 			</Loading>
 		</div>
 	)

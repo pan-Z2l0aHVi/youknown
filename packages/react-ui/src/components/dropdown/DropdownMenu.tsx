@@ -12,7 +12,11 @@ const DropdownMenu = forwardRef<HTMLDivElement, DropdownMenuProps>((props, ref) 
 	const { className, children, closeAfterItemClick = false, ...rest } = props
 
 	const closeDropdown = () => {
-		document.documentElement.click()
+		const event = new Event('pointerdown', {
+			bubbles: true,
+			cancelable: true
+		})
+		document.documentElement.dispatchEvent(event)
 	}
 
 	const prefixCls = `${UI_PREFIX}-dropdown-menu`
@@ -24,7 +28,7 @@ const DropdownMenu = forwardRef<HTMLDivElement, DropdownMenuProps>((props, ref) 
 				closeDropdown
 			}}
 		>
-			<div ref={ref} className={cls(className, prefixCls)} {...rest}>
+			<div ref={ref} className={cls(className, prefixCls)} role="listbox" {...rest}>
 				{children}
 			</div>
 		</MenuCtx.Provider>

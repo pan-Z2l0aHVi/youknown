@@ -47,3 +47,9 @@
 		background: $track-color;
 	}
 }
+
+@mixin focus-outline {
+	outline: 2px solid $color-focus;
+	outline-offset: -2px;
+	transition: outline-offset 0s,outline 0s;
+}

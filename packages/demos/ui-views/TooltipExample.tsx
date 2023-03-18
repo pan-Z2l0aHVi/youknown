@@ -11,6 +11,7 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Tooltip</h1>
+			<Divider />
 			<div
 				style={{
 					display: 'grid',
@@ -81,10 +82,10 @@ export default () => {
 			<Divider />
 			<Space size="large">
 				<Tooltip title="Dark tooltip">
-					<Button>dark</Button>
+					<Button>Dark</Button>
 				</Tooltip>
 				<Tooltip light title="Light tooltip">
-					<Button>light</Button>
+					<Button>Light</Button>
 				</Tooltip>
 			</Space>
 			<Divider />

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { Button, Checkbox, Divider, Form, Input, Radio, Select, Switch } from '@youknown/react-ui/src'
+import { Button, Checkbox, Divider, Form, Input, Radio, Select, Switch, Tabs } from '@youknown/react-ui/src'
 
 export default () => {
 	const [layout, setLayout] = useState<'horizontal' | 'vertical' | 'inline'>('horizontal')
 
 	const form = Form.useForm({
 		defaultState: {
-			username: 'initial username',
+			username: 'Initial username',
 			pwd: '',
 			retypePwd: '',
 			system: 'windows',
@@ -28,17 +28,19 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Form</h1>
-			<Radio.Group
-				type="tab"
+			<Divider />
+			<Tabs
+				type="segment"
 				value={layout}
 				onChange={value => {
-					setLayout(value as any)
+					setLayout(value as typeof layout)
 				}}
-			>
-				<Radio label="horizontal">Horizontal</Radio>
-				<Radio label="vertical">Vertical</Radio>
-				<Radio label="inline">Inline</Radio>
-			</Radio.Group>
+				tabList={[
+					{ key: 'horizontal', name: 'Horizontal' },
+					{ key: 'vertical', name: 'Vertical' },
+					{ key: 'inline', name: 'Inline' }
+				]}
+			/>
 			<Divider />
 			<div style={{ width: 640 }}>
 				<Form form={form} layout={layout}>

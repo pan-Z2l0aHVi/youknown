@@ -14,10 +14,6 @@ export default () => {
 	const [disabledGroupVal, setDisabledGroupVal] = useState<string | number>(defaultDisabledVal)
 	const defaultJsxGroupVal = 2
 	const [jsxGroupVal, setJsxGroupVal] = useState<string | number>(defaultJsxGroupVal)
-	const defaultJsxTabGroupVal = 1
-	const [jsxTabGroupVal, setJsxTabGroupVal] = useState<string | number>(defaultJsxTabGroupVal)
-	const defaultOptionsTabGroupVal = 0
-	const [optionsTabGroupVal, setOptionsTabGroupVal] = useState<string | number>(defaultOptionsTabGroupVal)
 	useEffect(() => {
 		setTimeout(() => {
 			console.log('radioRef.current.checked', radioRef.current?.checked)
@@ -26,6 +22,7 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Radio</h1>
+			<Divider />
 			<Space>
 				<Radio defaultValue={true}>Basic</Radio>
 				<Radio
@@ -82,9 +79,9 @@ export default () => {
 				<Radio.Group
 					direction="horizontal"
 					options={[
-						{ label: 0, child: 'Horizontal a' },
-						{ label: 1, child: 'Horizontal b' },
-						{ label: 2, child: 'Horizontal c' }
+						{ label: 0, child: 'Horizontal A' },
+						{ label: 1, child: 'Horizontal B' },
+						{ label: 2, child: 'Horizontal C' }
 					]}
 					value={horizontalVal}
 					onChange={value => {
@@ -94,9 +91,9 @@ export default () => {
 				<Radio.Group
 					direction="vertical"
 					options={[
-						{ label: 0, child: 'Vertical a' },
-						{ label: 1, child: 'Vertical b' },
-						{ label: 2, child: 'Vertical c' }
+						{ label: 0, child: 'Vertical A' },
+						{ label: 1, child: 'Vertical B' },
+						{ label: 2, child: 'Vertical C' }
 					]}
 					value={verticalVal}
 					onChange={value => {
@@ -130,49 +127,18 @@ export default () => {
 			<Radio.Group
 				direction="horizontal"
 				options={[
-					{ label: 0, child: 'Options a' },
-					{ label: 1, child: 'Options b' },
-					{ label: 2, child: 'Options c' }
+					{ label: 0, child: 'Options A' },
+					{ label: 1, child: 'Options B' },
+					{ label: 2, child: 'Options C' }
 				]}
 				value={jsxGroupVal}
 				onChange={value => {
 					setJsxGroupVal(value)
 				}}
 			>
-				<Radio label={3}>JSX a</Radio>
-				<Radio label={4}>JSX b</Radio>
+				<Radio label={3}>JSX A</Radio>
+				<Radio label={4}>JSX B</Radio>
 				<Radio label={5}>JSX c</Radio>
-			</Radio.Group>
-			<Divider />
-			<Radio.Group
-				type="tab"
-				value={jsxTabGroupVal}
-				onChange={value => {
-					setJsxTabGroupVal(value)
-				}}
-			>
-				<Radio label={0}>JSX tab a</Radio>
-				<Radio label={1}>JSX tab b</Radio>
-				<Radio label={2}>JSX tab c</Radio>
-			</Radio.Group>
-			<Divider />
-			<Radio.Group
-				type="tab"
-				options={[
-					{ label: 0, child: 'Options tab a' },
-					{ label: 1, child: 'Options tab b' },
-					{ label: 2, child: 'Options tab c' }
-				]}
-				value={optionsTabGroupVal}
-				onChange={value => {
-					setOptionsTabGroupVal(value)
-				}}
-			/>
-			<Divider />
-			<Radio.Group type="tab" disabled defaultValue={1}>
-				<Radio label={0}>Disabled tab a</Radio>
-				<Radio label={1}>Disabled tab b</Radio>
-				<Radio label={2}>Disabled tab c</Radio>
 			</Radio.Group>
 		</div>
 	)

@@ -11,7 +11,7 @@ type StretchProps = Omit<CSSTransitionProps, 'addEventListener'> & {
 }
 
 const Stretch: FC<StretchProps> = props => {
-	const { children, direction = 'top', ...rest } = props
+	const { children, direction = 'bottom', ...rest } = props
 
 	return (
 		<CSSTransition timeout={225} classNames={`stretch-${direction}`} {...rest}>

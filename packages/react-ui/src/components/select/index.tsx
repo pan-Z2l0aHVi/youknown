@@ -2,6 +2,7 @@ import React, {
 	CSSProperties,
 	FC,
 	HTMLAttributes,
+	KeyboardEvent,
 	MouseEventHandler,
 	ReactNode,
 	useCallback,
@@ -28,7 +29,7 @@ interface SelectProps extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue' |
 	allowClear?: boolean
 	value?: string | number | (string | number)[]
 	defaultValue?: SelectProps['value']
-	options?: { label: ReactNode; value: string | number }[]
+	options?: { label: ReactNode; value: string | number; disabled?: boolean }[]
 	onChange?: (value: SelectProps['value']) => void
 }
 
@@ -45,6 +46,7 @@ const Select: FC<SelectProps> = props => {
 		options = [],
 		onChange,
 		onClick,
+		onKeyDown,
 		...rest
 	} = props
 
@@ -69,10 +71,13 @@ const Select: FC<SelectProps> = props => {
 		if (isControlled) _setValue(value)
 	}, [disabled, isControlled, value])
 
-	const handleCustomClick: MouseEventHandler<HTMLElement> = e => {
+	const handleClick: MouseEventHandler<HTMLElement> = e => {
 		if (disabled) return
 		onClick?.(e)
-		if (filter) return
+		if (filter) {
+			inputRef.current?.focus()
+			return
+		}
 		toggleDropdown()
 	}
 
@@ -84,7 +89,7 @@ const Select: FC<SelectProps> = props => {
 	const [filterVal, setFilterVal] = useState('')
 
 	const [minWidth, setMinWidth] = useState<CSSProperties['width']>('initial')
-	const selectRef = useRef<HTMLDivElement>(null)
+	const selectRef = useRef<HTMLButtonElement>(null)
 	useLayoutEffect(() => {
 		if (dropdownVisible) {
 			const selectWidth = selectRef.current?.getBoundingClientRect().width
@@ -100,97 +105,48 @@ const Select: FC<SelectProps> = props => {
 	const filteredOptions = options.filter(opt => {
 		if (!filter) return true
 
-		return String(opt.label).includes(filterVal)
+		return String(opt.label).toLowerCase().includes(filterVal.toLowerCase())
 	})
 
-	const handleSelect = useCallback(
-		(val: string | number) => {
-			if (multiple) {
-				let selection = [...(_valueRef.current as (string | number)[])]
-				if (selection.includes(val)) {
-					selection = selection.filter(item => item !== val)
-				} else {
-					selection.push(val)
-				}
-				if (!isControlled) {
-					_setValue(selection)
-				}
-				onChange?.(selection)
+	const handleSelect = (val: string | number) => {
+		if (multiple) {
+			let selection = [...(_valueRef.current as (string | number)[])]
+			if (selection.includes(val)) {
+				selection = selection.filter(item => item !== val)
 			} else {
-				if (!isControlled) {
-					_setValue(val)
-				}
-				onChange?.(val)
-				if (filter) {
-					inputRef.current?.blur()
-				} else {
-					hideDropdown()
-				}
+				selection.push(val)
 			}
-
+			if (!isControlled) {
+				_setValue(selection)
+			}
+			onChange?.(selection)
+		} else {
+			if (!isControlled) {
+				_setValue(val)
+			}
+			onChange?.(val)
 			if (filter) {
-				setFilterVal('')
+				inputRef.current?.blur()
+			} else {
+				hideDropdown()
 			}
-		},
-		[_valueRef, filter, hideDropdown, isControlled, multiple, onChange]
-	)
+		}
+
+		if (filter) {
+			setFilterVal('')
+		}
+	}
 
 	const [selectedIndex, setSelectedIndex] = useState(-1)
-	const selectedItem = options[selectedIndex] ?? null
-	const optionsLen = options.length
+	const enabledOptions = options.filter(opt => !opt.disabled)
+	const selectedItem = enabledOptions[selectedIndex] ?? null
+	const optionsLen = enabledOptions.length
 
 	useEffect(() => {
 		if (dropdownVisible) {
 			setSelectedIndex(-1)
 		}
 	}, [dropdownVisible])
-
-	useEffect(() => {
-		if (!dropdownVisible || !optionsLen) return
-
-		const keydownHandler = (e: globalThis.KeyboardEvent) => {
-			const RANGE_MIN = 0
-			const RANGE_MAX = optionsLen - 1
-			switch (e.key) {
-				case 'ArrowUp':
-					setSelectedIndex(p => {
-						if (p - 1 < RANGE_MIN) {
-							return RANGE_MIN - 1
-						}
-						return p - 1
-					})
-					break
-
-				case 'ArrowDown':
-					setSelectedIndex(p => {
-						if (p + 1 > RANGE_MAX) {
-							return RANGE_MAX + 1
-						}
-						return p + 1
-					})
-					break
-
-				case 'Enter':
-					handleSelect(selectedItem.value)
-					break
-
-				case 'Escape':
-					if (filter) {
-						inputRef.current?.blur()
-					} else {
-						hideDropdown()
-					}
-					break
-
-				default:
-					break
-			}
-		}
-		document.addEventListener('keydown', keydownHandler)
-		return () => {
-			document.removeEventListener('keydown', keydownHandler)
-		}
-	}, [dropdownVisible, filter, handleSelect, hideDropdown, optionsLen, selectedItem])
 
 	const dropdownContentEle = (
 		<Dropdown.Menu
@@ -203,29 +159,30 @@ const Select: FC<SelectProps> = props => {
 				<div className={`${prefixCls}-empty`}>暂无数据</div>
 			) : (
 				filteredOptions.map(opt => {
-					let active: boolean
+					let isActive: boolean
 					if (multiple) {
-						active = (_value as (string | number)[]).includes(opt.value)
+						isActive = (_value as (string | number)[]).includes(opt.value)
 					} else {
-						active = opt.value === _value
+						isActive = opt.value === _value
 					}
-
 					return (
 						<Dropdown.Item
 							key={opt.value}
 							className={cls({
 								[`${prefixCls}-item-selected`]: selectedItem?.value === opt.value
 							})}
+							aria-selected={isActive}
+							disabled={opt.disabled}
 							prefix={
-								active ? (
+								isActive ? (
 									<TbCheck className={`${prefixCls}-item-icon`} />
 								) : (
 									<div className={`${prefixCls}-item-icon`}></div>
 								)
 							}
 							onClick={() => handleSelect(opt.value)}
-							onMouseDown={e => {
-								e.preventDefault()
+							onMouseDown={event => {
+								event.preventDefault()
 							}}
 							onMouseEnter={() => {
 								const index = options.findIndex(option => option.value === opt.value)
@@ -240,9 +197,7 @@ const Select: FC<SelectProps> = props => {
 		</Dropdown.Menu>
 	)
 
-	const selectorCls = cls(`${prefixCls}-selector`, {
-		[`${prefixCls}-selector-no-margin`]: filter && !multiple
-	})
+	const selectorCls = cls(`${prefixCls}-selector`)
 	const filterEle = filter ? (
 		<Input
 			ref={inputRef}
@@ -269,9 +224,10 @@ const Select: FC<SelectProps> = props => {
 			onFocus={() => {
 				showDropdown()
 			}}
-			onKeyDown={e => {
+			onKeyDown={event => {
 				if (!filter || !multiple) return
-				if (e.key === 'Backspace') {
+				if (event.key === 'Backspace' && !filterVal) {
+					event.preventDefault()
 					_setValue(p => {
 						const selection = [...(p as (string | number)[])]
 						selection.pop()
@@ -288,12 +244,7 @@ const Select: FC<SelectProps> = props => {
 			{is.array.empty(_value) ? (
 				filter || placeholderEle
 			) : (
-				<Space
-					size="small"
-					onClick={() => {
-						inputRef.current?.focus()
-					}}
-				>
+				<Space className={`${prefixCls}-selector-tag-list`} size="small">
 					{(options.filter(opt => (_value as (string | number)[]).includes(opt.value)) || []).map(opt => (
 						<Tag key={opt.value} size="small" bordered round>
 							{opt.label}
@@ -313,6 +264,51 @@ const Select: FC<SelectProps> = props => {
 		</div>
 	)
 
+	const handleKeydown = (event: KeyboardEvent<HTMLButtonElement>) => {
+		onKeyDown?.(event)
+		const RANGE_MIN = 0
+		const RANGE_MAX = optionsLen - 1
+
+		switch (event.key) {
+			case 'ArrowUp':
+				event.preventDefault()
+				setSelectedIndex(p => {
+					if (p - 1 < RANGE_MIN) {
+						return RANGE_MAX
+					}
+					return Math.max(RANGE_MIN, p - 1)
+				})
+				break
+
+			case 'ArrowDown':
+				event.preventDefault()
+				setSelectedIndex(p => {
+					if (p + 1 > RANGE_MAX) {
+						return RANGE_MIN
+					}
+					return p + 1
+				})
+				break
+
+			case 'Enter':
+				event.preventDefault()
+				if (selectedItem) handleSelect(selectedItem.value)
+				break
+
+			case 'Escape':
+			case 'Tab':
+				if (filter) {
+					inputRef.current?.blur()
+				} else {
+					hideDropdown()
+				}
+				break
+
+			default:
+				break
+		}
+	}
+
 	return (
 		<Dropdown
 			trigger="manual"
@@ -322,25 +318,21 @@ const Select: FC<SelectProps> = props => {
 			content={dropdownContentEle}
 		>
 			{/* 加一层，防止影响计算宽度 */}
-			<div>
-				<div
+			<div style={{ width: 'max-content' }}>
+				<button
+					type="button"
 					ref={selectRef}
+					disabled={disabled}
 					className={cls(className, prefixCls, {
 						[`${prefixCls}-disabled`]: disabled
 					})}
-					onClick={handleCustomClick}
+					onClick={handleClick}
+					onKeyDown={handleKeydown}
 					{...rest}
 				>
 					{selectorEle}
-					<TbSelector
-						className={`${prefixCls}-arrow`}
-						onClick={() => {
-							if (filter) {
-								inputRef.current?.focus()
-							}
-						}}
-					/>
-				</div>
+					<TbSelector className={`${prefixCls}-arrow`} />
+				</button>
 			</div>
 		</Dropdown>
 	)

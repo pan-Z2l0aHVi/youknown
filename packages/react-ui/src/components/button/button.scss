@@ -14,7 +14,7 @@ $prefix: 'g-button';
 	background-color: $bg-1;
 	user-select: none;
 	cursor: pointer;
-	transition: background-color $duration-f;
+	transition: all $duration-f;
 
 	&-inner-ml {
 		margin-left: 8px;
@@ -58,13 +58,17 @@ $prefix: 'g-button';
 				background-color: $color-primary-hover;
 			}
 		}
-
+		
 		&:active {
 			background-color: $color-active;
 			
 			&.#{$prefix}-primary {
 				background-color: $color-primary-active;
 			}
+		}
+		
+		&:focus-visible {
+			@include focus-outline;
 		}
 	}
 

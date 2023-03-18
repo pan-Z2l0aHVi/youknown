@@ -1,79 +1,82 @@
-import React, { useEffect, useState } from 'react'
-import { Divider, Radio, Space, Tabs } from '@youknown/react-ui/src'
+import React, { ComponentProps, useState } from 'react'
+import { Divider, Space, Tabs } from '@youknown/react-ui/src'
 
 export default () => {
 	const [tabsType, setTabsType] = useState<'line' | 'round' | 'segment'>('line')
-	const [tabsSize, setTabsSize] = useState<'small' | 'medium' | 'large'>('medium')
-	const [tabsValue, setTabsValue] = useState<'a' | 'b' | 'c'>('a')
-	useEffect(() => {
-		setTimeout(() => {
-			setTabsValue('c')
-		}, 3000)
-	}, [])
+
+	const tabList1 = [
+		{
+			key: 'a',
+			name: 'Tab A'
+		},
+		{
+			key: 'b',
+			name: 'Tab B',
+			disabled: true
+		},
+		{
+			key: 'c',
+			name: 'Tab C'
+		},
+		{
+			key: 'd',
+			name: 'Tab D'
+		}
+	]
+	const [tabKey, setTabKey] = useState(tabList1[0].key)
+	const [closableList, setClosableTabList] = useState<ComponentProps<typeof Tabs>['tabList']>([
+		{
+			key: 'a',
+			name: 'Tab A',
+			closable: true
+		},
+		{
+			key: 'b',
+			name: 'Tab B',
+			closable: true
+		},
+		{
+			key: 'c',
+			name: 'Tab C',
+			closable: true
+		},
+		{
+			key: 'd',
+			name: 'Tab D',
+			closable: true
+		}
+	])
+	const [closableTabKey, setCloseableTabKey] = useState('a')
 
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Tabs</h1>
+			<Divider />
+			<Tabs
+				type="segment"
+				tabList={[
+					{ key: 'line', name: 'Line Tab' },
+					{ key: 'round', name: 'Round Tab' },
+					{ key: 'segment', name: 'Segment Tab' }
+				]}
+				value={tabsType}
+				onChange={val => setTabsType(val as typeof tabsType)}
+			/>
+			<Divider />
 			<Space>
-				<Radio.Group
-					type="tab"
-					value={tabsType}
-					onChange={value => {
-						setTabsType(value as any)
-					}}
-				>
-					<Radio label="line">Line</Radio>
-					<Radio label="round">Round</Radio>
-					<Radio label="segment">Button</Radio>
-				</Radio.Group>
-				<Radio.Group
-					type="tab"
-					value={tabsSize}
-					onChange={value => {
-						setTabsSize(value as any)
-					}}
-				>
-					<Radio label="small">Small</Radio>
-					<Radio label="medium">Medium</Radio>
-					<Radio label="large">Large</Radio>
-				</Radio.Group>
+				<Tabs type={tabsType} value={tabKey} onChange={setTabKey} tabList={tabList1} />
 			</Space>
 			<Divider />
-			<Tabs type={tabsType} size={tabsSize}>
-				<Tabs.Panel name="a" tab="Tab A">
-					aaa
-				</Tabs.Panel>
-				<Tabs.Panel name="b" tab="Tab B">
-					bbb
-				</Tabs.Panel>
-				<Tabs.Panel name="c" tab="Tab C">
-					ccc
-				</Tabs.Panel>
-			</Tabs>
+			<Space>
+				<Tabs
+					type={tabsType}
+					value={closableTabKey}
+					onChange={setCloseableTabKey}
+					tabList={closableList}
+					onTabListChange={setClosableTabList}
+				/>
+			</Space>
 			<Divider />
-			<Tabs lazyLoad>
-				<Tabs.Panel name="a" tab="Tab A">
-					aaa
-				</Tabs.Panel>
-				<Tabs.Panel name="b" tab="Tab B">
-					bbb
-				</Tabs.Panel>
-				<Tabs.Panel name="c" tab="Tab C">
-					ccc
-				</Tabs.Panel>
-			</Tabs>
-			<Divider />
-			<Tabs value={tabsValue} onChange={setTabsValue as any}>
-				<Tabs.Panel name="a" tab="Tab A">
-					aaa
-				</Tabs.Panel>
-				<Tabs.Panel name="b" tab="Tab B">
-					bbb
-				</Tabs.Panel>
-				<Tabs.Panel name="c" tab="Tab C">
-					ccc
-				</Tabs.Panel>
-			</Tabs>
 		</div>
 	)
 }

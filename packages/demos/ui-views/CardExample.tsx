@@ -5,6 +5,7 @@ export default () => {
 	return (
 		<div style={{ padding: 24 }}>
 			<h1>Card</h1>
+			<Divider />
 			<Card header="Basic card" footer="Footer">
 				Content
 			</Card>
