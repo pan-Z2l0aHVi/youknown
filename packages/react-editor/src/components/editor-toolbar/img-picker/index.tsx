@@ -1,7 +1,7 @@
 import { Dropdown } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import React, { useContext, useState } from 'react'
-import { HiOutlinePhotograph } from 'react-icons/hi'
+import { TbPhoto } from 'react-icons/tb'
 import ToolbarContext from '../toolbar-context'
 import './index.scss'
 
@@ -12,7 +12,7 @@ export default function ImgPicker() {
 		<Dropdown.Item
 			prefix={
 				<div className={cls('g-img-picker')}>
-					<HiOutlinePhotograph />
+					<TbPhoto />
 				</div>
 			}
 			closeAfterItemClick

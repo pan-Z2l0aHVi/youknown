@@ -9,7 +9,7 @@ import './index.scss'
 
 export default function TextColorPicker() {
 	const { editor } = useContext(ToolbarContext)
-	const DEFAULT_COLOR = '#333333'
+	const DEFAULT_COLOR = 'var(--g-text-1)'
 	const options = [
 		'#ffffff',
 		'#cccccc',
@@ -48,6 +48,29 @@ export default function TextColorPicker() {
 
 	const setColorDisabled = !editor.can().setColor(inkColor)
 
+	const contentEle = (
+		<div className="g-text-color-popup">
+			<Button style={{ width: '100%' }} onClick={handleReset}>
+				恢复默认
+			</Button>
+			<Divider />
+			<div className="g-colors-wrapper">
+				{options.map(opt => {
+					return (
+						<div
+							key={opt}
+							className={cls('g-color-item', {
+								active: editor.isActive('textStyle', { color: opt })
+							})}
+							onClick={() => handleSelect(opt)}
+							style={{ backgroundColor: opt }}
+						></div>
+					)
+				})}
+			</div>
+		</div>
+	)
+
 	return (
 		<Tooltip placement="bottom" title="文字颜色">
 			<div className="g-text-color-picker">
@@ -64,43 +87,21 @@ export default function TextColorPicker() {
 					<div className="g-text-color-line" style={{ backgroundColor: inkColor }}></div>
 				</div>
 				<Popover
+					disabled={setColorDisabled}
 					trigger="manual"
 					open={open}
 					onOpenChange={setOpen}
-					onClickOutside={() => {
-						hide()
-					}}
+					onClickOutside={hide}
 					placement="bottom-start"
 					crossOffset={-26}
-					content={
-						<div className="g-text-color-popup">
-							<Button style={{ width: '100%' }} onClick={handleReset}>
-								恢复默认
-							</Button>
-							<Divider />
-							<div className="g-colors-wrapper">
-								{options.map(opt => {
-									return (
-										<div
-											key={opt}
-											className={cls('g-color-item', {
-												active: editor.isActive('textStyle', { color: opt })
-											})}
-											onClick={() => handleSelect(opt)}
-											style={{ backgroundColor: opt }}
-										></div>
-									)
-								})}
-							</div>
-						</div>
-					}
+					content={contentEle}
 				>
 					<div
 						className={cls('g-text-color-dropdown', {
 							active: open,
 							disabled: setColorDisabled
 						})}
-						onClick={setColorDisabled ? undefined : toggle}
+						onClick={toggle}
 					>
 						<GoChevronDown />
 					</div>

@@ -41,10 +41,15 @@
 
 		&:not(.disabled) {
 			&:hover {
-				background: $bg-3;
+				background: $color-hover;
 			}
+			
+			&:active {
+				background: $color-active;
+			}
+
 			&.active {
-				background: $bg-3;
+				background: $color-active;
 			}
 		}
 	}

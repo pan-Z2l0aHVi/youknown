@@ -174,7 +174,7 @@ importers:
     specifiers:
       '@emotion/react': ^11.9.0
       '@emotion/styled': ^11.8.1
-      '@floating-ui/react': ^0.21.0
+      '@floating-ui/react': ^0.22.2
       '@mui/material': ^5.8.1
       '@types/react-transition-group': ^4.4.4
       '@youknown/react-hook': workspace:*
@@ -186,7 +186,7 @@ importers:
     dependencies:
       '@emotion/react': registry.npmmirror.com/@emotion/react/11.10.6_react@18.2.0
       '@emotion/styled': registry.npmmirror.com/@emotion/styled/11.10.6_3og6jmu6wvzuytygvdoxepq3x4
-      '@floating-ui/react': registry.npmmirror.com/@floating-ui/react/0.21.0_biqbaboplfbrettd7655fr4n2y
+      '@floating-ui/react': registry.npmmirror.com/@floating-ui/react/0.22.2_biqbaboplfbrettd7655fr4n2y
       '@mui/material': registry.npmmirror.com/@mui/material/5.11.12_fbxtuirhogpez7m7qjkm3itwca
       '@youknown/react-hook': link:../react-hook
       '@youknown/utils': link:../utils
@@ -1396,11 +1396,11 @@ packages:
       react-dom: registry.npmmirror.com/react-dom/18.2.0_react@18.2.0
     dev: false
 
-  registry.npmmirror.com/@floating-ui/react/0.21.0_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-4Zut7tjeDVEKHaR6N3uG4m1dl114UkLuK4SNAeHlAb4pKu5KEkMkI34Y8NmCc4ARfXIu25UGUhYBUzShDhbofA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@floating-ui/react/-/react-0.21.0.tgz}
-    id: registry.npmmirror.com/@floating-ui/react/0.21.0
+  registry.npmmirror.com/@floating-ui/react/0.22.2_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-7u5JqNfcbUCY9WNGJvcbaoChTx5fbFlW2Mpo/6B5DzB+pPWRBbFknALRUTcXj599Sm7vCZ2HdJS9hID22QKriQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@floating-ui/react/-/react-0.22.2.tgz}
+    id: registry.npmmirror.com/@floating-ui/react/0.22.2
     name: '@floating-ui/react'
-    version: 0.21.0
+    version: 0.22.2
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'

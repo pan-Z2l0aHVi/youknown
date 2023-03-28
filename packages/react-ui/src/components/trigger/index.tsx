@@ -109,7 +109,11 @@ const Trigger = forwardRef<HTMLElement, TriggerProps>((props, propRef) => {
 			onOpenChange?.(val)
 		},
 		placement,
-		whileElementsMounted: autoUpdate,
+		whileElementsMounted(...args) {
+			autoUpdate(...args, {
+				animationFrame: true
+			})
+		},
 		middleware: [offset({ mainAxis: spacing, crossAxis: crossOffset }), flip(), shift()]
 	})
 
@@ -156,6 +160,7 @@ const Trigger = forwardRef<HTMLElement, TriggerProps>((props, propRef) => {
 			ref={refs.setFloating}
 			className={`${prefixCls}-content`}
 			style={{
+				visibility: !x || !y ? 'hidden' : 'visible', // FIXME:
 				position: strategy,
 				top: y ?? 0,
 				left: x ?? 0,

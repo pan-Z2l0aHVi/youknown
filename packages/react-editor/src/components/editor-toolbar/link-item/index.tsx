@@ -1,30 +1,30 @@
 import { Dropdown } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import React, { useContext } from 'react'
-import { TbSourceCode } from 'react-icons/tb'
+import { TbLink } from 'react-icons/tb'
 import ToolbarContext from '../toolbar-context'
 import './index.scss'
 
-export default function CodeBlock() {
-	const { editor } = useContext(ToolbarContext)
+export default function LinkItem() {
+	const { editor, setLinkModalOpen } = useContext(ToolbarContext)
 	return (
 		<Dropdown.Item
 			prefix={
 				<div
-					className={cls('g-code-block-icon', {
-						active: editor.isActive('codeBlock'),
-						disabled: !editor.can().toggleCodeBlock()
+					className={cls('g-link-item-icon', {
+						active: editor.isActive('link'),
+						disabled: !editor.can().setLink({ href: '' })
 					})}
 				>
-					<TbSourceCode />
+					<TbLink />
 				</div>
 			}
 			closeAfterItemClick
 			onClick={() => {
-				editor.chain().focus().toggleCodeBlock().run()
+				setLinkModalOpen(true)
 			}}
 		>
-			代码块
+			链接
 		</Dropdown.Item>
 	)
 }

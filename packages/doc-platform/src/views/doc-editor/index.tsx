@@ -67,7 +67,7 @@ export default function Doc() {
 			<Header heading="文档" bordered sticky>
 				<Space align="center" size="large">
 					{doc_tips}
-					<Button primary onClick={handle_update}>
+					<Button disabled={editor.isEmpty} primary onClick={handle_update}>
 						更新
 					</Button>
 					<Dropdown

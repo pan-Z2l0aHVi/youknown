@@ -4,7 +4,6 @@ import React, { ReactElement, useContext } from 'react'
 import { TbAlignCenter, TbAlignJustified, TbAlignLeft, TbAlignRight } from 'react-icons/tb'
 import { GoChevronDown } from 'react-icons/go'
 import './index.scss'
-import { useBoolean } from '@youknown/react-hook/src'
 import ToolbarContext from '../toolbar-context'
 
 export default function TextAlignPicker() {
@@ -48,16 +47,13 @@ export default function TextAlignPicker() {
 	const handleSelect = (opt: Option) => {
 		editor.chain().focus().setTextAlign(opt.value).run()
 	}
-	const [open, { setReverse: toggle, setFalse: hide, setBool: setOpen }] = useBoolean(false)
 
 	const textAlginDisabled = options.some(opt => !editor.can().setTextAlign(opt.value))
 
 	return (
 		<Popover
-			trigger="manual"
-			open={open}
-			onOpenChange={setOpen}
-			onClickOutside={hide}
+			disabled={textAlginDisabled}
+			trigger="click"
 			placement="bottom"
 			content={
 				<div className="g-text-align-popup">
@@ -84,7 +80,6 @@ export default function TextAlignPicker() {
 					className={cls('g-text-align-picker', {
 						disabled: textAlginDisabled
 					})}
-					onClick={textAlginDisabled ? undefined : toggle}
 				>
 					<div className="g-text-align-label">{selection.icon}</div>
 					<div className="g-text-align-dropdown">

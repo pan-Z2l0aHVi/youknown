@@ -89,6 +89,8 @@ export default () => {
 	`
 	})
 
+	if (!editor) return null
+
 	return (
 		<div className="editor-page" style={{}}>
 			<div
@@ -107,7 +109,9 @@ export default () => {
 				}}
 			>
 				<h1>文档</h1>
-				<Button primary>保存</Button>
+				<Button disabled={editor.isEmpty} primary>
+					保存
+				</Button>
 			</div>
 			<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 16 }}>
 				<div
@@ -123,7 +127,7 @@ export default () => {
 				>
 					<Editor.Toolbar editor={editor}></Editor.Toolbar>
 				</div>
-				<div style={{ margin: '0 auto' }}>
+				<div style={{ margin: '0 auto', width: 750 }}>
 					<Editor.Content editor={editor}></Editor.Content>
 				</div>
 			</div>

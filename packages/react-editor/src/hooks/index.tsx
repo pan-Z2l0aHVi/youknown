@@ -14,16 +14,30 @@ import Image from '@tiptap/extension-image'
 import Color from '@tiptap/extension-color'
 import TextStyle from '@tiptap/extension-text-style'
 import CharacterCount from '@tiptap/extension-character-count'
+import Document from '@tiptap/extension-document'
+
+const CustomDocument = Document.extend({
+	content: 'heading block*'
+})
 
 export default function useEditor(options?: Partial<EditorOptions>) {
 	return useTiptapEditor({
 		extensions: [
+			CustomDocument,
 			StarterKit.configure({
-				heading: { levels: [1, 2, 3, 4] }
+				heading: { levels: [1, 2, 3, 4] },
+				document: false // use customDoc
 			}),
 			Typography,
 			CharacterCount,
-			Placeholder.configure({ placeholder: '写点什么...' }),
+			Placeholder.configure({
+				placeholder: ({ node }) => {
+					if (node.type.name === 'heading') {
+						return '请输入标题'
+					}
+					return '输入 / 唤起更多'
+				}
+			}),
 			Highlight.configure({
 				multicolor: true
 			}),
@@ -35,7 +49,8 @@ export default function useEditor(options?: Partial<EditorOptions>) {
 				types: ['heading', 'paragraph']
 			}),
 			Link.configure({
-				openOnClick: false
+				openOnClick: false,
+				validate: href => /^https?:\/\//.test(href)
 			}),
 			Underline,
 			Table.configure({

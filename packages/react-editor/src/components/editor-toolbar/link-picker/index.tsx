@@ -2,7 +2,7 @@ import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Dropdown, Input, Popover, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import React, { useContext, useState } from 'react'
-import { TbChevronRight, TbLink, TbX } from 'react-icons/tb'
+import { TbLink, TbX } from 'react-icons/tb'
 import ToolbarContext from '../toolbar-context'
 import './index.scss'
 
@@ -62,7 +62,6 @@ export default function LinkPicker() {
 						<TbLink />
 					</div>
 				}
-				suffix={<TbChevronRight />}
 				onClick={() => {
 					const previousUrl = editor.getAttributes('link').href ?? ''
 					setHref(previousUrl)

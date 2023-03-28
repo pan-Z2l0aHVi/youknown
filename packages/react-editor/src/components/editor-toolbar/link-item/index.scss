@@ -1,9 +1,7 @@
 @use '../../../styles/base.scss' as *;
 @use '../../../styles/mixins.scss' as *;
 
-.g-img-cleaner {
+.g-link-item-icon {
     @extend .g-editor-icon;
-    @include interactive;
-    padding: 4px;
-    border-radius: $radius-m;
+    margin-left: 12px;
 }

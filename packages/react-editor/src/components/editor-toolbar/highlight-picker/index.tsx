@@ -58,12 +58,11 @@ export default function HighlightPicker() {
 					<div className="g-highlight-line" style={{ backgroundColor: inkColor }}></div>
 				</div>
 				<Popover
+					disabled={highlightDisabled}
 					trigger="manual"
 					open={open}
 					onOpenChange={setOpen}
-					onClickOutside={() => {
-						hide()
-					}}
+					onClickOutside={hide}
 					placement="bottom-start"
 					crossOffset={-26}
 					content={
@@ -97,7 +96,7 @@ export default function HighlightPicker() {
 							active: open,
 							disabled: highlightDisabled
 						})}
-						onClick={highlightDisabled ? undefined : toggle}
+						onClick={toggle}
 					>
 						<GoChevronDown />
 					</div>

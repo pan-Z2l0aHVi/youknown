@@ -1,0 +1,13 @@
+.g-img-modal-content {
+    width: 400px;
+    padding: 24px;
+
+    .g-img-modal-src-input {
+        width: 100%;
+    }
+
+    .g-img-modal-action-bar {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+}

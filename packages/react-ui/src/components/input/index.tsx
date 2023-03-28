@@ -10,6 +10,7 @@ import React, {
 	MutableRefObject,
 	ReactNode,
 	useEffect,
+	useLayoutEffect,
 	useRef
 } from 'react'
 import { UI_PREFIX } from '../../constants'
@@ -92,7 +93,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, propRef) => {
 		if (defaultValue) showClear()
 	}, [defaultValue, showClear])
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (autoFocus) {
 			inputRef.current.focus()
 			setFocus()

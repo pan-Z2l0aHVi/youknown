@@ -1,5 +1,6 @@
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dropdown, Tooltip } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 import React, { createElement, useContext } from 'react'
 import { GoChevronDown } from 'react-icons/go'
 import { TbCheck } from 'react-icons/tb'
@@ -52,6 +53,7 @@ export default function HeadingPicker() {
 	}
 
 	const isMainText = (value: Option['value']): value is 0 => value === 0
+	const isHeadingDisabled = !isMainText(selection.value) && !editor.can().setHeading({ level: selection.value })
 
 	const handleSelect = (opt: Option) => {
 		const level = opt.value
@@ -65,12 +67,11 @@ export default function HeadingPicker() {
 
 	return (
 		<Dropdown
+			disabled={isHeadingDisabled}
 			trigger="manual"
 			open={open}
 			onOpenChange={setOpen}
-			onClickOutside={() => {
-				hide()
-			}}
+			onClickOutside={hide}
 			content={
 				<Dropdown.Menu className="g-heading-dropdown">
 					{options.map(opt => {
@@ -97,7 +98,13 @@ export default function HeadingPicker() {
 			}
 		>
 			<Tooltip placement="bottom" title="标题">
-				<div className="g-heading-picker" onClick={toggle}>
+				<div
+					className={cls('g-heading-picker', {
+						active: open,
+						disabled: isHeadingDisabled
+					})}
+					onClick={toggle}
+				>
 					<div className="g-heading-label">{selection.label}</div>
 					<div className="g-heading-arrow">
 						<GoChevronDown />
