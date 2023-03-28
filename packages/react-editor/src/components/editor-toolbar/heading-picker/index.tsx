@@ -42,7 +42,7 @@ export default function HeadingPicker() {
 			tagName: 'span'
 		}
 	]
-	const [open, { setBool: setOpen, setFalse: hide, setReverse: toggle }] = useBoolean(false)
+	const [open, { setBool: setOpen }] = useBoolean(false)
 
 	let selection = options.find(opt => opt.value === 0)!
 	for (const opt of options) {
@@ -62,16 +62,13 @@ export default function HeadingPicker() {
 		} else if (!isMainText(selection.value)) {
 			editor.chain().focus().toggleHeading({ level: selection.value }).run()
 		}
-		hide()
 	}
 
 	return (
 		<Dropdown
 			disabled={isHeadingDisabled}
-			trigger="manual"
-			open={open}
+			trigger="click"
 			onOpenChange={setOpen}
-			onClickOutside={hide}
 			content={
 				<Dropdown.Menu className="g-heading-dropdown">
 					{options.map(opt => {
@@ -88,6 +85,7 @@ export default function HeadingPicker() {
 										<div className="g-heading-dropdown-item-icon"></div>
 									)
 								}
+								closeAfterItemClick
 								onClick={() => handleSelect(opt)}
 							>
 								{heading}
@@ -103,7 +101,6 @@ export default function HeadingPicker() {
 						active: open,
 						disabled: isHeadingDisabled
 					})}
-					onClick={toggle}
 				>
 					<div className="g-heading-label">{selection.label}</div>
 					<div className="g-heading-arrow">

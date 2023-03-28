@@ -32,7 +32,7 @@ export default function TextColorPicker() {
 	]
 
 	const [inkColor, setInkColor] = useState(DEFAULT_COLOR)
-	const [open, { setBool: setOpen, setFalse: hide, setReverse: toggle }] = useBoolean(false)
+	const [open, { setBool: setOpen }] = useBoolean(false)
 
 	const hasActive = options.some(opt => editor.isActive('textStyle', { color: opt }))
 
@@ -88,10 +88,8 @@ export default function TextColorPicker() {
 				</div>
 				<Popover
 					disabled={setColorDisabled}
-					trigger="manual"
-					open={open}
+					trigger="click"
 					onOpenChange={setOpen}
-					onClickOutside={hide}
 					placement="bottom-start"
 					crossOffset={-26}
 					content={contentEle}
@@ -101,7 +99,6 @@ export default function TextColorPicker() {
 							active: open,
 							disabled: setColorDisabled
 						})}
-						onClick={toggle}
 					>
 						<GoChevronDown />
 					</div>

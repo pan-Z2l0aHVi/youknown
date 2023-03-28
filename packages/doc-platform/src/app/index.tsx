@@ -5,13 +5,12 @@ import { Loading } from '@youknown/react-ui/src'
 import PageProgress from './components/page-progress'
 import Sidebar from './components/sidebar'
 import { cls } from '@youknown/utils/src'
-import { useAppDispatch, useAppSelector } from '@/hooks'
+import { useAppDispatch } from '@/hooks'
 import { set_dark_theme, set_hue, set_radius } from '@/store/ui'
 import { get_local_settings } from '@/libs/local'
 
 export default function App() {
 	const content = useRoutes(routes)
-	const page_loading = useAppSelector(state => state.ui.page_loading)
 	const dispatch = useAppDispatch()
 
 	const initSettings = useCallback(() => {
@@ -26,7 +25,7 @@ export default function App() {
 
 	return (
 		<div className="flex">
-			{page_loading && <PageProgress />}
+			<PageProgress />
 
 			<Sidebar />
 

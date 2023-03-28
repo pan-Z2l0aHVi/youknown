@@ -12,13 +12,11 @@ import TablePicker from '../table-picker'
 import './index.scss'
 
 export default function Insert() {
-	const [open, { setBool: setOpen, setFalse: hide, setReverse: toggle }] = useBoolean(false)
+	const [open, { setBool: setOpen }] = useBoolean(false)
 	return (
 		<Dropdown
-			trigger="manual"
-			open={open}
+			trigger="click"
 			onOpenChange={setOpen}
-			onClickOutside={hide}
 			content={
 				<Dropdown.Menu className="g-insert-dropdown">
 					<LinkItem />
@@ -36,7 +34,6 @@ export default function Insert() {
 					className={cls('g-insert', {
 						active: open
 					})}
-					onClick={toggle}
 				>
 					<TbCirclePlus className="g-insert-icon" />
 					<div className="g-insert-arrow">

@@ -17,7 +17,7 @@ interface DocCardProps {
 export default function DocCard(props: DocCardProps) {
 	const { choosing, selected, heading, updated_at, cover, choose } = props
 
-	const [more_open, { setTrue: show_more, setFalse: hide_more, setBool: set_more_open }] = useBoolean(false)
+	const [more_open, { setBool: set_more_open }] = useBoolean(false)
 	const navigate = useTransitionNavigate()
 
 	const select_doc = () => {
@@ -61,7 +61,7 @@ export default function DocCard(props: DocCardProps) {
 
 					<Tooltip title="更多">
 						<Dropdown
-							trigger="manual"
+							trigger="click"
 							content={
 								<Dropdown.Menu className="w-104px">
 									<Dropdown.Item>
@@ -72,11 +72,9 @@ export default function DocCard(props: DocCardProps) {
 									</Dropdown.Item>
 								</Dropdown.Menu>
 							}
-							open={more_open}
 							onOpenChange={set_more_open}
-							onClickOutside={hide_more}
 						>
-							<More active={more_open} onClick={show_more} />
+							<More active={more_open} />
 						</Dropdown>
 					</Tooltip>
 				</div>

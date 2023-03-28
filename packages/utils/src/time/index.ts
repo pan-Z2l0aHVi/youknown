@@ -47,10 +47,10 @@ export function throttle<F extends (...args: any) => void>(fn: F, wait = 0): (..
 /**
  * 延时
  */
-export function delay(duration = 0): Promise<void> {
+export function delay(duration = 0): Promise<number> {
 	return new Promise(resolve => {
-		setTimeout(() => {
-			resolve()
+		const timer = window.setTimeout(() => {
+			resolve(timer)
 		}, duration)
 	})
 }

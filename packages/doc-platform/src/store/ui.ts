@@ -3,14 +3,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import chroma from 'chroma-js'
 
 export interface UIState {
-	page_loading: boolean
+	progress_per: number
+	progress_visible: boolean
 	primary_color: string
 	radius: number[]
 	is_dark_theme: boolean
 }
 
 const initial_state: UIState = {
-	page_loading: false,
+	progress_per: 0,
+	progress_visible: false,
 	primary_color: '',
 	radius: [],
 	is_dark_theme: false
@@ -20,11 +22,14 @@ export const ui_slice = createSlice({
 	name: 'ui',
 	initialState: initial_state,
 	reducers: {
-		show_page_loading: state => {
-			state.page_loading = true
+		set_progress_per: (state, action: PayloadAction<number>) => {
+			state.progress_per = action.payload
 		},
-		hide_page_loading: state => {
-			state.page_loading = false
+		show_progress: state => {
+			state.progress_visible = true
+		},
+		hide_progress: state => {
+			state.progress_visible = false
 		},
 		set_hue: (state, action: PayloadAction<UIState['primary_color']>) => {
 			state.primary_color = action.payload
@@ -73,4 +78,4 @@ export const ui_slice = createSlice({
 })
 
 export default ui_slice
-export const { show_page_loading, hide_page_loading, set_radius, set_hue, set_dark_theme } = ui_slice.actions
+export const { set_progress_per, show_progress, hide_progress, set_radius, set_hue, set_dark_theme } = ui_slice.actions

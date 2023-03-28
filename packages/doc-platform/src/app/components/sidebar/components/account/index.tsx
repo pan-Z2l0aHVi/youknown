@@ -9,7 +9,7 @@ interface PersonalProps {
 }
 
 export default function Personal({ expand }: PersonalProps) {
-	const [personal_popup_open, { setTrue: show_personal_popup, setFalse: hide_personal_popup }] = useBoolean(false)
+	const [personal_popup_open, { setBool: set_personal_popup_open }] = useBoolean(false)
 	const [preferences_modal_open, { setTrue: show_preferences_modal, setFalse: hide_preferences_modal }] =
 		useBoolean(false)
 
@@ -33,14 +33,12 @@ export default function Personal({ expand }: PersonalProps) {
 			<Tooltip title={'未登录'} placement="right" spacing={20} disabled={expand}>
 				<Dropdown
 					placement="top-start"
-					trigger="manual"
-					open={personal_popup_open}
-					onClickOutside={hide_personal_popup}
+					trigger="click"
 					content={
 						<Dropdown.Menu className="w-208px">
 							<Dropdown.Item
+								closeAfterItemClick
 								onClick={() => {
-									hide_personal_popup()
 									show_preferences_modal()
 								}}
 							>
@@ -54,7 +52,6 @@ export default function Personal({ expand }: PersonalProps) {
 							'border-0 bg-transparent w-100% h-44px flex items-center p-4px b-rd-radius-m cursor-pointer select-none',
 							'active-bg-active hover-not-active-bg-hover'
 						)}
-						onClick={show_personal_popup}
 					>
 						<Avatar round size={36} />
 

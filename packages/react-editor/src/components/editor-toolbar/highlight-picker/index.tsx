@@ -31,7 +31,7 @@ export default function HighlightPicker() {
 	]
 
 	const [inkColor, setInkColor] = useState('#faf594')
-	const [open, { setBool: setOpen, setFalse: hide, setReverse: toggle }] = useBoolean(false)
+	const [open, { setBool: setOpen }] = useBoolean(false)
 
 	const hasActive = options.some(opt => editor.isActive('highlight', { color: opt }))
 
@@ -59,10 +59,8 @@ export default function HighlightPicker() {
 				</div>
 				<Popover
 					disabled={highlightDisabled}
-					trigger="manual"
-					open={open}
+					trigger="click"
 					onOpenChange={setOpen}
-					onClickOutside={hide}
 					placement="bottom-start"
 					crossOffset={-26}
 					content={
@@ -96,7 +94,6 @@ export default function HighlightPicker() {
 							active: open,
 							disabled: highlightDisabled
 						})}
-						onClick={toggle}
 					>
 						<GoChevronDown />
 					</div>
