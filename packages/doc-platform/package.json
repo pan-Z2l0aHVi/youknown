@@ -16,7 +16,6 @@
     "@youknown/react-ui": "workspace:*",
     "@youknown/utils": "workspace:*",
     "@reduxjs/toolkit": "^1.9.1",
-    "@types/chroma-js": "^2.4.0",
     "chroma-js": "^2.4.2",
     "dayjs": "^1.11.7",
     "react-redux": "^8.0.5"
@@ -30,6 +29,7 @@
     "not dead"
   ],
   "devDependencies": {
+    "@types/chroma-js": "^2.4.0",
     "@unocss/preset-rem-to-px": "^0.47.5",
     "unocss": "^0.47.5",
     "unocss-scrollbar-variant": "^0.37.2"

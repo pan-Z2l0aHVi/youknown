@@ -1,7 +1,8 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-x-icon';
+$prefix: '#{$ui-prefix}-x-icon';
 .#{$prefix} {
+    position: relative;
     @include flex-center;
     width: 24px;
     height: 24px;
@@ -12,12 +13,25 @@ $prefix: 'g-x-icon';
     user-select: none;
     background-color: $bg-3;
     transition: background-color $duration-f;
+
+    &::before {
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 100%;
+        border-radius: $round;
+        background-color: transparent;
+    }
     
     &:hover {
-        background-color: $color-hover;
+        &::before {
+            background-color: $color-hover;
+        }
     }
 
     &:active {
-        background-color: $color-active;
+        &::before {
+            background-color: $color-active;
+        }
     }
 }

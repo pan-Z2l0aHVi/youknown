@@ -17,7 +17,7 @@ export default function Personal({ expand }: PersonalProps) {
 		<Modal open={preferences_modal_open} onCancel={hide_preferences_modal}>
 			<Card
 				header={
-					<div className="flex items-center justify-between p-[24px_24px_0]">
+					<div className="flex justify-between p-[24px_24px_0]">
 						<span className="text-16px">偏好设置</span>
 						<XIcon onClick={hide_preferences_modal} />
 					</div>

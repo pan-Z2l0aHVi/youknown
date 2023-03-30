@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-field';
+$prefix: '#{$ui-prefix}-field';
 .#{$prefix} {
 	@include basic;
 	margin-bottom: 20px;

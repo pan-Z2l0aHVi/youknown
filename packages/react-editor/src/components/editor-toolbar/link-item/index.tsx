@@ -4,14 +4,16 @@ import React, { useContext } from 'react'
 import { TbLink } from 'react-icons/tb'
 import ToolbarContext from '../toolbar-context'
 import './index.scss'
+import { UI_EDITOR_PREFIX } from '../../../constants'
 
 export default function LinkItem() {
 	const { editor, setLinkModalOpen } = useContext(ToolbarContext)
+	const prefixCls = `${UI_EDITOR_PREFIX}-link-item`
 	return (
 		<Dropdown.Item
 			prefix={
 				<div
-					className={cls('g-link-item-icon', {
+					className={cls(`${prefixCls}-icon`, {
 						active: editor.isActive('link'),
 						disabled: !editor.can().setLink({ href: '' })
 					})}

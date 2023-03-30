@@ -6,6 +6,7 @@ import { GoChevronDown } from 'react-icons/go'
 import { RiMarkPenLine } from 'react-icons/ri'
 import ToolbarContext from '../toolbar-context'
 import './index.scss'
+import { UI_EDITOR_PREFIX } from '../../../constants'
 
 export default function HighlightPicker() {
 	const { editor } = useContext(ToolbarContext)
@@ -41,12 +42,13 @@ export default function HighlightPicker() {
 	}
 
 	const highlightDisabled = !editor.can().toggleHighlight()
+	const prefixCls = `${UI_EDITOR_PREFIX}-highlight-picker`
 
 	return (
 		<Tooltip placement="bottom" title="标记">
-			<div className="g-highlight-picker">
+			<div className={prefixCls}>
 				<div
-					className={cls('g-highlight-setter', {
+					className={cls(`${prefixCls}-setter`, {
 						active: hasActive,
 						disabled: highlightDisabled
 					})}
@@ -55,7 +57,7 @@ export default function HighlightPicker() {
 					}}
 				>
 					<RiMarkPenLine />
-					<div className="g-highlight-line" style={{ backgroundColor: inkColor }}></div>
+					<div className={`${prefixCls}-line`} style={{ backgroundColor: inkColor }}></div>
 				</div>
 				<Popover
 					disabled={highlightDisabled}
@@ -64,7 +66,7 @@ export default function HighlightPicker() {
 					placement="bottom-start"
 					crossOffset={-26}
 					content={
-						<div className="g-highlight-popup">
+						<div className={`${prefixCls}-popup`}>
 							<Button
 								style={{ width: '100%' }}
 								onClick={() => editor.chain().focus().unsetHighlight().run()}
@@ -72,12 +74,12 @@ export default function HighlightPicker() {
 								无背景色
 							</Button>
 							<Divider />
-							<div className="g-colors-wrapper">
+							<div className={`${prefixCls}-colors-wrapper`}>
 								{options.map(opt => {
 									return (
 										<div
 											key={opt}
-											className={cls('g-color-item', {
+											className={cls(`${prefixCls}-color-item`, {
 												active: editor.isActive('highlight', { color: opt })
 											})}
 											onClick={() => handleSelect(opt)}
@@ -90,7 +92,7 @@ export default function HighlightPicker() {
 					}
 				>
 					<div
-						className={cls('g-highlight-dropdown', {
+						className={cls(`${prefixCls}-dropdown`, {
 							active: open,
 							disabled: highlightDisabled
 						})}

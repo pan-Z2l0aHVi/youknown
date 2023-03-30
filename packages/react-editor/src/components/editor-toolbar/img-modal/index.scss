@@ -1,12 +1,15 @@
-.g-img-modal-content {
+@use '../../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-editor-prefix}-img-modal';
+.#{$prefix}-content {
     width: 400px;
     padding: 24px;
 
-    .g-img-modal-src-input {
+    .#{$prefix}-src-input {
         width: 100%;
     }
 
-    .g-img-modal-action-bar {
+    .#{$prefix}-action-bar {
         display: flex;
         flex-direction: row-reverse;
     }

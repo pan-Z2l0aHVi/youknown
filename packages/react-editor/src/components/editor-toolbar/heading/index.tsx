@@ -4,6 +4,7 @@ import React, { useContext } from 'react'
 import { TbH1, TbH2, TbH3, TbH4, TbH5, TbH6 } from 'react-icons/tb'
 import ToolbarContext from '../toolbar-context'
 import './index.scss'
+import { UI_EDITOR_PREFIX } from '../../../constants'
 
 interface HeadingProps {
 	level: 1 | 2 | 3 | 4 | 5 | 6
@@ -20,10 +21,11 @@ export default function Heading(props: HeadingProps) {
 		5: <TbH5 />,
 		6: <TbH6 />
 	}[level]
+	const prefixCls = `${UI_EDITOR_PREFIX}-heading-btn`
 	return (
 		<Tooltip placement="bottom" title={`标题 ${level}`}>
 			<div
-				className={cls('g-toolbar-heading', {
+				className={cls(prefixCls, {
 					active: editor.isActive('heading', { level }),
 					disabled: !editor.can().toggleHeading({ level })
 				})}

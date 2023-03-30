@@ -1,11 +1,11 @@
-@use '../../../styles/base.scss' as *;
 @use '../../../styles/mixins.scss' as *;
 
-.g-text-color-picker {
+$prefix: '#{$ui-editor-prefix}-text-color-picker';
+.#{$prefix} {
 	display: flex;
 
-	.g-text-color-setter {
-		@extend .g-editor-icon;
+	.#{$prefix}-setter {
+		@include icon;
 		@include interactive;
 		flex-direction: column;
 		padding: 4px;
@@ -14,7 +14,7 @@
 		border-top-left-radius: $radius-m;
 		border-bottom-left-radius: $radius-m;
 
-		.g-text-color-line {
+		.#{$prefix}-line {
 			width: 14px;
 			height: 3px;
 			border: 1px solid rgba($color: #000000, $alpha: 0.15);
@@ -23,8 +23,8 @@
 		}
 	}
 
-	.g-text-color-dropdown {
-		@extend .g-editor-icon;
+	.#{$prefix}-dropdown {
+		@include icon;
 		@include interactive;
 		height: 26px;
 		padding: 4px 0;
@@ -35,19 +35,20 @@
 	}
 }
 
-.g-text-color-popup {
-	.g-colors-wrapper {
+.#{$prefix}-popup {
+	.#{$prefix}-wrapper {
 		display: grid;
 		grid-template-rows: repeat(3, auto);
 		grid-template-columns: repeat(6, auto);
 		gap: 6px;
 
-		.g-color-item {
+		.#{$prefix}-item {
 			cursor: pointer;
 			width: 24px;
 			height: 24px;
 			border-radius: $radius-m;
 			border: 1px solid rgba($color: #000000, $alpha: 0.1);
+			
 			&.active,
 			&:hover {
 				border: 1px solid #fff;

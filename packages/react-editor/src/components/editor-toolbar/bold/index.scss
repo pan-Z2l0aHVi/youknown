@@ -1,8 +1,8 @@
-@use '../../../styles/base.scss' as *;
 @use '../../../styles/mixins.scss' as *;
 
-.g-bold-icon {
-    @extend .g-editor-icon;
+$prefix: '#{$ui-editor-prefix}-bold-btn';
+.#{$prefix} {
+    @include icon;
     @include interactive;
     padding: 4px;
     border-radius: $radius-m;

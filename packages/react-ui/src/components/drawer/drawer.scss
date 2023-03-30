@@ -1,7 +1,7 @@
 @use '../../styles/mixins.scss' as *;
 @use '../../styles/polyfills.scss' as polyfills;
 
-$prefix: 'g-drawer';
+$prefix: '#{$ui-prefix}-drawer';
 .#{$prefix} {
 	@include basic;
 	z-index: 1000;

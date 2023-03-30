@@ -1,6 +1,7 @@
 import { BubbleMenu } from '@tiptap/react'
 import { Space } from '@youknown/react-ui/src'
 import React, { ReactNode, useContext } from 'react'
+import { UI_EDITOR_PREFIX } from '../../../constants'
 import Bold from '../bold'
 import CodeOff from '../code-off'
 import ImgEdit from '../img-edit'
@@ -18,6 +19,7 @@ import Underline from '../underline'
 
 export function BubbleBar() {
 	const { editor } = useContext(ToolbarContext)
+	const prefixCls = `${UI_EDITOR_PREFIX}-bubble-menu`
 
 	let bubbleContent: ReactNode
 	if (editor.isActive('link')) {
@@ -80,7 +82,7 @@ export function BubbleBar() {
 				)
 			}}
 		>
-			<Space className="g-bubble-menu" size="small">
+			<Space className={prefixCls} size="small">
 				{bubbleContent}
 			</Space>
 		</BubbleMenu>

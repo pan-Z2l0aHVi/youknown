@@ -23,6 +23,7 @@ import LinkModal from './link-modal'
 import ImgModal from './img-modal'
 import { BubbleBar } from './bubble-bar'
 import { FloatingBar } from './floating-bar'
+import { UI_EDITOR_PREFIX } from '../../constants'
 
 export default function EditorToolbar({ editor }: { editor: Editor | null }) {
 	const [linkModalOpen, setLinkModalOpen] = useState(false)
@@ -31,7 +32,8 @@ export default function EditorToolbar({ editor }: { editor: Editor | null }) {
 	if (!editor) return null
 	;(window as any).editor = editor // FIXME:
 
-	const verticalDivider = <Divider className="toolbar-divider" direction="vertical" />
+	const verticalDivider = <Divider className={`${UI_EDITOR_PREFIX}-toolbar-divider`} direction="vertical" />
+
 	const toolbarEle = (
 		<Space align="center">
 			<Undo />

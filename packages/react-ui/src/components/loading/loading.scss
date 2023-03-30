@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-loading';
+$prefix: '#{$ui-prefix}-loading';
 .#{$prefix} {
 	@include basic;
 

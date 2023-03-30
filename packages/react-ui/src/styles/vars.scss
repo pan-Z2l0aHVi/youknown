@@ -1,3 +1,5 @@
+$ui-prefix: 'ui';
+
 $color-hover: var(--g-color-hover, rgba(0,0,0,0.05));
 $color-active: var(--g-color-active, rgba(0,0,0,0.1));
 $color-focus: var(--g-color-focus, #000);
@@ -8,7 +10,7 @@ $color-danger: var(--g-color-danger, #d52515);
 $color-danger-hover: var(--g-color-danger-hover, #f93920);
 $color-danger-active: var(--g-color-danger-active, #b2140c);
 
-$text-1: var(--g-text-1, #333);
+$text-1: var(--g-text-1, #1f2329);
 $text-2: var(--g-text-2, #666);
 $text-3: var(--g-text-3, #999);
 $bg-0: var(--g-bg-0, #fff);

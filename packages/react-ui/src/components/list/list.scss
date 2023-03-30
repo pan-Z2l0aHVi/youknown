@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-list';
+$prefix: '#{$ui-prefix}-list';
 .#{$prefix} {
 	@include basic;
 	background: $bg-1;

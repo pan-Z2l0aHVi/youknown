@@ -24,3 +24,12 @@
 		}
 	}
 }
+
+@mixin icon {
+	display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: $text-1;
+    line-height: 0;
+    user-select: none;
+}

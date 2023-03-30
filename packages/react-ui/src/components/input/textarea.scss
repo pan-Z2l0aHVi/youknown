@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-textarea';
+$prefix: '#{$ui-prefix}-textarea';
 .#{$prefix} {
 	@include basic;
 	display: flex;

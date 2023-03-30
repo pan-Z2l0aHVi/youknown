@@ -1,15 +1,15 @@
-@use '../../../styles/base.scss' as *;
 @use '../../../styles/mixins.scss' as *;
 
-.g-table-picker {
-    @extend .g-editor-icon;
+$prefix: '#{$ui-editor-prefix}-table-picker';
+.#{$prefix} {
+    @include icon;
     margin-left: 12px;
 }
 
-.g-table-popup {
+.#{$prefix}-popup {
 	padding: 10px 10px 4px 10px;
 
-	.g-table-list {
+	.#{$prefix}-list {
 		display: grid;
 		grid-template-rows: repeat(10, auto);
 		grid-template-columns: repeat(10, auto);
@@ -17,7 +17,7 @@
 		border-top: 1px solid $bd-line;
 		background-color: $bg-1;
 
-		.g-table-ceil {
+		.#{$prefix}-ceil {
 			width: 18px;
 			height: 18px;
 			border-right: 1px solid $bd-line;
@@ -29,7 +29,7 @@
 		}
 	}
 
-	.g-table-rows-cols {
+	.#{$prefix}-rows-cols {
 		display: flex;
 		justify-content: center;
 		margin-top: 8px;

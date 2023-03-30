@@ -4,6 +4,7 @@ import React, { useContext, useMemo, useState } from 'react'
 import { TbChevronRight, TbTable } from 'react-icons/tb'
 import ToolbarContext from '../toolbar-context'
 import './index.scss'
+import { UI_EDITOR_PREFIX } from '../../../constants'
 
 export default function TablePicker() {
 	const { editor } = useContext(ToolbarContext)
@@ -18,15 +19,17 @@ export default function TablePicker() {
 
 	const tableList = useMemo(() => Array.from(Array(10)).map(() => Array.from(Array(10))), [])
 
+	const prefixCls = `${UI_EDITOR_PREFIX}-table-picker`
+
 	const contentEle = (
 		<Dropdown.Menu>
-			<div className="g-table-popup">
-				<div className="g-table-list">
+			<div className={`${prefixCls}-popup`}>
+				<div className={`${prefixCls}-list`}>
 					{tableList.map((item, i) =>
 						item.map((_, j) => (
 							<div
 								key={`${i}x${j}`}
-								className={cls('g-table-ceil', {
+								className={cls(`${prefixCls}-ceil`, {
 									active: i < row && j < col
 								})}
 								onMouseEnter={() => {
@@ -38,7 +41,7 @@ export default function TablePicker() {
 						))
 					)}
 				</div>
-				<div className="g-table-rows-cols">
+				<div className={`${prefixCls}-rows-cols`}>
 					{row} x {col}
 				</div>
 			</div>
@@ -57,7 +60,7 @@ export default function TablePicker() {
 			<Dropdown.Item
 				disabled={insertDisabled}
 				prefix={
-					<div className="g-table-picker">
+					<div className={prefixCls}>
 						<TbTable />
 					</div>
 				}

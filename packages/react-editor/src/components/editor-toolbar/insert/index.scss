@@ -1,24 +1,24 @@
-@use '../../../styles/base.scss' as *;
 @use '../../../styles/mixins.scss' as *;
 
-.g-insert {
-	@extend .g-editor-icon;
+$prefix: '#{$ui-editor-prefix}-insert';
+.#{$prefix}-btn {
+	@include icon;
 	@include interactive;
 	display: flex;
     padding: 4px;
 	border-radius: $radius-m;
 
-    .g-insert-icon {
+    .#{$prefix}-icon {
         font-size: 18px;
     }
 
-    .g-insert-arrow {
+    .#{$prefix}-arrow {
         font-size: 12px;  
         color: $text-2; 
         margin-left: 2px;
     }
 }
 
-.g-insert-dropdown {
+.#{$prefix}-dropdown {
     min-width: 200px;
 }

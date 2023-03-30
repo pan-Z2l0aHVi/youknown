@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-checkbox';
+$prefix: '#{$ui-prefix}-checkbox';
 .#{$prefix} {
 	@include basic;
 	position: relative;

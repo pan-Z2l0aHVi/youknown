@@ -1,7 +1,7 @@
-@use '../../../styles/base.scss' as *;
 @use '../../../styles/mixins.scss' as *;
 
-.g-horizontal-divider {
-    @extend .g-editor-icon;
+$prefix: '#{$ui-editor-prefix}-horizontal-divider';
+.#{$prefix} {
+    @include icon;
     margin-left: 12px;
 }

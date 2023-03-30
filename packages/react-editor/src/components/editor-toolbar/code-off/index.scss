@@ -1,8 +1,8 @@
-@use '../../../styles/base.scss' as *;
 @use '../../../styles/mixins.scss' as *;
 
-.g-code-off {
-    @extend .g-editor-icon;
+$prefix: '#{$ui-editor-prefix}-code-off';
+.#{$prefix} {
+    @include icon;
     @include interactive;
     padding: 4px;
     border-radius: $radius-m;

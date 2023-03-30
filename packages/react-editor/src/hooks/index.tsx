@@ -15,6 +15,7 @@ import Color from '@tiptap/extension-color'
 import TextStyle from '@tiptap/extension-text-style'
 import CharacterCount from '@tiptap/extension-character-count'
 import Document from '@tiptap/extension-document'
+import { UI_EDITOR_PREFIX } from '../constants'
 
 const CustomDocument = Document.extend({
 	content: 'heading block*'
@@ -62,7 +63,7 @@ export default function useEditor(options?: Partial<EditorOptions>) {
 			Image.configure({
 				inline: false,
 				HTMLAttributes: {
-					class: 'g-editor-image'
+					class: `${UI_EDITOR_PREFIX}-image`
 				}
 			})
 		],

@@ -1,3 +1,6 @@
+$ui-prefix: 'ui';
+$ui-editor-prefix: '#{$ui-prefix}-editor';
+
 $color-hover: var(--g-color-hover, rgba(0,0,0,0.05));
 $color-active: var(--g-color-active, rgba(0,0,0,0.1));
 $color-primary: var(--g-color-primary, #007bca);

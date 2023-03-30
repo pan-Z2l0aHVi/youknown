@@ -1,5 +1,7 @@
 @use '../../styles/mixins.scss' as *;
-.g-divider {
+
+$prefix: '#{$ui-prefix}-divider';
+.#{$prefix} {
 	@include basic;
 	&-horizontal {
 		width: 100%;

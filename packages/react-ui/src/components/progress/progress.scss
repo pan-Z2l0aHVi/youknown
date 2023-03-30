@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-progress';
+$prefix: '#{$ui-prefix}-progress';
 .#{$prefix} {
 	@include basic;
 	display: flex;

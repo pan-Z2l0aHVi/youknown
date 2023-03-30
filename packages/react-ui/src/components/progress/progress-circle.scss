@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-progress-circle';
+$prefix: '#{$ui-prefix}-progress-circle';
 .#{$prefix} {
 	@include basic;
 

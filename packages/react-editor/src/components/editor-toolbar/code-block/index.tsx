@@ -4,14 +4,16 @@ import React, { useContext } from 'react'
 import { TbSourceCode } from 'react-icons/tb'
 import ToolbarContext from '../toolbar-context'
 import './index.scss'
+import { UI_EDITOR_PREFIX } from '../../../constants'
 
 export default function CodeBlock() {
 	const { editor } = useContext(ToolbarContext)
+	const prefixCls = `${UI_EDITOR_PREFIX}-code-block-btn`
 	return (
 		<Dropdown.Item
 			prefix={
 				<div
-					className={cls('g-code-block-icon', {
+					className={cls(prefixCls, {
 						active: editor.isActive('codeBlock'),
 						disabled: !editor.can().toggleCodeBlock()
 					})}

@@ -10,15 +10,17 @@ import ImgPicker from '../img-picker'
 import LinkItem from '../link-item'
 import TablePicker from '../table-picker'
 import './index.scss'
+import { UI_EDITOR_PREFIX } from '../../../constants'
 
 export default function Insert() {
 	const [open, { setBool: setOpen }] = useBoolean(false)
+	const prefixCls = `${UI_EDITOR_PREFIX}-insert`
 	return (
 		<Dropdown
 			trigger="click"
 			onOpenChange={setOpen}
 			content={
-				<Dropdown.Menu className="g-insert-dropdown">
+				<Dropdown.Menu className={`${prefixCls}-dropdown`}>
 					<LinkItem />
 					<CodeBlock />
 					<Divider size="small" />
@@ -31,12 +33,12 @@ export default function Insert() {
 		>
 			<Tooltip placement="bottom" title="插入">
 				<div
-					className={cls('g-insert', {
+					className={cls(`${prefixCls}-btn`, {
 						active: open
 					})}
 				>
-					<TbCirclePlus className="g-insert-icon" />
-					<div className="g-insert-arrow">
+					<TbCirclePlus className={`${prefixCls}-icon`} />
+					<div className={`${prefixCls}-arrow`}>
 						<GoChevronDown />
 					</div>
 				</div>

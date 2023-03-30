@@ -1,0 +1,31 @@
+.light-theme {
+	--bg-0: #fff;
+	--bg-1: #fff;
+	--bg-2: #f4f4f4;
+	--bg-3: #eee;
+	--bd-line: #dee0e3;
+	--scrollbar: 27, 27, 27;
+	--text-1: #1f2329;
+	--text-2: #666;
+	--text-3: #999;
+	--shadow-l: 0 4px 14px rgba(0, 0, 0, 0.1);
+	--color-hover: rgba(0, 0, 0, 0.05);
+	--color-active: rgba(0, 0, 0, 0.1);
+	--color-focus: #000;
+}
+
+.dark-theme {
+    --bg-0: #101014;
+	--bg-1: #232429;
+	--bg-2: #18181C;
+	--bg-3: #303033;
+	--bd-line: #424248;
+	--scrollbar: 200,200,200;
+	--text-1: #fff;
+	--text-2: #ccc;
+	--text-3: #999;
+	--shadow-l: 0 4px 14px rgba(0,0,0,0.25);
+	--color-hover: rgba(255,255,255,0.2);
+	--color-active: rgba(255,255,255,0.3);
+	--color-focus: #fff;
+}

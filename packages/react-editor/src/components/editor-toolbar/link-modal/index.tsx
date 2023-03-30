@@ -2,6 +2,7 @@ import { Button, Card, Form, Input, Modal, Space } from '@youknown/react-ui/src'
 import React, { useContext, useEffect } from 'react'
 import ToolbarContext from '../toolbar-context'
 import './index.scss'
+import { UI_EDITOR_PREFIX } from '../../../constants'
 
 export default function LinkModal() {
 	const { editor, linkModalOpen, setLinkModalOpen } = useContext(ToolbarContext)
@@ -28,19 +29,20 @@ export default function LinkModal() {
 		}
 	}, [editor, form, linkModalOpen])
 
+	const prefixCls = `${UI_EDITOR_PREFIX}-link-modal`
 	return (
 		<Modal open={linkModalOpen} onCancel={handleClose} unmountOnExit>
-			<Card className="g-link-modal-content">
+			<Card className={`${prefixCls}-content`}>
 				<Form form={form} labelWidth="72px">
 					<Form.Field label="linkHref" labelText="链接地址">
 						<Input.Textarea
-							className="g-link-modal-href-input"
+							className={`${prefixCls}-href-input`}
 							autoFocus
 							autosize
 							placeholder="请输入网址"
 						/>
 					</Form.Field>
-					<div className="g-link-modal-action-bar">
+					<div className={`${prefixCls}-action-bar`}>
 						<Space>
 							<Button onClick={handleClose}>取消</Button>
 							<Button primary type="submit">

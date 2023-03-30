@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-input';
+$prefix: '#{$ui-prefix}-input';
 .#{$prefix} {
 	@include basic;
 	position: relative;

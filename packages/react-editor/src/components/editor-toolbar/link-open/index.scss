@@ -1,8 +1,8 @@
-@use '../../../styles/base.scss' as *;
 @use '../../../styles/mixins.scss' as *;
 
-.g-link-open {
-    @extend .g-editor-icon;
+$prefix: '#{$ui-editor-prefix}-link-open';
+.#{$prefix} {
+    @include icon;
     @include interactive;
     padding: 4px;
     border-radius: $radius-m;

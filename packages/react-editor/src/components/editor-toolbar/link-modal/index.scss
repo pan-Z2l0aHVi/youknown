@@ -1,12 +1,15 @@
-.g-link-modal-content {
+@use '../../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-editor-prefix}-link-modal';
+.#{$prefix}-content {
     width: 400px;
     padding: 24px;
 
-    .g-link-modal-href-input {
+    .#{$prefix}-href-input {
         width: 100%;
     }
 
-    .g-link-modal-action-bar {
+    .#{$prefix}-action-bar {
         display: flex;
         flex-direction: row-reverse;
     }

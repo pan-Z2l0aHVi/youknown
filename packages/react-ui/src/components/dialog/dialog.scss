@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-dialog';
+$prefix: '#{$ui-prefix}-dialog';
 .#{$prefix} {
 	@include basic;
 	position: relative;

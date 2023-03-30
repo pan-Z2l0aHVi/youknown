@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-collapse-panel';
+$prefix: '#{$ui-prefix}-collapse-panel';
 .#{$prefix} {
 	@include basic;
 	padding: 4px;

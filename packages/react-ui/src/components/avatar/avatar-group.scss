@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-avatar-group';
+$prefix: '#{$ui-prefix}-avatar-group';
 .#{$prefix} {
 	@include basic;
 	display: flex;

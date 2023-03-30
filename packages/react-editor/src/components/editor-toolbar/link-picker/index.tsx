@@ -5,6 +5,7 @@ import React, { useContext, useState } from 'react'
 import { TbLink, TbX } from 'react-icons/tb'
 import ToolbarContext from '../toolbar-context'
 import './index.scss'
+import { UI_EDITOR_PREFIX } from '../../../constants'
 
 export default function LinkPicker() {
 	const { editor } = useContext(ToolbarContext)
@@ -24,17 +25,18 @@ export default function LinkPicker() {
 	}
 
 	const isLink = editor.isActive('link')
+	const prefixCls = `${UI_EDITOR_PREFIX}-link-picker`
 
 	const contentEle = (
-		<div className="g-link-popup">
-			<div className="g-link-header">
+		<div className={`${prefixCls}-popup`}>
+			<div className={`${prefixCls}-header`}>
 				链接
-				<div className="g-link-close">
+				<div className={`${prefixCls}-close`}>
 					<TbX />
 				</div>
 			</div>
 			<Input placeholder="链接地址" value={href} onChange={val => setHref(val as string)} />
-			<Space className="g-link-footer">
+			<Space className={`${prefixCls}-footer`}>
 				{isLink && <Button onClick={unsetLink}>移除</Button>}
 				<Button primary disabled={!href} onClick={setLink}>
 					确定
@@ -55,7 +57,7 @@ export default function LinkPicker() {
 			<Dropdown.Item
 				prefix={
 					<div
-						className={cls('g-link-picker', {
+						className={cls(prefixCls, {
 							active: isLink
 						})}
 					>

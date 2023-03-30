@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-avatar';
+$prefix: '#{$ui-prefix}-avatar';
 .#{$prefix} {
 	@include basic;
 	position: relative;

@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-button';
+$prefix: '#{$ui-prefix}-button';
 .#{$prefix} {
 	@include basic;
 	display: flex;

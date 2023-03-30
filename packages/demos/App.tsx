@@ -11,29 +11,13 @@ const App = () => {
 
 	useEffect(() => {
 		const root = document.querySelector<HTMLElement>(':root')
-		if (root) {
-			root.style.setProperty('--g-bg-0', isDark ? '#101014' : '#fff')
-			root.style.setProperty('--g-bg-1', isDark ? '#232429' : '#fff')
-			root.style.setProperty('--g-bg-2', isDark ? '#18181C' : '#f4f4f4')
-			root.style.setProperty('--g-bg-3', isDark ? '#303033' : '#eee')
-			root.style.setProperty('--g-bd-line', isDark ? '#424248' : '#dee0e3')
-			root.style.setProperty('--g-scrollbar', isDark ? '200,200,200' : '27,27,27')
-			root.style.setProperty('--g-text-1', isDark ? '#fff' : '#1f2329')
-			root.style.setProperty('--g-text-2', isDark ? '#ccc' : '#666')
-			root.style.setProperty('--g-text-3', isDark ? '#999' : '#999')
-			root.style.setProperty('--g-color-hover', isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.05)')
-			root.style.setProperty('--g-color-active', isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.1)')
-			root.style.setProperty('--g-color-focus', isDark ? '#999' : '#333')
-			root.style.setProperty('--g-color-primary', '#007bca')
-			root.style.setProperty('--g-color-primary-hover', '#0095da')
-			root.style.setProperty('--g-color-primary-active', '#0063a7')
-			root.style.setProperty('--g-color-danger', '#d52515')
-			root.style.setProperty('--g-color-danger-hover', '#f93920')
-			root.style.setProperty('--g-color-danger-active', '#b2140c')
-			root.style.setProperty(
-				'--g-shadow-l',
-				isDark ? '0 4px 14px rgba(0,0,0,0.25)' : '0 4px 14px rgba(0,0,0,0.1)'
-			)
+		if (!root) return
+		if (isDark) {
+			root.classList.add('dark-theme')
+			root.classList.remove('light-theme')
+		} else {
+			root.classList.add('light-theme')
+			root.classList.remove('dark-theme')
 		}
 	}, [isDark])
 

@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
 import '@/styles/reset.scss'
+import '@/styles/theme.scss'
 import 'virtual:uno.css'
 
 import store from '@/store'

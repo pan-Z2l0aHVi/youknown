@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-tag';
+$prefix: '#{$ui-prefix}-tag';
 .#{$prefix} {
 	@include basic;
 	display: flex;

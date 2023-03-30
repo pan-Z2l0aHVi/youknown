@@ -5,6 +5,7 @@ import { TbAlignCenter, TbAlignJustified, TbAlignLeft, TbAlignRight } from 'reac
 import { GoChevronDown } from 'react-icons/go'
 import './index.scss'
 import ToolbarContext from '../toolbar-context'
+import { UI_EDITOR_PREFIX } from '../../../constants'
 
 export default function TextAlignPicker() {
 	const { editor } = useContext(ToolbarContext)
@@ -49,6 +50,7 @@ export default function TextAlignPicker() {
 	}
 
 	const textAlginDisabled = options.some(opt => !editor.can().setTextAlign(opt.value))
+	const prefixCls = `${UI_EDITOR_PREFIX}-text-align-picker`
 
 	return (
 		<Popover
@@ -56,12 +58,12 @@ export default function TextAlignPicker() {
 			trigger="click"
 			placement="bottom"
 			content={
-				<div className="g-text-align-popup">
+				<div className={`${prefixCls}-popup`}>
 					{options.map(opt => {
 						return (
 							<Tooltip key={opt.value} placement="bottom" title={opt.label}>
 								<div
-									className={cls('g-align-icon-wrapper', {
+									className={cls(`${prefixCls}-icon-wrapper`, {
 										active: editor.isActive({ textAlign: opt.value }),
 										disabled: !editor.can().setTextAlign(opt.value)
 									})}
@@ -77,12 +79,12 @@ export default function TextAlignPicker() {
 		>
 			<Tooltip placement="bottom" title="对齐方式">
 				<div
-					className={cls('g-text-align-picker', {
+					className={cls(prefixCls, {
 						disabled: textAlginDisabled
 					})}
 				>
-					<div className="g-text-align-label">{selection.icon}</div>
-					<div className="g-text-align-dropdown">
+					<div className={`${prefixCls}-label`}>{selection.icon}</div>
+					<div className={`${prefixCls}-dropdown`}>
 						<GoChevronDown />
 					</div>
 				</div>

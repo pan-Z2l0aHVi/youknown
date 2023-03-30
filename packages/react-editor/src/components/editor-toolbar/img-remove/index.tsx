@@ -4,13 +4,15 @@ import React, { useContext } from 'react'
 import { TbPhotoCancel } from 'react-icons/tb'
 import ToolbarContext from '../toolbar-context'
 import './index.scss'
+import { UI_EDITOR_PREFIX } from '../../../constants'
 
 export default function ImgRemove() {
 	const { editor } = useContext(ToolbarContext)
+	const prefixCls = `${UI_EDITOR_PREFIX}-img-remove`
 	return (
 		<Tooltip placement="bottom" title="删除图片">
 			<div
-				className={cls('g-img-remove')}
+				className={cls(prefixCls)}
 				onClick={() => {
 					editor.chain().focus().deleteSelection().run()
 				}}

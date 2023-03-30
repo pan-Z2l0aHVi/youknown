@@ -87,7 +87,7 @@ export default class Net {
 		const { responseType = 'json' } = ctx.req.configure
 		if (ctx.req.configure.timeout) {
 			const res = await Promise.race([this.request(ctx), delay(ctx.req.configure.timeout)])
-			if (res) {
+			if (res instanceof Response) {
 				ctx.res = res
 				ctx.data = await res[responseType]()
 			} else {

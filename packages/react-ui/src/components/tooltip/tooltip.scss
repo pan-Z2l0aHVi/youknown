@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-tooltip';
+$prefix: '#{$ui-prefix}-tooltip';
 .#{$prefix} {
 	&-content {
 		@include basic;

@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-radio';
+$prefix: '#{$ui-prefix}-radio';
 .#{$prefix} {
 	@include basic;
 	display: flex;

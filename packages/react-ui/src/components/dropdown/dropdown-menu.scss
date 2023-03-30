@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-dropdown-menu';
+$prefix: '#{$ui-prefix}-dropdown-menu';
 .#{$prefix} {
 	@include basic;
 	@include scrollbar;

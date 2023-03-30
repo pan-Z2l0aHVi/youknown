@@ -1,1 +1,1 @@
-export const UI_PREFIX = 'g'
+export const UI_PREFIX = 'ui'

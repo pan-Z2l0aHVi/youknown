@@ -2,6 +2,7 @@ import { cls } from '@youknown/utils/src'
 import React, { Children, cloneElement, ComponentProps, FC, HTMLAttributes, isValidElement } from 'react'
 import './avatar-group.scss'
 import Avatar from './'
+import { UI_PREFIX } from '../../constants'
 
 interface AvatarGroupProps extends HTMLAttributes<HTMLElement> {
 	size?: 'small' | 'medium' | 'large'
@@ -17,8 +18,9 @@ const AvatarGroup: FC<AvatarGroupProps> = props => {
 	} else if (overlapFrom === 'right') {
 		sign = -1
 	}
+	const prefixCls = `${UI_PREFIX}-avatar-group`
 	return (
-		<div className={cls(className, 'g-avatar-group', `g-avatar-group-overlap-${overlapFrom}`)} {...rest}>
+		<div className={cls(className, prefixCls, `${prefixCls}-overlap-${overlapFrom}`)} {...rest}>
 			{Children.map(children, (child, index) =>
 				isValidElement<ComponentProps<typeof Avatar>>(child)
 					? cloneElement(child, {

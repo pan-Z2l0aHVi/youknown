@@ -1,23 +1,23 @@
-@use '../../../styles/base.scss' as *;
 @use '../../../styles/mixins.scss' as *;
 
-.g-img-edit {
-    @extend .g-editor-icon;
+$prefix: '#{$ui-editor-prefix}-img-edit';
+.#{$prefix} {
+    @include icon;
     @include interactive;
     padding: 4px;
     border-radius: $radius-m;
 }
 
-.g-img-popup {
+.#{$prefix}-popup {
 	width: 280px;
 
-	.g-img-header {
+	.#{$prefix}-header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		margin-bottom: 16px;
 
-		.g-img-close {
+		.#{$prefix}-close {
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -31,13 +31,13 @@
 		}
 	}
 
-	.g-img-footer {
+	.#{$prefix}-footer {
 		justify-content: flex-end;
 		margin-top: 16px;
 	}
 	
-	.g-textarea {
-		.g-textarea-inner {
+	.#{$prefix}-textarea {
+		.#{$prefix}-textarea-inner {
 			resize: none;
 		}
 	}

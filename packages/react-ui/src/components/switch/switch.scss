@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-switch';
+$prefix: '#{$ui-prefix}-switch';
 .#{$prefix} {
 	@include basic;
 	display: inline-block;

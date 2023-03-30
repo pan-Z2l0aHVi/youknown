@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-card';
+$prefix: '#{$ui-prefix}-card';
 .#{$prefix} {
 	@include basic;
 	display: flex;

@@ -44,7 +44,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
 			return (
 				<>
 					{loadingEle}
-					{children && <span className="g-button-inner-ml">{children}</span>}
+					{children && <span className={`${prefixCls}-inner-ml`}>{children}</span>}
 				</>
 			)
 		}
@@ -53,7 +53,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
 			return (
 				<>
 					{icon}
-					{children && <span className="g-button-inner-ml">{children}</span>}
+					{children && <span className={`${prefixCls}-inner-ml`}>{children}</span>}
 				</>
 			)
 		}

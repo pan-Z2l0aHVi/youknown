@@ -4,13 +4,15 @@ import React, { useContext } from 'react'
 import { AiOutlineUnderline } from 'react-icons/ai'
 import ToolbarContext from '../toolbar-context'
 import './index.scss'
+import { UI_EDITOR_PREFIX } from '../../../constants'
 
 export default function Underline() {
 	const { editor } = useContext(ToolbarContext)
+	const prefixCls = `${UI_EDITOR_PREFIX}-underline-btn`
 	return (
 		<Tooltip placement="bottom" title="下划线">
 			<div
-				className={cls('g-underline-icon', {
+				className={cls(prefixCls, {
 					active: editor.isActive('underline'),
 					disabled: !editor.can().toggleUnderline()
 				})}

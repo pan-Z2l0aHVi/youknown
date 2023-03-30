@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-trigger';
+$prefix: '#{$ui-prefix}-trigger';
 .#{$prefix} {
 	&-content {
 		position: absolute;

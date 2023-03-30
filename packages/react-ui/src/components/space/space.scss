@@ -1,7 +1,7 @@
 @use '../../styles/mixins.scss' as *;
 @use '../../styles/polyfills.scss' as polyfills;
 
-$prefix: 'g-space';
+$prefix: '#{$ui-prefix}-space';
 .#{$prefix} {
 	@include basic;
 	color: unset;

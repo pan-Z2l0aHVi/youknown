@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-dropdown-title';
+$prefix: '#{$ui-prefix}-dropdown-title';
 .#{$prefix} {
 	@include basic;
 	padding: 4px 12px 4px 20px;

@@ -23,9 +23,9 @@ const ListItem = forwardRef<HTMLDivElement, ListItemProps>((props, propRef) => {
 			})}
 			{...rest}
 		>
-			{prefix && <div className="g-list-item-mr">{prefix}</div>}
+			{prefix && <div className={`${prefixCls}-mr`}>{prefix}</div>}
 			<div className={`${prefixCls}-content`}>{children}</div>
-			{suffix && <div className="g-list-item-ml">{suffix}</div>}
+			{suffix && <div className={`${prefixCls}-ml`}>{suffix}</div>}
 		</div>
 	)
 })

@@ -1,21 +1,21 @@
-@use '../../../styles/base.scss' as *;
 @use '../../../styles/mixins.scss' as *;
 
-.g-link-picker {
-    @extend .g-editor-icon;
+$prefix: '#{$ui-editor-prefix}-link-picker';
+.#{$prefix} {
+    @include icon;
     margin-left: 12px;
 }
 
-.g-link-popup {
+.#{$prefix}-popup {
 	width: 280px;
 
-	.g-link-header {
+	.#{$prefix}-header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		margin-bottom: 16px;
 
-		.g-link-close {
+		.#{$prefix}-close {
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -29,7 +29,7 @@
 		}
 	}
 	
-	.g-link-footer {
+	.#{$prefix}-footer {
 		justify-content: flex-end;
 		margin-top: 16px;
 	}

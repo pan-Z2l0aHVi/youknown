@@ -13,10 +13,12 @@ import ToolbarContext from '../toolbar-context'
 import OrderList from '../order-list'
 import BulletList from '../bullet-list'
 import Blockquote from '../blockquote'
+import { UI_EDITOR_PREFIX } from '../../../constants'
 
 export function FloatingBar() {
 	const { editor } = useContext(ToolbarContext)
 
+	const prefixCls = `${UI_EDITOR_PREFIX}-floating-bar`
 	const dividerEle = <Divider size="small" />
 
 	return (
@@ -34,8 +36,8 @@ export function FloatingBar() {
 			<Dropdown
 				placement="bottom-start"
 				content={
-					<Dropdown.Menu className="g-floating-bar-dropdown">
-						<div className="g-floating-bar-icons">
+					<Dropdown.Menu className={`${prefixCls}-dropdown`}>
+						<div className={`${prefixCls}-icons`}>
 							<Heading level={1} />
 							<Heading level={2} />
 							<Heading level={3} />

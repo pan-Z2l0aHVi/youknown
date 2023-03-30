@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-dropdown-item';
+$prefix: '#{$ui-prefix}-dropdown-item';
 .#{$prefix} {
 	@include basic;
 	display: flex;

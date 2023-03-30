@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-aspect-ratio';
+$prefix: '#{$ui-prefix}-aspect-ratio';
 .#{$prefix} {
 	@include basic;
 	position: relative;

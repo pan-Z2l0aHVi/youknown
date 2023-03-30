@@ -1,7 +1,7 @@
 // @import url('https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.min.css'); // bad request
 @use '../../styles/mixins.scss' as *;
 
-.g-editor-content {
+.#{$ui-editor-prefix}-content {
 	position: relative;
 
 	.ProseMirror {

@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-toast';
+$prefix: '#{$ui-prefix}-toast';
 .#{$prefix} {
 	@include basic;
 	position: fixed;

@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-radio-group';
+$prefix: '#{$ui-prefix}-radio-group';
 .#{$prefix} {
 	@include basic;
 	width: max-content;

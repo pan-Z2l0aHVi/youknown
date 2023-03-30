@@ -6,6 +6,7 @@ import { BiFont } from 'react-icons/bi'
 import { GoChevronDown } from 'react-icons/go'
 import ToolbarContext from '../toolbar-context'
 import './index.scss'
+import { UI_EDITOR_PREFIX } from '../../../constants'
 
 export default function TextColorPicker() {
 	const { editor } = useContext(ToolbarContext)
@@ -47,19 +48,20 @@ export default function TextColorPicker() {
 	}
 
 	const setColorDisabled = !editor.can().setColor(inkColor)
+	const prefixCls = `${UI_EDITOR_PREFIX}-text-color-picker`
 
 	const contentEle = (
-		<div className="g-text-color-popup">
+		<div className={`${prefixCls}-popup`}>
 			<Button style={{ width: '100%' }} onClick={handleReset}>
 				恢复默认
 			</Button>
 			<Divider />
-			<div className="g-colors-wrapper">
+			<div className={`${prefixCls}-wrapper`}>
 				{options.map(opt => {
 					return (
 						<div
 							key={opt}
-							className={cls('g-color-item', {
+							className={cls(`${prefixCls}-item`, {
 								active: editor.isActive('textStyle', { color: opt })
 							})}
 							onClick={() => handleSelect(opt)}
@@ -73,9 +75,9 @@ export default function TextColorPicker() {
 
 	return (
 		<Tooltip placement="bottom" title="文字颜色">
-			<div className="g-text-color-picker">
+			<div className={prefixCls}>
 				<div
-					className={cls('g-text-color-setter', {
+					className={cls(`${prefixCls}-setter`, {
 						active: hasActive,
 						disabled: setColorDisabled
 					})}
@@ -84,7 +86,7 @@ export default function TextColorPicker() {
 					}}
 				>
 					<BiFont />
-					<div className="g-text-color-line" style={{ backgroundColor: inkColor }}></div>
+					<div className={`${prefixCls}-line`} style={{ backgroundColor: inkColor }}></div>
 				</div>
 				<Popover
 					disabled={setColorDisabled}
@@ -95,7 +97,7 @@ export default function TextColorPicker() {
 					content={contentEle}
 				>
 					<div
-						className={cls('g-text-color-dropdown', {
+						className={cls(`${prefixCls}-dropdown`, {
 							active: open,
 							disabled: setColorDisabled
 						})}

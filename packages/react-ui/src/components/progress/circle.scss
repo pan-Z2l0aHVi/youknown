@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: 'g-circle';
+$prefix: '#{$ui-prefix}-circle';
 .#{$prefix} {
 	@include basic;
 	position: relative;

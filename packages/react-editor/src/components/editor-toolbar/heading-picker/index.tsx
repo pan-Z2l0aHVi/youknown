@@ -6,6 +6,7 @@ import { GoChevronDown } from 'react-icons/go'
 import { TbCheck } from 'react-icons/tb'
 import ToolbarContext from '../toolbar-context'
 import './index.scss'
+import { UI_EDITOR_PREFIX } from '../../../constants'
 
 export default function HeadingPicker() {
 	const { editor } = useContext(ToolbarContext)
@@ -63,26 +64,26 @@ export default function HeadingPicker() {
 			editor.chain().focus().toggleHeading({ level: selection.value }).run()
 		}
 	}
-
+	const prefixCls = `${UI_EDITOR_PREFIX}-heading-picker`
 	return (
 		<Dropdown
 			disabled={isHeadingDisabled}
 			trigger="click"
 			onOpenChange={setOpen}
 			content={
-				<Dropdown.Menu className="g-heading-dropdown">
+				<Dropdown.Menu className={`${prefixCls}-dropdown`}>
 					{options.map(opt => {
 						const heading = createElement(opt.tagName, {}, opt.label)
 						const active = selection.value === opt.value
 						return (
 							<Dropdown.Item
 								key={opt.value}
-								className="g-heading-dropdown-item"
+								className={`${prefixCls}-dropdown-item`}
 								prefix={
 									active ? (
-										<TbCheck className="g-heading-dropdown-item-icon" />
+										<TbCheck className={`${prefixCls}-dropdown-item-icon`} />
 									) : (
-										<div className="g-heading-dropdown-item-icon"></div>
+										<div className={`${prefixCls}-dropdown-item-icon`}></div>
 									)
 								}
 								closeAfterItemClick
@@ -97,13 +98,13 @@ export default function HeadingPicker() {
 		>
 			<Tooltip placement="bottom" title="标题">
 				<div
-					className={cls('g-heading-picker', {
+					className={cls(prefixCls, {
 						active: open,
 						disabled: isHeadingDisabled
 					})}
 				>
-					<div className="g-heading-label">{selection.label}</div>
-					<div className="g-heading-arrow">
+					<div className={`${prefixCls}-label`}>{selection.label}</div>
+					<div className={`${prefixCls}-arrow`}>
 						<GoChevronDown />
 					</div>
 				</div>

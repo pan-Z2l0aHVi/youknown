@@ -1,7 +1,7 @@
-@use '../../../styles/base.scss' as *;
 @use '../../../styles/mixins.scss' as *;
 
-.g-link-item-icon {
-    @extend .g-editor-icon;
+$prefix: '#{$ui-editor-prefix}-link-item';
+.#{$prefix}-icon {
+    @include icon;
     margin-left: 12px;
 }
