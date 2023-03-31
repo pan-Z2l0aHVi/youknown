@@ -26,7 +26,7 @@ export function FloatingBar() {
 			pluginKey="floatingBar"
 			editor={editor}
 			tippyOptions={{
-				duration: 0,
+				duration: 300,
 				zIndex: 9,
 				maxWidth: 'none',
 				appendTo: 'parent',
@@ -35,9 +35,15 @@ export function FloatingBar() {
 		>
 			<Dropdown
 				placement="bottom-start"
+				trigger="click"
 				content={
 					<Dropdown.Menu className={`${prefixCls}-dropdown`}>
-						<div className={`${prefixCls}-icons`}>
+						<div
+							className={`${prefixCls}-icons`}
+							onClick={() => {
+								Dropdown.close()
+							}}
+						>
 							<Heading level={1} />
 							<Heading level={2} />
 							<Heading level={3} />

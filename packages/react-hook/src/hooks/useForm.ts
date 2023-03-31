@@ -5,13 +5,12 @@ import { useLatestRef } from './useLatestRef'
 export interface State {
 	[key: string]: any
 }
-// TODO:
-export interface FieldOptions {
-	[key: string]: any
+export interface FieldOptions<S> {
+	onChange?(arg: ValueOf<S> | controllerChangeEvent): void
 }
 export interface Field<S> {
 	label: keyof S
-	options: FieldOptions
+	options: FieldOptions<S>
 }
 export type controllerChangeEvent = ChangeEvent<HTMLSelectElement | HTMLInputElement>
 export interface Options<S> {
@@ -69,7 +68,7 @@ export function useForm<S extends State>(options: Options<S>): Form<S> {
 	)
 
 	const subscribe = useCallback(
-		(label: Field<S>['label'], options: Field<S>['options'] = {}) => {
+		(label: Field<S>['label'], options: Field<S>['options']) => {
 			const field: Field<S> = { label, options }
 			fields.current.push(field)
 			const controller: FieldController<S> = {
@@ -80,6 +79,7 @@ export function useForm<S extends State>(options: Options<S>): Form<S> {
 
 					state.current[label] = val as ValueOf<S>
 					opts.current.onStateChange?.(field)
+					options.onChange?.(val)
 				}
 			}
 

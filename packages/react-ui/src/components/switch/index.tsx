@@ -33,7 +33,7 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>((props, propRef) => {
 
 	const prefixCls = `${UI_PREFIX}-switch`
 
-	const checkedProps = isControlled ? { defaultChecked: true } : { defaultChecked: true }
+	const checkedProps = isControlled ? { checked } : { defaultChecked: true }
 
 	return (
 		<label

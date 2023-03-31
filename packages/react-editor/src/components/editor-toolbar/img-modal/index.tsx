@@ -28,7 +28,9 @@ export default function ImgModal() {
 			})
 		}
 	}, [editor, form, imgModalOpen])
+
 	const prefixCls = `${UI_EDITOR_PREFIX}-img-modal`
+
 	return (
 		<Modal open={imgModalOpen} onCancel={handleClose} unmountOnExit>
 			<Card className={`${prefixCls}-content`}>

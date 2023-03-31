@@ -1,15 +1,15 @@
 import Preferences from './preferences'
 import { useBoolean } from '@youknown/react-hook/src'
-import { Avatar, Card, Dropdown, Modal, Tooltip, XIcon } from '@youknown/react-ui/src'
+import { Avatar, Card, Divider, Dropdown, Modal, Tooltip, XIcon } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import React from 'react'
+import { TbLogout, TbSettings2 } from 'react-icons/tb'
 
 interface PersonalProps {
 	expand: boolean
 }
 
 export default function Personal({ expand }: PersonalProps) {
-	const [personal_popup_open, { setBool: set_personal_popup_open }] = useBoolean(false)
 	const [preferences_modal_open, { setTrue: show_preferences_modal, setFalse: hide_preferences_modal }] =
 		useBoolean(false)
 
@@ -38,11 +38,16 @@ export default function Personal({ expand }: PersonalProps) {
 						<Dropdown.Menu className="w-208px">
 							<Dropdown.Item
 								closeAfterItemClick
+								prefix={<TbSettings2 className="text-18px" />}
 								onClick={() => {
 									show_preferences_modal()
 								}}
 							>
 								设置
+							</Dropdown.Item>
+							<Divider size="small" />
+							<Dropdown.Item closeAfterItemClick prefix={<TbLogout className="text-18px color-danger" />}>
+								<span className="color-danger">退出登录</span>
 							</Dropdown.Item>
 						</Dropdown.Menu>
 					}

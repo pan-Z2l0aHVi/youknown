@@ -17,7 +17,7 @@ export default function App() {
 		const local_settings = get_local_settings()
 		dispatch(set_hue(local_settings.primary_color ?? '#de7802'))
 		dispatch(set_radius(local_settings.radius ?? [4, 8, 12]))
-		dispatch(set_dark_theme(local_settings.is_dark_theme ?? true))
+		dispatch(set_dark_theme(local_settings.is_dark_theme ?? false))
 	}, [dispatch])
 	useEffect(() => {
 		initSettings()

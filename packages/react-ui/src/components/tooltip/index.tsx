@@ -23,7 +23,7 @@ const Tooltip = forwardRef<HTMLElement, TooltipProps>((props, propRef) => {
 		spacing,
 		crossOffset,
 		disabled,
-		unmountOnExit = false,
+		unmountOnExit = true,
 		appendTo,
 		onClickOutside,
 		onOpenChange,

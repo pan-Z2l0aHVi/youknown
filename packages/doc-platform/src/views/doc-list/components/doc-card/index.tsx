@@ -36,7 +36,9 @@ export default function DocCard(props: DocCardProps) {
 			className={cls(
 				'relative flex flex-col h-224px b-1 b-rd-radius-l',
 				'bg-bg-1 bg-cover cursor-pointer overflow-hidden',
-				selected ? 'b-primary shadow-[0_0_0_1px_var(--color-primary)]' : 'b-bd-line hover-shadow-shadow-m'
+				selected
+					? 'b-primary shadow-[0_0_0_1px_var(--color-primary)]'
+					: 'b-bd-line hover-b-primary hover-shadow-shadow-m'
 			)}
 			style={{ backgroundImage: `url(${cover})` }}
 		>

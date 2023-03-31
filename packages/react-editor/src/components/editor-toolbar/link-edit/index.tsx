@@ -8,7 +8,7 @@ import { UI_EDITOR_PREFIX } from '../../../constants'
 
 export default function LinkEdit() {
 	const { editor, setLinkModalOpen } = useContext(ToolbarContext)
-	const prefixCls = `${UI_EDITOR_PREFIX}-g-link-edit`
+	const prefixCls = `${UI_EDITOR_PREFIX}-link-edit`
 	return (
 		<Tooltip placement="bottom" title="编辑链接">
 			<div

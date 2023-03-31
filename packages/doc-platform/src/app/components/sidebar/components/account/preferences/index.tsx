@@ -103,19 +103,13 @@ export default function Preferences() {
 	const primary_color = useAppSelector(state => state.ui.primary_color)
 	const radius = useAppSelector(state => state.ui.radius)
 
-	const default_preferences = useMemo(
-		() => ({
+	const form = Form.useForm({
+		defaultState: {
 			style: style_options.find(opt => is.array.equal(opt.radius, radius))!,
 			hue: primary_color,
 			is_dark: is_dark_theme
-		}),
-		[is_dark_theme, primary_color, radius]
-	)
-
-	const form = Form.useForm({
-		defaultState: default_preferences,
+		},
 		onStateChange(org) {
-			console.log('org: ', org, ':', form.getState()[org.label])
 			const state = form.getState()
 
 			switch (org.label) {
@@ -136,10 +130,6 @@ export default function Preferences() {
 			}
 		}
 	})
-
-	useEffect(() => {
-		form.setState(default_preferences)
-	}, [default_preferences, form])
 
 	return (
 		<div className="w-480px h-640px max-w-[calc(100vw-32px)] p-24px">

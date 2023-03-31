@@ -7,7 +7,8 @@ import { Button, Dialog, Divider, Dropdown, Space } from '@youknown/react-ui/src
 import { storage } from '@youknown/utils/src'
 import dayjs from 'dayjs'
 import React, { useState } from 'react'
-import { TbAdjustments, TbTrash } from 'react-icons/tb'
+import { BiWrench } from 'react-icons/bi'
+import { TbTrash } from 'react-icons/tb'
 
 export default function Doc() {
 	const [last_modify, set_last_modify] = useState(storage.local.get<string>('doc-last-modify') ?? '')
@@ -75,11 +76,13 @@ export default function Doc() {
 						placement="bottom-end"
 						content={
 							<Dropdown.Menu className="w-160px">
-								<Dropdown.Item prefix={<TbAdjustments className="ml-8px text-16px" />}>
+								<Dropdown.Item prefix={<BiWrench className="ml-8px text-18px" />}>
 									文档设置
 								</Dropdown.Item>
 								<Divider size="small" />
-								<Dropdown.Item prefix={<TbTrash className="ml-8px text-16px" />}>删除</Dropdown.Item>
+								<Dropdown.Item prefix={<TbTrash className="ml-8px text-18px color-danger" />}>
+									<span className="color-danger">删除</span>
+								</Dropdown.Item>
 							</Dropdown.Menu>
 						}
 					>
@@ -92,13 +95,13 @@ export default function Doc() {
 
 			{update_dialog}
 
-			<div className="flex justify-center sticky top-64px z-10">
+			<div className="flex justify-center sticky top-64px z-10 bg-bg-0">
 				<div className="border-b-bd-line border-b-1 p-12px bg-bg-0 shadow-[0_12px_16px_-8px_rgba(0,0,0,0.02)]">
 					<Editor.Toolbar editor={editor} />
 				</div>
 			</div>
 
-			<div className="flex pt-24px pb-24px">
+			<div className="flex pt-40px pb-24px">
 				<div className="w-720px m-auto">
 					<Editor.Content editor={editor} />
 				</div>

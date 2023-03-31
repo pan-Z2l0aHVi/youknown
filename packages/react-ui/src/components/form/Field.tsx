@@ -50,14 +50,11 @@ const Field = forwardRef<HTMLLabelElement & HTMLDivElement, FieldProps>((props, 
 		)
 
 	const child = Children.only(children)
-	const controller = _form.subscribe(label)
-	const controllerProps = {
-		...controller,
-		onChange(arg: Parameters<FieldController['onChange']>) {
-			controller?.onChange(arg)
+	const controllerProps = _form.subscribe(label, {
+		onChange() {
 			update()
 		}
-	}
+	})
 
 	return (
 		<div ref={propRef} className={wrapCls} {...rest}>
