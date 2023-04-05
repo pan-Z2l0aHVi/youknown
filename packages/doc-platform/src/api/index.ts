@@ -44,7 +44,7 @@ export const get_feed_list = ({ feed_tab }: { feed_tab: number }): FeedListRes =
 					},
 					{
 						id: 2,
-						heading: '知识管理的 IPO 模型',
+						heading: 'ChatGPT 被锁中国区 ip ？别慌，看这篇ChatGPT & OpenAI 注册使用指北',
 						content: {
 							html: '<p>从前面知道，要想做到有效的知识管理，其中一个通用的方法就是 “IPO 模型”，其中 IPO 是 Input- Process- Output 的缩写，意即知识管理的“输入-处理-输出”过程。这个知识管理 IPO 模型是知识管理 3.0 的核心，也是语雀数字花园的根基。那么，IPO 模型到底是什</p>'
 						},
@@ -61,7 +61,8 @@ export const get_feed_list = ({ feed_tab }: { feed_tab: number }): FeedListRes =
 					},
 					{
 						id: 3,
-						heading: '知识管理的 IPO 模型',
+						heading:
+							'我记得去年脉脉的论调还都是 客户端已死，前后端还都是一片祥和，有秀工资的，有咨询客户端转前端的，怎么最近打开脉脉一看，风向变了？',
 						content: {
 							html: '<p>从前面知道，要想做到有效的知识管理，其中一个通用的方法就是 “IPO 模型”，其中 IPO 是 Input- Process- Output 的缩写，意即知识管理的“输入-处理-输出”过程。这个知识管理 IPO 模型是知识管理 3.0 的核心，也是语雀数字花园的根基。那么，IPO 模型到底是什</p>'
 						},

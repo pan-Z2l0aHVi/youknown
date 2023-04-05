@@ -1,5 +1,5 @@
 import Motion from '../motion'
-import { useBoolean, useLatestRef } from '@youknown/react-hook/src'
+import { useBoolean, useComposeRef, useLatestRef } from '@youknown/react-hook/src'
 import { cls, is, throttle } from '@youknown/utils/src'
 import React, {
 	forwardRef,
@@ -44,7 +44,7 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 	} = props
 
 	const innerRef = useRef<HTMLImageElement>(null)
-	const imgRef = propRef || innerRef
+	const imgRef = useComposeRef(propRef, innerRef)
 	const imgDetailRef = useRef<HTMLImageElement>(null)
 
 	const [detailOpen, { setTrue: showDetail, setFalse: hideDetail }] = useBoolean(false)
@@ -61,10 +61,11 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 
 	const [detailLoaded, { setTrue: handleDetailLoaded }] = useBoolean(false)
 	const [_detailSrc, _setDetailSrc] = useState('')
+	const [dragging, setDragging] = useState(false)
+	const draggingRef = useLatestRef(dragging)
 
-	let dragging = false
 	const handleDragDetailStart: MouseEventHandler<HTMLImageElement> = event => {
-		dragging = true
+		setDragging(true)
 		let pos: Coordinate = null
 		if (imgDetailRef.current)
 			pos = {
@@ -72,15 +73,15 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 				y: event.pageY - imgDetailRef.current.offsetTop
 			}
 		const handleMove = (event: MouseEvent) => {
-			if (dragging && pos)
+			if (draggingRef.current && pos)
 				setOffset({
 					x: event.pageX - pos.x,
 					y: event.pageY - pos.y
 				})
 		}
 		const handleUp = () => {
-			dragging = false
-			document.removeEventListener('mousedown', handleMove)
+			setDragging(false)
+			document.removeEventListener('mousemove', handleMove)
 			document.removeEventListener('mouseup', handleUp)
 		}
 		document.addEventListener('mousemove', handleMove)
@@ -177,9 +178,16 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 		}
 	}
 
+	// 无感知重置
+	const resetTimerRef = useRef(0)
 	useEffect(() => {
-		if (!detailOpen) {
-			handleReset()
+		if (detailOpen) {
+			clearTimeout(resetTimerRef.current)
+		} else {
+			const DELAY = 1000
+			resetTimerRef.current = window.setTimeout(() => {
+				handleReset()
+			}, DELAY)
 		}
 	}, [detailOpen, handleReset])
 
@@ -219,7 +227,7 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 		},
 		{
 			id: 5,
-			title: '原始尺寸',
+			title: '恢复原始尺寸',
 			icon: <TbRelationOneToOne className={`${prefixCls}-detail-icon`} />,
 			handler: handleReset
 		},
@@ -255,7 +263,7 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 	)
 
 	const detailEle = detailDisabled || (
-		<Modal open={detailOpen} onCancel={hideDetail} onWheel={throttle(handleWheel, 100)} unmountOnExit>
+		<Modal open={detailOpen} onCancel={hideDetail} onWheel={throttle(handleWheel, 100)}>
 			<div
 				className={`${prefixCls}-detail`}
 				onClick={event => {

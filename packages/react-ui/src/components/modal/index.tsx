@@ -81,7 +81,11 @@ const Modal: FC<ModalProps> = props => {
 						}
 					}
 				}}
-				style={{ zIndex, ...style }}
+				style={{
+					zIndex,
+					overflow: 'overlay',
+					...style
+				}}
 				{...rest}
 			>
 				{children}

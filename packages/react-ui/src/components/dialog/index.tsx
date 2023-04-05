@@ -16,6 +16,7 @@ interface DialogProps extends ComponentProps<typeof Modal> {
 	okText?: string
 	cancelText?: string
 	okLoading?: boolean
+	okDanger?: boolean
 	onCancel?: () => void
 	onOk?: () => void
 }
@@ -33,6 +34,7 @@ const Dialog: FC<DialogProps> = props => {
 		okText = 'Ok',
 		cancelText = 'Cancel',
 		okLoading = false,
+		okDanger = false,
 		onCancel,
 		onOk,
 		closeIcon = <XIcon className={`${prefixCls}-close-icon`} onClick={onCancel} />,
@@ -54,7 +56,7 @@ const Dialog: FC<DialogProps> = props => {
 						<div className={`${prefixCls}-footer`}>
 							<Space>
 								{hasCancel && <Button onClick={onCancel}>{cancelText}</Button>}
-								<Button primary loading={okLoading} onClick={onOk}>
+								<Button primary={!okDanger} danger={okDanger} loading={okLoading} onClick={onOk}>
 									{okText}
 								</Button>
 							</Space>

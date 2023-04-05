@@ -5,6 +5,7 @@ import { useFetch } from '@youknown/react-hook/src'
 import { Loading } from '@youknown/react-ui/src'
 import React from 'react'
 import { useSearchParams } from 'react-router-dom'
+import Comments from './components/comments'
 import './rich-text.scss'
 
 export default function DocDetail() {
@@ -40,6 +41,8 @@ export default function DocDetail() {
 					</div>
 				</div>
 			)}
+
+			<Comments doc_id={doc_id} />
 		</>
 	)
 }

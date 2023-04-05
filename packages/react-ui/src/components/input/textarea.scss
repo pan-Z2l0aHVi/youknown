@@ -22,12 +22,13 @@ $prefix: '#{$ui-prefix}-textarea';
 		line-height: 1.65;
 		color: $text-1;
 		resize: none;
+		@include scrollbar;
 
 		&::placeholder {
 			color: $text-3;
 		}
 		
-		&-autosize {
+		&-lock-scroll {
 			overflow-y: hidden;
 		}
 	}

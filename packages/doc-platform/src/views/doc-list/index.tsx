@@ -8,6 +8,7 @@ import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import { get_doc_list } from '@/api'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { cls } from '@youknown/utils/src'
+import DocDeleteDialog from '@/components/doc-delete-dialog'
 
 export default function DocList() {
 	const navigate = useTransitionNavigate()
@@ -47,6 +48,9 @@ export default function DocList() {
 			close_filter()
 		}
 	})
+
+	const [doc_delete_dialog_open, { setTrue: show_doc_delete_dialog, setFalse: hide_doc_delete_dialog }] =
+		useBoolean(false)
 
 	const filter_drawer = (
 		<Drawer open={filter_open} onCancel={close_filter}>
@@ -104,7 +108,7 @@ export default function DocList() {
 			<div className="fixed bottom-40px left-[calc(50%-120px)] p-8px bg-bg-1 b-1 b-bd-line b-rd-radius-l shadow-shadow-l">
 				<Space align="center">
 					<Tooltip spacing={12} placement="top" title="删除">
-						<Button circle text disabled={!has_selection} onClick={undefined}>
+						<Button circle text disabled={!has_selection} onClick={show_doc_delete_dialog}>
 							<TbTrashX className={cls('text-18px', has_selection && 'color-danger')} />
 						</Button>
 					</Tooltip>
@@ -176,6 +180,7 @@ export default function DocList() {
 			<BackTop />
 			<div className="p-32px">{loading || doc_card_list}</div>
 			{choosing_bar}
+			<DocDeleteDialog open={doc_delete_dialog_open} hide_dialog={hide_doc_delete_dialog} />
 			{filter_drawer}
 		</>
 	)

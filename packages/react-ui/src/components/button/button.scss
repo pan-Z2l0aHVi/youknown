@@ -50,12 +50,22 @@ $prefix: '#{$ui-prefix}-button';
 		color: #fff;
 	}
 
+	&-danger {
+		border: 1px solid $color-danger;
+		background-color: $color-danger;
+		color: #fff;
+	}
+
 	&:not(&-disabled) {
 		&:hover {
 			background-color: $color-hover;
 
 			&.#{$prefix}-primary {
 				background-color: $color-primary-hover;
+			}
+
+			&.#{$prefix}-danger {
+				background-color: $color-danger-hover;
 			}
 		}
 		
@@ -64,6 +74,10 @@ $prefix: '#{$ui-prefix}-button';
 			
 			&.#{$prefix}-primary {
 				background-color: $color-primary-active;
+			}
+
+			&.#{$prefix}-danger {
+				background-color: $color-danger-active;
 			}
 		}
 		

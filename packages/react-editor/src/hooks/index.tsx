@@ -36,7 +36,7 @@ export default function useEditor(options?: Partial<EditorOptions>) {
 					if (node.type.name === 'heading') {
 						return '请输入标题'
 					}
-					return '输入 / 唤起更多'
+					return '输入内容 / 唤起更多'
 				}
 			}),
 			Highlight.configure({

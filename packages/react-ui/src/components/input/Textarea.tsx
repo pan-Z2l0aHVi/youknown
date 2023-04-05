@@ -4,13 +4,14 @@ import React, {
 	forwardRef,
 	MutableRefObject,
 	TextareaHTMLAttributes,
-	useRef
+	useRef,
+	useState
 } from 'react'
 import { cls, is } from '@youknown/utils/src'
 import './textarea.scss'
 import TextareaAutosize from 'react-textarea-autosize'
 import { UI_PREFIX } from '../../constants'
-import { useBoolean } from '@youknown/react-hook/src'
+import { useBoolean, useComposeRef } from '@youknown/react-hook/src'
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 	autosize?: boolean
@@ -41,8 +42,9 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, propRef)
 	} = props
 
 	const innerRef = useRef<HTMLTextAreaElement>(null)
-	const textareaRef = (propRef || innerRef) as MutableRefObject<null>
+	const textareaRef = useComposeRef(propRef, innerRef) as MutableRefObject<null>
 	const [focus, { setTrue: setFocus, setFalse: setBlur }] = useBoolean(false)
+	const [lockScroll, setLockScroll] = useState(false)
 	const isControlled = !is.undefined(value)
 
 	const handleChange: ChangeEventHandler<HTMLTextAreaElement> = event => {
@@ -80,13 +82,16 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, propRef)
 				{...autosizeProps}
 				{...(rest as any)}
 				className={cls(`${prefixCls}-inner`, {
-					[`${prefixCls}-inner-autosize`]: autosize
+					[`${prefixCls}-inner-lock-scroll`]: lockScroll
 				})}
 				ref={textareaRef}
 				disabled={disabled}
 				onChange={handleChange}
 				onFocus={handleFocus}
 				onBlur={handleBlur}
+				onHeightChange={(height, { rowHeight }) => {
+					setLockScroll(Math.ceil(height / rowHeight) < maxRows)
+				}}
 			></TextareaComp>
 		</label>
 	)

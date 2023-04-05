@@ -1,4 +1,4 @@
-import { useBoolean } from '@youknown/react-hook/src'
+import { useBoolean, useComposeRef } from '@youknown/react-hook/src'
 import { cls, is } from '@youknown/utils/src'
 import React, {
 	ChangeEvent,
@@ -53,7 +53,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, propRef) => {
 	} = props
 
 	const ref = useRef<HTMLInputElement>(null)
-	const inputRef = (propRef ?? ref) as MutableRefObject<HTMLInputElement>
+	const inputRef = useComposeRef(ref, propRef) as MutableRefObject<HTMLInputElement>
 	const [focus, { setTrue: setFocus, setFalse: setBlur }] = useBoolean(false)
 	const [clearVisible, { setTrue: showClear, setFalse: hideClear, setBool: setClearVisible }] = useBoolean(false)
 	const isControlled = !is.undefined(value)
