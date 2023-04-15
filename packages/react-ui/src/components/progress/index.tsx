@@ -11,6 +11,7 @@ interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
 	defaultPercent?: number
 	percent?: number
 	direction?: 'horizontal' | 'vertical'
+	trackColor?: string
 	suffix?: ReactNode
 	format?: ((ref: RenderCounterProps) => ReactNode) | null
 }
@@ -22,6 +23,7 @@ const Progress = forwardRef<HTMLDivElement, ProgressProps>((props, propRef) => {
 		defaultPercent = 0,
 		percent = 0,
 		direction = 'horizontal',
+		trackColor,
 		suffix = '%',
 		format,
 		...rest
@@ -54,7 +56,14 @@ const Progress = forwardRef<HTMLDivElement, ProgressProps>((props, propRef) => {
 			className={cls(className, prefixCls, `${prefixCls}-${size}`, `${prefixCls}-${direction}`)}
 			{...rest}
 		>
-			<div className={cls(`${prefixCls}-track`, { 'g-progress-track-spacing': !is.null(format) })}>
+			<div
+				className={cls(`${prefixCls}-track`, {
+					[`${prefixCls}-track-spacing`]: !is.null(format)
+				})}
+				style={{
+					backgroundColor: trackColor
+				}}
+			>
 				<div className={`${prefixCls}-inset`} style={rectStyle}></div>
 			</div>
 			{is.null(format) || (

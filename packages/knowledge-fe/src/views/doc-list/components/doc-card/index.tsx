@@ -3,8 +3,9 @@ import DocOptionsModal from '@/components/doc-options-modal'
 import More from '@/components/more'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useBoolean } from '@youknown/react-hook/src'
-import { Dropdown, Motion, Tooltip } from '@youknown/react-ui/src'
+import { Dropdown, Motion } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+import dayjs from 'dayjs'
 import React, { useRef } from 'react'
 import { GoCheck } from 'react-icons/go'
 
@@ -72,29 +73,27 @@ export default function DocCard(props: DocCardProps) {
 					unmountOnExit
 				>
 					<div className="flex items-center justify-between p-12px bg-bg-1 b-t-bd-line b-t-1 cursor-default">
-						<div className="color-text-3 text-12px">{updated_at}</div>
+						<div className="color-text-3 text-12px">{dayjs(updated_at).format('YYYY-MM-DD')}</div>
 
-						<Tooltip title="更多">
-							<Dropdown
-								trigger="click"
-								content={
-									<Dropdown.Menu className="w-104px">
-										<Dropdown.Item closeAfterItemClick onClick={select_doc}>
-											<span>编辑</span>
-										</Dropdown.Item>
-										<Dropdown.Item closeAfterItemClick onClick={show_doc_options_modal}>
-											<span>文档设置</span>
-										</Dropdown.Item>
-										<Dropdown.Item closeAfterItemClick onClick={show_doc_delete_dialog}>
-											<span className="color-danger">删除</span>
-										</Dropdown.Item>
-									</Dropdown.Menu>
-								}
-								onOpenChange={set_more_open}
-							>
-								<More active={more_open} />
-							</Dropdown>
-						</Tooltip>
+						<Dropdown
+							trigger="click"
+							content={
+								<Dropdown.Menu className="w-104px">
+									<Dropdown.Item closeAfterItemClick onClick={select_doc}>
+										<span>编辑</span>
+									</Dropdown.Item>
+									<Dropdown.Item closeAfterItemClick onClick={show_doc_options_modal}>
+										<span>文档设置</span>
+									</Dropdown.Item>
+									<Dropdown.Item closeAfterItemClick onClick={show_doc_delete_dialog}>
+										<span className="color-danger">删除</span>
+									</Dropdown.Item>
+								</Dropdown.Menu>
+							}
+							onOpenChange={set_more_open}
+						>
+							<More active={more_open} />
+						</Dropdown>
 					</div>
 				</Motion.Slide>
 			</div>

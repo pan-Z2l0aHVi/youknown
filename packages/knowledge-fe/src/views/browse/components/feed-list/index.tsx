@@ -1,8 +1,11 @@
 import { get_feed_list } from '@/api'
 import TransitionLink from '@/components/transition-link'
+import { useAppDispatch } from '@/hooks'
+import { record } from '@/store/record'
 import { useFetch } from '@youknown/react-hook/src'
-import { Avatar, Button, Image } from '@youknown/react-ui/src'
+import { Avatar, Button, Image, Tooltip } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
+import dayjs from 'dayjs'
 import React from 'react'
 import { FiThumbsUp } from 'react-icons/fi'
 
@@ -12,6 +15,7 @@ interface FeedProps {
 
 export default function FeedList(props: FeedProps) {
 	const { feed_tab } = props
+	const dispatch = useAppDispatch()
 	const { data: feed_list } = useFetch(get_feed_list, {
 		initialData: [],
 		params: [
@@ -21,6 +25,33 @@ export default function FeedList(props: FeedProps) {
 		],
 		refreshDeps: [feed_tab]
 	})
+	const handle_record_ready = () => {
+		dispatch(
+			record({
+				action: '阅读',
+				target: '月光下再见',
+				target_id: 'qwrewerwe',
+				obj_type: '文章',
+				obj: '《如何看待近期大火的Chat GPT》',
+				obj_id: '1232',
+				timing: dayjs().valueOf()
+			})
+		)
+	}
+
+	const handle_praise = () => {
+		dispatch(
+			record({
+				action: '点赞',
+				target: '月光下再见',
+				target_id: 'qwrewerwe',
+				obj_type: '文章',
+				obj: '《如何看待近期大火的Chat GPT》',
+				obj_id: '1232',
+				timing: dayjs().valueOf()
+			})
+		)
+	}
 
 	return (
 		<div className="max-w-960px">
@@ -43,9 +74,13 @@ export default function FeedList(props: FeedProps) {
 							</div>
 						</div>
 
-						<div className="flex-1 flex pl-36px mb-12px">
+						<div className="flex-1 flex pl-36px mb-8px">
 							<div className="flex-1">
-								<TransitionLink to={doc_detail_url} className="group block w-[fit-content] mb-12px">
+								<TransitionLink
+									to={doc_detail_url}
+									className="group block w-[fit-content] mb-12px"
+									onClick={handle_record_ready}
+								>
 									<div
 										className={cls(
 											'inline text-16px font-600 cursor-pointer',
@@ -68,12 +103,13 @@ export default function FeedList(props: FeedProps) {
 							/>
 						</div>
 
-						<div className="flex pl-28px mb-16px">
-							<Button className="!w-auto min-w-auto !pl-8px !pr-8px" text circle size="small">
-								<FiThumbsUp className="text-16px" />
-
-								{feed.likes_count && <span className="ml-8px">{feed.likes_count}</span>}
-							</Button>
+						<div className="flex items-center pl-28px mb-16px">
+							<Tooltip title="顶" placement="bottom">
+								<Button className="" text circle onClick={handle_praise}>
+									<FiThumbsUp className="text-14px" />
+								</Button>
+							</Tooltip>
+							{feed.likes_count && <span className="color-text-2">{feed.likes_count}</span>}
 						</div>
 					</div>
 				)

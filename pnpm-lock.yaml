@@ -83,7 +83,7 @@ importers:
       '@youknown/react-ui': link:../react-ui
       '@youknown/utils': link:../utils
 
-  packages/doc-platform:
+  packages/knowledge-fe:
     specifiers:
       '@reduxjs/toolkit': ^1.9.1
       '@types/chroma-js': ^2.4.0

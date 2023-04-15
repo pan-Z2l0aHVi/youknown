@@ -1,7 +1,7 @@
 {
-  "name": "@youknown/doc-platform",
+  "name": "@youknown/knowledge-fe",
   "version": "1.0.0",
-  "description": "Documentation platform frontend project",
+  "description": "A knowledge base platform frontend project.",
   "type": "module",
   "scripts": {
     "dev": "vite",

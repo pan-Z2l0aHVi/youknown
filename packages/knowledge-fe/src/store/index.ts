@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import ui_slice from './ui'
 import user_slice from './user'
+import record_slice from './record'
 
 const store = configureStore({
 	reducer: {
 		ui: ui_slice.reducer,
-		user: user_slice.reducer
+		user: user_slice.reducer,
+		record: record_slice.reducer
 	}
 })
 export default store
