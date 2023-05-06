@@ -1,6 +1,6 @@
 import { Form, Space, Switch } from '@youknown/react-ui/src'
 import { cls, is } from '@youknown/utils/src'
-import React, { useEffect, useMemo } from 'react'
+import React from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { set_dark_theme, set_hue, set_radius } from '@/store/ui'
 

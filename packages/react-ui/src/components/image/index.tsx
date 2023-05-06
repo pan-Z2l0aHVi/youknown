@@ -1,6 +1,6 @@
 import Motion from '../motion'
 import { useBoolean, useComposeRef, useLatestRef } from '@youknown/react-hook/src'
-import { cls, is, throttle } from '@youknown/utils/src'
+import { cls, downloadFile, is, throttle } from '@youknown/utils/src'
 import React, {
 	forwardRef,
 	ImgHTMLAttributes,
@@ -150,22 +150,7 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 		if (!detailLoaded) return
 
 		if (_detailSrc) {
-			const image = new window.Image()
-			image.setAttribute('crossOrigin', 'anonymous')
-			image.onload = function (): void {
-				const canvas = document.createElement('canvas')
-				canvas.width = image.width
-				canvas.height = image.height
-				const context = canvas.getContext('2d') as CanvasRenderingContext2D
-				context.drawImage(image, 0, 0, image.width, image.height)
-				const url = canvas.toDataURL('image/png')
-				const a = document.createElement('a')
-				const event = new MouseEvent('click')
-				a.download = 'picture'
-				a.href = url
-				a.dispatchEvent(event)
-			}
-			image.src = _detailSrc
+			downloadFile(_detailSrc)
 		}
 	}
 
