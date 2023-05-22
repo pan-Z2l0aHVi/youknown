@@ -28,7 +28,7 @@ import React, {
 import { createPortal } from 'react-dom'
 import { UI_PREFIX } from '../../constants'
 import Motion from '../motion'
-import { useZIndex } from '../../hooks/use-z-index'
+import { useZIndex } from '../../hooks/useZIndex'
 import './trigger.scss'
 
 export const EventsByTriggerNeed = [

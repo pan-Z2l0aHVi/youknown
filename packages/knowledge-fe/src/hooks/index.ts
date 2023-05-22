@@ -1,14 +1,13 @@
-import { useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import type { TypedUseSelectorHook } from 'react-redux'
 import type { RootState, AppDispatch } from '@/store'
-import { useSetup } from '@youknown/react-hook/src'
 
 export function useAppContentEl() {
 	const [app_content_el, set_app_content_el] = useState<HTMLElement | null>(null)
-	useSetup(() => {
+	useLayoutEffect(() => {
 		set_app_content_el(document.getElementById('app-content'))
-	})
+	}, [])
 	return app_content_el
 }
 

@@ -1,34 +1,26 @@
 import { useBoolean } from '@youknown/react-hook/src'
 import { Divider, Loading, Tooltip } from '@youknown/react-ui/src'
 import { cls, storage } from '@youknown/utils/src'
-import React, { DragEvent, lazy, Suspense, useEffect, useState, useTransition } from 'react'
+import React, { lazy, Suspense, useCallback, useEffect, useState, useTransition } from 'react'
 import { TbDotsVertical } from 'react-icons/tb'
 import Menu from './components/menu'
-import gifBase64 from '@/utils/gif-base64'
 
 const Account = lazy(() => import('./components/account'))
 
 const EXPAND_KEY = 'sidebar-expand'
 const WIDTH_KEY = 'sidebar-width'
+const DEFAULT_WIDTH = 240
+const MIN_WIDTH = 160
+const MAX_WIDTH = 400
 
 export default function Sidebar() {
 	const session_expand = storage.session.get<boolean>(EXPAND_KEY)
 	const session_width = storage.session.get<number>(WIDTH_KEY)
 	const [expand, { setReverse: toggle_expand }] = useBoolean(session_expand ?? true)
 
-	const [sidebar_width, set_sidebar_width] = useState(session_width ?? 240)
+	const [sidebar_width, set_sidebar_width] = useState(session_width ?? DEFAULT_WIDTH)
 	const [dragging, { setTrue: start_drag, setFalse: stop_drag }] = useBoolean(false)
 	const [, startTransition] = useTransition()
-
-	const handle_drag = (e: DragEvent<HTMLDivElement>) => {
-		if (!dragging) return
-		if (e.clientX > 400) return
-		if (e.clientX < 160) return
-
-		startTransition(() => {
-			set_sidebar_width(e.clientX)
-		})
-	}
 
 	useEffect(() => {
 		storage.session.set(EXPAND_KEY, expand)
@@ -38,25 +30,39 @@ export default function Sidebar() {
 		storage.session.set(WIDTH_KEY, sidebar_width)
 	}, [sidebar_width])
 
+	const handle_mousemove = useCallback(
+		(e: MouseEvent) => {
+			if (!dragging) return
+			if (e.clientX > MAX_WIDTH) return
+			if (e.clientX < MIN_WIDTH) return
+
+			startTransition(() => {
+				set_sidebar_width(e.clientX)
+			})
+		},
+		[dragging]
+	)
+
+	useEffect(() => {
+		document.addEventListener('mousemove', handle_mousemove)
+		document.addEventListener('mouseup', stop_drag)
+		return () => {
+			document.removeEventListener('mousemove', handle_mousemove)
+			document.removeEventListener('mouseup', stop_drag)
+		}
+	}, [handle_mousemove, stop_drag])
+
 	let sidebar_style = {}
 	if (expand) {
 		sidebar_style = {
 			width: sidebar_width
 		}
 	}
+
 	const drag_divider = expand ? (
 		<div
-			className="group absolute right--8px top-0 p-[4px_8px] h-100% cursor-col-resize"
-			draggable
-			onDragStart={e => {
-				// 透明gif覆盖默认拖拽图像
-				const img = new Image()
-				img.src = gifBase64
-				e.dataTransfer.setDragImage(img, 10, 10)
-				start_drag()
-			}}
-			onDragEnd={stop_drag}
-			onDrag={handle_drag}
+			className="group absolute right--8px top-0 p-[4px_8px] h-100% cursor-col-resize active:cursor-col-resize"
+			onMouseDown={start_drag}
 		>
 			<div
 				className={cls('w-2px h-100% group-hover-bg-primary', {
@@ -68,11 +74,10 @@ export default function Sidebar() {
 
 	return (
 		<aside
-			className={cls(
-				'relative flex flex-col h-screen border-r-bd-line border-r bg-bg-2 p-[16px_12px]',
-				dragging || 'transition-width-300',
-				expand || 'w-68px'
-			)}
+			className={cls('relative flex flex-col h-screen border-r-bd-line border-r bg-bg-2 p-[16px_12px]', {
+				'transition-width-300': !dragging,
+				'w-68px': !expand
+			})}
 			style={sidebar_style}
 		>
 			<div className="h-32px m-b-24px">
