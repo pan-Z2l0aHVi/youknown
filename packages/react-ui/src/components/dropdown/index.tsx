@@ -6,7 +6,8 @@ import Trigger, { EventsByTriggerNeed } from '../trigger'
 import { pick, pickDataAttrs } from '@youknown/utils/src'
 import { closeDropdown } from './closeDropdown'
 
-interface DropdownProps extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'growTransformOrigin' | 'motion'> {
+interface DropdownProps
+	extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'growTransformOrigin' | 'content' | 'motion'> {
 	content?: ReactNode
 }
 

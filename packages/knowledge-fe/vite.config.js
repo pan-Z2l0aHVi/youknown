@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { visualizer } from 'rollup-plugin-visualizer'
-import { swcReactRefresh } from 'vite-plugin-swc-react-refresh'
+import react from '@vitejs/plugin-react-swc'
 import Unocss from 'unocss/vite'
 import { presetUno } from 'unocss'
 import presetRemToPx from '@unocss/preset-rem-to-px'
@@ -12,7 +12,7 @@ export default defineConfig({
 	base: '',
 	plugins: [
 		tsconfigPaths(),
-		swcReactRefresh(),
+		react(),
 		visualizer(),
 		Unocss({
 			presets: [presetUno(), presetRemToPx(), presetScrollbar()],

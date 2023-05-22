@@ -1,12 +1,12 @@
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { visualizer } from 'rollup-plugin-visualizer'
-import { swcReactRefresh } from 'vite-plugin-swc-react-refresh'
+import react from '@vitejs/plugin-react-swc'
 import { resolve } from 'path'
 
 export default defineConfig({
 	base: '',
-	plugins: [tsconfigPaths(), swcReactRefresh(), visualizer()],
+	plugins: [tsconfigPaths(), react(), visualizer()],
 	server: {},
 	resolve: {
 		alias: {

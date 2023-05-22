@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom'
 import { UI_PREFIX } from '../../constants'
 import './modal.scss'
 import { FloatingOverlay } from '@floating-ui/react'
-import { useZIndex } from '../../hooks/use-z-index'
+import { useZIndex } from '../../hooks/useZIndex'
 
 // TODO: 弹出位置动画
 let mousePosition: { x: number; y: number } | null = null
