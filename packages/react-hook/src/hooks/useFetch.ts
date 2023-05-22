@@ -11,7 +11,7 @@ interface Options<T extends Request> {
 	refreshDeps?: any[]
 	params?: Parameters<T>
 	onSuccess?(res: PromiseFnResult<T>): void
-	onError?(err: Error | null): void
+	onError?(err: any): void
 }
 
 export function useFetch<T extends Request, S extends Options<T>>(fetcher: T, opts: S) {
@@ -21,47 +21,43 @@ export function useFetch<T extends Request, S extends Options<T>>(fetcher: T, op
 	const _refreshDeps = manual ? [] : refreshDeps
 
 	const [data, setData] = useState(optsRef.current.initialData)
-	const [error, setError] = useState<Error | null>(null)
+	const [error, setError] = useState<any>(null)
 	const [loading, setLoading] = useState(false)
 	const fetchCount = useRef(0)
 
-	const run = useCallback(
-		(...args: Parameters<T>[]) => {
-			if (!ready) return
+	const run = useCallback(() => {
+		if (!ready) return
 
-			const preCount = fetchCount.current
-			const { onSuccess, onError } = optsRef.current
-			setError(null)
-			const loadingTimer = setTimeout(() => {
-				setLoading(true)
-			}, loadingDelay)
+		const preCount = fetchCount.current
+		const { onSuccess, onError, params = [] } = optsRef.current
+		setError(null)
+		const loadingTimer = setTimeout(() => {
+			setLoading(true)
+		}, loadingDelay)
 
-			fetcherRef
-				.current(...args)
-				.then((res: PromiseFnResult<T>) => {
-					if (fetchCount.current !== preCount) return
-					onSuccess?.(res)
-					setData(res)
-				})
-				.catch((err: PromiseFnResult<T>) => {
-					if (fetchCount.current !== preCount) return
-					onError?.(new Error(err))
-					setError(new Error(err))
-				})
-				.finally(() => {
-					if (fetchCount.current !== preCount) return
-					clearTimeout(loadingTimer)
-					setLoading(false)
-				})
-		},
-		[loadingDelay, optsRef, ready, fetcherRef]
-	)
+		fetcherRef
+			.current(...params)
+			.then((res: PromiseFnResult<T>) => {
+				if (fetchCount.current !== preCount) return
+				onSuccess?.(res)
+				setData(res)
+			})
+			.catch((err: PromiseFnResult<T>) => {
+				if (fetchCount.current !== preCount) return
+				onError?.(err)
+				setError(err)
+			})
+			.finally(() => {
+				if (fetchCount.current !== preCount) return
+				clearTimeout(loadingTimer)
+				setLoading(false)
+			})
+	}, [fetcherRef, loadingDelay, optsRef, ready])
 
 	useEffect(
 		() => {
 			if (!manual) {
-				const { params = [] } = optsRef.current
-				run(...params)
+				run()
 			}
 			return () => {
 				fetchCount.current += 1

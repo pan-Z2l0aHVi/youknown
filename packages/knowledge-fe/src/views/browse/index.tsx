@@ -1,4 +1,3 @@
-import BackTop from '@/app/components/back-top'
 import Header from '@/app/components/header'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Card, Input, List, Modal, Tabs } from '@youknown/react-ui/src'
@@ -32,8 +31,6 @@ export default function Browse() {
 					onFocus={show_search_modal}
 				/>
 			</Header>
-
-			<BackTop />
 
 			<Modal open={search_modal_open} onCancel={hide_search_modal} unmountOnExit alignCenter={false}>
 				<Card className="p-0 bg-bg-2! w-560px! m-t-160px" shadow>

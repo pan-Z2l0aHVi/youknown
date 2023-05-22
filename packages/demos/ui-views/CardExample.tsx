@@ -44,7 +44,7 @@ export default () => {
 				Content
 			</Card>
 			<Divider />
-			<Loading>
+			<Loading spinning>
 				<Card header="Loading card">Content</Card>
 			</Loading>
 		</div>

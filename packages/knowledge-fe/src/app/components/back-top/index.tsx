@@ -9,7 +9,7 @@ interface BackTop {
 	threshold?: number
 }
 export default function BackTop(props: BackTop) {
-	const { threshold = 400 } = props
+	const { threshold = window.innerHeight } = props
 	const [visible, { setTrue: show, setFalse: hide }] = useBoolean(false)
 	const target = useAppContentEl()
 
@@ -40,7 +40,7 @@ export default function BackTop(props: BackTop) {
 				<Button
 					circle
 					size="large"
-					className="z-9 fixed right-48px bottom-32px shadow-shadow-m bg-bg1!"
+					className="shadow-shadow-m bg-bg1! hover-brightness-95 active-brightness-90"
 					onClick={handle_to_top}
 				>
 					<TbArrowBarToUp className="text-22px" />

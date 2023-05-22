@@ -1,4 +1,3 @@
-import BackTop from '@/app/components/back-top'
 import Header from '@/app/components/header'
 import More from '@/components/more'
 import Editor from '@youknown/react-editor/src'
@@ -96,8 +95,6 @@ export default function Doc() {
 					{more_dropdown}
 				</Space>
 			</Header>
-
-			<BackTop />
 
 			<DocDeleteDialog open={doc_delete_dialog_open} hide_dialog={hide_doc_delete_dialog} />
 			<DocSaveDialog open={doc_save_dialog_open} hide_dialog={hide_doc_save_dialog} />

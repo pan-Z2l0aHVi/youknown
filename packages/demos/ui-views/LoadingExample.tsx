@@ -17,6 +17,12 @@ export default () => {
 			</Space>
 			<Divider />
 			<Space size="large">
+				<Loading bordered size="small" spinning />
+				<Loading bordered size="medium" spinning />
+				<Loading bordered size="large" spinning />
+			</Space>
+			<Divider />
+			<Space size="large">
 				<Loading icon={<TbLoader />} size="small" spinning />
 				<Loading icon={<TbLoader />} size="medium" spinning />
 				<Loading icon={<TbLoader />} size="large" spinning />
@@ -34,6 +40,9 @@ export default () => {
 					<Loading spinning={spinning} />
 					<Loading spinning={spinning}>
 						<Card header="Loading wrapper">Content</Card>
+					</Loading>
+					<Loading bordered spinning={spinning}>
+						<Card header="Bordered spinning">Content</Card>
 					</Loading>
 					<Loading icon={<TbLoader />} spinning={spinning}>
 						<Card header="Custom spinning icon">Content</Card>

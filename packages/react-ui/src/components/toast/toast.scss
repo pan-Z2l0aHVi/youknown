@@ -4,7 +4,7 @@ $prefix: '#{$ui-prefix}-toast';
 .#{$prefix} {
 	@include basic;
 	position: fixed;
-	padding: 12px;
+	margin: 12px;
 	
 	&-top-left {
 		top: 0;

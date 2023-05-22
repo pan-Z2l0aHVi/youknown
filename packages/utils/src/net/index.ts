@@ -17,8 +17,8 @@ export interface Request {
 export interface Context {
 	req: Request
 	res: Response
-	data: unknown
-	err: unknown
+	data: any
+	err: any
 }
 
 export default class Net {
@@ -38,7 +38,7 @@ export default class Net {
 		inst.baseConf = {
 			baseURL: '',
 			mode: 'cors',
-			credentials: 'include',
+			credentials: 'omit',
 			...baseConf,
 			headers: mergedHeaders
 		}
@@ -52,17 +52,11 @@ export default class Net {
 
 	private get fullMiddleware() {
 		return asyncCompose([
-			this.initConfigure.bind(this),
 			...this.middlewares,
 			this.formatPayload.bind(this),
 			this.errorMiddleware.bind(this),
 			this.fetchMiddleware.bind(this)
 		])
-	}
-
-	private async initConfigure(ctx: Context, next: Next): Promise<void> {
-		ctx.req.configure = this.baseConf
-		await next()
 	}
 
 	private async formatPayload(ctx: Context, next: Next): Promise<void> {
@@ -102,7 +96,7 @@ export default class Net {
 
 	private request(ctx: Context): Promise<Response> {
 		const reqInfo = QS.stringify({
-			base: `${ctx.req.configure.baseURL}/${ctx.req.url}`,
+			base: `${ctx.req.configure.baseURL}${ctx.req.url}`,
 			query: ctx.req.configure.params ?? {}
 		})
 		const reqInit = pick(
@@ -148,23 +142,23 @@ export default class Net {
 	}
 }
 
-// middleware
-const net = Net.create({
-	headers: {
-		'custom-header': '123123'
-	}
-})
-;(window as any).net = net
+// // middleware
+// const net = Net.create({
+// 	headers: {
+// 		'custom-header': '123123'
+// 	}
+// })
+// ;(window as any).net = net
 
-net.use(async (ctx, next) => {
-	console.log('a1', ctx)
-	await next()
-	console.log('a2', ctx)
-}).use(async (ctx, next) => {
-	console.log('b1', ctx)
-	await next()
-	console.log('b2', ctx)
-})
+// net.use(async (ctx, next) => {
+// 	console.log('a1', ctx)
+// 	await next()
+// 	console.log('a2', ctx)
+// }).use(async (ctx, next) => {
+// 	console.log('b1', ctx)
+// 	await next()
+// 	console.log('b2', ctx)
+// })
 
 /*===================== Basic =====================*/
 // net.fetch('fetch_test.json', {

@@ -316,6 +316,7 @@ const Select: FC<SelectProps> = props => {
 			onOpenChange={setDropdownVisible}
 			onClickOutside={handleClickOutside}
 			content={dropdownContentEle}
+			spacing={4}
 		>
 			{/* 加一层，防止影响计算宽度 */}
 			<div style={{ width: 'max-content' }}>

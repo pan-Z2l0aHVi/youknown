@@ -5,11 +5,8 @@ $prefix: '#{$ui-prefix}-loading';
 	@include basic;
 
 	&-icon {
-		display: inline-block;
+		display: flex;
 		color: $color-primary;
-		width: 1em;
-		height: 1em;
-		line-height: 1em;
 
 		&-small {
 			font-size: 12px;
@@ -21,6 +18,24 @@ $prefix: '#{$ui-prefix}-loading';
 
 		&-large {
 			font-size: 48px;
+		}
+
+		&-bordered {
+			background-color: $bg-1;
+			box-shadow: $shadow-m;
+			border-radius: $round;
+			
+			&.#{$prefix}-icon-small {
+				padding: 4px;	
+			}
+
+			&.#{$prefix}-icon-medium {
+				padding: 8px;	
+			}
+
+			&.#{$prefix}-icon-large {
+				padding: 12px;	
+			}
 		}
 	}
 

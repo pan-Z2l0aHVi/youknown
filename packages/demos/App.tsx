@@ -51,7 +51,7 @@ const App = () => {
 					</Space>
 				</div>
 				<div className="content">
-					<Suspense fallback={<Loading />}>{contentEle}</Suspense>
+					<Suspense fallback={<Loading spinning />}>{contentEle}</Suspense>
 				</div>
 			</div>
 		</div>

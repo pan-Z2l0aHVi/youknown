@@ -45,8 +45,10 @@ $prefix: '#{$ui-prefix}-image';
 	}
 
 	&-icon-wrap {
-		&:hover {
-			color: $color-primary;
+		&:not(&-disabled) {
+			&:hover {
+				color: $color-primary;
+			}
 		}
 	}
 
@@ -62,9 +64,9 @@ $prefix: '#{$ui-prefix}-image';
 		transform: translate(-50%, -50%);
 		padding: 6px 16px;
 		border-radius: $round;
-		background: #555;
+		background: rgba($color: #000000, $alpha: 0.6);
+		backdrop-filter: blur(24px);
 		color: #fff;
-		font-weight: 500;
 	}
 
 	&-toolbar {

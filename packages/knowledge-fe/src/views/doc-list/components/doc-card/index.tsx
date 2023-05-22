@@ -8,6 +8,7 @@ import { cls } from '@youknown/utils/src'
 import dayjs from 'dayjs'
 import React, { useRef } from 'react'
 import { GoCheck } from 'react-icons/go'
+import { RiHistoryFill } from 'react-icons/ri'
 
 interface DocCardProps {
 	choosing: boolean
@@ -73,12 +74,15 @@ export default function DocCard(props: DocCardProps) {
 					unmountOnExit
 				>
 					<div className="flex items-center justify-between p-12px bg-bg-1 b-t-bd-line b-t-1 cursor-default">
-						<div className="color-text-3 text-12px">{dayjs(updated_at).format('YYYY-MM-DD')}</div>
+						<div className="flex items-center color-text-3">
+							<RiHistoryFill className="m-r-4px text-14px" />
+							<span className="text-12px">{dayjs(updated_at).format('YYYY-MM-DD')}</span>
+						</div>
 
 						<Dropdown
 							trigger="click"
 							content={
-								<Dropdown.Menu className="w-104px">
+								<Dropdown.Menu className="w-120px">
 									<Dropdown.Item closeAfterItemClick onClick={select_doc}>
 										<span>编辑</span>
 									</Dropdown.Item>

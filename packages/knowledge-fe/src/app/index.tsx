@@ -8,6 +8,7 @@ import { cls } from '@youknown/utils/src'
 import { useAppDispatch } from '@/hooks'
 import { set_dark_theme, set_hue, set_radius } from '@/store/ui'
 import { get_local_settings } from '@/libs/local'
+import FabBar from './components/fab-bar'
 
 export default function App() {
 	const content = useRoutes(routes)
@@ -31,9 +32,9 @@ export default function App() {
 
 			<Suspense
 				fallback={
-					<Loading size="large" className="flex-1">
-						<div className="h-screen"></div>
-					</Loading>
+					<div className="flex-1 h-screen flex justify-center items-center">
+						<Loading spinning size="large" />
+					</div>
 				}
 			>
 				<div
@@ -41,6 +42,8 @@ export default function App() {
 					className={cls('flex-1 h-screen overflow-y-auto overflow-y-overlay scrollbar-custom')}
 				>
 					{content}
+
+					<FabBar />
 				</div>
 			</Suspense>
 		</div>

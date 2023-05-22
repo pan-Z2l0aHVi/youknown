@@ -5,10 +5,12 @@ body {
 	-moz-osx-font-smoothing: auto;
 	overscroll-behavior: none;
 
-	overflow: hidden;
 	font-size: var(--font-size);
 	color: var(--text-1);
 	background-color: var(--bg-0);
+
+	min-width: 1200px;
+	overflow-y: hidden;
 }
 
 :root {

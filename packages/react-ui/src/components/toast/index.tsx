@@ -119,6 +119,7 @@ const ExportToast: {
 			if (!box) {
 				box = document.createElement('div')
 				box.id = boxId
+				box.style.zIndex = '8000'
 				document.body.appendChild(box)
 			}
 			boxRoot = boxRoot ?? createRoot(box)

@@ -21,7 +21,7 @@ const style_options: StyleItem[] = [
 		desc: '大圆角'
 	}
 ]
-const hue_options = ['#d83931', '#de7802', '#dc9b04', '#21a121', '#40a9ff', '#245bdb', '#b197fc', '#6425d0']
+const hue_options = ['#007aff', '#af52de', '#ff2d55', '#ff3b30', '#ff9500', '#ffcc00', '#34c759', '#8e8e93']
 
 interface StyleItem {
 	id: 1 | 2 | 3
@@ -133,7 +133,7 @@ export default function Preferences() {
 
 	return (
 		<div className="w-480px h-640px max-w-[calc(100vw-32px)] p-24px">
-			<Form form={form} labelWidth="80px">
+			<Form form={form} labelWidth="108px">
 				<Form.Field label="style" labelText="界面风格">
 					<RadiusStyle />
 				</Form.Field>

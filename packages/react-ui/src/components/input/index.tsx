@@ -19,7 +19,7 @@ import './input.scss'
 import Textarea from './Textarea'
 
 interface InputProps extends Omit<HTMLAttributes<HTMLInputElement>, 'maxLength' | 'onChange' | 'prefix'> {
-	value?: string | number
+	value?: string
 	size?: 'small' | 'medium' | 'large'
 	round?: boolean
 	bordered?: boolean
@@ -29,7 +29,7 @@ interface InputProps extends Omit<HTMLAttributes<HTMLInputElement>, 'maxLength' 
 	suffix?: ReactNode
 	allowClear?: boolean
 	autoFocus?: boolean
-	onChange?: ChangeEventHandler<HTMLInputElement> & ((value: string | number) => void)
+	onChange?: ChangeEventHandler<HTMLInputElement> & ((value: string) => void)
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>((props, propRef) => {

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import BackTop from '@/app/components/back-top'
 import Header from '@/app/components/header'
 import { Button, Drawer, Form, Input, Motion, Select, Space, Tooltip } from '@youknown/react-ui/src'
-import { TbChecks, TbFilter, TbPlus, TbCheckbox, TbSquareX, TbTrashX, TbX } from 'react-icons/tb'
+import { TbChecks, TbFilter, TbPlus, TbCheckbox, TbTrashX, TbX } from 'react-icons/tb'
 import DocCard from './components/doc-card'
 import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import { get_doc_list } from '@/api'
@@ -69,7 +68,7 @@ export default function DocList() {
 							]}
 						/>
 					</Form.Field>
-					<Form.Field>
+					<Form.Field labelText=" ">
 						<Space>
 							<Button onClick={close_filter}>取消</Button>
 							<Button type="submit" primary>
@@ -177,7 +176,6 @@ export default function DocList() {
 	return (
 		<>
 			{header}
-			<BackTop />
 			<div className="p-32px">{loading || doc_card_list}</div>
 			{choosing_bar}
 			<DocDeleteDialog open={doc_delete_dialog_open} hide_dialog={hide_doc_delete_dialog} />

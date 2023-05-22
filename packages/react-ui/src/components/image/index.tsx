@@ -25,10 +25,14 @@ type Coordinate = {
 	y: number
 } | null
 interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+	open?: boolean
 	detailSrc?: string | (() => Promise<string>)
 	toolbarVisible?: boolean
 	detailDisabled?: boolean
 	scaleRange?: number[]
+	onOpenChange?: (open: boolean) => void
+	onDownloadSuccess?: () => void
+	onDownloadError?: (err: string | Event) => void
 }
 
 const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
@@ -36,18 +40,20 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 		className,
 		src = '',
 		detailSrc = src,
+		open = false,
 		toolbarVisible = true,
 		detailDisabled = false,
 		scaleRange = [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 5, 8],
+		onOpenChange,
 		onClick,
+		onDownloadSuccess,
+		onDownloadError,
 		...rest
 	} = props
 
 	const innerRef = useRef<HTMLImageElement>(null)
 	const imgRef = useComposeRef(propRef, innerRef)
 	const imgDetailRef = useRef<HTMLImageElement>(null)
-
-	const [detailOpen, { setTrue: showDetail, setFalse: hideDetail }] = useBoolean(false)
 
 	const scaleRangeRef = useLatestRef(scaleRange)
 	const originalScaleIndex = scaleRangeRef.current.indexOf(1)
@@ -63,6 +69,24 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 	const [_detailSrc, _setDetailSrc] = useState('')
 	const [dragging, setDragging] = useState(false)
 	const draggingRef = useLatestRef(dragging)
+
+	const [detailOpen, setDetailOpen] = useState(false)
+	const showDetail = useCallback(() => {
+		setDetailOpen(true)
+		onOpenChange?.(true)
+	}, [onOpenChange])
+	const hideDetail = useCallback(() => {
+		setDetailOpen(false)
+		onOpenChange?.(false)
+	}, [onOpenChange])
+
+	useEffect(() => {
+		if (open) {
+			showDetail()
+		} else {
+			hideDetail()
+		}
+	}, [hideDetail, open, showDetail])
 
 	const handleDragDetailStart: MouseEventHandler<HTMLImageElement> = event => {
 		setDragging(true)
@@ -181,43 +205,43 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 
 	const toolbarList = [
 		{
-			id: 0,
+			id: 'download',
 			title: '下载',
 			icon: <TbDownload className={`${prefixCls}-detail-icon`} />,
 			handler: handleDownload
 		},
 		{
-			id: 1,
+			id: 'left-rotate',
 			title: '逆时针旋转',
 			icon: <TbRotate className={`${prefixCls}-detail-icon`} />,
 			handler: handleLeftRotate
 		},
 		{
-			id: 2,
+			id: 'right-rotate',
 			title: '顺时针旋转',
 			icon: <TbRotateClockwise className={`${prefixCls}-detail-icon`} />,
 			handler: handleRightRotate
 		},
 		{
-			id: 3,
+			id: 'shrink',
 			title: '缩小',
 			icon: <TbZoomOut className={`${prefixCls}-detail-icon`} />,
 			handler: handleZoomOut
 		},
 		{
-			id: 4,
+			id: 'swell',
 			title: '放大',
 			icon: <TbZoomIn className={`${prefixCls}-detail-icon`} />,
 			handler: handleZoomIn
 		},
 		{
-			id: 5,
-			title: '恢复原始尺寸',
+			id: 'reset',
+			title: '恢复初始尺寸',
 			icon: <TbRelationOneToOne className={`${prefixCls}-detail-icon`} />,
 			handler: handleReset
 		},
 		{
-			id: 6,
+			id: 'close',
 			title: '关闭',
 			icon: <TbX className={`${prefixCls}-detail-icon`} />,
 			handler: hideDetail
@@ -232,10 +256,12 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 					{toolbarList.map(item => (
 						<Tooltip key={item.id} spacing={12} placement="top" title={item.title}>
 							<Button
-								className={`${prefixCls}-detail-icon-wrap`}
+								className={cls(`${prefixCls}-detail-icon-wrap`, {
+									[`${prefixCls}-detail-icon-wrap-disabled`]: detailLoading
+								})}
 								circle
 								text
-								disabled={detailLoading}
+								disabled={item.id !== 'close' && detailLoading}
 								onClick={item.handler}
 							>
 								{item.icon}
@@ -258,7 +284,9 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 					}
 				}}
 			>
-				{detailLoading && <Loading className={`${prefixCls}-detail-loading-icon`} size="large" />}
+				<div className={`${prefixCls}-detail-loading-icon`}>
+					<Loading spinning={detailLoading} bordered size="large" />
+				</div>
 
 				<img
 					ref={imgDetailRef}
@@ -266,6 +294,7 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 						[`${prefixCls}-detail-pic-loaded`]: !detailLoading
 					})}
 					src={_detailSrc}
+					loading="lazy"
 					draggable={false}
 					style={{
 						transform: `scale(${scale}) rotate(${rotate}deg)`,
@@ -305,10 +334,12 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 					if (is.string(detailSrc)) {
 						_setDetailSrc(detailSrc)
 						showDetail()
+						onOpenChange?.(true)
 					} else {
 						detailSrc().then(url => {
 							_setDetailSrc(url)
 							showDetail()
+							onOpenChange?.(true)
 						})
 					}
 				}}

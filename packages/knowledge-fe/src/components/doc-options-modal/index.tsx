@@ -57,7 +57,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 								]}
 							/>
 						</Form.Field>
-						<Form.Field className="m-b-0! m-t-16px">
+						<Form.Field labelText=" " className="m-b-0! m-t-16px">
 							<Space>
 								<Button onClick={hide_modal}>取消</Button>
 								<Button type="submit" primary>

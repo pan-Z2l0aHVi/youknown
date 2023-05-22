@@ -15,7 +15,7 @@ const AspectRatio: FC<AspectRatioProps> = props => {
 	return (
 		<div
 			className={cls(className, prefixCls)}
-			style={{ ...style, paddingBottom: `calc(${ratio} * 100%);` }}
+			style={{ ...style, paddingBottom: `calc(${ratio} * 100%)` }}
 			{...rest}
 		>
 			<div className={`${prefixCls}-content`}>{children}</div>

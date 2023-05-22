@@ -31,13 +31,13 @@ export interface Form<S = any> {
 	onSubmit: FormEventHandler<Element>
 	subscribe(label: Field<S>['label'], options?: Field<S>['options']): FieldController<S>
 	unsubscribe(label: string): void
+	reset(): void
 }
 
 export function useForm<S extends State>(options: Options<S>): Form<S> {
 	const opts = useLatestRef(options)
 
-	const [defaultState] = useState(opts.current.defaultState)
-	const state = useRef<S>(defaultState)
+	const state = useRef<S>(opts.current.defaultState)
 	const fields = useRef<Field<S>[]>([])
 	const controllerMap = useRef<Partial<Record<Field<S>['label'], any>>>({})
 
@@ -53,6 +53,10 @@ export function useForm<S extends State>(options: Options<S>): Form<S> {
 			})
 		})
 	}, [])
+
+	const reset = useCallback(() => {
+		setState(opts.current.defaultState)
+	}, [opts, setState])
 
 	const submit = useCallback(() => {
 		opts.current.onFulfilled?.(state.current)
@@ -84,14 +88,14 @@ export function useForm<S extends State>(options: Options<S>): Form<S> {
 			}
 
 			if (is.undefined(state.current[label])) {
-				controller.defaultValue = defaultState[label]
+				controller.defaultValue = opts.current.defaultState[label]
 			} else {
 				controller.value = state.current[label]
 			}
 			controllerMap.current[label] = controller
 			return controller
 		},
-		[defaultState, opts]
+		[opts]
 	)
 	const unsubscribe = useCallback((label: string) => {
 		fields.current = fields.current.filter(field => field.label !== label)
@@ -104,7 +108,8 @@ export function useForm<S extends State>(options: Options<S>): Form<S> {
 		setState,
 		onSubmit,
 		subscribe,
-		unsubscribe
+		unsubscribe,
+		reset
 	})
 	return form
 }

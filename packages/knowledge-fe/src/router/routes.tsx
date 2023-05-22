@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { TbHistory, TbStar, TbNotes, TbLayout, TbBook2 } from 'react-icons/tb'
+import { TbHistory, TbStar, TbNotes, TbLayout, TbBook2, TbWallpaper, TbDeviceDesktop } from 'react-icons/tb'
 import { Navigate, RouteObject } from 'react-router-dom'
 import { create_lazy_element } from './create-lazy-element'
 
@@ -57,10 +57,18 @@ export const nav_routes = [
 		]
 	},
 	{
+		path: 'wallpaper',
+		element: create_lazy_element(() => import('@/views/wallpaper')),
+		state: {
+			nav_name: '壁纸',
+			icon: <TbDeviceDesktop />
+		}
+	},
+	{
 		path: 'favorites',
 		element: create_lazy_element(() => import('@/views/favorites')),
 		state: {
-			nav_name: ' 收藏夹',
+			nav_name: '收藏夹',
 			icon: <TbStar />
 		}
 	},

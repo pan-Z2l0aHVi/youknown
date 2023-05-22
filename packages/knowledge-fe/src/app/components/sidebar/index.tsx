@@ -61,7 +61,7 @@ export default function Sidebar() {
 
 	const drag_divider = expand ? (
 		<div
-			className="group absolute right--8px top-0 p-[4px_8px] h-100% cursor-col-resize active:cursor-col-resize"
+			className="group absolute right--8px top-0 p-[4px_8px] h-100% cursor-col-resize active:cursor-col-resize select-none"
 			onMouseDown={start_drag}
 		>
 			<div
@@ -89,7 +89,7 @@ export default function Sidebar() {
 
 			<Menu expand={expand} />
 
-			<Suspense fallback={<Loading />}>
+			<Suspense fallback={<Loading spinning />}>
 				<Account expand={expand} />
 			</Suspense>
 

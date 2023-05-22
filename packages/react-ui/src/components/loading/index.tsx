@@ -7,8 +7,8 @@ import Motion from '../motion'
 
 interface LoadingProps extends HTMLAttributes<HTMLElement> {
 	spinning?: boolean
+	bordered?: boolean
 	size?: 'small' | 'medium' | 'large'
-	speed?: 'slow' | 'normal' | 'fast'
 	icon?: ReactNode
 	description?: ReactNode
 }
@@ -18,8 +18,8 @@ const Loading = forwardRef<HTMLDivElement, LoadingProps>((props, propRef) => {
 		className,
 		children,
 		spinning = false,
+		bordered = false,
 		size = 'medium',
-		speed = 'normal',
 		icon = <SpinSvg />,
 		description,
 		...rest
@@ -29,8 +29,7 @@ const Loading = forwardRef<HTMLDivElement, LoadingProps>((props, propRef) => {
 	const prefixCls = `${UI_PREFIX}-loading`
 	const iconWrapCls = cls(className, `${prefixCls}-icon`, {
 		[`${prefixCls}-icon-${size}`]: size,
-		[`${prefixCls}-icon-spinning`]: spinning,
-		[`${prefixCls}-icon-spinning-${speed}`]: speed
+		[`${prefixCls}-icon-bordered`]: bordered
 	})
 
 	if (isWrap)
@@ -54,11 +53,11 @@ const Loading = forwardRef<HTMLDivElement, LoadingProps>((props, propRef) => {
 		)
 
 	return (
-		<Motion.Fade in={spinning}>
+		<Motion.Zoom in={spinning}>
 			<div ref={propRef} className={iconWrapCls} {...rest}>
 				{icon}
 			</div>
-		</Motion.Fade>
+		</Motion.Zoom>
 	)
 })
 Loading.displayName = 'Loading'

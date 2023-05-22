@@ -7,7 +7,7 @@ import React, {
 	LabelHTMLAttributes,
 	useContext
 } from 'react'
-import { useUpdate, Form, FieldController } from '@youknown/react-hook/src'
+import { useUpdate, Form } from '@youknown/react-hook/src'
 import { cls } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import { FormContext, FormCtx } from './FormCtx'
@@ -39,10 +39,12 @@ const Field = forwardRef<HTMLLabelElement & HTMLDivElement, FieldProps>((props, 
 	if (!_form || !label)
 		return (
 			<div ref={propRef} className={wrapCls} {...rest}>
-				<label className={`${prefixCls}-label`} style={{ width: labelAttrs.width }}>
-					{labelText}
-					{labelAttrs.suffix}
-				</label>
+				{labelText && (
+					<label className={`${prefixCls}-label`} style={{ width: labelAttrs.width }}>
+						{labelText}
+						{labelAttrs.suffix}
+					</label>
+				)}
 				<div className={`${prefixCls}-control`}>
 					<div className={`${prefixCls}-control-inner`}>{children}</div>
 				</div>
@@ -58,10 +60,12 @@ const Field = forwardRef<HTMLLabelElement & HTMLDivElement, FieldProps>((props, 
 
 	return (
 		<div ref={propRef} className={wrapCls} {...rest}>
-			<label className={`${prefixCls}-label`} style={{ width: labelAttrs.width }}>
-				{labelText}
-				{labelAttrs.suffix}
-			</label>
+			{labelText && (
+				<label className={`${prefixCls}-label`} style={{ width: labelAttrs.width }}>
+					{labelText}
+					{labelAttrs.suffix}
+				</label>
+			)}
 			<div className={`${prefixCls}-control`}>
 				<div className={`${prefixCls}-control-inner`}>
 					{isValidElement(child) && cloneElement(child, controllerProps)}

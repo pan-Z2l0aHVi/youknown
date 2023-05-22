@@ -21,7 +21,7 @@ const Avatar = forwardRef<HTMLDivElement, AvatarProps>((props, ref) => {
 		size = 'medium',
 		src,
 		round = false,
-		color = '#ccc',
+		color = 'var(--g-bg-3)',
 		fallback,
 		badge,
 		style,
