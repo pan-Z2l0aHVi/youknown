@@ -1,19 +1,15 @@
 {
-    "extends": "../../tsconfig.base.json",
-    "compilerOptions": {
-        "baseUrl": ".",
-        "jsx": "react",
-        "target": "ESNext",
-        "module": "ES2020",
-        "outDir": "./types",
-        "emitDeclarationOnly": true
-    },
-    "exclude": [
-        "./dist/**/*",
-        "./types/**/*",
-        "**/*.test.ts",
-        "**/*.spec.ts",
-        "**/*.test.tsx",
-        "**/*.spec.tsx"
-    ]
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"jsx": "react",
+		"target": "ESNext",
+		"module": "ES2020",
+		"outDir": "./types",
+		"emitDeclarationOnly": true,
+		"paths": {
+		}
+	},
+	"include": ["./src/**/*"],
+	"exclude": ["./dist/**/*", "./types/**/*", "**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx", "**/*.spec.tsx"]
 }

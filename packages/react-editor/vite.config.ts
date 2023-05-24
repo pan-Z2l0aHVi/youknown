@@ -7,6 +7,9 @@ import styleInject from 'vite-plugin-css-injected-by-js'
 export default defineConfig({
 	base: '',
 	plugins: [tsconfigPaths(), react(), styleInject()],
+	resolve: {
+		alias: {}
+	},
 	build: {
 		lib: {
 			formats: ['es'],

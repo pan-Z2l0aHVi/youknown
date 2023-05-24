@@ -16,7 +16,6 @@
         "forceConsistentCasingInFileNames": true,
         "noImplicitThis": false,
         "sourceMap": false,
-        "declaration": true,
-        "outDir": "./dist",
+        "declaration": true
     }
 }

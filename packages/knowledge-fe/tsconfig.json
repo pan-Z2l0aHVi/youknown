@@ -7,17 +7,11 @@
 		"module": "CommonJS",
 		"esModuleInterop": true,
 		"declaration": false,
+		"noEmit": true,
 		"paths": {
-			"@/*": [
-				"src/*"
-			]
-		},
+			"@/*": ["src/*"]
+		}
 	},
-	"exclude": [
-		"./dist/**/*",
-		"**/*.test.ts",
-		"**/*.spec.ts",
-		"**/*.test.tsx",
-		"**/*.spec.tsx"
-	]
+	"include": ["./src/**/*"],
+	"exclude": ["./dist/**/*", "**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx", "**/*.spec.tsx"]
 }

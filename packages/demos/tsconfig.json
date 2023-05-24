@@ -7,20 +7,11 @@
 		"module": "CommonJS",
 		"esModuleInterop": true,
 		"declaration": false,
+		"noEmit": true,
 		"paths": {
-			"@editor/*": [
-				"editor-views/*"
-			],
-			"@ui/*": [
-				"ui-views/*"
-			]
-		},
+			"@editor/*": ["editor-views/*"],
+			"@ui/*": ["ui-views/*"]
+		}
 	},
-	"exclude": [
-		"./dist/**/*",
-		"**/*.test.ts",
-		"**/*.spec.ts",
-		"**/*.test.tsx",
-		"**/*.spec.tsx"
-	]
+	"exclude": ["./dist/**/*", "**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx", "**/*.spec.tsx"]
 }
