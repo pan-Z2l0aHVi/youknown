@@ -50,7 +50,7 @@ $prefix: '#{$ui-editor-prefix}-text-align-picker';
 			}
 
 			&.active {
-				background: $color-active;
+				background: $color-hover;
 			}
 		}
 	}

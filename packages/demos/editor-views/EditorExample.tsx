@@ -113,21 +113,32 @@ export default () => {
 					保存
 				</Button>
 			</div>
-			<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 16 }}>
+			<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 				<div
 					style={{
-						padding: 4,
 						position: 'sticky',
-						top: 80,
-						background: 'var(--g-bg-2)',
-						border: '1px solid var(--g-bd-line)',
-						borderRadius: 8,
-						zIndex: 30
+						top: 64,
+						background: 'var(--g-bg-0)',
+						zIndex: 30,
+						display: 'flex',
+						justifyContent: 'center',
+						width: '100%',
+						paddingBottom: 8,
+						borderBottom: '1px solid var(--g-bd-line)'
 					}}
 				>
-					<Editor.Toolbar editor={editor}></Editor.Toolbar>
+					<div
+						style={{
+							padding: 4,
+							background: 'var(--g-bg-2)',
+							border: '1px solid var(--g-bd-line)',
+							borderRadius: 8
+						}}
+					>
+						<Editor.Toolbar editor={editor}></Editor.Toolbar>
+					</div>
 				</div>
-				<div style={{ margin: '0 auto', width: 750 }}>
+				<div style={{ margin: '0 auto', width: 750, paddingTop: 48 }}>
 					<Editor.Content editor={editor}></Editor.Content>
 				</div>
 			</div>

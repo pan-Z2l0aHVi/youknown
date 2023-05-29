@@ -35,7 +35,7 @@ export function useFetch<T extends Request, S extends Options<T>>(fetcher: T, op
 			setLoading(true)
 		}, loadingDelay)
 
-		fetcherRef
+		return fetcherRef
 			.current(...params)
 			.then((res: PromiseFnResult<T>) => {
 				if (fetchCount.current !== preCount) return

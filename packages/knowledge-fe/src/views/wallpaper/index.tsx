@@ -6,6 +6,7 @@ import { useFetch, useIntersection } from '@youknown/react-hook/src'
 import { search_wallpapers, Wallpaper } from '@/api'
 import { cls } from '@youknown/utils/src'
 import WallpaperCard from './components/wallpaper-card'
+import { useAppContentEl } from '@/hooks'
 
 const PAGE_SIZE = 24
 
@@ -42,6 +43,15 @@ export default function Wallpaper() {
 			if (res.length < PAGE_SIZE) set_pull_end(true)
 			set_page(p => p + 1)
 			set_wallpapers(p => [...p, ...res])
+			// next tick
+			setTimeout(() => {
+				const wrapper_height = wrapper_ref.current?.getBoundingClientRect().height
+				if (wrapper_height) {
+					if (window.innerHeight > wrapper_height) {
+						do_search()
+					}
+				}
+			})
 		},
 		onError(err) {
 			console.error('err: ', err.stack)
@@ -54,17 +64,25 @@ export default function Wallpaper() {
 		set_page(1)
 		set_pull_end(false)
 	}
-
+	const app_content_el = useAppContentEl()
 	const loading_ref = useRef<HTMLDivElement>(null)
-	const is_intersecting = useIntersection(loading_ref)
+	const is_intersecting = useIntersection(loading_ref, {
+		root: app_content_el,
+		rootMargin: '0px 0px 320px 0px'
+	})
 	useEffect(() => {
 		if (is_intersecting && !is_pull_end) {
 			do_search()
 		}
 	}, [do_search, is_intersecting, is_pull_end])
 
+	const wrapper_ref = useRef<HTMLDivElement>(null)
+
 	const wallpaper_list = (
-		<div className={cls('grid gap-16px items-center justify-center', 'grid-cols-[repeat(auto-fill,240px)]')}>
+		<div
+			ref={wrapper_ref}
+			className={cls('grid gap-16px items-center justify-center', 'grid-cols-[repeat(auto-fill,240px)]')}
+		>
 			{wallpapers.map(wallpaper => (
 				<WallpaperCard
 					key={wallpaper.id}
