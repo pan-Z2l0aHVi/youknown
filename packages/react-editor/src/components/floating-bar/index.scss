@@ -1,0 +1,14 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-editor-prefix}-floating-bar';
+.#{$prefix}-dropdown {
+    max-height: unset;
+
+    .#{$prefix}-icons {
+        display: grid;
+        justify-items: center;
+        gap: 4px;
+        grid-template-columns: repeat(5, auto);
+        padding: 4px 16px 0 16px;
+    }
+}

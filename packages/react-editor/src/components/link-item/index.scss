@@ -1,0 +1,7 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-editor-prefix}-link-item';
+.#{$prefix}-icon {
+    @include icon;
+    margin-left: 12px;
+}

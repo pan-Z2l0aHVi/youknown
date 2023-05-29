@@ -1,9 +1,0 @@
-@use '../../../styles/mixins.scss' as *;
-
-$prefix: '#{$ui-editor-prefix}-img-remove';
-.#{$prefix} {
-    @include icon;
-    @include interactive;
-    padding: 4px;
-    border-radius: $radius-m;
-}

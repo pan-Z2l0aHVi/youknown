@@ -1,0 +1,9 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-editor-prefix}-bullet-list-btn';
+.#{$prefix} {
+    @include icon;
+    @include interactive;
+    padding: 4px;
+    border-radius: $radius-m;
+}

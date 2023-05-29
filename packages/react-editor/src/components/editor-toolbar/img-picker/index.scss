@@ -1,7 +1,0 @@
-@use '../../../styles/mixins.scss' as *;
-
-$prefix: '#{$ui-editor-prefix}-img-picker';
-.#{$prefix} {
-    @include icon;
-    margin-left: 12px;
-}

@@ -1,0 +1,24 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-editor-prefix}-insert';
+.#{$prefix}-btn {
+	@include icon;
+	@include interactive;
+	display: flex;
+    padding: 4px;
+	border-radius: $radius-m;
+
+    .#{$prefix}-icon {
+        font-size: 18px;
+    }
+
+    .#{$prefix}-arrow {
+        font-size: 12px;  
+        color: $text-2; 
+        margin-left: 2px;
+    }
+}
+
+.#{$prefix}-dropdown {
+    min-width: 200px;
+}
