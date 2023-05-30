@@ -1,0 +1,13 @@
+{
+	"plugins": ["react-hooks"],
+	"extends": ["../../.eslintrc.base.json"],
+	"settings": {
+		"react": {
+			"versions": "detect"
+		}
+	},
+	"rules": {
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "error"
+	}
+}

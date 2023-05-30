@@ -10,6 +10,9 @@
         "dist",
         "types"
     ],
+    "engines": {
+        "node": ">=16.0.0"
+    },
     "scripts": {
         "build": "rm -rf ./types && tsc && vite build",
         "watch": "concurrently --kill-others \"tsc -w\" \"vite build --watch\""

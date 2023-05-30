@@ -11,6 +11,9 @@
         "src",
         "dist"
     ],
+    "engines": {
+        "node": ">=16.0.0"
+    },
     "scripts": {
         "build": "rm -rf ./dist && tsc",
         "watch": "tsc -w",

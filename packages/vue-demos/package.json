@@ -1,0 +1,33 @@
+{
+  "name": "@youknown/vue3-demos",
+  "version": "1.0.0",
+  "description": "A vue3 demos project.",
+  "type": "module",
+  "author": "Grey",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@youknown/utils": "workspace:*",
+    "@tiptap/pm": "^2.0.3",
+    "@tiptap/starter-kit": "^2.0.3",
+    "@tiptap/vue-3": "^2.0.3",
+    "vant": "^4.3.2"
+  },
+  "devDependencies": {
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx,vue}": "eslint --cache --fix"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "not dead"
+  ]
+}

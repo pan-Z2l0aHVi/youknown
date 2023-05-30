@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, type PluginOption } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { visualizer } from 'rollup-plugin-visualizer'
 import react from '@vitejs/plugin-react-swc'
@@ -13,7 +13,6 @@ export default defineConfig({
 	plugins: [
 		tsconfigPaths(),
 		react(),
-		visualizer(),
 		Unocss({
 			presets: [presetUno(), presetRemToPx(), presetScrollbar()],
 			shortcuts: [
@@ -57,7 +56,8 @@ export default defineConfig({
 					'shadow-l': 'var(--shadow-l)'
 				}
 			}
-		})
+		}),
+		visualizer() as PluginOption
 	],
 	resolve: {
 		alias: {

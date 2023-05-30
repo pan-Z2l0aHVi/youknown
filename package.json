@@ -3,22 +3,39 @@
     "private": true,
     "author": "Grey",
     "license": "MIT",
+    "engines": {
+        "node": ">=16.0.0"
+    },
     "scripts": {
         "prepare": "husky install",
+        "build:vue-demos": "pnpm -C packages/vue-demos run build",
         "build:react-editor": "pnpm -C packages/react-editor run build",
         "build:react-ui": "pnpm -C packages/react-ui run build",
         "build:react-hook": "pnpm -C packages/react-hook run build",
         "build:utils": "pnpm -C packages/utils run build",
         "build:css": "pnpm -C packages/css run build",
         "build": "turbo run build",
+        "preview:knowledge-fe": "pnpm -C packages/knowledge-fe run preview",
+        "preview:react-demos": "pnpm -C packages/react-demos run preview",
+        "preview:vue-demos": "pnpm -C packages/vue-demos run preview",
         "test:utils": "pnpm -C packages/utils run test",
         "watch:react-editor": "pnpm -C packages/react-editor run watch",
         "watch:react-ui": "pnpm -C packages/react-ui run watch",
         "watch:react-hook": "pnpm -C packages/react-hook run watch",
         "watch:utils": "pnpm -C packages/utils run watch",
         "dev:css": "pnpm -C packages/css run dev",
-        "dev:demos": "pnpm -C packages/demos run dev",
-        "dev:knowledge-fe": "pnpm -C packages/knowledge-fe run dev"
+        "dev:knowledge-fe": "pnpm -C packages/knowledge-fe run dev",
+        "dev:react-demos": "pnpm -C packages/react-demos run dev",
+        "dev:vue-demos": "pnpm -C packages/vue-demos run dev"
+    },
+    "dependencies": {
+        "dayjs": "^1.11.7",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-icons": "^4.8.0",
+        "react-router-dom": "^6.11.2",
+        "vue": "^3.2.47",
+        "vue-router": "^4.2.1"
     },
     "devDependencies": {
         "@types/jest": "^29.5.1",
@@ -48,12 +65,10 @@
         "typescript": "5.0.4",
         "vite": "^4.3.8",
         "vite-plugin-css-injected-by-js": "^3.1.1",
-        "vite-tsconfig-paths": "^4.2.0"
-    },
-    "dependencies": {
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-icons": "^4.8.0",
-        "react-router-dom": "^6.11.2"
+        "vite-tsconfig-paths": "^4.2.0",
+        "@vitejs/plugin-vue": "^4.1.0",
+        "eslint-plugin-vue": "^9.13.0",
+        "vite-plugin-eslint": "^1.8.1",
+        "vue-tsc": "^1.4.2"
     }
 }
