@@ -71,6 +71,12 @@ importers:
       vite-plugin-css-injected-by-js: registry.npmmirror.com/vite-plugin-css-injected-by-js/3.1.1_vite@4.3.8
       vite-tsconfig-paths: registry.npmmirror.com/vite-tsconfig-paths/4.2.0_job646ijde25witpuo4hrnq2me
 
+  packages/css:
+    specifiers:
+      vite: ^4.3.2
+    devDependencies:
+      vite: registry.npmmirror.com/vite/4.3.8
+
   packages/demos:
     specifiers:
       '@youknown/react-editor': workspace:*

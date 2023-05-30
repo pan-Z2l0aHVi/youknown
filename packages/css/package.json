@@ -1,0 +1,14 @@
+{
+  "name": "css",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "watch": "sass --watch src:dist/css",
+    "build": "rm -rf dist && sass src:dist/css"
+  },
+  "devDependencies": {
+    "vite": "^4.3.2"
+  }
+}
