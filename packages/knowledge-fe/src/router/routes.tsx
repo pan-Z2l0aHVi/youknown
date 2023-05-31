@@ -57,8 +57,8 @@ export const nav_routes = [
 		]
 	},
 	{
-		path: 'wallpaper',
-		element: create_lazy_element(() => import('@/views/wallpaper')),
+		path: 'wallpapers',
+		element: create_lazy_element(() => import('@/views/wallpapers')),
 		state: {
 			nav_name: '壁纸',
 			icon: <TbDeviceDesktop />

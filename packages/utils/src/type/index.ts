@@ -1,8 +1,8 @@
 export type ValueOf<T> = T[keyof T]
 
-export type PromiseValue<T extends Promise<unknown>> = T extends Promise<infer R> ? R : never
+export type PromiseValueType<T> = T extends Promise<infer R> ? R : never
 
-export type PromiseFnResult<T extends () => Promise<unknown>> = PromiseValue<ReturnType<T>>
+export type PromiseFnResult<T extends () => Promise<unknown>> = PromiseValueType<ReturnType<T>>
 
 export type DeepPartial<T> = Partial<{
 	[K in keyof T]: DeepPartial<T[K]>

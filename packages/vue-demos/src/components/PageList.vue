@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { fetchList, fetchListWithTotal } from '@/utils/fakeApi'
-import useFetchPageList from '@/hooks/usePageList'
+import useFetchPageList from '@/hooks/useFetchPageList'
 
 const loadingRef = ref<HTMLElement | null>(null)
 const withTotal = ref(false)

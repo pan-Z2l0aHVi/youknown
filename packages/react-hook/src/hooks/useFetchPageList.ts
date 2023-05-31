@@ -1,71 +1,94 @@
-import { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react'
+import { RefObject, useCallback, useEffect, useRef, useState } from 'react'
 import { useIntersection } from './useIntersection'
 import { useLatestRef } from './useLatestRef'
+import { PromiseFnResult } from '@youknown/utils/src'
 
-interface PageListOptions {
+type Fetcher = () => Promise<{
+	list: unknown[]
+	total: number
+}>
+
+interface PageListOptions<T extends Fetcher> {
+	initialPage?: number
 	initialPageSize: number
-	loadingRef: MutableRefObject<HTMLElement>
+	ready?: boolean
+	loadingDelay?: number
+	loadingRef: RefObject<HTMLElement>
 	observerInit?: IntersectionObserverInit
+	onSuccess?(res: PromiseFnResult<T>): void
+	onError?(err: any): void
 }
 
-export function useFetchPageList<
-	T extends () => Promise<{
-		list: any[]
-		total: number
-	}>
->(fetcher: T, options: PageListOptions) {
-	type PromiseValueType<T> = T extends Promise<infer R> ? R : never
-	type Result = PromiseValueType<ReturnType<typeof fetcher>>
-	type List = Result['list']
+export function useFetchPageList<T extends Fetcher>(fetcher: T, opts: PageListOptions<T>) {
+	type Result = PromiseFnResult<typeof fetcher>
 
+	const { initialPage = 1, initialPageSize, ready = true, loadingDelay = 0 } = opts
 	const fetcherRef = useLatestRef(fetcher)
-	const optionsRef = useLatestRef(options)
+	const optsRef = useLatestRef(opts)
+
 	const [isEnd, setIsEnd] = useState(false)
-	const [page, setPage] = useState(1)
-	const [pageSize, setPageSize] = useState(optionsRef.current.initialPageSize)
-	const [list, setList] = useState<List>([])
+	const [loading, setLoading] = useState(false)
+	const [page, setPage] = useState(initialPage)
+	const [pageSize, setPageSize] = useState(initialPageSize)
+	const [list, setList] = useState<Result['list']>([])
 	const [total, setTotal] = useState(0)
 	const fetchCount = useRef(0) //  处理请求时序问题
 
-	const resetListData = () => {
+	const resetListData = useCallback(() => {
+		fetchCount.current++
 		setIsEnd(false)
-		setPage(1)
-		setPageSize(optionsRef.current.initialPageSize)
+		setLoading(false)
+		setPage(initialPage)
+		setPageSize(initialPageSize)
 		setList([])
 		setTotal(0)
-	}
-	const updateListData = useCallback(async () => {
-		if ((page - 1) * pageSize > total) {
+	}, [initialPage, initialPageSize])
+
+	const updateListData = useCallback(() => {
+		if (isEnd) {
 			return
 		}
 		const currentCount = fetchCount.current
-		const data = await fetcherRef.current()
-		if (currentCount !== fetchCount.current) {
-			return
-		}
-		fetchCount.current++
+		const loadingTimer = setTimeout(() => {
+			setLoading(true)
+		}, loadingDelay)
+		fetcherRef
+			.current()
+			.then(data => {
+				if (currentCount !== fetchCount.current) {
+					return
+				}
+				fetchCount.current++
 
-		if (page === 1) {
-			setList(data.list)
-		} else {
-			setList(p => [...p, ...data.list])
-			if (data.list.length < pageSize) {
-				setIsEnd(true)
-			}
-		}
-		setTotal(data.total)
-		setPage(p => p + 1)
-	}, [fetcherRef, page, pageSize, total])
+				optsRef.current.onSuccess?.(data as Result)
+				if (data.list.length < pageSize) {
+					setIsEnd(true)
+				}
+				setList(p => [...p, ...data.list])
+				setTotal(data.total)
+				setPage(p => p + 1)
+			})
+			.catch(err => {
+				optsRef.current.onError?.(err)
+			})
+			.finally(() => {
+				clearTimeout(loadingTimer)
+				setLoading(false)
+			})
+	}, [fetcherRef, isEnd, loadingDelay, optsRef, pageSize])
 
-	const isIntersection = useIntersection(optionsRef.current.loadingRef, optionsRef.current.observerInit)
+	const { loadingRef, observerInit } = optsRef.current
+	const isIntersection = useIntersection(loadingRef, observerInit)
 	useEffect(() => {
-		if (isIntersection) {
+		// FIXME: 调用resetListData会额外执行一次无效请求
+		if (isIntersection && ready) {
 			updateListData()
 		}
-	}, [isIntersection, updateListData])
+	}, [isIntersection, ready, updateListData])
 
 	return {
 		isEnd,
+		loading,
 		page,
 		pageSize,
 		list,
