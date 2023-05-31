@@ -29,8 +29,9 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 	})
 
 	return (
-		<Modal open={open} onCancel={hide_modal}>
+		<Modal className="backdrop-blur-sm !bg-[rgba(0,0,0,0.2)]" open={open} onCancel={hide_modal}>
 			<Card
+				shadow
 				header={
 					<div className="flex justify-between p-[24px_24px_0]">
 						<span className="text-16px">文档设置</span>

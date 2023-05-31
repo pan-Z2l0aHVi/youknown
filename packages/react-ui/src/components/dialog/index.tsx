@@ -12,6 +12,7 @@ import XIcon from '../x-icon'
 interface DialogProps extends ComponentProps<typeof Modal> {
 	hasCancel?: boolean
 	closeIcon?: ReactNode
+	maskClassName?: string
 	title?: string
 	okText?: string
 	cancelText?: string

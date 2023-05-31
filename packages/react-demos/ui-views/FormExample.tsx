@@ -42,7 +42,7 @@ export default () => {
 				]}
 			/>
 			<Divider />
-			<div style={{ width: 640 }}>
+			<div style={{ minWidth: 640 }}>
 				<Form form={form} layout={layout}>
 					<Form.Field label="username" labelText="Username">
 						<Input />
@@ -75,7 +75,7 @@ export default () => {
 								},
 								{
 									value: 'ios',
-									label: 'IOS'
+									label: 'iOS'
 								}
 							]}
 						></Select>
@@ -97,7 +97,7 @@ export default () => {
 					<Form.Field label="switch" labelText="Switch">
 						<Switch />
 					</Form.Field>
-					<Form.Field>
+					<Form.Field labelText=" ">
 						<Button primary type="submit">
 							Submit
 						</Button>

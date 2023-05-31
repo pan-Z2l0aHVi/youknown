@@ -14,8 +14,13 @@ export default function Personal({ expand }: PersonalProps) {
 		useBoolean(false)
 
 	const preferences_modal = (
-		<Modal open={preferences_modal_open} onCancel={hide_preferences_modal}>
+		<Modal
+			className="backdrop-blur-sm !bg-[rgba(0,0,0,0.2)]"
+			open={preferences_modal_open}
+			onCancel={hide_preferences_modal}
+		>
 			<Card
+				shadow
 				header={
 					<div className="flex justify-between p-[24px_24px_0]">
 						<span className="text-16px">偏好设置</span>

@@ -32,7 +32,13 @@ export default function Browse() {
 				/>
 			</Header>
 
-			<Modal open={search_modal_open} onCancel={hide_search_modal} unmountOnExit alignCenter={false}>
+			<Modal
+				className="backdrop-blur-sm !bg-[rgba(0,0,0,0.2)]"
+				open={search_modal_open}
+				onCancel={hide_search_modal}
+				unmountOnExit
+				alignCenter={false}
+			>
 				<Card className="p-0 bg-bg-2! w-560px! m-t-160px" shadow>
 					<Input
 						className="w-100%! text-16px"

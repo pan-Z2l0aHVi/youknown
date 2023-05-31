@@ -1,7 +1,12 @@
 <template>
 	<div class="page-wrapper">
-		<h3 class="header">总共：{{ total }}</h3>
-		<div class="list-container" ref="containerRef">
+		<van-cell class="total-switch-cell" center title="With total">
+			<template #right-icon>
+				<van-switch v-model="withTotal" size="24" @change="scrollTop" />
+			</template>
+		</van-cell>
+		<h3 v-if="withTotal" class="total">总共：{{ total }}</h3>
+		<div class="list-container">
 			<div class="list-item" v-for="item in list" :key="item.id">
 				{{ item.content }}
 			</div>
@@ -13,19 +18,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { fetchList } from '@/utils/fakeApi'
-import usePageList from '@/hooks/usePageList'
+import { ref, watch } from 'vue'
+import { fetchList, fetchListWithTotal } from '@/utils/fakeApi'
+import useFetchPageList from '@/hooks/usePageList'
 
 const loadingRef = ref<HTMLElement | null>(null)
-const containerRef = ref<HTMLElement | null>(null)
+const withTotal = ref(false)
 
-const fetcher = () => {
+const listWithTotalFetcher = () => {
 	const params = {
 		page: page.value,
 		page_size: pageSize.value
 	}
-	return fetchList(params).then(res => {
+	return fetchListWithTotal(params).then(res => {
 		if (res.code === 0) {
 			return {
 				list: res.data.list,
@@ -35,8 +40,25 @@ const fetcher = () => {
 		return Promise.reject()
 	})
 }
+const listFetcher = () => {
+	const params = {
+		page: page.value,
+		page_size: pageSize.value
+	}
+	return fetchList(params).then(res => {
+		if (res.code === 0) {
+			return {
+				list: res.data,
+				total: Infinity
+			}
+		}
+		return Promise.reject()
+	})
+}
 
-const { isEnd, page, pageSize, list, total } = usePageList(fetcher, {
+const fetcher = () => (withTotal.value ? listWithTotalFetcher() : listFetcher())
+
+const { isEnd, page, pageSize, list, total, resetListData } = useFetchPageList(fetcher, {
 	initialPageSize: 20,
 	loadingRef,
 	observerInit() {
@@ -46,6 +68,16 @@ const { isEnd, page, pageSize, list, total } = usePageList(fetcher, {
 		}
 	}
 })
+watch(withTotal, () => {
+	resetListData()
+})
+
+const scrollTop = () => {
+	window.scrollTo({
+		top: 0,
+		behavior: 'smooth'
+	})
+}
 </script>
 
 <style scope lang="scss">
@@ -76,7 +108,11 @@ const { isEnd, page, pageSize, list, total } = usePageList(fetcher, {
 	min-height: 100vh;
 }
 
-.header {
+.total-switch-cell {
+	position: sticky;
+	top: 48px;
+}
+.total {
 	text-align: center;
 }
 

@@ -7,24 +7,8 @@ import './modal.scss'
 import { FloatingOverlay } from '@floating-ui/react'
 import { useZIndex } from '../../hooks/useZIndex'
 
-// TODO: 弹出位置动画
-let mousePosition: { x: number; y: number } | null = null
-if (document) {
-	document.addEventListener('click', event => {
-		mousePosition = {
-			x: event.pageX,
-			y: event.pageY
-		}
-		// 超过 100ms 则居中弹出
-		setTimeout(() => {
-			mousePosition = null
-		}, 100)
-	})
-}
-
 interface ModalProps extends HTMLAttributes<HTMLElement> {
 	open?: boolean
-	maskClassName?: string
 	maskClosable?: boolean
 	unmountOnExit?: boolean
 	alignCenter?: boolean

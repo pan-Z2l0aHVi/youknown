@@ -8,7 +8,7 @@ interface PageListOptions {
 	observerInit?: () => IntersectionObserverInit
 }
 
-export default function usePageList<
+export default function useFetchPageList<
 	T extends () => Promise<{
 		list: unknown[]
 		total: number
@@ -38,6 +38,7 @@ export default function usePageList<
 			return
 		}
 		const currentCount = fetchCount
+
 		const data = await fetcher()
 		if (currentCount !== fetchCount) {
 			return
@@ -45,9 +46,6 @@ export default function usePageList<
 		fetchCount++
 
 		if (data.list.length < pageSize.value) {
-			isEnd.value = true
-		}
-		if (list.value.length >= data.total) {
 			isEnd.value = true
 		}
 		list.value.push(...data.list)
@@ -58,8 +56,8 @@ export default function usePageList<
 	const isIntersection = useIntersection(loadingRef, observerInit)
 	watch(
 		isIntersection,
-		() => {
-			if (isIntersection.value) {
+		val => {
+			if (val) {
 				updateListData()
 			}
 		},
