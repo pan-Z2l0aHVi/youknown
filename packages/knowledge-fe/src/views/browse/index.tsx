@@ -33,7 +33,7 @@ export default function Browse() {
 			</Header>
 
 			<Modal
-				className="backdrop-blur-sm !bg-[rgba(0,0,0,0.2)]"
+				className="backdrop-blur-md !bg-[rgba(0,0,0,0.2)]"
 				open={search_modal_open}
 				onCancel={hide_search_modal}
 				unmountOnExit

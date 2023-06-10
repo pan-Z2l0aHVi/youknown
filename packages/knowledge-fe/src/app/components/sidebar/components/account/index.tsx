@@ -15,7 +15,7 @@ export default function Personal({ expand }: PersonalProps) {
 
 	const preferences_modal = (
 		<Modal
-			className="backdrop-blur-sm !bg-[rgba(0,0,0,0.2)]"
+			className="backdrop-blur-md !bg-[rgba(0,0,0,0.2)]"
 			open={preferences_modal_open}
 			onCancel={hide_preferences_modal}
 		>

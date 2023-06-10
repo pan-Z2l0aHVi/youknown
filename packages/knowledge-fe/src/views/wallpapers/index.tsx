@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Header from '@/app/components/header'
 import { Loading, Toast } from '@youknown/react-ui/src'
 import WallpaperFilter, { WallpaperQuery } from './components/wallpaper-filter'
@@ -14,17 +14,13 @@ export default function Wallpapers() {
 	const loading_ref = useRef<HTMLDivElement>(null)
 	const wrapper_ref = useRef<HTMLDivElement>(null)
 
-	useEffect(() => {
-		console.log('params', params)
-	}, [params])
-
 	const wallpaper_fetcher = async () => {
-		const { keywords, ai_art_filter, atleast, ratios, sorting, topRange, order } = params!
+		const { keywords, ai_art_filter, atleast, ratios, sorting, topRange, order, categories, purity } = params!
 		const search_params: Parameters<typeof search_wallpapers>['0'] = {
 			q: keywords,
 			ai_art_filter,
-			categories: '010',
-			purity: '010',
+			categories,
+			purity,
 			atleast,
 			ratios,
 			sorting,
@@ -50,7 +46,7 @@ export default function Wallpapers() {
 		loadingRef: loading_ref,
 		observerInit: {
 			root: app_content_el,
-			rootMargin: '0px 0px 320px 0px'
+			rootMargin: '0px 0px 280px 0px'
 		},
 		onSuccess() {
 			// 未超过一屏时，自动拉取下一页

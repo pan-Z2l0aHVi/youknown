@@ -29,7 +29,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 	})
 
 	return (
-		<Modal className="backdrop-blur-sm !bg-[rgba(0,0,0,0.2)]" open={open} onCancel={hide_modal}>
+		<Modal className="backdrop-blur-md !bg-[rgba(0,0,0,0.2)]" open={open} onCancel={hide_modal}>
 			<Card
 				shadow
 				header={

@@ -5,7 +5,7 @@ import { Loading } from '@youknown/react-ui/src'
 import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Comments from './components/comments'
-import '@/styles/rich-text.scss'
+import '@youknown/css/src/rte-desktop.scss'
 
 export default function DocDetail() {
 	const [search] = useSearchParams()

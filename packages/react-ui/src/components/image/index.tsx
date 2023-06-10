@@ -17,7 +17,16 @@ import Space from '../space'
 import Modal from '../modal'
 import Tooltip from '../tooltip'
 import Loading from '../loading'
-import { TbDownload, TbRelationOneToOne, TbRotate, TbRotateClockwise, TbX, TbZoomIn, TbZoomOut } from 'react-icons/tb'
+import {
+	TbDownload,
+	TbPhotoX,
+	TbRelationOneToOne,
+	TbRotate,
+	TbRotateClockwise,
+	TbX,
+	TbZoomIn,
+	TbZoomOut
+} from 'react-icons/tb'
 import Button from '../button'
 
 type Coordinate = {
@@ -54,6 +63,7 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 	const innerRef = useRef<HTMLImageElement>(null)
 	const imgRef = useComposeRef(propRef, innerRef)
 	const imgDetailRef = useRef<HTMLImageElement>(null)
+	const [detailError, setDetailError] = useState(false)
 
 	const scaleRangeRef = useLatestRef(scaleRange)
 	const originalScaleIndex = scaleRangeRef.current.indexOf(1)
@@ -87,6 +97,11 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 			hideDetail()
 		}
 	}, [hideDetail, open, showDetail])
+
+	const handleDetailError = () => {
+		handleDetailLoaded()
+		setDetailError(true)
+	}
 
 	const handleDragDetailStart: MouseEventHandler<HTMLImageElement> = event => {
 		setDragging(true)
@@ -174,7 +189,7 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 		if (!detailLoaded) return
 
 		if (_detailSrc) {
-			downloadFile(_detailSrc)
+			downloadFile(_detailSrc, 'wallpaper')
 		}
 	}
 
@@ -249,6 +264,7 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 	]
 
 	const detailLoading = !_detailSrc || !detailLoaded
+	const operationDisabled = detailLoading || detailError
 	const toolbarEle = (
 		<Motion.Slide in={toolbarVisible} direction="up">
 			<div className={`${prefixCls}-detail-toolbar`}>
@@ -257,11 +273,11 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 						<Tooltip key={item.id} spacing={12} placement="top" title={item.title}>
 							<Button
 								className={cls(`${prefixCls}-detail-icon-wrap`, {
-									[`${prefixCls}-detail-icon-wrap-disabled`]: detailLoading
+									[`${prefixCls}-detail-icon-wrap-disabled`]: operationDisabled
 								})}
 								circle
 								text
-								disabled={item.id !== 'close' && detailLoading}
+								disabled={item.id !== 'close' && operationDisabled}
 								onClick={item.handler}
 							>
 								{item.icon}
@@ -288,32 +304,39 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 					<Loading spinning={detailLoading} bordered size="large" />
 				</div>
 
-				<img
-					ref={imgDetailRef}
-					className={cls(`${prefixCls}-detail-pic`, {
-						[`${prefixCls}-detail-pic-loaded`]: !detailLoading
-					})}
-					src={_detailSrc}
-					loading="lazy"
-					draggable={false}
-					style={{
-						transform: `scale(${scale}) rotate(${rotate}deg)`,
-						...(offset
-							? {
-									position: 'fixed',
-									left: offset.x,
-									top: offset.y
-							  }
-							: {})
-					}}
-					onMouseDown={handleDragDetailStart}
-					onLoad={handleDetailLoaded}
-					onClick={() => {
-						if (detailLoading) {
-							hideDetail()
-						}
-					}}
-				/>
+				{detailError ? (
+					<div className={`${prefixCls}-detail-fallback`}>
+						<TbPhotoX />
+					</div>
+				) : (
+					<img
+						ref={imgDetailRef}
+						className={cls(`${prefixCls}-detail-pic`, {
+							[`${prefixCls}-detail-pic-loaded`]: !detailLoading
+						})}
+						src={_detailSrc}
+						loading="lazy"
+						draggable={false}
+						style={{
+							transform: `scale(${scale}) rotate(${rotate}deg)`,
+							...(offset
+								? {
+										position: 'fixed',
+										left: offset.x,
+										top: offset.y
+								  }
+								: {})
+						}}
+						onMouseDown={handleDragDetailStart}
+						onLoad={handleDetailLoaded}
+						onError={handleDetailError}
+						onClick={() => {
+							if (detailLoading) {
+								hideDetail()
+							}
+						}}
+					/>
+				)}
 			</div>
 			{ratioVisible && <div className={`${prefixCls}-detail-ratio`}>{scalePercent}</div>}
 			{toolbarEle}

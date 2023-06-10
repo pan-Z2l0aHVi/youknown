@@ -26,13 +26,13 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		})
 	}
 	const handle_download = () => {
-		downloadFile(detail_url).catch(() => {
+		downloadFile(detail_url, 'wallpaper').catch(() => {
 			toast_download_err()
 		})
 	}
 
 	return (
-		<div className="relative " onMouseEnter={start_hover} onMouseLeave={stop_hover}>
+		<div className="relative" onMouseEnter={start_hover} onMouseLeave={stop_hover}>
 			<Image
 				className="b-rd-radius-m shadow-shadow-l select-none bg-bg-2 b-bd-line b-1"
 				style={{
@@ -54,7 +54,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 						<div
 							className={cls(
 								'absolute bottom-8px left-8px',
-								'b-rd-round bg-[rgba(0,0,0,0.4)] backdrop-blur-lg',
+								'b-rd-round bg-[rgba(120,120,120,0.4)] backdrop-blur-lg',
 								'flex items-center h-24px leading-none p-l-6px p-r-6px text-12px color-#fff',
 								'pointer-events-none'
 							)}
@@ -90,7 +90,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 							<div
 								className={cls(
 									'absolute bottom-8px right-8px',
-									'b-rd-round bg-[rgba(0,0,0,0.4)] backdrop-blur-lg',
+									'b-rd-round bg-[rgba(120,120,120,0.4)] backdrop-blur-lg hover-bg-primary',
 									'flex items-center justify-center w-24px h-24px cursor-pointer select-none'
 								)}
 								onClick={start_hover}

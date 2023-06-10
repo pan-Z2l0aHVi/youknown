@@ -5,10 +5,10 @@ import { RiFilter3Fill } from 'react-icons/ri'
 import { TbChevronDown, TbSearch } from 'react-icons/tb'
 import { cls, storage } from '@youknown/utils/src'
 
-export interface filterParams {
-	ai_art_filter: number
-	categories: number[]
-	purity: number[]
+export interface filterState {
+	ai_art_filter: 0 | 1
+	categories: (1 | 2 | 3)[]
+	purity: (1 | 2)[]
 	atleast: string
 	ratios: string
 	sorting: string
@@ -16,7 +16,11 @@ export interface filterParams {
 	order: string
 }
 
-export type WallpaperQuery = filterParams & { keywords: string }
+export type WallpaperQuery = Omit<filterState, 'categories' | 'purity'> & {
+	keywords: string
+	categories: string
+	purity: string
+}
 
 interface WallpaperFilerProps {
 	on_query_change: (query: WallpaperQuery) => void
@@ -26,27 +30,29 @@ interface WallpaperFilerProps {
 export default function WallpaperFilter(props: WallpaperFilerProps) {
 	const { search, on_query_change } = props
 	const update = useUpdate()
-	const [filter_open, { setReverse: toggle_filter }] = useBoolean(false)
+	const [filter_open, { setReverse: toggle_filter }] = useBoolean(true)
 	const [keywords, set_keywords] = useState('')
 
-	const form = Form.useForm<filterParams>({
-		defaultState: {
-			ai_art_filter: 0,
-			categories: [100, 101, 111],
-			purity: [100],
-			atleast: '0x0',
-			ratios: 'landscape',
-			sorting: 'toplist',
-			topRange: '1M',
-			order: 'desc'
-		},
+	const local_filter_state = storage.session.get<filterState>('wallpaper_filter_state')
+	const default_state: filterState = {
+		ai_art_filter: 0,
+		categories: [1, 2, 3],
+		purity: [1],
+		atleast: '0x0',
+		ratios: 'landscape',
+		sorting: 'toplist',
+		topRange: '1M',
+		order: 'desc'
+	}
+
+	const form = Form.useForm<filterState>({
+		defaultState: local_filter_state || default_state,
 		onFulfilled(state) {
 			console.log('state: ', state)
-			search(getQuery())
+			search(get_query())
 		},
 		onStateChange(org) {
-			console.log('org.label: ', org.label, form.getState()[org.label])
-			on_query_change(getQuery())
+			change_query()
 			switch (org.label) {
 				case 'sorting':
 					update()
@@ -60,25 +66,46 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 				default:
 					break
 			}
-			storage.session.set('wallpaper_filter_params', getQuery())
+			storage.session.set('wallpaper_filter_state', form.getState())
 		}
 	})
 
-	const getQuery = useCallback((): WallpaperQuery => {
+	const get_query = useCallback((): WallpaperQuery => {
+		const state = form.getState()
+		let categories = '000'
+		let purity = '000'
+		if (state.categories.includes(1)) {
+			categories = '1' + categories.slice(1)
+		}
+		if (state.categories.includes(2)) {
+			categories = categories.slice(0, 1) + '1' + categories.slice(2)
+		}
+		if (state.categories.includes(3)) {
+			categories = categories.slice(0, 2) + '1'
+		}
+		if (state.purity.includes(1)) {
+			purity = '1' + purity.slice(1)
+		}
+		if (state.purity.includes(2)) {
+			purity = purity.slice(0, 1) + '1' + purity.slice(2)
+		}
 		return {
+			...state,
 			keywords,
-			...form.getState()
+			categories,
+			purity
 		}
 	}, [form, keywords])
 
+	const change_query = useCallback(() => {
+		on_query_change(get_query())
+	}, [get_query, on_query_change])
+
 	useEffect(() => {
-		const local_filter_params = storage.session.get<WallpaperQuery>('wallpaper_filter_params')
-		if (local_filter_params) {
-			form.setState(local_filter_params)
-		} else {
-			on_query_change(getQuery())
-		}
-	}, [form, getQuery, on_query_change])
+		change_query()
+		const local_filter_keywords = storage.session.get('wallpaper_filter_keywords')
+		if (local_filter_keywords) set_keywords(local_filter_keywords)
+	}, [change_query])
 
 	const { sorting, ratios } = form.getState()
 	const at_least_options = [
@@ -162,10 +189,13 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 				<Space>
 					<Input
 						prefix={<TbSearch />}
-						placeholder="搜索"
+						placeholder="关键字"
 						allowClear
 						value={keywords}
-						onChange={val => set_keywords(val as string)}
+						onChange={val => {
+							storage.session.set('wallpaper_filter_keywords', val)
+							set_keywords(val as string)
+						}}
 					/>
 					<Button icon={<RiFilter3Fill className="text-16px" />} onClick={toggle_filter}>
 						<div className="flex items-center">
@@ -185,11 +215,11 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 								className="w-240px!"
 								options={[
 									{
-										label: '不含AI作品',
+										label: '含AI作品',
 										value: 0
 									},
 									{
-										label: '含AI作品',
+										label: '不含AI作品',
 										value: 1
 									}
 								]}
@@ -203,15 +233,15 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 								options={[
 									{
 										label: '寻常',
-										value: 100
+										value: 1
 									},
 									{
 										label: '二次元',
-										value: 101
+										value: 2
 									},
 									{
 										label: '人物',
-										value: 111
+										value: 3
 									}
 								]}
 							/>
@@ -224,11 +254,11 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 								options={[
 									{
 										label: 'SFW',
-										value: 100
+										value: 1
 									},
 									{
 										label: 'NSFW',
-										value: 110
+										value: 2
 									}
 								]}
 							/>
@@ -275,7 +305,7 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 								className="w-240px!"
 								options={[
 									{
-										label: '榜单',
+										label: '排行',
 										value: 'toplist'
 									},
 									{

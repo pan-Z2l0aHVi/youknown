@@ -5,20 +5,7 @@
 	position: relative;
 
 	.ProseMirror {
-		padding: 8px 8px 8px 16px;
-		line-height: 1.75;
-		font-size: $font-size-l;
-		color: $text-1;
-		background-color: $bg-0;
 		outline: none;
-
-		::selection {
-			background: rgba(200, 200, 255, 0.4);
-		}
-
-		>*+* {
-			margin-top: 0.75em;
-		}
 
 		&.resize-cursor {
 			cursor: ew-resize;
@@ -43,45 +30,6 @@
 			pointer-events: none;
 		}
 
-		/* ----------------------- BLOCKQUOTE ------------------------- */
-		blockquote {
-			border-left: 4px solid $color-primary;
-			padding: 0 16px;
-			margin-left: 0;
-			margin-right: 0;
-			color: $text-2;
-		}
-
-		/* ----------------------- CODE ------------------------- */
-		code {
-			padding: 0 4px;
-			background: $bg-1;
-			border: 1px solid $bd-line;
-			border-radius: $radius-m;
-			-webkit-box-decoration-break: clone;
-			box-decoration-break: clone;
-			font-size: $font-size-m;
-			font-weight: 600;
-			font-family: Menlo, Consolas, monospace;
-		}
-
-		/* ----------------------- CODEBLOCK ------------------------- */
-		pre {
-			background: $bg-2;
-			border: 1px solid $bd-line;
-			border-radius: $radius-m;
-			padding: 8px 16px;
-			margin: 0;
-			margin-top: 0.75em;
-
-			code {
-				padding: 0;
-				background: unset;
-				border: unset;
-				font-weight: 400;
-			}
-		}
-
 		/* ----------------------- TABLE ------------------------- */
 		table {
 			border-collapse: collapse;
@@ -92,22 +40,11 @@
 
 			td,
 			th {
-				border: 1px solid $bd-line;
-				box-sizing: border-box;
-				min-width: 4em;
-				padding: 3px 5px;
 				position: relative;
-				vertical-align: top;
-
-				>* {
-					margin-bottom: 0;
-				}
 			}
 
-			th {
-				background-color: $bg-2;
-				font-weight: bold;
-				text-align: left;
+			p {
+				margin: 0;
 			}
 
 			.selectedCell:after {
@@ -131,10 +68,6 @@
 				pointer-events: none;
 				width: 3px;
 			}
-
-			p {
-				margin: 0;
-			}
 		}
 
 		.tableWrapper {
@@ -144,22 +77,8 @@
 
 		/* ----------------------- IMAGE ------------------------- */
 		img {
-			height: auto;
-			max-width: 100%;
-
 			&.ProseMirror-selectednode {
 				outline: 3px solid $color-primary;
-			}
-		}
-
-		a {
-			border-radius: $radius-m;
-			cursor: pointer;
-			text-decoration: none;
-			color: #40a9ff;
-
-			&:hover {
-				background-color: $color-hover;
 			}
 		}
 	}

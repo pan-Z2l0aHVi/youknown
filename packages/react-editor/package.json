@@ -23,6 +23,7 @@
         "@youknown/react-hook": "workspace:*",
         "@youknown/react-ui": "workspace:*",
         "@youknown/utils": "workspace:*",
+        "@youknown/css": "workspace:*",
         "@tiptap/core": "^2.0.3",
         "@tiptap/pm": "^2.0.3",
         "@tiptap/extension-bubble-menu": "^2.0.3",

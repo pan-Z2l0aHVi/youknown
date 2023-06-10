@@ -30,7 +30,7 @@ export default function DocDeleteDialog(props: DocDeleteDialogProps) {
 
 	return (
 		<Dialog
-			maskClassName="backdrop-blur-sm !bg-[rgba(0,0,0,0.2)]"
+			maskClassName="backdrop-blur-md !bg-[rgba(0,0,0,0.2)]"
 			open={open}
 			title="删除文档"
 			okDanger

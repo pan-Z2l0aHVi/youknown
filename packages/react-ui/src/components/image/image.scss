@@ -20,6 +20,19 @@ $prefix: '#{$ui-prefix}-image';
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
+		pointer-events: none;
+	}
+
+	&-fallback {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 280px;
+		height: 200px;
+		background: #ccc;
+		font-size: 48px;
+		color: #666;
+		border-radius: $radius-m;
 	}
 
 	&-pic {

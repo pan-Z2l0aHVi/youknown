@@ -6,8 +6,7 @@ import { Button, Divider, Dropdown, Space } from '@youknown/react-ui/src'
 import { storage } from '@youknown/utils/src'
 import dayjs from 'dayjs'
 import React, { useState } from 'react'
-import { BiWrench } from 'react-icons/bi'
-import { TbTrash } from 'react-icons/tb'
+import { TbSettings, TbTrash } from 'react-icons/tb'
 import DocDeleteDialog from '@/components/doc-delete-dialog'
 import DocOptionsModal from '@/components/doc-options-modal'
 import DocSaveDialog from './components/doc-save-dialog'
@@ -64,7 +63,7 @@ export default function Doc() {
 				<Dropdown.Menu className="w-160px">
 					<Dropdown.Item
 						closeAfterItemClick
-						prefix={<BiWrench className="ml-8px text-18px" />}
+						prefix={<TbSettings className="ml-8px text-18px" />}
 						onClick={show_doc_options_modal}
 					>
 						文档设置
