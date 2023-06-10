@@ -18,42 +18,42 @@ export default defineConfig({
 			shortcuts: [
 				{
 					'scrollbar-custom':
-						'scrollbar:w-4px scrollbar:h-4px scrollbar-thin scrollbar-thumb:rounded hover:scrollbar-thumb:bg-[rgba(var(--scrollbar),0.4)]'
+						'scrollbar:w-4px scrollbar:h-4px scrollbar-thin scrollbar-thumb:rounded hover:scrollbar-thumb:bg-[rgba(var(--ui-scrollbar),0.4)]'
 				}
 			],
 			rules: [],
 			theme: {
 				colors: {
 					text: {
-						1: 'var(--text-1)',
-						2: 'var(--text-2)',
-						3: 'var(--text-3)'
+						1: 'var(--ui-text-1)',
+						2: 'var(--ui-text-2)',
+						3: 'var(--ui-text-3)'
 					},
-					hover: 'var(--color-hover)',
-					active: 'var(--color-active)',
-					primary: 'var(--color-primary)',
-					danger: 'var(--color-danger)',
+					hover: 'var(--ui-color-hover)',
+					active: 'var(--ui-color-active)',
+					primary: 'var(--ui-color-primary)',
+					danger: 'var(--ui-color-danger)',
 					bd: {
-						line: 'var(--bd-line)'
+						line: 'var(--ui-bd-line)'
 					},
 					bg: {
-						0: 'var(--bg-0)',
-						1: 'var(--bg-1)',
-						2: 'var(--bg-2)',
-						3: 'var(--bg-3)'
+						0: 'var(--ui-bg-0)',
+						1: 'var(--ui-bg-1)',
+						2: 'var(--ui-bg-2)',
+						3: 'var(--ui-bg-3)'
 					}
 				},
 				borderRadius: {
 					round: '999vmax',
-					'radius-s': 'var(--radius-s)',
-					'radius-m': 'var(--radius-m)',
-					'radius-l': 'var(--radius-l)'
+					'radius-s': 'var(--ui-radius-s)',
+					'radius-m': 'var(--ui-radius-m)',
+					'radius-l': 'var(--ui-radius-l)'
 				},
 				boxShadow: {
 					'shadow-s':
 						'0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
-					'shadow-m': 'var(--shadow-m)',
-					'shadow-l': 'var(--shadow-l)'
+					'shadow-m': 'var(--ui-shadow-m)',
+					'shadow-l': 'var(--ui-shadow-l)'
 				}
 			}
 		}),

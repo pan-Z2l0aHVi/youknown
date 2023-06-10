@@ -1,9 +1,9 @@
 import React from 'react'
-import Editor from '@youknown/react-editor/src'
+import { EditorContent, Toolbar, useEditor } from '@youknown/react-editor/src'
 import { Button } from '@youknown/react-ui/src'
 
 export default () => {
-	const editor = Editor.useEditor({
+	const editor = useEditor({
 		content: `<h2>
 		Hi there,
 	  </h2>
@@ -97,14 +97,14 @@ export default () => {
 				className="header-bar"
 				style={{
 					height: 64,
-					borderBottom: '1px solid 1px solid var(--g-bd-line)',
+					borderBottom: '1px solid 1px solid var(--ui-bd-line)',
 					display: 'flex',
 					justifyContent: 'space-between',
 					alignItems: 'center',
 					padding: '0 32px',
 					position: 'sticky',
 					top: 0,
-					background: 'var(--g-bg-0)',
+					background: 'var(--ui-bg-0)',
 					zIndex: 10
 				}}
 			>
@@ -118,28 +118,28 @@ export default () => {
 					style={{
 						position: 'sticky',
 						top: 64,
-						background: 'var(--g-bg-0)',
+						background: 'var(--ui-bg-0)',
 						zIndex: 30,
 						display: 'flex',
 						justifyContent: 'center',
 						width: '100%',
 						paddingBottom: 8,
-						borderBottom: '1px solid var(--g-bd-line)'
+						borderBottom: '1px solid var(--ui-bd-line)'
 					}}
 				>
 					<div
 						style={{
 							padding: 4,
-							background: 'var(--g-bg-2)',
-							border: '1px solid var(--g-bd-line)',
+							background: 'var(--ui-bg-2)',
+							border: '1px solid var(--ui-bd-line)',
 							borderRadius: 8
 						}}
 					>
-						<Editor.Toolbar editor={editor}></Editor.Toolbar>
+						<Toolbar editor={editor} />
 					</div>
 				</div>
 				<div style={{ margin: '0 auto', width: 750, paddingTop: 48 }}>
-					<Editor.Content editor={editor}></Editor.Content>
+					<EditorContent editor={editor} />
 				</div>
 			</div>
 		</div>

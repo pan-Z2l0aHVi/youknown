@@ -10,7 +10,7 @@ import ToolbarContext from '../../contexts/editorContext'
 
 export default function TextColorPicker() {
 	const { editor } = useContext(ToolbarContext)
-	const DEFAULT_COLOR = 'var(--g-text-1)'
+	const DEFAULT_COLOR = 'var(--ui-text-1)'
 	const options = [
 		'#ffffff',
 		'#cccccc',

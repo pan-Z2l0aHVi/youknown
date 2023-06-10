@@ -18,7 +18,7 @@ export default function Header(props: HeaderProps) {
 				bordered && 'b-b b-bd-line'
 			)}
 		>
-			<h1>{heading}</h1>
+			<h2>{heading}</h2>
 			{children}
 		</header>
 	)

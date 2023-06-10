@@ -17,7 +17,8 @@
     "@youknown/react-editor": "workspace:*",
     "@youknown/react-hook": "workspace:*",
     "@youknown/react-ui": "workspace:*",
-    "@youknown/utils": "workspace:*"
+    "@youknown/utils": "workspace:*",
+    "@youknown/css": "workspace:*"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": "eslint --cache --fix"

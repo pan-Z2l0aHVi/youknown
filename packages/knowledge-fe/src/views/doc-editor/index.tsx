@@ -1,6 +1,6 @@
 import Header from '@/app/components/header'
 import More from '@/components/more'
-import Editor from '@youknown/react-editor/src'
+import { EditorContent, Toolbar, useEditor } from '@youknown/react-editor/src'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Divider, Dropdown, Space } from '@youknown/react-ui/src'
 import { storage } from '@youknown/utils/src'
@@ -21,7 +21,7 @@ export default function Doc() {
 	const [doc_options_modal_open, { setTrue: show_doc_options_modal, setFalse: hide_doc_options_modal }] =
 		useBoolean(false)
 
-	const editor = Editor.useEditor({
+	const editor = useEditor({
 		content: storage.local.get<string>('doc-html'),
 		autofocus: 'end',
 		onUpdate({ editor }) {
@@ -101,13 +101,13 @@ export default function Doc() {
 
 			<div className="flex justify-center sticky top-64px z-10 bg-bg-0">
 				<div className="border-b-bd-line border-b-1 p-12px bg-bg-0 shadow-[0_12px_16px_-8px_rgba(0,0,0,0.02)]">
-					<Editor.Toolbar editor={editor} />
+					<Toolbar editor={editor} />
 				</div>
 			</div>
 
 			<div className="flex pt-40px pb-24px">
 				<div className="w-720px m-auto">
-					<Editor.Content editor={editor} />
+					<EditorContent editor={editor} />
 				</div>
 			</div>
 		</>

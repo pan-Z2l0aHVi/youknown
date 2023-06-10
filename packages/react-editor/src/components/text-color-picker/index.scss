@@ -52,7 +52,7 @@ $prefix: '#{$ui-editor-prefix}-text-color-picker';
 			&.active,
 			&:hover {
 				border: 1px solid #fff;
-				box-shadow: 0 0 0 2px var(--g-color-primary);
+				box-shadow: 0 0 0 2px var(--ui-color-primary);
 			}
 		}
 	}

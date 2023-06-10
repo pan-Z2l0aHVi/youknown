@@ -1,22 +1,13 @@
-:root {
-	--ui-bg-0: #fff;
-	--ui-bg-1: #fff;
-	--ui-bg-2: #f5f5f5;
-	--ui-bd-line: #ebebeb;
-	--ui-radius-m: 4px;
-	--ui-color-1: #1b1b1b;
-	--ui-color-2: #4e4e4e;
+.rich-text-container {
 	--ui-color-link: #40a9ff; // #40a9ff
 	--ui-color-link-hover: #0069c2; // #0069c2
-	--ui-bg-code: #f2f1f1;
+	// --ui-bg-code: #f2f1f1;
 	--ui-heading-letter-spacing: -0.5;
-}
 
-.rich-text-container {
 	padding: 8px 8px 8px 16px;
 	line-height: 1.75;
 	font-size: 16px;
-	color: var(--ui-color-1);
+	color: var(--ui-text-1);
 	background-color: var(--ui-bg-0);
 
 	::selection {
@@ -29,7 +20,8 @@
 
 	h1,
 	h2,
-	h3 {
+	h3,
+	h4 {
 		letter-spacing: var(--ui-heading-letter-spacing);
 	}
 
@@ -38,7 +30,9 @@
 		margin-bottom: 32px;
 	}
 
-	h2 {
+	h2,
+	h3,
+	h4 {
 		margin: 32px 0 8px;
 
 		&:first-of-type {
@@ -56,16 +50,17 @@
 
 	/* ----------------------- BLOCKQUOTE ------------------------- */
 	blockquote {
-		border-left: 4px solid var(--color-primary);
+		border-left: 4px solid var(--ui-color-primary);
 		padding: 0 16px;
 		margin-left: 0;
 		margin-right: 0;
+		color: var(--ui-text-2);
 	}
 
 	/* ----------------------- CODE ------------------------- */
 	code {
 		padding: 2px 4px;
-		background: var(--ui-bg-code);
+		background: var(--ui-bg-3);
 		border-radius: var(--ui-radius-m);
 		border: 1px solid transparent;
 		-webkit-box-decoration-break: clone;
@@ -76,7 +71,7 @@
 
 	/* ----------------------- CODEBLOCK ------------------------- */
 	pre {
-		background: var(--ui-bg-code);
+		background: var(--ui-bg-3);
 		border-radius: var(--ui-radius-m);
 		border: 1px solid transparent;
 		padding: 16px 40px 16px 16px;

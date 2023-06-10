@@ -53,7 +53,7 @@ function RadiusStyle(props: RadiusStyleProps) {
 								style.id === 2 && 'before:b-rd-6px',
 								style.id === 3 && 'before:b-rd-9px',
 								value.id === style.id
-									? 'b-1 b-color-primary shadow-[0_0_0_1px_var(--color-primary)]'
+									? 'b-1 b-color-primary shadow-[0_0_0_1px_var(--ui-color-primary)]'
 									: 'b-1 b-bd-line'
 							)}
 						></div>

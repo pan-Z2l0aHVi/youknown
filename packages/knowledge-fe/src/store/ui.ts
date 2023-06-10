@@ -36,12 +36,12 @@ export const ui_slice = createSlice({
 
 			set_local_settings({ primary_color: action.payload })
 			setRootStyle({
-				'--color-primary': action.payload
+				'--ui-color-primary': action.payload
 			})
 			import('chroma-js').then(chroma => {
 				setRootStyle({
-					'--color-primary-hover': chroma.mix(action.payload, '#fff', 0.1).hex(),
-					'--color-primary-active': chroma.mix(action.payload, '#000', 0.2).hex()
+					'--ui-color-primary-hover': chroma.mix(action.payload, '#fff', 0.1).hex(),
+					'--ui-color-primary-active': chroma.mix(action.payload, '#000', 0.2).hex()
 				})
 			})
 		},
@@ -50,9 +50,9 @@ export const ui_slice = createSlice({
 
 			set_local_settings({ radius: action.payload })
 			setRootStyle({
-				'--radius-s': `${s}px`,
-				'--radius-m': `${m}px`,
-				'--radius-l': `${l}px`
+				'--ui-radius-s': `${s}px`,
+				'--ui-radius-m': `${m}px`,
+				'--ui-radius-l': `${l}px`
 			})
 		},
 		set_dark_theme: (state, action: PayloadAction<UIState['is_dark_theme']>) => {

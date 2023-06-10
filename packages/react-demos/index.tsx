@@ -1,6 +1,7 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import '@youknown/css/src/vars.scss'
 import './index.scss'
 import './theme.scss'
 import App from './App'

@@ -122,11 +122,13 @@ importers:
 
   packages/react-demos:
     specifiers:
+      '@youknown/css': workspace:*
       '@youknown/react-editor': workspace:*
       '@youknown/react-hook': workspace:*
       '@youknown/react-ui': workspace:*
       '@youknown/utils': workspace:*
     dependencies:
+      '@youknown/css': link:../css
       '@youknown/react-editor': link:../react-editor
       '@youknown/react-hook': link:../react-hook
       '@youknown/react-ui': link:../react-ui
@@ -229,12 +231,14 @@ importers:
       '@tiptap/pm': ^2.0.3
       '@tiptap/starter-kit': ^2.0.3
       '@tiptap/vue-3': ^2.0.3
+      '@youknown/css': workspace:*
       '@youknown/utils': workspace:*
       vant: ^4.3.2
     dependencies:
       '@tiptap/pm': registry.npmmirror.com/@tiptap/pm/2.0.3_@tiptap+core@2.0.3
       '@tiptap/starter-kit': registry.npmmirror.com/@tiptap/starter-kit/2.0.3_@tiptap+pm@2.0.3
       '@tiptap/vue-3': registry.npmmirror.com/@tiptap/vue-3/2.0.3_dkoqf77a5w46rqzb22h455itbe
+      '@youknown/css': link:../css
       '@youknown/utils': link:../utils
       vant: registry.npmmirror.com/vant/4.4.1_vue@3.3.4
 
