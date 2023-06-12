@@ -1,5 +1,5 @@
 import { cls, pick, pickDataAttrs } from '@youknown/utils/src'
-import React, { Children, cloneElement, ComponentProps, forwardRef } from 'react'
+import { Children, cloneElement, ComponentProps, forwardRef } from 'react'
 import { UI_PREFIX } from '../../constants'
 import Trigger, { EventsByTriggerNeed } from '../trigger'
 import './tooltip.scss'

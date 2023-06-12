@@ -1,5 +1,5 @@
 import { cls, is, omit } from '@youknown/utils/src'
-import React, { FC, HTMLAttributes, ReactNode } from 'react'
+import { FC, HTMLAttributes, ReactNode } from 'react'
 import { TbChevronDown } from 'react-icons/tb'
 import './collapse-panel.scss'
 import { UI_PREFIX } from '../../constants'

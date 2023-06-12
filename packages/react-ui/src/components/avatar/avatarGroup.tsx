@@ -1,5 +1,5 @@
 import { cls } from '@youknown/utils/src'
-import React, { Children, cloneElement, ComponentProps, FC, HTMLAttributes, isValidElement } from 'react'
+import { Children, cloneElement, ComponentProps, FC, HTMLAttributes, isValidElement } from 'react'
 import './avatar-group.scss'
 import Avatar from './'
 import { UI_PREFIX } from '../../constants'

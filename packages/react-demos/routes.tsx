@@ -1,4 +1,4 @@
-import React, { createElement, lazy } from 'react'
+import { createElement, lazy } from 'react'
 import { Navigate } from 'react-router-dom'
 
 export const componentRoutes = [

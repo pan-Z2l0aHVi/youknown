@@ -1,4 +1,4 @@
-import React, { ComponentProps, forwardRef } from 'react'
+import { ComponentProps, forwardRef } from 'react'
 import { NavLink } from 'react-router-dom'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 

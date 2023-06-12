@@ -1,7 +1,7 @@
 import Header from '@/app/components/header'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Card, Input, List, Modal, Tabs } from '@youknown/react-ui/src'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { TbSearch } from 'react-icons/tb'
 import FeedList from './components/feed-list'
 

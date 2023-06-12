@@ -1,4 +1,4 @@
-import React, { forwardRef, SVGAttributes } from 'react'
+import { forwardRef, SVGAttributes } from 'react'
 
 const SpinSvg = forwardRef<SVGSVGElement, SVGAttributes<SVGSVGElement>>((props, propRef) => {
 	const { style, ...rest } = props

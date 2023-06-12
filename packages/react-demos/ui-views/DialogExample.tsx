@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Button, Divider, Dialog } from '@youknown/react-ui/src'
 
 export default () => {

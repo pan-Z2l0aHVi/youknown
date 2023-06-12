@@ -1,4 +1,4 @@
-import React, { ComponentProps, FC, ReactNode } from 'react'
+import { ComponentProps, FC, ReactNode } from 'react'
 import { cls } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import './dialog.scss'

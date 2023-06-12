@@ -1,5 +1,5 @@
 import { Button, Divider, Input, Space } from '@youknown/react-ui/src'
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { TbEyeOff, TbSearch } from 'react-icons/tb'
 
 export default () => {

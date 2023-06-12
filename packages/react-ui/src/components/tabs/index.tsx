@@ -1,5 +1,5 @@
 import { cls } from '@youknown/utils/src'
-import React, { ReactNode, useRef } from 'react'
+import { ReactNode, useRef } from 'react'
 import { forwardRef, HTMLAttributes } from 'react'
 import './tabs.scss'
 import { UI_PREFIX } from '../../constants'

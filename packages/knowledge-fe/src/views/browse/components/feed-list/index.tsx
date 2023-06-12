@@ -6,7 +6,6 @@ import { useFetch } from '@youknown/react-hook/src'
 import { Avatar, Button, Image, Tooltip } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
 import dayjs from 'dayjs'
-import React from 'react'
 import { FiThumbsUp } from 'react-icons/fi'
 
 interface FeedProps {

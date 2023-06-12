@@ -16,6 +16,7 @@ import TextStyle from '@tiptap/extension-text-style'
 import CharacterCount from '@tiptap/extension-character-count'
 import Document from '@tiptap/extension-document'
 import { UI_EDITOR_PREFIX } from '../constants'
+// import ImageResize from 'tiptap-imagresize'
 
 const CustomDocument = Document.extend({
 	content: 'heading block*'
@@ -66,6 +67,13 @@ export default function useEditor(options?: Partial<EditorOptions>) {
 					class: `${UI_EDITOR_PREFIX}-image`
 				}
 			})
+			// ImageResize.configure({
+			// 	inline: false,
+			// 	HTMLAttributes: {
+			// 		class: `${UI_EDITOR_PREFIX}-image`
+			// 	},
+			// 	resizeIcon: <>ResizeMe</>
+			// })
 		],
 		autofocus: false,
 		...options

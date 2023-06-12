@@ -1,5 +1,5 @@
 import { cls, is, omit } from '@youknown/utils/src'
-import React, { ComponentProps, forwardRef, ReactNode, useEffect, useRef } from 'react'
+import { ComponentProps, forwardRef, ReactNode, useEffect, useRef } from 'react'
 import CountUp from 'react-countup'
 import { RenderCounterProps } from 'react-countup/build/types'
 import { UI_PREFIX } from '../../constants'

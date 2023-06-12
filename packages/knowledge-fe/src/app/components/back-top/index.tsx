@@ -2,7 +2,7 @@ import { useAppContentEl } from '@/hooks'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Motion, Tooltip } from '@youknown/react-ui/src'
 import { debounce } from '@youknown/utils/src'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { TbArrowBarToUp } from 'react-icons/tb'
 
 interface BackTop {

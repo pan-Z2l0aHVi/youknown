@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes } from 'react'
+import { FC, HTMLAttributes } from 'react'
 import { cls } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import './aspect-ratio.scss'

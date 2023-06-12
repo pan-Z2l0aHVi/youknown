@@ -2,7 +2,6 @@ import Preferences from './preferences'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Avatar, Card, Divider, Dropdown, Modal, Tooltip, XIcon } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import React from 'react'
 import { TbLogout, TbSettings2 } from 'react-icons/tb'
 
 interface PersonalProps {

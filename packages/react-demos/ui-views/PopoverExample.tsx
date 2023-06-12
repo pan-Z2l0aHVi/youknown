@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Button, Divider, Popover, Space } from '@youknown/react-ui/src'
 
 export default () => {

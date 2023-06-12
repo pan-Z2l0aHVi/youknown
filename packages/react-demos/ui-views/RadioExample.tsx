@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Divider, Radio, Space } from '@youknown/react-ui/src'
 
 export default () => {

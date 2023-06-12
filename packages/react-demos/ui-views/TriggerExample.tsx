@@ -1,5 +1,5 @@
 import { Trigger, Divider, Space, Button } from '@youknown/react-ui/src'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 export default () => {
 	const [open, setOpen] = useState(false)

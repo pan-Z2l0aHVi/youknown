@@ -1,5 +1,5 @@
 import { cls } from '@youknown/utils/src'
-import React, { forwardRef, HTMLAttributes, isValidElement, ReactNode } from 'react'
+import { forwardRef, HTMLAttributes, isValidElement, ReactNode } from 'react'
 import { UI_PREFIX } from '../../constants'
 import './card.scss'
 

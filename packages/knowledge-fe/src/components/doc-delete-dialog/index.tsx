@@ -2,7 +2,6 @@ import { useAppDispatch } from '@/hooks'
 import { record } from '@/store/record'
 import { Dialog } from '@youknown/react-ui/src'
 import dayjs from 'dayjs'
-import React from 'react'
 
 interface DocDeleteDialogProps {
 	open: boolean

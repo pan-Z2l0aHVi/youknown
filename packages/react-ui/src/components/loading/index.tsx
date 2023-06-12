@@ -1,5 +1,5 @@
 import { cls } from '@youknown/utils/src'
-import React, { forwardRef, HTMLAttributes, ReactNode } from 'react'
+import { forwardRef, HTMLAttributes, ReactNode } from 'react'
 import SpinSvg from './SpinSvg'
 import './loading.scss'
 import { UI_PREFIX } from '../../constants'

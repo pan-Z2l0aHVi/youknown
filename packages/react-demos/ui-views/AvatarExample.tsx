@@ -1,4 +1,3 @@
-import React from 'react'
 import { Avatar, Divider, Space } from '@youknown/react-ui/src'
 import { TbPhotoOff, TbUser } from 'react-icons/tb'
 

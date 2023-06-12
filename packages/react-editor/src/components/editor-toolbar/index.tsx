@@ -1,6 +1,6 @@
 import { Divider, Space } from '@youknown/react-ui/src'
 import { Editor } from '@tiptap/react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import './index.scss'
 import Bold from '../bold'
 import BulletList from '../bullet-list'

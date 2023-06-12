@@ -1,6 +1,6 @@
 import { cls, is } from '@youknown/utils/src'
 import { GoCheck } from 'react-icons/go'
-import React, { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useEffect, useRef, useState } from 'react'
+import { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useEffect, useRef, useState } from 'react'
 import './checkbox.scss'
 import CheckboxGroup from './CheckboxGroup'
 import { UI_PREFIX } from '../../constants'

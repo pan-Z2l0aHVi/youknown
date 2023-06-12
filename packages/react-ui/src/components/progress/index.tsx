@@ -1,4 +1,4 @@
-import React, { CSSProperties, forwardRef, HTMLAttributes, ReactNode, useEffect, useRef } from 'react'
+import { CSSProperties, forwardRef, HTMLAttributes, ReactNode, useEffect, useRef } from 'react'
 import ProgressCircle from './ProgressCircle'
 import { cls, is } from '@youknown/utils/src'
 import './progress.scss'

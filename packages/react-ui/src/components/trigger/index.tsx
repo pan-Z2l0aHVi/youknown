@@ -14,7 +14,7 @@ import {
 	useMergeRefs,
 	useRole
 } from '@floating-ui/react'
-import React, {
+import {
 	Children,
 	cloneElement,
 	forwardRef,

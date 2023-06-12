@@ -1,5 +1,5 @@
 import { Avatar, Button, Input, Space, Tooltip } from '@youknown/react-ui/src'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { RiEmotionHappyLine } from 'react-icons/ri'
 import { TbPhoto, TbSend } from 'react-icons/tb'
 

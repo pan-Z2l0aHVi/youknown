@@ -6,7 +6,7 @@ import { useBoolean } from '@youknown/react-hook/src'
 import { Dropdown, Motion } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import dayjs from 'dayjs'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { GoCheck } from 'react-icons/go'
 import { RiHistoryFill } from 'react-icons/ri'
 

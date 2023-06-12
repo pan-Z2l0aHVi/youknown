@@ -1,7 +1,7 @@
 import Motion from '../motion'
 import { useBoolean, useComposeRef, useLatestRef } from '@youknown/react-hook/src'
 import { cls, downloadFile, is, throttle } from '@youknown/utils/src'
-import React, {
+import {
 	forwardRef,
 	ImgHTMLAttributes,
 	MouseEventHandler,

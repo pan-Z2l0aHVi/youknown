@@ -1,4 +1,4 @@
-import React, { ComponentProps, FC, ReactElement, ReactNode, useCallback, useState } from 'react'
+import { ComponentProps, FC, ReactElement, ReactNode, useCallback, useState } from 'react'
 import { cls, is, uuid } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import './toast.scss'

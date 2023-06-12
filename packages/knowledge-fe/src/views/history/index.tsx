@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import Header from '@/app/components/header'
 import { Button, Input, Space } from '@youknown/react-ui/src'
 import { TbSearch } from 'react-icons/tb'

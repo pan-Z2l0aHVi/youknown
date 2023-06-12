@@ -1,4 +1,4 @@
-import React, { forwardRef, HTMLAttributes, MouseEventHandler, ReactNode, useContext } from 'react'
+import { forwardRef, HTMLAttributes, MouseEventHandler, ReactNode, useContext } from 'react'
 import { cls } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import './dropdown-item.scss'

@@ -1,5 +1,5 @@
 import { cls, is } from '@youknown/utils/src'
-import React, { forwardRef, HTMLAttributes, ReactEventHandler, ReactNode, SyntheticEvent, useState } from 'react'
+import { forwardRef, HTMLAttributes, ReactEventHandler, ReactNode, SyntheticEvent, useState } from 'react'
 import { UI_PREFIX } from '../../constants'
 import './avatar.scss'
 import AvatarGroup from './avatarGroup'

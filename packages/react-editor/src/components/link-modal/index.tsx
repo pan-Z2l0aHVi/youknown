@@ -1,5 +1,5 @@
 import { Button, Card, Form, Input, Modal, Space } from '@youknown/react-ui/src'
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import './index.scss'
 import { UI_EDITOR_PREFIX } from '../../constants'
 import ToolbarContext from '../../contexts/editorContext'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { EditorContent, Toolbar, useEditor } from '@youknown/react-editor/src'
 import { Button } from '@youknown/react-ui/src'
 

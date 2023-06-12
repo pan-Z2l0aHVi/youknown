@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useEffect } from 'react'
+import { Suspense, useCallback, useEffect } from 'react'
 import { useRoutes } from 'react-router-dom'
 import routes from '../router/routes'
 import { Loading } from '@youknown/react-ui/src'

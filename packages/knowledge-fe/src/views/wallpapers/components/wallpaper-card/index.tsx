@@ -1,7 +1,7 @@
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dropdown, Image, Motion, Toast } from '@youknown/react-ui/src'
 import { cls, downloadFile } from '@youknown/utils/src'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { RxDotsHorizontal } from 'react-icons/rx'
 
 interface WallpaperCardProps {

@@ -1,5 +1,5 @@
 import { cls } from '@youknown/utils/src'
-import React, { forwardRef, HTMLAttributes } from 'react'
+import { forwardRef, HTMLAttributes } from 'react'
 import { UI_PREFIX } from '../../constants'
 import './divider.scss'
 

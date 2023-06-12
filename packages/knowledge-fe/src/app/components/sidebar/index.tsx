@@ -1,7 +1,7 @@
 import { useBoolean } from '@youknown/react-hook/src'
 import { Divider, Loading, Tooltip } from '@youknown/react-ui/src'
 import { cls, storage } from '@youknown/utils/src'
-import React, { lazy, Suspense, useCallback, useEffect, useState, useTransition } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useState, useTransition } from 'react'
 import { TbDotsVertical } from 'react-icons/tb'
 import Menu from './components/menu'
 

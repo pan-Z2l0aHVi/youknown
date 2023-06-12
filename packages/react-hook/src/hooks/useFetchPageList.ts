@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useEffect, useRef, useState } from 'react'
+import { RefObject, useCallback, useLayoutEffect, useRef, useState } from 'react'
 import { useIntersection } from './useIntersection'
 import { useLatestRef } from './useLatestRef'
 import { PromiseFnResult } from '@youknown/utils/src'
@@ -79,8 +79,8 @@ export function useFetchPageList<T extends Fetcher>(fetcher: T, opts: PageListOp
 
 	const { loadingRef, observerInit } = optsRef.current
 	const isIntersection = useIntersection(loadingRef, observerInit)
-	useEffect(() => {
-		// FIXME: 调用resetListData会额外执行一次无效请求
+	useLayoutEffect(() => {
+		// FIXME: 调用resetListData导致页面布局发生变化，可能会额外触发无效请求。
 		if (isIntersection && ready) {
 			updateListData()
 		}

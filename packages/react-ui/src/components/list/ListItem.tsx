@@ -1,5 +1,5 @@
 import { cls } from '@youknown/utils/src'
-import React, { forwardRef, HTMLAttributes, ReactNode } from 'react'
+import { forwardRef, HTMLAttributes, ReactNode } from 'react'
 import { UI_PREFIX } from '../../constants'
 import './list-item.scss'
 

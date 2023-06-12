@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Avatar, Divider, List, Tabs } from '@youknown/react-ui/src'
 
 export default () => {

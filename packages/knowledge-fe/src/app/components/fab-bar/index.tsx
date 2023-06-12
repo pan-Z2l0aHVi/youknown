@@ -1,5 +1,4 @@
 import { Button, Space, Tooltip } from '@youknown/react-ui/src'
-import React from 'react'
 import { GrGithub } from 'react-icons/gr'
 import BackTop from '../back-top'
 

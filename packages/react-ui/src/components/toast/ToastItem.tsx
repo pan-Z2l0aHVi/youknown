@@ -1,4 +1,4 @@
-import React, { forwardRef, HTMLAttributes, ReactNode } from 'react'
+import { forwardRef, HTMLAttributes, ReactNode } from 'react'
 import { cls } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import './toast-item.scss'

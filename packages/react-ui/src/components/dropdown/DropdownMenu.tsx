@@ -1,4 +1,4 @@
-import React, { forwardRef, HTMLAttributes } from 'react'
+import { forwardRef, HTMLAttributes } from 'react'
 import { cls } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import './dropdown-menu.scss'

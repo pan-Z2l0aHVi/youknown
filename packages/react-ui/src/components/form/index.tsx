@@ -1,4 +1,4 @@
-import React, { FormEvent, FormHTMLAttributes, forwardRef } from 'react'
+import { FormEvent, FormHTMLAttributes, forwardRef } from 'react'
 import { cls, omit } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import './form.scss'

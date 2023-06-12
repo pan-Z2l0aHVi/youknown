@@ -1,4 +1,3 @@
-import React from 'react'
 import { Motion, Progress } from '@youknown/react-ui/src'
 import { useAppSelector } from '@/hooks'
 

@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { NavLink, useRoutes } from 'react-router-dom'
 import { cls } from '@youknown/utils/src'
 import './App.scss'

@@ -1,7 +1,7 @@
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dropdown, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import React, { createElement, useContext } from 'react'
+import { createElement, useContext } from 'react'
 import { GoChevronDown } from 'react-icons/go'
 import { TbCheck } from 'react-icons/tb'
 import './index.scss'

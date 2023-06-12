@@ -1,5 +1,5 @@
 import { cls } from '@youknown/utils/src'
-import React, { ButtonHTMLAttributes, forwardRef } from 'react'
+import { ButtonHTMLAttributes, forwardRef } from 'react'
 import { TbDots } from 'react-icons/tb'
 
 interface MoreProps extends ButtonHTMLAttributes<HTMLButtonElement> {

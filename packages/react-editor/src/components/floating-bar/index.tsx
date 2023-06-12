@@ -1,6 +1,6 @@
 import { FloatingMenu } from '@tiptap/react'
 import { Button, Divider, Dropdown } from '@youknown/react-ui/src'
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import './index.scss'
 import { TbPlus } from 'react-icons/tb'
 import CodeBlock from '../code-block'

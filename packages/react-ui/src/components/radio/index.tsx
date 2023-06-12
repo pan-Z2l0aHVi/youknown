@@ -1,6 +1,6 @@
 import { useComposeRef } from '@youknown/react-hook/src'
 import { cls, is } from '@youknown/utils/src'
-import React, { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useEffect, useRef, useState } from 'react'
+import { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useEffect, useRef, useState } from 'react'
 import { UI_PREFIX } from '../../constants'
 import './radio.scss'
 import RadioGroup from './RadioGroup'

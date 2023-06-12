@@ -1,7 +1,7 @@
 import { nav_routes, RouteItem } from '@/router/routes'
 import { Motion, Tooltip } from '@youknown/react-ui/src'
 import { cls, DeepRequired } from '@youknown/utils/src'
-import React, { Fragment, MouseEvent, useState } from 'react'
+import { Fragment, MouseEvent, useState } from 'react'
 import { GoChevronDown } from 'react-icons/go'
 import TransitionNavLink from '@/components/transition-nav-link'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'

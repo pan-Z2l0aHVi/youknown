@@ -1,7 +1,7 @@
 import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Divider, Popover, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { BiFont } from 'react-icons/bi'
 import { GoChevronDown } from 'react-icons/go'
 import './index.scss'

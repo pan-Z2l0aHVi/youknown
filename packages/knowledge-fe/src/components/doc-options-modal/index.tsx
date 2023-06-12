@@ -1,5 +1,4 @@
 import { Button, Card, Form, Modal, Radio, Space, XIcon } from '@youknown/react-ui/src'
-import React from 'react'
 
 interface DocOptionsModalProps {
 	open: boolean

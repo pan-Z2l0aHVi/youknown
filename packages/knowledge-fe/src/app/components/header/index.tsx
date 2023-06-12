@@ -1,5 +1,5 @@
 import { cls } from '@youknown/utils/src'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 interface HeaderProps {
 	children?: ReactNode

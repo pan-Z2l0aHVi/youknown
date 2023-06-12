@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import Header from '@/app/components/header'
 import { Loading, Toast } from '@youknown/react-ui/src'
 import WallpaperFilter, { WallpaperQuery } from './components/wallpaper-filter'

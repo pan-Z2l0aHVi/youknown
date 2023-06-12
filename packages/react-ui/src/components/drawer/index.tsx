@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, HTMLAttributes, useRef } from 'react'
+import { CSSProperties, FC, HTMLAttributes, useRef } from 'react'
 import { cls } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import './drawer.scss'

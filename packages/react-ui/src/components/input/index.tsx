@@ -1,6 +1,6 @@
 import { useBoolean, useComposeRef } from '@youknown/react-hook/src'
 import { cls, is } from '@youknown/utils/src'
-import React, {
+import {
 	ChangeEvent,
 	ChangeEventHandler,
 	FocusEventHandler,

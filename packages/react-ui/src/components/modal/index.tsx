@@ -1,6 +1,6 @@
 import Motion from '../motion'
 import { cls } from '@youknown/utils/src'
-import React, { FC, HTMLAttributes, useRef } from 'react'
+import { FC, HTMLAttributes, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { UI_PREFIX } from '../../constants'
 import './modal.scss'

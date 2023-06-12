@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react'
+import { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react'
 import { cls } from '@youknown/utils/src'
 import './button.scss'
 import Loading from '../loading'

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { TbHistory, TbStar, TbNotes, TbLayout, TbBook2, TbWallpaper, TbDeviceDesktop } from 'react-icons/tb'
 import { Navigate, RouteObject } from 'react-router-dom'
 import { create_lazy_element } from './create-lazy-element'

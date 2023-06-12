@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Divider, Space, Switch } from '@youknown/react-ui/src'
 
 export default () => {

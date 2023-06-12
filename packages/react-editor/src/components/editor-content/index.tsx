@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, forwardRef } from 'react'
 import { EditorContent as TiptapEditorContent } from '@tiptap/react'
 import './index.scss'
 import { cls } from '@youknown/utils/src'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Divider, Space } from '@youknown/react-ui/src'
 import { Tag } from '@youknown/react-ui/src'
 
