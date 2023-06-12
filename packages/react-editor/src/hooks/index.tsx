@@ -10,13 +10,13 @@ import Table from '@tiptap/extension-table'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
-import Image from '@tiptap/extension-image'
 import Color from '@tiptap/extension-color'
 import TextStyle from '@tiptap/extension-text-style'
 import CharacterCount from '@tiptap/extension-character-count'
 import Document from '@tiptap/extension-document'
+import Image from '@tiptap/extension-image'
+// import ImageResize from '../exts/tiptap-resizable-image'
 import { UI_EDITOR_PREFIX } from '../constants'
-// import ImageResize from 'tiptap-imagresize'
 
 const CustomDocument = Document.extend({
 	content: 'heading block*'
@@ -61,12 +61,6 @@ export default function useEditor(options?: Partial<EditorOptions>) {
 			TableRow,
 			TableHeader,
 			TableCell,
-			Image.configure({
-				inline: false,
-				HTMLAttributes: {
-					class: `${UI_EDITOR_PREFIX}-image`
-				}
-			})
 			// ImageResize.configure({
 			// 	inline: false,
 			// 	HTMLAttributes: {
@@ -74,6 +68,12 @@ export default function useEditor(options?: Partial<EditorOptions>) {
 			// 	},
 			// 	resizeIcon: <>ResizeMe</>
 			// })
+			Image.configure({
+				inline: false,
+				HTMLAttributes: {
+					class: `${UI_EDITOR_PREFIX}-image`
+				}
+			})
 		],
 		autofocus: false,
 		...options

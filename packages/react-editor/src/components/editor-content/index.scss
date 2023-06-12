@@ -81,5 +81,25 @@
 				outline: 3px solid $color-primary;
 			}
 		}
+
+		.image-resizer {
+			display: inline-flex;
+			position: relative;
+			flex-grow: 0;
+			.resize-trigger {
+				position: absolute;
+				right: -6px;
+				bottom: -9px;
+				opacity: 0;
+				transition: opacity 0.3s ease;
+				color: #fff;
+				background-color: #3259a5;
+				border-radius: 999vmax;
+				padding: 0 8px;
+			}
+			&:hover .resize-trigger {
+				opacity: 1;
+			}
+		}
 	}
 }

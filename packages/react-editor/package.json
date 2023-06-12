@@ -20,12 +20,7 @@
     "author": "Grey",
     "license": "MIT",
     "dependencies": {
-        "@youknown/react-hook": "workspace:*",
-        "@youknown/react-ui": "workspace:*",
-        "@youknown/utils": "workspace:*",
-        "@youknown/css": "workspace:*",
         "@tiptap/core": "^2.0.3",
-        "@tiptap/pm": "^2.0.3",
         "@tiptap/extension-bubble-menu": "^2.0.3",
         "@tiptap/extension-character-count": "^2.0.3",
         "@tiptap/extension-color": "^2.0.3",
@@ -44,8 +39,13 @@
         "@tiptap/extension-text-style": "^2.0.3",
         "@tiptap/extension-typography": "^2.0.3",
         "@tiptap/extension-underline": "^2.0.3",
+        "@tiptap/pm": "^2.0.3",
         "@tiptap/react": "^2.0.3",
-        "@tiptap/starter-kit": "^2.0.3"
+        "@tiptap/starter-kit": "^2.0.3",
+        "@youknown/css": "workspace:*",
+        "@youknown/react-hook": "workspace:*",
+        "@youknown/react-ui": "workspace:*",
+        "@youknown/utils": "workspace:*"
     },
     "lint-staged": {
         "*.{js,ts,jsx,tsx}": "eslint --cache --fix"
