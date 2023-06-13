@@ -1,10 +1,10 @@
 import { Dropdown } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import { useContext } from 'react'
-import { TbLink } from 'react-icons/tb'
 import './index.scss'
 import { UI_EDITOR_PREFIX } from '../../constants'
 import ToolbarContext from '../../contexts/editorContext'
+import { RiLinkM } from 'react-icons/ri'
 
 export default function LinkItem() {
 	const { editor, setLinkModalOpen } = useContext(ToolbarContext)
@@ -18,7 +18,7 @@ export default function LinkItem() {
 						disabled: !editor.can().setLink({ href: '' })
 					})}
 				>
-					<TbLink />
+					<RiLinkM />
 				</div>
 			}
 			closeAfterItemClick

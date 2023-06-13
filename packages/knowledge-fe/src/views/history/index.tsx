@@ -49,7 +49,7 @@ export default function History() {
 						return (
 							<div className="group flex">
 								<div className="w-80px m-t--4px text-text-3 group-hover-text-text-2">{timing_desc}</div>
-								<div className="group relative flex p-l-32px m-l-32px h-80px b-l-2 b-l-bd-line group-last:b-l-transparent">
+								<div className="group relative flex p-l-32px m-l-32px h-80px b-l-2 b-l-solid b-l-bd-line group-last:b-l-transparent">
 									<div
 										className={cls(
 											'absolute left--8px w-14px h-14px bg-primary b-rd-round b-4 b-solid b-[rgba(255,255,255,0.8)]',
