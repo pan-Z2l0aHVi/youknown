@@ -1,5 +1,7 @@
 export type ValueOf<T> = T[keyof T]
 
+export type ArrayItem<T extends any[]> = T extends (infer R)[] ? R : never
+
 export type PromiseValueType<T> = T extends Promise<infer R> ? R : never
 
 export type PromiseFnResult<T extends () => Promise<unknown>> = PromiseValueType<ReturnType<T>>

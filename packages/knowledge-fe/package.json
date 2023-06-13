@@ -32,9 +32,6 @@
     "not dead"
   ],
   "devDependencies": {
-    "@types/chroma-js": "^2.4.0",
-    "@unocss/preset-rem-to-px": "^0.47.5",
-    "unocss": "^0.47.5",
-    "unocss-scrollbar-variant": "^0.37.2"
+    "@types/chroma-js": "^2.4.0"
   }
 }

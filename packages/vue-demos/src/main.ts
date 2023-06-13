@@ -1,4 +1,6 @@
 import { createApp } from 'vue'
+import '@youknown/css/src/common-vars.scss'
+import 'virtual:uno.css'
 import 'vant/lib/index.css'
 import App from './App.vue'
 import { Tab, Tabs, Button, Cell, Switch } from 'vant'

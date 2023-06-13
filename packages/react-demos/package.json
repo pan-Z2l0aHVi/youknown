@@ -20,6 +20,8 @@
     "@youknown/utils": "workspace:*",
     "@youknown/css": "workspace:*"
   },
+  "devDependencies": {
+  },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": "eslint --cache --fix"
   },

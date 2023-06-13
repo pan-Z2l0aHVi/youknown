@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
-import '@youknown/css/src/vars.scss'
+import '@youknown/css/src/common-vars.scss'
 import '@/styles/reset.scss'
 import '@/styles/theme.scss'
 import 'virtual:uno.css'

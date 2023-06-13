@@ -12,6 +12,5 @@
     "build": "rm -rf dist && sass src:dist/css"
   },
   "devDependencies": {
-    "vite": "^4.3.2"
   }
 }

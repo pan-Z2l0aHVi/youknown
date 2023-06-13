@@ -1,8 +1,8 @@
 import { Suspense, useEffect, useState } from 'react'
 import { NavLink, useRoutes } from 'react-router-dom'
 import { cls } from '@youknown/utils/src'
-import './App.scss'
-import router, { componentRoutes } from './routes'
+import './index.scss'
+import router, { componentRoutes } from '@/router/routes'
 import { Button, Loading, Space } from '@youknown/react-ui/src'
 
 const App = () => {

@@ -9,8 +9,9 @@
 		"declaration": false,
 		"noEmit": true,
 		"paths": {
-			"@editor/*": ["editor-views/*"],
-			"@ui/*": ["ui-views/*"]
+			"@/*": ["src/*"],
+			"@editor/*": ["src/editor-views/*"],
+			"@ui/*": ["src/ui-views/*"]
 		}
 	},
 	"exclude": ["./dist/**/*", "**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx", "**/*.spec.tsx"]
