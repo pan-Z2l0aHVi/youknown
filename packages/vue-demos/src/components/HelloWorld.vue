@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-withDefaults(defineProps<{ msg: string }>(), {
+withDefaults(defineProps<{ msg?: string }>(), {
 	msg: 'default msg'
 })
 

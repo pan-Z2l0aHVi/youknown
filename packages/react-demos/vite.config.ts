@@ -4,29 +4,10 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import react from '@vitejs/plugin-react-swc'
 import { resolve } from 'path'
 import Unocss from 'unocss/vite'
-import { presetUno } from 'unocss'
-import presetRemToPx from '@unocss/preset-rem-to-px'
-import { presetScrollbar } from 'unocss-scrollbar-variant'
-import { shortcuts, theme } from '../../build/unocss'
 
 export default defineConfig({
 	base: '',
-	plugins: [
-		tsconfigPaths(),
-		react(),
-		Unocss({
-			presets: [presetUno(), presetRemToPx(), presetScrollbar()],
-			shortcuts: {
-				...shortcuts
-			},
-			rules: [],
-			theme: {
-				...theme
-			}
-		}),
-		,
-		visualizer() as PluginOption
-	],
+	plugins: [tsconfigPaths(), react(), Unocss(), visualizer() as PluginOption],
 	server: {},
 	resolve: {
 		alias: {

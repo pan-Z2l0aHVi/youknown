@@ -100,7 +100,7 @@ export default function Doc() {
 			<DocOptionsModal open={doc_options_modal_open} hide_modal={hide_doc_options_modal} />
 
 			<div className="flex justify-center sticky top-64px z-10 bg-bg-0">
-				<div className="border-b-bd-line border-b-1 p-12px bg-bg-0 shadow-[0_12px_16px_-8px_rgba(0,0,0,0.02)]">
+				<div className="b-b-bd-line b-b-1 b-b-solid p-12px bg-bg-0 shadow-[0_12px_16px_-8px_rgba(0,0,0,0.02)]">
 					<Toolbar editor={editor} />
 				</div>
 			</div>

@@ -34,7 +34,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 	return (
 		<div className="relative" onMouseEnter={start_hover} onMouseLeave={stop_hover}>
 			<Image
-				className="b-rd-radius-m shadow-shadow-l select-none bg-bg-2 b-bd-line b-1"
+				className="b-rd-radius-m shadow-shadow-l select-none bg-bg-2 b-bd-line b-1 b-solid"
 				style={{
 					width: 240,
 					height: 240 * ratio

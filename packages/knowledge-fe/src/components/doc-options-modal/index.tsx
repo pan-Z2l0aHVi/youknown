@@ -79,7 +79,7 @@ interface DocCoverProps {
 function DocCover(props: DocCoverProps) {
 	const { value, onChange } = props
 	return (
-		<div className="b-bd-line b-1px b-rd-radius-m">
+		<div className="b-bd-line b-1 b-solid b-rd-radius-m">
 			<img className="w-240px h-auto b-rd-radius-m" src={value} />
 		</div>
 	)

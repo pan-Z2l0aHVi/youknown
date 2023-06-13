@@ -74,7 +74,7 @@ export default function Sidebar() {
 
 	return (
 		<aside
-			className={cls('relative flex flex-col h-screen border-r-bd-line border-r bg-bg-2 p-[16px_12px]', {
+			className={cls('relative flex flex-col h-screen b-r-1 b-r-solid b-r-bd-line bg-bg-2 p-[16px_12px]', {
 				'transition-width-300': !dragging,
 				'w-68px': !expand
 			})}

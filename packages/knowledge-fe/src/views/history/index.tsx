@@ -52,7 +52,7 @@ export default function History() {
 								<div className="group relative flex p-l-32px m-l-32px h-80px b-l-2 b-l-bd-line group-last:b-l-transparent">
 									<div
 										className={cls(
-											'absolute left--8px w-14px h-14px bg-primary b-4 b-rd-round b-color-[rgba(255,255,255,0.8)]',
+											'absolute left--8px w-14px h-14px bg-primary b-rd-round b-4 b-solid b-[rgba(255,255,255,0.8)]',
 											'group-hover-scale-150 transition-duration-250ms'
 										)}
 									></div>

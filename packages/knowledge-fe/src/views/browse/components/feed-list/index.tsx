@@ -63,7 +63,7 @@ export default function FeedList(props: FeedProps) {
 				})
 
 				return (
-					<div key={feed.id} className="border-b-bd-line border-b mb-32px">
+					<div key={feed.id} className="b-b-bd-line b-b b-b-solid mb-32px">
 						<div className="flex items-center mb-16px">
 							<Avatar size="small" round src={feed.user.avatar} />
 
@@ -96,7 +96,7 @@ export default function FeedList(props: FeedProps) {
 							</div>
 
 							<Image
-								className="w-160px h-108px b-bd-line b-1 b-rd-radius-m object-cover ml-48px"
+								className="w-160px h-108px b-bd-line b-1 b-solid b-rd-radius-m object-cover ml-48px"
 								src={feed.cover}
 								loading="lazy"
 							/>

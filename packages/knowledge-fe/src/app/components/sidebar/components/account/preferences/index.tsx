@@ -46,14 +46,14 @@ function RadiusStyle(props: RadiusStyleProps) {
 						<div
 							className={cls(
 								'relative w-64px h-64px b-rd-radius-m overflow-hidden bg-bg-3',
-								'before:absolute before:right--42% before:bottom--36% before:w-100% before:h-100% before:content-none',
-								'before:b-t-1 before:b-l-1 before:b-bd-line before:shadow-shadow-m before:bg-bg-1',
+								'before:absolute before:right--42% before:bottom--36% before:w-100% before:h-100% before:content-empty',
+								'before:b-t-1 before:b-l-1 before:b-bd-line before:b-solid before:shadow-shadow-m before:bg-bg-1',
 								style.id === 1 && 'before:b-rd-3px',
 								style.id === 2 && 'before:b-rd-6px',
 								style.id === 3 && 'before:b-rd-9px',
 								value.id === style.id
-									? 'b-1 b-color-primary shadow-[0_0_0_1px_var(--ui-color-primary)]'
-									: 'b-1 b-bd-line'
+									? 'b-1 b-solid b-primary shadow-[0_0_0_1px_var(--ui-color-primary)]'
+									: 'b-1 b-solid b-bd-line'
 							)}
 						></div>
 						<div className="color-text-2 m-t-4px">{style.desc}</div>
@@ -82,9 +82,9 @@ function Hue(props: HueProps) {
 					<div
 						key={color}
 						className={cls(
-							'relative w-24px h-24px b-rd-round b-1 b-color-[rgba(0,0,0,0.1)] cursor-pointer',
+							'relative w-24px h-24px b-rd-round b-1 b-solid b-[rgba(0,0,0,0.1)] cursor-pointer',
 							'm-b-4px m-t-4px',
-							'before:absolute before:top-6px before:left-6px before:w-10px before:h-10px before:b-rd-round before:content-none',
+							'before:absolute before:top-6px before:left-6px before:w-10px before:h-10px before:b-rd-round before:content-empty',
 							value === color && 'before:bg-#fff before:shadow-shadow-s'
 						)}
 						style={{ backgroundColor: color }}

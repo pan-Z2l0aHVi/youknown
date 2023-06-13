@@ -103,7 +103,7 @@ export default function Wallpapers() {
 					<div
 						className={cls(
 							'relative flex justify-center items-center h-80px',
-							'after:absolute after:content-none after:w-240px after:b-b-1 after:b-bd-line'
+							'after:absolute after:content-empty after:w-240px after:b-b-1 after:b-b-solid after:b-bd-line'
 						)}
 					>
 						<div className="z-1 p-l-8px p-r-8px bg-bg-0 color-text-2">没有更多内容了</div>

@@ -44,8 +44,10 @@
         "@types/react-dom": "^18.2.4",
         "@typescript-eslint/eslint-plugin": "^5.59.6",
         "@typescript-eslint/parser": "^5.59.6",
+        "@unocss/preset-rem-to-px": "^0.53.1",
         "@vitejs/plugin-react": "^4.0.0",
         "@vitejs/plugin-react-swc": "^3.3.1",
+        "@vitejs/plugin-vue": "^4.1.0",
         "commitlint": "^17.6.3",
         "concurrently": "^8.0.1",
         "eslint": "^8.41.0",
@@ -53,6 +55,7 @@
         "eslint-plugin-prettier": "^4.2.1",
         "eslint-plugin-react": "^7.32.2",
         "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-vue": "^9.13.0",
         "husky": "^8.0.3",
         "jest": "^29.5.0",
         "jest-environment-jsdom": "^29.5.0",
@@ -63,15 +66,12 @@
         "ts-jest": "^29.1.0",
         "turbo": "1.9.8",
         "typescript": "5.0.4",
+        "unocss": "^0.53.1",
+        "unocss-scrollbar-variant": "0.37.2",
         "vite": "^4.3.8",
         "vite-plugin-css-injected-by-js": "^3.1.1",
-        "vite-tsconfig-paths": "^4.2.0",
-        "@vitejs/plugin-vue": "^4.1.0",
-        "eslint-plugin-vue": "^9.13.0",
         "vite-plugin-eslint": "^1.8.1",
-        "vue-tsc": "^1.4.2",
-        "unocss-scrollbar-variant": "^0.37.2",
-        "@unocss/preset-rem-to-px": "^0.47.5",
-        "unocss": "^0.47.5"
+        "vite-tsconfig-paths": "^4.2.0",
+        "vue-tsc": "^1.4.2"
     }
 }

@@ -104,7 +104,7 @@ export default function DocList() {
 
 	const choosing_bar = (
 		<Motion.Slide in={choosing} direction="up" unmountOnExit>
-			<div className="fixed bottom-40px left-[calc(50%-120px)] p-8px bg-bg-1 b-1 b-bd-line b-rd-radius-l shadow-shadow-l">
+			<div className="fixed bottom-40px left-[calc(50%-120px)] p-8px bg-bg-1 b-1 b-solid b-bd-line b-rd-radius-l shadow-shadow-l">
 				<Space align="center">
 					<Tooltip spacing={12} placement="top" title="删除">
 						<Button circle text disabled={!has_selection} onClick={show_doc_delete_dialog}>
@@ -112,7 +112,7 @@ export default function DocList() {
 						</Button>
 					</Tooltip>
 
-					<div className="p-l-16px p-r-16px b-l-1 b-r-1 b-bd-line select-none">
+					<div className="p-l-16px p-r-16px b-l-1 b-r-1 b-solid b-bd-line select-none">
 						已选中：{selection.length}
 					</div>
 

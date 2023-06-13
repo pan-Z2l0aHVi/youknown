@@ -43,7 +43,7 @@ export default function DocCard(props: DocCardProps) {
 			<div
 				ref={container_ref}
 				className={cls(
-					'relative flex flex-col h-224px b-1 b-rd-radius-l',
+					'relative flex flex-col h-224px b-1 b-solid b-rd-radius-l',
 					'bg-bg-1 bg-cover cursor-pointer overflow-hidden',
 					selected
 						? 'b-primary shadow-[0_0_0_1px_var(--ui-color-primary)]'
@@ -55,7 +55,7 @@ export default function DocCard(props: DocCardProps) {
 					<div
 						className={cls(
 							'absolute top-8px right-8px flex items-center justify-center w-24px h-24px',
-							'b-rd-round b-4px b-[rgba(255,255,255,0.8)] bg-primary'
+							'b-rd-round b-4px b-solid b-[rgba(255,255,255,0.8)] bg-primary'
 						)}
 					>
 						<GoCheck className="text-14px color-#fff" />
@@ -73,7 +73,7 @@ export default function DocCard(props: DocCardProps) {
 					direction="up"
 					unmountOnExit
 				>
-					<div className="flex items-center justify-between p-12px bg-bg-1 b-t-bd-line b-t-1 cursor-default">
+					<div className="flex items-center justify-between p-12px bg-bg-1 b-t-bd-line b-t-1 b-t-solid cursor-default">
 						<div className="flex items-center color-text-3">
 							<RiHistoryFill className="m-r-4px text-14px" />
 							<span className="text-12px">{dayjs(updated_at).format('YYYY-MM-DD')}</span>
