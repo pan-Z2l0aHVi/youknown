@@ -83,6 +83,7 @@ const scrollTop = () => {
 <style scope lang="scss">
 .list-container {
 	padding: 16px;
+	background: #fff;
 
 	.list-item {
 		display: flex;

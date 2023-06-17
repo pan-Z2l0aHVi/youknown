@@ -20,7 +20,7 @@ interface PageListOptions<T extends Fetcher> {
 }
 
 export function useFetchPageList<T extends Fetcher>(fetcher: T, opts: PageListOptions<T>) {
-	type Result = PromiseFnResult<typeof fetcher>
+	type Result = PromiseFnResult<T>
 
 	const { initialPage = 1, initialPageSize, ready = true, loadingDelay = 0 } = opts
 	const fetcherRef = useLatestRef(fetcher)

@@ -15,7 +15,7 @@ export default function useFetchPageList<
 	}>
 >(fetcher: T, options: PageListOptions) {
 	type PromiseValueType<T> = T extends Promise<infer R> ? R : never
-	type Result = PromiseValueType<ReturnType<typeof fetcher>>
+	type Result = PromiseValueType<ReturnType<T>>
 	type List = Result['list']
 
 	const { initialPage = 1, initialPageSize, loadingRef, observerInit } = options
