@@ -8,22 +8,22 @@ export const routes: RouteRecordRaw[] = [
 	{
 		path: '/page_list',
 		name: 'page_list',
-		component: () => import('@/views/PageList.vue')
+		component: () => import('@/views/PageListView.vue')
 	},
 	{
 		path: '/hello',
 		name: 'hello',
-		component: () => import('@/views/HelloWorld.vue')
+		component: () => import('@/views/HelloWorldView.vue')
 	},
 	{
 		path: '/editor',
 		name: 'editor',
-		component: () => import('@/views/RichTextEditor.vue')
+		component: () => import('@/views/RichTextEditorView.vue')
 	},
 	{
 		path: '/tab_bar',
 		name: 'tab_bar',
-		component: () => import('@/views/TabBar.vue')
+		component: () => import('@/views/TabBarView.vue')
 	},
 	{
 		path: '/:pathMatch(.*)*',

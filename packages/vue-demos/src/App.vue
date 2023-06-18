@@ -1,5 +1,5 @@
 <template>
-	<header class="sticky top-0 w-100% h-48px bg-#fff">
+	<header class="z-20 sticky top-0 w-100% h-48px bg-#fff">
 		<van-tabs v-if="route.name" v-model:active="active" swipeable>
 			<van-tab v-for="tab in tabList" :key="tab.name" :title="tab.title" :to="tab.path"></van-tab>
 		</van-tabs>
