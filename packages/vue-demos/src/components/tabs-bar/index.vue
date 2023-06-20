@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import { onUpdated } from 'vue'
 import { ref, onMounted } from 'vue'
 
 interface TabItem {

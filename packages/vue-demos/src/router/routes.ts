@@ -21,6 +21,11 @@ export const routes: RouteRecordRaw[] = [
 		component: () => import('@/views/RichTextEditorView.vue')
 	},
 	{
+		path: '/crypto',
+		name: 'crypto',
+		component: () => import('@/views/CryptoView.vue')
+	},
+	{
 		path: '/tab_bar',
 		name: 'tab_bar',
 		component: () => import('@/views/TabBarView.vue')

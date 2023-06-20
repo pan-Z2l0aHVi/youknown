@@ -1,5 +1,5 @@
 {
-  "name": "@youknown/vue3-demos",
+  "name": "@youknown/vue-demos",
   "version": "1.0.0",
   "description": "A vue3 demos project.",
   "type": "module",
@@ -14,14 +14,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@youknown/utils": "workspace:*",
-    "@youknown/css": "workspace:*",
     "@tiptap/pm": "^2.0.3",
     "@tiptap/starter-kit": "^2.0.3",
     "@tiptap/vue-3": "^2.0.3",
+    "@youknown/css": "workspace:*",
+    "@youknown/utils": "workspace:*",
+    "crypto-js": "^4.1.1",
     "vant": "^4.3.2"
-  },
-  "devDependencies": {
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,vue}": "eslint --cache --fix"
@@ -30,5 +29,8 @@
     "last 1 version",
     "> 1%",
     "not dead"
-  ]
+  ],
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.1"
+  }
 }

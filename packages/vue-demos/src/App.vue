@@ -33,6 +33,11 @@ const tabList = ref([
 		name: 'tab_bar',
 		title: 'Tab Bar',
 		path: '/tab_bar'
+	},
+	{
+		name: 'crypto',
+		title: 'Crypto',
+		path: '/crypto'
 	}
 ])
 const active = ref(0)
