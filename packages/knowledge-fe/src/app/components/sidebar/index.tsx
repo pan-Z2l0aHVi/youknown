@@ -81,11 +81,7 @@ export default function Sidebar() {
 			style={sidebar_style}
 		>
 			<div className="h-32px m-b-24px">
-				<img
-					className="w-32px h-32px m-l-6px b-rd-radius-m"
-					// src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg2k9FA9S2ggEeYF1KDUhHuTgqsAnkJ0enMZRIZkB8Nw&s"
-					src="/branch.png"
-				/>
+				<img className="w-32px h-32px m-l-6px b-rd-radius-m b-1 b-bd-line b-solid" src="/branch.png" />
 			</div>
 
 			<Menu expand={expand} />
