@@ -10,7 +10,9 @@
 		"noEmit": true,
 		"paths": {
 			"@/*": ["src/*"]
-		}
+		},
+		/* Using vite */
+		"types": ["vite/client"]
 	},
 	"include": ["./src/**/*"],
 	"exclude": ["./dist/**/*", "**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx", "**/*.spec.tsx"]

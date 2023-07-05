@@ -1,5 +1,5 @@
 import { asyncCompose, Middleware, Next } from '../compose'
-import { pick } from '../pick'
+import { pick } from '../object'
 import QS from '../qs'
 import { delay } from '../time'
 

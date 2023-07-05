@@ -1,18 +1,17 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { asyncCompose: compose } = require('..')
+import { asyncCompose as compose } from '..'
 
-function wait(ms) {
+function wait(ms: number): Promise<void> {
 	return new Promise(resolve => setTimeout(resolve, ms || 1))
 }
 
-function isPromise(x) {
-	return x && typeof x.then === 'function'
+function isPromise(x: unknown): boolean {
+	return x instanceof Promise
 }
 
 describe('Koa Compose', function () {
 	it('should work', async () => {
-		const arr = []
-		const stack = []
+		const arr: number[] = []
+		const stack: ((ctx: any, next: () => Promise<void>) => Promise<void>)[] = []
 
 		stack.push(async (context, next) => {
 			arr.push(1)
@@ -43,7 +42,7 @@ describe('Koa Compose', function () {
 	})
 
 	it('should be able to be called twice', () => {
-		const stack = []
+		const stack: ((ctx: any, next: () => Promise<void>) => Promise<void>)[] = []
 
 		stack.push(async (context, next) => {
 			context.arr.push(1)
@@ -85,18 +84,22 @@ describe('Koa Compose', function () {
 	})
 
 	it('should only accept an array', () => {
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		expect(() => compose()).toThrow(TypeError)
 	})
 
 	it('should create next functions that return a Promise', function () {
-		const stack = []
-		const arr = []
+		const stack: ((ctx: any, next: () => Promise<void>) => void)[] = []
+		const arr: Promise<void>[] = []
+
 		for (let i = 0; i < 5; i++) {
 			stack.push((context, next) => {
 				arr.push(next())
 			})
 		}
-
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		compose(stack)({})
 
 		for (const next of arr) {
@@ -110,11 +113,13 @@ describe('Koa Compose', function () {
 	})
 
 	it('should only accept middleware as functions', () => {
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		expect(() => compose([{}])).toThrow(TypeError)
 	})
 
 	it('should work when yielding at the end of the stack', async () => {
-		const stack = []
+		const stack: ((ctx: any, next: () => Promise<void>) => Promise<void>)[] = []
 		let called = false
 
 		stack.push(async (ctx, next) => {
@@ -127,12 +132,13 @@ describe('Koa Compose', function () {
 	})
 
 	it('should reject on errors in middleware', () => {
-		const stack = []
+		const stack: (() => void)[] = []
 
 		stack.push(() => {
 			throw new Error()
 		})
-
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		return compose(stack)({}).then(
 			() => {
 				throw new Error('promise was not rejected')
@@ -146,7 +152,7 @@ describe('Koa Compose', function () {
 	it('should keep the context', () => {
 		const ctx = {}
 
-		const stack = []
+		const stack: ((ctx: any, next: () => Promise<void>) => Promise<void>)[] = []
 
 		stack.push(async (ctx2, next) => {
 			await next()
@@ -167,8 +173,8 @@ describe('Koa Compose', function () {
 	})
 
 	it('should catch downstream errors', async () => {
-		const arr = []
-		const stack = []
+		const arr: number[] = []
+		const stack: ((ctx: any, next: () => Promise<void>) => Promise<void>)[] = []
 
 		stack.push(async (ctx, next) => {
 			arr.push(1)
@@ -202,12 +208,13 @@ describe('Koa Compose', function () {
 	})
 
 	it('should handle errors in wrapped non-async functions', () => {
-		const stack = []
+		const stack: (() => void)[] = []
 
 		stack.push(function () {
 			throw new Error()
 		})
-
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		return compose(stack)({}).then(
 			() => {
 				throw new Error('promise was not rejected')
@@ -220,7 +227,7 @@ describe('Koa Compose', function () {
 
 	// https://github.com/koajs/compose/pull/27#issuecomment-143109739
 	it('should compose w/ other compositions', () => {
-		const called = []
+		const called: number[] = []
 
 		return compose([
 			compose([
@@ -279,7 +286,7 @@ describe('Koa Compose', function () {
 	})
 
 	it('should return last return value', () => {
-		const stack = []
+		const stack: ((context: any, next: () => Promise<number>) => Promise<number>)[] = []
 
 		stack.push(async (context, next) => {
 			const val = await next()
@@ -294,14 +301,16 @@ describe('Koa Compose', function () {
 		})
 
 		const next = () => 0
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		return compose(stack)({}, next).then(function (val) {
 			expect(val).toBe(1)
 		})
 	})
 
 	it('should not affect the original middleware array', () => {
-		const middleware = []
-		const fn1 = (ctx, next) => {
+		const middleware: ((ctx: any, next: () => Promise<void>) => Promise<void>)[] = []
+		const fn1 = (ctx: any, next: () => Promise<void>) => {
 			return next()
 		}
 		middleware.push(fn1)
@@ -318,7 +327,7 @@ describe('Koa Compose', function () {
 	})
 
 	it('should not get stuck on the passed in next', () => {
-		const middleware = [
+		const middleware: ((ctx: any, next: () => Promise<void>) => Promise<void>)[] = [
 			(ctx, next) => {
 				ctx.middleware++
 				return next()
@@ -328,7 +337,8 @@ describe('Koa Compose', function () {
 			middleware: 0,
 			next: 0
 		}
-
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		return compose(middleware)(ctx, (ctx, next) => {
 			ctx.next++
 			return next()

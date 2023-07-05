@@ -12,7 +12,9 @@
 			"@/*": ["src/*"],
 			"@editor/*": ["src/editor-views/*"],
 			"@ui/*": ["src/ui-views/*"]
-		}
+		},
+		/* Using vite */
+		"types": ["vite/client"]
 	},
 	"exclude": ["./dist/**/*", "**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx", "**/*.spec.tsx"]
 }
