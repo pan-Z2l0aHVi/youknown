@@ -377,6 +377,6 @@ export interface Wallpaper {
 }
 
 export const search_wallpapers = (params: SearchWallpaperParams) =>
-	net.fetch<Wallpaper[]>('/api/wallpaper/search', {
+	net.fetch<Wallpaper[]>('/proxy/wallpaper/search', {
 		params
 	})

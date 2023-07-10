@@ -26,14 +26,16 @@ export default defineConfig(({ mode }) => {
 			open: true,
 			cors: true,
 			proxy: {
-				'/api': {
-					target: env.VITE_API_URL,
+				'/proxy': {
+					target: env.VITE_PROXY_URL,
 					changeOrigin: true,
-					rewrite: path => path.replace(/^\/api/, '')
+					secure: false,
+					rewrite: path => path.replace(/^\/proxy/, '')
 				},
 				'/cdn': {
-					target: 'https://png.cm',
+					target: env.VITE_CDN_URL,
 					changeOrigin: true,
+					secure: false,
 					rewrite: path => path.replace(/^\/cdn/, '')
 				}
 			}
