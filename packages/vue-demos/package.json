@@ -21,6 +21,7 @@
     "@youknown/css": "workspace:*",
     "@youknown/utils": "workspace:*",
     "crypto-js": "^4.1.1",
+    "qiniu-js": "^3.4.1",
     "vant": "^4.3.2"
   },
   "lint-staged": {

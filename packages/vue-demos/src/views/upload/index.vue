@@ -1,12 +1,18 @@
 <template>
 	<div class="p-8px">
-		<input type="file" multiple @change="handleFileChange" />
+		<input class="mb-16px" type="file" multiple @change="handleFileChange" />
+		<van-button @click="images = []">clear</van-button>
+
+		<div class="mt-40px">
+			<img v-for="image in images" :key="image" :src="image" />
+		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { net } from '@/utils/request'
-import { object2FormData, storage } from '@youknown/utils/src'
+import { storage } from '@youknown/utils/src'
+import { ref } from 'vue'
 
 let token: string = storage.session.get('cdn_token') ?? ''
 const initCDNToken = async () => {
@@ -14,57 +20,52 @@ const initCDNToken = async () => {
 
 	const data = await net.fetch<{
 		token: string
-	}>('/cdn/api/token', {
-		method: 'post',
-		payload: {
-			email: '1350210100@qq.com',
-			password: 'pb11568171',
-			refresh: 0
-		}
-	})
+	}>('/proxy/bucket/token')
 	storage.session.set('cdn_token', data.token)
 	token = data.token
 }
-initCDNToken().then(() => {
-	getImages()
-})
+initCDNToken()
 
-const uploadFile = async (file: File) => {
-	const formData = object2FormData({
-		image: file
-	})
-	const data = await net.fetch<{
-		id: string
-		md5: string
-		mime: string
-		name: string
-		quota: string
-		sha1: string
-		size: number
-		url: string
-		use_quota: string
-	}>('/cdn/api/upload', {
+const images = ref<string[]>([])
+
+const uploadMaterial = async (url = '') => {
+	await net.fetch('/proxy/material/upload', {
 		method: 'post',
-		payload: formData,
-		headers: {
-			'Content-Type': 'multipart/form-data',
-			token
+		payload: {
+			type: 1,
+			url
 		}
 	})
-	console.log('res', data)
+	images.value.push(url)
 }
 
-const getImages = async () => {
-	const res = await net.fetch('/cdn/api/images', {
-		method: 'post',
-		headers: {
-			token
+const uploadFile = async (file: File) => {
+	const qiniu = await import('qiniu-js')
+	const observable = qiniu.upload(
+		file,
+		null,
+		token,
+		{},
+		{
+			useCdnDomain: true
+		}
+	)
+	observable.subscribe({
+		next(res) {
+			console.log('next res: ', res)
+			// ...
 		},
-		payload: {
-			page: 1
+		error(err) {
+			console.log('error err: ', err)
+			// ...
+		},
+		complete(res) {
+			console.log('complete res: ', res)
+			// ...
+			const url = `${import.meta.env.VITE_CDN_URL}/${res.hash}`
+			uploadMaterial(url)
 		}
 	})
-	console.log('res: ', res)
 }
 
 const handleFileChange = (e: Event) => {
