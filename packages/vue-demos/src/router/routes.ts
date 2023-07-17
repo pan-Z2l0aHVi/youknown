@@ -22,6 +22,14 @@ export const navTabRoutes: (RouteRecordRaw & {
 		}
 	},
 	{
+		path: '/login',
+		name: 'login',
+		component: () => import('@/views/login/index.vue'),
+		meta: {
+			title: 'Login'
+		}
+	},
+	{
 		path: '/editor',
 		name: 'editor',
 		component: () => import('@/views/rich-text-editor/index.vue'),
