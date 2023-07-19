@@ -1,6 +1,8 @@
 import uuid from '.'
 
 describe('uuid', () => {
+	global.URL.createObjectURL = jest.fn(() => 'c7cb72fd-1cb2-4cc7-8a44-a10d1e91743b')
+
 	it('should return a string of length 36', () => {
 		const result = uuid()
 		expect(result).toHaveLength(36)
