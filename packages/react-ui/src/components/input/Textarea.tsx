@@ -9,7 +9,7 @@ import {
 } from 'react'
 import { cls, is } from '@youknown/utils/src'
 import './textarea.scss'
-import TextareaAutosize from 'react-textarea-autosize'
+import TextareaAutosize, { TextareaHeightChangeMeta } from 'react-textarea-autosize'
 import { UI_PREFIX } from '../../constants'
 import { useBoolean, useComposeRef } from '@youknown/react-hook/src'
 
@@ -64,7 +64,15 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, propRef)
 
 	const TextareaComp = autosize ? TextareaAutosize : 'textarea'
 	const valueProps = isControlled ? { value } : { defaultValue }
-	const autosizeProps = autosize ? { minRows, maxRows } : {}
+	const autosizeProps = autosize
+		? {
+				minRows,
+				maxRows,
+				onHeightChange(height: number, { rowHeight }: TextareaHeightChangeMeta) {
+					setLockScroll(Math.ceil(height / rowHeight) < maxRows)
+				}
+		  }
+		: {}
 
 	const prefixCls = `${UI_PREFIX}-textarea`
 
@@ -89,9 +97,6 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, propRef)
 				onChange={handleChange}
 				onFocus={handleFocus}
 				onBlur={handleBlur}
-				onHeightChange={(height, { rowHeight }) => {
-					setLockScroll(Math.ceil(height / rowHeight) < maxRows)
-				}}
 			></TextareaComp>
 		</label>
 	)

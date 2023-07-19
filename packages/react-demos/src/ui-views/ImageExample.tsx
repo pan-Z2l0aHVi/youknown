@@ -3,7 +3,7 @@ import { Divider, Image } from '@youknown/react-ui/src'
 export default () => {
 	const picSrc = 'https://iph.href.lu/879x400'
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Image</h1>
 			<Divider />
 			<Image src={picSrc} width="300px" />

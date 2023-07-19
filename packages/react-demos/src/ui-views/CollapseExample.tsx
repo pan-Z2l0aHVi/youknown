@@ -5,22 +5,22 @@ export default () => {
 	const [controlledActives, setControlledActives] = useState<(string | number)[]>([])
 	const [customHeaderExpend, setCustomHeaderExpend] = useState<boolean>(false)
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Collapse</h1>
 			<Divider />
 			<Collapse>
 				<Collapse.Panel itemKey="1" title="Panel title1">
-					<div style={{ padding: 8, color: '#999' }}>
+					<div className="p-8px color-#999">
 						<p>Basic collapse</p>
 					</div>
 				</Collapse.Panel>
 				<Collapse.Panel itemKey="2" title="Panel title2">
-					<div style={{ padding: 8, color: '#999' }}>
+					<div className="p-8px color-#999">
 						<p>Basic collapse</p>
 					</div>
 				</Collapse.Panel>
 				<Collapse.Panel itemKey="3" title="Panel title3">
-					<div style={{ padding: 8, color: '#999' }}>
+					<div className="p-8px color-#999">
 						<p>Basic collapse</p>
 					</div>
 				</Collapse.Panel>
@@ -28,17 +28,17 @@ export default () => {
 			<Divider />
 			<Collapse accordion>
 				<Collapse.Panel itemKey="1" title="Panel title1">
-					<div style={{ padding: 8, color: '#999' }}>
+					<div className="p-8px color-#999">
 						<p>Accordion collapse</p>
 					</div>
 				</Collapse.Panel>
 				<Collapse.Panel itemKey="2" title="Panel title2">
-					<div style={{ padding: 8, color: '#999' }}>
+					<div className="p-8px color-#999">
 						<p>Accordion collapse</p>
 					</div>
 				</Collapse.Panel>
 				<Collapse.Panel itemKey="3" title="Panel title3">
-					<div style={{ padding: 8, color: '#999' }}>
+					<div className="p-8px color-#999">
 						<p>Accordion collapse</p>
 					</div>
 				</Collapse.Panel>
@@ -52,17 +52,17 @@ export default () => {
 				}}
 			>
 				<Collapse.Panel itemKey="1" title="Panel title1">
-					<div style={{ padding: 8, color: '#999' }}>
+					<div className="p-8px color-#999">
 						<p>Controlled collapse</p>
 					</div>
 				</Collapse.Panel>
 				<Collapse.Panel itemKey="2" title="Panel title2">
-					<div style={{ padding: 8, color: '#999' }}>
+					<div className="p-8px color-#999">
 						<p>Controlled collapse</p>
 					</div>
 				</Collapse.Panel>
 				<Collapse.Panel itemKey="3" title="Panel title3">
-					<div style={{ padding: 8, color: '#999' }}>
+					<div className="p-8px color-#999">
 						<p>Controlled collapse</p>
 					</div>
 				</Collapse.Panel>
@@ -80,7 +80,7 @@ export default () => {
 				}
 				expend={customHeaderExpend}
 			>
-				<div style={{ padding: 8, color: '#999' }}>
+				<div className="p-8px color-#999">
 					<p>
 						min-height: 0px !important; max-height: none !important; height: 0px !important; visibility:
 						hidden !important; overflow: hidden !important; position: absolute !important; z-index: -1000

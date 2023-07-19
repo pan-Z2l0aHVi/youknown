@@ -6,12 +6,12 @@ export default () => {
 	const show = () => setOpen(true)
 	const hide = () => setOpen(false)
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Modal</h1>
 			<Divider />
 			<Button onClick={show}>Show modal</Button>
 			<Modal open={open} onCancel={hide}>
-				<Card style={{ width: 320, height: 200 }}>Content</Card>
+				<Card className="w-320px h-200px">Content</Card>
 			</Modal>
 			<Divider />
 		</div>

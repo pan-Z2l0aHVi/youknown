@@ -9,7 +9,7 @@ export default () => {
 		alignItems: 'center'
 	}
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Popover</h1>
 			<Divider />
 			<Space>
@@ -30,16 +30,7 @@ export default () => {
 				</Popover>
 			</Space>
 			<Divider />
-			<div
-				style={{
-					display: 'grid',
-					gridTemplateColumns: 'repeat(3, 160px)',
-					gridTemplateRows: 'repeat(5, auto)',
-					gap: 12,
-					justifyContent: 'center',
-					justifyItems: 'center'
-				}}
-			>
+			<div className="grid grid-cols-[repeat(3,160px)] grid-rows-[repeat(5,auto)] gap-12px justify-center justify-items-center">
 				<Popover trigger="hover" placement="top-start" content="Top start">
 					<Button style={ceilStyle}>Top start</Button>
 				</Popover>

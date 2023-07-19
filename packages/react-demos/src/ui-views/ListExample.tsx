@@ -4,7 +4,7 @@ import { Avatar, Divider, List, Tabs } from '@youknown/react-ui/src'
 export default () => {
 	const [size, setSize] = useState<'small' | 'medium' | 'large'>('small')
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>List</h1>
 			<Divider />
 			<List>
@@ -14,7 +14,7 @@ export default () => {
 			</List>
 			<Divider />
 			<Tabs
-				style={{ marginBottom: 8 }}
+				className="mb-8px"
 				type="segment"
 				value={size}
 				onChange={value => {

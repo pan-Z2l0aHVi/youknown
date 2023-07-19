@@ -5,7 +5,7 @@ import { TbLoader } from 'react-icons/tb'
 export default () => {
 	const [spinning, setSpinning] = useState(true)
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Loading</h1>
 			<Divider />
 			<Loading spinning />

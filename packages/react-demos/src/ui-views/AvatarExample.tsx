@@ -4,7 +4,7 @@ import { TbPhotoOff, TbUser } from 'react-icons/tb'
 export default () => {
 	const picSrc = 'https://iph.href.lu/200x200'
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Avatar</h1>
 			<Divider />
 			<Space size="large">

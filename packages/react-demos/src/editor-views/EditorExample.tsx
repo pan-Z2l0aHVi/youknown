@@ -91,53 +91,20 @@ export default () => {
 	if (!editor) return null
 
 	return (
-		<div className="editor-page" style={{}}>
-			<div
-				className="header-bar"
-				style={{
-					height: 64,
-					borderBottom: '1px solid 1px solid var(--ui-bd-line)',
-					display: 'flex',
-					justifyContent: 'space-between',
-					alignItems: 'center',
-					padding: '0 32px',
-					position: 'sticky',
-					top: 0,
-					background: 'var(--ui-bg-0)',
-					zIndex: 10
-				}}
-			>
+		<div>
+			<div className="h-64px flex justify-between items-center p-[0_32px] top-0 bg-bg-0 z-10">
 				<h1>文档</h1>
 				<Button disabled={editor.isEmpty} primary>
 					保存
 				</Button>
 			</div>
-			<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-				<div
-					style={{
-						position: 'sticky',
-						top: 64,
-						background: 'var(--ui-bg-0)',
-						zIndex: 30,
-						display: 'flex',
-						justifyContent: 'center',
-						width: '100%',
-						paddingBottom: 8,
-						borderBottom: '1px solid var(--ui-bd-line)'
-					}}
-				>
-					<div
-						style={{
-							padding: 4,
-							background: 'var(--ui-bg-2)',
-							border: '1px solid var(--ui-bd-line)',
-							borderRadius: 8
-						}}
-					>
+			<div className="flex flex-col items-center">
+				<div className="sticky top-0 bg-bg-0 z-30 flex justify-center w-100% pt-8px pb-8px b-b-solid b-b-1px b-bd-line">
+					<div className="p-4px bg-bg-2 b-solid b-1px b-bd-line rd-8px">
 						<Toolbar editor={editor} />
 					</div>
 				</div>
-				<div style={{ margin: '0 auto', width: 750, paddingTop: 48 }}>
+				<div className="m-[0_auto] w-750px pt-48px">
 					<EditorContent editor={editor} />
 				</div>
 			</div>

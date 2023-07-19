@@ -5,11 +5,11 @@ export default () => {
 	const [selection, setSelection] = useState<any>(0)
 	const [multipleSelection, setMultipleSelection] = useState<any>([0])
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Select</h1>
 			<Divider />
 			<Select
-				style={{ width: 140 }}
+				className="w-140px"
 				defaultValue={1}
 				options={[
 					{
@@ -34,7 +34,7 @@ export default () => {
 			<Divider />
 			<Select
 				multiple
-				style={{ width: 280 }}
+				className="w-280px"
 				defaultValue={[2]}
 				options={[
 					{
@@ -54,7 +54,7 @@ export default () => {
 			<Divider />
 			<Space>
 				<Select
-					style={{ width: 140 }}
+					className="w-140px"
 					value={selection}
 					onChange={val => {
 						setSelection(val)
@@ -76,7 +76,7 @@ export default () => {
 				></Select>
 				<Select
 					multiple
-					style={{ width: 280 }}
+					className="w-280px"
 					value={multipleSelection}
 					onChange={val => {
 						setMultipleSelection(val)
@@ -100,7 +100,7 @@ export default () => {
 			<Divider />
 			<Select
 				disabled
-				style={{ width: 140 }}
+				className="w-140px"
 				defaultValue={1}
 				options={[
 					{
@@ -122,7 +122,7 @@ export default () => {
 				<Select
 					filter
 					allowClear
-					style={{ width: 160 }}
+					className="w-160px"
 					defaultValue={1}
 					options={[
 						{
@@ -142,7 +142,7 @@ export default () => {
 				<Select
 					filter
 					multiple
-					style={{ width: 320 }}
+					className="w-320px"
 					defaultValue={[0]}
 					options={[
 						{

@@ -4,8 +4,9 @@ import { TbCheckbox, TbChevronRight } from 'react-icons/tb'
 
 export default () => {
 	const [open, setOpen] = useState(false)
+	const chevronIconEle = <TbChevronRight className="mr--4px text-16px" />
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Dropdown</h1>
 			<Divider />
 			<Space>
@@ -135,9 +136,9 @@ export default () => {
 				<Dropdown
 					content={
 						<Dropdown.Menu>
-							<Dropdown.Item suffix={<TbChevronRight />}>Dropdown item 1</Dropdown.Item>
-							<Dropdown.Item suffix={<TbChevronRight />}>Dropdown item 2</Dropdown.Item>
-							<Dropdown.Item suffix={<TbChevronRight />}>Dropdown item 3</Dropdown.Item>
+							<Dropdown.Item suffix={chevronIconEle}>Dropdown item 1</Dropdown.Item>
+							<Dropdown.Item suffix={chevronIconEle}>Dropdown item 2</Dropdown.Item>
+							<Dropdown.Item suffix={chevronIconEle}>Dropdown item 3</Dropdown.Item>
 						</Dropdown.Menu>
 					}
 				>
@@ -151,13 +152,13 @@ export default () => {
 						<Dropdown.Item closeAfterItemClick>Dropdown item 1</Dropdown.Item>
 						<Dropdown
 							appendTo={null}
-							spacing={-6}
+							spacing={-2}
 							placement="right-start"
 							content={
 								<Dropdown.Menu>
 									<Dropdown
 										appendTo={null}
-										spacing={-6}
+										spacing={-2}
 										placement="right-start"
 										content={
 											<Dropdown.Menu closeAfterItemClick>
@@ -170,7 +171,7 @@ export default () => {
 											</Dropdown.Menu>
 										}
 									>
-										<Dropdown.Item suffix={<TbChevronRight />}>Dropdown item 3</Dropdown.Item>
+										<Dropdown.Item suffix={chevronIconEle}>Dropdown item 3</Dropdown.Item>
 									</Dropdown>
 									<Dropdown.Item closeAfterItemClick>Dropdown item 2</Dropdown.Item>
 									<Dropdown.Item closeAfterItemClick>Dropdown item 3</Dropdown.Item>
@@ -178,7 +179,7 @@ export default () => {
 								</Dropdown.Menu>
 							}
 						>
-							<Dropdown.Item suffix={<TbChevronRight />}>Dropdown item 2</Dropdown.Item>
+							<Dropdown.Item suffix={chevronIconEle}>Dropdown item 2</Dropdown.Item>
 						</Dropdown>
 						<Dropdown.Item closeAfterItemClick>Dropdown item 3</Dropdown.Item>
 						<Dropdown.Item closeAfterItemClick>Dropdown item 3</Dropdown.Item>
@@ -191,16 +192,18 @@ export default () => {
 			<Divider />
 			<Dropdown
 				content={
-					<Dropdown.Menu style={{ padding: 16 }}>
-						<div style={{ height: 40 }}>Any thing...</div>
-						<Button
-							primary
-							onClick={() => {
-								Dropdown.close()
-							}}
-						>
-							Click me to close
-						</Button>
+					<Dropdown.Menu className="p-0!">
+						<div className="p-16px">
+							<div className="h-40px">Any thing...</div>
+							<Button
+								primary
+								onClick={() => {
+									Dropdown.close()
+								}}
+							>
+								Click me to close
+							</Button>
+						</div>
 					</Dropdown.Menu>
 				}
 			>

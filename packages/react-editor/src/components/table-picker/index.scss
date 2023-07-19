@@ -2,8 +2,7 @@
 
 $prefix: '#{$ui-editor-prefix}-table-picker';
 .#{$prefix} {
-    @include icon;
-    margin-left: 12px;
+	@include icon;
 }
 
 .#{$prefix}-popup {
@@ -34,4 +33,9 @@ $prefix: '#{$ui-editor-prefix}-table-picker';
 		justify-content: center;
 		margin-top: 8px;
 	}
+}
+
+.#{$prefix}-chevron-icon {
+	font-size: $font-size-l;
+	margin-right: -4px;
 }

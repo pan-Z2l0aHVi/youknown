@@ -2,7 +2,7 @@ import { Divider, Card, Loading } from '@youknown/react-ui/src'
 
 export default () => {
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Card</h1>
 			<Divider />
 			<Card header="Basic card" footer="Footer">
@@ -15,19 +15,12 @@ export default () => {
 			<Divider />
 			<Card
 				header={
-					<div style={{ color: 'purple', padding: 24 }}>
+					<div className="color-purple p-24px">
 						<strong>Custom header</strong>
 					</div>
 				}
 				footer={
-					<div
-						style={{
-							background: '#eee',
-							padding: 24,
-							borderBottomLeftRadius: 6,
-							borderBottomRightRadius: 6
-						}}
-					>
+					<div className="bg-#eee p-24px rd-b-6px">
 						<span>Custom footer</span>
 					</div>
 				}

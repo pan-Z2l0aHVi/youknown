@@ -5,21 +5,11 @@ export default () => {
 	const [open, setOpen] = useState(false)
 
 	const createContent = (text: string) => (
-		<div
-			style={{
-				width: 'max-content',
-				border: '1px solid $bd-line',
-				boxShadow: '1px 4px 8px rgba(0,0,0,.1)',
-				background: '#fff',
-				padding: 8
-			}}
-		>
-			{text}
-		</div>
+		<div className="w-max p-8px b-solid b-1px b-bd-line bg-#fff shadow-[1px_4px_8px_rgba(0,0,0,.1)]">{text}</div>
 	)
 
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Trigger</h1>
 			<Divider />
 			<Space>

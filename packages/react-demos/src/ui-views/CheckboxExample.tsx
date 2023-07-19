@@ -18,7 +18,7 @@ export default () => {
 		}, 1000)
 	}, [])
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Checkbox</h1>
 			<Divider />
 			<Space>

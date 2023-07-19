@@ -29,12 +29,12 @@ export default () => {
 	)
 
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Progress</h1>
 			<Divider />
 			{operationEle}
 			<br />
-			<Space direction="vertical" style={{ width: 400 }}>
+			<Space direction="vertical" className="w-400px">
 				<Progress size="small" defaultPercent={70} percent={percent} />
 				<Progress size="medium" defaultPercent={70} percent={percent} />
 				<Progress size="large" defaultPercent={70} percent={percent} />
@@ -42,7 +42,7 @@ export default () => {
 				<Progress format={null} defaultPercent={70} percent={percent} suffix="/100" />
 				<Progress
 					format={({ countUpRef }) => (
-						<span style={{ color: 'purple' }}>
+						<span className="color-purple">
 							<span ref={countUpRef}></span>/100
 						</span>
 					)}
@@ -54,7 +54,7 @@ export default () => {
 			<Divider />
 			{operationEle}
 			<br />
-			<Space size="large" style={{ height: 200 }}>
+			<Space size="large" className="h-200px">
 				<Progress direction="vertical" size="small" defaultPercent={70} percent={percent} />
 				<Progress direction="vertical" size="medium" defaultPercent={70} percent={percent} />
 				<Progress direction="vertical" size="large" defaultPercent={70} percent={percent} />
@@ -87,7 +87,7 @@ export default () => {
 						molecule={percent}
 						suffix={null}
 						format={({ countUpRef }) => (
-							<div style={{ color: 'purple', fontSize: 16 }}>
+							<div className="color-purple text-16px">
 								<span ref={countUpRef}></span>
 								<span>/100</span>
 							</div>

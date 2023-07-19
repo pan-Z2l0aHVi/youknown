@@ -64,7 +64,7 @@ export default function TablePicker() {
 						<TbTable />
 					</div>
 				}
-				suffix={<TbChevronRight />}
+				suffix={<TbChevronRight className={`${prefixCls}-chevron-icon`} />}
 			>
 				表格
 			</Dropdown.Item>

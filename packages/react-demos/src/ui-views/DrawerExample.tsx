@@ -6,7 +6,7 @@ export default () => {
 	const [open, setOpen] = useState(false)
 	const [open1, setOpen1] = useState(false)
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Drawer</h1>
 			<Divider />
 			<Tabs

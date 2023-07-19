@@ -4,7 +4,7 @@ import { Divider, Space, Switch } from '@youknown/react-ui/src'
 export default () => {
 	const [checked, setChecked] = useState<boolean>(false)
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Switch</h1>
 			<Divider />
 			<Space>

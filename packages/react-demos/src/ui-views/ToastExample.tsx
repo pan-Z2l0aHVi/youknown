@@ -3,7 +3,7 @@ import { TbInfoCircle } from 'react-icons/tb'
 
 export default () => {
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Toast</h1>
 			<Divider />
 			<Button

@@ -26,7 +26,7 @@ export default () => {
 	})
 
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Form</h1>
 			<Divider />
 			<Tabs
@@ -42,7 +42,7 @@ export default () => {
 				]}
 			/>
 			<Divider />
-			<div style={{ minWidth: 640 }}>
+			<div className="m-w-640px">
 				<Form form={form} layout={layout}>
 					<Form.Field label="username" labelText="Username">
 						<Input />
@@ -55,7 +55,7 @@ export default () => {
 					</Form.Field>
 					<Form.Field label="system" labelText="System">
 						<Select
-							style={{ width: 160 }}
+							className="w-160px"
 							options={[
 								{
 									value: 'windows',

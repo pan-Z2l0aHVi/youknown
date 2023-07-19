@@ -10,6 +10,7 @@
 		padding: 16px 8px;
 		border-right: 1px solid var(--ui-bd-line);
 		background: var(--ui-bg-2);
+		overflow-y: auto;
 		.nav-item {
 			box-sizing: border-box;
 			display: flex;

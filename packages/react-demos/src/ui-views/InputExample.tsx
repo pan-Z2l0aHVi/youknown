@@ -8,7 +8,7 @@ export default () => {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const textareaRef = useRef<HTMLTextAreaElement>(null)
 	return (
-		<div style={{ padding: 24 }}>
+		<div className="p-24px">
 			<h1>Input</h1>
 			<Divider />
 			<Space>
@@ -29,8 +29,8 @@ export default () => {
 			</Space>
 			<Divider />
 			<Space>
-				<Input placeholder="Prefix" prefix={<TbSearch style={{ margin: '0 4px' }} />} />
-				<Input placeholder="Suffix" suffix={<TbEyeOff style={{ margin: '0 4px' }} />} />
+				<Input placeholder="Prefix" prefix={<TbSearch className="m-[0_4px]" />} />
+				<Input placeholder="Suffix" suffix={<TbEyeOff className="m-[0_4px]" />} />
 			</Space>
 			<Divider />
 			<Space>
@@ -42,8 +42,8 @@ export default () => {
 				<Input
 					placeholder="Round with prefix and suffix"
 					round
-					prefix={<TbSearch style={{ margin: '0 4px' }} />}
-					suffix={<TbEyeOff style={{ margin: '0 4px' }} />}
+					prefix={<TbSearch className="m-[0_4px]" />}
+					suffix={<TbEyeOff className="m-[0_4px]" />}
 				/>
 			</Space>
 			<Divider />

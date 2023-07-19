@@ -48,18 +48,6 @@ export default function Wallpapers() {
 			root: app_content_el,
 			rootMargin: '0px 0px 280px 0px'
 		},
-		onSuccess() {
-			// 未超过一屏时，自动拉取下一页
-			// next tick
-			requestAnimationFrame(() => {
-				const wrapper_height = wrapper_ref.current?.getBoundingClientRect().height
-				if (wrapper_height) {
-					if (window.innerHeight > wrapper_height) {
-						do_search()
-					}
-				}
-			})
-		},
 		onError() {
 			Toast.show({ title: '服务异常，请稍后再试' })
 		}
@@ -91,7 +79,9 @@ export default function Wallpapers() {
 				<WallpaperFilter
 					search={() => {
 						reset_wallpapers()
-						do_search()
+						setTimeout(() => {
+							do_search()
+						})
 					}}
 					on_query_change={set_params}
 				/>
