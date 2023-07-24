@@ -1,7 +1,7 @@
-import { useBoolean } from '@youknown/react-hook/src'
+import { useBoolean, useLatestRef } from '@youknown/react-hook/src'
 import { Divider, Loading, Tooltip } from '@youknown/react-ui/src'
 import { cls, storage } from '@youknown/utils/src'
-import { lazy, Suspense, useCallback, useEffect, useState, useTransition } from 'react'
+import { lazy, Suspense, useEffect, useState, useTransition } from 'react'
 import { TbDotsVertical } from 'react-icons/tb'
 import Menu from './components/menu'
 
@@ -20,6 +20,7 @@ export default function Sidebar() {
 
 	const [sidebar_width, set_sidebar_width] = useState(session_width ?? DEFAULT_WIDTH)
 	const [dragging, { setTrue: start_drag, setFalse: stop_drag }] = useBoolean(false)
+	const dragging_ref = useLatestRef(dragging)
 	const [, startTransition] = useTransition()
 
 	useEffect(() => {
@@ -30,27 +31,35 @@ export default function Sidebar() {
 		storage.session.set(WIDTH_KEY, sidebar_width)
 	}, [sidebar_width])
 
-	const handle_mousemove = useCallback(
-		(e: MouseEvent) => {
-			if (!dragging) return
-			if (e.clientX > MAX_WIDTH) return
-			if (e.clientX < MIN_WIDTH) return
-
-			startTransition(() => {
-				set_sidebar_width(e.clientX)
-			})
-		},
-		[dragging]
-	)
-
-	useEffect(() => {
+	const on = () => {
 		document.addEventListener('mousemove', handle_mousemove)
-		document.addEventListener('mouseup', stop_drag)
-		return () => {
-			document.removeEventListener('mousemove', handle_mousemove)
-			document.removeEventListener('mouseup', stop_drag)
-		}
-	}, [handle_mousemove, stop_drag])
+		document.addEventListener('mouseup', handle_mouseup, { once: true })
+	}
+
+	const off = () => {
+		document.removeEventListener('mousemove', handle_mousemove)
+		document.removeEventListener('mouseup', handle_mouseup)
+	}
+
+	const handle_mousedown = () => {
+		start_drag()
+		on()
+	}
+
+	const handle_mouseup = () => {
+		stop_drag()
+		off()
+	}
+
+	const handle_mousemove = (e: MouseEvent) => {
+		if (!dragging_ref.current) return
+		if (e.clientX > MAX_WIDTH) return
+		if (e.clientX < MIN_WIDTH) return
+
+		startTransition(() => {
+			set_sidebar_width(e.clientX)
+		})
+	}
 
 	let sidebar_style = {}
 	if (expand) {
@@ -62,7 +71,7 @@ export default function Sidebar() {
 	const drag_divider = expand ? (
 		<div
 			className="group absolute right--8px top-0 p-[4px_8px] h-100% cursor-col-resize active:cursor-col-resize select-none"
-			onMouseDown={start_drag}
+			onMouseDown={handle_mousedown}
 		>
 			<div
 				className={cls('w-2px h-100% group-hover-bg-primary', {
