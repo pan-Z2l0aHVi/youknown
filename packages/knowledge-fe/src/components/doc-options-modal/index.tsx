@@ -1,4 +1,6 @@
+import { upload_file } from '@/libs/qiniu'
 import { Button, Card, Form, Modal, Radio, Space, XIcon } from '@youknown/react-ui/src'
+import { ChangeEvent } from 'react'
 
 interface DocOptionsModalProps {
 	open: boolean
@@ -77,10 +79,23 @@ interface DocCoverProps {
 	onChange?: (value: string) => void
 }
 function DocCover(props: DocCoverProps) {
-	const { value, onChange } = props
+	const { value } = props
+	const upload_cover = (file: File) => {
+		upload_file(file, {
+			complete(url) {
+				console.log('upload cover url: ', url)
+			}
+		})
+	}
+	const handle_file_change = (e: ChangeEvent<HTMLInputElement>) => {
+		const files = e.target.files ?? new FileList()
+		console.log('files: ', files)
+		Array.from(files).forEach(upload_cover)
+	}
 	return (
 		<div className="b-bd-line b-1 b-solid b-rd-radius-m">
 			<img className="w-240px h-auto b-rd-radius-m" src={value} />
+			<input type="file" onChange={handle_file_change} />
 		</div>
 	)
 }

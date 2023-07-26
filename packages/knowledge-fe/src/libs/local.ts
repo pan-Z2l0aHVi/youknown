@@ -1,4 +1,4 @@
-import { RecordMeta } from '@/store/record'
+import { RecordMeta } from '@/store/record/slice'
 import { storage } from '@youknown/utils/src'
 
 // Setting

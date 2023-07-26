@@ -1,4 +1,4 @@
-export function object2FormData(obj: Record<string, any>): FormData {
+export function obj2FormData(obj: Record<string, any>): FormData {
 	const formData = new FormData()
 	for (const [key, value] of Object.entries(obj)) {
 		if (Array.isArray(value)) {
@@ -33,4 +33,12 @@ export function equal(a: unknown, b: unknown): boolean {
 	return aKeys.every(
 		key => b.hasOwnProperty(key) && equal((a as Record<string, any>)[key], (b as Record<string, any>)[key])
 	)
+}
+
+export function headers2Obj(headers: Headers): HeadersInit {
+	const headersInit: HeadersInit = {}
+	headers.forEach((val, key) => {
+		headersInit[key] = val
+	})
+	return headersInit
 }

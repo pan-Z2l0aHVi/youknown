@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/hooks'
-import { record } from '@/store/record'
+import { record } from '@/store/record/slice'
 import { Dialog } from '@youknown/react-ui/src'
 import dayjs from 'dayjs'
 

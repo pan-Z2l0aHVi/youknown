@@ -1,3 +1,4 @@
+import { headers2Obj } from '../data'
 import { asyncCompose, Middleware, Next } from '../compose'
 import { pick } from '../object'
 import QS from '../qs'
@@ -62,7 +63,9 @@ export default class Net {
 	private async formatPayload(ctx: Context, next: Next): Promise<void> {
 		const { payload } = ctx.req.configure
 		if (payload instanceof FormData) {
-			delete (ctx.req.configure.headers as Record<string, string>)['Content-Type']
+			const headers = new Headers(ctx.req.configure.headers)
+			headers.delete('Content-Type')
+			ctx.req.configure.headers = headers2Obj(headers)
 		} else {
 			ctx.req.configure.payload = JSON.stringify(ctx.req.configure.payload)
 		}

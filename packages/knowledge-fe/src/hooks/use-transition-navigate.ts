@@ -1,4 +1,4 @@
-import { start_progress, stop_progress } from '@/store/effect'
+import { start_progress, stop_progress } from '@/store/ui/effect'
 import { useTransition, useEffect, useCallback } from 'react'
 import { NavigateOptions, To, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '.'

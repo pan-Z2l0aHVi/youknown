@@ -3,7 +3,7 @@ import Header from '@/app/components/header'
 import { Loading, Toast } from '@youknown/react-ui/src'
 import WallpaperFilter, { WallpaperQuery } from './components/wallpaper-filter'
 import { useFetchPageList } from '@youknown/react-hook/src'
-import { search_wallpapers } from '@/api'
+import { search_wallpapers } from '@/apis/wallpaper'
 import { cls } from '@youknown/utils/src'
 import WallpaperCard from './components/wallpaper-card'
 import { useAppContentEl } from '@/hooks'
@@ -41,7 +41,7 @@ export default function Wallpapers() {
 		resetListData: reset_wallpapers,
 		updateListData: do_search
 	} = useFetchPageList(wallpaper_fetcher, {
-		initialPageSize: 1,
+		initialPageSize: 48,
 		ready: !!params,
 		loadingRef: loading_ref,
 		observerInit: {
@@ -77,13 +77,14 @@ export default function Wallpapers() {
 
 			<div className="p-[32px_16px_0]">
 				<WallpaperFilter
+					on_query_change={set_params}
 					search={() => {
 						reset_wallpapers()
 						setTimeout(() => {
 							do_search()
 						})
 					}}
-					on_query_change={set_params}
+					reset={reset_wallpapers}
 				/>
 			</div>
 			<div className="p-[0_32px]">

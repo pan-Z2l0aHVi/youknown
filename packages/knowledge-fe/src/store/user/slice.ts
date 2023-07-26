@@ -5,35 +5,34 @@ interface Profile {
 	nickname: string
 	avatar: string
 }
-interface Setting {
-	theme: 'light' | 'dark'
-	hues: 'random' | 'blue'
-}
 interface UserState {
 	profile: Profile | null
-	setting: Setting
+	is_login: boolean
 }
 
 const initial_state: UserState = {
 	profile: null,
-	setting: {
-		theme: 'light',
-		hues: 'blue'
-	}
+	is_login: false
 }
 
 export const user_slice = createSlice({
 	name: 'user',
 	initialState: initial_state,
 	reducers: {
-		get_profile(state, action: PayloadAction<Profile>) {
+		set_profile(state, action: PayloadAction<Profile>) {
 			state.profile = action.payload
 		},
 		remove_profile(state) {
 			state.profile = null
+		},
+		login(state) {
+			state.is_login = true
+		},
+		logout(state) {
+			state.is_login = false
 		}
 	}
 })
 
 export default user_slice
-export const { get_profile } = user_slice.actions
+export const { set_profile, remove_profile, login, logout } = user_slice.actions

@@ -1,41 +1,25 @@
-import Preferences from './preferences'
-import { useBoolean } from '@youknown/react-hook/src'
-import { Avatar, Card, Divider, Dropdown, Modal, Tooltip, XIcon } from '@youknown/react-ui/src'
+import { useAppDispatch, useAppSelector } from '@/hooks'
+import { Avatar, Divider, Dropdown, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import { TbLogout, TbSettings2 } from 'react-icons/tb'
+import { open_preferences_modal, open_login_modal } from '@/store/modal/slice'
 
 interface PersonalProps {
 	expand: boolean
 }
 
 export default function Personal({ expand }: PersonalProps) {
-	const [preferences_modal_open, { setTrue: show_preferences_modal, setFalse: hide_preferences_modal }] =
-		useBoolean(false)
-
-	const preferences_modal = (
-		<Modal
-			className="backdrop-blur-md !bg-[rgba(0,0,0,0.2)]"
-			open={preferences_modal_open}
-			onCancel={hide_preferences_modal}
-		>
-			<Card
-				shadow
-				header={
-					<div className="flex justify-between p-[24px_24px_0]">
-						<span className="text-16px">偏好设置</span>
-						<XIcon onClick={hide_preferences_modal} />
-					</div>
-				}
-			>
-				<Preferences />
-			</Card>
-		</Modal>
-	)
+	const dispatch = useAppDispatch()
+	const is_login = useAppSelector(state => state.user.is_login)
+	const show_preferences_modal = () => {
+		dispatch(open_preferences_modal())
+	}
 
 	return (
 		<>
-			<Tooltip title={'未登录'} placement="right" spacing={20} disabled={expand}>
+			<Tooltip title={'nickname'} placement="right" spacing={20} disabled={expand}>
 				<Dropdown
+					disabled={!is_login}
 					placement="top-start"
 					trigger="click"
 					content={
@@ -61,15 +45,27 @@ export default function Personal({ expand }: PersonalProps) {
 							'border-0 bg-transparent w-100% h-44px flex items-center p-4px b-rd-radius-m cursor-pointer select-none',
 							'active-bg-active hover-not-active-bg-hover'
 						)}
+						onClick={() => {
+							if (is_login) return
+							dispatch(open_login_modal())
+						}}
 					>
-						<Avatar round size={36} />
+						{is_login ? (
+							<Avatar round size={36} />
+						) : (
+							<div className="flex justify-center items-center w-36px min-w-36px h-36px rd-round bg-primary color-#fff text-13px font-500">
+								登录
+							</div>
+						)}
 
-						{expand && <div className="flex-1 break-all ws-nowrap ml-8px">未登录</div>}
+						{expand && (
+							<div className="flex-1 break-all ws-nowrap ml-8px">
+								{is_login ? 'nickname' : '立即登录'}
+							</div>
+						)}
 					</div>
 				</Dropdown>
 			</Tooltip>
-
-			{preferences_modal}
 		</>
 	)
 }

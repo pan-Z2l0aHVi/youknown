@@ -1,12 +1,6 @@
 import { net } from '@/utils'
 import { delay } from '@youknown/utils/src'
 
-export interface ResError {
-	code: number
-	msg: string
-	data: any
-}
-
 type FeedListRes = Promise<
 	{
 		id: number
@@ -338,45 +332,3 @@ export const get_doc_list = ({ uid }: { uid: string }): DocListRes => {
 		}
 	])
 }
-
-export interface SearchWallpaperParams {
-	q: string
-	ai_art_filter: number
-	categories: string
-	purity: string
-	atleast: string
-	ratios: string
-	sorting: string
-	topRange: string
-	order: string
-	page: number
-}
-
-export interface Wallpaper {
-	id: string
-	url: string
-	short_url: string
-	views: number
-	purity: string
-	category: string
-	dimension_x: number
-	dimension_y: number
-	ratio: string
-	resolution: string
-	file_size: number
-	file_type: string
-	created_at: string
-	colors: string[]
-	path: string
-	thumbs: {
-		large: string
-		original: string
-		small: string
-	}
-	tags: null
-}
-
-export const search_wallpapers = (params: SearchWallpaperParams) =>
-	net.fetch<Wallpaper[]>('/proxy/wallpaper/search', {
-		params
-	})

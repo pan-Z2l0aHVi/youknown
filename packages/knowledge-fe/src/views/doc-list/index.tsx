@@ -4,7 +4,7 @@ import { Button, Drawer, Form, Input, Motion, Select, Space, Tooltip } from '@yo
 import { TbChecks, TbFilter, TbPlus, TbCheckbox, TbTrashX, TbX } from 'react-icons/tb'
 import DocCard from './components/doc-card'
 import { useBoolean, useFetch } from '@youknown/react-hook/src'
-import { get_doc_list } from '@/api'
+import { get_doc_list } from '@/apis'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { cls } from '@youknown/utils/src'
 import DocDeleteDialog from '@/components/doc-delete-dialog'

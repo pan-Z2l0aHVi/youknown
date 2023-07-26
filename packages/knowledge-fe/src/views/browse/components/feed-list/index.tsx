@@ -1,7 +1,8 @@
-import { get_feed_list } from '@/api'
+import { get_feed_list } from '@/apis'
 import TransitionLink from '@/components/transition-link'
-import { useAppDispatch } from '@/hooks'
-import { record } from '@/store/record'
+import { useAppDispatch, useAppSelector } from '@/hooks'
+import { open_login_modal } from '@/store/modal/slice'
+import { record } from '@/store/record/slice'
 import { useFetch } from '@youknown/react-hook/src'
 import { Avatar, Button, Image, Tooltip } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
@@ -15,6 +16,7 @@ interface FeedProps {
 export default function FeedList(props: FeedProps) {
 	const { feed_tab } = props
 	const dispatch = useAppDispatch()
+	const is_login = useAppSelector(state => state.user.is_login)
 	const { data: feed_list } = useFetch(get_feed_list, {
 		initialData: [],
 		params: [
@@ -39,6 +41,10 @@ export default function FeedList(props: FeedProps) {
 	}
 
 	const handle_praise = () => {
+		if (!is_login) {
+			dispatch(open_login_modal())
+			return
+		}
 		dispatch(
 			record({
 				action: '点赞',

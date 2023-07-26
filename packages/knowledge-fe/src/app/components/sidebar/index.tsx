@@ -1,11 +1,10 @@
 import { useBoolean, useLatestRef } from '@youknown/react-hook/src'
-import { Divider, Loading, Tooltip } from '@youknown/react-ui/src'
+import { Divider, Tooltip } from '@youknown/react-ui/src'
 import { cls, storage } from '@youknown/utils/src'
-import { lazy, Suspense, useEffect, useState, useTransition } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 import { TbDotsVertical } from 'react-icons/tb'
 import Menu from './components/menu'
-
-const Account = lazy(() => import('./components/account'))
+import Account from './components/account'
 
 const EXPAND_KEY = 'sidebar-expand'
 const WIDTH_KEY = 'sidebar-width'
@@ -83,10 +82,13 @@ export default function Sidebar() {
 
 	return (
 		<aside
-			className={cls('relative flex flex-col h-screen b-r-1 b-r-solid b-r-bd-line bg-bg-2 p-[16px_12px]', {
-				'transition-width-300': !dragging,
-				'w-68px': !expand
-			})}
+			className={cls(
+				'relative flex flex-col h-screen b-r-1 b-r-solid b-r-bd-line bg-bg-2 p-[16px_12px] overflow-hidden',
+				{
+					'transition-width-300': !dragging,
+					'w-68px': !expand
+				}
+			)}
 			style={sidebar_style}
 		>
 			<div className="h-32px m-b-24px">
@@ -95,9 +97,7 @@ export default function Sidebar() {
 
 			<Menu expand={expand} />
 
-			<Suspense fallback={<Loading spinning />}>
-				<Account expand={expand} />
-			</Suspense>
+			<Account expand={expand} />
 
 			<Divider />
 

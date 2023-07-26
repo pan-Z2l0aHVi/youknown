@@ -1,18 +1,41 @@
-import { Suspense, useCallback, useEffect } from 'react'
-import { useRoutes } from 'react-router-dom'
+import { Suspense, lazy, useCallback, useEffect } from 'react'
+import { useSearchParams, useRoutes } from 'react-router-dom'
 import routes from '../router/routes'
 import { Loading } from '@youknown/react-ui/src'
 import PageProgress from './components/page-progress'
 import Sidebar from './components/sidebar'
 import { cls } from '@youknown/utils/src'
 import { useAppDispatch } from '@/hooks'
-import { set_dark_theme, set_hue, set_radius } from '@/store/ui'
+import { set_dark_theme, set_hue, set_radius } from '@/store/ui/slice'
 import { get_local_settings } from '@/libs/local'
 import FabBar from './components/fab-bar'
+
+const PreferencesModal = lazy(() => import('./components/preferences-modal'))
+const LoginModal = lazy(() => import('./components/login-modal'))
 
 export default function App() {
 	const content = useRoutes(routes)
 	const dispatch = useAppDispatch()
+
+	const [search_params, set_search_params] = useSearchParams()
+	useEffect(() => {
+		const code = search_params.get('code')
+		const state = search_params.get('state')
+		if (state) {
+			set_search_params(pre => {
+				pre.delete('state')
+				return pre
+			})
+		}
+		if (code) {
+			console.log('code: ', code)
+			set_search_params(pre => {
+				pre.delete('code')
+				return pre
+			})
+			alert(code)
+		}
+	}, [search_params, set_search_params])
 
 	const initSettings = useCallback(() => {
 		const local_settings = get_local_settings()
@@ -27,6 +50,13 @@ export default function App() {
 	return (
 		<div className="flex">
 			<PageProgress />
+
+			<Suspense>
+				<PreferencesModal />
+			</Suspense>
+			<Suspense>
+				<LoginModal />
+			</Suspense>
 
 			<Sidebar />
 

@@ -161,6 +161,9 @@ importers:
       chroma-js:
         specifier: ^2.4.2
         version: registry.npmmirror.com/chroma-js@2.4.2
+      qiniu-js:
+        specifier: ^3.4.1
+        version: registry.npmmirror.com/qiniu-js@3.4.1
       react-redux:
         specifier: ^8.0.5
         version: registry.npmmirror.com/react-redux@8.0.5(@types/react-dom@18.2.4)(@types/react@18.2.6)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)

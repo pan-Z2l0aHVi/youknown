@@ -25,28 +25,26 @@ export type WallpaperQuery = Omit<filterState, 'categories' | 'purity'> & {
 interface WallpaperFilerProps {
 	on_query_change: (query: WallpaperQuery) => void
 	search: (query: WallpaperQuery) => void
+	reset: () => void
 }
 
 export default function WallpaperFilter(props: WallpaperFilerProps) {
-	const { search, on_query_change } = props
+	const { on_query_change, search, reset } = props
 	const update = useUpdate()
 	const [filter_open, { setReverse: toggle_filter }] = useBoolean(true)
 	const [keywords, set_keywords] = useState('')
 
-	const local_filter_state = storage.session.get<filterState>('wallpaper_filter_state')
-	const default_state: filterState = {
-		ai_art_filter: 0,
-		categories: [1, 2, 3],
-		purity: [1],
-		atleast: '0x0',
-		ratios: 'landscape',
-		sorting: 'toplist',
-		topRange: '1M',
-		order: 'desc'
-	}
-
 	const form = Form.useForm<filterState>({
-		defaultState: local_filter_state || default_state,
+		defaultState: {
+			ai_art_filter: 0,
+			categories: [1, 2, 3],
+			purity: [1],
+			atleast: '0x0',
+			ratios: 'landscape',
+			sorting: 'toplist',
+			topRange: '1M',
+			order: 'desc'
+		},
 		onFulfilled(state) {
 			console.log('state: ', state)
 			search(get_query())
@@ -59,7 +57,6 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 					break
 
 				case 'ratios':
-					form.setState({ atleast: '0x0' })
 					update()
 					break
 
@@ -69,6 +66,13 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 			storage.session.set('wallpaper_filter_state', form.getState())
 		}
 	})
+
+	useEffect(() => {
+		const session_filter_state = storage.session.get<filterState>('wallpaper_filter_state')
+		if (session_filter_state) {
+			form.setState(session_filter_state)
+		}
+	}, [form])
 
 	const get_query = useCallback((): WallpaperQuery => {
 		const state = form.getState()
@@ -107,81 +111,57 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 		if (local_filter_keywords) set_keywords(local_filter_keywords)
 	}, [change_query])
 
-	const { sorting, ratios } = form.getState()
+	const { sorting } = form.getState()
 	const at_least_options = [
 		{
 			label: '分辨率不限',
 			value: '0x0'
+		},
+		{
+			label: '不低于1920x1080',
+			value: '1920x1080'
+		},
+		{
+			label: '不低于2560x1400',
+			value: '2560x1400'
+		},
+		{
+			label: '不低于3840x2160',
+			value: '3840x2160'
+		},
+		{
+			label: '不低于2560x1080',
+			value: '2560x1080'
+		},
+		{
+			label: '不低于3440x1440',
+			value: '3440x1440'
+		},
+		{
+			label: '不低于5120x2160',
+			value: '5120x2160'
+		},
+		{
+			label: '不低于1080x2340',
+			value: '1080x2340'
+		},
+		{
+			label: '不低于1284x2778',
+			value: '1284x2778'
+		},
+		{
+			label: '不低于1920x1440',
+			value: '1920x1440'
+		},
+		{
+			label: '不低于2560x1920',
+			value: '2560x1920'
+		},
+		{
+			label: '不低于3840x2880',
+			value: '3840x2880'
 		}
 	]
-	switch (ratios) {
-		case '16x9':
-			at_least_options.push(
-				{
-					label: '不低于1920x1080',
-					value: '1920x1080'
-				},
-				{
-					label: '不低于2560x1400',
-					value: '2560x1400'
-				},
-				{
-					label: '不低于3840x2160',
-					value: '3840x2160'
-				}
-			)
-			break
-
-		case '21x9':
-			at_least_options.push(
-				{
-					label: '不低于2560x1080',
-					value: '2560x1080'
-				},
-				{
-					label: '不低于3440x1440',
-					value: '3440x1440'
-				},
-				{
-					label: '不低于5120x2160',
-					value: '5120x2160'
-				}
-			)
-			break
-
-		case '9x19':
-			at_least_options.push(
-				{
-					label: '不低于1080x2340',
-					value: '1080x2340'
-				},
-				{
-					label: '不低于1284x2778',
-					value: '1284x2778'
-				}
-			)
-			break
-
-		case '4x3':
-			at_least_options.push(
-				{
-					label: '不低于1920x1440',
-					value: '1920x1440'
-				},
-				{
-					label: '不低于2560x1920',
-					value: '2560x1920'
-				},
-				{
-					label: '不低于3840x2880',
-					value: '3840x2880'
-				}
-			)
-			break
-
-		default:
-			break
-	}
 
 	return (
 		<>
@@ -380,7 +360,14 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 					</Form>
 
 					<Space size="large">
-						<Button onClick={form.reset}>全部重置</Button>
+						<Button
+							onClick={() => {
+								form.reset()
+								reset()
+							}}
+						>
+							全部重置
+						</Button>
 						<Button primary icon={<TbSearch />} onClick={form.submit}>
 							筛选
 						</Button>

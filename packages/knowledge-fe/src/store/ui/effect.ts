@@ -1,6 +1,6 @@
 import { delay } from '@youknown/utils/src'
-import store from './index'
-import { hide_progress, set_progress_per, show_progress } from './ui'
+import store from '../index'
+import { hide_progress, set_progress_per, show_progress } from './slice'
 const { getState, dispatch } = store
 
 export const start_progress = () => async () => {

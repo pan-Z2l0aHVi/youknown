@@ -1,4 +1,4 @@
-import { get_doc_detail } from '@/api'
+import { get_doc_detail } from '@/apis'
 import Header from '@/app/components/header'
 import { useFetch } from '@youknown/react-hook/src'
 import { Loading } from '@youknown/react-ui/src'

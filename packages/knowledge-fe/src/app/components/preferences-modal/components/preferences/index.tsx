@@ -1,7 +1,7 @@
 import { Form, Space, Switch } from '@youknown/react-ui/src'
 import { cls, is } from '@youknown/utils/src'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { set_dark_theme, set_hue, set_radius } from '@/store/ui'
+import { set_dark_theme, set_hue, set_radius } from '@/store/ui/slice'
 
 const style_options: StyleItem[] = [
 	{
@@ -104,7 +104,7 @@ export default function Preferences() {
 
 	const form = Form.useForm({
 		defaultState: {
-			style: style_options.find(opt => is.array.equal(opt.radius, radius))!,
+			style: style_options.find(opt => is.array.equal(opt.radius, radius)) as StyleItem,
 			hue: primary_color,
 			is_dark: is_dark_theme
 		},
@@ -131,7 +131,7 @@ export default function Preferences() {
 	})
 
 	return (
-		<div className="w-480px h-640px max-w-[calc(100vw-32px)] p-24px">
+		<div className="w-480px h-560px max-w-[calc(100vw-32px)] p-24px">
 			<Form form={form} labelWidth="108px">
 				<Form.Field label="style" labelText="界面风格">
 					<RadiusStyle />
