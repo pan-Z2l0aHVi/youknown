@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { close_login_modal } from '@/store/modal/slice'
+import { close_login_modal } from '@/store/modal'
 import { go_github_login } from '@/utils'
 import { Modal, Card, XIcon, Button } from '@youknown/react-ui/src'
 import { GrGithub } from 'react-icons/gr'

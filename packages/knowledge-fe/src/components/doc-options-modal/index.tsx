@@ -16,6 +16,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 			is_publish: 0
 		},
 		onStateChange(org) {
+			console.log('org: ', org)
 			switch (org.label) {
 				case 'cover':
 					break
@@ -79,11 +80,12 @@ interface DocCoverProps {
 	onChange?: (value: string) => void
 }
 function DocCover(props: DocCoverProps) {
-	const { value } = props
+	const { value, onChange } = props
 	const upload_cover = (file: File) => {
 		upload_file(file, {
 			complete(url) {
 				console.log('upload cover url: ', url)
+				onChange?.(url)
 			}
 		})
 	}

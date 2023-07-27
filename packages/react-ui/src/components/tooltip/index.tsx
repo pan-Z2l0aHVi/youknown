@@ -12,7 +12,7 @@ interface TooltipProps extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'g
 const Tooltip = forwardRef<HTMLElement, TooltipProps>((props, propRef) => {
 	const {
 		children,
-		title,
+		title = '',
 		light = false,
 		placement = 'top',
 		open,

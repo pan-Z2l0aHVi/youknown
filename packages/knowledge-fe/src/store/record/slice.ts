@@ -1,4 +1,4 @@
-import { clear_local_records, get_local_records, set_local_records } from '@/libs/local'
+import { remove_local_records, get_local_records, set_local_records } from '@/libs/local'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const READ_FEED = 'read_feed'
@@ -36,10 +36,9 @@ export const record_slice = createSlice({
 		},
 		clear_records(state) {
 			state.record_list = []
-			clear_local_records()
+			remove_local_records()
 		}
 	}
 })
 
-export default record_slice
 export const { init_records, record, clear_records } = record_slice.actions

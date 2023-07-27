@@ -9,7 +9,8 @@ interface Profile {
 }
 
 interface LoginPayload {
-	user_id?: string
+	type: number
+	code: string
 }
 type LoginRes = Profile & {
 	token: string
@@ -21,10 +22,9 @@ export const login = (payload: LoginPayload) =>
 	})
 
 interface GetProfileParams {
-	type: 1 | 2
-	code: string
+	user_id?: string
 }
-export const get_profile = (params: GetProfileParams) =>
+export const get_profile = (params?: GetProfileParams) =>
 	net.fetch<Profile>('/proxy/user/profile', {
 		params
 	})

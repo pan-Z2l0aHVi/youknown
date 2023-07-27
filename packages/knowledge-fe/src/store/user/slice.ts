@@ -1,17 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface Profile {
-	UID: string
+	user_id: string
+	associated: number
+	github_id: number
 	nickname: string
 	avatar: string
 }
 interface UserState {
-	profile: Profile | null
+	profile: Partial<Profile>
 	is_login: boolean
 }
 
 const initial_state: UserState = {
-	profile: null,
+	profile: {},
 	is_login: false
 }
 
@@ -23,7 +25,7 @@ export const user_slice = createSlice({
 			state.profile = action.payload
 		},
 		remove_profile(state) {
-			state.profile = null
+			state.profile = {}
 		},
 		login(state) {
 			state.is_login = true
@@ -34,5 +36,4 @@ export const user_slice = createSlice({
 	}
 })
 
-export default user_slice
 export const { set_profile, remove_profile, login, logout } = user_slice.actions

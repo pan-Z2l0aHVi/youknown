@@ -1,20 +1,20 @@
-import { start_progress, stop_progress } from '@/store/ui/effect'
+import { start_progress, stop_progress } from '@/store/ui'
 import { useTransition, useEffect, useCallback } from 'react'
 import { NavigateOptions, To, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '.'
 
 export default function useTransitionNavigate() {
 	const navigate = useNavigate()
-	const [isPending, startTransition] = useTransition()
+	const [is_pending, start_transition] = useTransition()
 	const dispatch = useAppDispatch()
 
 	useEffect(() => {
-		if (isPending) {
+		if (is_pending) {
 			dispatch(start_progress())
 		} else {
 			dispatch(stop_progress())
 		}
-	}, [dispatch, isPending])
+	}, [dispatch, is_pending])
 
 	useEffect(
 		() => () => {
@@ -25,7 +25,7 @@ export default function useTransitionNavigate() {
 
 	return useCallback(
 		(to: To, options?: NavigateOptions) => {
-			startTransition(() => {
+			start_transition(() => {
 				console.log('navigate to: ', to)
 				navigate(to, options)
 			})

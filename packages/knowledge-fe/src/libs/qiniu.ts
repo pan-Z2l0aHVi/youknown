@@ -3,6 +3,8 @@ import { storage } from '@youknown/utils/src'
 import type { QiniuError, QiniuNetworkError, QiniuRequestError } from 'qiniu-js'
 import type { UploadProgress } from 'qiniu-js/esm/upload'
 
+const QINIU_TOKEN_KEY = 'qiniu_token'
+
 interface Options {
 	progress?(progress: UploadProgress): void
 	complete?(url: string): void
@@ -10,12 +12,12 @@ interface Options {
 }
 
 export async function upload_file(file: File, options?: Options) {
-	let token = storage.session.get('qiniu_token')
+	let token = storage.session.get(QINIU_TOKEN_KEY)
 	if (!token) {
 		try {
 			const res = await get_bucket_token()
 			token = res.token
-			storage.session.set('qiniu_token', token)
+			storage.session.set(QINIU_TOKEN_KEY, token)
 		} catch (error) {
 			console.error('get qiniu token error: ', error)
 			return
@@ -44,7 +46,7 @@ export async function upload_file(file: File, options?: Options) {
 		error(err) {
 			console.error('qiniu sdk error err: ', err)
 			if (err.name === 'InvalidToken') {
-				storage.session.remove('qiniu_token')
+				storage.session.remove(QINIU_TOKEN_KEY)
 				upload_file(file, options)
 				return
 			}

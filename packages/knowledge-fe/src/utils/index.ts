@@ -1,21 +1,35 @@
+import { B_CODE } from '@/consts'
+import { get_local_token, remove_local_token } from '@/libs/local'
 import { Net, QS, headers2Obj, uuid } from '@youknown/utils/src'
 
 export const net = Net.create()
 	.use(async (ctx, next) => {
-		const headers = new Headers(ctx.req.configure.headers)
-		headers.append('token', 'aaaaa')
-		ctx.req.configure.headers = headers2Obj(headers)
+		const token = get_local_token()
+		if (token) {
+			const headers = new Headers(ctx.req.configure.headers)
+			headers.append('Authorization', token)
+			ctx.req.configure.headers = headers2Obj(headers)
+		}
 		await next()
 	})
 	.use(async (ctx, next) => {
 		await next()
-		console.log('net data', ctx.data)
-		if (!ctx.err) {
-			if (ctx.data?.code === 0) {
+		if (ctx.err) {
+			return
+		}
+		switch (ctx.data?.code) {
+			case B_CODE.SUCCESS:
 				ctx.data = ctx.data.data
-			} else {
+				break
+
+			case B_CODE.NOT_AUTH:
 				ctx.err = ctx.data
-			}
+				remove_local_token()
+				break
+
+			default:
+				ctx.err = ctx.data
+				break
 		}
 	})
 

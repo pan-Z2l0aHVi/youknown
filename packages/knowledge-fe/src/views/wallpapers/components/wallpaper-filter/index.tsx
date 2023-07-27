@@ -28,6 +28,9 @@ interface WallpaperFilerProps {
 	reset: () => void
 }
 
+const FILTER_STATE_KEY = 'wallpaper_filter_state'
+const FILTER_KEYWORDS_KEY = 'wallpaper_filter_keywords'
+
 export default function WallpaperFilter(props: WallpaperFilerProps) {
 	const { on_query_change, search, reset } = props
 	const update = useUpdate()
@@ -63,12 +66,12 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 				default:
 					break
 			}
-			storage.session.set('wallpaper_filter_state', form.getState())
+			storage.session.set(FILTER_STATE_KEY, form.getState())
 		}
 	})
 
 	useEffect(() => {
-		const session_filter_state = storage.session.get<filterState>('wallpaper_filter_state')
+		const session_filter_state = storage.session.get<filterState>(FILTER_STATE_KEY)
 		if (session_filter_state) {
 			form.setState(session_filter_state)
 		}
@@ -107,7 +110,7 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 
 	useEffect(() => {
 		change_query()
-		const local_filter_keywords = storage.session.get('wallpaper_filter_keywords')
+		const local_filter_keywords = storage.session.get(FILTER_KEYWORDS_KEY)
 		if (local_filter_keywords) set_keywords(local_filter_keywords)
 	}, [change_query])
 
@@ -173,7 +176,7 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 						allowClear
 						value={keywords}
 						onChange={val => {
-							storage.session.set('wallpaper_filter_keywords', val)
+							storage.session.set(FILTER_KEYWORDS_KEY, val)
 							set_keywords(val as string)
 						}}
 					/>

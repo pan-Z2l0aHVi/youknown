@@ -8,19 +8,19 @@ import Account from './components/account'
 
 const EXPAND_KEY = 'sidebar-expand'
 const WIDTH_KEY = 'sidebar-width'
-const DEFAULT_WIDTH = 240
-const MIN_WIDTH = 160
-const MAX_WIDTH = 400
+const DEFAULT_W = 240
+const MIN_W = 160
+const MAX_W = 400
 
 export default function Sidebar() {
 	const session_expand = storage.session.get<boolean>(EXPAND_KEY)
 	const session_width = storage.session.get<number>(WIDTH_KEY)
 	const [expand, { setReverse: toggle_expand }] = useBoolean(session_expand ?? true)
 
-	const [sidebar_width, set_sidebar_width] = useState(session_width ?? DEFAULT_WIDTH)
+	const [sidebar_width, set_sidebar_width] = useState(session_width ?? DEFAULT_W)
 	const [dragging, { setTrue: start_drag, setFalse: stop_drag }] = useBoolean(false)
 	const dragging_ref = useLatestRef(dragging)
-	const [, startTransition] = useTransition()
+	const [, start_transition] = useTransition()
 
 	useEffect(() => {
 		storage.session.set(EXPAND_KEY, expand)
@@ -52,10 +52,10 @@ export default function Sidebar() {
 
 	const handle_mousemove = (e: MouseEvent) => {
 		if (!dragging_ref.current) return
-		if (e.clientX > MAX_WIDTH) return
-		if (e.clientX < MIN_WIDTH) return
+		if (e.clientX > MAX_W) return
+		if (e.clientX < MIN_W) return
 
-		startTransition(() => {
+		start_transition(() => {
 			set_sidebar_width(e.clientX)
 		})
 	}

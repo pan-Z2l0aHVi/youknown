@@ -1,5 +1,5 @@
-import { set_local_settings } from '@/libs/local'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { set_local_settings } from '@/libs/local'
 import { setRootStyle } from '@youknown/utils/src'
 
 export interface UIState {
@@ -71,5 +71,4 @@ export const ui_slice = createSlice({
 	}
 })
 
-export default ui_slice
 export const { set_progress_per, show_progress, hide_progress, set_radius, set_hue, set_dark_theme } = ui_slice.actions

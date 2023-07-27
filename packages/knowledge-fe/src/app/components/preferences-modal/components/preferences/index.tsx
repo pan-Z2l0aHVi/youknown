@@ -1,7 +1,7 @@
 import { Form, Space, Switch } from '@youknown/react-ui/src'
 import { cls, is } from '@youknown/utils/src'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { set_dark_theme, set_hue, set_radius } from '@/store/ui/slice'
+import { set_dark_theme, set_hue, set_radius } from '@/store/ui'
 
 const style_options: StyleItem[] = [
 	{

@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import ui_slice from './ui/slice'
-import user_slice from './user/slice'
-import record_slice from './record/slice'
-import modal_slice from './modal/slice'
+import { ui_slice } from './ui'
+import { user_slice } from './user'
+import { record_slice } from './record'
+import { modal_slice } from './modal'
 
 const store = configureStore({
 	reducer: {
@@ -14,6 +14,7 @@ const store = configureStore({
 })
 export default store
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
+// Infer the `AppGetState`, `RootState` and `AppDispatch` types from the store itself
+export type AppGetState = typeof store.getState
+export type RootState = ReturnType<AppGetState>
 export type AppDispatch = typeof store.dispatch

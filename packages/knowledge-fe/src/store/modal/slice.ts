@@ -29,6 +29,5 @@ export const modal_slice = createSlice({
 	}
 })
 
-export default modal_slice
 export const { open_preferences_modal, close_preferences_modal, open_login_modal, close_login_modal } =
 	modal_slice.actions
