@@ -136,28 +136,26 @@ importers:
         specifier: ^1.4.2
         version: registry.npmmirror.com/vue-tsc@1.6.5(typescript@5.0.4)
 
-  packages/css: {}
-
-  packages/knowledge-fe:
+  apps/knowledge-fe:
     dependencies:
       '@reduxjs/toolkit':
         specifier: ^1.9.1
         version: registry.npmmirror.com/@reduxjs/toolkit@1.9.3(react-redux@8.0.5)(react@18.2.0)
       '@youknown/css':
         specifier: workspace:*
-        version: link:../css
+        version: link:../../packages/css
       '@youknown/react-editor':
         specifier: workspace:*
-        version: link:../react-editor
+        version: link:../../packages/react-editor
       '@youknown/react-hook':
         specifier: workspace:*
-        version: link:../react-hook
+        version: link:../../packages/react-hook
       '@youknown/react-ui':
         specifier: workspace:*
-        version: link:../react-ui
+        version: link:../../packages/react-ui
       '@youknown/utils':
         specifier: workspace:*
-        version: link:../utils
+        version: link:../../packages/utils
       chroma-js:
         specifier: ^2.4.2
         version: registry.npmmirror.com/chroma-js@2.4.2
@@ -172,23 +170,59 @@ importers:
         specifier: ^2.4.0
         version: registry.npmmirror.com/@types/chroma-js@2.4.0
 
-  packages/react-demos:
+  apps/react-demos:
     dependencies:
       '@youknown/css':
         specifier: workspace:*
-        version: link:../css
+        version: link:../../packages/css
       '@youknown/react-editor':
         specifier: workspace:*
-        version: link:../react-editor
+        version: link:../../packages/react-editor
       '@youknown/react-hook':
         specifier: workspace:*
-        version: link:../react-hook
+        version: link:../../packages/react-hook
       '@youknown/react-ui':
         specifier: workspace:*
-        version: link:../react-ui
+        version: link:../../packages/react-ui
       '@youknown/utils':
         specifier: workspace:*
-        version: link:../utils
+        version: link:../../packages/utils
+
+  apps/vue-demos:
+    dependencies:
+      '@tiptap/extension-placeholder':
+        specifier: ^2.0.3
+        version: registry.npmmirror.com/@tiptap/extension-placeholder@2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
+      '@tiptap/pm':
+        specifier: ^2.0.3
+        version: registry.npmmirror.com/@tiptap/pm@2.0.3(@tiptap/core@2.0.3)
+      '@tiptap/starter-kit':
+        specifier: ^2.0.3
+        version: registry.npmmirror.com/@tiptap/starter-kit@2.0.3(@tiptap/pm@2.0.3)
+      '@tiptap/vue-3':
+        specifier: ^2.0.3
+        version: registry.npmmirror.com/@tiptap/vue-3@2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)(vue@3.3.4)
+      '@youknown/css':
+        specifier: workspace:*
+        version: link:../../packages/css
+      '@youknown/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
+      crypto-js:
+        specifier: ^4.1.1
+        version: registry.npmmirror.com/crypto-js@4.1.1
+      qiniu-js:
+        specifier: ^3.4.1
+        version: registry.npmmirror.com/qiniu-js@3.4.1
+      vant:
+        specifier: ^4.3.2
+        version: registry.npmmirror.com/vant@4.4.1(vue@3.3.4)
+    devDependencies:
+      '@types/crypto-js':
+        specifier: ^4.1.1
+        version: registry.npmmirror.com/@types/crypto-js@4.1.1
+
+  packages/css: {}
 
   packages/react-editor:
     dependencies:
@@ -315,40 +349,6 @@ importers:
         version: registry.npmmirror.com/@types/react-transition-group@4.4.5
 
   packages/utils: {}
-
-  packages/vue-demos:
-    dependencies:
-      '@tiptap/extension-placeholder':
-        specifier: ^2.0.3
-        version: registry.npmmirror.com/@tiptap/extension-placeholder@2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
-      '@tiptap/pm':
-        specifier: ^2.0.3
-        version: registry.npmmirror.com/@tiptap/pm@2.0.3(@tiptap/core@2.0.3)
-      '@tiptap/starter-kit':
-        specifier: ^2.0.3
-        version: registry.npmmirror.com/@tiptap/starter-kit@2.0.3(@tiptap/pm@2.0.3)
-      '@tiptap/vue-3':
-        specifier: ^2.0.3
-        version: registry.npmmirror.com/@tiptap/vue-3@2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)(vue@3.3.4)
-      '@youknown/css':
-        specifier: workspace:*
-        version: link:../css
-      '@youknown/utils':
-        specifier: workspace:*
-        version: link:../utils
-      crypto-js:
-        specifier: ^4.1.1
-        version: registry.npmmirror.com/crypto-js@4.1.1
-      qiniu-js:
-        specifier: ^3.4.1
-        version: registry.npmmirror.com/qiniu-js@3.4.1
-      vant:
-        specifier: ^4.3.2
-        version: registry.npmmirror.com/vant@4.4.1(vue@3.3.4)
-    devDependencies:
-      '@types/crypto-js':
-        specifier: ^4.1.1
-        version: registry.npmmirror.com/@types/crypto-js@4.1.1
 
 packages:
 
@@ -3033,7 +3033,7 @@ packages:
     name: '@types/hoist-non-react-statics'
     version: 3.3.1
     dependencies:
-      '@types/react': registry.npmmirror.com/@types/react@18.0.28
+      '@types/react': registry.npmmirror.com/@types/react@18.2.6
       hoist-non-react-statics: registry.npmmirror.com/hoist-non-react-statics@3.3.2
     dev: false
 

@@ -97,7 +97,7 @@ function DocCover(props: DocCoverProps) {
 	return (
 		<div className="b-bd-line b-1 b-solid b-rd-radius-m">
 			<img className="w-240px h-auto b-rd-radius-m" src={value} />
-			<input type="file" onChange={handle_file_change} />
+			<input hidden type="file" onChange={handle_file_change} />
 		</div>
 	)
 }

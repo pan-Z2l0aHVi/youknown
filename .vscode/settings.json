@@ -1,13 +1,14 @@
 {
     "typescript.tsdk": "node_modules/typescript/lib",
     "unocss.root": [
-        "packages/knowledge-fe",
-        "packages/react-demos",
-        "packages/vue-demos"
+        "apps/knowledge-fe",
+        "apps/react-demos",
+        "apps/vue-demos"
     ],
     "cSpell.words": [
         "atleast",
         "ciphertext",
+        "commitlint",
         "qiniu",
         "reduxjs",
         "Unocss",
