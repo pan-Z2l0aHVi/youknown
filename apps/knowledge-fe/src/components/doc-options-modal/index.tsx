@@ -1,6 +1,5 @@
 import { upload_file } from '@/libs/qiniu'
-import { Button, Card, Form, Modal, Radio, Space, XIcon } from '@youknown/react-ui/src'
-import { ChangeEvent } from 'react'
+import { Button, Card, Form, Modal, Radio, Space, Upload, XIcon } from '@youknown/react-ui/src'
 
 interface DocOptionsModalProps {
 	open: boolean
@@ -12,11 +11,12 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 
 	const form = Form.useForm({
 		defaultState: {
-			cover: '//gw.alipayobjects.com/mdn/prod_resource/afts/img/A*fvnmR7gwpGIAAAAAAAAAAAAAARQnAQ',
+			cover: [],
 			is_publish: 0
 		},
 		onStateChange(org) {
-			console.log('org: ', org)
+			const state = form.getState()
+			console.log('org: ', org, state[org.label])
 			switch (org.label) {
 				case 'cover':
 					break
@@ -29,6 +29,21 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 			}
 		}
 	})
+
+	const upload_cover = (file: File) => {
+		return new Promise<string>((resolve, reject) => {
+			upload_file(file, {
+				complete(url) {
+					console.log('upload cover url: ', url)
+					// onChange?.(url)
+					resolve(url)
+				},
+				error(err) {
+					reject(err)
+				}
+			})
+		})
+	}
 
 	return (
 		<Modal className="backdrop-blur-md !bg-[rgba(0,0,0,0.2)]" open={open} onCancel={hide_modal}>
@@ -44,7 +59,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 				<div className="w-480px max-w-[calc(100vw-32px)] p-24px">
 					<Form form={form} labelWidth="120px">
 						<Form.Field label="cover" labelText="封面：">
-							<DocCover />
+							<Upload action={upload_cover} />
 						</Form.Field>
 						<Form.Field label="is_publish" labelText="动态设置：">
 							<Radio.Group
@@ -72,32 +87,5 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 				</div>
 			</Card>
 		</Modal>
-	)
-}
-
-interface DocCoverProps {
-	value?: string
-	onChange?: (value: string) => void
-}
-function DocCover(props: DocCoverProps) {
-	const { value, onChange } = props
-	const upload_cover = (file: File) => {
-		upload_file(file, {
-			complete(url) {
-				console.log('upload cover url: ', url)
-				onChange?.(url)
-			}
-		})
-	}
-	const handle_file_change = (e: ChangeEvent<HTMLInputElement>) => {
-		const files = e.target.files ?? new FileList()
-		console.log('files: ', files)
-		Array.from(files).forEach(upload_cover)
-	}
-	return (
-		<div className="b-bd-line b-1 b-solid b-rd-radius-m">
-			<img className="w-240px h-auto b-rd-radius-m" src={value} />
-			<input hidden type="file" onChange={handle_file_change} />
-		</div>
 	)
 }

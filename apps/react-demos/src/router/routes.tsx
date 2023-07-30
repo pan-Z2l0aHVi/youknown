@@ -123,6 +123,11 @@ export const componentRoutes = [
 		element: createElement(lazy(() => import('@ui/TriggerExample')))
 	},
 	{
+		name: 'Upload',
+		path: 'upload',
+		element: createElement(lazy(() => import('@ui/UploadExample')))
+	},
+	{
 		name: 'Editor',
 		path: 'editor',
 		element: createElement(lazy(() => import('@editor/EditorExample')))

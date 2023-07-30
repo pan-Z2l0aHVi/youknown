@@ -18,14 +18,12 @@ import Image from '@tiptap/extension-image'
 // import ImageResize from '../exts/tiptap-resizable-image'
 import { UI_EDITOR_PREFIX } from '../constants'
 
-const CustomDocument = Document.extend({
-	content: 'heading block*'
-})
-
 export default function useEditor(options?: Partial<EditorOptions>) {
 	return useTiptapEditor({
 		extensions: [
-			CustomDocument,
+			Document.extend({
+				content: 'heading block*'
+			}),
 			StarterKit.configure({
 				heading: { levels: [1, 2, 3, 4] },
 				document: false // use customDoc
