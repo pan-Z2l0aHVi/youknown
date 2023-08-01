@@ -44,7 +44,7 @@ const Dialog: FC<DialogProps> = props => {
 
 	return (
 		<Modal open={open} className={maskClassName} maskClosable={maskClosable} onCancel={onCancel} {...rest}>
-			<Motion.Grow in={open}>
+			<Motion.Zoom in={open}>
 				<Card
 					className={cls(className, prefixCls)}
 					shadow
@@ -67,7 +67,7 @@ const Dialog: FC<DialogProps> = props => {
 					{closeIcon}
 					<div className={`${prefixCls}-content`}>{children}</div>
 				</Card>
-			</Motion.Grow>
+			</Motion.Zoom>
 		</Modal>
 	)
 }

@@ -1,5 +1,8 @@
+import { Button } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import { ReactNode } from 'react'
+import { TbArrowLeft } from 'react-icons/tb'
+import { useNavigate } from 'react-router-dom'
 
 interface HeaderProps {
 	children?: ReactNode
@@ -10,6 +13,7 @@ interface HeaderProps {
 
 export default function Header(props: HeaderProps) {
 	const { children, heading, sticky = false, bordered = false } = props
+	const navigate = useNavigate()
 	return (
 		<header
 			className={cls(
@@ -18,7 +22,19 @@ export default function Header(props: HeaderProps) {
 				bordered && 'b-b-1 b-b-solid b-bd-line'
 			)}
 		>
-			<h3>{heading}</h3>
+			<div className="flex items-center">
+				<Button
+					className="mr-12px"
+					square
+					text
+					onClick={() => {
+						navigate(-1)
+					}}
+				>
+					<TbArrowLeft className="text-18px color-primary" />
+				</Button>
+				<h3>{heading}</h3>
+			</div>
 			{children}
 		</header>
 	)

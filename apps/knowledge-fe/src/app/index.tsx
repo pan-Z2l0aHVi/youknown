@@ -1,15 +1,15 @@
 import { Suspense, lazy, useCallback, useEffect } from 'react'
-import { useSearchParams, useRoutes } from 'react-router-dom'
+import { useMatch, useRoutes } from 'react-router-dom'
 import routes from '../router/routes'
 import { Loading } from '@youknown/react-ui/src'
-import PageProgress from './components/page-progress'
-import Sidebar from './components/sidebar'
 import { cls } from '@youknown/utils/src'
 import { useAppDispatch } from '@/hooks'
 import { set_dark_theme, set_hue, set_radius } from '@/store/ui/slice'
-import { get_local_settings } from '@/libs/local'
+import { fetch_profile } from '@/store/user'
+import { get_local_settings, get_local_token } from '@/utils/local'
+import PageProgress from './components/page-progress'
 import FabBar from './components/fab-bar'
-import { do_login } from '@/store/user'
+import Sidebar from './components/sidebar'
 
 const PreferencesModal = lazy(() => import('./components/preferences-modal'))
 const LoginModal = lazy(() => import('./components/login-modal'))
@@ -17,36 +17,25 @@ const LoginModal = lazy(() => import('./components/login-modal'))
 export default function App() {
 	const content = useRoutes(routes)
 	const dispatch = useAppDispatch()
+	const login_success_match = useMatch('/login-success')
+	const with_layout = !login_success_match
 
-	const [search_params, set_search_params] = useSearchParams()
-	useEffect(() => {
-		const state = search_params.get('state')
-		if (state) {
-			set_search_params(pre => {
-				pre.delete('state')
-				return pre
-			})
-		}
-		const code = search_params.get('code')
-		if (code) {
-			set_search_params(pre => {
-				pre.delete('code')
-				return pre
-			})
-			alert(code)
-			dispatch(do_login(code))
-		}
-	}, [dispatch, search_params, set_search_params])
-
-	const initSettings = useCallback(() => {
+	const init_settings = useCallback(() => {
 		const local_settings = get_local_settings()
 		dispatch(set_hue(local_settings.primary_color ?? '#de7802'))
 		dispatch(set_radius(local_settings.radius ?? [4, 8, 12]))
 		dispatch(set_dark_theme(local_settings.is_dark_theme ?? false))
 	}, [dispatch])
+
 	useEffect(() => {
-		initSettings()
-	}, [initSettings])
+		init_settings()
+	}, [init_settings])
+
+	useEffect(() => {
+		if (get_local_token()) {
+			dispatch(fetch_profile())
+		}
+	}, [dispatch])
 
 	return (
 		<div className="flex">
@@ -59,7 +48,7 @@ export default function App() {
 				<LoginModal />
 			</Suspense>
 
-			<Sidebar />
+			{with_layout && <Sidebar />}
 
 			<Suspense
 				fallback={
@@ -74,7 +63,7 @@ export default function App() {
 				>
 					{content}
 
-					<FabBar />
+					{with_layout && <FabBar />}
 				</div>
 			</Suspense>
 		</div>

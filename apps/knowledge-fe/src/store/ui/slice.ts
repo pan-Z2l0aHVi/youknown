@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { set_local_settings } from '@/libs/local'
+import { set_local_settings } from '@/utils/local'
 import { setRootStyle } from '@youknown/utils/src'
 
 export interface UIState {

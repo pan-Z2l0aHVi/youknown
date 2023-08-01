@@ -1,6 +1,7 @@
-import { useAppDispatch } from '@/hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 import { record } from '@/store/record'
 import { Dialog } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 import dayjs from 'dayjs'
 
 interface DocSaveDialogProps {
@@ -11,6 +12,7 @@ interface DocSaveDialogProps {
 export default function DocSaveDialog(props: DocSaveDialogProps) {
 	const { open, hide_dialog } = props
 	const dispatch = useAppDispatch()
+	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
 
 	const handle_save = () => {
 		dispatch(
@@ -29,7 +31,10 @@ export default function DocSaveDialog(props: DocSaveDialogProps) {
 
 	return (
 		<Dialog
-			maskClassName="backdrop-blur-md !bg-[rgba(0,0,0,0.2)]"
+			maskClassName={cls(
+				'backdrop-blur-xl',
+				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+			)}
 			open={open}
 			title="更新文档"
 			okText="更新"

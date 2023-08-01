@@ -1,5 +1,7 @@
-import { upload_file } from '@/libs/qiniu'
-import { Button, Card, Form, Modal, Radio, Space, Upload, XIcon } from '@youknown/react-ui/src'
+import { useAppSelector } from '@/hooks'
+import { Button, Card, Form, Modal, Motion, Radio, Space, XIcon } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
+import PicUpload from '@/components/pic-upload'
 
 interface DocOptionsModalProps {
 	open: boolean
@@ -8,10 +10,11 @@ interface DocOptionsModalProps {
 
 export default function DocOptionsModal(props: DocOptionsModalProps) {
 	const { open, hide_modal } = props
+	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
 
 	const form = Form.useForm({
 		defaultState: {
-			cover: [],
+			cover: '',
 			is_publish: 0
 		},
 		onStateChange(org) {
@@ -30,62 +33,54 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 		}
 	})
 
-	const upload_cover = (file: File) => {
-		return new Promise<string>((resolve, reject) => {
-			upload_file(file, {
-				complete(url) {
-					console.log('upload cover url: ', url)
-					// onChange?.(url)
-					resolve(url)
-				},
-				error(err) {
-					reject(err)
-				}
-			})
-		})
-	}
-
 	return (
-		<Modal className="backdrop-blur-md !bg-[rgba(0,0,0,0.2)]" open={open} onCancel={hide_modal}>
-			<Card
-				shadow
-				header={
-					<div className="flex justify-between p-[24px_24px_0]">
-						<span className="text-16px">文档设置</span>
-						<XIcon onClick={hide_modal} />
+		<Modal
+			className={cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]')}
+			open={open}
+			onCancel={hide_modal}
+			unmountOnExit
+		>
+			<Motion.Zoom in={open}>
+				<Card
+					shadow
+					header={
+						<div className="flex justify-between p-[24px_24px_0]">
+							<span className="text-16px">文档设置</span>
+							<XIcon onClick={hide_modal} />
+						</div>
+					}
+				>
+					<div className="w-480px max-w-[calc(100vw-32px)] p-24px">
+						<Form form={form} labelWidth="120px">
+							<Form.Field label="cover" labelText="封面：">
+								<PicUpload />
+							</Form.Field>
+							<Form.Field label="is_publish" labelText="动态设置：">
+								<Radio.Group
+									options={[
+										{
+											label: 0,
+											child: '不公开'
+										},
+										{
+											label: 1,
+											child: '公开发布'
+										}
+									]}
+								/>
+							</Form.Field>
+							<Form.Field labelText=" " className="m-b-0! m-t-16px">
+								<Space>
+									<Button onClick={hide_modal}>取消</Button>
+									<Button type="submit" primary>
+										保存
+									</Button>
+								</Space>
+							</Form.Field>
+						</Form>
 					</div>
-				}
-			>
-				<div className="w-480px max-w-[calc(100vw-32px)] p-24px">
-					<Form form={form} labelWidth="120px">
-						<Form.Field label="cover" labelText="封面：">
-							<Upload action={upload_cover} />
-						</Form.Field>
-						<Form.Field label="is_publish" labelText="动态设置：">
-							<Radio.Group
-								options={[
-									{
-										label: 0,
-										child: '不公开'
-									},
-									{
-										label: 1,
-										child: '公开发布'
-									}
-								]}
-							/>
-						</Form.Field>
-						<Form.Field labelText=" " className="m-b-0! m-t-16px">
-							<Space>
-								<Button onClick={hide_modal}>取消</Button>
-								<Button type="submit" primary>
-									保存
-								</Button>
-							</Space>
-						</Form.Field>
-					</Form>
-				</div>
-			</Card>
+				</Card>
+			</Motion.Zoom>
 		</Modal>
 	)
 }

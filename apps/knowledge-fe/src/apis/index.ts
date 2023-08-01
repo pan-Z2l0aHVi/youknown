@@ -1,4 +1,4 @@
-import { net } from '@/utils'
+import { net } from '@/utils/request'
 import { delay } from '@youknown/utils/src'
 
 type FeedListRes = Promise<

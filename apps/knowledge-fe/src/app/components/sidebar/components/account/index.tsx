@@ -1,10 +1,9 @@
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { Avatar, Divider, Dropdown, Tooltip } from '@youknown/react-ui/src'
+import { Avatar, Divider, Dropdown, Motion, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import { TbLogout, TbSettings2 } from 'react-icons/tb'
 import { open_preferences_modal, open_login_modal } from '@/store/modal'
-import { useEffect } from 'react'
-import { fetch_profile } from '@/store/user'
+import { do_logout } from '@/store/user'
 
 interface PersonalProps {
 	expand: boolean
@@ -17,9 +16,6 @@ export default function Personal({ expand }: PersonalProps) {
 	const show_preferences_modal = () => {
 		dispatch(open_preferences_modal())
 	}
-	useEffect(() => {
-		dispatch(fetch_profile())
-	}, [dispatch])
 
 	return (
 		<>
@@ -40,7 +36,13 @@ export default function Personal({ expand }: PersonalProps) {
 								设置
 							</Dropdown.Item>
 							<Divider size="small" />
-							<Dropdown.Item closeAfterItemClick prefix={<TbLogout className="text-18px color-danger" />}>
+							<Dropdown.Item
+								closeAfterItemClick
+								prefix={<TbLogout className="text-18px color-danger" />}
+								onClick={() => {
+									dispatch(do_logout())
+								}}
+							>
 								<span className="color-danger">退出登录</span>
 							</Dropdown.Item>
 						</Dropdown.Menu>
@@ -63,12 +65,11 @@ export default function Personal({ expand }: PersonalProps) {
 								登录
 							</div>
 						)}
-
-						{expand && (
+						<Motion.Fade in={expand} unmountOnExit>
 							<div className="flex-1 break-all ws-nowrap ml-8px">
 								{is_login ? profile.nickname : '立即登录'}
 							</div>
-						)}
+						</Motion.Fade>
 					</div>
 				</Dropdown>
 			</Tooltip>

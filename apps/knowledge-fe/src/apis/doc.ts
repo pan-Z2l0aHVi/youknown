@@ -1,4 +1,4 @@
-import { net } from '@/utils'
+import { net } from '@/utils/request'
 
 interface Doc {
 	doc_id: string

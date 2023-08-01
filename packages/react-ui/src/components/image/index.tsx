@@ -290,7 +290,7 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 	)
 
 	const detailEle = detailDisabled || (
-		<Modal open={detailOpen} onCancel={hideDetail} onWheel={throttle(handleWheel, 100)}>
+		<Modal open={detailOpen} onCancel={hideDetail} onWheel={throttle(handleWheel, 200)}>
 			<div
 				className={`${prefixCls}-detail`}
 				onClick={event => {

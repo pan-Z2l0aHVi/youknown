@@ -8,8 +8,10 @@ import { get_doc_list } from '@/apis'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { cls } from '@youknown/utils/src'
 import DocDeleteDialog from '@/components/doc-delete-dialog'
+import { useAppSelector } from '@/hooks'
 
 export default function DocList() {
+	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
 	const navigate = useTransitionNavigate()
 
 	const [uid] = useState('111')
@@ -52,7 +54,15 @@ export default function DocList() {
 		useBoolean(false)
 
 	const filter_drawer = (
-		<Drawer open={filter_open} onCancel={close_filter}>
+		<Drawer
+			className="b-l-solid b-l-1px b-l-bd-line shadow-shadow-l"
+			maskClassName={cls(
+				'backdrop-blur-xl',
+				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+			)}
+			open={filter_open}
+			onCancel={close_filter}
+		>
 			<div className="p-[32px_24px_32px_16px]">
 				<Form form={form} labelWidth="80px">
 					<Form.Field label="keywords" labelText="关键字">
@@ -112,7 +122,7 @@ export default function DocList() {
 						</Button>
 					</Tooltip>
 
-					<div className="p-l-16px p-r-16px b-l-1 b-r-1 b-solid b-bd-line select-none">
+					<div className="p-l-16px p-r-16px b-l-1 b-r-1 b-l-solid b-r-solid b-bd-line select-none">
 						已选中：{selection.length}
 					</div>
 

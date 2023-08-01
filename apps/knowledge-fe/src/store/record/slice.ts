@@ -1,4 +1,4 @@
-import { remove_local_records, get_local_records, set_local_records } from '@/libs/local'
+import { remove_local_records, get_local_records, set_local_records } from '@/utils/local'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const READ_FEED = 'read_feed'

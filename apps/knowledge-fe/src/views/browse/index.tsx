@@ -4,8 +4,11 @@ import { Card, Input, List, Modal, Tabs } from '@youknown/react-ui/src'
 import { useState } from 'react'
 import { TbSearch } from 'react-icons/tb'
 import FeedList from './components/feed-list'
+import { cls } from '@youknown/utils/src'
+import { useAppSelector } from '@/hooks'
 
 export default function Browse() {
+	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
 	const [search_modal_open, { setTrue: show_search_modal, setFalse: hide_search_modal }] = useBoolean(false)
 	const [feed_tab, set_feed_tab] = useState<string>('0')
 	const result = []
@@ -23,17 +26,14 @@ export default function Browse() {
 					]}
 				/>
 
-				<Input
-					className="w-240px!"
-					prefix={<TbSearch />}
-					placeholder="搜动态"
-					outline={false}
-					onFocus={show_search_modal}
-				/>
+				<Input prefix={<TbSearch />} placeholder="搜动态" outline={false} onFocus={show_search_modal} />
 			</Header>
 
 			<Modal
-				className="backdrop-blur-md !bg-[rgba(0,0,0,0.2)]"
+				className={cls(
+					'backdrop-blur-xl',
+					is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+				)}
 				open={search_modal_open}
 				onCancel={hide_search_modal}
 				unmountOnExit

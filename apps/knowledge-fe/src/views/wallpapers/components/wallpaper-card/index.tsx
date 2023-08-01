@@ -54,7 +54,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 						<div
 							className={cls(
 								'absolute bottom-8px left-8px',
-								'b-rd-round bg-[rgba(120,120,120,0.4)] backdrop-blur-lg',
+								'b-rd-round bg-[rgba(120,120,120,0.4)] backdrop-blur-xl',
 								'flex items-center h-24px leading-none p-l-6px p-r-6px text-12px color-#fff',
 								'pointer-events-none'
 							)}
@@ -90,7 +90,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 							<div
 								className={cls(
 									'absolute bottom-8px right-8px',
-									'b-rd-round bg-[rgba(120,120,120,0.4)] backdrop-blur-lg hover-bg-primary',
+									'b-rd-round bg-[rgba(120,120,120,0.4)] backdrop-blur-xl hover-bg-primary',
 									'flex items-center justify-center w-24px h-24px cursor-pointer select-none'
 								)}
 								onClick={start_hover}

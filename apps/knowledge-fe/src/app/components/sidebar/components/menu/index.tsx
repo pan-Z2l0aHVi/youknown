@@ -65,26 +65,24 @@ export default function Menu({ expand }: MenuProps) {
 				const nav_content = (
 					<>
 						<div className="leading-0 text-18px color-primary">{state.icon}</div>
-						{expand ? (
+						<Motion.Fade in={expand} unmountOnExit>
+							<div className="ml-8px flex-1 w-0 break-all ws-nowrap">{state.nav_name}</div>
+						</Motion.Fade>
+						{has_sub_nav && (
 							<>
-								<div className="ml-8px flex-1 break-all ws-nowrap">{state.nav_name}</div>
-
-								{has_sub_nav && (
+								{expand ? (
 									<div
-										className="b-rd-radius-s w-24px h-24px flex items-center justify-center text-12px
-										!active-bg-active hover-bg-hover"
+										className="b-rd-radius-s w-24px h-24px flex items-center justify-center text-12px !active-bg-active hover-bg-hover"
 										onClick={toggle_sub_menu}
 									>
 										{chevron_down_icon}
 									</div>
+								) : (
+									<div className="flex items-center text-12px" onClick={toggle_sub_menu}>
+										{chevron_down_icon}
+									</div>
 								)}
 							</>
-						) : (
-							has_sub_nav && (
-								<div className="flex items-center text-12px" onClick={toggle_sub_menu}>
-									{chevron_down_icon}
-								</div>
-							)
 						)}
 					</>
 				)
@@ -124,46 +122,48 @@ export default function Menu({ expand }: MenuProps) {
 
 						{has_sub_nav && (
 							<Motion.Collapse in={open_map[path]} className="w-100% m-t-0! m-b-0!" unmountOnExit>
-								<div
-									className={cls({
-										'ml-32px': expand
-									})}
-								>
-									{children.map(child => {
-										return (
-											<Tooltip
-												key={child.path}
-												title={child.state.nav_name}
-												placement="right"
-												spacing={20}
-												disabled={expand}
-											>
-												<TransitionNavLink
-													to={`/${path}/${child.path}`}
-													className={({ isActive }) =>
-														cls(
-															'group w-100% h-32px flex items-center pl-12px pr-4px b-rd-radius-m mb-8px decoration-none color-inherit',
-															{
-																'active-bg-active hover-not-active-bg-hover': !isActive,
-																'bg-active': isActive
-															}
-														)
-													}
+								<Motion.Fade in={open_map[path]}>
+									<div
+										className={cls({
+											'ml-32px': expand
+										})}
+									>
+										{children.map(child => {
+											return (
+												<Tooltip
+													key={child.path}
+													title={child.state.nav_name}
+													placement="right"
+													spacing={20}
+													disabled={expand}
 												>
-													<div className="leading-0 text-18px color-primary">
-														{child.state.icon}
-													</div>
-
-													{expand && (
-														<div className="flex-1 break-all ws-nowrap ml-8px">
-															{child.state.nav_name}
+													<TransitionNavLink
+														to={`/${path}/${child.path}`}
+														className={({ isActive }) =>
+															cls(
+																'group w-100% h-32px flex items-center pl-12px pr-4px b-rd-radius-m mb-8px decoration-none color-inherit',
+																{
+																	'active-bg-active hover-not-active-bg-hover':
+																		!isActive,
+																	'bg-active': isActive
+																}
+															)
+														}
+													>
+														<div className="leading-0 text-18px color-primary">
+															{child.state.icon}
 														</div>
-													)}
-												</TransitionNavLink>
-											</Tooltip>
-										)
-									})}
-								</div>
+														<Motion.Fade in={expand} unmountOnExit>
+															<div className="flex-1 break-all ws-nowrap ml-8px">
+																{child.state.nav_name}
+															</div>
+														</Motion.Fade>
+													</TransitionNavLink>
+												</Tooltip>
+											)
+										})}
+									</div>
+								</Motion.Fade>
 							</Motion.Collapse>
 						)}
 					</Fragment>

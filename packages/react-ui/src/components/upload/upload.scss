@@ -3,25 +3,33 @@
 $prefix: '#{$ui-prefix}-upload';
 .#{$prefix} {
 	@include basic;
+	position: relative;
 	display: flex;
 	border-radius: $radius-m;
-	background-color: $bg-3;
+	background-color: $bg-2;
 	transition: all $duration-n;
 	cursor: pointer;
 	user-select: none;
-	width: 160px;
-	height: 160px;
+	padding: 8px;
+	border-radius: $radius-m;
+	border: 1px dashed $bd-line;
+	width: max-content;
 
-	&-inner {
-		opacity: 0;
-		width: 0;
-		height: 0;
-		margin: 0;
+	&-circle {
+		border-radius: $round;
+
+		.#{$prefix}-thumb {
+			border-radius: $round;
+		}
 	}
 
 	&:not(&-disabled) {
 		&:has(:focus-visible) {
 			@include focus-outline;
+		}
+		
+		&:hover {
+			border-color: $color-primary;
 		}
 	}
 
@@ -30,8 +38,31 @@ $prefix: '#{$ui-prefix}-upload';
 		opacity: $opacity-disabled;
 	}
 
+	&-inner {
+		opacity: 0;
+		width: 0;
+		height: 0;
+		margin: 0;
+	}
+
+	&-plus-icon {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		color: $text-3;
+		font-size: 24px;
+	}
+
+	&-thumb-default {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 72px;
+		height: 72px;
+	}
+
 	&-thumb {
-		width: 100%;
-		height: 100%;
+		object-fit: contain;
 	}
 }

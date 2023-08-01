@@ -99,8 +99,8 @@ export default function Doc() {
 			<DocSaveDialog open={doc_save_dialog_open} hide_dialog={hide_doc_save_dialog} />
 			<DocOptionsModal open={doc_options_modal_open} hide_modal={hide_doc_options_modal} />
 
-			<div className="flex justify-center sticky top-64px z-10 bg-bg-0">
-				<div className="b-b-bd-line b-b-1 b-b-solid p-12px bg-bg-0 shadow-[0_12px_16px_-8px_rgba(0,0,0,0.02)]">
+			<div className="flex justify-center sticky top-56px z-10 bg-bg-0 b-b-bd-line b-b-1 b-b-solid">
+				<div className="p-[12px_32px] bg-bg-0 shadow-[0_12px_16px_-8px_rgba(0,0,0,0.02)]">
 					<Toolbar editor={editor} />
 				</div>
 			</div>

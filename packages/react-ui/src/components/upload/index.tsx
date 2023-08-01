@@ -11,6 +11,8 @@ import {
 } from 'react'
 import { UI_PREFIX } from '../../constants'
 import './upload.scss'
+import { TbPlus } from 'react-icons/tb'
+import Loading from '../loading'
 
 interface UploadAttr {
 	uid: string | number
@@ -21,25 +23,28 @@ interface UploadAttr {
 interface UploadFile extends File, UploadAttr {}
 
 interface UploadProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
-	size?: 'small' | 'medium' | 'large'
 	disabled?: boolean
 	defaultValue?: UploadFile[]
 	value?: UploadFile[]
 	onChange?: (value: UploadFile[]) => void
 	accept?: InputHTMLAttributes<HTMLInputElement>['accept']
+	multiple?: InputHTMLAttributes<HTMLInputElement>['multiple']
 	action?: (file: File) => Promise<string>
+	circle?: boolean
 }
 
 const Upload = forwardRef<HTMLInputElement, UploadProps>((props, propRef) => {
 	const {
 		className,
-		size = 'medium',
+		children,
 		disabled = false,
 		defaultValue,
 		value = [],
 		onChange,
 		accept,
+		multiple,
 		action = async () => '',
+		circle = false,
 		...rest
 	} = props
 
@@ -48,10 +53,35 @@ const Upload = forwardRef<HTMLInputElement, UploadProps>((props, propRef) => {
 	const fileInputRef = useComposeRef(innerRef, propRef)
 	const defaultFileList = isControlled ? value : defaultValue ?? []
 	const [fileList, setFileList] = useState(defaultFileList)
+	const [uploading, setUploading] = useState(false)
 
 	useEffect(() => {
 		if (isControlled) setFileList(value)
 	}, [isControlled, value])
+
+	const doUpload = (file: UploadFile) => {
+		setUploading(true)
+		action(file)
+			.then(url => {
+				file.url = url
+				file.status = 'success'
+				console.log('file: ', file)
+				setFileList(p => {
+					const nextFileList = [...p, file]
+					// after rendering
+					Promise.resolve().then(() => {
+						onChange?.(nextFileList)
+					})
+					return nextFileList
+				})
+			})
+			.catch(() => {
+				file.status = 'error'
+			})
+			.finally(() => {
+				setUploading(false)
+			})
+	}
 
 	const handleChange: ChangeEventHandler<HTMLInputElement> = event => {
 		const { files } = event.target
@@ -64,33 +94,17 @@ const Upload = forwardRef<HTMLInputElement, UploadProps>((props, propRef) => {
 				url: ''
 			})
 		)
-		fileArr.forEach(file => {
-			action(file)
-				.then(url => {
-					file.url = url
-					file.status = 'success'
-					setFileList(p => {
-						// const nextFileList = [...p, file]
-						// setTimeout(() => {
-						// 	onChange?.(nextFileList)
-						// })
-						return [...p, file]
-					})
-					onChange?.([...fileList, file])
-				})
-				.catch(() => {
-					file.status = 'error'
-				})
-		})
+		fileArr.forEach(doUpload)
 	}
 
-	const picURL = value?.[0]?.url
+	const picURL = isControlled ? value?.[0]?.url : fileList?.[0]?.url
 	const prefixCls = `${UI_PREFIX}-upload`
 
 	return (
 		<label
-			className={cls(className, prefixCls, `${prefixCls}-${size}`, {
-				[`${prefixCls}-disabled`]: disabled
+			className={cls(className, prefixCls, {
+				[`${prefixCls}-disabled`]: disabled,
+				[`${prefixCls}-circle`]: circle
 			})}
 			{...rest}
 		>
@@ -98,11 +112,23 @@ const Upload = forwardRef<HTMLInputElement, UploadProps>((props, propRef) => {
 				className={`${prefixCls}-inner`}
 				ref={fileInputRef}
 				type="file"
+				multiple={multiple}
 				accept={accept}
 				disabled={disabled}
 				onChange={handleChange}
 			/>
-			{picURL && <img className={cls(`${prefixCls}-thumb`)} src={picURL} />}
+			{!uploading && !picURL && <TbPlus className={`${prefixCls}-plus-icon`} />}
+			{children || (
+				<>
+					<div className={`${prefixCls}-thumb-default`}>
+						{uploading ? (
+							<Loading spinning />
+						) : (
+							<>{picURL && <img className={cls(`${prefixCls}-thumb`)} src={picURL} />}</>
+						)}
+					</div>
+				</>
+			)}
 		</label>
 	)
 })

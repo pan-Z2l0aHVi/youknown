@@ -13,21 +13,21 @@ const MIN_W = 160
 const MAX_W = 400
 
 export default function Sidebar() {
-	const session_expand = storage.session.get<boolean>(EXPAND_KEY)
-	const session_width = storage.session.get<number>(WIDTH_KEY)
-	const [expand, { setReverse: toggle_expand }] = useBoolean(session_expand ?? true)
+	const local_expand = storage.local.get<boolean>(EXPAND_KEY)
+	const local_width = storage.local.get<number>(WIDTH_KEY)
+	const [expand, { setReverse: toggle_expand }] = useBoolean(local_expand ?? true)
 
-	const [sidebar_width, set_sidebar_width] = useState(session_width ?? DEFAULT_W)
+	const [sidebar_width, set_sidebar_width] = useState(local_width ?? DEFAULT_W)
 	const [dragging, { setTrue: start_drag, setFalse: stop_drag }] = useBoolean(false)
 	const dragging_ref = useLatestRef(dragging)
 	const [, start_transition] = useTransition()
 
 	useEffect(() => {
-		storage.session.set(EXPAND_KEY, expand)
+		storage.local.set(EXPAND_KEY, expand)
 	}, [expand])
 
 	useEffect(() => {
-		storage.session.set(WIDTH_KEY, sidebar_width)
+		storage.local.set(WIDTH_KEY, sidebar_width)
 	}, [sidebar_width])
 
 	const on = () => {
@@ -82,13 +82,10 @@ export default function Sidebar() {
 
 	return (
 		<aside
-			className={cls(
-				'relative flex flex-col h-screen b-r-1 b-r-solid b-r-bd-line bg-bg-2 p-[16px_12px] overflow-hidden',
-				{
-					'transition-width-300': !dragging,
-					'w-68px': !expand
-				}
-			)}
+			className={cls('relative flex flex-col h-screen b-r-1 b-r-solid b-r-bd-line bg-bg-2 p-[16px_12px]', {
+				'transition-width-300': !dragging,
+				'w-68px': !expand
+			})}
 			style={sidebar_style}
 		>
 			<div className="h-32px m-b-24px">

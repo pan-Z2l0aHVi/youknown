@@ -4,18 +4,17 @@
 	--ui-bg-2: #f4f4f4;
 	--ui-bg-3: #eee;
 	--ui-bd-line: #dee0e3;
-	--ui-scrollbar: 27, 27, 27;
+	--ui-scrollbar: 27,27,27;
 	--ui-text-1: #1f2329;
 	--ui-text-2: #666;
 	--ui-text-3: #999;
-	--ui-shadow-l: 0 4px 14px rgba(0, 0, 0, 0.1);
-	--ui-color-hover: rgba(0, 0, 0, 0.05);
-	--ui-color-active: rgba(0, 0, 0, 0.1);
+	--ui-color-hover: rgba(0,0,0,0.05);
+	--ui-color-active: rgba(0,0,0,0.1);
 	--ui-color-focus: #000;
 }
 
 .dark-theme {
-    --ui-bg-0: #101014;
+  --ui-bg-0: #101014;
 	--ui-bg-1: #232429;
 	--ui-bg-2: #18181C;
 	--ui-bg-3: #303033;
@@ -24,7 +23,6 @@
 	--ui-text-1: #fff;
 	--ui-text-2: #ccc;
 	--ui-text-3: #999;
-	--ui-shadow-l: 0 4px 14px rgba(0,0,0,0.25);
 	--ui-color-hover: rgba(255,255,255,0.2);
 	--ui-color-active: rgba(255,255,255,0.3);
 	--ui-color-focus: #fff;

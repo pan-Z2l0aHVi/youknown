@@ -1,16 +1,11 @@
 @use '../../styles/mixins.scss' as *;
-@use '../../styles/polyfills.scss' as polyfills;
 
 $prefix: '#{$ui-prefix}-drawer';
 .#{$prefix} {
 	@include basic;
-	z-index: 1000;
-	position: fixed;
-	@include polyfills.inset(0, 0, 0, 0);
 
 	&-mask {
-		position: fixed;
-		@include polyfills.inset(0, 0, 0, 0);
+		z-index: 1000;
 		background: rgba($color: #000000, $alpha: 0.5);
 	}
 

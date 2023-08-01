@@ -1,7 +1,7 @@
 import { get_profile, login as request_login } from '@/apis/user'
-import { set_local_token } from '@/libs/local'
+import { remove_local_token, set_local_token } from '@/utils/local'
 import { AppDispatch } from '..'
-import { login, set_profile } from './slice'
+import { login, logout, remove_profile, set_profile } from './slice'
 
 export const do_login = (code: string) => async (dispatch: AppDispatch) => {
 	const payload = {
@@ -12,9 +12,16 @@ export const do_login = (code: string) => async (dispatch: AppDispatch) => {
 		const { token } = await request_login(payload)
 		set_local_token(token)
 		dispatch(login())
+		dispatch(fetch_profile())
 	} catch (error) {
 		console.error('error: ', error)
 	}
+}
+
+export const do_logout = () => (dispatch: AppDispatch) => {
+	remove_local_token()
+	dispatch(logout())
+	dispatch(remove_profile())
 }
 
 export const fetch_profile = () => async (dispatch: AppDispatch) => {

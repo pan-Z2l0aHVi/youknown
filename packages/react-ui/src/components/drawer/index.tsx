@@ -5,6 +5,7 @@ import './drawer.scss'
 import { createPortal } from 'react-dom'
 import Motion from '../motion'
 import XIcon from '../x-icon'
+import { FloatingOverlay } from '@floating-ui/react'
 
 interface DrawerProps extends HTMLAttributes<HTMLElement> {
 	open?: boolean
@@ -65,14 +66,16 @@ const Drawer: FC<DrawerProps> = props => {
 			onEnter={setBodyOverflowHidden}
 			onExited={resetBodyOverflowHidden}
 		>
-			<div className={prefixCls}>
-				<div
-					className={cls(maskClassName, `${prefixCls}-mask`)}
-					onClick={() => {
+			<FloatingOverlay
+				className={cls(maskClassName, `${prefixCls}-mask`)}
+				onClick={event => {
+					if (event.target === event.currentTarget) {
 						if (maskClosable) onCancel?.()
-					}}
-					style={maskStyle}
-				></div>
+					}
+				}}
+				lockScroll
+				style={maskStyle}
+			>
 				<Motion.Slide in={open} direction={direction}>
 					<div
 						className={cls(className, `${prefixCls}-wrap`, `${prefixCls}-wrap-${placement}`)}
@@ -83,7 +86,7 @@ const Drawer: FC<DrawerProps> = props => {
 						{children}
 					</div>
 				</Motion.Slide>
-			</div>
+			</FloatingOverlay>
 		</Motion.Fade>,
 		document.body
 	)
