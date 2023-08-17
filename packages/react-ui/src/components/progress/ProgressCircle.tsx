@@ -1,10 +1,13 @@
-import { cls, is, omit } from '@youknown/utils/src'
+import './progress-circle.scss'
+
 import { ComponentProps, forwardRef, ReactNode, useEffect, useRef } from 'react'
 import CountUp from 'react-countup'
 import { RenderCounterProps } from 'react-countup/build/types'
+
+import { cls, is, omit } from '@youknown/utils/src'
+
 import { UI_PREFIX } from '../../constants'
 import Circle from './Circle'
-import './progress-circle.scss'
 
 interface ProgressProps extends ComponentProps<typeof Circle> {
 	size?: 'small' | 'medium' | 'large'

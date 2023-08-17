@@ -1,4 +1,4 @@
-import cls from '.'
+import cls from './'
 
 describe('cls type', () => {
 	it('should be a function', () => {

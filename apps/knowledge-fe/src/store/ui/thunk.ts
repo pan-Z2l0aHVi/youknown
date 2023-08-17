@@ -1,5 +1,6 @@
 import { delay } from '@youknown/utils/src'
-import { AppDispatch, AppGetState } from '..'
+
+import { AppDispatch, AppGetState } from '../'
 import { hide_progress, set_progress_per, show_progress } from './slice'
 
 export const start_progress = () => async (dispatch: AppDispatch, getState: AppGetState) => {

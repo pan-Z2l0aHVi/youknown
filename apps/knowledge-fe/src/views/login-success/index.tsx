@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { Loading } from '@youknown/react-ui/src'
-import { send_to_opener_window_cancel, send_to_opener_window_ok } from '@/utils/correspond'
+
 import { login } from '@/apis/user'
+import { send_to_opener_window_cancel, send_to_opener_window_ok } from '@/utils/correspond'
 import { set_local_token } from '@/utils/local'
+import { Loading } from '@youknown/react-ui/src'
 
 export default function LoginSuccess() {
 	const [search_params, set_search_params] = useSearchParams()

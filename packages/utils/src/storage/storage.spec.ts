@@ -1,5 +1,5 @@
-import storage from '.'
 import uuid from '../uuid'
+import storage from './'
 
 describe('storage', () => {
 	global.URL.createObjectURL = jest.fn(() => 'uuid_key')

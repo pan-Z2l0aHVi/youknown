@@ -1,13 +1,13 @@
+import { FiThumbsUp } from 'react-icons/fi'
+
 import { get_feed_list } from '@/apis'
 import TransitionLink from '@/components/transition-link'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { open_login_modal } from '@/store/modal'
 import { record } from '@/store/record'
 import { useFetch } from '@youknown/react-hook/src'
-import { Avatar, Button, Image, Tooltip } from '@youknown/react-ui/src'
+import { Avatar, Button, Tooltip } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
-import dayjs from 'dayjs'
-import { FiThumbsUp } from 'react-icons/fi'
 
 interface FeedProps {
 	feed_tab: number
@@ -18,7 +18,6 @@ export default function FeedList(props: FeedProps) {
 	const dispatch = useAppDispatch()
 	const is_login = useAppSelector(state => state.user.is_login)
 	const { data: feed_list } = useFetch(get_feed_list, {
-		initialData: [],
 		params: [
 			{
 				feed_tab: feed_tab
@@ -34,8 +33,7 @@ export default function FeedList(props: FeedProps) {
 				target_id: 'qwrewerwe',
 				obj_type: '文章',
 				obj: '《如何看待近期大火的Chat GPT》',
-				obj_id: '1232',
-				timing: dayjs().valueOf()
+				obj_id: '1232'
 			})
 		)
 	}
@@ -52,15 +50,14 @@ export default function FeedList(props: FeedProps) {
 				target_id: 'qwrewerwe',
 				obj_type: '文章',
 				obj: '《如何看待近期大火的Chat GPT》',
-				obj_id: '1232',
-				timing: dayjs().valueOf()
+				obj_id: '1232'
 			})
 		)
 	}
 
 	return (
 		<div className="max-w-960px">
-			{feed_list.map(feed => {
+			{feed_list?.map(feed => {
 				const doc_detail_url = QS.stringify({
 					base: '/browse/doc-detail',
 					query: {
@@ -101,11 +98,13 @@ export default function FeedList(props: FeedProps) {
 								<div className="" dangerouslySetInnerHTML={{ __html: feed.content.html }}></div>
 							</div>
 
-							<Image
-								className="w-160px h-108px b-bd-line b-1 b-solid b-rd-radius-m object-cover ml-48px"
-								src={feed.cover}
-								loading="lazy"
-							/>
+							<TransitionLink to={doc_detail_url} onClick={handle_record_ready}>
+								<img
+									className="w-160px h-108px b-bd-line b-1 b-solid b-rd-radius-m object-cover ml-48px"
+									src={feed.cover}
+									loading="lazy"
+								/>
+							</TransitionLink>
 						</div>
 
 						<div className="flex items-center pl-28px mb-16px">

@@ -1,5 +1,6 @@
 import { ComponentProps, forwardRef } from 'react'
 import { NavLink } from 'react-router-dom'
+
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 
 const TransitionNavLink = forwardRef<HTMLAnchorElement, ComponentProps<typeof NavLink>>((props, ref) => {

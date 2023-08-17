@@ -1,7 +1,10 @@
-import { FC, HTMLAttributes } from 'react'
-import { cls } from '@youknown/utils/src'
-import { UI_PREFIX } from '../../constants'
 import './aspect-ratio.scss'
+
+import { FC, HTMLAttributes } from 'react'
+
+import { cls } from '@youknown/utils/src'
+
+import { UI_PREFIX } from '../../constants'
 
 interface AspectRatioProps extends HTMLAttributes<HTMLElement> {
 	ratio: number

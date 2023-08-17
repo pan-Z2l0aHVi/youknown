@@ -1,11 +1,14 @@
-import Motion from '../motion'
-import { cls } from '@youknown/utils/src'
+import './modal.scss'
+
 import { FC, HTMLAttributes, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { UI_PREFIX } from '../../constants'
-import './modal.scss'
+
 import { FloatingOverlay } from '@floating-ui/react'
+import { cls } from '@youknown/utils/src'
+
+import { UI_PREFIX } from '../../constants'
 import { useZIndex } from '../../hooks/useZIndex'
+import Motion from '../motion'
 
 interface ModalProps extends HTMLAttributes<HTMLElement> {
 	open?: boolean

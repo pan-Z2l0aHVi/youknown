@@ -1,9 +1,11 @@
+import './index.scss'
+
 import { Suspense, useEffect, useState } from 'react'
 import { NavLink, useRoutes } from 'react-router-dom'
-import { cls } from '@youknown/utils/src'
-import './index.scss'
+
 import router, { componentRoutes } from '@/router/routes'
 import { Button, Loading, Space } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 
 const App = () => {
 	const contentEle = useRoutes(router)

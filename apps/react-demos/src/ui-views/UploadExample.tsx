@@ -1,6 +1,7 @@
+import { ComponentProps, useState } from 'react'
+
 import { Divider, Space, Upload } from '@youknown/react-ui/src'
 import { delay } from '@youknown/utils/src'
-import { ComponentProps, useState } from 'react'
 
 type UploadFileList = Required<ComponentProps<typeof Upload>>['value']
 export default () => {

@@ -1,11 +1,14 @@
-import { ComponentProps, FC, ReactElement, ReactNode, useCallback, useState } from 'react'
-import { cls, is, uuid } from '@youknown/utils/src'
-import { UI_PREFIX } from '../../constants'
 import './toast.scss'
-import ToastItem from './ToastItem'
+
+import { ComponentProps, FC, ReactElement, ReactNode, useCallback, useState } from 'react'
 import { createRoot, Root } from 'react-dom/client'
 import { TransitionGroup } from 'react-transition-group'
+
+import { cls, is, uuid } from '@youknown/utils/src'
+
+import { UI_PREFIX } from '../../constants'
 import Motion from '../motion'
+import ToastItem from './ToastItem'
 
 const prefixCls = `${UI_PREFIX}-toast`
 
@@ -29,12 +32,12 @@ export const Toast: FC & {
 		const { id, position = 'top', duration = 3000, ...rest } = props
 
 		setToastList(p => [
-			...p,
 			{
 				id,
 				position,
 				...rest
-			}
+			},
+			...p
 		])
 
 		setTimeout(() => {
@@ -119,7 +122,6 @@ const ExportToast: {
 			if (!box) {
 				box = document.createElement('div')
 				box.id = boxId
-				box.style.zIndex = '8000'
 				document.body.appendChild(box)
 			}
 			boxRoot = boxRoot ?? createRoot(box)

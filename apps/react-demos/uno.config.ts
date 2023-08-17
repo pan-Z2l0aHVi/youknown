@@ -1,6 +1,8 @@
 import { defineConfig, presetUno } from 'unocss'
-import presetRemToPx from '@unocss/preset-rem-to-px'
 import { presetScrollbar } from 'unocss-scrollbar-variant'
+
+import presetRemToPx from '@unocss/preset-rem-to-px'
+
 import { shortcuts, theme } from '../../build/unocss'
 
 export default defineConfig({

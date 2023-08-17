@@ -1,9 +1,12 @@
+import './index.scss'
+
+import { ReactElement, useContext } from 'react'
+import { GoChevronDown } from 'react-icons/go'
+import { TbAlignCenter, TbAlignJustified, TbAlignLeft, TbAlignRight } from 'react-icons/tb'
+
 import { Popover, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import { ReactElement, useContext } from 'react'
-import { TbAlignCenter, TbAlignJustified, TbAlignLeft, TbAlignRight } from 'react-icons/tb'
-import { GoChevronDown } from 'react-icons/go'
-import './index.scss'
+
 import { UI_EDITOR_PREFIX } from '../../constants'
 import ToolbarContext from '../../contexts/editorContext'
 

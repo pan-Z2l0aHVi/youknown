@@ -1,22 +1,6 @@
-import Motion from '../motion'
-import { useBoolean, useComposeRef, useLatestRef } from '@youknown/react-hook/src'
-import { cls, downloadFile, is, throttle } from '@youknown/utils/src'
-import {
-	forwardRef,
-	ImgHTMLAttributes,
-	MouseEventHandler,
-	useCallback,
-	useEffect,
-	useRef,
-	useState,
-	WheelEventHandler
-} from 'react'
 import './image.scss'
-import { UI_PREFIX } from '../../constants'
-import Space from '../space'
-import Modal from '../modal'
-import Tooltip from '../tooltip'
-import Loading from '../loading'
+
+import { forwardRef, ImgHTMLAttributes, MouseEventHandler, useEffect, useRef, useState, WheelEventHandler } from 'react'
 import {
 	TbDownload,
 	TbPhotoX,
@@ -27,7 +11,17 @@ import {
 	TbZoomIn,
 	TbZoomOut
 } from 'react-icons/tb'
+
+import { useBoolean, useComposeRef, useEvent, useLatestRef } from '@youknown/react-hook/src'
+import { cls, downloadFile, is, throttle } from '@youknown/utils/src'
+
+import { UI_PREFIX } from '../../constants'
 import Button from '../button'
+import Loading from '../loading'
+import Modal from '../modal'
+import Motion from '../motion'
+import Space from '../space'
+import Tooltip from '../tooltip'
 
 type Coordinate = {
 	x: number
@@ -81,14 +75,14 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 	const draggingRef = useLatestRef(dragging)
 
 	const [detailOpen, setDetailOpen] = useState(false)
-	const showDetail = useCallback(() => {
+	const showDetail = useEvent(() => {
 		setDetailOpen(true)
 		onOpenChange?.(true)
-	}, [onOpenChange])
-	const hideDetail = useCallback(() => {
+	})
+	const hideDetail = useEvent(() => {
 		setDetailOpen(false)
 		onOpenChange?.(false)
-	}, [onOpenChange])
+	})
 
 	useEffect(() => {
 		if (open) {
@@ -127,26 +121,23 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 		document.addEventListener('mouseup', handleUp)
 	}
 
-	const updateScale = useCallback(
-		(mapState: (state: number) => number) => {
-			setScaleIndex(preScaleIndex => {
-				const nextScaleIndex = mapState(preScaleIndex)
-				if (nextScaleIndex >= 0 && nextScaleIndex < scaleRangeRef.current.length) {
-					return nextScaleIndex
-				}
-				return preScaleIndex
-			})
-		},
-		[scaleRangeRef]
-	)
+	const updateScale = useEvent((mapState: (state: number) => number) => {
+		setScaleIndex(preScaleIndex => {
+			const nextScaleIndex = mapState(preScaleIndex)
+			if (nextScaleIndex >= 0 && nextScaleIndex < scaleRangeRef.current.length) {
+				return nextScaleIndex
+			}
+			return preScaleIndex
+		})
+	})
 
-	const handleReset = useCallback(() => {
+	const handleReset = useEvent(() => {
 		if (!detailLoaded) return
 
 		updateScale(() => originalScaleIndex)
 		setRotate(0)
 		setOffset(null)
-	}, [detailLoaded, originalScaleIndex, updateScale])
+	})
 
 	const handleShowRatio = () => {
 		if (!detailLoaded) return

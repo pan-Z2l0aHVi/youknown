@@ -1,8 +1,9 @@
+import { useState } from 'react'
+import { RxDotsHorizontal } from 'react-icons/rx'
+
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dropdown, Image, Motion, Toast } from '@youknown/react-ui/src'
 import { cls, downloadFile } from '@youknown/utils/src'
-import { useState } from 'react'
-import { RxDotsHorizontal } from 'react-icons/rx'
 
 interface WallpaperCardProps {
 	thumb_url: string
@@ -55,7 +56,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 							className={cls(
 								'absolute bottom-8px left-8px',
 								'b-rd-round bg-[rgba(120,120,120,0.4)] backdrop-blur-xl',
-								'flex items-center h-24px leading-none p-l-6px p-r-6px text-12px color-#fff',
+								'flex items-center h-24px leading-none pl-6px pr-6px text-12px color-#fff',
 								'pointer-events-none'
 							)}
 						>

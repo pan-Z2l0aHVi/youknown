@@ -1,7 +1,8 @@
-import { Avatar, Button, Input, Space, Tooltip } from '@youknown/react-ui/src'
 import { useState } from 'react'
 import { RiEmotionHappyLine } from 'react-icons/ri'
 import { TbPhoto, TbSend } from 'react-icons/tb'
+
+import { Avatar, Button, Input, Space, Tooltip } from '@youknown/react-ui/src'
 
 interface CommentsProps {
 	doc_id: string
@@ -13,10 +14,10 @@ export default function Comments(props: CommentsProps) {
 	const [text, set_text] = useState('')
 
 	return (
-		<div className="w-720px p-[24px_0] m-[0_auto] m-b-120px">
+		<div className="w-720px p-[24px_0] m-[0_auto] mb-120px">
 			<div className="flex items-start">
-				<Avatar className="m-r-16px" round src="" />
-				<div className="flex-1 m-r-16px">
+				<Avatar className="mr-16px" round src="" />
+				<div className="flex-1 mr-16px">
 					<Input.Textarea
 						className="w-100%!"
 						bordered={false}
@@ -30,7 +31,7 @@ export default function Comments(props: CommentsProps) {
 						}}
 					/>
 
-					<div className="flex justify-between m-t-8px">
+					<div className="flex justify-between mt-8px">
 						<Space>
 							<Tooltip title="添加表情">
 								<Button square>

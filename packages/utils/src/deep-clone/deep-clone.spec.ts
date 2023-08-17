@@ -1,4 +1,4 @@
-import { deepClone } from '.'
+import { deepClone } from './'
 
 describe('deepClone', () => {
 	it('should perform deep cloning', () => {

@@ -1,4 +1,4 @@
-import { Divider, Card, Loading } from '@youknown/react-ui/src'
+import { Card, Divider, Loading } from '@youknown/react-ui/src'
 
 export default () => {
 	return (

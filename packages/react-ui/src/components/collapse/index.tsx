@@ -1,4 +1,5 @@
-import { cls, is } from '@youknown/utils/src'
+import './collapse.scss'
+
 import {
 	Children,
 	cloneElement,
@@ -9,8 +10,10 @@ import {
 	useEffect,
 	useState
 } from 'react'
+
+import { cls, is } from '@youknown/utils/src'
+
 import { UI_PREFIX } from '../../constants'
-import './collapse.scss'
 import CollapsePanel from './CollapsePanel'
 
 interface CollapseProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {

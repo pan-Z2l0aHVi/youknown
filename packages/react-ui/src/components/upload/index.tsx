@@ -1,5 +1,5 @@
-import { useComposeRef } from '@youknown/react-hook/src'
-import { cls, is, uuid } from '@youknown/utils/src'
+import './upload.scss'
+
 import {
 	ChangeEventHandler,
 	forwardRef,
@@ -9,9 +9,12 @@ import {
 	useRef,
 	useState
 } from 'react'
-import { UI_PREFIX } from '../../constants'
-import './upload.scss'
 import { TbPlus } from 'react-icons/tb'
+
+import { useComposeRef } from '@youknown/react-hook/src'
+import { cls, is, uuid } from '@youknown/utils/src'
+
+import { UI_PREFIX } from '../../constants'
 import Loading from '../loading'
 
 interface UploadAttr {

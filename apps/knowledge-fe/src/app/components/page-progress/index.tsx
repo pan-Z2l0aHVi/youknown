@@ -1,5 +1,5 @@
-import { Motion, Progress } from '@youknown/react-ui/src'
 import { useAppSelector } from '@/hooks'
+import { Motion, Progress } from '@youknown/react-ui/src'
 
 export default function PageProgress() {
 	const percent = useAppSelector(state => state.ui.progress_per)

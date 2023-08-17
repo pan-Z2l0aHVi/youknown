@@ -1,7 +1,8 @@
+import { useState } from 'react'
+
 import { upload_file } from '@/utils/qiniu'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Progress, Upload } from '@youknown/react-ui/src'
-import { useState } from 'react'
 
 interface PicUploadProps {
 	value?: string

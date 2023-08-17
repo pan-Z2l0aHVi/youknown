@@ -1,11 +1,13 @@
-import Header from '@/app/components/header'
-import { useBoolean } from '@youknown/react-hook/src'
-import { Card, Input, List, Modal, Tabs } from '@youknown/react-ui/src'
 import { useState } from 'react'
 import { TbSearch } from 'react-icons/tb'
-import FeedList from './components/feed-list'
-import { cls } from '@youknown/utils/src'
+
+import Header from '@/app/components/header'
 import { useAppSelector } from '@/hooks'
+import { useBoolean } from '@youknown/react-hook/src'
+import { Card, Input, List, Modal, Tabs } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
+
+import FeedList from './components/feed-list'
 
 export default function Browse() {
 	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
@@ -39,7 +41,7 @@ export default function Browse() {
 				unmountOnExit
 				alignCenter={false}
 			>
-				<Card className="p-0 bg-bg-2! w-560px! m-t-160px" shadow>
+				<Card className="p-0 bg-bg-2! w-560px! mt-160px" shadow>
 					<Input
 						className="w-100%! text-16px"
 						autoFocus

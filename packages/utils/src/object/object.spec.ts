@@ -1,4 +1,4 @@
-import { omit, pick } from '.'
+import { omit, pick } from './'
 
 describe('use omit', () => {
 	interface TestObj {

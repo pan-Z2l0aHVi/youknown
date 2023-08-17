@@ -9,9 +9,7 @@
 		"declaration": false,
 		"noEmit": true,
 		"paths": {
-			"@/*": ["src/*"],
-			"@editor/*": ["src/editor-views/*"],
-			"@ui/*": ["src/ui-views/*"]
+			"@/*": ["src/*"]
 		},
 		/* Using vite */
 		"types": ["vite/client"]

@@ -1,5 +1,8 @@
-import { remove_local_records, get_local_records, set_local_records } from '@/utils/local'
+import dayjs from 'dayjs'
+
+import { get_local_records, remove_local_records, set_local_records } from '@/utils/local'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { uuid } from '@youknown/utils/src'
 
 const READ_FEED = 'read_feed'
 
@@ -10,6 +13,7 @@ export interface RecordMeta {
 	obj: string
 	obj_type: string
 	obj_id: string
+	id: string
 	timing: number
 }
 
@@ -28,11 +32,16 @@ export const record_slice = createSlice({
 		init_records(state) {
 			state.record_list = get_local_records()
 		},
-		record(state, action: PayloadAction<RecordMeta>) {
-			state.record_list.unshift(action.payload)
+		record(state, action: PayloadAction<Omit<RecordMeta, 'timing' | 'id'>>) {
+			const record_item: RecordMeta = {
+				...action.payload,
+				timing: dayjs().valueOf(),
+				id: uuid()
+			}
+			state.record_list.unshift(record_item)
 
 			const pre_records = get_local_records()
-			set_local_records([action.payload, ...pre_records])
+			set_local_records([record_item, ...pre_records])
 		},
 		clear_records(state) {
 			state.record_list = []

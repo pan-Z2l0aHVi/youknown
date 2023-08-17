@@ -1,7 +1,10 @@
-import { cls } from '@youknown/utils/src'
-import { forwardRef, HTMLAttributes } from 'react'
-import { UI_PREFIX } from '../../constants'
 import './space.scss'
+
+import { forwardRef, HTMLAttributes } from 'react'
+
+import { cls } from '@youknown/utils/src'
+
+import { UI_PREFIX } from '../../constants'
 
 interface SpaceProps extends HTMLAttributes<HTMLElement> {
 	size?: 'small' | 'medium' | 'large'

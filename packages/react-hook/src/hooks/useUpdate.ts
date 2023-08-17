@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react'
 
 export function useUpdate(): () => void {
-	const [, setCount] = useState(0)
+	const [, setCount] = useState({})
 	const update = useCallback(() => {
-		setCount(count => count + 1)
+		setCount({})
 	}, [])
 	return update
 }

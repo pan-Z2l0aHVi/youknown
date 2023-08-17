@@ -1,5 +1,5 @@
-import { ReactNode, createElement, lazy } from 'react'
-import { TbHistory, TbStar, TbNotes, TbLayout, TbBook2, TbDeviceDesktop } from 'react-icons/tb'
+import { createElement, lazy, ReactNode } from 'react'
+import { TbBook2, TbDeviceDesktop, TbHistory, TbLayout, TbNotes, TbStar } from 'react-icons/tb'
 import { Navigate, RouteObject } from 'react-router-dom'
 
 export type RouteItem = RouteObject & {
@@ -75,7 +75,7 @@ export const nav_routes = [
 		path: 'history',
 		element: createElement(lazy(() => import('@/views/history'))),
 		state: {
-			nav_name: '足迹',
+			nav_name: '历史记录',
 			icon: <TbHistory />
 		}
 	}

@@ -1,11 +1,12 @@
+import { GrGithub } from 'react-icons/gr'
+import { RiWechatFill } from 'react-icons/ri'
+
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { close_login_modal } from '@/store/modal'
 import { fetch_profile, login } from '@/store/user'
 import { go_github_login } from '@/utils'
-import { Modal, Card, XIcon, Button, Motion, Toast } from '@youknown/react-ui/src'
+import { Button, Card, Modal, Motion, Toast, XIcon } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import { GrGithub } from 'react-icons/gr'
-import { RiWechatFill } from 'react-icons/ri'
 
 export default function SignInModal() {
 	const dispatch = useAppDispatch()

@@ -1,9 +1,10 @@
-import { defineConfig, loadEnv, type PluginOption } from 'vite'
-import tsconfigPaths from 'vite-tsconfig-paths'
-import { visualizer } from 'rollup-plugin-visualizer'
-import react from '@vitejs/plugin-react-swc'
 import { resolve } from 'path'
+import { visualizer } from 'rollup-plugin-visualizer'
 import Unocss from 'unocss/vite'
+import { defineConfig, loadEnv, PluginOption } from 'vite'
+import tsconfigPaths from 'vite-tsconfig-paths'
+
+import react from '@vitejs/plugin-react-swc'
 
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd())

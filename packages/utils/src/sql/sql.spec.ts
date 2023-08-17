@@ -1,4 +1,4 @@
-import { SQL, createSQL } from '.'
+import { createSQL, SQL } from './'
 
 describe('CRUD', () => {
 	it('can get instance', () => {

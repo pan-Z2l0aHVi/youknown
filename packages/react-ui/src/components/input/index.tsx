@@ -1,5 +1,5 @@
-import { useBoolean, useComposeRef } from '@youknown/react-hook/src'
-import { cls, is } from '@youknown/utils/src'
+import './input.scss'
+
 import {
 	ChangeEvent,
 	ChangeEventHandler,
@@ -13,9 +13,12 @@ import {
 	useLayoutEffect,
 	useRef
 } from 'react'
-import { UI_PREFIX } from '../../constants'
 import { IoMdCloseCircle } from 'react-icons/io'
-import './input.scss'
+
+import { useBoolean, useComposeRef } from '@youknown/react-hook/src'
+import { cls, is } from '@youknown/utils/src'
+
+import { UI_PREFIX } from '../../constants'
 import Textarea from './Textarea'
 
 interface InputProps extends Omit<HTMLAttributes<HTMLInputElement>, 'maxLength' | 'onChange' | 'prefix'> {

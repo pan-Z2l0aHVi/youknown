@@ -1,4 +1,5 @@
 import { QS, uuid } from '@youknown/utils/src'
+
 import { open_login_window } from './correspond'
 
 export const go_github_login = async () => {

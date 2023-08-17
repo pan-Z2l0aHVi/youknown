@@ -1,5 +1,6 @@
-import { Editor } from '@tiptap/core'
 import { createContext } from 'react'
+
+import { Editor } from '@tiptap/core'
 
 const EditorContext = createContext<{
 	editor: Editor

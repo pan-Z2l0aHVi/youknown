@@ -1,12 +1,15 @@
-import { ComponentProps, FC, ReactNode } from 'react'
-import { cls } from '@youknown/utils/src'
-import { UI_PREFIX } from '../../constants'
 import './dialog.scss'
-import Modal from '../modal'
-import Space from '../space'
+
+import { ComponentProps, FC, ReactNode } from 'react'
+
+import { cls } from '@youknown/utils/src'
+
+import { UI_PREFIX } from '../../constants'
 import Button from '../button'
 import Card from '../card'
+import Modal from '../modal'
 import Motion from '../motion'
+import Space from '../space'
 import XIcon from '../x-icon'
 
 interface DialogProps extends ComponentProps<typeof Modal> {

@@ -1,9 +1,10 @@
-import { defineConfig, loadEnv, type PluginOption } from 'vite'
-import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
-import eslintPlugin from 'vite-plugin-eslint'
 import { visualizer } from 'rollup-plugin-visualizer'
 import Unocss from 'unocss/vite'
+import { defineConfig, loadEnv, PluginOption, type } from 'vite'
+import eslintPlugin from 'vite-plugin-eslint'
+
+import vue from '@vitejs/plugin-vue'
 
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd())

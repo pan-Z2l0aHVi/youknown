@@ -1,10 +1,13 @@
-import { useBoolean } from '@youknown/react-hook/src'
-import { Button, Divider, Popover, Tooltip } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
+import './index.scss'
+
 import { useContext, useState } from 'react'
 import { GoChevronDown } from 'react-icons/go'
 import { RiMarkPenLine } from 'react-icons/ri'
-import './index.scss'
+
+import { useBoolean } from '@youknown/react-hook/src'
+import { Button, Divider, Popover, Tooltip } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
+
 import { UI_EDITOR_PREFIX } from '../../constants'
 import ToolbarContext from '../../contexts/editorContext'
 

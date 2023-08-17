@@ -1,4 +1,4 @@
-import { QS } from '..'
+import { QS } from '../'
 
 describe('qs parse', () => {
 	it('should parse hash', () => {

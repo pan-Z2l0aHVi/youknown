@@ -1,8 +1,11 @@
-import { Tooltip } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
+import './index.scss'
+
 import { useContext } from 'react'
 import { TbH1, TbH2, TbH3, TbH4, TbH5, TbH6 } from 'react-icons/tb'
-import './index.scss'
+
+import { Tooltip } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
+
 import { UI_EDITOR_PREFIX } from '../../constants'
 import ToolbarContext from '../../contexts/editorContext'
 

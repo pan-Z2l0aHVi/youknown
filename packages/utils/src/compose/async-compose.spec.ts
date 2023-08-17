@@ -1,4 +1,4 @@
-import { asyncCompose as compose } from '..'
+import { asyncCompose as compose } from '../'
 
 function wait(ms: number): Promise<void> {
 	return new Promise(resolve => setTimeout(resolve, ms || 1))

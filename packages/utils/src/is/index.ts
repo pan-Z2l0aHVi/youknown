@@ -1,11 +1,11 @@
-import { isArray, isEmptyArray, isAllArray, isEqualArray } from './array'
-import { isBoolean, isAllBoolean } from './boolean'
-import { isFunction, isAllFunction } from './function'
-import { isNull, isAllNull } from './null'
-import { isNumber, isAllNumber } from './number'
-import { isObject, isAllObject, isEmptyObject, isPlainObject } from './object'
-import { isString, isAllString } from './string'
-import { isUndefined, isAllUndefined } from './undefined'
+import { isAllArray, isArray, isEmptyArray, isEqualArray } from './array'
+import { isAllBoolean, isBoolean } from './boolean'
+import { isAllFunction, isFunction } from './function'
+import { isAllNull, isNull } from './null'
+import { isAllNumber, isNumber } from './number'
+import { isAllObject, isEmptyObject, isObject, isPlainObject } from './object'
+import { isAllString, isString } from './string'
+import { isAllUndefined, isUndefined } from './undefined'
 
 const object = isObject as typeof isObject & {
 	empty: typeof isEmptyObject

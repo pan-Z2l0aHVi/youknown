@@ -1,7 +1,7 @@
-import { Form, Space, Switch } from '@youknown/react-ui/src'
-import { cls, is } from '@youknown/utils/src'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { set_dark_theme, set_hue, set_radius } from '@/store/ui'
+import { Form, Space, Switch } from '@youknown/react-ui/src'
+import { cls, is } from '@youknown/utils/src'
 
 const style_options: StyleItem[] = [
 	{
@@ -56,7 +56,7 @@ function RadiusStyle(props: RadiusStyleProps) {
 									: 'b-1 b-solid b-bd-line'
 							)}
 						></div>
-						<div className="color-text-2 m-t-4px">{style.desc}</div>
+						<div className="color-text-2 mt-4px">{style.desc}</div>
 					</div>
 				)
 			})}
@@ -83,7 +83,7 @@ function Hue(props: HueProps) {
 						key={color}
 						className={cls(
 							'relative w-24px h-24px b-rd-round b-1 b-solid b-[rgba(0,0,0,0.1)] cursor-pointer',
-							'm-b-4px m-t-4px',
+							'mb-4px mt-4px',
 							'before:absolute before:top-6px before:left-6px before:w-10px before:h-10px before:b-rd-round before:content-empty',
 							value === color && 'before:bg-#fff before:shadow-shadow-s'
 						)}

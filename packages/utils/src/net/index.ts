@@ -1,5 +1,5 @@
-import { headers2Obj } from '../data'
 import { asyncCompose, Middleware, Next } from '../compose'
+import { headers2Obj } from '../data'
 import { pick } from '../object'
 import QS from '../qs'
 import { delay } from '../time'

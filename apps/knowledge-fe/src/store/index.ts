@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
+
+import { modal_slice } from './modal'
+import { record_slice } from './record'
 import { ui_slice } from './ui'
 import { user_slice } from './user'
-import { record_slice } from './record'
-import { modal_slice } from './modal'
 
 const store = configureStore({
 	reducer: {

@@ -1,8 +1,9 @@
-import { Modal, Card, XIcon } from '@youknown/react-ui/src'
-import Preferences from './components/preferences'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { close_preferences_modal } from '@/store/modal'
+import { Card, Modal, XIcon } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+
+import Preferences from './components/preferences'
 
 export default function PreferencesModal() {
 	const dispatch = useAppDispatch()

@@ -1,4 +1,4 @@
-import { join, objToTree } from '.'
+import { join, objToTree } from './'
 
 describe('path join', () => {
 	it('a,b,c => /a/b/c', () => {

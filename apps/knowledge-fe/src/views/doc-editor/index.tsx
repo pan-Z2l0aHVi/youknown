@@ -1,44 +1,92 @@
-import Header from '@/app/components/header'
-import More from '@/components/more'
-import { EditorContent, Toolbar, useEditor } from '@youknown/react-editor/src'
-import { useBoolean } from '@youknown/react-hook/src'
-import { Button, Divider, Dropdown, Space } from '@youknown/react-ui/src'
-import { storage } from '@youknown/utils/src'
 import dayjs from 'dayjs'
 import { useState } from 'react'
 import { TbSettings, TbTrash } from 'react-icons/tb'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+
+import { get_doc_info, update_doc } from '@/apis/doc'
+import Header from '@/app/components/header'
 import DocDeleteDialog from '@/components/doc-delete-dialog'
 import DocOptionsModal from '@/components/doc-options-modal'
-import DocSaveDialog from './components/doc-save-dialog'
+import More from '@/components/more'
+import { useAppDispatch } from '@/hooks'
+import { record } from '@/store/record'
+import { NetFetchError } from '@/utils/request'
+import { EditorContent, Toolbar, useEditor } from '@youknown/react-editor/src'
+import { useBoolean, useCreation, useFetch } from '@youknown/react-hook/src'
+import { Button, Divider, Dropdown, Space, Toast } from '@youknown/react-ui/src'
+import { storage } from '@youknown/utils/src'
 
 export default function Doc() {
-	const [last_modify, set_last_modify] = useState(storage.local.get<string>('doc-last-modify') ?? '')
+	const navigate = useNavigate()
+	const dispatch = useAppDispatch()
+	const local_doc_last_modify = useCreation(() => storage.local.get<string>('doc-last-modify'))
+	const [last_modify, set_last_modify] = useState(local_doc_last_modify ?? '')
 	const [had_modify, { setTrue: modify }] = useBoolean(false)
-
-	const [doc_save_dialog_open, { setTrue: show_doc_save_dialog, setFalse: hide_doc_save_dialog }] = useBoolean(false)
+	const [search_params] = useSearchParams()
+	const doc_id = search_params.get('doc_id') as string
 	const [doc_delete_dialog_open, { setTrue: show_doc_delete_dialog, setFalse: hide_doc_delete_dialog }] =
 		useBoolean(false)
 	const [doc_options_modal_open, { setTrue: show_doc_options_modal, setFalse: hide_doc_options_modal }] =
 		useBoolean(false)
 
+	const local_doc_content = useCreation(() => storage.local.get<string>('doc-content'))
 	const editor = useEditor({
-		content: storage.local.get<string>('doc-html'),
+		content: local_doc_content ?? '',
 		autofocus: 'end',
 		onUpdate({ editor }) {
 			const now = dayjs().toString()
 			set_last_modify(now)
 			modify()
 			storage.local.set('doc-last-modify', now)
-			storage.local.set('doc-html', editor.getHTML())
+			storage.local.set('doc-content', editor.getHTML())
+		}
+	})
+
+	const { data: doc_info, loading } = useFetch(get_doc_info, {
+		ready: !!doc_id && !!editor,
+		params: [
+			{
+				doc_id
+			}
+		],
+		refreshDeps: [doc_id],
+		onError(err: NetFetchError) {
+			Toast.show({
+				title: err.cause.msg
+			})
+		},
+		onSuccess(res) {
+			editor?.commands.setContent(res.content)
 		}
 	})
 
 	if (!editor) return null
 	const text_len = editor.storage.characterCount.characters()
 
-	const handle_update = () => {
-		console.log('update', editor.getHTML())
-		show_doc_save_dialog()
+	const update_doc_content = async () => {
+		const payload = {
+			doc_id,
+			content: editor.getHTML()
+		}
+		try {
+			await update_doc(payload)
+			dispatch(
+				record({
+					action: '发布',
+					target: '',
+					target_id: '',
+					obj_type: '文章',
+					obj: '《如何看待近期大火的Chat GPT》',
+					obj_id: '1232'
+				})
+			)
+			Toast.show({ title: '更新成功' })
+		} catch (error) {
+			console.error('error: ', error)
+		}
+	}
+	const go_doc_list = () => {
+		navigate('/library/doc/doc-list')
 	}
 
 	const doc_tips = (
@@ -48,7 +96,7 @@ export default function Doc() {
 			</div>
 			{had_modify && (
 				<>
-					<span className="text-text-3 m-l-16px m-r-16px">·</span>
+					<span className="text-text-3 ml-16px mr-16px">·</span>
 					{last_modify && <div className="text-text-3">最近保存：{dayjs(last_modify).format('HH:mm')}</div>}
 				</>
 			)}
@@ -88,16 +136,22 @@ export default function Doc() {
 			<Header heading="文档" bordered sticky>
 				<Space align="center" size="large">
 					{doc_tips}
-					<Button disabled={editor.isEmpty} primary onClick={handle_update}>
+					<Button disabled={editor.isEmpty} primary onClick={update_doc_content}>
 						更新
 					</Button>
 					{more_dropdown}
 				</Space>
 			</Header>
 
-			<DocDeleteDialog open={doc_delete_dialog_open} hide_dialog={hide_doc_delete_dialog} />
-			<DocSaveDialog open={doc_save_dialog_open} hide_dialog={hide_doc_save_dialog} />
-			<DocOptionsModal open={doc_options_modal_open} hide_modal={hide_doc_options_modal} />
+			{doc_id && (
+				<DocDeleteDialog
+					doc_ids={[doc_id]}
+					on_deleted={go_doc_list}
+					open={doc_delete_dialog_open}
+					hide_dialog={hide_doc_delete_dialog}
+				/>
+			)}
+			<DocOptionsModal open={doc_options_modal_open} hide_modal={hide_doc_options_modal} doc_id={doc_id} />
 
 			<div className="flex justify-center sticky top-56px z-10 bg-bg-0 b-b-bd-line b-b-1 b-b-solid">
 				<div className="p-[12px_32px] bg-bg-0 shadow-[0_12px_16px_-8px_rgba(0,0,0,0.02)]">

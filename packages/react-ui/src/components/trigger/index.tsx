@@ -1,3 +1,18 @@
+import './trigger.scss'
+
+import {
+	Children,
+	cloneElement,
+	forwardRef,
+	HTMLAttributes,
+	ReactElement,
+	ReactNode,
+	useEffect,
+	useRef,
+	useState
+} from 'react'
+import { createPortal } from 'react-dom'
+
 import {
 	autoUpdate,
 	flip,
@@ -14,22 +29,10 @@ import {
 	useMergeRefs,
 	useRole
 } from '@floating-ui/react'
-import {
-	Children,
-	cloneElement,
-	forwardRef,
-	HTMLAttributes,
-	ReactElement,
-	ReactNode,
-	useEffect,
-	useRef,
-	useState
-} from 'react'
-import { createPortal } from 'react-dom'
+
 import { UI_PREFIX } from '../../constants'
-import Motion from '../motion'
 import { useZIndex } from '../../hooks/useZIndex'
-import './trigger.scss'
+import Motion from '../motion'
 
 export const EventsByTriggerNeed = [
 	'onClick',

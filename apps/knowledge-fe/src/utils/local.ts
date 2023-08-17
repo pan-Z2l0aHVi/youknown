@@ -1,5 +1,5 @@
-import { storage } from '@youknown/utils/src'
 import { RecordMeta } from '@/store/record'
+import { storage } from '@youknown/utils/src'
 
 // Setting
 interface LocalSettings {

@@ -1,8 +1,9 @@
-import { useBoolean, useUpdate } from '@youknown/react-hook/src'
-import { Button, Form, Input, Motion, Select, Space } from '@youknown/react-ui/src'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RiFilter3Fill } from 'react-icons/ri'
 import { TbChevronDown, TbSearch } from 'react-icons/tb'
+
+import { useBoolean, useCreation, useEvent, useUpdate } from '@youknown/react-hook/src'
+import { Button, Form, Input, Motion, Select, Space } from '@youknown/react-ui/src'
 import { cls, storage } from '@youknown/utils/src'
 
 export interface filterState {
@@ -35,10 +36,12 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 	const { on_query_change, search, reset } = props
 	const update = useUpdate()
 	const [filter_open, { setReverse: toggle_filter }] = useBoolean(true)
-	const [keywords, set_keywords] = useState('')
+	const session_keywords = useCreation(() => storage.session.get(FILTER_KEYWORDS_KEY))
+	const [keywords, set_keywords] = useState(session_keywords ?? '')
 
+	const session_filter_state = useCreation(() => storage.session.get<filterState>(FILTER_STATE_KEY))
 	const form = Form.useForm<filterState>({
-		defaultState: {
+		defaultState: session_filter_state ?? {
 			ai_art_filter: 0,
 			categories: [1, 2, 3],
 			purity: [1],
@@ -70,14 +73,7 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 		}
 	})
 
-	useEffect(() => {
-		const session_filter_state = storage.session.get<filterState>(FILTER_STATE_KEY)
-		if (session_filter_state) {
-			form.setState(session_filter_state)
-		}
-	}, [form])
-
-	const get_query = useCallback((): WallpaperQuery => {
+	const get_query = useEvent((): WallpaperQuery => {
 		const state = form.getState()
 		let categories = '000'
 		let purity = '000'
@@ -102,16 +98,14 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 			categories,
 			purity
 		}
-	}, [form, keywords])
+	})
 
-	const change_query = useCallback(() => {
+	const change_query = useEvent(() => {
 		on_query_change(get_query())
-	}, [get_query, on_query_change])
+	})
 
 	useEffect(() => {
 		change_query()
-		const local_filter_keywords = storage.session.get(FILTER_KEYWORDS_KEY)
-		if (local_filter_keywords) set_keywords(local_filter_keywords)
 	}, [change_query])
 
 	const { sorting } = form.getState()
@@ -168,7 +162,7 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 
 	return (
 		<>
-			<div className="flex flex-row-reverse m-l-16px m-r-16px">
+			<div className="flex flex-row-reverse ml-16px mr-16px">
 				<Space>
 					<Input
 						prefix={<TbSearch />}
@@ -184,7 +178,7 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 						<div className="flex items-center">
 							筛选器
 							<TbChevronDown
-								className={cls('m-l-16px transition-transform', filter_open && 'rotate-180deg')}
+								className={cls('ml-16px transition-transform', filter_open && 'rotate-180deg')}
 							/>
 						</div>
 					</Button>

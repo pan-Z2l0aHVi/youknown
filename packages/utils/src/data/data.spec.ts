@@ -1,4 +1,4 @@
-import { equal, object2FormData } from '.'
+import { equal, obj2FormData } from './'
 
 describe('objectToFormData', () => {
 	test('should convert object to FormData', () => {
@@ -9,7 +9,7 @@ describe('objectToFormData', () => {
 			avatar: new File(['file contents'], 'avatar.jpg')
 		}
 
-		const formData = object2FormData(obj)
+		const formData = obj2FormData(obj)
 
 		// 验证 FormData 中包含了正确的属性和值
 		expect(formData.get('name')).toBe('John')

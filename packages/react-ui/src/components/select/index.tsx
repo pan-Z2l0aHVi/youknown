@@ -1,3 +1,5 @@
+import './select.scss'
+
 import {
 	CSSProperties,
 	FC,
@@ -5,21 +7,21 @@ import {
 	KeyboardEvent,
 	MouseEventHandler,
 	ReactNode,
-	useCallback,
 	useEffect,
 	useLayoutEffect,
 	useRef,
 	useState
 } from 'react'
-import { cls, is } from '@youknown/utils/src'
-import { UI_PREFIX } from '../../constants'
-import './select.scss'
-import Dropdown from '../dropdown'
-import { useBoolean, useLatestRef } from '@youknown/react-hook/src'
-import Tag from '../tag'
-import Space from '../space'
-import Input from '../input'
 import { TbCheck, TbSelector } from 'react-icons/tb'
+
+import { useBoolean, useLatestRef } from '@youknown/react-hook/src'
+import { cls, is } from '@youknown/utils/src'
+
+import { UI_PREFIX } from '../../constants'
+import Dropdown from '../dropdown'
+import Input from '../input'
+import Space from '../space'
+import Tag from '../tag'
 
 interface SelectProps extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
 	multiple?: boolean

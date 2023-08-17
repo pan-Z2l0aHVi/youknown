@@ -1,17 +1,19 @@
-import { get_doc_detail } from '@/apis'
+import '@youknown/css/src/rte-desktop.scss'
+
+import { useSearchParams } from 'react-router-dom'
+
+import { get_doc_info } from '@/apis/doc'
 import Header from '@/app/components/header'
 import { useFetch } from '@youknown/react-hook/src'
 import { Loading } from '@youknown/react-ui/src'
-import { useSearchParams } from 'react-router-dom'
+
 import Comments from './components/comments'
-import '@youknown/css/src/rte-desktop.scss'
 
 export default function DocDetail() {
 	const [search] = useSearchParams()
 	const doc_id = search.get('doc_id') ?? ''
 
-	const { data: doc_detail, loading } = useFetch(get_doc_detail, {
-		initialData: null,
+	const { data: doc_info, loading } = useFetch(get_doc_info, {
 		params: [
 			{
 				doc_id
@@ -20,14 +22,14 @@ export default function DocDetail() {
 		refreshDeps: [doc_id]
 	})
 
-	const doc_content = doc_detail?.content.html ?? ''
+	const doc_content = doc_info?.content ?? ''
 
 	return (
 		<>
 			<Header heading="文档" bordered sticky></Header>
 
 			{loading ? (
-				<div className="flex justify-center items-center w-100% m-t-40%">
+				<div className="flex justify-center items-center w-100% mt-40%">
 					<Loading spinning size="large" />
 				</div>
 			) : (

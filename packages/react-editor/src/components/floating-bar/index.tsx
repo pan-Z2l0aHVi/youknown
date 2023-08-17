@@ -1,19 +1,22 @@
+import './index.scss'
+
+import { useContext } from 'react'
+import { TbPlus } from 'react-icons/tb'
+
 import { FloatingMenu } from '@tiptap/react'
 import { Button, Divider, Dropdown } from '@youknown/react-ui/src'
-import { useContext } from 'react'
-import './index.scss'
-import { TbPlus } from 'react-icons/tb'
+
+import { UI_EDITOR_PREFIX } from '../../constants'
+import EditorContext from '../../contexts/editorContext'
+import Blockquote from '../blockquote'
+import BulletList from '../bullet-list'
 import CodeBlock from '../code-block'
 import Heading from '../heading'
 import HorizontalDivider from '../horizontal-divider'
 import ImgPicker from '../img-picker'
 import LinkItem from '../link-item'
-import TablePicker from '../table-picker'
-import EditorContext from '../../contexts/editorContext'
 import OrderList from '../order-list'
-import BulletList from '../bullet-list'
-import Blockquote from '../blockquote'
-import { UI_EDITOR_PREFIX } from '../../constants'
+import TablePicker from '../table-picker'
 
 export function FloatingBar() {
 	const { editor } = useContext(EditorContext)

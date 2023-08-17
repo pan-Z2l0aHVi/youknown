@@ -1,5 +1,4 @@
-import { Divider, Space } from '@youknown/react-ui/src'
-import { Tag } from '@youknown/react-ui/src'
+import { Divider, Space, Tag } from '@youknown/react-ui/src'
 
 export default () => {
 	return (

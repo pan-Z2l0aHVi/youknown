@@ -1,4 +1,5 @@
-import { cls, is } from '@youknown/utils/src'
+import './checkbox-group.scss'
+
 import {
 	ChangeEvent,
 	Children,
@@ -9,10 +10,12 @@ import {
 	isValidElement,
 	ReactNode
 } from 'react'
-import Checkbox from '.'
+
+import { cls, is } from '@youknown/utils/src'
+
 import { UI_PREFIX } from '../../constants'
 import Space from '../space'
-import './checkbox-group.scss'
+import Checkbox from './'
 
 interface CheckboxGroupProps extends Omit<HTMLAttributes<HTMLElement>, 'onChange' | 'defaultValue'> {
 	defaultValue?: (string | number)[]

@@ -1,19 +1,22 @@
-import { useAppSelector } from '@/hooks'
-import { Button, Card, Form, Modal, Motion, Radio, Space, XIcon } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
+import { update_doc } from '@/apis/doc'
 import PicUpload from '@/components/pic-upload'
+import { useAppSelector } from '@/hooks'
+import { Button, Card, Form, Input, Modal, Motion, Radio, Space, XIcon } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 
 interface DocOptionsModalProps {
 	open: boolean
+	doc_id: string
 	hide_modal: () => void
 }
 
 export default function DocOptionsModal(props: DocOptionsModalProps) {
-	const { open, hide_modal } = props
+	const { open, hide_modal, doc_id } = props
 	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
 
 	const form = Form.useForm({
 		defaultState: {
+			title: '',
 			cover: '',
 			is_publish: 0
 		},
@@ -29,6 +32,19 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 
 				default:
 					break
+			}
+		},
+		async onFulfilled(state) {
+			const query = {
+				doc_id,
+				title: state.title,
+				cover: state.cover,
+				content: 'aaaaa'
+			}
+			try {
+				await update_doc(query)
+			} catch (error) {
+				console.error('error: ', error)
 			}
 		}
 	})
@@ -55,6 +71,9 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 							<Form.Field label="cover" labelText="封面：">
 								<PicUpload />
 							</Form.Field>
+							<Form.Field label="title" labelText="标题：">
+								<Input />
+							</Form.Field>
 							<Form.Field label="is_publish" labelText="动态设置：">
 								<Radio.Group
 									options={[
@@ -69,7 +88,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 									]}
 								/>
 							</Form.Field>
-							<Form.Field labelText=" " className="m-b-0! m-t-16px">
+							<Form.Field labelText=" " className="mb-0! mt-16px">
 								<Space>
 									<Button onClick={hide_modal}>取消</Button>
 									<Button type="submit" primary>

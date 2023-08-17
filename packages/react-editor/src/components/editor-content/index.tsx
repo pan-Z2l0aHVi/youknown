@@ -1,7 +1,10 @@
-import { ComponentPropsWithoutRef, forwardRef } from 'react'
-import { EditorContent as TiptapEditorContent } from '@tiptap/react'
 import './index.scss'
+
+import { ComponentPropsWithoutRef, forwardRef } from 'react'
+
+import { EditorContent as TiptapEditorContent } from '@tiptap/react'
 import { cls } from '@youknown/utils/src'
+
 import { UI_EDITOR_PREFIX } from '../../constants'
 
 const EditorContent = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<typeof TiptapEditorContent>>((props, ref) => {

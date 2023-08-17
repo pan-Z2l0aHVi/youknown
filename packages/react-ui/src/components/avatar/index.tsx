@@ -1,7 +1,10 @@
-import { cls, is } from '@youknown/utils/src'
-import { forwardRef, HTMLAttributes, ReactEventHandler, ReactNode, SyntheticEvent, useState } from 'react'
-import { UI_PREFIX } from '../../constants'
 import './avatar.scss'
+
+import { forwardRef, HTMLAttributes, ReactEventHandler, ReactNode, SyntheticEvent, useState } from 'react'
+
+import { cls, is } from '@youknown/utils/src'
+
+import { UI_PREFIX } from '../../constants'
 import AvatarGroup from './avatarGroup'
 
 interface AvatarProps extends HTMLAttributes<HTMLElement> {

@@ -1,5 +1,6 @@
 import { get_bucket_token } from '@/apis/bucket'
 import { storage } from '@youknown/utils/src'
+
 import type { QiniuError, QiniuNetworkError, QiniuRequestError } from 'qiniu-js'
 import type { UploadProgress } from 'qiniu-js/esm/upload'
 

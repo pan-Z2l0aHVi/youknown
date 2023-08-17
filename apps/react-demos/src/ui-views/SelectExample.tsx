@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Select, Divider, Space } from '@youknown/react-ui/src'
+
+import { Divider, Select, Space } from '@youknown/react-ui/src'
 
 export default () => {
 	const [selection, setSelection] = useState<any>(0)

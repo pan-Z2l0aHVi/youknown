@@ -1,6 +1,7 @@
 import { get_profile, login as request_login } from '@/apis/user'
 import { remove_local_token, set_local_token } from '@/utils/local'
-import { AppDispatch } from '..'
+
+import { AppDispatch } from '../'
 import { login, logout, remove_profile, set_profile } from './slice'
 
 export const do_login = (code: string) => async (dispatch: AppDispatch) => {

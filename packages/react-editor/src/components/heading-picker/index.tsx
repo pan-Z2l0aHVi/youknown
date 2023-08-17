@@ -1,10 +1,13 @@
-import { useBoolean } from '@youknown/react-hook/src'
-import { Dropdown, Tooltip } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
+import './index.scss'
+
 import { createElement, useContext } from 'react'
 import { GoChevronDown } from 'react-icons/go'
 import { TbCheck } from 'react-icons/tb'
-import './index.scss'
+
+import { useBoolean } from '@youknown/react-hook/src'
+import { Dropdown, Tooltip } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
+
 import { UI_EDITOR_PREFIX } from '../../constants'
 import ToolbarContext from '../../contexts/editorContext'
 

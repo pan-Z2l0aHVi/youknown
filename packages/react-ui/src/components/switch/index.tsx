@@ -1,8 +1,11 @@
+import './switch.scss'
+
+import { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useEffect, useRef, useState } from 'react'
+
 import { useComposeRef } from '@youknown/react-hook/src'
 import { cls, is } from '@youknown/utils/src'
-import { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useEffect, useRef, useState } from 'react'
+
 import { UI_PREFIX } from '../../constants'
-import './switch.scss'
 
 interface SwitchProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultValue'> {
 	size?: 'small' | 'medium' | 'large'

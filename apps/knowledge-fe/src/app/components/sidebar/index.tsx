@@ -1,10 +1,12 @@
-import { useBoolean, useLatestRef } from '@youknown/react-hook/src'
-import { Divider, Tooltip } from '@youknown/react-ui/src'
-import { cls, storage } from '@youknown/utils/src'
 import { useEffect, useState, useTransition } from 'react'
 import { TbDotsVertical } from 'react-icons/tb'
-import Menu from './components/menu'
+
+import { useBoolean, useCreation, useLatestRef } from '@youknown/react-hook/src'
+import { Divider, Tooltip } from '@youknown/react-ui/src'
+import { cls, storage } from '@youknown/utils/src'
+
 import Account from './components/account'
+import Menu from './components/menu'
 
 const EXPAND_KEY = 'sidebar-expand'
 const WIDTH_KEY = 'sidebar-width'
@@ -13,8 +15,8 @@ const MIN_W = 160
 const MAX_W = 400
 
 export default function Sidebar() {
-	const local_expand = storage.local.get<boolean>(EXPAND_KEY)
-	const local_width = storage.local.get<number>(WIDTH_KEY)
+	const local_expand = useCreation(() => storage.local.get<boolean>(EXPAND_KEY))
+	const local_width = useCreation(() => storage.local.get<number>(WIDTH_KEY))
 	const [expand, { setReverse: toggle_expand }] = useBoolean(local_expand ?? true)
 
 	const [sidebar_width, set_sidebar_width] = useState(local_width ?? DEFAULT_W)
@@ -30,24 +32,24 @@ export default function Sidebar() {
 		storage.local.set(WIDTH_KEY, sidebar_width)
 	}, [sidebar_width])
 
-	const on = () => {
+	const on_drag_events = () => {
 		document.addEventListener('mousemove', handle_mousemove)
 		document.addEventListener('mouseup', handle_mouseup, { once: true })
 	}
 
-	const off = () => {
+	const off_drag_events = () => {
 		document.removeEventListener('mousemove', handle_mousemove)
 		document.removeEventListener('mouseup', handle_mouseup)
 	}
 
 	const handle_mousedown = () => {
 		start_drag()
-		on()
+		on_drag_events()
 	}
 
 	const handle_mouseup = () => {
 		stop_drag()
-		off()
+		off_drag_events()
 	}
 
 	const handle_mousemove = (e: MouseEvent) => {
@@ -82,14 +84,14 @@ export default function Sidebar() {
 
 	return (
 		<aside
-			className={cls('relative flex flex-col h-screen b-r-1 b-r-solid b-r-bd-line bg-bg-2 p-[16px_12px]', {
+			className={cls('relative flex flex-col h-screen b-r-1 b-r-solid b-r-bd-line bg-bg-2 p-12px', {
 				'transition-width-300': !dragging,
 				'w-68px': !expand
 			})}
 			style={sidebar_style}
 		>
-			<div className="h-32px m-b-24px">
-				<img className="w-32px h-32px m-l-6px b-rd-radius-m b-1 b-bd-line b-solid" src="/branch.png" />
+			<div className="h-32px mb-24px">
+				<img className="w-32px h-32px ml-6px b-rd-radius-m b-1 b-bd-line b-solid" src="/branch.png" />
 			</div>
 
 			<Menu expand={expand} />

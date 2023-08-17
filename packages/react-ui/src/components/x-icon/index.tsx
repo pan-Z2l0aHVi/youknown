@@ -1,8 +1,11 @@
-import { cls } from '@youknown/utils/src'
+import './index.scss'
+
 import { forwardRef, HTMLAttributes } from 'react'
 import { TbX } from 'react-icons/tb'
+
+import { cls } from '@youknown/utils/src'
+
 import { UI_PREFIX } from '../../constants'
-import './index.scss'
 
 const XIcon = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>((props, ref) => {
 	const { className, ...rest } = props

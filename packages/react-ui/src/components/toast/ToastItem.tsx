@@ -1,8 +1,11 @@
-import { forwardRef, HTMLAttributes, ReactNode } from 'react'
-import { cls } from '@youknown/utils/src'
-import { UI_PREFIX } from '../../constants'
 import './toast-item.scss'
+
+import { forwardRef, HTMLAttributes, ReactNode } from 'react'
 import { TbX } from 'react-icons/tb'
+
+import { cls } from '@youknown/utils/src'
+
+import { UI_PREFIX } from '../../constants'
 
 interface ToastItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
 	title?: ReactNode

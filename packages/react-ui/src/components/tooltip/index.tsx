@@ -1,8 +1,11 @@
-import { cls, pick, pickDataAttrs } from '@youknown/utils/src'
+import './tooltip.scss'
+
 import { Children, cloneElement, ComponentProps, forwardRef } from 'react'
+
+import { cls, pick, pickDataAttrs } from '@youknown/utils/src'
+
 import { UI_PREFIX } from '../../constants'
 import Trigger, { EventsByTriggerNeed } from '../trigger'
-import './tooltip.scss'
 
 interface TooltipProps extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'growTransformOrigin' | 'motion'> {
 	title?: string

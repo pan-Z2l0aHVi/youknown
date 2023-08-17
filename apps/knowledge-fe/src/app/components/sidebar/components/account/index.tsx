@@ -1,9 +1,10 @@
+import { TbLogout, TbSettings2 } from 'react-icons/tb'
+
 import { useAppDispatch, useAppSelector } from '@/hooks'
+import { open_login_modal, open_preferences_modal } from '@/store/modal'
+import { do_logout } from '@/store/user'
 import { Avatar, Divider, Dropdown, Motion, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import { TbLogout, TbSettings2 } from 'react-icons/tb'
-import { open_preferences_modal, open_login_modal } from '@/store/modal'
-import { do_logout } from '@/store/user'
 
 interface PersonalProps {
 	expand: boolean

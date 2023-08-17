@@ -1,7 +1,10 @@
-import { cls, is, omit } from '@youknown/utils/src'
+import './collapse-panel.scss'
+
 import { FC, HTMLAttributes, ReactNode } from 'react'
 import { TbChevronDown } from 'react-icons/tb'
-import './collapse-panel.scss'
+
+import { cls, is, omit } from '@youknown/utils/src'
+
 import { UI_PREFIX } from '../../constants'
 import Motion from '../motion'
 

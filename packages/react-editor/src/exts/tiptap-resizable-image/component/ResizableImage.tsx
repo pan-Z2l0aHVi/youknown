@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { NodeViewWrapper } from '@tiptap/react'
 
 export default function ResizableImage(props: any) {

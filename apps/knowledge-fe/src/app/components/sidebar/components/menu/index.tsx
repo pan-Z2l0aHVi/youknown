@@ -1,10 +1,11 @@
+import { Fragment, MouseEvent, useState } from 'react'
+import { GoChevronDown } from 'react-icons/go'
+
+import TransitionNavLink from '@/components/transition-nav-link'
+import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { nav_routes, RouteItem } from '@/router/routes'
 import { Motion, Tooltip } from '@youknown/react-ui/src'
 import { cls, DeepRequired } from '@youknown/utils/src'
-import { Fragment, MouseEvent, useState } from 'react'
-import { GoChevronDown } from 'react-icons/go'
-import TransitionNavLink from '@/components/transition-nav-link'
-import useTransitionNavigate from '@/hooks/use-transition-navigate'
 
 const nav_open_map = nav_routes
 	.filter(route => route.children?.length)
@@ -121,7 +122,7 @@ export default function Menu({ expand }: MenuProps) {
 						</Tooltip>
 
 						{has_sub_nav && (
-							<Motion.Collapse in={open_map[path]} className="w-100% m-t-0! m-b-0!" unmountOnExit>
+							<Motion.Collapse in={open_map[path]} className="w-100% mt-0! mb-0!" unmountOnExit>
 								<Motion.Fade in={open_map[path]}>
 									<div
 										className={cls({

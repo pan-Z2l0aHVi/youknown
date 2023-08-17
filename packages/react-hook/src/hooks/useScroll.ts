@@ -1,4 +1,4 @@
-import { MutableRefObject, useState, useEffect } from 'react'
+import { MutableRefObject, useEffect, useState } from 'react'
 
 type Target = Element | (() => Element) | Document | MutableRefObject<Element>
 interface Position {

@@ -1,4 +1,4 @@
-import { is } from '..'
+import { is } from '../'
 
 export default function cls(...args: any[]): string {
 	return args

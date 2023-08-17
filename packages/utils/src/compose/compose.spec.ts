@@ -1,4 +1,4 @@
-import { compose } from '.'
+import { compose } from './'
 
 describe('compose', () => {
 	function shouting(str: string): string {

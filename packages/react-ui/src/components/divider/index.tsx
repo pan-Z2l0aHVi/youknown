@@ -1,7 +1,10 @@
-import { cls } from '@youknown/utils/src'
-import { forwardRef, HTMLAttributes } from 'react'
-import { UI_PREFIX } from '../../constants'
 import './divider.scss'
+
+import { forwardRef, HTMLAttributes } from 'react'
+
+import { cls } from '@youknown/utils/src'
+
+import { UI_PREFIX } from '../../constants'
 
 interface DividerProps extends HTMLAttributes<HTMLDivElement> {
 	size?: 'small' | 'medium' | 'large'

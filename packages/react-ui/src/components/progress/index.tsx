@@ -1,10 +1,13 @@
-import { CSSProperties, forwardRef, HTMLAttributes, ReactNode, useEffect, useRef } from 'react'
-import ProgressCircle from './ProgressCircle'
-import { cls, is } from '@youknown/utils/src'
 import './progress.scss'
+
+import { CSSProperties, forwardRef, HTMLAttributes, ReactNode, useEffect, useRef } from 'react'
 import CountUp from 'react-countup'
 import { RenderCounterProps } from 'react-countup/build/types'
+
+import { cls, is } from '@youknown/utils/src'
+
 import { UI_PREFIX } from '../../constants'
+import ProgressCircle from './ProgressCircle'
 
 interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
 	size?: 'small' | 'medium' | 'large'

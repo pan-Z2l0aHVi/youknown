@@ -1,10 +1,13 @@
-import { forwardRef, HTMLAttributes } from 'react'
-import { cls } from '@youknown/utils/src'
-import { UI_PREFIX } from '../../constants'
 import './tag.scss'
-import { useBoolean } from '@youknown/react-hook/src'
-import Loading from '../loading'
+
+import { forwardRef, HTMLAttributes } from 'react'
 import { TbX } from 'react-icons/tb'
+
+import { useBoolean } from '@youknown/react-hook/src'
+import { cls } from '@youknown/utils/src'
+
+import { UI_PREFIX } from '../../constants'
+import Loading from '../loading'
 
 interface TagProps extends HTMLAttributes<HTMLDivElement> {
 	size?: 'small' | 'medium' | 'large'

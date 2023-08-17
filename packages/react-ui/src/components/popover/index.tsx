@@ -1,8 +1,11 @@
-import { pick, pickDataAttrs } from '@youknown/utils/src'
+import './popover.scss'
+
 import { Children, cloneElement, ComponentProps, forwardRef, ReactNode } from 'react'
+
+import { pick, pickDataAttrs } from '@youknown/utils/src'
+
 import { UI_PREFIX } from '../../constants'
 import Trigger, { EventsByTriggerNeed } from '../trigger'
-import './popover.scss'
 
 interface PopoverProps
 	extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'growTransformOrigin' | 'motion' | 'content'> {

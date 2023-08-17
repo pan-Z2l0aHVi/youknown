@@ -1,7 +1,10 @@
-import { forwardRef, HTMLAttributes } from 'react'
-import { cls } from '@youknown/utils/src'
-import { UI_PREFIX } from '../../constants'
 import './dropdown-title.scss'
+
+import { forwardRef, HTMLAttributes } from 'react'
+
+import { cls } from '@youknown/utils/src'
+
+import { UI_PREFIX } from '../../constants'
 
 type DropdownTitleProps = HTMLAttributes<HTMLElement>
 

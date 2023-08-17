@@ -1,20 +1,32 @@
+import { delete_doc } from '@/apis/doc'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { record } from '@/store/record'
 import { Dialog } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import dayjs from 'dayjs'
 
 interface DocDeleteDialogProps {
 	open: boolean
 	hide_dialog: () => void
+	doc_ids: string[]
+	on_deleted: () => void
 }
 
 export default function DocDeleteDialog(props: DocDeleteDialogProps) {
-	const { open, hide_dialog } = props
+	const { open, hide_dialog, doc_ids = [], on_deleted } = props
 	const dispatch = useAppDispatch()
 	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
 
-	const handle_delete = () => {
+	const handle_delete = async () => {
+		try {
+			await delete_doc({ doc_ids })
+			record_doc_removed()
+			on_deleted()
+			hide_dialog()
+		} catch (error) {
+			console.error('error: ', error)
+		}
+	}
+	const record_doc_removed = () => {
 		dispatch(
 			record({
 				action: '删除',
@@ -22,11 +34,9 @@ export default function DocDeleteDialog(props: DocDeleteDialogProps) {
 				target_id: '',
 				obj_type: '文章',
 				obj: '《如何看待近期大火的Chat GPT》',
-				obj_id: '1232',
-				timing: dayjs().valueOf()
+				obj_id: '1232'
 			})
 		)
-		hide_dialog()
 	}
 
 	return (

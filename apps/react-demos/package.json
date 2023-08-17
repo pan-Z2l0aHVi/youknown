@@ -14,13 +14,11 @@
   "author": "Grey",
   "license": "MIT",
   "dependencies": {
+    "@youknown/css": "workspace:*",
     "@youknown/react-editor": "workspace:*",
     "@youknown/react-hook": "workspace:*",
     "@youknown/react-ui": "workspace:*",
-    "@youknown/utils": "workspace:*",
-    "@youknown/css": "workspace:*"
-  },
-  "devDependencies": {
+    "@youknown/utils": "workspace:*"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": "eslint --cache --fix"

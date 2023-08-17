@@ -1,28 +1,51 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { TbCheckbox, TbChecks, TbFilter, TbPlus, TbTrashX, TbX } from 'react-icons/tb'
+
+import { create_doc, get_docs } from '@/apis/doc'
 import Header from '@/app/components/header'
-import { Button, Drawer, Form, Input, Motion, Select, Space, Tooltip } from '@youknown/react-ui/src'
-import { TbChecks, TbFilter, TbPlus, TbCheckbox, TbTrashX, TbX } from 'react-icons/tb'
-import DocCard from './components/doc-card'
-import { useBoolean, useFetch } from '@youknown/react-hook/src'
-import { get_doc_list } from '@/apis'
-import useTransitionNavigate from '@/hooks/use-transition-navigate'
-import { cls } from '@youknown/utils/src'
 import DocDeleteDialog from '@/components/doc-delete-dialog'
-import { useAppSelector } from '@/hooks'
+import { useAppContentEl, useAppDispatch, useAppSelector } from '@/hooks'
+import useTransitionNavigate from '@/hooks/use-transition-navigate'
+import { open_login_modal } from '@/store/modal'
+import { useBoolean, useInfinity } from '@youknown/react-hook/src'
+import { Loading } from '@youknown/react-ui'
+import { Button, Drawer, Form, Input, Motion, Select, Space, Toast, Tooltip } from '@youknown/react-ui/src'
+import { cls, QS } from '@youknown/utils/src'
+
+import DocCard from './components/doc-card'
 
 export default function DocList() {
 	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
+	const is_login = useAppSelector(state => state.user.is_login)
+	const dispatch = useAppDispatch()
 	const navigate = useTransitionNavigate()
+	const app_content_el = useAppContentEl()
+	const loading_ref = useRef(null)
 
-	const [uid] = useState('111')
-	const { data: doc_list, loading } = useFetch(get_doc_list, {
-		initialData: [],
-		params: [
-			{
-				uid
-			}
-		],
-		refreshDeps: [uid]
+	const docs_fetcher = async () => {
+		const { list } = await get_docs({
+			page,
+			page_size
+		})
+		return list
+	}
+
+	const {
+		page,
+		pageSize: page_size,
+		data: doc_list,
+		noMore: no_more,
+		reset: reset_docs
+	} = useInfinity(docs_fetcher, {
+		initialPageSize: 20,
+		target: loading_ref,
+		observerInit: {
+			root: app_content_el,
+			rootMargin: '0px 0px 200px 0px'
+		},
+		onError() {
+			Toast.show({ title: '服务异常，请稍后再试' })
+		}
 	})
 
 	const [choosing, { setTrue: do_choosing, setFalse: cancel_choosing }] = useBoolean(false)
@@ -33,7 +56,7 @@ export default function DocList() {
 		if (!choosing) set_selection([])
 	}, [choosing])
 
-	const is_all_selected = doc_list.every(doc => selection.some(item => item.id === doc.id))
+	const is_all_selected = doc_list.every(doc => selection.some(item => item.doc_id === doc.doc_id))
 	const toggle_select_all = () => {
 		set_selection(is_all_selected ? [] : doc_list)
 	}
@@ -52,6 +75,28 @@ export default function DocList() {
 
 	const [doc_delete_dialog_open, { setTrue: show_doc_delete_dialog, setFalse: hide_doc_delete_dialog }] =
 		useBoolean(false)
+
+	const create_new_doc = async () => {
+		if (!is_login) {
+			dispatch(open_login_modal())
+			return
+		}
+		const payload = {
+			title: '未命名',
+			content: '123123'
+		}
+		try {
+			const { doc_id } = await create_doc(payload)
+			navigate(
+				QS.stringify({
+					base: '/library/doc/doc-editor',
+					query: { doc_id }
+				})
+			)
+		} catch (error) {
+			console.error('error: ', error)
+		}
+	}
 
 	const filter_drawer = (
 		<Drawer
@@ -122,7 +167,7 @@ export default function DocList() {
 						</Button>
 					</Tooltip>
 
-					<div className="p-l-16px p-r-16px b-l-1 b-r-1 b-l-solid b-r-solid b-bd-line select-none">
+					<div className="pl-16px pr-16px b-l-1 b-r-1 b-l-solid b-r-solid b-bd-line select-none">
 						已选中：{selection.length}
 					</div>
 
@@ -141,10 +186,6 @@ export default function DocList() {
 		</Motion.Slide>
 	)
 
-	const create_new_doc = () => {
-		navigate('/library/doc/doc-editor')
-	}
-
 	const doc_card_list = (
 		<div className="grid grid-cols-[repeat(auto-fill,184px)] grid-gap-[32px_24px] justify-center">
 			{choosing || (
@@ -160,35 +201,56 @@ export default function DocList() {
 			)}
 
 			{doc_list.map(doc => {
-				const is_selected = selection.some(item => item.id === doc.id)
+				const is_selected = selection.some(item => item.doc_id === doc.doc_id)
 				const choose_doc = () => {
 					if (is_selected) {
-						set_selection(p => p.filter(item => item.id !== doc.id))
+						set_selection(p => p.filter(item => item.doc_id !== doc.doc_id))
 					} else {
 						set_selection(p => [...p, doc])
 					}
 				}
 				return (
 					<DocCard
-						key={doc.id}
+						key={doc.doc_id}
 						choosing={choosing}
 						selected={is_selected}
-						heading={doc.heading}
-						updated_at={doc.last_modify_at}
-						cover={doc.cover}
-						choose={choose_doc}
+						info={doc}
+						on_choose={choose_doc}
+						on_deleted={reset_docs}
 					/>
 				)
 			})}
 		</div>
 	)
 
+	const selected_ids = selection.map(item => item.doc_id)
+
 	return (
 		<>
 			{header}
-			<div className="p-32px">{loading || doc_card_list}</div>
+			<div className="p-32px">{doc_card_list}</div>
+			{no_more ? (
+				<div
+					className={cls(
+						'relative flex justify-center items-center h-80px',
+						'after:absolute after:content-empty after:w-240px after:b-b-1 after:b-b-solid after:b-bd-line'
+					)}
+				>
+					<div className="z-1 pl-8px pr-8px bg-bg-0 color-text-2">没有更多内容了</div>
+				</div>
+			) : (
+				<div ref={loading_ref} className="flex justify-center items-center h-80px">
+					<Loading spinning className="mr-8px" />
+					<span className="color-text-2">加载中...</span>
+				</div>
+			)}
 			{choosing_bar}
-			<DocDeleteDialog open={doc_delete_dialog_open} hide_dialog={hide_doc_delete_dialog} />
+			<DocDeleteDialog
+				open={doc_delete_dialog_open}
+				hide_dialog={hide_doc_delete_dialog}
+				doc_ids={selected_ids}
+				on_deleted={reset_docs}
+			/>
 			{filter_drawer}
 		</>
 	)

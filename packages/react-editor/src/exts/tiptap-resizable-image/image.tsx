@@ -1,8 +1,10 @@
 import { Component, FC, ReactElement } from 'react'
+
 import { mergeAttributes, nodeInputRule } from '@tiptap/core'
-import { ReactNodeViewRenderer } from '@tiptap/react'
-import ResizableImage from './component/ResizableImage'
 import Image from '@tiptap/extension-image'
+import { ReactNodeViewRenderer } from '@tiptap/react'
+
+import ResizableImage from './component/ResizableImage'
 
 export interface ImageOptions {
 	inline: boolean

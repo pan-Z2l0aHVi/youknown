@@ -1,7 +1,10 @@
+import { ReactNode, useContext } from 'react'
+
 import { BubbleMenu } from '@tiptap/react'
 import { Space } from '@youknown/react-ui/src'
-import { ReactNode, useContext } from 'react'
+
 import { UI_EDITOR_PREFIX } from '../../constants'
+import ToolbarContext from '../../contexts/editorContext'
 import Bold from '../bold'
 import CodeOff from '../code-off'
 import ImgEdit from '../img-edit'
@@ -14,7 +17,6 @@ import LinkEdit from '../link-edit'
 import LinkOff from '../link-off'
 import LinkOpen from '../link-open'
 import Strike from '../strike'
-import ToolbarContext from '../../contexts/editorContext'
 import Underline from '../underline'
 
 export function BubbleBar() {

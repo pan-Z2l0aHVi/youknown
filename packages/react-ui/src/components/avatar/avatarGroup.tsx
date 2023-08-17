@@ -1,8 +1,11 @@
-import { cls } from '@youknown/utils/src'
-import { Children, cloneElement, ComponentProps, FC, HTMLAttributes, isValidElement } from 'react'
 import './avatar-group.scss'
-import Avatar from './'
+
+import { Children, cloneElement, ComponentProps, FC, HTMLAttributes, isValidElement } from 'react'
+
+import { cls } from '@youknown/utils/src'
+
 import { UI_PREFIX } from '../../constants'
+import Avatar from './'
 
 interface AvatarGroupProps extends HTMLAttributes<HTMLElement> {
 	size?: 'small' | 'medium' | 'large'

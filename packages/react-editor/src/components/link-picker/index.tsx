@@ -1,9 +1,12 @@
+import './index.scss'
+
+import { useContext, useState } from 'react'
+import { TbLink, TbX } from 'react-icons/tb'
+
 import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Dropdown, Input, Popover, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import { useContext, useState } from 'react'
-import { TbLink, TbX } from 'react-icons/tb'
-import './index.scss'
+
 import { UI_EDITOR_PREFIX } from '../../constants'
 import ToolbarContext from '../../contexts/editorContext'
 

@@ -1,4 +1,4 @@
-import { is } from '..'
+import { is } from '../'
 
 export function join(...paths: (string | undefined)[]): string {
 	return (paths.filter(Boolean) as string[]).reduce((pre, cur) => {

@@ -1,9 +1,12 @@
-import { cls } from '@youknown/utils/src'
-import { forwardRef, HTMLAttributes, ReactNode } from 'react'
-import SpinSvg from './SpinSvg'
 import './loading.scss'
+
+import { forwardRef, HTMLAttributes, ReactNode } from 'react'
+
+import { cls } from '@youknown/utils/src'
+
 import { UI_PREFIX } from '../../constants'
 import Motion from '../motion'
+import SpinSvg from './SpinSvg'
 
 interface LoadingProps extends HTMLAttributes<HTMLElement> {
 	spinning?: boolean

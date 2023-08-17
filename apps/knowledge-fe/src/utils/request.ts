@@ -1,8 +1,24 @@
 import { B_CODE } from '@/consts'
-import { get_local_token } from '@/utils/local'
 import store from '@/store'
 import { do_logout } from '@/store/user'
-import { Net, headers2Obj } from '@youknown/utils/src'
+import { get_local_token } from '@/utils/local'
+import { headers2Obj, Net } from '@youknown/utils/src'
+
+interface Cause {
+	code: number
+	data: any
+	msg: string
+}
+
+export class NetFetchError extends Error {
+	public cause: Cause
+	constructor(cause: Cause) {
+		super('Net fetch error', {
+			cause
+		})
+		this.cause = cause
+	}
+}
 
 export const net = Net.create()
 	.use(async (ctx, next) => {
@@ -25,12 +41,12 @@ export const net = Net.create()
 				break
 
 			case B_CODE.NOT_AUTH:
-				ctx.err = ctx.data
+				ctx.err = new NetFetchError(ctx.data)
 				store.dispatch(do_logout())
 				break
 
 			default:
-				ctx.err = ctx.data
+				ctx.err = new NetFetchError(ctx.data)
 				break
 		}
 	})

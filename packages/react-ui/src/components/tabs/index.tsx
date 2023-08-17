@@ -1,11 +1,13 @@
-import { cls } from '@youknown/utils/src'
-import { ReactNode, useRef } from 'react'
-import { forwardRef, HTMLAttributes } from 'react'
 import './tabs.scss'
+
+import { forwardRef, HTMLAttributes, ReactNode, useRef } from 'react'
+import { TbX } from 'react-icons/tb'
+
+import { useNextTickState } from '@youknown/react-hook/src'
+import { cls } from '@youknown/utils/src'
+
 import { UI_PREFIX } from '../../constants'
 import Space from '../space'
-import { TbX } from 'react-icons/tb'
-import { useNextTickState } from '@youknown/react-hook/src'
 
 interface TabOption {
 	key: string

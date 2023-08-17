@@ -1,6 +1,7 @@
+import { TbSearch } from 'react-icons/tb'
+
 import Header from '@/app/components/header'
 import { Input } from '@youknown/react-ui/src'
-import { TbSearch } from 'react-icons/tb'
 
 export default function Favorites() {
 	return (

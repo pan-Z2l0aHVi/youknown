@@ -1,4 +1,4 @@
-import is from '.'
+import is from './'
 
 describe('basic', () => {
 	it('undefined is undefined', () => {

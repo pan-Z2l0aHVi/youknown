@@ -1,5 +1,6 @@
+import { useEffect, useRef, useState } from 'react'
+
 import { throttle } from '@youknown/utils/src'
-import { useState, useRef, useEffect } from 'react'
 
 export function useThrottle<T>(val: T, wait?: number): T | void {
 	const [state, setState] = useState<T>()

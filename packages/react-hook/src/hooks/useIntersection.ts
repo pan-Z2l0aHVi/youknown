@@ -1,9 +1,16 @@
 import { MutableRefObject, useLayoutEffect, useState } from 'react'
 
-export function useIntersection(target: MutableRefObject<HTMLElement | null>, observerInit?: IntersectionObserverInit) {
+import { is } from '@youknown/utils/src'
+
+export function useIntersection(
+	target?: MutableRefObject<HTMLElement | null>,
+	observerInit?: IntersectionObserverInit
+) {
 	const [isIntersecting, setIsIntersecting] = useState(false)
+	const enabled = !is.undefined(target)
 
 	useLayoutEffect(() => {
+		if (!enabled) return
 		if (!target.current) return
 
 		const observe = new IntersectionObserver(entries => {
@@ -16,7 +23,7 @@ export function useIntersection(target: MutableRefObject<HTMLElement | null>, ob
 		return () => {
 			observe.disconnect()
 		}
-	}, [observerInit, target])
+	}, [observerInit, target, enabled])
 
 	return isIntersecting
 }

@@ -1,4 +1,5 @@
 import { Ref, ref, watch } from 'vue'
+
 import useIntersection from './useIntersection'
 
 interface PageListOptions {
