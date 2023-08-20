@@ -4,24 +4,24 @@ import { is, ValueOf } from '@youknown/utils/src'
 
 import { useLatestRef } from './useLatestRef'
 
-export interface State {
+interface State {
 	[key: string]: any
 }
-export interface FieldOptions<S> {
+interface FieldOptions<S> {
 	onChange?(arg: ValueOf<S> | controllerChangeEvent): void
 }
-export interface Field<S> {
+interface Field<S> {
 	label: keyof S
 	options: FieldOptions<S>
 }
-export type controllerChangeEvent = ChangeEvent<HTMLSelectElement | HTMLInputElement>
-export interface Options<S> {
+type controllerChangeEvent = ChangeEvent<HTMLSelectElement | HTMLInputElement>
+interface Options<S> {
 	defaultState: S
 	onFulfilled?(state: S): void
 	onFailed?(): void
 	onStateChange?(org: Field<S>): void
 }
-export interface FieldController<S = any> {
+interface FieldController<S = any> {
 	defaultValue?: ValueOf<S>
 	value?: ValueOf<S>
 	onChange(arg: ValueOf<S> | controllerChangeEvent): void

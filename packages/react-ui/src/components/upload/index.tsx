@@ -1,18 +1,10 @@
 import './upload.scss'
 
-import {
-	ChangeEventHandler,
-	forwardRef,
-	InputHTMLAttributes,
-	LabelHTMLAttributes,
-	useEffect,
-	useRef,
-	useState
-} from 'react'
+import { ChangeEventHandler, forwardRef, InputHTMLAttributes, LabelHTMLAttributes, useRef, useState } from 'react'
 import { TbPlus } from 'react-icons/tb'
 
-import { useComposeRef } from '@youknown/react-hook/src'
-import { cls, is, uuid } from '@youknown/utils/src'
+import { useComposeRef, useControllable } from '@youknown/react-hook/src'
+import { cls, omit, uuid } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Loading from '../loading'
@@ -41,26 +33,19 @@ const Upload = forwardRef<HTMLInputElement, UploadProps>((props, propRef) => {
 		className,
 		children,
 		disabled = false,
-		defaultValue,
-		value = [],
-		onChange,
 		accept,
 		multiple,
 		action = async () => '',
 		circle = false,
 		...rest
-	} = props
+	} = omit(props, 'value', 'onChange', 'defaultValue')
 
-	const isControlled = is.undefined(defaultValue)
 	const innerRef = useRef<HTMLInputElement>(null)
 	const fileInputRef = useComposeRef(innerRef, propRef)
-	const defaultFileList = isControlled ? value : defaultValue ?? []
-	const [fileList, setFileList] = useState(defaultFileList)
 	const [uploading, setUploading] = useState(false)
-
-	useEffect(() => {
-		if (isControlled) setFileList(value)
-	}, [isControlled, value])
+	const [fileList, setFileList] = useControllable<UploadFile[]>(props, {
+		defaultValue: []
+	})
 
 	const doUpload = (file: UploadFile) => {
 		setUploading(true)
@@ -68,15 +53,7 @@ const Upload = forwardRef<HTMLInputElement, UploadProps>((props, propRef) => {
 			.then(url => {
 				file.url = url
 				file.status = 'success'
-				console.log('file: ', file)
-				setFileList(p => {
-					const nextFileList = [...p, file]
-					// after rendering
-					Promise.resolve().then(() => {
-						onChange?.(nextFileList)
-					})
-					return nextFileList
-				})
+				setFileList(p => [...p, file])
 			})
 			.catch(() => {
 				file.status = 'error'
@@ -100,7 +77,7 @@ const Upload = forwardRef<HTMLInputElement, UploadProps>((props, propRef) => {
 		fileArr.forEach(doUpload)
 	}
 
-	const picURL = isControlled ? value?.[0]?.url : fileList?.[0]?.url
+	const picURL = fileList?.[0]?.url
 	const prefixCls = `${UI_PREFIX}-upload`
 
 	return (

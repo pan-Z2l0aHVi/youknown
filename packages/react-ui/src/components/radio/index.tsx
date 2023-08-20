@@ -1,20 +1,20 @@
 import './radio.scss'
 
-import { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useEffect, useRef, useState } from 'react'
+import { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useRef } from 'react'
 
-import { useComposeRef } from '@youknown/react-hook/src'
-import { cls, is } from '@youknown/utils/src'
+import { useComposeRef, useControllable } from '@youknown/react-hook/src'
+import { cls, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import RadioGroup from './RadioGroup'
 
-interface RadioProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultValue'> {
+interface RadioProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
 	size?: 'small' | 'medium' | 'large'
-	value?: boolean
 	disabled?: boolean
 	label?: string | number
 	defaultValue?: boolean
-	onChange?: ChangeEventHandler<HTMLInputElement> & ((value: boolean) => void)
+	value?: boolean
+	onChange?: (value: boolean) => void
 }
 
 const Radio = forwardRef<HTMLInputElement, RadioProps>((props, propRef) => {
@@ -22,35 +22,21 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>((props, propRef) => {
 		className,
 		children,
 		size = 'medium',
-		value,
-		onChange,
 		disabled = false,
-		defaultValue = false,
 		...rest
-	} = props
-
-	const isControlled = !is.undefined(value)
+	} = omit(props, 'defaultValue', 'value', 'onChange')
 
 	const innerRef = useRef<HTMLInputElement>(null)
 	const radioRef = useComposeRef(innerRef, propRef)
-	const [checked, setChecked] = useState(isControlled ? value : defaultValue)
-
-	useEffect(() => {
-		if (isControlled) setChecked(value)
-	}, [isControlled, value])
+	const [checked, setChecked] = useControllable<boolean>(props, {
+		defaultValue: false
+	})
 
 	const handleChange: ChangeEventHandler<HTMLInputElement> = event => {
 		setChecked(event.target.checked)
-		if (isControlled) {
-			onChange?.(event.target.checked)
-		} else {
-			onChange?.(event)
-		}
 	}
 
 	const prefixCls = `${UI_PREFIX}-radio`
-
-	const checkedProps = isControlled ? { checked } : { defaultChecked: defaultValue }
 
 	const radioCls = cls(className, prefixCls, `${prefixCls}-${size}`, {
 		[`${prefixCls}-disabled`]: disabled,
@@ -60,12 +46,12 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>((props, propRef) => {
 	return (
 		<label className={radioCls} {...rest}>
 			<input
-				{...checkedProps}
 				disabled={disabled}
 				className={`${prefixCls}-inner`}
 				ref={radioRef}
 				type="radio"
 				aria-checked={checked}
+				checked={checked}
 				onChange={handleChange}
 			/>
 			<div className={`${prefixCls}-icon`}></div>
@@ -74,6 +60,7 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>((props, propRef) => {
 	)
 })
 
+Radio.displayName = 'Radio'
 const ExportRadio = Radio as typeof Radio & {
 	Group: typeof RadioGroup
 }

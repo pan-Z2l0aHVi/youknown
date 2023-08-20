@@ -1,17 +1,9 @@
 import './radio-group.scss'
 
-import {
-	ChangeEvent,
-	Children,
-	cloneElement,
-	ComponentProps,
-	forwardRef,
-	HTMLAttributes,
-	isValidElement,
-	ReactNode
-} from 'react'
+import { Children, cloneElement, ComponentProps, forwardRef, HTMLAttributes, isValidElement, ReactNode } from 'react'
 
-import { cls, is } from '@youknown/utils/src'
+import { useControllable } from '@youknown/react-hook/src'
+import { cls, is, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Space from '../space'
@@ -39,32 +31,21 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, propRef) 
 		size = 'medium',
 		options = [],
 		disabled = false,
-		defaultValue,
-		value,
-		onChange,
 		...rest
-	} = props
+	} = omit(props, 'defaultValue', 'value', 'onChange')
 
-	const getHandleSubChange = (label?: string | number) => (subParam: boolean | ChangeEvent<HTMLInputElement>) => {
-		if (is.undefined(label)) return
+	const [value, setValue] = useControllable(props)
 
-		const subChecked = is.boolean(subParam) ? subParam : subParam.target.checked
+	const getHandleSubChange = (label?: string | number) => (subChecked: boolean) => {
+		if (is.undefined(label)) {
+			return
+		}
 		if (subChecked) {
-			onChange?.(label)
+			setValue?.(label)
 		}
 	}
 
 	const prefixCls = `${UI_PREFIX}-radio-group`
-
-	const isControlled = !is.undefined(value)
-
-	const getValueProps = (label?: string | number) => {
-		if (is.undefined(label)) return
-
-		if (isControlled) return { value: value === label }
-
-		return { defaultValue: defaultValue === label }
-	}
 
 	const radiosEle = (
 		<>
@@ -75,8 +56,8 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, propRef) 
 						label={option.label}
 						size={size}
 						disabled={disabled || option.disabled}
+						value={value === option.label}
 						onChange={getHandleSubChange(option.label)}
-						{...getValueProps(option.label)}
 					>
 						{option.child}
 					</Radio>
@@ -87,8 +68,8 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, propRef) 
 					? cloneElement(child, {
 							size,
 							disabled: disabled || child.props.disabled,
-							onChange: getHandleSubChange(child.props.label),
-							...getValueProps(child.props.label)
+							value: value === child.props.label,
+							onChange: getHandleSubChange(child.props.label)
 					  })
 					: child
 			)}

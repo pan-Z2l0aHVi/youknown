@@ -1,17 +1,9 @@
 import './collapse.scss'
 
-import {
-	Children,
-	cloneElement,
-	ComponentProps,
-	forwardRef,
-	HTMLAttributes,
-	isValidElement,
-	useEffect,
-	useState
-} from 'react'
+import { Children, cloneElement, ComponentProps, forwardRef, HTMLAttributes, isValidElement } from 'react'
 
-import { cls, is } from '@youknown/utils/src'
+import { useControllable } from '@youknown/react-hook/src'
+import { cls, is, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import CollapsePanel from './CollapsePanel'
@@ -24,13 +16,12 @@ interface CollapseProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>
 }
 
 const Collapse = forwardRef<HTMLDivElement, CollapseProps>((props, propRef) => {
-	const { className, children, accordion = false, defaultActives = [], actives, onChange, ...rest } = props
-	const [_actives, _setActives] = useState<(string | number)[]>(defaultActives)
-
-	useEffect(() => {
-		const isControlled = !is.undefined(actives)
-		if (isControlled) _setActives(actives)
-	}, [actives])
+	const { className, children, accordion = false, ...rest } = omit(props, 'defaultActives', 'actives', 'onChange')
+	const [actives, setActives] = useControllable<(string | number)[]>(props, {
+		defaultValue: [],
+		defaultValuePropName: 'defaultActives',
+		valuePropName: 'actives'
+	})
 
 	const prefixCls = `${UI_PREFIX}-collapse`
 
@@ -43,22 +34,22 @@ const Collapse = forwardRef<HTMLDivElement, CollapseProps>((props, propRef) => {
 				if (is.undefined(itemKey)) return child
 
 				return cloneElement<ComponentProps<typeof CollapsePanel>>(child, {
-					expend: _actives.includes(itemKey),
+					expend: actives.includes(itemKey),
 					onChange(expend) {
-						let nextActives = _actives
+						let nextActives = actives
 						if (expend) {
-							nextActives = accordion ? [itemKey] : [..._actives, itemKey]
+							nextActives = accordion ? [itemKey] : [...actives, itemKey]
 						} else {
-							nextActives = _actives.filter(active => active !== itemKey)
+							nextActives = actives.filter(active => active !== itemKey)
 						}
-						_setActives(nextActives)
-						onChange?.(nextActives)
+						setActives(nextActives)
 					}
 				})
 			})}
 		</div>
 	)
 })
+Collapse.displayName = 'Collapse'
 
 const ExportCollapse = Collapse as typeof Collapse & {
 	Panel: typeof CollapsePanel

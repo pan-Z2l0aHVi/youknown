@@ -14,8 +14,8 @@ import {
 } from 'react'
 import { TbCheck, TbSelector } from 'react-icons/tb'
 
-import { useBoolean, useLatestRef } from '@youknown/react-hook/src'
-import { cls, is } from '@youknown/utils/src'
+import { useBoolean, useControllable, useLatestRef } from '@youknown/react-hook/src'
+import { cls, is, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Dropdown from '../dropdown'
@@ -43,14 +43,11 @@ const Select: FC<SelectProps> = props => {
 		filter = false,
 		placeholder = '请选择',
 		allowClear = false,
-		defaultValue,
-		value,
 		options = [],
-		onChange,
 		onClick,
 		onKeyDown,
 		...rest
-	} = props
+	} = omit(props, 'defaultValue', 'value', 'onChange')
 
 	const inputRef = useRef<HTMLInputElement>(null)
 	const [
@@ -58,20 +55,10 @@ const Select: FC<SelectProps> = props => {
 		{ setBool: setDropdownVisible, setReverse: toggleDropdown, setTrue: showDropdown, setFalse: hideDropdown }
 	] = useBoolean(false)
 
-	let _defaultValue
-	const isControlled = is.undefined(defaultValue)
-	if (isControlled) {
-		_defaultValue = multiple ? value ?? [] : value
-	} else {
-		_defaultValue = multiple ? defaultValue ?? [] : defaultValue
-	}
-	const [_value, _setValue] = useState(_defaultValue)
-	const _valueRef = useLatestRef(_value)
-
-	useEffect(() => {
-		if (disabled) return
-		if (isControlled) _setValue(value)
-	}, [disabled, isControlled, value])
+	const [value, setValue] = useControllable<string | number | (string | number)[]>(props, {
+		defaultValue: multiple ? [] : ''
+	})
+	const _valueRef = useLatestRef(value)
 
 	const handleClick: MouseEventHandler<HTMLElement> = e => {
 		if (disabled) return
@@ -118,15 +105,9 @@ const Select: FC<SelectProps> = props => {
 			} else {
 				selection.push(val)
 			}
-			if (!isControlled) {
-				_setValue(selection)
-			}
-			onChange?.(selection)
+			setValue(selection)
 		} else {
-			if (!isControlled) {
-				_setValue(val)
-			}
-			onChange?.(val)
+			setValue(val)
 			if (filter) {
 				inputRef.current?.blur()
 			} else {
@@ -163,9 +144,9 @@ const Select: FC<SelectProps> = props => {
 				filteredOptions.map(opt => {
 					let isActive: boolean
 					if (multiple) {
-						isActive = (_value as (string | number)[]).includes(opt.value)
+						isActive = (value as (string | number)[]).includes(opt.value)
 					} else {
-						isActive = opt.value === _value
+						isActive = opt.value === value
 					}
 					return (
 						<Dropdown.Item
@@ -210,10 +191,10 @@ const Select: FC<SelectProps> = props => {
 			size="small"
 			placeholder={
 				multiple
-					? is.array.empty(_value)
+					? is.array.empty(value)
 						? placeholder
 						: ''
-					: String(options.find(opt => opt.value === _value)?.label) || placeholder
+					: String(options.find(opt => opt.value === value)?.label) || placeholder
 			}
 			allowClear={allowClear}
 			value={filterVal}
@@ -230,7 +211,7 @@ const Select: FC<SelectProps> = props => {
 				if (!filter || !multiple) return
 				if (event.key === 'Backspace' && !filterVal) {
 					event.preventDefault()
-					_setValue(p => {
+					setValue(p => {
 						const selection = [...(p as (string | number)[])]
 						selection.pop()
 						return selection
@@ -243,11 +224,11 @@ const Select: FC<SelectProps> = props => {
 	const placeholderEle = <span className={`${prefixCls}-placeholder`}>{placeholder}</span>
 	const selectorEle = multiple ? (
 		<div className={selectorCls}>
-			{is.array.empty(_value) ? (
+			{is.array.empty(value) ? (
 				filter || placeholderEle
 			) : (
 				<Space className={`${prefixCls}-selector-tag-list`} size="small">
-					{(options.filter(opt => (_value as (string | number)[]).includes(opt.value)) || []).map(opt => (
+					{(options.filter(opt => (value as (string | number)[]).includes(opt.value)) || []).map(opt => (
 						<Tag key={opt.value} size="small" bordered round>
 							{opt.label}
 						</Tag>
@@ -260,9 +241,9 @@ const Select: FC<SelectProps> = props => {
 		<div className={selectorCls}>
 			{filter
 				? filterEle
-				: is.undefined(_value)
+				: is.undefined(value)
 				? placeholderEle
-				: options.find(opt => opt.value === _value)?.label}
+				: options.find(opt => opt.value === value)?.label}
 		</div>
 	)
 

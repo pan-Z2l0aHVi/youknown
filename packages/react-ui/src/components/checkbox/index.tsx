@@ -1,21 +1,21 @@
 import './checkbox.scss'
 
-import { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useEffect, useRef, useState } from 'react'
+import { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useRef } from 'react'
 import { GoCheck } from 'react-icons/go'
 
-import { useComposeRef } from '@youknown/react-hook/src'
-import { cls, is } from '@youknown/utils/src'
+import { useComposeRef, useControllable } from '@youknown/react-hook/src'
+import { cls, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import CheckboxGroup from './CheckboxGroup'
 
-interface CheckboxProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultValue'> {
+interface CheckboxProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
 	size?: 'small' | 'medium' | 'large'
 	label?: string | number
 	disabled?: boolean
 	defaultValue?: boolean
 	value?: boolean
-	onChange?: ChangeEventHandler<HTMLInputElement> & ((value: boolean) => void)
+	onChange?: (value: boolean) => void
 }
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, propRef) => {
@@ -23,34 +23,21 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, propRef) =>
 		className,
 		children,
 		size = 'medium',
-		value,
-		onChange,
 		disabled = false,
-		defaultValue = false,
 		...rest
-	} = props
-
-	const isControlled = !is.undefined(value)
+	} = omit(props, 'defaultValue', 'value', 'onChange')
 
 	const innerRef = useRef<HTMLInputElement>(null)
 	const checkboxRef = useComposeRef(innerRef, propRef)
-	const [checked, setChecked] = useState(isControlled ? value : defaultValue)
-
-	useEffect(() => {
-		if (isControlled) setChecked(value)
-	}, [isControlled, value])
+	const [checked, setChecked] = useControllable<boolean>(props, {
+		defaultValue: false
+	})
 
 	const handleChange: ChangeEventHandler<HTMLInputElement> = event => {
 		setChecked(event.target.checked)
-		if (isControlled) {
-			onChange?.(event.target.checked)
-		} else {
-			onChange?.(event)
-		}
 	}
 
 	const prefixCls = `${UI_PREFIX}-checkbox`
-	const checkedProps = isControlled ? { checked } : { defaultChecked: defaultValue }
 
 	return (
 		<label
@@ -61,12 +48,12 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, propRef) =>
 			{...rest}
 		>
 			<input
-				{...checkedProps}
 				disabled={disabled}
 				className={`${prefixCls}-inner`}
 				ref={checkboxRef}
 				type="checkbox"
 				aria-checked={checked}
+				checked={checked}
 				onChange={handleChange}
 			/>
 			<div className={`${prefixCls}-icon`}>
@@ -76,8 +63,8 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, propRef) =>
 		</label>
 	)
 })
-Checkbox.displayName = 'CHheckbox'
 
+Checkbox.displayName = 'Checkbox'
 const ExportCheckbox = Checkbox as typeof Checkbox & {
 	Group: typeof CheckboxGroup
 }

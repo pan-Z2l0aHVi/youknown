@@ -1,42 +1,34 @@
 import './switch.scss'
 
-import { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useEffect, useRef, useState } from 'react'
+import { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useRef } from 'react'
 
-import { useComposeRef } from '@youknown/react-hook/src'
-import { cls, is } from '@youknown/utils/src'
+import { useComposeRef, useControllable } from '@youknown/react-hook/src'
+import { cls, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 
-interface SwitchProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultValue'> {
+interface SwitchProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
 	size?: 'small' | 'medium' | 'large'
 	disabled?: boolean
 	defaultValue?: boolean
 	value?: boolean
-	onChange?: ChangeEventHandler<HTMLInputElement> & ((value?: boolean) => void)
+	onChange?: (value: boolean) => void
 }
 
 const Switch = forwardRef<HTMLInputElement, SwitchProps>((props, propRef) => {
-	const { className, size = 'medium', disabled = false, defaultValue, value = false, onChange, ...rest } = props
+	const { className, size = 'medium', disabled = false, ...rest } = omit(props, 'defaultValue', 'value', 'onChange')
 
-	const isControlled = is.undefined(defaultValue)
+	const [checked, setChecked] = useControllable(props, {
+		defaultValue: false
+	})
 	const innerRef = useRef<HTMLInputElement>(null)
 	const switchRef = useComposeRef(innerRef, propRef)
-	const defaultChecked = isControlled ? value : defaultValue ?? false
-	const [checked, setChecked] = useState(defaultChecked)
-
-	useEffect(() => {
-		if (isControlled) setChecked(value)
-	}, [isControlled, value])
 
 	const handleChange: ChangeEventHandler<HTMLInputElement> = event => {
 		setChecked(event.target.checked)
-		if (isControlled) onChange?.(event.target.checked)
-		else onChange?.(event)
 	}
 
 	const prefixCls = `${UI_PREFIX}-switch`
-
-	const checkedProps = isControlled ? { checked } : { defaultChecked: true }
 
 	return (
 		<label
@@ -51,10 +43,10 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>((props, propRef) => {
 				ref={switchRef}
 				type="checkbox"
 				disabled={disabled}
-				onChange={handleChange}
 				role="switch"
 				aria-checked={checked}
-				{...checkedProps}
+				checked={checked}
+				onChange={handleChange}
 			/>
 		</label>
 	)

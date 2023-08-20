@@ -2,6 +2,7 @@ import './textarea.scss'
 
 import {
 	ChangeEventHandler,
+	ComponentProps,
 	FocusEventHandler,
 	forwardRef,
 	MutableRefObject,
@@ -11,12 +12,12 @@ import {
 } from 'react'
 import TextareaAutosize, { TextareaHeightChangeMeta } from 'react-textarea-autosize'
 
-import { useBoolean, useComposeRef } from '@youknown/react-hook/src'
-import { cls, is } from '@youknown/utils/src'
+import { useBoolean, useComposeRef, useControllable } from '@youknown/react-hook/src'
+import { cls, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 
-interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
 	autosize?: boolean
 	minRows?: number
 	maxRows?: number
@@ -24,7 +25,7 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 	bordered?: boolean
 	outline?: boolean
 	value?: string | number
-	onChange?: ChangeEventHandler<HTMLTextAreaElement> & ((value?: string | number) => void)
+	onChange?: (value?: string | number) => void
 }
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, propRef) => {
@@ -36,23 +37,21 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, propRef)
 		outline = true,
 		minRows = 1,
 		maxRows = Infinity,
-		defaultValue,
-		value,
-		onChange,
 		onFocus,
 		onBlur,
 		...rest
-	} = props
+	} = omit(props, 'defaultValue', 'value', 'onChange')
 
 	const innerRef = useRef<HTMLTextAreaElement>(null)
 	const textareaRef = useComposeRef(propRef, innerRef) as MutableRefObject<null>
 	const [focus, { setTrue: setFocus, setFalse: setBlur }] = useBoolean(false)
 	const [lockScroll, setLockScroll] = useState(false)
-	const isControlled = !is.undefined(value)
+	const [value, setValue] = useControllable(props, {
+		defaultValue: ''
+	})
 
 	const handleChange: ChangeEventHandler<HTMLTextAreaElement> = event => {
-		if (isControlled) onChange?.(event.target.value)
-		else onChange?.(event)
+		setValue(event.target.value)
 	}
 
 	const handleFocus: FocusEventHandler<HTMLTextAreaElement> = event => {
@@ -66,7 +65,6 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, propRef)
 	}
 
 	const TextareaComp = autosize ? TextareaAutosize : 'textarea'
-	const valueProps = isControlled ? { value } : { defaultValue }
 	const autosizeProps = autosize
 		? {
 				minRows,
@@ -89,14 +87,14 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, propRef)
 			})}
 		>
 			<TextareaComp
-				{...valueProps}
 				{...autosizeProps}
-				{...(rest as any)}
+				{...(rest as ComponentProps<typeof TextareaAutosize>)}
 				className={cls(`${prefixCls}-inner`, {
 					[`${prefixCls}-inner-lock-scroll`]: lockScroll
 				})}
 				ref={textareaRef}
 				disabled={disabled}
+				value={value}
 				onChange={handleChange}
 				onFocus={handleFocus}
 				onBlur={handleBlur}

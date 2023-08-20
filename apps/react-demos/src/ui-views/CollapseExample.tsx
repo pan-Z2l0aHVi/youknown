@@ -3,13 +3,13 @@ import { useState } from 'react'
 import { Button, Collapse, Divider } from '@youknown/react-ui/src'
 
 export default () => {
-	const [controlledActives, setControlledActives] = useState<(string | number)[]>([])
+	const [controlledActives, setControlledActives] = useState<(string | number)[]>([1])
 	const [customHeaderExpend, setCustomHeaderExpend] = useState<boolean>(false)
 	return (
 		<div className="p-24px">
 			<h1>Collapse</h1>
 			<Divider />
-			<Collapse>
+			<Collapse defaultActives={['1']} onChange={console.log}>
 				<Collapse.Panel itemKey="1" title="Panel title1">
 					<div className="p-8px color-#999">
 						<p>Basic collapse</p>
@@ -46,23 +46,22 @@ export default () => {
 			</Collapse>
 			<Divider />
 			<Collapse
-				defaultActives={[1]}
 				actives={controlledActives}
 				onChange={actives => {
 					setControlledActives(actives)
 				}}
 			>
-				<Collapse.Panel itemKey="1" title="Panel title1">
+				<Collapse.Panel itemKey={1} title="Panel title1">
 					<div className="p-8px color-#999">
 						<p>Controlled collapse</p>
 					</div>
 				</Collapse.Panel>
-				<Collapse.Panel itemKey="2" title="Panel title2">
+				<Collapse.Panel itemKey={2} title="Panel title2">
 					<div className="p-8px color-#999">
 						<p>Controlled collapse</p>
 					</div>
 				</Collapse.Panel>
-				<Collapse.Panel itemKey="3" title="Panel title3">
+				<Collapse.Panel itemKey={3} title="Panel title3">
 					<div className="p-8px color-#999">
 						<p>Controlled collapse</p>
 					</div>

@@ -23,15 +23,10 @@ export default () => {
 			<h1>Checkbox</h1>
 			<Divider />
 			<Space>
-				<Checkbox defaultValue={true}>Basic</Checkbox>
-				<Checkbox
-					value={val}
-					onChange={value => {
-						if (typeof value === 'boolean') {
-							setVal(value)
-						}
-					}}
-				>
+				<Checkbox defaultValue={true} onChange={console.log}>
+					Basic
+				</Checkbox>
+				<Checkbox value={val} onChange={setVal}>
 					Controlled
 				</Checkbox>
 			</Space>

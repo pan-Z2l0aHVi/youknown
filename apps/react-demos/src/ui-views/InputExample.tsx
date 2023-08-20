@@ -13,14 +13,8 @@ export default () => {
 			<h1>Input</h1>
 			<Divider />
 			<Space>
-				<Input defaultValue="Hi" placeholder="Basic" />
-				<Input
-					placeholder="Controlled"
-					value={inputVal}
-					onChange={value => {
-						if (typeof value === 'string') setInputVal(value)
-					}}
-				/>
+				<Input defaultValue="Hi" onChange={console.log} placeholder="Basic" />
+				<Input placeholder="Controlled" value={inputVal} onChange={setInputVal} />
 			</Space>
 			<Divider />
 			<Space>

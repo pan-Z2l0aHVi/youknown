@@ -1,17 +1,9 @@
 import './checkbox-group.scss'
 
-import {
-	ChangeEvent,
-	Children,
-	cloneElement,
-	ComponentProps,
-	forwardRef,
-	HTMLAttributes,
-	isValidElement,
-	ReactNode
-} from 'react'
+import { Children, cloneElement, ComponentProps, forwardRef, HTMLAttributes, isValidElement, ReactNode } from 'react'
 
-import { cls, is } from '@youknown/utils/src'
+import { useControllable } from '@youknown/react-hook/src'
+import { cls, is, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Space from '../space'
@@ -39,39 +31,31 @@ const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>((props, pro
 		size = 'medium',
 		options = [],
 		disabled = false,
-		defaultValue,
-		value = [],
-		onChange,
 		...rest
-	} = props
+	} = omit(props, 'defaultValue', 'value', 'onChange')
 
-	const isControlled = is.undefined(defaultValue)
+	const [value, setValue] = useControllable<(string | number)[]>(props, {
+		defaultValue: []
+	})
 
-	const getHandleSubChange = (label?: string | number) => (subParam: ChangeEvent<HTMLInputElement> | boolean) => {
-		if (is.undefined(label)) return
-
-		let nextValue = value
-		const hasChecked = value.includes(label)
-		const subChecked = is.boolean(subParam) ? subParam : subParam.target.checked
-
-		if (subChecked) {
-			if (!hasChecked) {
-				nextValue.push(label)
-			}
-		} else {
-			if (hasChecked) {
-				nextValue = nextValue.filter(item => item !== label)
-			}
+	const getHandleSubChange = (label?: string | number) => (subChecked: boolean) => {
+		if (is.undefined(label)) {
+			return
 		}
-		onChange?.(nextValue)
-	}
+		setValue?.(p => {
+			const hasChecked = p.includes(label)
 
-	const getValueProps = (label?: string | number) => {
-		if (is.undefined(label)) return
-
-		if (isControlled) return { value: value.includes(label) }
-
-		return { defaultValue: defaultValue.includes(label) }
+			if (subChecked) {
+				if (!hasChecked) {
+					return [...p, label]
+				}
+			} else {
+				if (hasChecked) {
+					return p.filter(item => item !== label)
+				}
+			}
+			return p
+		})
 	}
 
 	const prefixCls = `${UI_PREFIX}-checkbox-group`
@@ -92,8 +76,8 @@ const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>((props, pro
 							label={option.label}
 							size={size}
 							disabled={disabled || option.disabled}
+							value={value.includes(option.label)}
 							onChange={getHandleSubChange(option.label)}
-							{...getValueProps(option.label)}
 						>
 							{option.child}
 						</Checkbox>
@@ -104,8 +88,8 @@ const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>((props, pro
 						? cloneElement(child, {
 								size,
 								disabled: disabled || child.props.disabled,
-								onChange: getHandleSubChange(child.props.label),
-								...getValueProps(child.props.label)
+								value: !!child.props.label && value.includes(child.props.label),
+								onChange: getHandleSubChange(child.props.label)
 						  })
 						: child
 				)}

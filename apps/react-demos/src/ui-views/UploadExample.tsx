@@ -13,7 +13,6 @@ export default () => {
 			<Divider />
 			<Space>
 				<Upload
-					defaultValue={[]}
 					action={async () => {
 						await delay(2000)
 						return 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
@@ -21,16 +20,16 @@ export default () => {
 				/>
 				<Upload
 					circle
-					defaultValue={[]}
 					action={async () => {
 						await delay(2000)
 						return 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
 					}}
+					onChange={console.log}
 				/>
 			</Space>
 			<Divider />
 			<Space>
-				<Upload disabled defaultValue={[]} />
+				<Upload disabled />
 			</Space>
 			<Divider />
 			<Space>

@@ -1,7 +1,9 @@
+import { computed, nextTick, Ref, ref } from 'vue'
+
 import { omit } from '@/utils/object'
+
 import { FetchOptions, useFetch } from './useFetch'
 import useIntersection from './useIntersection'
-import { Ref, computed, nextTick, ref } from 'vue'
 
 interface InfinityOptions<T, S> extends FetchOptions<T, S> {
 	initialPage?: number

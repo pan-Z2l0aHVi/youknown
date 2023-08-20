@@ -1,7 +1,6 @@
 import './input.scss'
 
 import {
-	ChangeEvent,
 	ChangeEventHandler,
 	FocusEventHandler,
 	forwardRef,
@@ -15,8 +14,8 @@ import {
 } from 'react'
 import { IoMdCloseCircle } from 'react-icons/io'
 
-import { useBoolean, useComposeRef } from '@youknown/react-hook/src'
-import { cls, is } from '@youknown/utils/src'
+import { useBoolean, useComposeRef, useControllable } from '@youknown/react-hook/src'
+import { cls, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Textarea from './Textarea'
@@ -32,17 +31,12 @@ interface InputProps extends Omit<HTMLAttributes<HTMLInputElement>, 'maxLength' 
 	suffix?: ReactNode
 	allowClear?: boolean
 	autoFocus?: boolean
-	onChange?: ChangeEventHandler<HTMLInputElement> & ((value: string) => void)
+	onChange?: (value: string) => void
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>((props, propRef) => {
 	const {
 		className,
-		defaultValue,
-		value,
-		onFocus,
-		onBlur,
-		onChange,
 		prefix,
 		suffix,
 		size = 'medium',
@@ -52,14 +46,23 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, propRef) => {
 		autoFocus = false,
 		bordered = true,
 		outline = true,
+		onFocus,
+		onBlur,
 		...rest
-	} = props
+	} = omit(props, 'defaultValue', 'value', 'onChange')
 
 	const ref = useRef<HTMLInputElement>(null)
 	const inputRef = useComposeRef(ref, propRef) as MutableRefObject<HTMLInputElement>
 	const [focus, { setTrue: setFocus, setFalse: setBlur }] = useBoolean(false)
 	const [clearVisible, { setTrue: showClear, setFalse: hideClear, setBool: setClearVisible }] = useBoolean(false)
-	const isControlled = !is.undefined(value)
+	const [value, setValue] = useControllable(props, {
+		defaultValue: ''
+	})
+	useEffect(() => {
+		if (value) {
+			showClear()
+		}
+	}, [value, showClear])
 
 	const handleFocus: FocusEventHandler<HTMLInputElement> = event => {
 		onFocus?.(event)
@@ -71,18 +74,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, propRef) => {
 	}
 	const handleChange: ChangeEventHandler<HTMLInputElement> = event => {
 		const { value } = event.target
-
-		if (isControlled) onChange?.(value)
-		else onChange?.(event)
-
+		setValue(value)
 		setClearVisible(!!value)
 	}
 	const handleClear = () => {
-		if (isControlled) onChange?.('')
-		else {
-			inputRef.current.value = ''
-			onChange?.({ target: inputRef.current } as ChangeEvent<HTMLInputElement>)
-		}
+		setValue('')
 		hideClear()
 	}
 
@@ -92,10 +88,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, propRef) => {
 		}
 	}
 
-	useEffect(() => {
-		if (defaultValue) showClear()
-	}, [defaultValue, showClear])
-
 	useLayoutEffect(() => {
 		if (autoFocus) {
 			inputRef.current.focus()
@@ -104,8 +96,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, propRef) => {
 	}, [autoFocus, inputRef, setFocus])
 
 	const prefixCls = `${UI_PREFIX}-input`
-
-	const valueProps = isControlled ? { value } : { defaultValue }
 
 	return (
 		<label
@@ -120,16 +110,16 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, propRef) => {
 			{prefix}
 			<input
 				{...rest}
-				{...valueProps}
 				disabled={disabled}
 				className={`${prefixCls}-inner`}
 				ref={inputRef}
 				// 去除 size=20 最小宽度
 				size={1}
 				type="text"
+				value={value}
+				onChange={handleChange}
 				onFocus={handleFocus}
 				onBlur={handleBlur}
-				onChange={handleChange}
 			/>
 			{allowClear && (
 				<IoMdCloseCircle

@@ -10,12 +10,8 @@ export default () => {
 			<Divider />
 			<Space>
 				<Switch defaultValue={true} />
-				<Switch
-					value={checked}
-					onChange={checked => {
-						if (typeof checked === 'boolean') setChecked(checked)
-					}}
-				/>
+				<Switch onChange={val => console.log(val)} />
+				<Switch value={checked} onChange={setChecked} />
 				<Switch disabled defaultValue={true} />
 				<Switch disabled />
 			</Space>
