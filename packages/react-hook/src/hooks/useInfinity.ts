@@ -35,6 +35,9 @@ export function useInfinity<T extends any[], S extends any[]>(
 		...fetchOpts,
 		ready,
 		onSuccess(data, params) {
+			if (noMore) {
+				return
+			}
 			fetchOpts.onSuccess?.(data, params)
 			setData(p => {
 				if (page <= initialPage) {
@@ -42,9 +45,10 @@ export function useInfinity<T extends any[], S extends any[]>(
 				}
 				return [...p, ...data] as T
 			})
-			setPage(p => p + 1)
 			if (data.length < pageSize) {
 				setNoMore(true)
+			} else {
+				setPage(p => p + 1)
 			}
 		}
 	})

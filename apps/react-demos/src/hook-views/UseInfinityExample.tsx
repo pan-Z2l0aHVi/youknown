@@ -62,6 +62,7 @@ function ToLowerLoadMore() {
 	const containerRef = useRef(null)
 	const lowerRef = useRef(null)
 	const { page, pageSize, data, loading, noMore, reset } = useInfinity(fetcher, {
+		initialPageSize: 50,
 		target: lowerRef,
 		observerInit: {
 			root: containerRef.current,

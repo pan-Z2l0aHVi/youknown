@@ -40,13 +40,11 @@ export function fetchListWithTotal(params: { page: number; page_size: number }):
 	})
 }
 
-export function fetchList(params: { page: number; page_size: number }): Promise<
-	Resp<
-		{
-			id: number
-			content: string
-		}[]
-	>
+export function mockFetchList(params: { page: number; page_size: number }): Promise<
+	{
+		id: number
+		content: string
+	}[]
 > {
 	return new Promise(resolve => {
 		const span = 50 + 200 * Math.random()
@@ -54,13 +52,8 @@ export function fetchList(params: { page: number; page_size: number }): Promise<
 			const { page, page_size } = params
 			const begin = (page - 1) * page_size
 			const list = allList.slice(begin, begin + page_size)
-			const res = {
-				code: 0,
-				msg: '',
-				data: list
-			}
-			resolve(res)
-			console.warn('Fake fetch list', `${Math.round(span)}ms`, params, res.data)
+			resolve(list)
+			console.warn('Fake fetch list', `${Math.round(span)}ms`, params, list)
 		}, span)
 	})
 }

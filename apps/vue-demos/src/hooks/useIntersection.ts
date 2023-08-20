@@ -1,28 +1,26 @@
-import { onBeforeUnmount, ref, Ref, watchPostEffect } from 'vue'
+import { ref, Ref, watchPostEffect } from 'vue'
 
 /**
  * @param target
  */
 export default function useIntersection(
-	target: Ref<HTMLElement | null>,
+	target?: Ref<HTMLElement | null>,
 	observerInit?: () => IntersectionObserverInit
 ) {
-	let observe: IntersectionObserver | null = null
 	const isIntersection = ref(false)
-	watchPostEffect(() => {
-		if (!target.value) return
+	watchPostEffect(onCleanup => {
+		if (!target?.value) return
 
-		observe?.disconnect()
-		observe = new IntersectionObserver(entries => {
+		const observe = new IntersectionObserver(entries => {
 			entries.forEach(entry => {
 				isIntersection.value = entry.isIntersecting
 			})
 		}, observerInit?.())
-		observe.observe(target.value)
-	})
-
-	onBeforeUnmount(() => {
-		observe?.disconnect()
+		const currentTarget = target.value
+		observe.observe(currentTarget)
+		onCleanup(() => {
+			observe.unobserve(currentTarget)
+		})
 	})
 
 	return isIntersection

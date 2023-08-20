@@ -35,7 +35,7 @@ export default function DocList() {
 		pageSize: page_size,
 		data: doc_list,
 		noMore: no_more,
-		reset: reset_docs
+		mutate: set_doc_list
 	} = useInfinity(docs_fetcher, {
 		initialPageSize: 20,
 		target: loading_ref,
@@ -43,6 +43,7 @@ export default function DocList() {
 			root: app_content_el,
 			rootMargin: '0px 0px 200px 0px'
 		},
+		ready: is_login,
 		onError() {
 			Toast.show({ title: '服务异常，请稍后再试' })
 		}
@@ -97,6 +98,8 @@ export default function DocList() {
 			console.error('error: ', error)
 		}
 	}
+
+	const selected_ids = selection.map(item => item.doc_id)
 
 	const filter_drawer = (
 		<Drawer
@@ -159,7 +162,7 @@ export default function DocList() {
 
 	const choosing_bar = (
 		<Motion.Slide in={choosing} direction="up" unmountOnExit>
-			<div className="fixed bottom-40px left-[calc(50%-120px)] p-8px bg-bg-1 b-1 b-solid b-bd-line b-rd-radius-l shadow-shadow-l">
+			<div className="z-2 fixed bottom-40px left-[calc(50%-120px)] p-8px bg-bg-1 b-1 b-solid b-bd-line b-rd-radius-l shadow-shadow-l">
 				<Space align="center">
 					<Tooltip spacing={12} placement="top" title="删除">
 						<Button circle text disabled={!has_selection} onClick={show_doc_delete_dialog}>
@@ -202,12 +205,15 @@ export default function DocList() {
 
 			{doc_list.map(doc => {
 				const is_selected = selection.some(item => item.doc_id === doc.doc_id)
-				const choose_doc = () => {
+				const on_choose = () => {
 					if (is_selected) {
 						set_selection(p => p.filter(item => item.doc_id !== doc.doc_id))
 					} else {
 						set_selection(p => [...p, doc])
 					}
+				}
+				const on_deleted = () => {
+					set_doc_list(p => p.filter(item => item.doc_id !== doc.doc_id))
 				}
 				return (
 					<DocCard
@@ -215,41 +221,46 @@ export default function DocList() {
 						choosing={choosing}
 						selected={is_selected}
 						info={doc}
-						on_choose={choose_doc}
-						on_deleted={reset_docs}
+						on_choose={on_choose}
+						on_deleted={on_deleted}
 					/>
 				)
 			})}
 		</div>
 	)
 
-	const selected_ids = selection.map(item => item.doc_id)
-
 	return (
 		<>
 			{header}
 			<div className="p-32px">{doc_card_list}</div>
-			{no_more ? (
-				<div
-					className={cls(
-						'relative flex justify-center items-center h-80px',
-						'after:absolute after:content-empty after:w-240px after:b-b-1 after:b-b-solid after:b-bd-line'
+			{is_login && (
+				<>
+					{no_more ? (
+						<div
+							className={cls(
+								'relative flex justify-center items-center h-80px',
+								'after:absolute after:content-empty after:w-240px after:b-b-1 after:b-b-solid after:b-bd-line'
+							)}
+						>
+							<div className="z-1 pl-8px pr-8px bg-bg-0 color-text-2">没有更多内容了</div>
+						</div>
+					) : (
+						<div ref={loading_ref} className="flex justify-center items-center h-80px">
+							<Loading spinning className="mr-8px" />
+							<span className="color-text-2">加载中...</span>
+						</div>
 					)}
-				>
-					<div className="z-1 pl-8px pr-8px bg-bg-0 color-text-2">没有更多内容了</div>
-				</div>
-			) : (
-				<div ref={loading_ref} className="flex justify-center items-center h-80px">
-					<Loading spinning className="mr-8px" />
-					<span className="color-text-2">加载中...</span>
-				</div>
+				</>
 			)}
 			{choosing_bar}
 			<DocDeleteDialog
 				open={doc_delete_dialog_open}
 				hide_dialog={hide_doc_delete_dialog}
 				doc_ids={selected_ids}
-				on_deleted={reset_docs}
+				on_deleted={() => {
+					set_doc_list(p => p.filter(item => !selected_ids.includes(item.doc_id)))
+					cancel_choosing()
+				}}
 			/>
 			{filter_drawer}
 		</>

@@ -6,11 +6,19 @@ export const navTabRoutes: (RouteRecordRaw & {
 	}
 })[] = [
 	{
-		path: '/page_list',
-		name: 'page_list',
-		component: () => import('@/views/page-list/index.vue'),
+		path: '/use_fetch',
+		name: 'use_fetch',
+		component: () => import('@/views/use-fetch/index.vue'),
 		meta: {
-			title: 'Page List'
+			title: 'Use fetch hook'
+		}
+	},
+	{
+		path: '/use_infinity',
+		name: 'use_infinity',
+		component: () => import('@/views/use-infinity/index.vue'),
+		meta: {
+			title: 'Use infinity hook'
 		}
 	},
 	{
@@ -58,7 +66,7 @@ export const navTabRoutes: (RouteRecordRaw & {
 export const routes: RouteRecordRaw[] = [
 	{
 		path: '/',
-		redirect: '/page_list'
+		redirect: navTabRoutes[0].path
 	},
 	...navTabRoutes,
 	{

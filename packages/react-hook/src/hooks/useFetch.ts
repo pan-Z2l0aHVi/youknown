@@ -60,6 +60,11 @@ export function useFetch<T, S extends any[]>(fetcher: (...args: S) => Promise<T>
 			})
 	})
 
+	const cancel = () => {
+		fetchCount.current++
+		setLoading(false)
+	}
+
 	useEffect(
 		() => {
 			if (!manual && ready) {
@@ -70,5 +75,5 @@ export function useFetch<T, S extends any[]>(fetcher: (...args: S) => Promise<T>
 		[manual, ready, run, ...refreshDeps]
 	)
 
-	return { data, error, loading, run, mutate: setData }
+	return { data, error, loading, run, cancel, mutate: setData }
 }
