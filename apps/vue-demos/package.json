@@ -14,10 +14,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tiptap/extension-placeholder": "^2.0.3",
-    "@tiptap/pm": "^2.0.3",
-    "@tiptap/starter-kit": "^2.0.3",
-    "@tiptap/vue-3": "^2.0.3",
+    "@tiptap/extension-placeholder": "^2.1.6",
+    "@tiptap/pm": "^2.1.6",
+    "@tiptap/starter-kit": "^2.1.6",
+    "@tiptap/vue-3": "^2.1.6",
     "@youknown/css": "workspace:*",
     "@youknown/utils": "workspace:*",
     "crypto-js": "^4.1.1",
