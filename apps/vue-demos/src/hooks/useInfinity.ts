@@ -54,7 +54,7 @@ export function useInfinity<T extends any[], S extends any[]>(
 	})
 	const { run, ...rest } = omit(fetchResult, 'data')
 
-	const reset = () => {
+	const reload = () => {
 		page.value = initialPage
 		pageSize.value = initialPageSize
 		noMore.value = false
@@ -76,7 +76,7 @@ export function useInfinity<T extends any[], S extends any[]>(
 		pageSize,
 		noMore,
 		loadMore: run,
-		reset,
+		reload,
 		...rest
 	}
 }

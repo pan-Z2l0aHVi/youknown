@@ -1,6 +1,6 @@
 import { MutableRefObject, SetStateAction, useState } from 'react'
 
-import { is, omit } from '@youknown/utils/src'
+import { is, microDefer, omit } from '@youknown/utils/src'
 
 import { useCreation } from './useCreation'
 import { useEvent } from './useEvent'
@@ -59,7 +59,7 @@ export function useInfinity<T extends any[], S extends any[]>(
 		setPageSize(arg)
 	})
 
-	const reset = useEvent(() => {
+	const reload = useEvent(() => {
 		setPage(initialPage)
 		setPageSize(initialPageSize)
 		setNoMore(false)
@@ -68,7 +68,7 @@ export function useInfinity<T extends any[], S extends any[]>(
 		if (root instanceof HTMLElement) {
 			root.scrollTo(0, 0)
 		}
-		setTimeout(() => {
+		microDefer(() => {
 			loadMore()
 		})
 	})
@@ -78,7 +78,7 @@ export function useInfinity<T extends any[], S extends any[]>(
 		page,
 		pageSize,
 		changePageSize,
-		reset,
+		reload,
 		mutate: setData,
 		noMore,
 		loadMore,

@@ -4,7 +4,7 @@ import { ComponentProps, FC, ReactElement, ReactNode, useCallback, useState } fr
 import { createRoot, Root } from 'react-dom/client'
 import { TransitionGroup } from 'react-transition-group'
 
-import { cls, is, uuid } from '@youknown/utils/src'
+import { cls, is, microDefer, uuid } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Motion from '../motion'
@@ -128,7 +128,7 @@ const ExportToast: {
 			boxRoot.render(toastInst)
 
 			// render 之后立马执行 show
-			Promise.resolve().then(() => {
+			microDefer(() => {
 				Toast.show?.({ ...props, id })
 			})
 		} else {

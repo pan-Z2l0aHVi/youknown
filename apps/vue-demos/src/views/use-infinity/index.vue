@@ -1,6 +1,6 @@
 <template>
 	<div class="flex flex-col items-center mt-24px">
-		<button @click="reset">Reset</button>
+		<button @click="reload">Reload</button>
 		<div ref="containerRef" class="max-h-480px w-100% overflow-auto bg-#fff">
 			<ul v-if="data" class="p-16px">
 				<li v-for="item in data" :key="item.id" class="mb-32px">{{ item.content }}</li>
@@ -49,7 +49,7 @@ const fetcher = (): ReturnType<typeof mockFetchInfinity> =>
 		page: page.value,
 		page_size: pageSize.value
 	})
-const { page, pageSize, data, noMore, loading, reset } = useInfinity(fetcher, {
+const { page, pageSize, data, noMore, loading, reload } = useInfinity(fetcher, {
 	initialPageSize: 50,
 	target: lowerRef,
 	observerInit: () => ({

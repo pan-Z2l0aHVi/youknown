@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { RiFilter3Fill } from 'react-icons/ri'
 import { TbChevronDown, TbSearch } from 'react-icons/tb'
 
-import { useBoolean, useCreation, useEvent, useUpdate } from '@youknown/react-hook/src'
+import { useBoolean, useCreation, useMount, useUpdate, useEvent } from '@youknown/react-hook/src'
 import { Button, Form, Input, Motion, Select, Space } from '@youknown/react-ui/src'
-import { cls, storage } from '@youknown/utils/src'
+import { cls, microDefer, storage } from '@youknown/utils/src'
 
 export interface filterState {
 	ai_art_filter: 0 | 1
@@ -24,6 +24,7 @@ export type WallpaperQuery = Omit<filterState, 'categories' | 'purity'> & {
 }
 
 interface WallpaperFilerProps {
+	loading: boolean
 	on_query_change: (query: WallpaperQuery) => void
 	search: (query: WallpaperQuery) => void
 	reset: () => void
@@ -33,13 +34,13 @@ const FILTER_STATE_KEY = 'wallpaper_filter_state'
 const FILTER_KEYWORDS_KEY = 'wallpaper_filter_keywords'
 
 export default function WallpaperFilter(props: WallpaperFilerProps) {
-	const { on_query_change, search, reset } = props
+	const { loading, on_query_change, search, reset } = props
 	const update = useUpdate()
 	const [filter_open, { setReverse: toggle_filter }] = useBoolean(true)
 	const session_keywords = useCreation(() => storage.session.get(FILTER_KEYWORDS_KEY))
 	const [keywords, set_keywords] = useState(session_keywords ?? '')
-
 	const session_filter_state = useCreation(() => storage.session.get<filterState>(FILTER_STATE_KEY))
+
 	const form = Form.useForm<filterState>({
 		defaultState: session_filter_state ?? {
 			ai_art_filter: 0,
@@ -52,8 +53,8 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 			order: 'desc'
 		},
 		onFulfilled(state) {
-			console.log('state: ', state)
-			search(get_query())
+			storage.session.set(FILTER_STATE_KEY, state)
+			search(get_format_query())
 		},
 		onStateChange(org) {
 			change_query()
@@ -69,11 +70,10 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 				default:
 					break
 			}
-			storage.session.set(FILTER_STATE_KEY, form.getState())
 		}
 	})
 
-	const get_query = useEvent((): WallpaperQuery => {
+	const get_format_query = (): WallpaperQuery => {
 		const state = form.getState()
 		let categories = '000'
 		let purity = '000'
@@ -98,15 +98,15 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 			categories,
 			purity
 		}
-	})
+	}
 
 	const change_query = useEvent(() => {
-		on_query_change(get_query())
+		on_query_change(get_format_query())
 	})
 
-	useEffect(() => {
+	useMount(() => {
 		change_query()
-	}, [change_query])
+	})
 
 	const { sorting } = form.getState()
 	const at_least_options = [
@@ -115,47 +115,47 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 			value: '0x0'
 		},
 		{
-			label: '不低于1920x1080',
+			label: '至少 1920x1080',
 			value: '1920x1080'
 		},
 		{
-			label: '不低于2560x1400',
+			label: '至少 2560x1400',
 			value: '2560x1400'
 		},
 		{
-			label: '不低于3840x2160',
+			label: '至少 3840x2160',
 			value: '3840x2160'
 		},
 		{
-			label: '不低于2560x1080',
+			label: '至少 2560x1080',
 			value: '2560x1080'
 		},
 		{
-			label: '不低于3440x1440',
+			label: '至少 3440x1440',
 			value: '3440x1440'
 		},
 		{
-			label: '不低于5120x2160',
+			label: '至少 5120x2160',
 			value: '5120x2160'
 		},
 		{
-			label: '不低于1080x2340',
+			label: '至少 1080x2340',
 			value: '1080x2340'
 		},
 		{
-			label: '不低于1284x2778',
+			label: '至少 1284x2778',
 			value: '1284x2778'
 		},
 		{
-			label: '不低于1920x1440',
+			label: '至少 1920x1440',
 			value: '1920x1440'
 		},
 		{
-			label: '不低于2560x1920',
+			label: '至少 2560x1920',
 			value: '2560x1920'
 		},
 		{
-			label: '不低于3840x2880',
+			label: '至少 3840x2880',
 			value: '3840x2880'
 		}
 	]
@@ -172,6 +172,9 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 						onChange={val => {
 							storage.session.set(FILTER_KEYWORDS_KEY, val)
 							set_keywords(val as string)
+							microDefer(() => {
+								change_query()
+							})
 						}}
 					/>
 					<Button icon={<RiFilter3Fill className="text-16px" />} onClick={toggle_filter}>
@@ -360,12 +363,14 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 						<Button
 							onClick={() => {
 								form.reset()
-								reset()
+								microDefer(() => {
+									reset()
+								})
 							}}
 						>
 							全部重置
 						</Button>
-						<Button primary icon={<TbSearch />} onClick={form.submit}>
+						<Button primary icon={<TbSearch />} loading={loading} onClick={form.submit}>
 							筛选
 						</Button>
 					</Space>

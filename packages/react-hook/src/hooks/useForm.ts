@@ -1,8 +1,9 @@
-import { ChangeEvent, FormEventHandler, useCallback, useRef, useState } from 'react'
+import { ChangeEvent, FormEventHandler, useRef, useState } from 'react'
 
 import { is, ValueOf } from '@youknown/utils/src'
 
-import { useLatestRef } from './useLatestRef'
+import { useCreation } from './useCreation'
+import { useEvent } from './useEvent'
 
 interface State {
 	[key: string]: any
@@ -36,16 +37,16 @@ export interface Form<S = any> {
 	reset(): void
 }
 
-export function useForm<S extends State>(options: Options<S>): Form<S> {
-	const opts = useLatestRef(options)
-
-	const state = useRef<S>(opts.current.defaultState)
+export function useForm<S extends State>(opts: Options<S>): Form<S> {
+	const defaultState = useCreation(() => opts.defaultState)
+	// shallow copy
+	const state = useRef<S>({ ...defaultState })
 	const fields = useRef<Field<S>[]>([])
 	const controllerMap = useRef<Partial<Record<Field<S>['label'], any>>>({})
 
-	const getState = useCallback(() => state.current, [])
+	const getState = useEvent(() => state.current)
 
-	const setState = useCallback((newState: Partial<S>) => {
+	const setState = useEvent((newState: Partial<S>) => {
 		fields.current.forEach(field => {
 			Object.entries(newState).forEach(([key, value]) => {
 				if (key === field.label) {
@@ -54,55 +55,50 @@ export function useForm<S extends State>(options: Options<S>): Form<S> {
 				}
 			})
 		})
-	}, [])
+	})
 
-	const reset = useCallback(() => {
-		setState(opts.current.defaultState)
-	}, [opts, setState])
+	const reset = useEvent(() => {
+		setState(defaultState)
+	})
 
-	const submit = useCallback(() => {
-		opts.current.onFulfilled?.(state.current)
-	}, [opts])
+	const submit = useEvent(() => {
+		opts.onFulfilled?.(state.current)
+	})
 
-	const onSubmit: FormEventHandler = useCallback(
-		event => {
-			event.preventDefault()
-			event.stopPropagation()
-			submit()
-		},
-		[submit]
-	)
+	const onSubmit: FormEventHandler = useEvent(event => {
+		event.preventDefault()
+		event.stopPropagation()
+		submit()
+	})
 
-	const subscribe = useCallback(
-		(label: Field<S>['label'], options: Field<S>['options']) => {
-			const field: Field<S> = { label, options }
-			fields.current.push(field)
-			const controller: FieldController<S> = {
-				onChange(arg) {
-					let val = arg
-					if ((arg as controllerChangeEvent)?.nativeEvent instanceof Event)
-						val = (arg as controllerChangeEvent).target.value as ValueOf<S>
+	const subscribe = useEvent((label: Field<S>['label'], options: Field<S>['options']) => {
+		const field: Field<S> = { label, options }
+		fields.current.push(field)
+		const controller: FieldController<S> = {
+			onChange(arg) {
+				let val = arg
+				if ((arg as controllerChangeEvent)?.nativeEvent instanceof Event)
+					val = (arg as controllerChangeEvent).target.value as ValueOf<S>
 
-					state.current[label] = val as ValueOf<S>
-					opts.current.onStateChange?.(field)
-					options.onChange?.(val)
-				}
+				state.current[label] = val as ValueOf<S>
+				opts.onStateChange?.(field)
+				options.onChange?.(val)
 			}
+		}
 
-			if (is.undefined(state.current[label])) {
-				controller.defaultValue = opts.current.defaultState[label]
-			} else {
-				controller.value = state.current[label]
-			}
-			controllerMap.current[label] = controller
-			return controller
-		},
-		[opts]
-	)
-	const unsubscribe = useCallback((label: string) => {
+		if (is.undefined(state.current[label])) {
+			controller.defaultValue = defaultState[label]
+		} else {
+			controller.value = state.current[label]
+		}
+		controllerMap.current[label] = controller
+		return controller
+	})
+
+	const unsubscribe = useEvent((label: string) => {
 		fields.current = fields.current.filter(field => field.label !== label)
 		delete controllerMap.current[label]
-	}, [])
+	})
 
 	const [form] = useState({
 		submit,

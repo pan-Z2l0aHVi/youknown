@@ -54,3 +54,7 @@ export function delay(duration = 0): Promise<number> {
 		}, duration)
 	})
 }
+
+export const macroDefer = setTimeout
+
+export const microDefer = Promise.prototype.then.bind(Promise.resolve())

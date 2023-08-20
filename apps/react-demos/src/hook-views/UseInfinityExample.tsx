@@ -61,7 +61,7 @@ function ToLowerLoadMore() {
 
 	const containerRef = useRef(null)
 	const lowerRef = useRef(null)
-	const { page, pageSize, data, loading, noMore, reset } = useInfinity(fetcher, {
+	const { page, pageSize, data, loading, noMore, reload } = useInfinity(fetcher, {
 		initialPageSize: 50,
 		target: lowerRef,
 		observerInit: {
@@ -72,7 +72,7 @@ function ToLowerLoadMore() {
 
 	return (
 		<>
-			<Button onClick={reset}>Reset</Button>
+			<Button onClick={reload}>Reload</Button>
 			<div ref={containerRef} className="max-h-400px overflow-auto">
 				{data.length > 0 && (
 					<List size="large">

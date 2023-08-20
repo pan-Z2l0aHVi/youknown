@@ -17,7 +17,10 @@ export default function Wallpapers() {
 	const wrapper_ref = useRef<HTMLDivElement>(null)
 
 	const wallpaper_fetcher = async () => {
-		const { keywords, ai_art_filter, atleast, ratios, sorting, topRange, order, categories, purity } = params!
+		if (!params) {
+			return []
+		}
+		const { keywords, ai_art_filter, atleast, ratios, sorting, topRange, order, categories, purity } = params
 		const search_params: Parameters<typeof search_wallpapers>['0'] = {
 			q: keywords,
 			ai_art_filter,
@@ -30,15 +33,14 @@ export default function Wallpapers() {
 			order,
 			page
 		}
-		const list = await search_wallpapers(search_params)
-		return list
+		return search_wallpapers(search_params)
 	}
 	const {
 		page,
 		data: wallpapers,
+		loading,
 		noMore: no_more,
-		reset: reset_wallpapers,
-		loadMore: do_search
+		reload: reload_wallpapers
 	} = useInfinity(wallpaper_fetcher, {
 		initialPageSize: 48,
 		ready: !!params,
@@ -72,18 +74,14 @@ export default function Wallpapers() {
 
 	return (
 		<>
-			<Header heading="壁纸" bordered></Header>
+			<Header heading="壁纸" bordered sticky></Header>
 
 			<div className="p-[32px_16px_0]">
 				<WallpaperFilter
+					loading={loading}
 					on_query_change={set_params}
-					search={() => {
-						reset_wallpapers()
-						setTimeout(() => {
-							do_search()
-						})
-					}}
-					reset={reset_wallpapers}
+					search={reload_wallpapers}
+					reset={reload_wallpapers}
 				/>
 			</div>
 			<div className="p-[0_32px]">
