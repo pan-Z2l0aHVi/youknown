@@ -20,9 +20,10 @@ interface DocCardProps {
 	info: Doc
 	on_choose: () => void
 	on_deleted: () => void
+	on_updated: (doc: Doc) => void
 }
 export default function DocCard(props: DocCardProps) {
-	const { choosing, selected, info, on_choose, on_deleted } = props
+	const { choosing, selected, info, on_choose, on_deleted, on_updated } = props
 
 	const is_login = useAppSelector(state => state.user.is_login)
 	const dispatch = useAppDispatch()
@@ -62,11 +63,11 @@ export default function DocCard(props: DocCardProps) {
 			<div
 				ref={container_ref}
 				className={cls(
-					'relative flex flex-col h-224px b-1 b-solid b-rd-radius-l',
-					'bg-bg-1 bg-cover cursor-pointer overflow-hidden',
+					'relative flex flex-col h-224px b-1 b-solid b-bd-line b-rd-radius-l',
+					'bg-bg-1 bg-cover bg-center cursor-pointer overflow-hidden',
 					selected
-						? 'b-primary shadow-[0_0_0_1px_var(--ui-color-primary)]'
-						: 'b-bd-line hover-b-primary hover-shadow-shadow-m'
+						? 'b-primary shadow-[var(--ui-shadow-l),0_0_0_1px_var(--ui-color-primary)]'
+						: 'shadow-shadow-m hover-b-primary hover-shadow-[var(--ui-shadow-l),0_0_0_1px_var(--ui-color-primary)]'
 				)}
 				style={{ backgroundImage: `url(${info.cover})` }}
 			>
@@ -127,7 +128,12 @@ export default function DocCard(props: DocCardProps) {
 				doc_ids={[info.doc_id]}
 				on_deleted={on_deleted}
 			/>
-			<DocOptionsModal open={doc_options_modal_open} hide_modal={hide_doc_options_modal} doc_id={info.doc_id} />
+			<DocOptionsModal
+				open={doc_options_modal_open}
+				hide_modal={hide_doc_options_modal}
+				doc_id={info.doc_id}
+				on_updated={on_updated}
+			/>
 		</>
 	)
 }

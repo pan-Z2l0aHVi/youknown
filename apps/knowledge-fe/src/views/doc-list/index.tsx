@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { TbCheckbox, TbChecks, TbFilter, TbPlus, TbTrashX, TbX } from 'react-icons/tb'
 
-import { create_doc, get_docs } from '@/apis/doc'
+import { Doc, create_doc, get_docs } from '@/apis/doc'
 import Header from '@/app/components/header'
 import DocDeleteDialog from '@/components/doc-delete-dialog'
 import { useAppContentEl, useAppDispatch, useAppSelector } from '@/hooks'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { open_login_modal } from '@/store/modal'
 import { useBoolean, useInfinity } from '@youknown/react-hook/src'
-import { Loading } from '@youknown/react-ui'
-import { Button, Drawer, Form, Input, Motion, Select, Space, Toast, Tooltip } from '@youknown/react-ui/src'
+import { Loading, Button, Drawer, Form, Input, Motion, Select, Space, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
 
 import DocCard from './components/doc-card'
@@ -195,11 +194,11 @@ export default function DocList() {
 				<div
 					className={cls(
 						'flex justify-center items-center h-224px bg-bg-2 b-rd-radius-l b-1 b-dashed b-bd-line cursor-pointer',
-						'active-bg-active hover-not-active-bg-hover'
+						'group active-bg-active hover-not-active-bg-hover hover-b-primary hover-b-2px'
 					)}
 					onClick={create_new_doc}
 				>
-					<TbPlus className="text-28px color-text-3" />
+					<TbPlus className="text-28px color-text-3 group-hover-color-primary" />
 				</div>
 			)}
 
@@ -215,6 +214,14 @@ export default function DocList() {
 				const on_deleted = () => {
 					set_doc_list(p => p.filter(item => item.doc_id !== doc.doc_id))
 				}
+				const on_updated = (doc: Doc) => {
+					set_doc_list(p => {
+						const result = p.slice()
+						const index = p.findIndex(item => item.doc_id === doc.doc_id)
+						result.splice(index, 1, doc)
+						return result
+					})
+				}
 				return (
 					<DocCard
 						key={doc.doc_id}
@@ -223,6 +230,7 @@ export default function DocList() {
 						info={doc}
 						on_choose={on_choose}
 						on_deleted={on_deleted}
+						on_updated={on_updated}
 					/>
 				)
 			})}

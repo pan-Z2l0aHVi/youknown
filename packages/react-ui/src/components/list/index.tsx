@@ -1,6 +1,6 @@
 import './list.scss'
 
-import { Children, cloneElement, ComponentProps, forwardRef, HTMLAttributes, isValidElement } from 'react'
+import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, HTMLAttributes, isValidElement } from 'react'
 
 import { cls } from '@youknown/utils/src'
 
@@ -12,7 +12,7 @@ interface ListProps extends HTMLAttributes<HTMLDivElement> {
 	bordered?: boolean
 }
 
-const List = forwardRef<HTMLDivElement, ListProps>((props, propRef) => {
+const List = (props: ListProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const { className, children, size = 'medium', bordered = true, ...rest } = props
 
 	const prefixCls = `${UI_PREFIX}-list`
@@ -32,10 +32,11 @@ const List = forwardRef<HTMLDivElement, ListProps>((props, propRef) => {
 			})}
 		</div>
 	)
-})
+}
 List.displayName = 'List'
 
-const ExportList = List as typeof List & {
+const RefList = forwardRef(List)
+const ExportList = RefList as typeof RefList & {
 	Item: typeof ListItem
 }
 ExportList.Item = ListItem

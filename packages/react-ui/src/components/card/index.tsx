@@ -1,6 +1,6 @@
 import './card.scss'
 
-import { forwardRef, HTMLAttributes, isValidElement, ReactNode } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes, isValidElement, ReactNode } from 'react'
 
 import { cls } from '@youknown/utils/src'
 
@@ -14,7 +14,7 @@ interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
 	cover?: ReactNode
 }
 
-const Card = forwardRef<HTMLDivElement, CardProps>((props, propRef) => {
+const Card = (props: CardProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const { children, className, bordered = true, shadow = false, header, footer, cover, ...rest } = props
 
 	const prefixCls = `${UI_PREFIX}-card`
@@ -41,6 +41,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, propRef) => {
 			{checkNeedWrap(footer) ? <div className={`${prefixCls}-footer`}>{footer}</div> : footer}
 		</div>
 	)
-})
+}
 Card.displayName = 'Card'
-export default Card
+const RefCard = forwardRef(Card)
+export default RefCard

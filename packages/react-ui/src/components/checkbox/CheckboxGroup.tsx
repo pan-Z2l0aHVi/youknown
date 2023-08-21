@@ -1,6 +1,15 @@
 import './checkbox-group.scss'
 
-import { Children, cloneElement, ComponentProps, forwardRef, HTMLAttributes, isValidElement, ReactNode } from 'react'
+import {
+	Children,
+	cloneElement,
+	ComponentProps,
+	ForwardedRef,
+	forwardRef,
+	HTMLAttributes,
+	isValidElement,
+	ReactNode
+} from 'react'
 
 import { useControllable } from '@youknown/react-hook/src'
 import { cls, is, omit } from '@youknown/utils/src'
@@ -23,7 +32,7 @@ interface CheckboxGroupProps extends Omit<HTMLAttributes<HTMLElement>, 'onChange
 	onChange?: (value: (string | number)[]) => void
 }
 
-const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>((props, propRef) => {
+const CheckboxGroup = (props: CheckboxGroupProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		children,
 		className,
@@ -96,6 +105,7 @@ const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>((props, pro
 			</Space>
 		</div>
 	)
-})
+}
 CheckboxGroup.displayName = 'CheckboxGroup'
-export default CheckboxGroup
+const RefCheckboxGroup = forwardRef(CheckboxGroup)
+export default RefCheckboxGroup

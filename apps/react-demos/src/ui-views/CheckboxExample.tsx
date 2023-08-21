@@ -64,9 +64,7 @@ export default () => {
 					}
 				]}
 				value={groupVal}
-				onChange={value => {
-					setGroupVal(value)
-				}}
+				onChange={setGroupVal}
 			/>
 			<Divider />
 			<Space direction="vertical">
@@ -78,9 +76,7 @@ export default () => {
 						{ label: 2, child: 'Horizontal C' }
 					]}
 					value={horizontalVal}
-					onChange={value => {
-						setHorizontalVal(value)
-					}}
+					onChange={setHorizontalVal}
 				/>
 				<Checkbox.Group
 					direction="vertical"
@@ -90,9 +86,7 @@ export default () => {
 						{ label: 2, child: 'Vertical C' }
 					]}
 					value={verticalVal}
-					onChange={value => {
-						setVerticalVal(value)
-					}}
+					onChange={setVerticalVal}
 				/>
 			</Space>
 			<Divider />
@@ -120,9 +114,7 @@ export default () => {
 					{ label: 2, child: 'Options C' }
 				]}
 				value={jsxGroupVal}
-				onChange={value => {
-					setJsxGroupVal(value)
-				}}
+				onChange={setJsxGroupVal}
 			>
 				<Checkbox label={3}>JSX A</Checkbox>
 				<Checkbox label={4}>JSX B</Checkbox>

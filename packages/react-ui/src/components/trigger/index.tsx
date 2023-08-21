@@ -3,6 +3,7 @@ import './trigger.scss'
 import {
 	Children,
 	cloneElement,
+	ForwardedRef,
 	forwardRef,
 	HTMLAttributes,
 	ReactElement,
@@ -75,7 +76,7 @@ interface TriggerProps extends HTMLAttributes<HTMLElement> {
 	onOpenChange?: (open: boolean) => void
 }
 
-const Trigger = forwardRef<HTMLElement, TriggerProps>((props, propRef) => {
+const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 	const {
 		children,
 		popup,
@@ -236,6 +237,7 @@ const Trigger = forwardRef<HTMLElement, TriggerProps>((props, propRef) => {
 			{appendTo ? createPortal(portalEle, appendTo) : portalEle}
 		</>
 	)
-})
+}
 Trigger.displayName = 'Trigger'
-export default Trigger
+const RefTrigger = forwardRef(Trigger)
+export default RefTrigger

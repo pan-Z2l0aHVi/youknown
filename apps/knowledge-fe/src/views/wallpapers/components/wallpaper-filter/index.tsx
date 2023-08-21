@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { RiFilter3Fill } from 'react-icons/ri'
 import { TbChevronDown, TbSearch } from 'react-icons/tb'
 
-import { useBoolean, useCreation, useMount, useUpdate, useEvent } from '@youknown/react-hook/src'
+import { useBoolean, useCreation, useEvent, useMount, useUpdate } from '@youknown/react-hook/src'
 import { Button, Form, Input, Motion, Select, Space } from '@youknown/react-ui/src'
 import { cls, microDefer, storage } from '@youknown/utils/src'
 
@@ -171,7 +171,7 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 						value={keywords}
 						onChange={val => {
 							storage.session.set(FILTER_KEYWORDS_KEY, val)
-							set_keywords(val as string)
+							set_keywords(val)
 							microDefer(() => {
 								change_query()
 							})

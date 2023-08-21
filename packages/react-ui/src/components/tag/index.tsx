@@ -1,6 +1,6 @@
 import './tag.scss'
 
-import { forwardRef, HTMLAttributes } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
 import { TbX } from 'react-icons/tb'
 
 import { useBoolean } from '@youknown/react-hook/src'
@@ -20,7 +20,7 @@ interface TagProps extends HTMLAttributes<HTMLDivElement> {
 	onClose?: () => void | Promise<void>
 }
 
-const Tag = forwardRef<HTMLDivElement, TagProps>((props, propRef) => {
+const Tag = (props: TagProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		children,
 		className,
@@ -77,6 +77,7 @@ const Tag = forwardRef<HTMLDivElement, TagProps>((props, propRef) => {
 			)}
 		</div>
 	)
-})
+}
 Tag.displayName = 'Tag'
-export default Tag
+const RefTag = forwardRef(Tag)
+export default RefTag

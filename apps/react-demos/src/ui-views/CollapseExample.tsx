@@ -45,12 +45,7 @@ export default () => {
 				</Collapse.Panel>
 			</Collapse>
 			<Divider />
-			<Collapse
-				actives={controlledActives}
-				onChange={actives => {
-					setControlledActives(actives)
-				}}
-			>
+			<Collapse actives={controlledActives} onChange={setControlledActives}>
 				<Collapse.Panel itemKey={1} title="Panel title1">
 					<div className="p-8px color-#999">
 						<p>Controlled collapse</p>

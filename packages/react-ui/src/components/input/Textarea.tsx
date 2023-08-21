@@ -4,6 +4,7 @@ import {
 	ChangeEventHandler,
 	ComponentProps,
 	FocusEventHandler,
+	ForwardedRef,
 	forwardRef,
 	MutableRefObject,
 	TextareaHTMLAttributes,
@@ -24,11 +25,11 @@ interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>
 	disabled?: boolean
 	bordered?: boolean
 	outline?: boolean
-	value?: string | number
-	onChange?: (value?: string | number) => void
+	value?: string
+	onChange?: (value: string) => void
 }
 
-const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, propRef) => {
+const Textarea = (props: TextareaProps, propRef: ForwardedRef<HTMLTextAreaElement>) => {
 	const {
 		className,
 		autosize = false,
@@ -101,6 +102,8 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, propRef)
 			></TextareaComp>
 		</label>
 	)
-})
+}
 Textarea.displayName = 'Textarea'
-export default Textarea
+
+const RefTextarea = forwardRef(Textarea)
+export default RefTextarea

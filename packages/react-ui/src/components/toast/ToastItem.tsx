@@ -1,6 +1,6 @@
 import './toast-item.scss'
 
-import { forwardRef, HTMLAttributes, ReactNode } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode } from 'react'
 import { TbX } from 'react-icons/tb'
 
 import { cls } from '@youknown/utils/src'
@@ -14,7 +14,7 @@ interface ToastItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
 	onClose?: () => void
 }
 
-const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>((props, propRef) => {
+const ToastItem = (props: ToastItemProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const { className, title, icon, closable = false, onClose, ...rest } = props
 
 	const prefixCls = `${UI_PREFIX}-toast-item`
@@ -30,6 +30,7 @@ const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>((props, propRef) =>
 			)}
 		</div>
 	)
-})
+}
 ToastItem.displayName = 'ToastItem'
-export default ToastItem
+const RefToastItem = forwardRef(ToastItem)
+export default RefToastItem

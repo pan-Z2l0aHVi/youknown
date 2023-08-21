@@ -1,6 +1,6 @@
 import './progress.scss'
 
-import { CSSProperties, forwardRef, HTMLAttributes, ReactNode, useEffect, useRef } from 'react'
+import { CSSProperties, ForwardedRef, forwardRef, HTMLAttributes, ReactNode, useEffect, useRef } from 'react'
 import CountUp from 'react-countup'
 import { RenderCounterProps } from 'react-countup/build/types'
 
@@ -19,7 +19,7 @@ interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
 	format?: ((ref: RenderCounterProps) => ReactNode) | null
 }
 
-const Progress = forwardRef<HTMLDivElement, ProgressProps>((props, propRef) => {
+const Progress = (props: ProgressProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		className,
 		size = 'medium',
@@ -83,9 +83,11 @@ const Progress = forwardRef<HTMLDivElement, ProgressProps>((props, propRef) => {
 			)}
 		</div>
 	)
-})
+}
+Progress.displayName = 'Progress'
 
-const ExportProgress = Progress as typeof Progress & {
+const RefProgress = forwardRef(Progress)
+const ExportProgress = RefProgress as typeof RefProgress & {
 	Circle: typeof ProgressCircle
 }
 ExportProgress.Circle = ProgressCircle

@@ -38,7 +38,7 @@ export default function LinkPicker() {
 					<TbX />
 				</div>
 			</div>
-			<Input placeholder="链接地址" value={href} onChange={val => setHref(val as string)} />
+			<Input placeholder="链接地址" value={href} onChange={setHref} />
 			<Space className={`${prefixCls}-footer`}>
 				{isLink && <Button onClick={unsetLink}>移除</Button>}
 				<Button primary disabled={!href} onClick={setLink}>

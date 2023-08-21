@@ -1,13 +1,14 @@
 import { FiThumbsUp } from 'react-icons/fi'
 
-import { get_feed_list } from '@/apis'
+import { get_feed_list } from '@/apis/feed'
 import TransitionLink from '@/components/transition-link'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { open_login_modal } from '@/store/modal'
 import { record } from '@/store/record'
-import { useFetch } from '@youknown/react-hook/src'
+import { useInfinity } from '@youknown/react-hook/src'
 import { Avatar, Button, Tooltip } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
+import dayjs from 'dayjs'
 
 interface FeedProps {
 	feed_tab: number
@@ -17,14 +18,23 @@ export default function FeedList(props: FeedProps) {
 	const { feed_tab } = props
 	const dispatch = useAppDispatch()
 	const is_login = useAppSelector(state => state.user.is_login)
-	const { data: feed_list } = useFetch(get_feed_list, {
-		params: [
-			{
-				feed_tab: feed_tab
-			}
-		],
+
+	const feeds_fetcher = async () => {
+		const { list } = await get_feed_list({
+			page,
+			page_size,
+			list_type: feed_tab as 1 | 2
+		})
+		return list
+	}
+	const {
+		data: feed_list,
+		page,
+		pageSize: page_size
+	} = useInfinity(feeds_fetcher, {
 		refreshDeps: [feed_tab]
 	})
+
 	const handle_record_ready = () => {
 		dispatch(
 			record({
@@ -56,23 +66,25 @@ export default function FeedList(props: FeedProps) {
 	}
 
 	return (
-		<div className="max-w-960px">
+		<div className="flex-1 max-w-960px">
 			{feed_list?.map(feed => {
 				const doc_detail_url = QS.stringify({
 					base: '/browse/doc-detail',
 					query: {
-						doc_id: feed.id
+						doc_id: feed.feed_id
 					}
 				})
 
 				return (
-					<div key={feed.id} className="b-b-bd-line b-b b-b-solid mb-32px">
+					<div key={feed.feed_id} className="b-b-bd-line b-b b-b-solid mb-32px">
 						<div className="flex items-center mb-16px">
-							<Avatar size="small" round src={feed.user.avatar} />
+							<Avatar size="small" round src={feed.author_info.avatar} />
 
 							<div className="flex items-center">
-								<div className="ml-12px">{feed.user.nickname}</div>
-								<div className="ml-8px color-text-3 text-12px">{feed.last_modify_at}</div>
+								<div className="ml-12px">{feed.author_info.nickname}</div>
+								<div className="ml-8px color-text-3 text-12px">
+									{dayjs(feed.update_time).format('YYYY-MM-DD')}
+								</div>
 							</div>
 						</div>
 
@@ -91,11 +103,11 @@ export default function FeedList(props: FeedProps) {
 											'group-hover-bg-left-bottom group-hover-bg-[length:100%_2px]'
 										)}
 									>
-										{feed.heading}
+										{feed.title}
 									</div>
 								</TransitionLink>
 
-								<div className="" dangerouslySetInnerHTML={{ __html: feed.content.html }}></div>
+								<div className="" dangerouslySetInnerHTML={{ __html: feed.content }}></div>
 							</div>
 
 							<TransitionLink to={doc_detail_url} onClick={handle_record_ready}>

@@ -1,6 +1,14 @@
 import './upload.scss'
 
-import { ChangeEventHandler, forwardRef, InputHTMLAttributes, LabelHTMLAttributes, useRef, useState } from 'react'
+import {
+	ChangeEventHandler,
+	ForwardedRef,
+	forwardRef,
+	InputHTMLAttributes,
+	LabelHTMLAttributes,
+	useRef,
+	useState
+} from 'react'
 import { TbPlus } from 'react-icons/tb'
 
 import { useComposeRef, useControllable } from '@youknown/react-hook/src'
@@ -28,7 +36,7 @@ interface UploadProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultVal
 	circle?: boolean
 }
 
-const Upload = forwardRef<HTMLInputElement, UploadProps>((props, propRef) => {
+const Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => {
 	const {
 		className,
 		children,
@@ -111,6 +119,7 @@ const Upload = forwardRef<HTMLInputElement, UploadProps>((props, propRef) => {
 			)}
 		</label>
 	)
-})
+}
 Upload.displayName = 'Upload'
-export default Upload
+const RefUpload = forwardRef(Upload)
+export default RefUpload

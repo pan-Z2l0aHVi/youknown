@@ -1,6 +1,6 @@
 import './space.scss'
 
-import { forwardRef, HTMLAttributes } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
 
 import { cls } from '@youknown/utils/src'
 
@@ -12,7 +12,7 @@ interface SpaceProps extends HTMLAttributes<HTMLElement> {
 	direction?: 'horizontal' | 'vertical'
 }
 
-const Space = forwardRef<HTMLDivElement, SpaceProps>((props, propRef) => {
+const Space = (props: SpaceProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const { children, className, size = 'medium', align = 'start', direction = 'horizontal', style, ...rest } = props
 
 	function toAlignItems(align: string) {
@@ -45,6 +45,7 @@ const Space = forwardRef<HTMLDivElement, SpaceProps>((props, propRef) => {
 			{children}
 		</div>
 	)
-})
+}
 Space.displayName = 'Space'
-export default Space
+const RefSpace = forwardRef(Space)
+export default RefSpace

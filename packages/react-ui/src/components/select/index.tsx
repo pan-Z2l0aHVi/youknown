@@ -2,7 +2,6 @@ import './select.scss'
 
 import {
 	CSSProperties,
-	FC,
 	HTMLAttributes,
 	KeyboardEvent,
 	MouseEventHandler,
@@ -23,19 +22,19 @@ import Input from '../input'
 import Space from '../space'
 import Tag from '../tag'
 
-interface SelectProps extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
+interface SelectProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
 	multiple?: boolean
 	disabled?: boolean
 	filter?: boolean
 	placeholder?: string
 	allowClear?: boolean
-	value?: string | number | (string | number)[]
-	defaultValue?: SelectProps['value']
-	options?: { label: ReactNode; value: string | number; disabled?: boolean }[]
-	onChange?: (value: SelectProps['value']) => void
+	value?: T | T[]
+	defaultValue?: T | T[]
+	options?: { label: ReactNode; value: T; disabled?: boolean }[]
+	onChange?: (value: T | T[]) => void
 }
 
-const Select: FC<SelectProps> = props => {
+const Select = <T extends string | number>(props: SelectProps<T>) => {
 	const {
 		className,
 		multiple = false,
@@ -55,8 +54,8 @@ const Select: FC<SelectProps> = props => {
 		{ setBool: setDropdownVisible, setReverse: toggleDropdown, setTrue: showDropdown, setFalse: hideDropdown }
 	] = useBoolean(false)
 
-	const [value, setValue] = useControllable<string | number | (string | number)[]>(props, {
-		defaultValue: multiple ? [] : ''
+	const [value, setValue] = useControllable(props, {
+		defaultValue: (multiple ? [] : '') as T | T[]
 	})
 	const _valueRef = useLatestRef(value)
 
@@ -97,9 +96,9 @@ const Select: FC<SelectProps> = props => {
 		return String(opt.label).toLowerCase().includes(filterVal.toLowerCase())
 	})
 
-	const handleSelect = (val: string | number) => {
+	const handleSelect = (val: T) => {
 		if (multiple) {
-			let selection = [...(_valueRef.current as (string | number)[])]
+			let selection = [...(_valueRef.current as T[])]
 			if (selection.includes(val)) {
 				selection = selection.filter(item => item !== val)
 			} else {
@@ -198,21 +197,15 @@ const Select: FC<SelectProps> = props => {
 			}
 			allowClear={allowClear}
 			value={filterVal}
-			onChange={val => {
-				setFilterVal(val as string)
-			}}
-			onBlur={() => {
-				hideDropdown()
-			}}
-			onFocus={() => {
-				showDropdown()
-			}}
+			onChange={setFilterVal}
+			onBlur={hideDropdown}
+			onFocus={showDropdown}
 			onKeyDown={event => {
 				if (!filter || !multiple) return
 				if (event.key === 'Backspace' && !filterVal) {
 					event.preventDefault()
 					setValue(p => {
-						const selection = [...(p as (string | number)[])]
+						const selection = [...(p as T[])]
 						selection.pop()
 						return selection
 					})

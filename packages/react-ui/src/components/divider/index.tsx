@@ -1,6 +1,6 @@
 import './divider.scss'
 
-import { forwardRef, HTMLAttributes } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
 
 import { cls } from '@youknown/utils/src'
 
@@ -11,7 +11,7 @@ interface DividerProps extends HTMLAttributes<HTMLDivElement> {
 	direction?: 'horizontal' | 'vertical'
 }
 
-const Divider = forwardRef<HTMLDivElement, DividerProps>((props, propRef) => {
+const Divider = (props: DividerProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const { children, className, size = 'medium', direction = 'horizontal' } = props
 	const prefixCls = `${UI_PREFIX}-divider`
 	return (
@@ -22,6 +22,8 @@ const Divider = forwardRef<HTMLDivElement, DividerProps>((props, propRef) => {
 			{children}
 		</div>
 	)
-})
+}
 Divider.displayName = 'Divider'
-export default Divider
+
+const RefDivider = forwardRef(Divider)
+export default RefDivider

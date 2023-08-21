@@ -26,14 +26,7 @@ export default () => {
 			<Divider />
 			<Space>
 				<Radio defaultValue={true}>Basic</Radio>
-				<Radio
-					value={val}
-					onChange={value => {
-						if (typeof value === 'boolean') {
-							setVal(value)
-						}
-					}}
-				>
+				<Radio value={val} onChange={setVal}>
 					Controlled
 				</Radio>
 			</Space>
@@ -71,9 +64,7 @@ export default () => {
 					}
 				]}
 				value={groupVal}
-				onChange={value => {
-					setGroupVal(value)
-				}}
+				onChange={setGroupVal}
 			/>
 			<Divider />
 			<Space direction="vertical">
@@ -85,9 +76,7 @@ export default () => {
 						{ label: 2, child: 'Horizontal C' }
 					]}
 					value={horizontalVal}
-					onChange={value => {
-						setHorizontalVal(value)
-					}}
+					onChange={setHorizontalVal}
 				/>
 				<Radio.Group
 					direction="vertical"
@@ -97,9 +86,7 @@ export default () => {
 						{ label: 2, child: 'Vertical C' }
 					]}
 					value={verticalVal}
-					onChange={value => {
-						setVerticalVal(value)
-					}}
+					onChange={setVerticalVal}
 				/>
 			</Space>
 			<Divider />
@@ -119,9 +106,7 @@ export default () => {
 						{ label: 2, child: 'C' }
 					]}
 					value={disabledGroupVal}
-					onChange={value => {
-						setDisabledGroupVal(value)
-					}}
+					onChange={setDisabledGroupVal}
 				/>
 			</Space>
 			<Divider />
@@ -133,9 +118,7 @@ export default () => {
 					{ label: 2, child: 'Options C' }
 				]}
 				value={jsxGroupVal}
-				onChange={value => {
-					setJsxGroupVal(value)
-				}}
+				onChange={setJsxGroupVal}
 			>
 				<Radio label={3}>JSX A</Radio>
 				<Radio label={4}>JSX B</Radio>

@@ -3,6 +3,7 @@ import './field.scss'
 import {
 	Children,
 	cloneElement,
+	ForwardedRef,
 	forwardRef,
 	HTMLAttributes,
 	isValidElement,
@@ -24,7 +25,7 @@ interface FieldProps
 	form?: Form
 }
 
-const Field = forwardRef<HTMLLabelElement & HTMLDivElement, FieldProps>((props, propRef) => {
+const Field = (props: FieldProps, propRef: ForwardedRef<HTMLLabelElement & HTMLDivElement>) => {
 	const { className, children, form, label, labelText, labelWidth, labelAlign, labelSuffix, ...rest } = props
 
 	const formCtx = useContext(FormCtx)
@@ -77,6 +78,7 @@ const Field = forwardRef<HTMLLabelElement & HTMLDivElement, FieldProps>((props, 
 			</div>
 		</div>
 	)
-})
+}
 Field.displayName = 'Field'
-export default Field
+const RefField = forwardRef(Field)
+export default RefField

@@ -20,7 +20,9 @@ export class NetFetchError extends Error {
 	}
 }
 
-export const net = Net.create()
+export const net = Net.create({
+	timeout: 10000
+})
 	.use(async (ctx, next) => {
 		const token = get_local_token()
 		if (token) {

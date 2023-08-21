@@ -26,9 +26,7 @@ export default function Comments(props: CommentsProps) {
 						maxRows={4}
 						placeholder="文明发言，理性讨论"
 						value={text}
-						onChange={val => {
-							set_text(val as string)
-						}}
+						onChange={set_text}
 					/>
 
 					<div className="flex justify-between mt-8px">

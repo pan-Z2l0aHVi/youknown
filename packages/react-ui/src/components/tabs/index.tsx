@@ -1,38 +1,47 @@
 import './tabs.scss'
 
-import { forwardRef, HTMLAttributes, ReactNode, useRef } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode } from 'react'
 import { TbX } from 'react-icons/tb'
 
-import { useNextTickState } from '@youknown/react-hook/src'
-import { cls } from '@youknown/utils/src'
+import { useControllable, useCreation, useNextTickState } from '@youknown/react-hook/src'
+import { cls, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Space from '../space'
 
-interface TabOption {
-	key: string
+interface TabOption<T> {
+	key: T
 	name: ReactNode
 	disabled?: boolean
 	closable?: boolean
 }
 
-interface TabsProps extends Omit<HTMLAttributes<HTMLElement>, 'onChange'> {
+interface TabsProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'onChange' | 'defaultValue'> {
 	trigger?: 'click' | 'hover'
 	type?: 'line' | 'round' | 'segment'
-	tabList?: TabOption[]
-	onTabListChange?: (tabList: TabOption[]) => void
-	value?: TabOption['key']
-	onChange?: (value: TabOption['key']) => void
+	tabList?: TabOption<T>[]
+	onTabListChange?: (tabList: TabOption<T>[]) => void
+	defaultValue?: T
+	value?: T
+	onChange?: (value: T) => void
 }
 
-const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, propRef) => {
-	const { className, type = 'line', tabList = [], onTabListChange, value, onChange, ...rest } = props
+const Tabs = <T extends string | number>(props: TabsProps<T>, propRef: ForwardedRef<HTMLDivElement>) => {
+	const {
+		className,
+		type = 'line',
+		tabList = [],
+		onTabListChange,
+		...rest
+	} = omit(props, 'defaultValue', 'value', 'onChange')
 
-	const tabMapRef = useRef<Record<string, HTMLElement | null>>({})
+	const tabMap = useCreation(() => new Map<T, HTMLElement | null>())
 	const [, setSelectedIndex] = useNextTickState(0)
+	const [value, setValue] = useControllable<T>(props)
 
 	const changeFocus = (index: number) => {
-		const selectedTabEle = tabMapRef.current[Object.keys(tabMapRef.current)[index]]
+		const tabKeys = Array.from(tabMap.keys())
+		const selectedTabEle = tabMap.get(tabKeys[index])
 		selectedTabEle?.focus()
 	}
 
@@ -42,7 +51,7 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, propRef) => {
 		const isActive = opt.key === value
 
 		const removeTab = (focusAfterRemoved = false) => {
-			delete tabMapRef.current[opt.key]
+			tabMap.delete(opt.key)
 			const nextTabList = tabList.filter(tab => tab.key !== opt.key)
 			if (nextTabList.length) {
 				let index = tabList.findIndex(tab => tab.key === opt.key)
@@ -53,7 +62,7 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, propRef) => {
 					changeFocus(index)
 				}
 				if (isActive) {
-					onChange?.(nextTabList[index].key)
+					setValue(nextTabList[index].key)
 				}
 			}
 			onTabListChange?.(nextTabList)
@@ -63,7 +72,7 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, propRef) => {
 				key={opt.key}
 				ref={node => {
 					if (opt.disabled) return
-					tabMapRef.current[opt.key] = node
+					tabMap.set(opt.key, node)
 				}}
 				role="tab"
 				className={cls(`${prefixCls}-tab-item`, `${prefixCls}-tab-item-${type}`, {
@@ -76,13 +85,14 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, propRef) => {
 				aria-disabled={opt.disabled}
 				onClick={() => {
 					if (opt.disabled) return
-					onChange?.(opt.key)
+					setValue(opt.key)
 				}}
 				onKeyDown={event => {
+					if (opt.disabled) return
 					switch (event.key) {
 						case ' ':
 						case 'Enter':
-							onChange?.(opt.key)
+							setValue(opt.key)
 							break
 
 						case 'Escape':
@@ -131,6 +141,8 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, propRef) => {
 			{type === 'segment' && <div className={`${prefixCls}-segment-list`}>{tabListEle}</div>}
 		</div>
 	)
-})
+}
 Tabs.displayName = 'Tabs'
-export default Tabs
+
+const RefTabs = forwardRef(Tabs)
+export default RefTabs

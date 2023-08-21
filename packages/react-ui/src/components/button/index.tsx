@@ -1,6 +1,6 @@
 import './button.scss'
 
-import { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react'
+import { ButtonHTMLAttributes, ForwardedRef, forwardRef, ReactNode } from 'react'
 
 import { cls } from '@youknown/utils/src'
 
@@ -20,7 +20,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	icon?: ReactNode
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+const Button = (props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
 	const {
 		children,
 		className,
@@ -85,6 +85,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
 			{renderContentEle()}
 		</button>
 	)
-})
+}
 Button.displayName = 'Button'
-export default Button
+const RefButton = forwardRef(Button)
+export default RefButton

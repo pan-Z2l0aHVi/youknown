@@ -1,6 +1,6 @@
 import './switch.scss'
 
-import { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useRef } from 'react'
+import { ChangeEventHandler, ForwardedRef, forwardRef, LabelHTMLAttributes, useRef } from 'react'
 
 import { useComposeRef, useControllable } from '@youknown/react-hook/src'
 import { cls, omit } from '@youknown/utils/src'
@@ -15,7 +15,7 @@ interface SwitchProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultVal
 	onChange?: (value: boolean) => void
 }
 
-const Switch = forwardRef<HTMLInputElement, SwitchProps>((props, propRef) => {
+const Switch = (props: SwitchProps, propRef: ForwardedRef<HTMLInputElement>) => {
 	const { className, size = 'medium', disabled = false, ...rest } = omit(props, 'defaultValue', 'value', 'onChange')
 
 	const [checked, setChecked] = useControllable(props, {
@@ -50,6 +50,7 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>((props, propRef) => {
 			/>
 		</label>
 	)
-})
+}
 Switch.displayName = 'Switch'
-export default Switch
+const RefSwitch = forwardRef(Switch)
+export default RefSwitch

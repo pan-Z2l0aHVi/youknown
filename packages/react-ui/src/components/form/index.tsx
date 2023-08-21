@@ -1,6 +1,6 @@
 import './form.scss'
 
-import { FormEvent, FormHTMLAttributes, forwardRef } from 'react'
+import { FormEvent, FormHTMLAttributes, ForwardedRef, forwardRef } from 'react'
 
 import { Form as FormType, useForm } from '@youknown/react-hook/src'
 import { cls, omit } from '@youknown/utils/src'
@@ -14,7 +14,7 @@ interface FormProps extends FormHTMLAttributes<HTMLFormElement>, Omit<Partial<Fo
 	layout?: 'horizontal' | 'vertical' | 'inline'
 }
 
-const Form = forwardRef<HTMLFormElement, FormProps>((props, propRef) => {
+const Form = (props: FormProps, propRef: ForwardedRef<HTMLFormElement>) => {
 	const {
 		className,
 		children,
@@ -62,10 +62,11 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, propRef) => {
 			</form>
 		</FormCtx.Provider>
 	)
-})
+}
 Form.displayName = 'Form'
 
-const ExportForm = Form as typeof Form & {
+const RefForm = forwardRef(Form)
+const ExportForm = RefForm as typeof RefForm & {
 	Field: typeof Field
 	useForm: typeof useForm
 }

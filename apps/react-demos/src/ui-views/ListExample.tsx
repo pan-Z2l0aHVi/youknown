@@ -18,9 +18,7 @@ export default () => {
 				className="mb-8px"
 				type="segment"
 				value={size}
-				onChange={value => {
-					setSize(value as typeof size)
-				}}
+				onChange={setSize}
 				tabList={[
 					{ key: 'small', name: 'Small' },
 					{ key: 'medium', name: 'Medium' },

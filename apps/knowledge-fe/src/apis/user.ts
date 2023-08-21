@@ -1,6 +1,6 @@
 import { net } from '@/utils/request'
 
-interface Profile {
+export interface Profile {
 	user_id: string
 	associated: number
 	github_id: number

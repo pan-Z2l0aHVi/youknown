@@ -1,6 +1,6 @@
 import './checkbox.scss'
 
-import { ChangeEventHandler, forwardRef, LabelHTMLAttributes, useRef } from 'react'
+import { ChangeEventHandler, ForwardedRef, forwardRef, LabelHTMLAttributes, useRef } from 'react'
 import { GoCheck } from 'react-icons/go'
 
 import { useComposeRef, useControllable } from '@youknown/react-hook/src'
@@ -18,7 +18,7 @@ interface CheckboxProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultV
 	onChange?: (value: boolean) => void
 }
 
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, propRef) => {
+const Checkbox = (props: CheckboxProps, propRef: ForwardedRef<HTMLInputElement>) => {
 	const {
 		className,
 		children,
@@ -62,10 +62,11 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, propRef) =>
 			{children}
 		</label>
 	)
-})
-
+}
 Checkbox.displayName = 'Checkbox'
-const ExportCheckbox = Checkbox as typeof Checkbox & {
+
+const RefCheckbox = forwardRef(Checkbox)
+const ExportCheckbox = RefCheckbox as typeof RefCheckbox & {
 	Group: typeof CheckboxGroup
 }
 ExportCheckbox.Group = CheckboxGroup

@@ -1,13 +1,13 @@
 import './index.scss'
 
-import { forwardRef, HTMLAttributes } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
 import { TbX } from 'react-icons/tb'
 
 import { cls } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 
-const XIcon = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>((props, ref) => {
+const XIcon = (props: HTMLAttributes<HTMLDivElement>, ref: ForwardedRef<HTMLDivElement>) => {
 	const { className, ...rest } = props
 	const prefixCls = `${UI_PREFIX}-x-icon`
 	return (
@@ -15,6 +15,7 @@ const XIcon = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>((props,
 			<TbX />
 		</div>
 	)
-})
-
-export default XIcon
+}
+XIcon.displayName = 'XIcon'
+const RefXIcon = forwardRef(XIcon)
+export default RefXIcon

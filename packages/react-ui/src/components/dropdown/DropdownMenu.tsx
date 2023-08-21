@@ -1,6 +1,6 @@
 import './dropdown-menu.scss'
 
-import { forwardRef, HTMLAttributes } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
 
 import { cls } from '@youknown/utils/src'
 
@@ -11,7 +11,7 @@ interface DropdownMenuProps extends HTMLAttributes<HTMLElement> {
 	closeAfterItemClick?: boolean
 }
 
-const DropdownMenu = forwardRef<HTMLDivElement, DropdownMenuProps>((props, ref) => {
+const DropdownMenu = (props: DropdownMenuProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const { className, children, closeAfterItemClick = false, ...rest } = props
 
 	const closeDropdown = () => {
@@ -36,6 +36,7 @@ const DropdownMenu = forwardRef<HTMLDivElement, DropdownMenuProps>((props, ref) 
 			</div>
 		</MenuCtx.Provider>
 	)
-})
-
-export default DropdownMenu
+}
+DropdownMenu.displayName = 'DropdownMenu'
+const RefDropdownMenu = forwardRef(DropdownMenu)
+export default RefDropdownMenu

@@ -33,9 +33,7 @@ export default () => {
 			<Tabs
 				type="segment"
 				value={layout}
-				onChange={value => {
-					setLayout(value as typeof layout)
-				}}
+				onChange={setLayout}
 				tabList={[
 					{ key: 'horizontal', name: 'Horizontal' },
 					{ key: 'vertical', name: 'Vertical' },

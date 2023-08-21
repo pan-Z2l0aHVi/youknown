@@ -1,4 +1,4 @@
-import { Children, cloneElement, ComponentProps, forwardRef, ReactNode } from 'react'
+import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, ReactNode } from 'react'
 
 import { pick, pickDataAttrs } from '@youknown/utils/src'
 
@@ -13,7 +13,7 @@ interface DropdownProps
 	content?: ReactNode
 }
 
-const Dropdown = forwardRef<HTMLElement, DropdownProps>((props, propRef) => {
+const Dropdown = (props: DropdownProps, propRef: ForwardedRef<HTMLElement>) => {
 	const {
 		children,
 		content,
@@ -59,10 +59,11 @@ const Dropdown = forwardRef<HTMLElement, DropdownProps>((props, propRef) => {
 			})}
 		</Trigger>
 	)
-})
+}
 Dropdown.displayName = 'Dropdown'
 
-const ExportDropdown = Dropdown as typeof Dropdown & {
+const RefDropdown = forwardRef(Dropdown)
+const ExportDropdown = RefDropdown as typeof RefDropdown & {
 	Menu: typeof DropdownMenu
 	Item: typeof DropdownItem
 	Title: typeof DropdownTitle

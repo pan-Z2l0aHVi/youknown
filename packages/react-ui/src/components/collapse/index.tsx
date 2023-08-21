@@ -1,6 +1,6 @@
 import './collapse.scss'
 
-import { Children, cloneElement, ComponentProps, forwardRef, HTMLAttributes, isValidElement } from 'react'
+import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, HTMLAttributes, isValidElement } from 'react'
 
 import { useControllable } from '@youknown/react-hook/src'
 import { cls, is, omit } from '@youknown/utils/src'
@@ -15,7 +15,7 @@ interface CollapseProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>
 	onChange?: (actives: (string | number)[]) => void
 }
 
-const Collapse = forwardRef<HTMLDivElement, CollapseProps>((props, propRef) => {
+const Collapse = (props: CollapseProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const { className, children, accordion = false, ...rest } = omit(props, 'defaultActives', 'actives', 'onChange')
 	const [actives, setActives] = useControllable<(string | number)[]>(props, {
 		defaultValue: [],
@@ -48,10 +48,11 @@ const Collapse = forwardRef<HTMLDivElement, CollapseProps>((props, propRef) => {
 			})}
 		</div>
 	)
-})
+}
 Collapse.displayName = 'Collapse'
 
-const ExportCollapse = Collapse as typeof Collapse & {
+const RefCollapse = forwardRef(Collapse)
+const ExportCollapse = RefCollapse as typeof RefCollapse & {
 	Panel: typeof CollapsePanel
 }
 ExportCollapse.Panel = CollapsePanel

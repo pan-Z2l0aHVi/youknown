@@ -1,6 +1,6 @@
 import './popover.scss'
 
-import { Children, cloneElement, ComponentProps, forwardRef, ReactNode } from 'react'
+import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, ReactNode } from 'react'
 
 import { pick, pickDataAttrs } from '@youknown/utils/src'
 
@@ -12,7 +12,7 @@ interface PopoverProps
 	content?: ReactNode
 }
 
-const Popover = forwardRef<HTMLElement, PopoverProps>((props, propRef) => {
+const Popover = (props: PopoverProps, propRef: ForwardedRef<HTMLElement>) => {
 	const {
 		children,
 		content,
@@ -78,6 +78,8 @@ const Popover = forwardRef<HTMLElement, PopoverProps>((props, propRef) => {
 			})}
 		</Trigger>
 	)
-})
+}
 Popover.displayName = 'Popover'
-export default Popover
+
+const RefPopover = forwardRef(Popover)
+export default RefPopover

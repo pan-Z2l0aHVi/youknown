@@ -3,8 +3,8 @@ import { useState } from 'react'
 import { Divider, Select, Space } from '@youknown/react-ui/src'
 
 export default () => {
-	const [selection, setSelection] = useState<any>(0)
-	const [multipleSelection, setMultipleSelection] = useState<any>([0])
+	const [selection, setSelection] = useState(0)
+	const [multipleSelection, setMultipleSelection] = useState([0])
 	return (
 		<div className="p-24px">
 			<h1>Select</h1>
@@ -58,7 +58,9 @@ export default () => {
 					className="w-140px"
 					value={selection}
 					onChange={val => {
-						setSelection(val)
+						if (!Array.isArray(val)) {
+							setSelection(val)
+						}
 					}}
 					options={[
 						{
@@ -80,7 +82,9 @@ export default () => {
 					className="w-280px"
 					value={multipleSelection}
 					onChange={val => {
-						setMultipleSelection(val)
+						if (Array.isArray(val)) {
+							setMultipleSelection(val)
+						}
 					}}
 					options={[
 						{

@@ -69,13 +69,7 @@ export default () => {
 			<Divider />
 			<Input.Textarea defaultValue="Hi" placeholder="Basic textarea" />
 			<Divider />
-			<Input.Textarea
-				placeholder="Controlled textarea"
-				value={textareaVal}
-				onChange={value => {
-					if (typeof value === 'string') setTextareaVal(value)
-				}}
-			/>
+			<Input.Textarea placeholder="Controlled textarea" value={textareaVal} onChange={setTextareaVal} />
 			<Divider />
 			<Input.Textarea autosize placeholder="Autosize textarea" />
 			<Divider />

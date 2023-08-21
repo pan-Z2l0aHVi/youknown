@@ -1,6 +1,6 @@
 import './dropdown-item.scss'
 
-import { forwardRef, HTMLAttributes, MouseEventHandler, ReactNode, useContext } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes, MouseEventHandler, ReactNode, useContext } from 'react'
 
 import { cls } from '@youknown/utils/src'
 
@@ -14,7 +14,7 @@ interface DropdownItemProps extends Omit<HTMLAttributes<HTMLElement>, 'prefix'> 
 	disabled?: boolean
 }
 
-const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>((props, ref) => {
+const DropdownItem = (props: DropdownItemProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const {
 		className,
 		children,
@@ -57,6 +57,7 @@ const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>((props, ref) 
 			{suffix && <div className={`${prefixCls}-suffix-wrap`}>{suffix}</div>}
 		</div>
 	)
-})
-
-export default DropdownItem
+}
+DropdownItem.displayName = 'DropdownItem'
+const RefDropdownItem = forwardRef(DropdownItem)
+export default RefDropdownItem

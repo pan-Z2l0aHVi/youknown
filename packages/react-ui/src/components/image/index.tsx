@@ -1,6 +1,15 @@
 import './image.scss'
 
-import { forwardRef, ImgHTMLAttributes, MouseEventHandler, useEffect, useRef, useState, WheelEventHandler } from 'react'
+import {
+	ForwardedRef,
+	forwardRef,
+	ImgHTMLAttributes,
+	MouseEventHandler,
+	useEffect,
+	useRef,
+	useState,
+	WheelEventHandler
+} from 'react'
 import {
 	TbDownload,
 	TbPhotoX,
@@ -38,7 +47,7 @@ interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 	onDownloadError?: (err: string | Event) => void
 }
 
-const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
+const Image = (props: ImageProps, propRef: ForwardedRef<HTMLImageElement>) => {
 	const {
 		className,
 		src = '',
@@ -362,6 +371,7 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, propRef) => {
 			{detailEle}
 		</>
 	)
-})
+}
 Image.displayName = 'Image'
-export default Image
+const RefImage = forwardRef(Image)
+export default RefImage

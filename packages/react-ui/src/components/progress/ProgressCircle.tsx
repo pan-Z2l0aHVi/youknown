@@ -1,6 +1,6 @@
 import './progress-circle.scss'
 
-import { ComponentProps, forwardRef, ReactNode, useEffect, useRef } from 'react'
+import { ComponentProps, ForwardedRef, forwardRef, ReactNode, useEffect, useRef } from 'react'
 import CountUp from 'react-countup'
 import { RenderCounterProps } from 'react-countup/build/types'
 
@@ -9,7 +9,7 @@ import { cls, is, omit } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import Circle from './Circle'
 
-interface ProgressProps extends ComponentProps<typeof Circle> {
+interface ProgressCircleProps extends ComponentProps<typeof Circle> {
 	size?: 'small' | 'medium' | 'large'
 	defaultMolecule?: number
 	molecule?: number
@@ -18,7 +18,7 @@ interface ProgressProps extends ComponentProps<typeof Circle> {
 	format?: ((props: RenderCounterProps) => ReactNode) | null
 }
 
-const Progress = forwardRef<HTMLDivElement, ProgressProps>((props, propRef) => {
+const ProgressCircle = (props: ProgressCircleProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		className,
 		size = 'medium',
@@ -63,6 +63,7 @@ const Progress = forwardRef<HTMLDivElement, ProgressProps>((props, propRef) => {
 			)}
 		</Circle>
 	)
-})
-
-export default Progress
+}
+ProgressCircle.displayName = 'ProgressCircle'
+const RefProgressCircle = forwardRef(ProgressCircle)
+export default RefProgressCircle

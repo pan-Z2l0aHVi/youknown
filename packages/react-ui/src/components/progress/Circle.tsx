@@ -1,6 +1,6 @@
 import './circle.scss'
 
-import { forwardRef, HTMLAttributes, useEffect, useRef } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes, useEffect, useRef } from 'react'
 
 import { cls, is } from '@youknown/utils/src'
 
@@ -24,7 +24,7 @@ interface SizeData {
 	strokeWidth: number
 }
 
-const Circle = forwardRef<HTMLDivElement, CircleProps>((props, propRef) => {
+const Circle = (props: CircleProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		children,
 		className,
@@ -107,6 +107,8 @@ const Circle = forwardRef<HTMLDivElement, CircleProps>((props, propRef) => {
 			</svg>
 		</div>
 	)
-})
+}
+Circle.displayName = 'Circle'
 
-export default Circle
+const RefCircle = forwardRef(Circle)
+export default RefCircle

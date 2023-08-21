@@ -1,4 +1,4 @@
-import { ComponentProps, useState } from 'react'
+import { ComponentPropsWithRef, useState } from 'react'
 
 import { Divider, Space, Tabs } from '@youknown/react-ui/src'
 
@@ -25,7 +25,8 @@ export default () => {
 		}
 	]
 	const [tabKey, setTabKey] = useState(tabList1[0].key)
-	const [closableList, setClosableTabList] = useState<ComponentProps<typeof Tabs>['tabList']>([
+	type TabsProps = ComponentPropsWithRef<typeof Tabs<string>>
+	const [closableList, setClosableTabList] = useState<Required<TabsProps['tabList']>>([
 		{
 			key: 'a',
 			name: 'Tab A',
@@ -61,7 +62,7 @@ export default () => {
 					{ key: 'segment', name: 'Segment Tab' }
 				]}
 				value={tabsType}
-				onChange={val => setTabsType(val as typeof tabsType)}
+				onChange={setTabsType}
 			/>
 			<Divider />
 			<Space>

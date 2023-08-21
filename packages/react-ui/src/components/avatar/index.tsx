@@ -1,6 +1,6 @@
 import './avatar.scss'
 
-import { forwardRef, HTMLAttributes, ReactEventHandler, ReactNode, SyntheticEvent, useState } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes, ReactEventHandler, ReactNode, SyntheticEvent, useState } from 'react'
 
 import { cls, is } from '@youknown/utils/src'
 
@@ -17,7 +17,7 @@ interface AvatarProps extends HTMLAttributes<HTMLElement> {
 	onError?: ReactEventHandler<HTMLImageElement>
 }
 
-const Avatar = forwardRef<HTMLDivElement, AvatarProps>((props, ref) => {
+const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const {
 		children,
 		className,
@@ -75,10 +75,11 @@ const Avatar = forwardRef<HTMLDivElement, AvatarProps>((props, ref) => {
 			{badge && <div className={`${prefixCls}-badge`}>{badge}</div>}
 		</div>
 	)
-})
+}
 Avatar.displayName = 'Avatar'
 
-const ExportAvatar = Avatar as typeof Avatar & {
+const RefAvatar = forwardRef(Avatar)
+const ExportAvatar = RefAvatar as typeof RefAvatar & {
 	Group: typeof AvatarGroup
 }
 ExportAvatar.Group = AvatarGroup

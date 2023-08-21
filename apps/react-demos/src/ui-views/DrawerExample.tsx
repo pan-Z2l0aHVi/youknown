@@ -13,9 +13,7 @@ export default () => {
 			<Tabs
 				type="segment"
 				value={placement}
-				onChange={value => {
-					setPlacement(value as typeof placement)
-				}}
+				onChange={setPlacement}
 				tabList={[
 					{ key: 'left', name: 'Left' },
 					{ key: 'top', name: 'Top' },

@@ -1,6 +1,6 @@
 import './loading.scss'
 
-import { forwardRef, HTMLAttributes, ReactNode } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode } from 'react'
 
 import { cls } from '@youknown/utils/src'
 
@@ -16,7 +16,7 @@ interface LoadingProps extends HTMLAttributes<HTMLElement> {
 	description?: ReactNode
 }
 
-const Loading = forwardRef<HTMLDivElement, LoadingProps>((props, propRef) => {
+const Loading = (props: LoadingProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		className,
 		children,
@@ -62,6 +62,7 @@ const Loading = forwardRef<HTMLDivElement, LoadingProps>((props, propRef) => {
 			</div>
 		</Motion.Zoom>
 	)
-})
+}
 Loading.displayName = 'Loading'
-export default Loading
+const RefLoading = forwardRef(Loading)
+export default RefLoading

@@ -1,6 +1,6 @@
 import './list-item.scss'
 
-import { forwardRef, HTMLAttributes, ReactNode } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode } from 'react'
 
 import { cls } from '@youknown/utils/src'
 
@@ -13,7 +13,7 @@ interface ListItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'prefix'> {
 	bordered?: boolean
 }
 
-const ListItem = forwardRef<HTMLDivElement, ListItemProps>((props, propRef) => {
+const ListItem = (props: ListItemProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const { className, children, size = 'medium', bordered = true, prefix, suffix, ...rest } = props
 
 	const prefixCls = `${UI_PREFIX}-list-item`
@@ -31,7 +31,7 @@ const ListItem = forwardRef<HTMLDivElement, ListItemProps>((props, propRef) => {
 			{suffix && <div className={`${prefixCls}-ml`}>{suffix}</div>}
 		</div>
 	)
-})
+}
 ListItem.displayName = 'ListItem'
-
-export default ListItem
+const RefListItem = forwardRef(ListItem)
+export default RefListItem

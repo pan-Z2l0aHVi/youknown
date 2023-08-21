@@ -3,6 +3,7 @@ import './input.scss'
 import {
 	ChangeEventHandler,
 	FocusEventHandler,
+	ForwardedRef,
 	forwardRef,
 	HTMLAttributes,
 	MouseEventHandler,
@@ -34,7 +35,7 @@ interface InputProps extends Omit<HTMLAttributes<HTMLInputElement>, 'maxLength' 
 	onChange?: (value: string) => void
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>((props, propRef) => {
+const Input = (props: InputProps, propRef: ForwardedRef<HTMLInputElement>) => {
 	const {
 		className,
 		prefix,
@@ -132,10 +133,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, propRef) => {
 			{suffix}
 		</label>
 	)
-})
+}
 Input.displayName = 'Input'
 
-const ExportInput = Input as typeof Input & {
+const RefInput = forwardRef(Input)
+const ExportInput = RefInput as typeof RefInput & {
 	Textarea: typeof Textarea
 }
 ExportInput.Textarea = Textarea

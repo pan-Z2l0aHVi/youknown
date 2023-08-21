@@ -1,6 +1,6 @@
 import './tooltip.scss'
 
-import { Children, cloneElement, ComponentProps, forwardRef } from 'react'
+import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef } from 'react'
 
 import { cls, pick, pickDataAttrs } from '@youknown/utils/src'
 
@@ -12,7 +12,7 @@ interface TooltipProps extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'g
 	light?: boolean
 }
 
-const Tooltip = forwardRef<HTMLElement, TooltipProps>((props, propRef) => {
+const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 	const {
 		children,
 		title = '',
@@ -81,6 +81,7 @@ const Tooltip = forwardRef<HTMLElement, TooltipProps>((props, propRef) => {
 			})}
 		</Trigger>
 	)
-})
+}
 Tooltip.displayName = 'Tooltip'
-export default Tooltip
+const RefTooltip = forwardRef(Tooltip)
+export default RefTooltip

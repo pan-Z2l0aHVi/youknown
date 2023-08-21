@@ -12,7 +12,7 @@ import FeedList from './components/feed-list'
 export default function Browse() {
 	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
 	const [search_modal_open, { setTrue: show_search_modal, setFalse: hide_search_modal }] = useBoolean(false)
-	const [feed_tab, set_feed_tab] = useState<string>('0')
+	const [feed_tab, set_feed_tab] = useState<number>(1)
 	const result = []
 
 	return (
@@ -23,8 +23,8 @@ export default function Browse() {
 					value={feed_tab}
 					onChange={set_feed_tab}
 					tabList={[
-						{ key: '0', name: '最新' },
-						{ key: '1', name: '关注' }
+						{ key: 1, name: '最新' },
+						{ key: 2, name: '关注' }
 					]}
 				/>
 
@@ -62,7 +62,7 @@ export default function Browse() {
 			</Modal>
 
 			<div className="flex justify-center p-32px">
-				<FeedList feed_tab={Number(feed_tab)} />
+				<FeedList feed_tab={feed_tab} />
 			</div>
 		</>
 	)

@@ -1,6 +1,15 @@
 import './radio-group.scss'
 
-import { Children, cloneElement, ComponentProps, forwardRef, HTMLAttributes, isValidElement, ReactNode } from 'react'
+import {
+	Children,
+	cloneElement,
+	ComponentProps,
+	ForwardedRef,
+	forwardRef,
+	HTMLAttributes,
+	isValidElement,
+	ReactNode
+} from 'react'
 
 import { useControllable } from '@youknown/react-hook/src'
 import { cls, is, omit } from '@youknown/utils/src'
@@ -23,7 +32,7 @@ interface RadioGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange
 	onChange?: (value: string | number) => void
 }
 
-const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, propRef) => {
+const RadioGroup = (props: RadioGroupProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		children,
 		className,
@@ -87,6 +96,7 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, propRef) 
 			<Space direction={direction}>{radiosEle}</Space>
 		</div>
 	)
-})
-
-export default RadioGroup
+}
+RadioGroup.displayName = 'RadioGroup'
+const RefRadioGroup = forwardRef(RadioGroup)
+export default RefRadioGroup

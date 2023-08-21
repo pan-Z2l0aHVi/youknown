@@ -6,6 +6,7 @@ export interface Doc {
 	title: string
 	cover: string
 	author_id: string
+	public: boolean
 	creation_time: string
 	update_time: string
 }
@@ -34,6 +35,7 @@ interface UpdateDocPayload {
 	content: string
 	title?: string
 	cover?: string
+	public?: boolean
 }
 export const update_doc = (payload: UpdateDocPayload) =>
 	net.fetch<Doc>('/proxy/doc/update', {
