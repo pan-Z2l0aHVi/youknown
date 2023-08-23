@@ -35,19 +35,6 @@ export default function FeedList(props: FeedProps) {
 		refreshDeps: [feed_tab]
 	})
 
-	const handle_record_ready = () => {
-		dispatch(
-			record({
-				action: '阅读',
-				target: '月光下再见',
-				target_id: 'qwrewerwe',
-				obj_type: '文章',
-				obj: '《如何看待近期大火的Chat GPT》',
-				obj_id: '1232'
-			})
-		)
-	}
-
 	const handle_praise = () => {
 		if (!is_login) {
 			dispatch(open_login_modal())
@@ -90,11 +77,7 @@ export default function FeedList(props: FeedProps) {
 
 						<div className="flex-1 flex pl-36px mb-8px">
 							<div className="flex-1">
-								<TransitionLink
-									to={doc_detail_url}
-									className="group block w-[fit-content] mb-12px"
-									onClick={handle_record_ready}
-								>
+								<TransitionLink to={doc_detail_url} className="group block w-[fit-content] mb-12px">
 									<div
 										className={cls(
 											'inline text-16px font-600 cursor-pointer',
@@ -110,7 +93,7 @@ export default function FeedList(props: FeedProps) {
 								<div className="" dangerouslySetInnerHTML={{ __html: feed.content }}></div>
 							</div>
 
-							<TransitionLink to={doc_detail_url} onClick={handle_record_ready}>
+							<TransitionLink to={doc_detail_url}>
 								<img
 									className="w-160px h-108px b-bd-line b-1 b-solid b-rd-radius-m object-cover ml-48px"
 									src={feed.cover}

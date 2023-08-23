@@ -6,6 +6,7 @@ import {
 	ForwardedRef,
 	forwardRef,
 	HTMLAttributes,
+	KeyboardEventHandler,
 	MouseEventHandler,
 	MutableRefObject,
 	ReactNode,
@@ -33,6 +34,7 @@ interface InputProps extends Omit<HTMLAttributes<HTMLInputElement>, 'maxLength' 
 	allowClear?: boolean
 	autoFocus?: boolean
 	onChange?: (value: string) => void
+	onEnter?: (value: string) => void
 }
 
 const Input = (props: InputProps, propRef: ForwardedRef<HTMLInputElement>) => {
@@ -49,6 +51,8 @@ const Input = (props: InputProps, propRef: ForwardedRef<HTMLInputElement>) => {
 		outline = true,
 		onFocus,
 		onBlur,
+		onEnter,
+		onKeyDown,
 		...rest
 	} = omit(props, 'defaultValue', 'value', 'onChange')
 
@@ -69,15 +73,25 @@ const Input = (props: InputProps, propRef: ForwardedRef<HTMLInputElement>) => {
 		onFocus?.(event)
 		setFocus()
 	}
+
 	const handleBlur: FocusEventHandler<HTMLInputElement> = event => {
 		onBlur?.(event)
 		setBlur()
 	}
+
+	const handleKeydown: KeyboardEventHandler<HTMLInputElement> = event => {
+		onKeyDown?.(event)
+		if (event.key === 'Enter') {
+			onEnter?.(value)
+		}
+	}
+
 	const handleChange: ChangeEventHandler<HTMLInputElement> = event => {
 		const { value } = event.target
 		setValue(value)
 		setClearVisible(!!value)
 	}
+
 	const handleClear = () => {
 		setValue('')
 		hideClear()
@@ -121,6 +135,7 @@ const Input = (props: InputProps, propRef: ForwardedRef<HTMLInputElement>) => {
 				onChange={handleChange}
 				onFocus={handleFocus}
 				onBlur={handleBlur}
+				onKeyDown={handleKeydown}
 			/>
 			{allowClear && (
 				<IoMdCloseCircle

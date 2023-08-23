@@ -176,6 +176,9 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 								change_query()
 							})
 						}}
+						onEnter={() => {
+							search(get_format_query())
+						}}
 					/>
 					<Button icon={<RiFilter3Fill className="text-16px" />} onClick={toggle_filter}>
 						<div className="flex items-center">

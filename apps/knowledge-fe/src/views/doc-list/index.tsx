@@ -12,6 +12,7 @@ import { Loading, Button, Drawer, Form, Input, Motion, Select, Space, Toast, Too
 import { cls, QS } from '@youknown/utils/src'
 
 import DocCard from './components/doc-card'
+import { record } from '@/store/record'
 
 export default function DocList() {
 	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
@@ -213,6 +214,16 @@ export default function DocList() {
 				}
 				const on_deleted = () => {
 					set_doc_list(p => p.filter(item => item.doc_id !== doc.doc_id))
+					dispatch(
+						record({
+							action: '删除',
+							target: '',
+							target_id: '',
+							obj_type: '文章',
+							obj: doc.title,
+							obj_id: doc.doc_id
+						})
+					)
 				}
 				const on_updated = (doc: Doc) => {
 					set_doc_list(p => {
@@ -221,6 +232,16 @@ export default function DocList() {
 						result.splice(index, 1, doc)
 						return result
 					})
+					dispatch(
+						record({
+							action: doc.public ? '发布' : '更新',
+							target: '',
+							target_id: '',
+							obj_type: '文章',
+							obj: doc.title,
+							obj_id: doc.doc_id
+						})
+					)
 				}
 				return (
 					<DocCard
@@ -236,6 +257,23 @@ export default function DocList() {
 			})}
 		</div>
 	)
+
+	const on_batching_deleted = () => {
+		set_doc_list(p => p.filter(item => !selected_ids.includes(item.doc_id)))
+		cancel_choosing()
+		selection.forEach(item => {
+			dispatch(
+				record({
+					action: '删除',
+					target: '',
+					target_id: '',
+					obj_type: '文章',
+					obj: item.title,
+					obj_id: item.doc_id
+				})
+			)
+		})
+	}
 
 	return (
 		<>
@@ -265,10 +303,7 @@ export default function DocList() {
 				open={doc_delete_dialog_open}
 				hide_dialog={hide_doc_delete_dialog}
 				doc_ids={selected_ids}
-				on_deleted={() => {
-					set_doc_list(p => p.filter(item => !selected_ids.includes(item.doc_id)))
-					cancel_choosing()
-				}}
+				on_deleted={on_batching_deleted}
 			/>
 			{filter_drawer}
 		</>

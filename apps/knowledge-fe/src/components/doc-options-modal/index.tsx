@@ -9,7 +9,7 @@ interface DocOptionsModalProps {
 	open: boolean
 	doc_id: string
 	hide_modal: () => void
-	on_updated: (doc: Doc) => void
+	on_updated?: (doc: Doc) => void
 }
 
 export default function DocOptionsModal(props: DocOptionsModalProps) {
@@ -30,7 +30,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 		{
 			manual: true,
 			onSuccess(data) {
-				on_updated(data)
+				on_updated?.(data)
 				hide_modal()
 			}
 		}

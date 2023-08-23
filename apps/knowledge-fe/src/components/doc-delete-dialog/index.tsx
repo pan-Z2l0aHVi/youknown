@@ -13,30 +13,16 @@ interface DocDeleteDialogProps {
 
 export default function DocDeleteDialog(props: DocDeleteDialogProps) {
 	const { open, hide_dialog, doc_ids = [], on_deleted } = props
-	const dispatch = useAppDispatch()
 	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
 
 	const handle_delete = async () => {
 		try {
 			await delete_doc({ doc_ids })
-			record_doc_removed()
 			on_deleted()
 			hide_dialog()
 		} catch (error) {
 			console.error('error: ', error)
 		}
-	}
-	const record_doc_removed = () => {
-		dispatch(
-			record({
-				action: '删除',
-				target: '',
-				target_id: '',
-				obj_type: '文章',
-				obj: '《如何看待近期大火的Chat GPT》',
-				obj_id: '1232'
-			})
-		)
 	}
 
 	return (

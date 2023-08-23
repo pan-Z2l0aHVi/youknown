@@ -69,15 +69,15 @@ export default function Doc() {
 			content: editor.getHTML()
 		}
 		try {
-			await update_doc(payload)
+			const doc = await update_doc(payload)
 			dispatch(
 				record({
-					action: '发布',
+					action: '更新',
 					target: '',
 					target_id: '',
 					obj_type: '文章',
-					obj: '《如何看待近期大火的Chat GPT》',
-					obj_id: '1232'
+					obj: doc.title,
+					obj_id: doc.doc_id
 				})
 			)
 			Toast.show({ title: '更新成功' })

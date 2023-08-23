@@ -6,6 +6,7 @@ import {
 	FocusEventHandler,
 	ForwardedRef,
 	forwardRef,
+	KeyboardEventHandler,
 	MutableRefObject,
 	TextareaHTMLAttributes,
 	useRef,
@@ -27,6 +28,7 @@ interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>
 	outline?: boolean
 	value?: string
 	onChange?: (value: string) => void
+	onEnter?: (value: string) => void
 }
 
 const Textarea = (props: TextareaProps, propRef: ForwardedRef<HTMLTextAreaElement>) => {
@@ -40,6 +42,8 @@ const Textarea = (props: TextareaProps, propRef: ForwardedRef<HTMLTextAreaElemen
 		maxRows = Infinity,
 		onFocus,
 		onBlur,
+		onEnter,
+		onKeyDown,
 		...rest
 	} = omit(props, 'defaultValue', 'value', 'onChange')
 
@@ -63,6 +67,13 @@ const Textarea = (props: TextareaProps, propRef: ForwardedRef<HTMLTextAreaElemen
 	const handleBlur: FocusEventHandler<HTMLTextAreaElement> = event => {
 		onBlur?.(event)
 		setBlur()
+	}
+
+	const handleKeydown: KeyboardEventHandler<HTMLTextAreaElement> = event => {
+		onKeyDown?.(event)
+		if (event.key === 'Enter') {
+			onEnter?.(value)
+		}
 	}
 
 	const TextareaComp = autosize ? TextareaAutosize : 'textarea'
@@ -99,6 +110,7 @@ const Textarea = (props: TextareaProps, propRef: ForwardedRef<HTMLTextAreaElemen
 				onChange={handleChange}
 				onFocus={handleFocus}
 				onBlur={handleBlur}
+				onKeyDown={handleKeydown}
 			></TextareaComp>
 		</label>
 	)

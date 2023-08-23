@@ -1,4 +1,5 @@
 import { net } from '@/utils/request'
+import { Profile } from './user'
 
 export interface Doc {
 	doc_id: string
@@ -6,6 +7,7 @@ export interface Doc {
 	title: string
 	cover: string
 	author_id: string
+	author_info: Profile
 	public: boolean
 	creation_time: string
 	update_time: string

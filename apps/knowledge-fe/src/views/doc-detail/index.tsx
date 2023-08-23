@@ -8,8 +8,11 @@ import { useFetch } from '@youknown/react-hook/src'
 import { Loading } from '@youknown/react-ui/src'
 
 import Comments from './components/comments'
+import { useDispatch } from 'react-redux'
+import { record } from '@/store/record'
 
 export default function DocDetail() {
+	const dispatch = useDispatch()
 	const [search] = useSearchParams()
 	const doc_id = search.get('doc_id') ?? ''
 
@@ -19,7 +22,20 @@ export default function DocDetail() {
 				doc_id
 			}
 		],
-		refreshDeps: [doc_id]
+		ready: !!doc_id,
+		refreshDeps: [doc_id],
+		onSuccess(data) {
+			dispatch(
+				record({
+					action: '阅读',
+					target: data.author_info.nickname,
+					target_id: data.author_id,
+					obj_type: '文章',
+					obj: data.title,
+					obj_id: data.doc_id
+				})
+			)
+		}
 	})
 
 	const doc_content = doc_info?.content ?? ''
