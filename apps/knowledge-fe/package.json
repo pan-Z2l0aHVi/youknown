@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && node scripts/upload.js",
     "preview": "vite preview"
   },
   "author": "Grey",
@@ -33,6 +33,8 @@
     "not dead"
   ],
   "devDependencies": {
-    "@types/chroma-js": "^2.4.0"
+    "@types/chroma-js": "^2.4.0",
+    "@types/qiniu": "^7.0.1",
+    "qiniu": "^7.9.0"
   }
 }

@@ -91,7 +91,10 @@ export default function Sidebar() {
 			style={sidebar_style}
 		>
 			<div className="h-32px mb-24px">
-				<img className="w-32px h-32px ml-6px b-rd-radius-m b-1 b-bd-line b-solid" src="/branch.png" />
+				<img
+					className="w-32px h-32px ml-6px b-rd-radius-m b-1 b-bd-line b-solid"
+					src={`${import.meta.env.VITE_CDN_URL}/branch.png`}
+				/>
 			</div>
 
 			<Menu expand={expand} />

@@ -9,7 +9,7 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd())
 	return {
-		base: '',
+		base: mode === 'development' ? '' : env.VITE_CDN_URL,
 		plugins: [tsconfigPaths(), react(), Unocss(), visualizer() as PluginOption],
 		resolve: {
 			alias: {
