@@ -1,6 +1,5 @@
 import { B_CODE } from '@/consts'
-import store from '@/store'
-import { do_logout } from '@/store/user'
+import { useUserStore } from '@/stores'
 import { get_local_token } from '@/utils/local'
 import { headers2Obj, Net } from '@youknown/utils/src'
 
@@ -44,7 +43,7 @@ export const net = Net.create({
 
 			case B_CODE.NOT_AUTH:
 				ctx.err = new NetFetchError(ctx.data)
-				store.dispatch(do_logout())
+				useUserStore.getState().do_logout()
 				break
 
 			default:

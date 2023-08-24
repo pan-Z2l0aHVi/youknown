@@ -7,9 +7,8 @@ import { Doc } from '@/apis/doc'
 import DocDeleteDialog from '@/components/doc-delete-dialog'
 import DocOptionsModal from '@/components/doc-options-modal'
 import More from '@/components/more'
-import { useAppDispatch, useAppSelector } from '@/hooks'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
-import { open_login_modal } from '@/store/modal'
+import { useModalStore, useUserStore } from '@/stores'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dropdown, Motion } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
@@ -25,8 +24,8 @@ interface DocCardProps {
 export default function DocCard(props: DocCardProps) {
 	const { choosing, selected, info, on_choose, on_deleted, on_updated } = props
 
-	const is_login = useAppSelector(state => state.user.is_login)
-	const dispatch = useAppDispatch()
+	const is_login = useUserStore(state => state.is_login)
+	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const navigate = useTransitionNavigate()
 	const [more_open, { setBool: set_more_open }] = useBoolean(false)
 	const [doc_delete_dialog_open, { setTrue: show_doc_delete_dialog, setFalse: hide_doc_delete_dialog }] =
@@ -43,14 +42,14 @@ export default function DocCard(props: DocCardProps) {
 	}
 	const edit_doc_options = () => {
 		if (!is_login) {
-			dispatch(open_login_modal())
+			open_login_modal()
 			return
 		}
 		show_doc_options_modal()
 	}
 	const delete_doc = () => {
 		if (!is_login) {
-			dispatch(open_login_modal())
+			open_login_modal()
 			return
 		}
 		show_doc_delete_dialog()

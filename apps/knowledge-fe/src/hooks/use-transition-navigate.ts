@@ -1,30 +1,26 @@
 import { useEffect, useTransition } from 'react'
 import { NavigateOptions, To, useNavigate } from 'react-router-dom'
 
-import { start_progress, stop_progress } from '@/store/ui'
-import { useEvent } from '@youknown/react-hook/src'
-
-import { useAppDispatch } from './'
+import { useUIStore } from '@/stores'
+import { useEvent, useUnmount } from '@youknown/react-hook/src'
 
 export default function useTransitionNavigate() {
 	const navigate = useNavigate()
 	const [is_pending, start_transition] = useTransition()
-	const dispatch = useAppDispatch()
+	const start_progress = useUIStore(state => state.start_progress)
+	const stop_progress = useUIStore(state => state.stop_progress)
 
 	useEffect(() => {
 		if (is_pending) {
-			dispatch(start_progress())
+			start_progress()
 		} else {
-			dispatch(stop_progress())
+			stop_progress()
 		}
-	}, [dispatch, is_pending])
+	}, [is_pending, start_progress, stop_progress])
 
-	useEffect(
-		() => () => {
-			dispatch(stop_progress())
-		},
-		[dispatch]
-	)
+	useUnmount(() => {
+		stop_progress()
+	})
 
 	return useEvent((to: To, options?: NavigateOptions) => {
 		start_transition(() => {

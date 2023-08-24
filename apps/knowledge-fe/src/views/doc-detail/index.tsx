@@ -4,15 +4,14 @@ import { useSearchParams } from 'react-router-dom'
 
 import { get_doc_info } from '@/apis/doc'
 import Header from '@/app/components/header'
+import { useRecordStore } from '@/stores'
 import { useFetch } from '@youknown/react-hook/src'
 import { Loading } from '@youknown/react-ui/src'
 
 import Comments from './components/comments'
-import { useDispatch } from 'react-redux'
-import { record } from '@/store/record'
 
 export default function DocDetail() {
-	const dispatch = useDispatch()
+	const recording = useRecordStore(state => state.recording)
 	const [search] = useSearchParams()
 	const doc_id = search.get('doc_id') ?? ''
 
@@ -25,16 +24,14 @@ export default function DocDetail() {
 		ready: !!doc_id,
 		refreshDeps: [doc_id],
 		onSuccess(data) {
-			dispatch(
-				record({
-					action: '阅读',
-					target: data.author_info.nickname,
-					target_id: data.author_id,
-					obj_type: '文章',
-					obj: data.title,
-					obj_id: data.doc_id
-				})
-			)
+			recording({
+				action: '阅读',
+				target: data.author_info.nickname,
+				target_id: data.author_id,
+				obj_type: '文章',
+				obj: data.title,
+				obj_id: data.doc_id
+			})
 		}
 	})
 

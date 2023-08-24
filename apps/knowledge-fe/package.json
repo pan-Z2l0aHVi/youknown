@@ -14,7 +14,6 @@
   "author": "Grey",
   "license": "MIT",
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.1",
     "@youknown/css": "workspace:*",
     "@youknown/react-editor": "workspace:*",
     "@youknown/react-hook": "workspace:*",
@@ -22,7 +21,7 @@
     "@youknown/utils": "workspace:*",
     "chroma-js": "^2.4.2",
     "qiniu-js": "^3.4.1",
-    "react-redux": "^8.0.5"
+    "zustand": "^4.4.1"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": "eslint --cache --fix"

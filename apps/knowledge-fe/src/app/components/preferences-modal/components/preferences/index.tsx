@@ -1,5 +1,4 @@
-import { useAppDispatch, useAppSelector } from '@/hooks'
-import { set_dark_theme, set_hue, set_radius } from '@/store/ui'
+import { useUIStore } from '@/stores'
 import { Form, Space, Switch } from '@youknown/react-ui/src'
 import { cls, is } from '@youknown/utils/src'
 
@@ -97,10 +96,12 @@ function Hue(props: HueProps) {
 }
 
 export default function Preferences() {
-	const dispatch = useAppDispatch()
-	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
-	const primary_color = useAppSelector(state => state.ui.primary_color)
-	const radius = useAppSelector(state => state.ui.radius)
+	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const primary_color = useUIStore(state => state.primary_color)
+	const radius = useUIStore(state => state.radius)
+	const set_radius = useUIStore(state => state.set_radius)
+	const set_hue = useUIStore(state => state.set_hue)
+	const set_dark_theme = useUIStore(state => state.set_dark_theme)
 
 	const form = Form.useForm({
 		defaultState: {
@@ -113,15 +114,15 @@ export default function Preferences() {
 
 			switch (org.label) {
 				case 'style':
-					dispatch(set_radius(state.style.radius))
+					set_radius(state.style.radius)
 					break
 
 				case 'hue':
-					dispatch(set_hue(state.hue))
+					set_hue(state.hue)
 					break
 
 				case 'is_dark':
-					dispatch(set_dark_theme(state.is_dark))
+					set_dark_theme(state.is_dark)
 					break
 
 				default:

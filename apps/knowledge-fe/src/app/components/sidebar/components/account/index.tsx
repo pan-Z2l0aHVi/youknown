@@ -1,8 +1,6 @@
 import { TbLogout, TbSettings2 } from 'react-icons/tb'
 
-import { useAppDispatch, useAppSelector } from '@/hooks'
-import { open_login_modal, open_preferences_modal } from '@/store/modal'
-import { do_logout } from '@/store/user'
+import { useModalStore, useUserStore } from '@/stores'
 import { Avatar, Divider, Dropdown, Motion, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
@@ -11,12 +9,11 @@ interface PersonalProps {
 }
 
 export default function Personal({ expand }: PersonalProps) {
-	const dispatch = useAppDispatch()
-	const is_login = useAppSelector(state => state.user.is_login)
-	const profile = useAppSelector(state => state.user.profile)
-	const show_preferences_modal = () => {
-		dispatch(open_preferences_modal())
-	}
+	const is_login = useUserStore(state => state.is_login)
+	const profile = useUserStore(state => state.profile)
+	const do_logout = useUserStore(state => state.do_logout)
+	const open_preferences_modal = useModalStore(state => state.open_preferences_modal)
+	const open_login_modal = useModalStore(state => state.open_login_modal)
 
 	return (
 		<>
@@ -30,9 +27,7 @@ export default function Personal({ expand }: PersonalProps) {
 							<Dropdown.Item
 								closeAfterItemClick
 								prefix={<TbSettings2 className="text-18px" />}
-								onClick={() => {
-									show_preferences_modal()
-								}}
+								onClick={open_preferences_modal}
 							>
 								设置
 							</Dropdown.Item>
@@ -40,9 +35,7 @@ export default function Personal({ expand }: PersonalProps) {
 							<Dropdown.Item
 								closeAfterItemClick
 								prefix={<TbLogout className="text-18px color-danger" />}
-								onClick={() => {
-									dispatch(do_logout())
-								}}
+								onClick={do_logout}
 							>
 								<span className="color-danger">退出登录</span>
 							</Dropdown.Item>
@@ -56,7 +49,7 @@ export default function Personal({ expand }: PersonalProps) {
 						)}
 						onClick={() => {
 							if (is_login) return
-							dispatch(open_login_modal())
+							open_login_modal()
 						}}
 					>
 						{is_login ? (

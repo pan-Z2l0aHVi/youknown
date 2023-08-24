@@ -1,23 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
 import { TbCheckbox, TbChecks, TbFilter, TbPlus, TbTrashX, TbX } from 'react-icons/tb'
 
-import { Doc, create_doc, get_docs } from '@/apis/doc'
+import { create_doc, Doc, get_docs } from '@/apis/doc'
 import Header from '@/app/components/header'
 import DocDeleteDialog from '@/components/doc-delete-dialog'
-import { useAppContentEl, useAppDispatch, useAppSelector } from '@/hooks'
+import { useAppContentEl } from '@/hooks'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
-import { open_login_modal } from '@/store/modal'
+import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
 import { useBoolean, useInfinity } from '@youknown/react-hook/src'
-import { Loading, Button, Drawer, Form, Input, Motion, Select, Space, Toast, Tooltip } from '@youknown/react-ui/src'
+import { Button, Drawer, Form, Input, Loading, Motion, Select, Space, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
 
 import DocCard from './components/doc-card'
-import { record } from '@/store/record'
 
 export default function DocList() {
-	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
-	const is_login = useAppSelector(state => state.user.is_login)
-	const dispatch = useAppDispatch()
+	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const open_login_modal = useModalStore(state => state.open_login_modal)
+	const is_login = useUserStore(state => state.is_login)
+	const recording = useRecordStore(state => state.recording)
 	const navigate = useTransitionNavigate()
 	const app_content_el = useAppContentEl()
 	const loading_ref = useRef(null)
@@ -79,7 +79,7 @@ export default function DocList() {
 
 	const create_new_doc = async () => {
 		if (!is_login) {
-			dispatch(open_login_modal())
+			open_login_modal()
 			return
 		}
 		const payload = {
@@ -214,16 +214,14 @@ export default function DocList() {
 				}
 				const on_deleted = () => {
 					set_doc_list(p => p.filter(item => item.doc_id !== doc.doc_id))
-					dispatch(
-						record({
-							action: '删除',
-							target: '',
-							target_id: '',
-							obj_type: '文章',
-							obj: doc.title,
-							obj_id: doc.doc_id
-						})
-					)
+					recording({
+						action: '删除',
+						target: '',
+						target_id: '',
+						obj_type: '文章',
+						obj: doc.title,
+						obj_id: doc.doc_id
+					})
 				}
 				const on_updated = (doc: Doc) => {
 					set_doc_list(p => {
@@ -232,16 +230,14 @@ export default function DocList() {
 						result.splice(index, 1, doc)
 						return result
 					})
-					dispatch(
-						record({
-							action: doc.public ? '发布' : '更新',
-							target: '',
-							target_id: '',
-							obj_type: '文章',
-							obj: doc.title,
-							obj_id: doc.doc_id
-						})
-					)
+					recording({
+						action: doc.public ? '发布' : '更新',
+						target: '',
+						target_id: '',
+						obj_type: '文章',
+						obj: doc.title,
+						obj_id: doc.doc_id
+					})
 				}
 				return (
 					<DocCard
@@ -262,16 +258,14 @@ export default function DocList() {
 		set_doc_list(p => p.filter(item => !selected_ids.includes(item.doc_id)))
 		cancel_choosing()
 		selection.forEach(item => {
-			dispatch(
-				record({
-					action: '删除',
-					target: '',
-					target_id: '',
-					obj_type: '文章',
-					obj: item.title,
-					obj_id: item.doc_id
-				})
-			)
+			recording({
+				action: '删除',
+				target: '',
+				target_id: '',
+				obj_type: '文章',
+				obj: item.title,
+				obj_id: item.doc_id
+			})
 		})
 	}
 

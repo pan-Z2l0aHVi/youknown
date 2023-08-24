@@ -8,8 +8,7 @@ import Header from '@/app/components/header'
 import DocDeleteDialog from '@/components/doc-delete-dialog'
 import DocOptionsModal from '@/components/doc-options-modal'
 import More from '@/components/more'
-import { useAppDispatch } from '@/hooks'
-import { record } from '@/store/record'
+import { useRecordStore } from '@/stores'
 import { NetFetchError } from '@/utils/request'
 import { EditorContent, Toolbar, useEditor } from '@youknown/react-editor/src'
 import { useBoolean, useCreation, useFetch } from '@youknown/react-hook/src'
@@ -18,7 +17,7 @@ import { storage } from '@youknown/utils/src'
 
 export default function Doc() {
 	const navigate = useNavigate()
-	const dispatch = useAppDispatch()
+	const recording = useRecordStore(state => state.recording)
 	const local_doc_last_modify = useCreation(() => storage.local.get<string>('doc-last-modify'))
 	const [last_modify, set_last_modify] = useState(local_doc_last_modify ?? '')
 	const [had_modify, { setTrue: modify }] = useBoolean(false)
@@ -70,16 +69,14 @@ export default function Doc() {
 		}
 		try {
 			const doc = await update_doc(payload)
-			dispatch(
-				record({
-					action: '更新',
-					target: '',
-					target_id: '',
-					obj_type: '文章',
-					obj: doc.title,
-					obj_id: doc.doc_id
-				})
-			)
+			recording({
+				action: '更新',
+				target: '',
+				target_id: '',
+				obj_type: '文章',
+				obj: doc.title,
+				obj_id: doc.doc_id
+			})
 			Toast.show({ title: '更新成功' })
 		} catch (error) {
 			console.error('error: ', error)

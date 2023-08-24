@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { TbSearch } from 'react-icons/tb'
 
 import Header from '@/app/components/header'
-import { useAppSelector } from '@/hooks'
+import { useUIStore } from '@/stores'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Card, Input, List, Modal, Tabs } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
@@ -10,7 +10,7 @@ import { cls } from '@youknown/utils/src'
 import FeedList from './components/feed-list'
 
 export default function Browse() {
-	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
+	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const [search_modal_open, { setTrue: show_search_modal, setFalse: hide_search_modal }] = useBoolean(false)
 	const [feed_tab, set_feed_tab] = useState<number>(1)
 	const result = []

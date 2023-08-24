@@ -1,26 +1,24 @@
 import { GrGithub } from 'react-icons/gr'
 import { RiWechatFill } from 'react-icons/ri'
 
-import { useAppDispatch, useAppSelector } from '@/hooks'
-import { close_login_modal } from '@/store/modal'
-import { fetch_profile, login } from '@/store/user'
+import { useModalStore, useUIStore, useUserStore } from '@/stores'
 import { go_github_login } from '@/utils'
 import { Button, Card, Modal, Motion, Toast, XIcon } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 export default function SignInModal() {
-	const dispatch = useAppDispatch()
-	const modal_open = useAppSelector(state => state.modal.login_modal_open)
-	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
-	const handle_close = () => {
-		dispatch(close_login_modal())
-	}
+	const modal_open = useModalStore(state => state.login_modal_open)
+	const close_login_modal = useModalStore(state => state.close_login_modal)
+	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const fetch_profile = useUserStore(state => state.fetch_profile)
+	const login = useUserStore(state => state.login)
+
 	const handle_github_login = () => {
 		go_github_login()
 			.then(() => {
-				dispatch(login())
-				dispatch(fetch_profile())
-				handle_close()
+				login()
+				fetch_profile()
+				close_login_modal()
 			})
 			.catch(() => {
 				Toast.show({
@@ -32,7 +30,7 @@ export default function SignInModal() {
 		<Modal
 			className={cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]')}
 			open={modal_open}
-			onCancel={handle_close}
+			onCancel={close_login_modal}
 		>
 			<Motion.Zoom in={modal_open}>
 				<Card
@@ -41,7 +39,7 @@ export default function SignInModal() {
 					header={
 						<div className="flex justify-between p-[24px_24px_8px_24px]">
 							<span className="text-16px">用户登录</span>
-							<XIcon onClick={handle_close} />
+							<XIcon onClick={close_login_modal} />
 						</div>
 					}
 				>

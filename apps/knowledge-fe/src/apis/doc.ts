@@ -1,4 +1,5 @@
 import { net } from '@/utils/request'
+
 import { Profile } from './user'
 
 export interface Doc {

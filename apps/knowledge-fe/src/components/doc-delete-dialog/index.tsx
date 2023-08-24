@@ -1,6 +1,5 @@
 import { delete_doc } from '@/apis/doc'
-import { useAppDispatch, useAppSelector } from '@/hooks'
-import { record } from '@/store/record'
+import { useUIStore } from '@/stores'
 import { Dialog } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
@@ -13,7 +12,7 @@ interface DocDeleteDialogProps {
 
 export default function DocDeleteDialog(props: DocDeleteDialogProps) {
 	const { open, hide_dialog, doc_ids = [], on_deleted } = props
-	const is_dark_theme = useAppSelector(state => state.ui.is_dark_theme)
+	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 
 	const handle_delete = async () => {
 		try {

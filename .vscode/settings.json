@@ -13,7 +13,8 @@
         "reduxjs",
         "Tiptap",
         "Unocss",
-        "youknown"
+        "youknown",
+        "zustand"
     ],
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true

@@ -1,9 +1,7 @@
 import { lazy, Suspense, useEffect } from 'react'
 import { useMatch, useRoutes } from 'react-router-dom'
 
-import { useAppDispatch } from '@/hooks'
-import { set_dark_theme, set_hue, set_radius } from '@/store/ui/slice'
-import { fetch_profile } from '@/store/user'
+import { useUIStore, useUserStore } from '@/stores'
 import { get_local_settings, get_local_token } from '@/utils/local'
 import { useEvent } from '@youknown/react-hook/src'
 import { Loading } from '@youknown/react-ui/src'
@@ -19,15 +17,18 @@ const LoginModal = lazy(() => import('./components/login-modal'))
 
 export default function App() {
 	const content = useRoutes(routes)
-	const dispatch = useAppDispatch()
+	const set_hue = useUIStore(state => state.set_hue)
+	const set_radius = useUIStore(state => state.set_radius)
+	const set_dark_theme = useUIStore(state => state.set_dark_theme)
+	const fetch_profile = useUserStore(state => state.fetch_profile)
 	const login_success_match = useMatch('/login-success')
 	const with_layout = !login_success_match
 
 	const init_settings = useEvent(() => {
 		const local_settings = get_local_settings()
-		dispatch(set_hue(local_settings.primary_color ?? '#de7802'))
-		dispatch(set_radius(local_settings.radius ?? [4, 8, 12]))
-		dispatch(set_dark_theme(local_settings.is_dark_theme ?? false))
+		set_hue(local_settings.primary_color ?? '#de7802')
+		set_radius(local_settings.radius ?? [4, 8, 12])
+		set_dark_theme(local_settings.is_dark_theme ?? false)
 	})
 
 	useEffect(() => {
@@ -36,9 +37,9 @@ export default function App() {
 
 	useEffect(() => {
 		if (get_local_token()) {
-			dispatch(fetch_profile())
+			fetch_profile()
 		}
-	}, [dispatch])
+	}, [fetch_profile])
 
 	return (
 		<div className="flex">

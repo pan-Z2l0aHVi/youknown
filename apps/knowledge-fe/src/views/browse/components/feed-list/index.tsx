@@ -1,14 +1,12 @@
+import dayjs from 'dayjs'
 import { FiThumbsUp } from 'react-icons/fi'
 
 import { get_feed_list } from '@/apis/feed'
 import TransitionLink from '@/components/transition-link'
-import { useAppDispatch, useAppSelector } from '@/hooks'
-import { open_login_modal } from '@/store/modal'
-import { record } from '@/store/record'
+import { useModalStore, useRecordStore, useUserStore } from '@/stores'
 import { useInfinity } from '@youknown/react-hook/src'
 import { Avatar, Button, Tooltip } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
-import dayjs from 'dayjs'
 
 interface FeedProps {
 	feed_tab: number
@@ -16,8 +14,9 @@ interface FeedProps {
 
 export default function FeedList(props: FeedProps) {
 	const { feed_tab } = props
-	const dispatch = useAppDispatch()
-	const is_login = useAppSelector(state => state.user.is_login)
+	const is_login = useUserStore(state => state.is_login)
+	const recording = useRecordStore(state => state.recording)
+	const open_login_modal = useModalStore(state => state.open_login_modal)
 
 	const feeds_fetcher = async () => {
 		const { list } = await get_feed_list({
@@ -37,19 +36,17 @@ export default function FeedList(props: FeedProps) {
 
 	const handle_praise = () => {
 		if (!is_login) {
-			dispatch(open_login_modal())
+			open_login_modal()
 			return
 		}
-		dispatch(
-			record({
-				action: '点赞',
-				target: '月光下再见',
-				target_id: 'qwrewerwe',
-				obj_type: '文章',
-				obj: '《如何看待近期大火的Chat GPT》',
-				obj_id: '1232'
-			})
-		)
+		recording({
+			action: '点赞',
+			target: '月光下再见',
+			target_id: 'qwrewerwe',
+			obj_type: '文章',
+			obj: '《如何看待近期大火的Chat GPT》',
+			obj_id: '1232'
+		})
 	}
 
 	return (

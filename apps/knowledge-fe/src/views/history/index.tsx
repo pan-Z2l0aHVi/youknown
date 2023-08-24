@@ -4,22 +4,18 @@ import { TbSearch } from 'react-icons/tb'
 
 import Header from '@/app/components/header'
 import TransitionLink from '@/components/transition-link'
-import { useAppDispatch, useAppSelector } from '@/hooks'
-import { clear_records, init_records } from '@/store/record'
+import { useRecordStore } from '@/stores'
 import { Button, Input, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 export default function History() {
-	const record_list = useAppSelector(state => state.record.record_list)
-	const dispatch = useAppDispatch()
+	const record_list = useRecordStore(state => state.record_list)
+	const init_records = useRecordStore(state => state.init_records)
+	const clear_records = useRecordStore(state => state.clear_records)
 
 	useEffect(() => {
-		dispatch(init_records())
-	}, [dispatch])
-
-	const handle_delete_records = () => {
-		dispatch(clear_records())
-	}
+		init_records()
+	}, [init_records])
 
 	const stringify_date = (timing: number) => {
 		const dayDiff = dayjs(timing).diff(dayjs(), 'day')
@@ -42,7 +38,7 @@ export default function History() {
 			<Header heading="历史记录">
 				<Space>
 					<Input prefix={<TbSearch />} placeholder="搜记录" />
-					<Button onClick={handle_delete_records}>清空历史</Button>
+					<Button onClick={clear_records}>清空历史</Button>
 				</Space>
 			</Header>
 
