@@ -20,19 +20,19 @@
     "author": "Grey",
     "license": "MIT",
     "dependencies": {
-        "@emotion/react": "^11.9.0",
-        "@emotion/styled": "^11.8.1",
-        "@floating-ui/react": "^0.22.2",
-        "@mui/material": "^5.8.1",
+        "@emotion/react": "^11.11.1",
+        "@emotion/styled": "^11.11.0",
+        "@floating-ui/react": "^0.22.3",
+        "@mui/material": "^5.14.6",
         "@youknown/react-hook": "workspace:*",
         "@youknown/utils": "workspace:*",
         "modern-css-reset": "^1.4.0",
-        "react-countup": "^6.2.0",
-        "react-textarea-autosize": "^8.3.4",
-        "react-transition-group": "^4.4.2"
+        "react-countup": "^6.4.2",
+        "react-textarea-autosize": "^8.5.3",
+        "react-transition-group": "^4.4.5"
     },
     "devDependencies": {
-        "@types/react-transition-group": "^4.4.4"
+        "@types/react-transition-group": "^4.4.6"
     },
     "lint-staged": {
         "*.{js,ts,jsx,tsx}": "eslint --cache --fix"

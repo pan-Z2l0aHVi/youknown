@@ -5,6 +5,7 @@ import { login } from '@/apis/user'
 import { send_to_opener_window_cancel, send_to_opener_window_ok } from '@/utils/correspond'
 import { set_local_token } from '@/utils/local'
 import { Loading } from '@youknown/react-ui/src'
+import { storage } from '@youknown/utils/src'
 
 export default function LoginSuccess() {
 	const [search_params, set_search_params] = useSearchParams()
@@ -26,6 +27,10 @@ export default function LoginSuccess() {
 				pre.delete('state')
 				return pre
 			})
+			if (state !== storage.session.get('state')) {
+				send_to_opener_window_cancel()
+				return
+			}
 		}
 		const code = search_params.get('code')
 		if (code) {
