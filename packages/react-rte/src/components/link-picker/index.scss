@@ -1,0 +1,8 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-editor-prefix}-link-picker';
+.#{$prefix} {
+    &-href-input {
+        width: 200px;
+    }
+}

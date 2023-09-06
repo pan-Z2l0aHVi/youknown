@@ -67,7 +67,7 @@ export function BubbleBar() {
 			editor={editor}
 			updateDelay={100}
 			tippyOptions={{
-				duration: 0,
+				duration: 300,
 				zIndex: 9,
 				maxWidth: 'none',
 				appendTo: 'parent'

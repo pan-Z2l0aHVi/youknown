@@ -128,9 +128,9 @@ export const componentRoutes = [
 		element: createElement(lazy(() => import('@/ui-views/UploadExample')))
 	},
 	{
-		name: 'Editor',
-		path: 'editor',
-		element: createElement(lazy(() => import('@/editor-views/EditorExample')))
+		name: 'RichTextEditor',
+		path: 'rich_text_editor',
+		element: createElement(lazy(() => import('@/editor-views/RichTextEditorExample')))
 	},
 	{
 		name: 'UseFetch',

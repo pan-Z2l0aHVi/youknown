@@ -1,0 +1,5 @@
+@use '../../../../../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-editor-prefix}-link-open-btn';
+.#{$prefix} {
+}

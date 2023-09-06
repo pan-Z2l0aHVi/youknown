@@ -5,7 +5,7 @@ $prefix: '#{$ui-prefix}-popover';
 	&-content {
 		@include basic;
 		width: max-content;
-		padding: 12px;
+		padding: 8px;
 		background: $bg-1;
 		border: 1px solid $bd-line;
 		border-radius: $radius-l;

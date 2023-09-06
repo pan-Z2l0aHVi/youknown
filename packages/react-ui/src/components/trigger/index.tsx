@@ -8,9 +8,7 @@ import {
 	HTMLAttributes,
 	ReactElement,
 	ReactNode,
-	useEffect,
-	useRef,
-	useState
+	useRef
 } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -30,6 +28,8 @@ import {
 	useMergeRefs,
 	useRole
 } from '@floating-ui/react'
+import { useControllable } from '@youknown/react-hook/src'
+import { omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import { useZIndex } from '../../hooks/useZIndex'
@@ -80,8 +80,6 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 	const {
 		children,
 		popup,
-		defaultOpen = false,
-		open = defaultOpen,
 		trigger = 'hover',
 		placement = 'bottom-start',
 		mouseEnterDelay = 100,
@@ -95,29 +93,27 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 		appendTo = document.body,
 		ariaRole = 'tooltip',
 		onClickOutside,
-		onOpenChange,
 		style,
 		...rest
-	} = props
+	} = omit(props, 'defaultOpen', 'open', 'onOpenChange')
 
 	const isHover = trigger === 'hover'
 	const isClick = trigger === 'click'
 	const isManual = trigger === 'manual'
 
 	const refRef = useRef<HTMLElement | null>(null)
-	const [_open, _setOpen] = useState(isManual ? open : defaultOpen)
+	const [open, setOpen] = useControllable(props, {
+		defaultValue: false,
+		defaultValuePropName: 'defaultOpen',
+		valuePropName: 'open',
+		trigger: 'onOpenChange'
+	})
+
 	const { x, y, strategy, refs, context } = useFloating({
-		open: _open,
-		onOpenChange: val => {
-			_setOpen(val)
-			onOpenChange?.(val)
-		},
+		open: open,
+		onOpenChange: setOpen,
 		placement,
-		whileElementsMounted(...args) {
-			autoUpdate(...args, {
-				animationFrame: true
-			})
-		},
+		whileElementsMounted: autoUpdate,
 		middleware: [offset({ mainAxis: spacing, crossAxis: crossOffset }), flip(), shift()]
 	})
 
@@ -151,11 +147,7 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 
 	const child = Children.only(children)
 
-	useEffect(() => {
-		_setOpen(open)
-	}, [open])
-
-	const zIndex = useZIndex(_open)
+	const zIndex = useZIndex(open)
 
 	const prefixCls = `${UI_PREFIX}-trigger`
 
@@ -164,7 +156,6 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 			ref={refs.setFloating}
 			className={`${prefixCls}-content`}
 			style={{
-				visibility: !x || !y ? 'hidden' : 'visible', // FIXME:
 				position: strategy,
 				top: y ?? 0,
 				left: x ?? 0,
@@ -182,12 +173,12 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 	let portalEle: ReactNode
 	switch (motion) {
 		case 'none':
-			if (unmountOnExit) portalEle = _open ? popupEle : null
-			else portalEle = <div style={{ width: 'max-content', display: _open ? 'initial' : 'none' }}>{popupEle}</div>
+			if (unmountOnExit) portalEle = open ? popupEle : null
+			else portalEle = <div style={{ width: 'max-content', display: open ? 'initial' : 'none' }}>{popupEle}</div>
 			break
 		case 'stretch':
 			portalEle = (
-				<Motion.Stretch in={_open} mountOnEnter unmountOnExit={unmountOnExit} direction={stretchDirection}>
+				<Motion.Stretch in={open} mountOnEnter unmountOnExit={unmountOnExit} direction={stretchDirection}>
 					{popupEle}
 				</Motion.Stretch>
 			)
@@ -195,7 +186,7 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 		case 'grow':
 			portalEle = (
 				<Motion.Grow
-					in={_open}
+					in={open}
 					mountOnEnter
 					unmountOnExit={unmountOnExit}
 					style={{ transformOrigin: growTransformOrigin }}
@@ -206,14 +197,14 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 			break
 		case 'fade':
 			portalEle = (
-				<Motion.Fade in={_open} mountOnEnter unmountOnExit={unmountOnExit}>
+				<Motion.Fade in={open} mountOnEnter unmountOnExit={unmountOnExit}>
 					{popupEle}
 				</Motion.Fade>
 			)
 			break
 		case 'zoom':
 			portalEle = (
-				<Motion.Zoom in={_open} mountOnEnter unmountOnExit={unmountOnExit}>
+				<Motion.Zoom in={open} mountOnEnter unmountOnExit={unmountOnExit}>
 					{popupEle}
 				</Motion.Zoom>
 			)
@@ -230,7 +221,7 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 	})
 
 	return disabled ? (
-		child
+		cloneElement(child, { ref })
 	) : (
 		<>
 			{triggerEle}

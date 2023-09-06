@@ -1,0 +1,41 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-editor-prefix}-table-item';
+.#{$prefix} {
+	@include icon;
+}
+
+.#{$prefix}-popup {
+	padding: 0 8px;
+
+	.#{$prefix}-list {
+		display: grid;
+		grid-template-rows: repeat(10, auto);
+		grid-template-columns: repeat(10, auto);
+		border-left: 1px solid $bd-line;
+		border-top: 1px solid $bd-line;
+		background-color: $bg-1;
+
+		.#{$prefix}-ceil {
+			width: 18px;
+			height: 18px;
+			border-right: 1px solid $bd-line;
+			border-bottom: 1px solid $bd-line;
+			background-color: $bg-0;
+			&.active {
+				background: $color-hover;
+			}
+		}
+	}
+
+	.#{$prefix}-rows-cols {
+		display: flex;
+		justify-content: center;
+		margin-top: 8px;
+	}
+}
+
+.#{$prefix}-chevron-icon {
+	font-size: $font-size-l;
+	margin-right: -4px;
+}

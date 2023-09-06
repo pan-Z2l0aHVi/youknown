@@ -1,0 +1,6 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-editor-prefix}-blockquote-item';
+.#{$prefix} {
+    @include icon;
+}

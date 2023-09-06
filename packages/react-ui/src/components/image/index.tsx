@@ -1,10 +1,12 @@
 import './image.scss'
 
 import {
+	Dispatch,
 	ForwardedRef,
 	forwardRef,
 	ImgHTMLAttributes,
 	MouseEventHandler,
+	SetStateAction,
 	useEffect,
 	useRef,
 	useState,
@@ -42,7 +44,7 @@ interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 	toolbarVisible?: boolean
 	detailDisabled?: boolean
 	scaleRange?: number[]
-	onOpenChange?: (open: boolean) => void
+	onOpenChange?: Dispatch<SetStateAction<boolean>>
 	onDownloadSuccess?: () => void
 	onDownloadError?: (err: string | Event) => void
 }

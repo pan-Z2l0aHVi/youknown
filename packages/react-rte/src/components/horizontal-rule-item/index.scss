@@ -1,0 +1,6 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-editor-prefix}-horizontal-rule-item';
+.#{$prefix} {
+    @include icon;
+}

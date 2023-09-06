@@ -8,7 +8,7 @@ $prefix: '#{$ui-prefix}-dropdown-menu';
 	&:hover {
 		@include scroll-y;
 	}
-	max-height: 240px;
+	max-height: 280px;
 	background: $bg-1;
 	padding: 8px 0;
 	border-radius: $radius-l;

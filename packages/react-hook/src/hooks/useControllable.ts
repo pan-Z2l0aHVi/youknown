@@ -35,7 +35,7 @@ export function useControllable<T = any>(props: Props = {}, options: Options<T> 
 	} = options
 
 	const value = props[valuePropName] as T
-	const isControlled = props.hasOwnProperty(valuePropName)
+	const isControlled = props.hasOwnProperty(valuePropName) && !is.undefined(props[valuePropName])
 
 	const initialValue = useCreation(() => {
 		if (isControlled) {

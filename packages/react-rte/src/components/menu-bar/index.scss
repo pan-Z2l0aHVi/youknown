@@ -1,0 +1,8 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-editor-prefix}-menu-bar';
+.#{$prefix} {
+  &-divider {
+    height: 20px;
+  }
+}
