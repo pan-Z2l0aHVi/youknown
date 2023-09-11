@@ -13,3 +13,7 @@ export type DeepPartial<T> = Partial<{
 export type DeepRequired<T> = Required<{
 	[K in keyof T]: DeepRequired<T[K]>
 }>
+
+export type ClassPropertyTypes<T> = {
+	[K in keyof T]: T[K]
+}

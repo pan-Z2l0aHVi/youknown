@@ -73,6 +73,7 @@ const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 			onOpenChange={onOpenChange}
 			motion="grow"
 			growTransformOrigin={growTransformOrigin}
+			zIndexLevel="tooltip"
 			ariaRole="tooltip"
 		>
 			{cloneElement(Children.only(children), {

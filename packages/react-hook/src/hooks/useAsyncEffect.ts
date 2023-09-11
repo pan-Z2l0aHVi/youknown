@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
+import { DependencyList, useEffect } from 'react'
 
-export function useAsyncEffect(fn: (...args: any) => void): void {
+export function useAsyncEffect(effect: () => void, deps: DependencyList): void {
 	useEffect(() => {
-		fn?.()
+		effect?.()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, deps)
 }

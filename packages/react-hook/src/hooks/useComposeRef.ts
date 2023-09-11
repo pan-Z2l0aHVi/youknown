@@ -1,10 +1,10 @@
-import { Ref, useMemo } from 'react'
+import { MutableRefObject, Ref, useMemo } from 'react'
 
 function fillRef<T>(ref: Ref<T>, node: T) {
 	if (typeof ref === 'function') {
 		ref(node)
 	} else if (typeof ref === 'object' && ref && 'current' in ref) {
-		;(ref as any).current = node
+		;(ref as MutableRefObject<T>).current = node
 	}
 }
 
@@ -26,6 +26,5 @@ export function useComposeRef<T>(...refs: Ref<T>[]): Ref<T> {
 		() => composeRef(...refs),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		refs
-		// (prev, next) => prev.length === next.length && prev.every((ref, i) => ref === next[i])
 	)
 }

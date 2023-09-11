@@ -3,14 +3,13 @@ import { useRef } from 'react'
 import { GoCheck } from 'react-icons/go'
 import { RiHistoryFill } from 'react-icons/ri'
 
-import { Doc } from '@/apis/doc'
-import DocDeleteDialog from '@/components/doc-delete-dialog'
+import { delete_doc, Doc } from '@/apis/doc'
 import DocOptionsModal from '@/components/doc-options-modal'
 import More from '@/components/more'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
-import { useModalStore, useUserStore } from '@/stores'
+import { useModalStore, useUIStore, useUserStore } from '@/stores'
 import { useBoolean } from '@youknown/react-hook/src'
-import { Dropdown, Motion } from '@youknown/react-ui/src'
+import { Dialog, Dropdown, Motion } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 interface DocCardProps {
@@ -27,9 +26,8 @@ export default function DocCard(props: DocCardProps) {
 	const is_login = useUserStore(state => state.is_login)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const navigate = useTransitionNavigate()
+	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const [more_open, { setBool: set_more_open }] = useBoolean(false)
-	const [doc_delete_dialog_open, { setTrue: show_doc_delete_dialog, setFalse: hide_doc_delete_dialog }] =
-		useBoolean(false)
 	const [doc_options_modal_open, { setTrue: show_doc_options_modal, setFalse: hide_doc_options_modal }] =
 		useBoolean(false)
 
@@ -47,12 +45,28 @@ export default function DocCard(props: DocCardProps) {
 		}
 		show_doc_options_modal()
 	}
-	const delete_doc = () => {
+	const handle_delete_doc = () => {
 		if (!is_login) {
 			open_login_modal()
 			return
 		}
-		show_doc_delete_dialog()
+		Dialog.confirm({
+			title: '删除文档',
+			content: '一旦执行该操作数据将无法恢复，是否确认删除？',
+			maskClassName: cls(
+				'backdrop-blur-xl',
+				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+			),
+			okDanger: true,
+			okText: '删除',
+			cancelText: '取消',
+			closeIcon: null,
+			unmountOnExit: true,
+			onOk: async () => {
+				await delete_doc({ doc_ids: [info.doc_id] })
+				on_deleted()
+			}
+		})
 	}
 
 	const container_ref = useRef(null)
@@ -108,7 +122,7 @@ export default function DocCard(props: DocCardProps) {
 									<Dropdown.Item closeAfterItemClick onClick={edit_doc_options}>
 										<span>文档设置</span>
 									</Dropdown.Item>
-									<Dropdown.Item closeAfterItemClick onClick={delete_doc}>
+									<Dropdown.Item closeAfterItemClick onClick={handle_delete_doc}>
 										<span className="color-danger">删除</span>
 									</Dropdown.Item>
 								</Dropdown.Menu>
@@ -121,12 +135,6 @@ export default function DocCard(props: DocCardProps) {
 				</Motion.Slide>
 			</div>
 
-			<DocDeleteDialog
-				open={doc_delete_dialog_open}
-				hide_dialog={hide_doc_delete_dialog}
-				doc_ids={[info.doc_id]}
-				on_deleted={on_deleted}
-			/>
 			<DocOptionsModal
 				open={doc_options_modal_open}
 				hide_modal={hide_doc_options_modal}

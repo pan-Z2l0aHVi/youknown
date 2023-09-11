@@ -32,7 +32,7 @@ import { useControllable } from '@youknown/react-hook/src'
 import { omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
-import { useZIndex } from '../../hooks/useZIndex'
+import { useZIndex, ZIndexLevel } from '../../hooks/useZIndex'
 import Motion from '../motion'
 
 export const EventsByTriggerNeed = [
@@ -71,6 +71,7 @@ interface TriggerProps extends HTMLAttributes<HTMLElement> {
 	motion?: 'none' | 'grow' | 'stretch' | 'fade' | 'zoom'
 	growTransformOrigin?: string
 	appendTo?: HTMLElement | null
+	zIndexLevel?: ZIndexLevel
 	ariaRole?: 'dialog' | 'alertdialog' | 'tooltip' | 'menu' | 'listbox' | 'grid' | 'tree'
 	onClickOutside?: (event: globalThis.MouseEvent) => void
 	onOpenChange?: (open: boolean) => void
@@ -91,6 +92,7 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 		motion = 'none',
 		growTransformOrigin = 'center',
 		appendTo = document.body,
+		zIndexLevel = 'tooltip',
 		ariaRole = 'tooltip',
 		onClickOutside,
 		style,
@@ -147,7 +149,7 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 
 	const child = Children.only(children)
 
-	const zIndex = useZIndex(open)
+	const zIndex = useZIndex(zIndexLevel, open)
 
 	const prefixCls = `${UI_PREFIX}-trigger`
 

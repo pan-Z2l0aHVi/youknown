@@ -51,6 +51,7 @@ const Dropdown = (props: DropdownProps, propRef: ForwardedRef<HTMLElement>) => {
 			onClickOutside={onClickOutside}
 			onOpenChange={onOpenChange}
 			motion="stretch"
+			zIndexLevel="popover"
 			ariaRole="menu"
 		>
 			{cloneElement(Children.only(children), {

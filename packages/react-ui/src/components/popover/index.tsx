@@ -70,6 +70,7 @@ const Popover = (props: PopoverProps, propRef: ForwardedRef<HTMLElement>) => {
 			onOpenChange={onOpenChange}
 			motion="grow"
 			growTransformOrigin={growTransformOrigin}
+			zIndexLevel="popover"
 			ariaRole="tooltip"
 		>
 			{cloneElement(Children.only(children), {

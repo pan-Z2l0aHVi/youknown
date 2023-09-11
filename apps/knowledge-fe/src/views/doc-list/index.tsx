@@ -1,14 +1,25 @@
 import { useEffect, useRef, useState } from 'react'
 import { TbCheckbox, TbChecks, TbFilter, TbPlus, TbTrashX, TbX } from 'react-icons/tb'
 
-import { create_doc, Doc, get_docs } from '@/apis/doc'
+import { create_doc, delete_doc, Doc, get_docs } from '@/apis/doc'
 import Header from '@/app/components/header'
-import DocDeleteDialog from '@/components/doc-delete-dialog'
 import { useAppContentEl } from '@/hooks'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
 import { useBoolean, useInfinity } from '@youknown/react-hook/src'
-import { Button, Drawer, Form, Input, Loading, Motion, Select, Space, Toast, Tooltip } from '@youknown/react-ui/src'
+import {
+	Button,
+	Dialog,
+	Drawer,
+	Form,
+	Input,
+	Loading,
+	Motion,
+	Select,
+	Space,
+	Toast,
+	Tooltip
+} from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
 
 import DocCard from './components/doc-card'
@@ -74,9 +85,6 @@ export default function DocList() {
 		}
 	})
 
-	const [doc_delete_dialog_open, { setTrue: show_doc_delete_dialog, setFalse: hide_doc_delete_dialog }] =
-		useBoolean(false)
-
 	const create_new_doc = async () => {
 		if (!is_login) {
 			open_login_modal()
@@ -84,7 +92,7 @@ export default function DocList() {
 		}
 		const payload = {
 			title: '未命名',
-			content: '123123'
+			content: 'new 123123'
 		}
 		try {
 			const { doc_id } = await create_doc(payload)
@@ -100,6 +108,41 @@ export default function DocList() {
 	}
 
 	const selected_ids = selection.map(item => item.doc_id)
+
+	const on_batching_deleted = () => {
+		set_doc_list(p => p.filter(item => !selected_ids.includes(item.doc_id)))
+		cancel_choosing()
+		selection.forEach(item => {
+			recording({
+				action: '删除',
+				target: '',
+				target_id: '',
+				obj_type: '文章',
+				obj: item.title,
+				obj_id: item.doc_id
+			})
+		})
+	}
+
+	const show_doc_delete_dialog = () => {
+		Dialog.confirm({
+			title: '批量删除文档',
+			content: '一旦执行该操作数据将无法恢复，是否确认删除？',
+			maskClassName: cls(
+				'backdrop-blur-xl',
+				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+			),
+			okDanger: true,
+			okText: '删除',
+			cancelText: '取消',
+			closeIcon: null,
+			unmountOnExit: true,
+			onOk: async () => {
+				await delete_doc({ doc_ids: selected_ids })
+				on_batching_deleted()
+			}
+		})
+	}
 
 	const filter_drawer = (
 		<Drawer
@@ -254,21 +297,6 @@ export default function DocList() {
 		</div>
 	)
 
-	const on_batching_deleted = () => {
-		set_doc_list(p => p.filter(item => !selected_ids.includes(item.doc_id)))
-		cancel_choosing()
-		selection.forEach(item => {
-			recording({
-				action: '删除',
-				target: '',
-				target_id: '',
-				obj_type: '文章',
-				obj: item.title,
-				obj_id: item.doc_id
-			})
-		})
-	}
-
 	return (
 		<>
 			{header}
@@ -293,12 +321,6 @@ export default function DocList() {
 				</>
 			)}
 			{choosing_bar}
-			<DocDeleteDialog
-				open={doc_delete_dialog_open}
-				hide_dialog={hide_doc_delete_dialog}
-				doc_ids={selected_ids}
-				on_deleted={on_batching_deleted}
-			/>
 			{filter_drawer}
 		</>
 	)

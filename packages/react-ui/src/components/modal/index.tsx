@@ -16,6 +16,7 @@ interface ModalProps extends HTMLAttributes<HTMLElement> {
 	unmountOnExit?: boolean
 	alignCenter?: boolean
 	onCancel?: () => void
+	afterClose?: () => void
 }
 
 const Modal: FC<ModalProps> = props => {
@@ -27,6 +28,7 @@ const Modal: FC<ModalProps> = props => {
 		alignCenter = true,
 		open = false,
 		onCancel,
+		afterClose,
 		onClick,
 		style,
 		...rest
@@ -43,7 +45,7 @@ const Modal: FC<ModalProps> = props => {
 		document.body.style.setProperty('overflow', preBodyOverflowRef.current)
 	}
 
-	const zIndex = useZIndex(open)
+	const zIndex = useZIndex('modal', open)
 
 	const prefixCls = `${UI_PREFIX}-modal`
 
@@ -53,7 +55,10 @@ const Modal: FC<ModalProps> = props => {
 			mountOnEnter
 			unmountOnExit={unmountOnExit}
 			onEnter={setBodyOverflowHidden}
-			onExited={resetBodyOverflowHidden}
+			onExited={() => {
+				afterClose?.()
+				resetBodyOverflowHidden()
+			}}
 		>
 			<FloatingOverlay
 				className={cls(className, prefixCls, {

@@ -3,28 +3,26 @@ import { useState } from 'react'
 import { TbSettings, TbTrash } from 'react-icons/tb'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import { get_doc_info, update_doc } from '@/apis/doc'
+import { delete_doc, get_doc_info, update_doc } from '@/apis/doc'
 import Header from '@/app/components/header'
-import DocDeleteDialog from '@/components/doc-delete-dialog'
 import DocOptionsModal from '@/components/doc-options-modal'
 import More from '@/components/more'
-import { useRecordStore } from '@/stores'
+import { useRecordStore, useUIStore } from '@/stores'
 import { NetFetchError } from '@/utils/request'
 import { EditorContent, Toolbar, useEditor } from '@youknown/react-editor/src'
 import { useBoolean, useCreation, useFetch } from '@youknown/react-hook/src'
-import { Button, Divider, Dropdown, Space, Toast } from '@youknown/react-ui/src'
-import { storage } from '@youknown/utils/src'
+import { Button, Dialog, Divider, Dropdown, Space, Toast } from '@youknown/react-ui/src'
+import { cls, storage } from '@youknown/utils/src'
 
 export default function Doc() {
 	const navigate = useNavigate()
 	const recording = useRecordStore(state => state.recording)
+	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const local_doc_last_modify = useCreation(() => storage.local.get<string>('doc-last-modify'))
 	const [last_modify, set_last_modify] = useState(local_doc_last_modify ?? '')
 	const [had_modify, { setTrue: modify }] = useBoolean(false)
 	const [search_params] = useSearchParams()
 	const doc_id = search_params.get('doc_id') as string
-	const [doc_delete_dialog_open, { setTrue: show_doc_delete_dialog, setFalse: hide_doc_delete_dialog }] =
-		useBoolean(false)
 	const [doc_options_modal_open, { setTrue: show_doc_options_modal, setFalse: hide_doc_options_modal }] =
 		useBoolean(false)
 
@@ -86,6 +84,30 @@ export default function Doc() {
 		navigate('/library/doc/doc-list')
 	}
 
+	const show_doc_delete_dialog = () => {
+		Dialog.confirm({
+			title: '删除文档',
+			content: '一旦执行该操作数据将无法恢复，是否确认删除？',
+			maskClassName: cls(
+				'backdrop-blur-xl',
+				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+			),
+			okDanger: true,
+			okText: '删除',
+			cancelText: '取消',
+			closeIcon: null,
+			unmountOnExit: true,
+			onOk: async () => {
+				await delete_doc({ doc_ids: [doc_id] })
+				go_doc_list()
+			}
+		})
+	}
+
+	if (!doc_id) {
+		return null
+	}
+
 	const doc_tips = (
 		<div className="flex">
 			<div className="text-text-3">
@@ -140,14 +162,6 @@ export default function Doc() {
 				</Space>
 			</Header>
 
-			{doc_id && (
-				<DocDeleteDialog
-					doc_ids={[doc_id]}
-					on_deleted={go_doc_list}
-					open={doc_delete_dialog_open}
-					hide_dialog={hide_doc_delete_dialog}
-				/>
-			)}
 			<DocOptionsModal open={doc_options_modal_open} hide_modal={hide_doc_options_modal} doc_id={doc_id} />
 
 			<div className="flex justify-center sticky top-56px z-10 bg-bg-0 b-b-bd-line b-b-1 b-b-solid">
