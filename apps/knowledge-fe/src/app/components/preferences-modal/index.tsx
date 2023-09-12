@@ -1,5 +1,5 @@
 import { useModalStore, useUIStore } from '@/stores'
-import { Card, Modal, Motion, XIcon } from '@youknown/react-ui/src'
+import { Card, CloseIcon, Modal, Motion } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import Preferences from './components/preferences'
@@ -22,7 +22,7 @@ export default function PreferencesModal() {
 					header={
 						<div className="flex justify-between p-[24px_24px_0]">
 							<span className="text-16px">偏好设置</span>
-							<XIcon onClick={close_preferences_modal} />
+							<CloseIcon onClick={close_preferences_modal} />
 						</div>
 					}
 				>

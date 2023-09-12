@@ -3,7 +3,7 @@ import { RiWechatFill } from 'react-icons/ri'
 
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
 import { go_github_login } from '@/utils'
-import { Button, Card, Modal, Motion, Toast, XIcon } from '@youknown/react-ui/src'
+import { Button, Card, CloseIcon, Modal, Motion, Toast } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 export default function SignInModal() {
@@ -39,7 +39,7 @@ export default function SignInModal() {
 					header={
 						<div className="flex justify-between p-[24px_24px_8px_24px]">
 							<span className="text-16px">用户登录</span>
-							<XIcon onClick={close_login_modal} />
+							<CloseIcon onClick={close_login_modal} />
 						</div>
 					}
 				>
@@ -47,7 +47,7 @@ export default function SignInModal() {
 						<Button
 							className="w-100%! mb-16px"
 							size="large"
-							icon={<GrGithub className="text-20px" />}
+							prefixIcon={<GrGithub className="text-20px" />}
 							onClick={handle_github_login}
 						>
 							通过Github 登录
@@ -55,7 +55,7 @@ export default function SignInModal() {
 						<Button
 							className="w-100%! mb-16px"
 							size="large"
-							icon={<RiWechatFill className="text-20px color-#55B837" />}
+							prefixIcon={<RiWechatFill className="text-20px color-#55B837" />}
 						>
 							通过微信登录
 						</Button>

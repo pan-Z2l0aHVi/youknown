@@ -186,15 +186,15 @@ export default function DocList() {
 		<Header heading="文档" bordered sticky>
 			<Space>
 				{choosing ? (
-					<Button onClick={cancel_choosing} icon={<TbX className="text-16px color-primary" />}>
+					<Button onClick={cancel_choosing} prefixIcon={<TbX className="text-16px color-primary" />}>
 						取消
 					</Button>
 				) : (
 					<>
-						<Button onClick={do_choosing} icon={<TbCheckbox className="text-16px color-primary" />}>
+						<Button onClick={do_choosing} prefixIcon={<TbCheckbox className="text-16px color-primary" />}>
 							选择
 						</Button>
-						<Button icon={<TbFilter className="text-16px color-primary" />} onClick={open_filter}>
+						<Button prefixIcon={<TbFilter className="text-16px color-primary" />} onClick={open_filter}>
 							筛选
 						</Button>
 					</>

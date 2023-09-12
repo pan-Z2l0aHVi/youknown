@@ -2,7 +2,7 @@ import { Doc, get_doc_info, update_doc } from '@/apis/doc'
 import PicUpload from '@/components/pic-upload'
 import { useUIStore } from '@/stores'
 import { useFetch } from '@youknown/react-hook/src'
-import { Button, Card, Form, Input, Loading, Modal, Motion, Radio, Space, XIcon } from '@youknown/react-ui/src'
+import { Button, Card, CloseIcon, Form, Input, Loading, Modal, Motion, Radio, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 interface DocOptionsModalProps {
@@ -86,7 +86,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 					header={
 						<div className="flex justify-between p-[24px_24px_0]">
 							<span className="text-16px">文档设置</span>
-							<XIcon onClick={hide_modal} />
+							<CloseIcon onClick={hide_modal} />
 						</div>
 					}
 				>

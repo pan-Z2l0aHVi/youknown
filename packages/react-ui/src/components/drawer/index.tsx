@@ -7,8 +7,8 @@ import { FloatingOverlay } from '@floating-ui/react'
 import { cls } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
+import CloseIcon from '../close-icon'
 import Motion from '../motion'
-import XIcon from '../x-icon'
 
 interface DrawerProps extends HTMLAttributes<HTMLElement> {
 	open?: boolean
@@ -85,7 +85,7 @@ const Drawer: FC<DrawerProps> = props => {
 						style={{ ...style, width, height }}
 						{...rest}
 					>
-						{closable && <XIcon className={`${prefixCls}-close-icon`} onClick={() => onCancel?.()} />}
+						{closable && <CloseIcon className={`${prefixCls}-close-icon`} onClick={() => onCancel?.()} />}
 						{children}
 					</div>
 				</Motion.Slide>

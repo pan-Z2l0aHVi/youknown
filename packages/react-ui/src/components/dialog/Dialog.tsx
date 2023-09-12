@@ -7,10 +7,10 @@ import { cls } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import Button from '../button'
 import Card from '../card'
+import CloseIcon from '../close-icon'
 import Modal from '../modal'
 import Motion from '../motion'
 import Space from '../space'
-import XIcon from '../x-icon'
 
 export interface DialogProps extends ComponentProps<typeof Modal> {
 	hasCancel?: boolean
@@ -41,7 +41,7 @@ const Dialog: FC<DialogProps> = props => {
 		okDanger = false,
 		onCancel,
 		onOk,
-		closeIcon = <XIcon className={`${prefixCls}-close-icon`} onClick={onCancel} />,
+		closeIcon = <CloseIcon className={`${prefixCls}-close-icon`} onClick={onCancel} />,
 		...rest
 	} = props
 

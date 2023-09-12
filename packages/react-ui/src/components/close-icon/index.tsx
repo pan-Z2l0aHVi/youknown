@@ -7,15 +7,15 @@ import { cls } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 
-const XIcon = (props: HTMLAttributes<HTMLDivElement>, ref: ForwardedRef<HTMLDivElement>) => {
+const CloseIcon = (props: HTMLAttributes<HTMLDivElement>, ref: ForwardedRef<HTMLDivElement>) => {
 	const { className, ...rest } = props
-	const prefixCls = `${UI_PREFIX}-x-icon`
+	const prefixCls = `${UI_PREFIX}-close-icon`
 	return (
 		<div ref={ref} className={cls(className, prefixCls)} {...rest}>
 			<TbX />
 		</div>
 	)
 }
-XIcon.displayName = 'XIcon'
-const RefXIcon = forwardRef(XIcon)
+CloseIcon.displayName = 'CloseIcon'
+const RefXIcon = forwardRef(CloseIcon)
 export default RefXIcon

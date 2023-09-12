@@ -180,7 +180,7 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 							search(get_format_query())
 						}}
 					/>
-					<Button icon={<RiFilter3Fill className="text-16px" />} onClick={toggle_filter}>
+					<Button prefixIcon={<RiFilter3Fill className="text-16px" />} onClick={toggle_filter}>
 						<div className="flex items-center">
 							筛选器
 							<TbChevronDown
@@ -373,7 +373,7 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 						>
 							全部重置
 						</Button>
-						<Button primary icon={<TbSearch />} loading={loading} onClick={form.submit}>
+						<Button primary prefixIcon={<TbSearch />} loading={loading} onClick={form.submit}>
 							筛选
 						</Button>
 					</Space>

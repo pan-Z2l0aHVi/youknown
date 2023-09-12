@@ -1,6 +1,6 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: '#{$ui-prefix}-x-icon';
+$prefix: '#{$ui-prefix}-close-icon';
 .#{$prefix} {
     position: relative;
     @include flex-center;
