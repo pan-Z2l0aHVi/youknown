@@ -17,7 +17,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	square?: boolean
 	loading?: boolean
 	disabled?: boolean
-	icon?: ReactNode
+	prefixIcon?: ReactNode
+	suffixIcon?: ReactNode
 }
 
 const Button = (props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
@@ -34,7 +35,8 @@ const Button = (props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
 		square = false,
 		loading = false,
 		disabled = false,
-		icon = null,
+		prefixIcon = null,
+		suffixIcon = null,
 		...rest
 	} = props
 
@@ -49,20 +51,38 @@ const Button = (props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
 			return (
 				<>
 					{loadingEle}
-					{children && <span className={`${prefixCls}-inner-ml`}>{children}</span>}
+					{children && (
+						<span
+							className={cls(`${prefixCls}-inner-ml`, {
+								[`${prefixCls}-inner-mr`]: suffixIcon
+							})}
+						>
+							{children}
+						</span>
+					)}
+					{suffixIcon}
 				</>
 			)
 		}
-
-		if (icon) {
-			return (
-				<>
-					{icon}
-					{children && <span className={`${prefixCls}-inner-ml`}>{children}</span>}
-				</>
-			)
+		if (circle || square) {
+			return children
 		}
-		return circle || square ? children : <span>{children}</span>
+		return (
+			<>
+				{prefixIcon}
+				{children && (
+					<span
+						className={cls({
+							[`${prefixCls}-inner-ml`]: prefixIcon,
+							[`${prefixCls}-inner-mr`]: suffixIcon
+						})}
+					>
+						{children}
+					</span>
+				)}
+				{suffixIcon}
+			</>
+		)
 	}
 
 	return (

@@ -69,7 +69,6 @@ interface TriggerProps extends HTMLAttributes<HTMLElement> {
 	disabled?: boolean
 	unmountOnExit?: boolean
 	motion?: 'none' | 'grow' | 'stretch' | 'fade' | 'zoom'
-	growTransformOrigin?: string
 	appendTo?: HTMLElement | null
 	zIndexLevel?: ZIndexLevel
 	ariaRole?: 'dialog' | 'alertdialog' | 'tooltip' | 'menu' | 'listbox' | 'grid' | 'tree'
@@ -90,7 +89,6 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 		disabled = false,
 		unmountOnExit = true,
 		motion = 'none',
-		growTransformOrigin = 'center',
 		appendTo = document.body,
 		zIndexLevel = 'tooltip',
 		ariaRole = 'tooltip',
@@ -171,7 +169,6 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 		</div>
 	)
 
-	const [stretchDirection] = placement.split('-') as ('left' | 'top' | 'right' | 'bottom')[]
 	let portalEle: ReactNode
 	switch (motion) {
 		case 'none':
@@ -179,6 +176,7 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 			else portalEle = <div style={{ width: 'max-content', display: open ? 'initial' : 'none' }}>{popupEle}</div>
 			break
 		case 'stretch':
+			const [stretchDirection] = placement.split('-') as ('left' | 'top' | 'right' | 'bottom')[]
 			portalEle = (
 				<Motion.Stretch in={open} mountOnEnter unmountOnExit={unmountOnExit} direction={stretchDirection}>
 					{popupEle}
@@ -186,13 +184,23 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 			)
 			break
 		case 'grow':
+			const growOriginMap = {
+				'top-start': 'bottom left',
+				top: 'bottom',
+				'top-end': 'bottom right',
+				'bottom-start': 'top left',
+				bottom: 'top',
+				'bottom-end': 'top right',
+				'left-start': 'top right',
+				left: 'right',
+				'left-end': 'bottom right',
+				'right-start': 'top left',
+				right: 'left',
+				'right-end': 'bottom left'
+			}
+			const transformOrigin = growOriginMap[placement] ?? 'center'
 			portalEle = (
-				<Motion.Grow
-					in={open}
-					mountOnEnter
-					unmountOnExit={unmountOnExit}
-					style={{ transformOrigin: growTransformOrigin }}
-				>
+				<Motion.Grow in={open} mountOnEnter unmountOnExit={unmountOnExit} style={{ transformOrigin }}>
 					{popupEle}
 				</Motion.Grow>
 			)

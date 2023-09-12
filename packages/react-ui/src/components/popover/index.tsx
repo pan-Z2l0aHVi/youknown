@@ -32,21 +32,6 @@ const Popover = (props: PopoverProps, propRef: ForwardedRef<HTMLElement>) => {
 		...rest
 	} = props
 
-	const originMap = {
-		'top-start': 'bottom left',
-		top: 'bottom',
-		'top-end': 'bottom right',
-		'bottom-start': 'top left',
-		bottom: 'top',
-		'bottom-end': 'top right',
-		'left-start': 'top right',
-		left: 'right',
-		'left-end': 'bottom right',
-		'right-start': 'top left',
-		right: 'left',
-		'right-end': 'bottom left'
-	}
-	const growTransformOrigin = originMap[placement]
 	const prefixCls = `${UI_PREFIX}-popover`
 
 	const popup = <div className={`${prefixCls}-content`}>{content}</div>
@@ -68,8 +53,7 @@ const Popover = (props: PopoverProps, propRef: ForwardedRef<HTMLElement>) => {
 			appendTo={appendTo}
 			onClickOutside={onClickOutside}
 			onOpenChange={onOpenChange}
-			motion="grow"
-			growTransformOrigin={growTransformOrigin}
+			motion="stretch"
 			zIndexLevel="popover"
 			ariaRole="tooltip"
 		>

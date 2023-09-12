@@ -20,6 +20,10 @@ $prefix: '#{$ui-prefix}-button';
 		margin-left: 8px;
 	}
 
+	&-inner-mr {
+		margin-right: 8px;
+	}
+
 	&-small {
 		height: 24px;
 		&.#{$prefix}-circle,

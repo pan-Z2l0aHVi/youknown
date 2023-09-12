@@ -7,7 +7,7 @@ import { cls, pick, pickDataAttrs } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import Trigger, { EventsByTriggerNeed } from '../trigger'
 
-interface TooltipProps extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'growTransformOrigin' | 'motion'> {
+interface TooltipProps extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'motion'> {
 	title?: string
 	light?: boolean
 }
@@ -33,21 +33,6 @@ const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 		...rest
 	} = props
 
-	const originMap = {
-		'top-start': 'bottom left',
-		top: 'bottom',
-		'top-end': 'bottom right',
-		'bottom-start': 'top left',
-		bottom: 'top',
-		'bottom-end': 'top right',
-		'left-start': 'top right',
-		left: 'right',
-		'left-end': 'bottom right',
-		'right-start': 'top left',
-		right: 'left',
-		'right-end': 'bottom left'
-	}
-	const growTransformOrigin = originMap[placement]
 	const prefixCls = `${UI_PREFIX}-tooltip`
 
 	const popup = (
@@ -72,7 +57,6 @@ const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 			onClickOutside={onClickOutside}
 			onOpenChange={onOpenChange}
 			motion="grow"
-			growTransformOrigin={growTransformOrigin}
 			zIndexLevel="tooltip"
 			ariaRole="tooltip"
 		>

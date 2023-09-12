@@ -82,10 +82,10 @@ export default () => {
 			<Divider />
 			<Space>
 				<Tooltip title="Enabled">
-					<Button icon={<TbCheck />}>Enabled</Button>
+					<Button prefixIcon={<TbCheck />}>Enabled</Button>
 				</Tooltip>
 				<Tooltip title="Disabled" disabled>
-					<Button icon={<TbX />}>Disabled</Button>
+					<Button prefixIcon={<TbX />}>Disabled</Button>
 				</Tooltip>
 			</Space>
 		</div>

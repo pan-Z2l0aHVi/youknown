@@ -113,6 +113,11 @@ export const componentRoutes = [
 		element: createElement(lazy(() => import('@/ui-views/DrawerExample')))
 	},
 	{
+		name: 'DatePicker',
+		path: 'date_picker',
+		element: createElement(lazy(() => import('@/ui-views/DatePickerExample')))
+	},
+	{
 		name: 'Dropdown',
 		path: 'dropdown',
 		element: createElement(lazy(() => import('@/ui-views/DropdownExample')))

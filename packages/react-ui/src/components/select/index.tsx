@@ -294,7 +294,7 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 			content={dropdownContentEle}
 			spacing={4}
 		>
-			{/* 加一层，防止影响计算宽度 */}
+			{/* 加一层wrapper，防止影响计算宽度 */}
 			<div style={{ width: 'max-content' }}>
 				<button
 					type="button"

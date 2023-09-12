@@ -1,0 +1,88 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-prefix}-date-picker';
+
+.#{$prefix} {
+	font-size: $font-size-m;
+	color: $text-2;
+
+	&-clear-icon {
+		color: $text-3;
+		cursor: pointer;
+	}
+}
+
+.#{$prefix}-calendar {
+	@include basic;
+	user-select: none;
+
+	&-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		&-month {
+			width: 88px;
+			text-align: center;
+			font-weight: 600;
+		}
+	}
+
+	&-body {
+		$cell: 28px;
+		display: grid;
+		grid-template-columns: repeat(7, $cell);
+		gap: 4px;
+		text-align: center;
+
+		.#{$prefix}-calendar-week {
+			height: $cell;
+			line-height: $cell;
+			color: $text-2;
+		}
+
+		.#{$prefix}-calendar-day {
+			height: $cell;
+			line-height: $cell;
+			border-radius: $radius-m;
+			cursor: pointer;
+
+			&:hover {
+				background-color: $color-hover;
+			}
+
+			&:active {
+				background-color: $color-active;
+			}
+
+			&-selected {
+				background-color: $color-primary;
+				color: #fff;
+
+				&:hover {
+					background-color: $color-primary-hover;
+				}
+
+				&:active {
+					background-color: $color-primary-active;
+				}
+			}
+
+			&-today {
+				border: 1px solid $color-primary;
+			}
+		}
+
+		.#{$prefix}-calendar-placeholder {
+			height: $cell;
+		}
+	}
+
+	&-footer {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		color: $color-primary;
+	}
+}

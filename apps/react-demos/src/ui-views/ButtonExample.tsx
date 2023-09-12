@@ -66,12 +66,22 @@ export default () => {
 			</Space>
 			<Divider />
 			<Space>
-				<Button icon={<TbUpload />}>Icon button</Button>
-				<Button icon={<TbUpload />} primary>
-					Icon primary button
+				<Button prefixIcon={<TbUpload />}>Prefix icon button</Button>
+				<Button prefixIcon={<TbUpload />} primary>
+					Prefix icon primary button
 				</Button>
-				<Button icon={<TbUpload />} loading>
-					Icon loading button
+				<Button prefixIcon={<TbUpload />} loading>
+					Prefix icon loading button
+				</Button>
+			</Space>
+			<Divider />
+			<Space>
+				<Button suffixIcon={<TbSearch />}>Suffix icon button</Button>
+				<Button suffixIcon={<TbSearch />} primary>
+					Suffix icon primary button
+				</Button>
+				<Button suffixIcon={<TbSearch />} loading>
+					Suffix icon loading button
 				</Button>
 			</Space>
 		</div>

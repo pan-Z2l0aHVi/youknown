@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
-import { Button, Checkbox, Divider, Form, Input, Radio, Select, Switch, Tabs } from '@youknown/react-ui/src'
+import { Button, Checkbox, DatePicker, Divider, Form, Input, Radio, Select, Switch, Tabs } from '@youknown/react-ui/src'
+import dayjs from 'dayjs'
 
 export default () => {
 	const [layout, setLayout] = useState<'horizontal' | 'vertical' | 'inline'>('horizontal')
@@ -13,6 +14,7 @@ export default () => {
 			system: 'windows',
 			gender: 0,
 			fruit: [1, 2],
+			birthday: dayjs(null),
 			switch: true
 		},
 		onFulfilled(values) {
@@ -92,6 +94,9 @@ export default () => {
 							<Checkbox label={1}>Banana</Checkbox>
 							<Checkbox label={2}>Pear</Checkbox>
 						</Checkbox.Group>
+					</Form.Field>
+					<Form.Field label="birthday" labelText="Birthday">
+						<DatePicker />
 					</Form.Field>
 					<Form.Field label="switch" labelText="Switch">
 						<Switch />
