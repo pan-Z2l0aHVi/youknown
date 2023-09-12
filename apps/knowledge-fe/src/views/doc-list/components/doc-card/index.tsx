@@ -23,7 +23,7 @@ interface DocCardProps {
 export default function DocCard(props: DocCardProps) {
 	const { choosing, selected, info, on_choose, on_deleted, on_updated } = props
 
-	const is_login = useUserStore(state => state.is_login)
+	const has_login = useUserStore(state => state.has_login)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const navigate = useTransitionNavigate()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
@@ -39,14 +39,14 @@ export default function DocCard(props: DocCardProps) {
 		}
 	}
 	const edit_doc_options = () => {
-		if (!is_login) {
+		if (!has_login) {
 			open_login_modal()
 			return
 		}
 		show_doc_options_modal()
 	}
 	const handle_delete_doc = () => {
-		if (!is_login) {
+		if (!has_login) {
 			open_login_modal()
 			return
 		}

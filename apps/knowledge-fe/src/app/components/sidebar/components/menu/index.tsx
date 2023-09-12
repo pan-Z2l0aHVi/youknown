@@ -1,5 +1,5 @@
 import { Fragment, MouseEvent, useState } from 'react'
-import { GoChevronDown } from 'react-icons/go'
+import { BiSolidChevronDown } from 'react-icons/bi'
 
 import TransitionNavLink from '@/components/transition-nav-link'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
@@ -59,7 +59,7 @@ export default function Menu({ expand }: MenuProps) {
 					set_open(path, !open_map[path])
 				}
 				const chevron_down_icon = (
-					<GoChevronDown
+					<BiSolidChevronDown
 						className={cls('color-text-2 transition-all', open_map[path] ? 'rotate-180' : 'rotate-0')}
 					/>
 				)

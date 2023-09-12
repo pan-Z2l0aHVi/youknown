@@ -27,7 +27,7 @@ import DocCard from './components/doc-card'
 export default function DocList() {
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
-	const is_login = useUserStore(state => state.is_login)
+	const has_login = useUserStore(state => state.has_login)
 	const recording = useRecordStore(state => state.recording)
 	const navigate = useTransitionNavigate()
 	const app_content_el = useAppContentEl()
@@ -54,7 +54,7 @@ export default function DocList() {
 			root: app_content_el,
 			rootMargin: '0px 0px 200px 0px'
 		},
-		ready: is_login,
+		ready: has_login,
 		onError() {
 			Toast.show({ title: '服务异常，请稍后再试' })
 		}
@@ -86,7 +86,7 @@ export default function DocList() {
 	})
 
 	const create_new_doc = async () => {
-		if (!is_login) {
+		if (!has_login) {
 			open_login_modal()
 			return
 		}
@@ -301,7 +301,7 @@ export default function DocList() {
 		<>
 			{header}
 			<div className="p-32px">{doc_card_list}</div>
-			{is_login && (
+			{has_login && (
 				<>
 					{no_more ? (
 						<div

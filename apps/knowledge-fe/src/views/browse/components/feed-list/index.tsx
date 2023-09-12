@@ -14,7 +14,7 @@ interface FeedProps {
 
 export default function FeedList(props: FeedProps) {
 	const { feed_tab } = props
-	const is_login = useUserStore(state => state.is_login)
+	const has_login = useUserStore(state => state.has_login)
 	const recording = useRecordStore(state => state.recording)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 
@@ -35,7 +35,7 @@ export default function FeedList(props: FeedProps) {
 	})
 
 	const handle_praise = () => {
-		if (!is_login) {
+		if (!has_login) {
 			open_login_modal()
 			return
 		}

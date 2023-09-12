@@ -9,7 +9,7 @@ interface PersonalProps {
 }
 
 export default function Personal({ expand }: PersonalProps) {
-	const is_login = useUserStore(state => state.is_login)
+	const has_login = useUserStore(state => state.has_login)
 	const profile = useUserStore(state => state.profile)
 	const do_logout = useUserStore(state => state.do_logout)
 	const open_preferences_modal = useModalStore(state => state.open_preferences_modal)
@@ -17,9 +17,9 @@ export default function Personal({ expand }: PersonalProps) {
 
 	return (
 		<>
-			<Tooltip title={profile.nickname} placement="right" spacing={20} disabled={expand}>
+			<Tooltip title={has_login ? profile.nickname : '去登录'} placement="right" spacing={20} disabled={expand}>
 				<Dropdown
-					disabled={!is_login}
+					disabled={!has_login}
 					placement="top-start"
 					trigger="click"
 					content={
@@ -48,11 +48,11 @@ export default function Personal({ expand }: PersonalProps) {
 							'active-bg-active hover-not-active-bg-hover'
 						)}
 						onClick={() => {
-							if (is_login) return
+							if (has_login) return
 							open_login_modal()
 						}}
 					>
-						{is_login ? (
+						{has_login ? (
 							<Avatar round size={36} src={profile.avatar} />
 						) : (
 							<div className="flex justify-center items-center w-36px min-w-36px h-36px rd-round bg-primary color-#fff text-13px font-500">
@@ -61,7 +61,7 @@ export default function Personal({ expand }: PersonalProps) {
 						)}
 						<Motion.Fade in={expand} unmountOnExit>
 							<div className="flex-1 break-all ws-nowrap ml-8px">
-								{is_login ? profile.nickname : '立即登录'}
+								{has_login ? profile.nickname : '立即登录'}
 							</div>
 						</Motion.Fade>
 					</div>
