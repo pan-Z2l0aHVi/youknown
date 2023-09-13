@@ -21,8 +21,8 @@ export default function SignInModal() {
 				close_login_modal()
 			})
 			.catch(() => {
-				Toast.show({
-					title: 'closed'
+				Toast.error({
+					content: 'closed'
 				})
 			})
 	}

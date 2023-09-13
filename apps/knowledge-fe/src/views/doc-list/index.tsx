@@ -56,7 +56,7 @@ export default function DocList() {
 		},
 		ready: has_login,
 		onError() {
-			Toast.show({ title: '服务异常，请稍后再试' })
+			Toast.error({ content: '服务异常，请稍后再试' })
 		}
 	})
 

@@ -1,30 +1,30 @@
 @use '../../styles/mixins.scss' as *;
 
-$prefix: '#{$ui-prefix}-toast-item';
+$prefix: '#{$ui-prefix}-notice';
 .#{$prefix} {
 	@include basic;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 8px;
+	width: max-content;
+	padding: 8px 16px;
 	background: $bg-1;
 	border: 1px solid $bd-line;
 	border-radius: $radius-m;
 	box-shadow: $shadow-l;
+	pointer-events: auto;
 	
 	& + .#{$prefix} {
 		margin-top: 8px;
 	}
 	
-	&-icon {
-		margin-left: 8px;
-		cursor: pointer;
-	}
-	
-	&-title-wrap {
+	&-content-wrapper {
 		flex: 1;
 		display: flex;
 		justify-content: center;
-		margin: 0 16px;
+
+		&-with-icon {
+			margin-left: 8px;
+		}
 	}
 }

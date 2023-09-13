@@ -22,8 +22,8 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 	const [img_detail_open, set_img_detail_open] = useState(false)
 
 	const toast_download_err = () => {
-		Toast.show({
-			title: '下载失败，请查看原图并手动右键保存'
+		Toast.error({
+			content: '下载失败，请查看原图并手动右键保存'
 		})
 	}
 	const handle_download = () => {

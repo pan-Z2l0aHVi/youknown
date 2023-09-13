@@ -22,8 +22,8 @@ export default function LinkCopyBtn(props: ButtonProps) {
 				const href = editor.getAttributes('link').href
 				if (href) {
 					copy(href)
-					Toast.show({
-						title: '复制链接成功'
+					Toast.success({
+						content: '复制链接成功'
 					})
 				}
 			}}

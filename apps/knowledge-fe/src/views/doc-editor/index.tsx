@@ -48,8 +48,8 @@ export default function Doc() {
 		],
 		refreshDeps: [doc_id],
 		onError(err: NetFetchError) {
-			Toast.show({
-				title: err.cause.msg
+			Toast.error({
+				content: err.cause.msg
 			})
 		},
 		onSuccess(res) {
@@ -75,7 +75,7 @@ export default function Doc() {
 				obj: doc.title,
 				obj_id: doc.doc_id
 			})
-			Toast.show({ title: '更新成功' })
+			Toast.success({ content: '更新成功' })
 		} catch (error) {
 			console.error('error: ', error)
 		}

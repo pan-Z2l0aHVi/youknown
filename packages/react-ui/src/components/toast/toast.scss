@@ -1,41 +1,16 @@
 @use '../../styles/mixins.scss' as *;
 
 $prefix: '#{$ui-prefix}-toast';
+
 .#{$prefix} {
 	@include basic;
 	position: fixed;
-	margin: 12px;
-	z-index: 8000;
-	
-	&-top-left {
-		top: 0;
-		left: 0;
-	}
-	
-	&-top {
-		top: 0;
-		left: 50%;
-		transform: translateX(-50%);
-	}
-	
-	&-top-right {
-		top: 0;
-		right: 0;
-	}
-	
-	&-bottom-left {
-		bottom: 0;
-		left: 0;
-	}
-	
-	&-bottom {
-		bottom: 0;
-		left: 50%;
-		transform: translateX(-50%);
-	}
-	
-	&-bottom-right {
-		bottom: 0;
-		right: 0;
-	}
+	top: 0;
+	left: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 12px;
+	transform: translateX(-50%);
+	pointer-events: none;
 }
