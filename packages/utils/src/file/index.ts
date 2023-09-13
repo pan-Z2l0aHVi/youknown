@@ -1,5 +1,5 @@
 export function downloadFile(src: string, filename = 'picture') {
-	return new Promise((resolve, reject) => {
+	return new Promise<string>((resolve, reject) => {
 		const image = new window.Image()
 		image.setAttribute('crossOrigin', 'anonymous')
 		image.onload = function () {

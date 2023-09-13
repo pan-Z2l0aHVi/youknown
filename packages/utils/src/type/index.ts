@@ -6,6 +6,8 @@ export type PromiseValueType<T> = T extends Promise<infer R> ? R : never
 
 export type PromiseFnResult<T extends (...arg: any) => Promise<unknown>> = PromiseValueType<ReturnType<T>>
 
+export type ArgumentType<T> = T extends (...arg: (infer R)[]) => unknown ? R : never
+
 export type DeepPartial<T> = Partial<{
 	[K in keyof T]: DeepPartial<T[K]>
 }>

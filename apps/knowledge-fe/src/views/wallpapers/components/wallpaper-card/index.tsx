@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { RxDotsHorizontal } from 'react-icons/rx'
 
 import { useBoolean } from '@youknown/react-hook/src'
@@ -19,7 +18,6 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 	const [hovered, { setTrue: start_hover, setFalse: stop_hover }] = useBoolean(false)
 	const [more_open, { setBool: set_more_open }] = useBoolean(false)
 	const [img_loaded, { setTrue: set_img_loaded }] = useBoolean(false)
-	const [img_detail_open, set_img_detail_open] = useState(false)
 
 	const toast_download_err = () => {
 		Toast.error({
@@ -32,21 +30,27 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		})
 	}
 
+	const previewPicture = () => {
+		Image.preview({
+			url: detail_url,
+			onDownloadError() {
+				toast_download_err()
+			}
+		})
+	}
+
 	return (
 		<div className="relative" onMouseEnter={start_hover} onMouseLeave={stop_hover}>
-			<Image
+			<img
 				className="b-rd-radius-m shadow-shadow-l select-none bg-bg-2 b-bd-line b-1 b-solid"
 				style={{
 					width: 240,
 					height: 240 * ratio
 				}}
-				open={img_detail_open}
-				onOpenChange={set_img_detail_open}
 				src={thumb_url}
-				detailSrc={detail_url}
 				loading="lazy"
 				onLoad={set_img_loaded}
-				onDownloadError={toast_download_err}
+				onClick={previewPicture}
 			/>
 
 			{img_loaded && (
@@ -69,12 +73,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 						spacing={4}
 						content={
 							<Dropdown.Menu className="w-112px" onClick={stop_hover}>
-								<Dropdown.Item
-									closeAfterItemClick
-									onClick={() => {
-										set_img_detail_open(true)
-									}}
-								>
+								<Dropdown.Item closeAfterItemClick onClick={previewPicture}>
 									<span>查看原图</span>
 								</Dropdown.Item>
 								<Dropdown.Item closeAfterItemClick>
