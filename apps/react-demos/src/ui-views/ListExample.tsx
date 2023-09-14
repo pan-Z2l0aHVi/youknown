@@ -5,7 +5,7 @@ import { Avatar, Divider, List, Tabs } from '@youknown/react-ui/src'
 export default () => {
 	const [size, setSize] = useState<'small' | 'medium' | 'large'>('small')
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>List</h1>
 			<Divider />
 			<List>

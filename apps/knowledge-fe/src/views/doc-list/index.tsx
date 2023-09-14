@@ -156,7 +156,7 @@ export default function DocList() {
 		>
 			<div className="p-[32px_24px_32px_16px]">
 				<Form form={form} labelWidth="80px">
-					<Form.Field label="keywords" labelText="关键字">
+					<Form.Field label="keywords" labelText="关键词">
 						<Input placeholder="请输入" />
 					</Form.Field>
 					<Form.Field label="order_by" labelText="排序">
@@ -274,7 +274,7 @@ export default function DocList() {
 						return result
 					})
 					recording({
-						action: doc.public ? '发布' : '更新',
+						action: doc.public ? '更新并发布' : '更新',
 						target: '',
 						target_id: '',
 						obj_type: '文章',

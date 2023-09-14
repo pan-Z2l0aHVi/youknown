@@ -29,7 +29,7 @@ export default () => {
 	})
 
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Form</h1>
 			<Divider />
 			<Tabs

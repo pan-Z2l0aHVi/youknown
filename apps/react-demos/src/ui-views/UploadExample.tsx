@@ -8,7 +8,7 @@ export default () => {
 	const [fileList, setFileList] = useState<UploadFileList>([])
 	const [uploading, setUploading] = useState(false)
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Upload</h1>
 			<Divider />
 			<Space>

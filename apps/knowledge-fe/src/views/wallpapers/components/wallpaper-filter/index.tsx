@@ -166,7 +166,7 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 				<Space>
 					<Input
 						prefix={<TbSearch />}
-						placeholder="关键字"
+						placeholder="关键词"
 						allowClear
 						value={keywords}
 						onChange={val => {

@@ -6,7 +6,7 @@ import { DatePicker, Divider, Space } from '@youknown/react-ui/src'
 export default () => {
 	const [date, setDate] = useState<Dayjs>()
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>DatePicker</h1>
 			<Divider />
 			<Space>

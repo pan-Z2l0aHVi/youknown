@@ -6,7 +6,7 @@ export default () => {
 	const [selection, setSelection] = useState(0)
 	const [multipleSelection, setMultipleSelection] = useState([0])
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Select</h1>
 			<Divider />
 			<Select

@@ -6,7 +6,7 @@ export default () => {
 	const [controlledActives, setControlledActives] = useState<(string | number)[]>([1])
 	const [customHeaderExpend, setCustomHeaderExpend] = useState<boolean>(false)
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Collapse</h1>
 			<Divider />
 			<Collapse defaultActives={['1']} onChange={console.log}>

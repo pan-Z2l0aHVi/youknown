@@ -7,7 +7,7 @@ export default () => {
 	const [open, setOpen] = useState(false)
 	const [open1, setOpen1] = useState(false)
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Drawer</h1>
 			<Divider />
 			<Tabs

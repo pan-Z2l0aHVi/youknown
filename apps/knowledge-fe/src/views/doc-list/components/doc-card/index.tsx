@@ -10,7 +10,7 @@ import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dialog, Dropdown, Motion } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
+import { cls, QS } from '@youknown/utils/src'
 
 interface DocCardProps {
 	choosing: boolean
@@ -35,7 +35,14 @@ export default function DocCard(props: DocCardProps) {
 		if (choosing) {
 			on_choose?.()
 		} else {
-			navigate('/library/doc/doc-editor')
+			navigate(
+				QS.stringify({
+					base: '/library/doc/doc-editor',
+					query: {
+						doc_id: info.doc_id
+					}
+				})
+			)
 		}
 	}
 	const edit_doc_options = () => {

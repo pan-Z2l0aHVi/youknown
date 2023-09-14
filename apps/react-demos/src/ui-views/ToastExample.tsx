@@ -4,7 +4,7 @@ import { Button, Divider, Space, Toast } from '@youknown/react-ui/src'
 
 export default () => {
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Toast</h1>
 			<Divider />
 			<Space>

@@ -7,7 +7,7 @@ export default () => {
 	const [open, setOpen] = useState(false)
 	const chevronIconEle = <TbChevronRight className="mr--4px text-16px" />
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Dropdown</h1>
 			<Divider />
 			<Space>

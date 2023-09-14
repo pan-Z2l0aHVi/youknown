@@ -28,7 +28,7 @@ export default function Browse() {
 					]}
 				/>
 
-				<Input prefix={<TbSearch />} placeholder="搜动态" outline={false} onFocus={show_search_modal} />
+				<Input prefix={<TbSearch />} placeholder="搜一搜" outline={false} onFocus={show_search_modal} />
 			</Header>
 
 			<Modal

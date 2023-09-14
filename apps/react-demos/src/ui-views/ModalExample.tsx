@@ -7,7 +7,7 @@ export default () => {
 	const show = () => setOpen(true)
 	const hide = () => setOpen(false)
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Modal</h1>
 			<Divider />
 			<Button onClick={show}>Show modal</Button>

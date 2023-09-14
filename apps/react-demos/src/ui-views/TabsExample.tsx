@@ -51,7 +51,7 @@ export default () => {
 	const [closableTabKey, setCloseableTabKey] = useState('a')
 
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Tabs</h1>
 			<Divider />
 			<Tabs

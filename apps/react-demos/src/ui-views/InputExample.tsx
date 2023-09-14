@@ -9,7 +9,7 @@ export default () => {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const textareaRef = useRef<HTMLTextAreaElement>(null)
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Input</h1>
 			<Divider />
 			<Space>

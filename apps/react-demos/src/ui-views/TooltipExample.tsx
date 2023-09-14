@@ -9,7 +9,7 @@ export default () => {
 		alignItems: 'center'
 	}
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Tooltip</h1>
 			<Divider />
 			<div className="grid grid-cols-[repeat(3,160px)] grid-rows-[repeat(5,auto)] gap-12px justify-center justify-items-center">

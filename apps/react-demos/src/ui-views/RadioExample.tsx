@@ -21,7 +21,7 @@ export default () => {
 		}, 1000)
 	}, [])
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Radio</h1>
 			<Divider />
 			<Space>

@@ -3,7 +3,7 @@ import { Button, Divider, Image, Space } from '@youknown/react-ui/src'
 export default () => {
 	const picSrc = 'https://iph.href.lu/879x400'
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Image</h1>
 			<Divider />
 			<Image src={picSrc} width="300px" />

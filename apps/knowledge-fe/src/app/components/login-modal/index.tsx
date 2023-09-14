@@ -26,6 +26,11 @@ export default function SignInModal() {
 				})
 			})
 	}
+
+	const handle_wechat_login = () => {
+		Toast.warning({ content: '还没做...' })
+	}
+
 	return (
 		<Modal
 			className={cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]')}
@@ -56,6 +61,7 @@ export default function SignInModal() {
 							className="w-100%! mb-16px"
 							size="large"
 							prefixIcon={<RiWechatFill className="text-20px color-#55B837" />}
+							onClick={handle_wechat_login}
 						>
 							通过微信登录
 						</Button>

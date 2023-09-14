@@ -6,7 +6,7 @@ import { Button, Card, Divider, Loading, Space } from '@youknown/react-ui/src'
 export default () => {
 	const [spinning, setSpinning] = useState(true)
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Loading</h1>
 			<Divider />
 			<Loading spinning />

@@ -5,7 +5,7 @@ import { Avatar, Divider, Space } from '@youknown/react-ui/src'
 export default () => {
 	const picSrc = 'https://iph.href.lu/200x200'
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Avatar</h1>
 			<Divider />
 			<Space size="large">

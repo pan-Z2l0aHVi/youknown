@@ -5,7 +5,7 @@ import { Button, Dialog, Divider } from '@youknown/react-ui/src'
 export default () => {
 	const [open, setOpen] = useState(false)
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Dialog</h1>
 			<Divider />
 			<Button

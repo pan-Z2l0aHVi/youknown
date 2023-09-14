@@ -10,7 +10,7 @@ export default () => {
 		alignItems: 'center'
 	}
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Popover</h1>
 			<Divider />
 			<Space>

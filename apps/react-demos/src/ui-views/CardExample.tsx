@@ -2,7 +2,7 @@ import { Card, Divider, Loading } from '@youknown/react-ui/src'
 
 export default () => {
 	return (
-		<div className="p-24px">
+		<div>
 			<h1>Card</h1>
 			<Divider />
 			<Card header="Basic card" footer="Footer">
