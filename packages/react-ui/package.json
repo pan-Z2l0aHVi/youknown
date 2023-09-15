@@ -35,7 +35,8 @@
         "@types/react-transition-group": "^4.4.6"
     },
     "lint-staged": {
-        "*.{js,ts,jsx,tsx}": "eslint --cache --fix"
+        "*.{js,ts,jsx,tsx}": "eslint --cache --fix",
+        "**/*.scss": "stylelint --fix"
     },
     "browserslist": [
         "last 1 version",
