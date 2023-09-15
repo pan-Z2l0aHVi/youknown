@@ -2,29 +2,30 @@
 
 $prefix: '#{$ui-prefix}-notice';
 .#{$prefix} {
-	@include basic;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: max-content;
-	padding: 8px 16px;
-	background: $bg-1;
-	border: 1px solid $bd-line;
-	border-radius: $radius-m;
-	box-shadow: $shadow-l;
-	pointer-events: auto;
-	
-	& + .#{$prefix} {
-		margin-top: 8px;
-	}
-	
-	&-content-wrapper {
-		flex: 1;
-		display: flex;
-		justify-content: center;
+  @include basic;
 
-		&-with-icon {
-			margin-left: 8px;
-		}
-	}
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: max-content;
+  padding: 8px 16px;
+  background: $bg-1;
+  border: 1px solid $bd-line;
+  border-radius: $radius-m;
+  box-shadow: $shadow-l;
+  pointer-events: auto;
+	
+  & + .#{$prefix} {
+    margin-top: 8px;
+  }
+	
+  &-content-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+    &-with-icon {
+      margin-left: 8px;
+    }
+  }
 }

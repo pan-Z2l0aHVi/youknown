@@ -3,86 +3,88 @@
 $prefix: '#{$ui-prefix}-date-picker';
 
 .#{$prefix} {
-	font-size: $font-size-m;
-	color: $text-2;
+  font-size: $font-size-m;
+  color: $text-2;
 
-	&-clear-icon {
-		color: $text-3;
-		cursor: pointer;
-	}
+  &-clear-icon {
+    color: $text-3;
+    cursor: pointer;
+  }
 }
 
 .#{$prefix}-calendar {
-	@include basic;
-	user-select: none;
+  @include basic;
 
-	&-header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+  user-select: none;
 
-		&-month {
-			width: 88px;
-			text-align: center;
-			font-weight: 600;
-		}
-	}
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-	&-body {
-		$cell: 28px;
-		display: grid;
-		grid-template-columns: repeat(7, $cell);
-		gap: 4px;
-		text-align: center;
+    &-month {
+      width: 88px;
+      text-align: center;
+      font-weight: 600;
+    }
+  }
 
-		.#{$prefix}-calendar-week {
-			height: $cell;
-			line-height: $cell;
-			color: $text-2;
-		}
+  &-body {
+    $cell: 28px;
 
-		.#{$prefix}-calendar-day {
-			height: $cell;
-			line-height: $cell;
-			border-radius: $radius-m;
-			cursor: pointer;
+    display: grid;
+    grid-template-columns: repeat(7, $cell);
+    gap: 4px;
+    text-align: center;
 
-			&:hover {
-				background-color: $color-hover;
-			}
+    .#{$prefix}-calendar-week {
+      height: $cell;
+      line-height: $cell;
+      color: $text-2;
+    }
 
-			&:active {
-				background-color: $color-active;
-			}
+    .#{$prefix}-calendar-day {
+      height: $cell;
+      line-height: $cell;
+      border-radius: $radius-m;
+      cursor: pointer;
 
-			&-selected {
-				background-color: $color-primary;
-				color: #fff;
+      &:hover {
+        background-color: $color-hover;
+      }
 
-				&:hover {
-					background-color: $color-primary-hover;
-				}
+      &:active {
+        background-color: $color-active;
+      }
 
-				&:active {
-					background-color: $color-primary-active;
-				}
-			}
+      &-selected {
+        background-color: $color-primary;
+        color: #fff;
 
-			&-today {
-				border: 1px solid $color-primary;
-			}
-		}
+        &:hover {
+          background-color: $color-primary-hover;
+        }
 
-		.#{$prefix}-calendar-placeholder {
-			height: $cell;
-		}
-	}
+        &:active {
+          background-color: $color-primary-active;
+        }
+      }
 
-	&-footer {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		color: $color-primary;
-	}
+      &-today {
+        border: 1px solid $color-primary;
+      }
+    }
+
+    .#{$prefix}-calendar-placeholder {
+      height: $cell;
+    }
+  }
+
+  &-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: $color-primary;
+  }
 }

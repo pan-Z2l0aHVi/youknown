@@ -2,5 +2,5 @@
 
 $prefix: '#{$ui-editor-prefix}-horizontal-divider';
 .#{$prefix} {
-    @include icon;
+  @include icon;
 }

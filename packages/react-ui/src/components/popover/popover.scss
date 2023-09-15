@@ -2,14 +2,15 @@
 
 $prefix: '#{$ui-prefix}-popover';
 .#{$prefix} {
-	&-content {
-		@include basic;
-		width: max-content;
-		padding: 8px;
-		background: $bg-1;
-		border: 1px solid $bd-line;
-		border-radius: $radius-l;
-		box-shadow: $shadow-l;
-		font-size: $font-size-m;
-	}
+  &-content {
+    @include basic;
+
+    width: max-content;
+    padding: 8px;
+    background: $bg-1;
+    border: 1px solid $bd-line;
+    border-radius: $radius-l;
+    box-shadow: $shadow-l;
+    font-size: $font-size-m;
+  }
 }

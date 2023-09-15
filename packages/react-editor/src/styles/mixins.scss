@@ -2,35 +2,36 @@
 @forward './vars.scss';
 
 @mixin flex-center {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @mixin interactive {
-	cursor: pointer;
-	&.disabled {
-		opacity: 0.4;
-	}
+  cursor: pointer;
 
-	&:not(.disabled) {
-		&:focus,
-		&:hover,
-		&.active {
-			background-color: $color-hover;
-		}
+  &.disabled {
+    opacity: 0.4;
+  }
 
-		&:active {
-			background-color: $color-active;
-		}
-	}
+  &:not(.disabled) {
+    &:focus,
+    &:hover,
+    &.active {
+      background-color: $color-hover;
+    }
+
+    &:active {
+      background-color: $color-active;
+    }
+  }
 }
 
 @mixin icon {
-	display: flex;
-    align-items: center;
-    font-size: 18px;
-    color: $text-1;
-    line-height: 0;
-    user-select: none;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  color: $text-1;
+  line-height: 0;
+  user-select: none;
 }

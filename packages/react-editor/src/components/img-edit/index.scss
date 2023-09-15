@@ -2,43 +2,45 @@
 
 $prefix: '#{$ui-editor-prefix}-img-edit';
 .#{$prefix} {
-    @include icon;
-    @include interactive;
-    padding: 4px;
-    border-radius: $radius-m;
+  @include icon;
+  @include interactive;
+
+  padding: 4px;
+  border-radius: $radius-m;
 }
 
 .#{$prefix}-popup {
-	width: 280px;
+  width: 280px;
 
-	.#{$prefix}-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 16px;
+  .#{$prefix}-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
 
-		.#{$prefix}-close {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 24px;
-			height: 24px;
-			border-radius: $radius-m;
-			cursor: pointer;
-			&:hover {
-				background: $bg-3;
-			}
-		}
-	}
+    .#{$prefix}-close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: $radius-m;
+      cursor: pointer;
 
-	.#{$prefix}-footer {
-		justify-content: flex-end;
-		margin-top: 16px;
-	}
+      &:hover {
+        background: $bg-3;
+      }
+    }
+  }
+
+  .#{$prefix}-footer {
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
 	
-	.#{$prefix}-textarea {
-		.#{$prefix}-textarea-inner {
-			resize: none;
-		}
-	}
+  .#{$prefix}-textarea {
+    .#{$prefix}-textarea-inner {
+      resize: none;
+    }
+  }
 }

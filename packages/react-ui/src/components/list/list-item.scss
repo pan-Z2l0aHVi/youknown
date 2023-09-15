@@ -2,44 +2,45 @@
 
 $prefix: '#{$ui-prefix}-list-item';
 .#{$prefix} {
-	@include basic;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+  @include basic;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 	
-	&-mr {
-		margin-right: 12px;
-	}
+  &-mr {
+    margin-right: 12px;
+  }
 	
-	&-ml {
-		margin-left: 12px;
-	}
+  &-ml {
+    margin-left: 12px;
+  }
 	
-	&-bordered {
-		& + .#{$prefix} {
-			border-top: 1px solid $bd-line;
-		}
-	}
+  &-bordered {
+    & + .#{$prefix} {
+      border-top: 1px solid $bd-line;
+    }
+  }
 	
-	&-content {
-		width: 100%;
-	}
+  &-content {
+    width: 100%;
+  }
 	
-	&-small {
-		&.#{$prefix} {
-			padding: 4px 8px;
-		}
-	}
+  &-small {
+    &.#{$prefix} {
+      padding: 4px 8px;
+    }
+  }
 	
-	&-medium {
-		&.#{$prefix} {
-			padding: 8px 16px;
-		}
-	}
+  &-medium {
+    &.#{$prefix} {
+      padding: 8px 16px;
+    }
+  }
 	
-	&-large {
-		&.#{$prefix} {
-			padding: 16px 32px;
-		}
-	}
+  &-large {
+    &.#{$prefix} {
+      padding: 16px 32px;
+    }
+  }
 }

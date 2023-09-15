@@ -2,55 +2,57 @@
 
 $prefix: '#{$ui-prefix}-textarea';
 .#{$prefix} {
-	@include basic;
-	display: flex;
-	width: 240px;
-	background: $bg-1;
-	border-radius: $radius-m;
-	padding: 4px 8px;
-	border: 1px solid $bd-line;
-	transition: all $duration-n ease-out;
+  @include basic;
 
-	&-inner {
-		flex: 1;
-		min-height: 22px;
-		padding: 0 4px;
-		outline: 0;
-		border: 0;
-		background: transparent;
-		font-family: inherit;
-		line-height: 1.65;
-		color: $text-1;
-		resize: none;
-		@include scrollbar;
+  display: flex;
+  width: 240px;
+  background: $bg-1;
+  border-radius: $radius-m;
+  padding: 4px 8px;
+  border: 1px solid $bd-line;
+  transition: all $duration-n ease-out;
 
-		&::placeholder {
-			color: $text-3;
-		}
+  &-inner {
+    flex: 1;
+    min-height: 22px;
+    padding: 0 4px;
+    outline: 0;
+    border: 0;
+    background: transparent;
+    font-family: inherit;
+    line-height: 1.65;
+    color: $text-1;
+    resize: none;
+
+    @include scrollbar;
+
+    &::placeholder {
+      color: $text-3;
+    }
 		
-		&-lock-scroll {
-			overflow-y: hidden;
-		}
-	}
+    &-lock-scroll {
+      overflow-y: hidden;
+    }
+  }
 
-	&-disabled {
-		cursor: not-allowed;
-		opacity: $opacity-disabled;
+  &-disabled {
+    cursor: not-allowed;
+    opacity: $opacity-disabled;
 		
-		.#{$prefix}-inner {
-			cursor: not-allowed;
-		}
-	}
+    .#{$prefix}-inner {
+      cursor: not-allowed;
+    }
+  }
 
-	&:not(&-disabled) {
-		&.#{$prefix}-focus,
-		&:active {
-			&.#{$prefix}-bordered {
-				&.#{$prefix}-outline {
-					border-color: $color-primary;
-					box-shadow: inset 0 0 0 1px $color-primary;
-				}
-			}
-		}
-	}
+  &:not(&-disabled) {
+    &.#{$prefix}-focus,
+    &:active {
+      &.#{$prefix}-bordered {
+        &.#{$prefix}-outline {
+          border-color: $color-primary;
+          box-shadow: inset 0 0 0 1px $color-primary;
+        }
+      }
+    }
+  }
 }

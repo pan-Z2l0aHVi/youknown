@@ -2,10 +2,11 @@
 
 $prefix: '#{$ui-prefix}-image';
 .#{$prefix} {
-	@include basic;
-	cursor: pointer;
+  @include basic;
 
-	&-disabled {
-		cursor: default;
-	}
+  cursor: pointer;
+
+  &-disabled {
+    cursor: default;
+  }
 }

@@ -2,53 +2,54 @@
 
 $prefix: '#{$ui-prefix}-avatar';
 .#{$prefix} {
-	@include basic;
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: $radius-m;
-	color: $bg-1;
+  @include basic;
 
-	&-img {
-		width: 100%;
-		height: 100%;
-		border-radius: inherit;
-		object-fit: cover;
-	}
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: $radius-m;
+  color: $bg-1;
 
-	&-badge {
-		position: absolute;
-		top: 0;
-		right: 0;
-		transform: translate(50%, -50%);
-		background: $color-danger;
-		border-radius: $round;
-		padding: 2px 6px;
-		font-size: $font-size-s;
-		color: #fff;
-		line-height: 1.4em;
-	}
+  &-img {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+  }
 
-	&-round {
-		border-radius: $round;
-	}
+  &-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    background: $color-danger;
+    border-radius: $round;
+    padding: 2px 6px;
+    font-size: $font-size-s;
+    color: #fff;
+    line-height: 1.4em;
+  }
 
-	&-small {
-		min-width: 24px;
-		width: 24px;
-		height: 24px;
-	}
+  &-round {
+    border-radius: $round;
+  }
 
-	&-medium {
-		min-width: 40px;
-		width: 40px;
-		height: 40px;
-	}
+  &-small {
+    min-width: 24px;
+    width: 24px;
+    height: 24px;
+  }
 
-	&-large {
-		min-width: 56px;
-		width: 56px;
-		height: 56px;
-	}
+  &-medium {
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+  }
+
+  &-large {
+    min-width: 56px;
+    width: 56px;
+    height: 56px;
+  }
 }

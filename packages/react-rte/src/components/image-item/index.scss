@@ -2,12 +2,12 @@
 
 $prefix: '#{$ui-editor-prefix}-img-item';
 .#{$prefix} {
-	@include icon;
+  @include icon;
 
-	&-file-input {
-		opacity: 0;
-		width: 0;
-		height: 0;
-		margin: 0;
-	}
+  &-file-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+  }
 }

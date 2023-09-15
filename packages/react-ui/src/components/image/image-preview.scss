@@ -3,85 +3,86 @@
 $prefix: '#{$ui-prefix}-image-preview';
 
 .#{$prefix} {
-	@include basic;
-	display: flex;
-	justify-content: center;
+  @include basic;
 
-	&-loading-icon {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		pointer-events: none;
-	}
+  display: flex;
+  justify-content: center;
 
-	&-fallback {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 280px;
-		height: 200px;
-		background: #ccc;
-		font-size: 48px;
-		color: #666;
-		border-radius: $radius-m;
-	}
+  &-loading-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
 
-	&-pic {
-		max-width: 90vw;
-		max-height: calc(100vh - 240px);
-		user-select: none;
-		transition: transform $duration-n ease-out;
-		opacity: 0;
-		cursor: grab;
-		background-color: #fff;
-		background-image: linear-gradient(45deg, #ebebeb 25%, transparent 0, transparent 75%, #ebebeb 0),
-			linear-gradient(45deg, #ebebeb 25%, transparent 0, transparent 75%, #ebebeb 0);
-		background-position: 0 0, 20px 20px;
-		background-size: 40px 40px;
+  &-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 280px;
+    height: 200px;
+    background: #ccc;
+    font-size: 48px;
+    color: #666;
+    border-radius: $radius-m;
+  }
 
-		&:active {
-			cursor: grabbing;
-		}
+  &-pic {
+    max-width: 90vw;
+    max-height: calc(100vh - 240px);
+    user-select: none;
+    transition: transform $duration-n ease-out;
+    opacity: 0;
+    cursor: grab;
+    background-color: #fff;
+    background-image: linear-gradient(45deg, #ebebeb 25%, transparent 0, transparent 75%, #ebebeb 0),
+      linear-gradient(45deg, #ebebeb 25%, transparent 0, transparent 75%, #ebebeb 0);
+    background-position: 0 0, 20px 20px;
+    background-size: 40px 40px;
 
-		&-loaded {
-			opacity: 1;
-		}
-	}
+    &:active {
+      cursor: grabbing;
+    }
 
-	&-icon-wrap {
-		&:not(&-disabled) {
-			&:hover {
-				color: $color-primary;
-			}
-		}
-	}
+    &-loaded {
+      opacity: 1;
+    }
+  }
 
-	&-icon {
-		font-size: 18px;
-	}
+  &-icon-wrap {
+    &:not(&-disabled) {
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
 
-	&-ratio {
-		pointer-events: none;
-		position: fixed;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		padding: 6px 16px;
-		border-radius: $round;
-		background: rgba($color: #000000, $alpha: 0.6);
-		backdrop-filter: blur(24px);
-		color: #fff;
-	}
+  &-icon {
+    font-size: 18px;
+  }
 
-	&-toolbar {
-		position: fixed;
-		bottom: 40px;
-		padding: 8px;
-		background: $bg-1;
-		border-radius: $radius-l;
-		color: $text-1;
-		box-shadow: $shadow-l;
-		border: 1px solid $bd-line;
-	}
+  &-ratio {
+    pointer-events: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 6px 16px;
+    border-radius: $round;
+    background: rgba($color: #000, $alpha: 60%);
+    backdrop-filter: blur(24px);
+    color: #fff;
+  }
+
+  &-toolbar {
+    position: fixed;
+    bottom: 40px;
+    padding: 8px;
+    background: $bg-1;
+    border-radius: $radius-l;
+    color: $text-1;
+    box-shadow: $shadow-l;
+    border: 1px solid $bd-line;
+  }
 }

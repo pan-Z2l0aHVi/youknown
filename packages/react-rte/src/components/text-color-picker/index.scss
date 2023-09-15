@@ -2,60 +2,61 @@
 
 $prefix: '#{$ui-editor-prefix}-text-color-picker';
 .#{$prefix} {
-	display: flex;
+  display: flex;
 
-	.#{$prefix}-setter {
-		flex-direction: column;
-		border-radius: $radius-m 0 0 $radius-m;
+  .#{$prefix}-setter {
+    flex-direction: column;
+    border-radius: $radius-m 0 0 $radius-m;
 
-		.#{$prefix}-line {
-			width: 14px;
-			height: 3px;
-			border: 1px solid rgba($color: #000000, $alpha: 0.15);
-			border-radius: 1px;
-			margin: 0 2px;
-		}
-	}
+    .#{$prefix}-line {
+      width: 14px;
+      height: 3px;
+      border: 1px solid rgba($color: #000, $alpha: 15%);
+      border-radius: 1px;
+      margin: 0 2px;
+    }
+  }
 
-	.#{$prefix}-arrow-btn {
-		@include icon;
-		@include interactive;
-		height: 26px;
-		padding: 4px 0;
-		border: 0;
-		outline: 0;
-		background-color: $bg-1;
-		user-select: none;
-		border-top-right-radius: $radius-m;
-		border-bottom-right-radius: $radius-m;
-		font-size: 14px;
-		color: $text-2;
+  .#{$prefix}-arrow-btn {
+    @include icon;
+    @include interactive;
 
-		&:focus-visible {
-			@include focus-outline;
-		}
-	}
+    height: 26px;
+    padding: 4px 0;
+    border: 0;
+    outline: 0;
+    background-color: $bg-1;
+    user-select: none;
+    border-top-right-radius: $radius-m;
+    border-bottom-right-radius: $radius-m;
+    font-size: 14px;
+    color: $text-2;
+
+    &:focus-visible {
+      @include focus-outline;
+    }
+  }
 }
 
 .#{$prefix}-popup {
-	.#{$prefix}-wrapper {
-		display: grid;
-		grid-template-rows: repeat(3, auto);
-		grid-template-columns: repeat(6, auto);
-		gap: 6px;
+  .#{$prefix}-wrapper {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-template-columns: repeat(6, auto);
+    gap: 6px;
 
-		.#{$prefix}-item {
-			cursor: pointer;
-			width: 24px;
-			height: 24px;
-			border-radius: $radius-m;
-			border: 1px solid rgba($color: #000000, $alpha: 0.1);
+    .#{$prefix}-item {
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      border-radius: $radius-m;
+      border: 1px solid rgba($color: #000, $alpha: 10%);
 
-			&.active,
-			&:hover {
-				border: 1px solid #fff;
-				box-shadow: 0 0 0 2px var(--ui-color-primary);
-			}
-		}
-	}
+      &.active,
+      &:hover {
+        border: 1px solid #fff;
+        box-shadow: 0 0 0 2px var(--ui-color-primary);
+      }
+    }
+  }
 }

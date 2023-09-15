@@ -1,107 +1,109 @@
+/* stylelint-disable selector-class-pattern */
 // @import url('https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.min.css'); // bad request
 @use '../../styles/mixins.scss' as *;
 @use '@youknown/css/src/rte-desktop.scss' as *;
 
 .#{$ui-editor-prefix}-content {
-	@extend .rich-text-container;
-	position: relative;
+  /* stylelint-disable-next-line scss/at-extend-no-missing-placeholder */
+  @extend .rich-text-container;
 
-	.ProseMirror {
-		outline: none;
+  position: relative;
 
-		&.resize-cursor {
-			cursor: ew-resize;
-			cursor: col-resize;
-		}
+  .ProseMirror {
+    outline: none;
 
-		/* ----------------------- PLACEHOLDER ------------------------- */
-		p.is-editor-empty:first-child::before {
-			color: #adb5bd;
-			content: attr(data-placeholder);
-			float: left;
-			height: 0;
-			pointer-events: none;
-		}
+    &.resize-cursor {
+      cursor: ew-resize;
+      cursor: col-resize;
+    }
 
-		h1.is-empty::before,
-		p.is-empty::before {
-			color: #adb5bd;
-			content: attr(data-placeholder);
-			float: left;
-			height: 0;
-			pointer-events: none;
-		}
+    /* ----------------------- PLACEHOLDER ------------------------- */
+    p.is-editor-empty:first-child::before {
+      color: #adb5bd;
+      content: attr(data-placeholder);
+      float: left;
+      height: 0;
+      pointer-events: none;
+    }
 
-		/* ----------------------- TABLE ------------------------- */
-		table {
-			border-collapse: collapse;
-			margin: 0;
-			max-width: 100%;
-			overflow: hidden;
-			table-layout: fixed;
+    h1.is-empty::before,
+    p.is-empty::before {
+      color: #adb5bd;
+      content: attr(data-placeholder);
+      float: left;
+      height: 0;
+      pointer-events: none;
+    }
 
-			td,
-			th {
-				position: relative;
-			}
+    /* ----------------------- TABLE ------------------------- */
+    table {
+      border-collapse: collapse;
+      margin: 0;
+      max-width: 100%;
+      overflow: hidden;
+      table-layout: fixed;
 
-			p {
-				margin: 0;
-			}
+      td,
+      th {
+        position: relative;
+      }
 
-			.selectedCell:after {
-				background: rgba(200, 200, 255, 0.4);
-				content: '';
-				left: 0;
-				right: 0;
-				top: 0;
-				bottom: 0;
-				pointer-events: none;
-				position: absolute;
-				z-index: 2;
-			}
+      p {
+        margin: 0;
+      }
 
-			.column-resize-handle {
-				background-color: $color-primary;
-				position: absolute;
-				right: 0;
-				bottom: 0;
-				top: 0;
-				pointer-events: none;
-				width: 3px;
-			}
-		}
+      .selectedCell::after {
+        background: rgb(200 200 255 / 40%);
+        content: '';
+        inset: 0;
+        pointer-events: none;
+        position: absolute;
+        z-index: 2;
+      }
 
-		.tableWrapper {
-			padding: 1rem 0;
-			overflow-x: auto;
-		}
+      .column-resize-handle {
+        background-color: $color-primary;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        pointer-events: none;
+        width: 3px;
+      }
+    }
 
-		/* ----------------------- IMAGE ------------------------- */
-		img {
-			&.ProseMirror-selectednode {
-				outline: 3px solid $color-primary;
-			}
-		}
+    .tableWrapper {
+      padding: 1rem 0;
+      overflow-x: auto;
+    }
 
-		.image-resizer {
-			display: inline-flex;
-			position: relative;
-			flex-grow: 0;
-			.resize-trigger {
-				position: absolute;
-				right: -6px;
-				bottom: -9px;
-				opacity: 0;
-				transition: opacity 0.3s ease;
-				color: #fff;
-				background-color: #3259a5;
-				border-radius: 999vmax;
-				padding: 0 8px;
-			}
-			&:hover .resize-trigger {
-				opacity: 1;
-			}
-		}
-	}
+    /* ----------------------- IMAGE ------------------------- */
+    img {
+      &.ProseMirror-selectednode {
+        outline: 3px solid $color-primary;
+      }
+    }
+
+    .image-resizer {
+      display: inline-flex;
+      position: relative;
+      flex-grow: 0;
+
+      .resize-trigger {
+        position: absolute;
+        right: -6px;
+        bottom: -9px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        color: #fff;
+        background-color: #3259a5;
+        border-radius: 999vmax;
+        padding: 0 8px;
+      }
+
+      &:hover .resize-trigger {
+        opacity: 1;
+      }
+    }
+  }
 }

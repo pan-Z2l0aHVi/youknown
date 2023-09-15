@@ -1,13 +1,11 @@
 body {
-	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: auto;
-	-moz-osx-font-smoothing: auto;
-	overscroll-behavior: none;
-
-	font-size: var(--ui-font-size-m);
-	color: var(--ui-text-1);
-	background-color: var(--ui-bg-0);
-
-	min-width: 1200px;
-	overflow-y: hidden;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  overscroll-behavior: none;
+  font-size: var(--ui-font-size-m);
+  color: var(--ui-text-1);
+  background-color: var(--ui-bg-0);
+  min-width: 1200px;
+  overflow-y: hidden;
 }

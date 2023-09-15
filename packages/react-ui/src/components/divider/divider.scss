@@ -2,31 +2,39 @@
 
 $prefix: '#{$ui-prefix}-divider';
 .#{$prefix} {
-	@include basic;
-	&-horizontal {
-		width: 100%;
-		border-bottom: 1px solid $bd-line;
-		&-small {
-			margin: 8px 0;
-		}
-		&-medium {
-			margin: 16px 0;
-		}
-		&-large {
-			margin: 32px 0;
-		}
-	}
-	&-vertical {
-		height: 100%;
-		border-right: 1px solid $bd-line;
-		&-small {
-			margin: 0 8px;
-		}
-		&-medium {
-			margin: 0 16px;
-		}
-		&-large {
-			margin: 0 32px;
-		}
-	}
+  @include basic;
+
+  &-horizontal {
+    width: 100%;
+    border-bottom: 1px solid $bd-line;
+
+    &-small {
+      margin: 8px 0;
+    }
+
+    &-medium {
+      margin: 16px 0;
+    }
+
+    &-large {
+      margin: 32px 0;
+    }
+  }
+
+  &-vertical {
+    height: 100%;
+    border-right: 1px solid $bd-line;
+
+    &-small {
+      margin: 0 8px;
+    }
+
+    &-medium {
+      margin: 0 16px;
+    }
+
+    &-large {
+      margin: 0 32px;
+    }
+  }
 }

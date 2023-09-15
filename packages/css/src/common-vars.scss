@@ -1,30 +1,26 @@
 :root {
   --ui-text-1: #1f2329;
-	--ui-text-2: #646a73;
-	--ui-text-3: #999;
-
-	--ui-bg-0: #fff;
-	--ui-bg-1: #fff;
-	--ui-bg-2: #f5f6f7;
-	--ui-bg-3: #eee;
-
-	--ui-bd-line: #dee0e3;
-	--ui-scrollbar: 27, 27, 27;
-
-	--ui-radius-s: 2px;
-	--ui-radius-m: 4px;
-	--ui-radius-l: 6px;
-	--ui-font-size-m: 14px;
-	--ui-color-hover: rgba(0, 0, 0, 0.05);
-	--ui-color-active: rgba(0, 0, 0, 0.1);
-	--ui-color-primary: #165dff;
-	--ui-color-primary-hover: #4080ff;
-	--ui-color-primary-active: #0e42d2;
-	--ui-color-danger: #f53f3f;
-	--ui-color-danger-hover: #f76560;
-	--ui-color-danger-active: #cb272d;
-
-	--ui-shadow-s: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
-	--ui-shadow-m: 0 4px 8px rgba(31, 35, 41, 0.1);
-	--ui-shadow-l: 0 6px 24px rgba(0, 0, 0, 0.1);
+  --ui-text-2: #646a73;
+  --ui-text-3: #999;
+  --ui-bg-0: #fff;
+  --ui-bg-1: #fff;
+  --ui-bg-2: #f5f6f7;
+  --ui-bg-3: #eee;
+  --ui-bd-line: #dee0e3;
+  --ui-scrollbar: 27, 27, 27;
+  --ui-radius-s: 2px;
+  --ui-radius-m: 4px;
+  --ui-radius-l: 6px;
+  --ui-font-size-m: 14px;
+  --ui-color-hover: rgb(0 0 0 / 5%);
+  --ui-color-active: rgb(0 0 0 / 10%);
+  --ui-color-primary: #165dff;
+  --ui-color-primary-hover: #4080ff;
+  --ui-color-primary-active: #0e42d2;
+  --ui-color-danger: #f53f3f;
+  --ui-color-danger-hover: #f76560;
+  --ui-color-danger-active: #cb272d;
+  --ui-shadow-s: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  --ui-shadow-m: 0 4px 8px rgb(31 35 41 / 10%);
+  --ui-shadow-l: 0 6px 24px rgb(0 0 0 / 10%);
 }

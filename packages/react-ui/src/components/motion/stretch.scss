@@ -1,109 +1,109 @@
 @use '../../styles/vars.scss' as *;
 
 .stretch {
-	// enter
-	&-top-enter,
-	&-left-enter,
-	&-bottom-enter,
-	&-right-enter {
-		opacity: 0;
-	}
+  // enter
+  &-top-enter,
+  &-left-enter,
+  &-bottom-enter,
+  &-right-enter {
+    opacity: 0;
+  }
 
-	&-top-enter {
-		transform: scaleY(0.8);
-	}
+  &-top-enter {
+    transform: scaleY(0.8);
+  }
 
-	&-bottom-enter {
-		transform: scaleY(0.8);
-	}
+  &-bottom-enter {
+    transform: scaleY(0.8);
+  }
 
-	&-left-enter {
-		transform: scaleX(0.8);
-	}
+  &-left-enter {
+    transform: scaleX(0.8);
+  }
 
-	&-right-enter {
-		transform: scaleX(0.8);
-	}
+  &-right-enter {
+    transform: scaleX(0.8);
+  }
 
-	// enter-active
-	&-top-enter-active,
-	&-left-enter-active,
-	&-bottom-enter-active,
-	&-right-enter-active {
-		opacity: 1;
-		transition: opacity $duration-f cubic-bezier(0.4, 0, 0.2, 1), transform $duration-f cubic-bezier(0.4, 0, 0.2, 1);
-	}
+  // enter-active
+  &-top-enter-active,
+  &-left-enter-active,
+  &-bottom-enter-active,
+  &-right-enter-active {
+    opacity: 1;
+    transition: opacity $duration-f cubic-bezier(0.4, 0, 0.2, 1), transform $duration-f cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-	&-top-enter-active {
-		transform-origin: bottom;
-		transform: scaleY(1);
-	}
+  &-top-enter-active {
+    transform-origin: bottom;
+    transform: scaleY(1);
+  }
 
-	&-bottom-enter-active {
-		transform-origin: top;
-		transform: scaleY(1);
-	}
+  &-bottom-enter-active {
+    transform-origin: top;
+    transform: scaleY(1);
+  }
 
-	&-left-enter-active {
-		transform-origin: right;
-		transform: scaleX(1);
-	}
+  &-left-enter-active {
+    transform-origin: right;
+    transform: scaleX(1);
+  }
 
-	&-right-enter-active {
-		transform-origin: left;
-		transform: scaleX(1);
-	}
+  &-right-enter-active {
+    transform-origin: left;
+    transform: scaleX(1);
+  }
 
-	// exit
-	&-top-exit,
-	&-left-exit,
-	&-bottom-exit,
-	&-right-exit {
-		opacity: 1;
-	}
+  // exit
+  &-top-exit,
+  &-left-exit,
+  &-bottom-exit,
+  &-right-exit {
+    opacity: 1;
+  }
 
-	&-top-exit {
-		transform: scaleY(1);
-	}
+  &-top-exit {
+    transform: scaleY(1);
+  }
 
-	&-bottom-exit {
-		transform: scaleY(1);
-	}
+  &-bottom-exit {
+    transform: scaleY(1);
+  }
 
-	&-left-exit {
-		transform: scaleX(1);
-	}
+  &-left-exit {
+    transform: scaleX(1);
+  }
 
-	&-right-exit {
-		transform: scaleX(1);
-	}
+  &-right-exit {
+    transform: scaleX(1);
+  }
 
-	// exit-active
-	&-top-exit-active,
-	&-left-exit-active,
-	&-bottom-exit-active,
-	&-right-exit-active {
-		opacity: 0;
-		transition: opacity $duration-f cubic-bezier(0.4, 0, 0.2, 1), transform $duration-f cubic-bezier(0.4, 0, 0.2, 1);
-	}
+  // exit-active
+  &-top-exit-active,
+  &-left-exit-active,
+  &-bottom-exit-active,
+  &-right-exit-active {
+    opacity: 0;
+    transition: opacity $duration-f cubic-bezier(0.4, 0, 0.2, 1), transform $duration-f cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-	&-top-exit-active {
-		transform-origin: bottom;
-		transform: scaleY(0.8);
-	}
+  &-top-exit-active {
+    transform-origin: bottom;
+    transform: scaleY(0.8);
+  }
 
-	&-bottom-exit-active {
-		transform-origin: top;
-		transform: scaleY(0.8);
-	}
+  &-bottom-exit-active {
+    transform-origin: top;
+    transform: scaleY(0.8);
+  }
 
-	&-left-exit-active {
-		transform-origin: right;
-		transform: scaleX(0.8);
-	}
+  &-left-exit-active {
+    transform-origin: right;
+    transform: scaleX(0.8);
+  }
 
-	&-right-exit-active {
-		transform-origin: left;
-		transform: scaleX(0.8);
-	}
+  &-right-exit-active {
+    transform-origin: left;
+    transform: scaleX(0.8);
+  }
 }

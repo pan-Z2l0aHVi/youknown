@@ -2,21 +2,22 @@
 
 $prefix: '#{$ui-editor-prefix}-command-btn';
 .#{$prefix} {
-	@include icon;
-	@include interactive;
-	padding: 4px;
-	border-radius: $radius-m;
+  @include icon;
+  @include interactive;
+
+  padding: 4px;
+  border-radius: $radius-m;
   border: 0;
   outline: none;
   background-color: transparent;
-	user-select: none;
+  user-select: none;
 
-	&:focus-visible {
-		@include focus-outline;
-	}
+  &:focus-visible {
+    @include focus-outline;
+  }
 
-	&-arrow {
-		font-size: 14px;
-		color: $text-2;
-	}
+  &-arrow {
+    font-size: 14px;
+    color: $text-2;
+  }
 }

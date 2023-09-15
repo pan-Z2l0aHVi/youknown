@@ -1,7 +1,6 @@
 $ui-prefix: 'ui';
-
-$color-hover: var(--ui-color-hover, rgba(0,0,0,0.05));
-$color-active: var(--ui-color-active, rgba(0,0,0,0.1));
+$color-hover: var(--ui-color-hover, rgb(0 0 0 / 5%));
+$color-active: var(--ui-color-active, rgb(0 0 0 / 10%));
 $color-focus: var(--ui-color-focus, #000);
 $color-primary: var(--ui-color-primary, #007bca);
 $color-primary-hover: var(--ui-color-primary-hover, #0095da);
@@ -9,7 +8,6 @@ $color-primary-active: var(--ui-color-primary-active, #0063a7);
 $color-danger: var(--ui-color-danger, #d52515);
 $color-danger-hover: var(--ui-color-danger-hover, #f93920);
 $color-danger-active: var(--ui-color-danger-active, #b2140c);
-
 $text-1: var(--ui-text-1, #1f2329);
 $text-2: var(--ui-text-2, #666);
 $text-3: var(--ui-text-3, #999);
@@ -18,24 +16,19 @@ $bg-1: var(--ui-bg-1, #fff);
 $bg-2: var(--ui-bg-2, #f5f5f5);
 $bg-3: var(--ui-bg-3, #eee);
 $bd-line: var(--ui-bd-line, #dee0e3);
-$overlay: var(--ui-overlay, rgba(0,0,0,0.4));
+$overlay: var(--ui-overlay, rgb(0 0 0 / 40%));
 $scrollbar: var(--ui-scrollbar, 27,27,27);
-
 $font-size-s: var(--ui-font-size-s, 12px);
 $font-size-m: var(--ui-font-size-m, 14px);
 $font-size-l: var(--ui-font-size-l, 16px);
 $font-size-xl: var(--ui-font-size-xl, 18px);
-
-$shadow-m: var(--ui-shadow-m, 0 1px 2px -2px rgba(0, 0, 0, 0.08), 0 3px 6px 0 rgba(0, 0, 0, 0.06), 0 5px 12px 4px rgba(0, 0, 0, 0.04));
-$shadow-l: var(--ui-shadow-l, 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05));
-
+$shadow-m: var(--ui-shadow-m, 0 1px 2px -2px rgb(0 0 0 / 8%), 0 3px 6px 0 rgb(0 0 0 / 6%), 0 5px 12px 4px rgb(0 0 0 / 4%));
+$shadow-l: var(--ui-shadow-l, 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%), 0 9px 28px 8px rgb(0 0 0 / 5%));
 $radius-s: var(--ui-radius-s, 2px);
 $radius-m: var(--ui-radius-m, 4px);
 $radius-l: var(--ui-radius-l, 8px);
 $round: 999vmax;
-
 $opacity-disabled: var(--ui-opacity-disabled, 0.4);
-
 $duration-f: var(--ui-duration-f, 150ms);
 $duration-n: var(--ui-duration-n, 225ms);
 $duration-s: var(--ui-duration-s, 350ms);

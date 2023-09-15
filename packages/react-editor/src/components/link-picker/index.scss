@@ -2,34 +2,35 @@
 
 $prefix: '#{$ui-editor-prefix}-link-picker';
 .#{$prefix} {
-    @include icon;
+  @include icon;
 }
 
 .#{$prefix}-popup {
-	width: 280px;
+  width: 280px;
 
-	.#{$prefix}-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 16px;
+  .#{$prefix}-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
 
-		.#{$prefix}-close {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 24px;
-			height: 24px;
-			border-radius: $radius-m;
-			cursor: pointer;
-			&:hover {
-				background: $bg-3;
-			}
-		}
-	}
+    .#{$prefix}-close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: $radius-m;
+      cursor: pointer;
+
+      &:hover {
+        background: $bg-3;
+      }
+    }
+  }
 	
-	.#{$prefix}-footer {
-		justify-content: flex-end;
-		margin-top: 16px;
-	}
+  .#{$prefix}-footer {
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
 }

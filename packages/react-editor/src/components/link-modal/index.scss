@@ -2,15 +2,15 @@
 
 $prefix: '#{$ui-editor-prefix}-link-modal';
 .#{$prefix}-content {
-    width: 400px;
-    padding: 24px;
+  width: 400px;
+  padding: 24px;
 
-    .#{$prefix}-href-input {
-        width: 100%;
-    }
+  .#{$prefix}-href-input {
+    width: 100%;
+  }
 
-    .#{$prefix}-action-bar {
-        display: flex;
-        flex-direction: row-reverse;
-    }
+  .#{$prefix}-action-bar {
+    display: flex;
+    flex-direction: row-reverse;
+  }
 }
