@@ -2,8 +2,8 @@
 
 $prefix: '#{$ui-prefix}-trigger';
 .#{$prefix} {
-  &-content {
-    position: absolute;
-    width: max-content;
-  }
+	&-content {
+		position: absolute;
+		width: max-content;
+	}
 }

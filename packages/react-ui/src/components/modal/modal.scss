@@ -2,14 +2,14 @@
 
 $prefix: '#{$ui-prefix}-modal';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  z-index: 1000;
-  background: rgba($color: #000, $alpha: 50%);
-  display: flex;
-  justify-content: center;
+	z-index: 1000;
+	display: flex;
+	justify-content: center;
+	background: rgba($color: #000, $alpha: 50%);
 
-  &.#{$prefix}-align-center {
-    align-items: center;
-  }
+	&.#{$prefix}-align-center {
+		align-items: center;
+	}
 }

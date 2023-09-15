@@ -2,5 +2,5 @@
 
 $prefix: '#{$ui-editor-prefix}-link-item';
 .#{$prefix}-icon {
-  @include icon;
+	@include icon;
 }

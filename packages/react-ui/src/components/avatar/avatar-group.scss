@@ -2,27 +2,27 @@
 
 $prefix: '#{$ui-prefix}-avatar-group';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  display: flex;
-  flex-wrap: nowrap;
-  width: max-content;
-	
-  > * {
-    border: 2px solid $bg-0;
-  }
-	
-  &-overlap {
-    &-left {
-      > *:not(:first-child) {
-        margin-left: -5%;
-      }
-    }
-		
-    &-right {
-      > *:not(:first-child) {
-        margin-left: -5%;
-      }
-    }
-  }
+	display: flex;
+	flex-wrap: nowrap;
+	width: max-content;
+
+	> * {
+		border: 2px solid $bg-0;
+	}
+
+	&-overlap {
+		&-left {
+			> *:not(:first-child) {
+				margin-left: -5%;
+			}
+		}
+
+		&-right {
+			> *:not(:first-child) {
+				margin-left: -5%;
+			}
+		}
+	}
 }

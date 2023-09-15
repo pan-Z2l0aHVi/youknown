@@ -2,49 +2,49 @@
 
 $prefix: '#{$ui-prefix}-field';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 
-  &-align {
-    &-top {
-      display: block;
-    }
+	&-align {
+		&-top {
+			display: block;
+		}
 
-    &-left {
-      display: flex;
+		&-left {
+			display: flex;
 
-      .#{$prefix}-label {
-        text-align: left;
-      }
-    }
+			.#{$prefix}-label {
+				text-align: left;
+			}
+		}
 
-    &-right {
-      display: flex;
+		&-right {
+			display: flex;
 
-      .#{$prefix}-label {
-        text-align: right;
-      }
-    }
-  }
+			.#{$prefix}-label {
+				text-align: right;
+			}
+		}
+	}
 
-  &-label {
-    padding-right: 16px;
-    line-height: 32px;
-  }
+	&-label {
+		padding-right: 16px;
+		line-height: 32px;
+	}
 
-  &-control {
-    flex: 1;
+	&-control {
+		flex: 1;
 
-    &-inner {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      min-height: 32px;
-    }
-  }
+		&-inner {
+			display: flex;
+			flex: 1;
+			align-items: center;
+			min-height: 32px;
+		}
+	}
 
-  &-message {
-    color: #d03050;
-  }
+	&-message {
+		color: #d03050;
+	}
 }

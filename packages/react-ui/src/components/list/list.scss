@@ -2,12 +2,12 @@
 
 $prefix: '#{$ui-prefix}-list';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  background: $bg-1;
-	
-  &-bordered {
-    border: 1px solid $bd-line;
-    border-radius: $radius-l;
-  }
+	background: $bg-1;
+
+	&-bordered {
+		border: 1px solid $bd-line;
+		border-radius: $radius-l;
+	}
 }

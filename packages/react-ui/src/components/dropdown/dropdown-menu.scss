@@ -2,19 +2,18 @@
 
 $prefix: '#{$ui-prefix}-dropdown-menu';
 .#{$prefix} {
-  @include basic;
-  @include scrollbar;
+	@include basic;
+	@include scrollbar;
 
-  overflow-y: hidden;
+	overflow-y: hidden;
+	max-height: 280px;
+	padding: 8px 0;
+	background: $bg-1;
+	border: 1px solid $bd-line;
+	border-radius: $radius-l;
+	box-shadow: $shadow-l;
 
-  &:hover {
-    @include scroll-y;
-  }
-
-  max-height: 280px;
-  background: $bg-1;
-  padding: 8px 0;
-  border-radius: $radius-l;
-  border: 1px solid $bd-line;
-  box-shadow: $shadow-l;
+	&:hover {
+		@include scroll-y;
+	}
 }

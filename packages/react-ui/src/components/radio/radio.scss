@@ -2,110 +2,110 @@
 
 $prefix: '#{$ui-prefix}-radio';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  display: flex;
-  align-items: center;
-  width: max-content;
-  user-select: none;
-  transition: background-color $duration-f;
-  cursor: pointer;
+	cursor: pointer;
+	user-select: none;
+	display: flex;
+	align-items: center;
+	width: max-content;
+	transition: background-color $duration-f;
 
-  &:has(:focus-visible) {
-    .#{$prefix}-icon {
-      @include focus-outline;
-    }
-  }
-	
-  &-inner {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    margin: 0;
-  }
-	
-  &-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid $bd-line;
-    border-radius: $round;
-    background-color: $bg-1;
-    transition: all ease-out $duration-f;
-    margin-right: 8px;
-		
-    &::after {
-      content: '';
-      border-radius: $round;
-      background-color: #fff;
-      transition: all ease-out $duration-f;
-      transform: scale(0);
-    }
-  }
-	
-  &-checked {
-    .#{$prefix}-icon {
-      background-color: $color-primary;
-      border-color: $color-primary;
-			
-      &::after {
-        transform: scale(1);
-      }
-    }
-  }
-	
-  &-disabled {
-    cursor: not-allowed;
-    opacity: $opacity-disabled;
-  }
-	
-  &:not(&-checked, &-disabled) {
-    &:hover {
-      .#{$prefix}-icon {
-        background-color: $color-hover;
-      }
-    }
+	&:has(:focus-visible) {
+		.#{$prefix}-icon {
+			@include focus-outline;
+		}
+	}
 
-    &:active {
-      .#{$prefix}-icon {
-        background-color: $color-active;
-      }
-    }
-  }
-	
-  &-small {
-    .#{$prefix}-icon {
-      width: 12px;
-      height: 12px;
-			
-      &::after {
-        width: 4px;
-        height: 4px;
-      }
-    }
-  }
-	
-  &-medium {
-    .#{$prefix}-icon {
-      width: 16px;
-      height: 16px;
-			
-      &::after {
-        width: 6px;
-        height: 6px;
-      }
-    }
-  }
-	
-  &-large {
-    .#{$prefix}-icon {
-      width: 20px;
-      height: 20px;
-			
-      &::after {
-        width: 8px;
-        height: 8px;
-      }
-    }
-  }
+	&-inner {
+		width: 0;
+		height: 0;
+		margin: 0;
+		opacity: 0;
+	}
+
+	&-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-right: 8px;
+		background-color: $bg-1;
+		border: 1px solid $bd-line;
+		border-radius: $round;
+		transition: all ease-out $duration-f;
+
+		&::after {
+			content: '';
+			transform: scale(0);
+			background-color: #fff;
+			border-radius: $round;
+			transition: all ease-out $duration-f;
+		}
+	}
+
+	&-checked {
+		.#{$prefix}-icon {
+			background-color: $color-primary;
+			border-color: $color-primary;
+
+			&::after {
+				transform: scale(1);
+			}
+		}
+	}
+
+	&-disabled {
+		cursor: not-allowed;
+		opacity: $opacity-disabled;
+	}
+
+	&:not(&-checked, &-disabled) {
+		&:hover {
+			.#{$prefix}-icon {
+				background-color: $color-hover;
+			}
+		}
+
+		&:active {
+			.#{$prefix}-icon {
+				background-color: $color-active;
+			}
+		}
+	}
+
+	&-small {
+		.#{$prefix}-icon {
+			width: 12px;
+			height: 12px;
+
+			&::after {
+				width: 4px;
+				height: 4px;
+			}
+		}
+	}
+
+	&-medium {
+		.#{$prefix}-icon {
+			width: 16px;
+			height: 16px;
+
+			&::after {
+				width: 6px;
+				height: 6px;
+			}
+		}
+	}
+
+	&-large {
+		.#{$prefix}-icon {
+			width: 20px;
+			height: 20px;
+
+			&::after {
+				width: 8px;
+				height: 8px;
+			}
+		}
+	}
 }

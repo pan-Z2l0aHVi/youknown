@@ -1,6 +1,9 @@
 {
-  "extends": "stylelint-config-standard-scss",
+  "extends": [
+    "stylelint-config-clean-order",
+    "stylelint-config-standard-scss",
+    "stylelint-prettier/recommended"
+  ],
   "rules": {
-    "indentation": 2
   }
 }

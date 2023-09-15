@@ -1,13 +1,13 @@
 @use '../../styles/mixins.scss' as *;
 
 .#{$ui-editor-prefix}-bubble-menu {
-  padding: 6px 8px;
-  background: $bg-1;
-  border-radius: $radius-m;
-  border: 1px solid $bd-line;
-  box-shadow: $shadow-l;
+	padding: 6px 8px;
+	background: $bg-1;
+	border: 1px solid $bd-line;
+	border-radius: $radius-m;
+	box-shadow: $shadow-l;
 }
 
 .#{$ui-editor-prefix}-toolbar-divider {
-  height: 20px;
+	height: 20px;
 }

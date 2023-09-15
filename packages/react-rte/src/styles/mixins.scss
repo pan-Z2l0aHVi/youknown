@@ -2,41 +2,43 @@
 @forward './vars.scss';
 
 @mixin focus-outline {
-  outline: 2px solid $color-focus;
-  outline-offset: -2px;
-  transition: outline-offset 0s,outline 0s;
+	outline: 2px solid $color-focus;
+	outline-offset: -2px;
+	transition:
+		outline-offset 0s,
+		outline 0s;
 }
 
 @mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 @mixin interactive {
-  cursor: pointer;
+	cursor: pointer;
 
-  &.disabled {
-    opacity: 0.4;
-  }
+	&.disabled {
+		opacity: 0.4;
+	}
 
-  &:not(.disabled) {
-    &:hover,
-    &.active {
-      background-color: $color-hover;
-    }
+	&:not(.disabled) {
+		&:hover,
+		&.active {
+			background-color: $color-hover;
+		}
 
-    &:active {
-      background-color: $color-active;
-    }
-  }
+		&:active {
+			background-color: $color-active;
+		}
+	}
 }
 
 @mixin icon {
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-  color: $text-1;
-  line-height: 0;
-  user-select: none;
+	user-select: none;
+	display: flex;
+	align-items: center;
+	font-size: 18px;
+	line-height: 0;
+	color: $text-1;
 }

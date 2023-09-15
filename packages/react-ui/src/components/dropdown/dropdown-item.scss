@@ -2,57 +2,57 @@
 
 $prefix: '#{$ui-prefix}-dropdown-item';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  display: flex;
-  align-items: center;
-  padding: 4px 8px;
-  margin: 0 8px;
-  min-height: 32px;
-  border-radius: $radius-m;
-  background: $bg-1;
-  user-select: none;
-  cursor: pointer;
-  transition: background-color $duration-f;
+	cursor: pointer;
+	user-select: none;
+	display: flex;
+	align-items: center;
+	min-height: 32px;
+	margin: 0 8px;
+	padding: 4px 8px;
+	background: $bg-1;
+	border-radius: $radius-m;
+	transition: background-color $duration-f;
 
-  &-disabled {
-    cursor: not-allowed;
-    opacity: $opacity-disabled;
-  }
+	&-disabled {
+		cursor: not-allowed;
+		opacity: $opacity-disabled;
+	}
 
-  &:not(&-disabled) {
-    &:hover {
-      background-color: $color-hover;
-    }
+	&:not(&-disabled) {
+		&:hover {
+			background-color: $color-hover;
+		}
 
-    &:active {
-      background-color: $color-active;
-    }
-  }
+		&:active {
+			background-color: $color-active;
+		}
+	}
 
-  &-with-prefix {
-    padding-left: 8px;
-  }
+	&-with-prefix {
+		padding-left: 8px;
+	}
 
-  &-with-suffix {
-    padding-right: 8px;
-  }
+	&-with-suffix {
+		padding-right: 8px;
+	}
 
-  &-prefix-wrap {
-    display: flex;
-    align-items: center;
-    width: max-content;
-    margin-right: 8px;
-  }
+	&-prefix-wrap {
+		display: flex;
+		align-items: center;
+		width: max-content;
+		margin-right: 8px;
+	}
 
-  &-children-wrap {
-    flex: 1;
-  }
+	&-children-wrap {
+		flex: 1;
+	}
 
-  &-suffix-wrap {
-    display: flex;
-    align-items: center;
-    width: max-content;
-    margin-left: 8px;
-  }
+	&-suffix-wrap {
+		display: flex;
+		align-items: center;
+		width: max-content;
+		margin-left: 8px;
+	}
 }

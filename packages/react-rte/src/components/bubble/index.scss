@@ -2,13 +2,13 @@
 
 $prefix: '#{$ui-editor-prefix}-bubble';
 .#{$prefix} {
-  padding: 6px;
-  background-color: $bg-0;
-  box-shadow: $shadow-m;
-  border-radius: $radius-l;
-  border: 1px solid $bd-line;
+	padding: 6px;
+	background-color: $bg-0;
+	border: 1px solid $bd-line;
+	border-radius: $radius-l;
+	box-shadow: $shadow-m;
 
-  &-divider {
-    height: 20px;
-  }
+	&-divider {
+		height: 20px;
+	}
 }

@@ -11,11 +11,14 @@ export default function useIntersection(
 	watchPostEffect(onCleanup => {
 		if (!target?.value) return
 
-		const observe = new IntersectionObserver(entries => {
-			entries.forEach(entry => {
-				isIntersection.value = entry.isIntersecting
-			})
-		}, observerInit?.())
+		const observe = new IntersectionObserver(
+			entries => {
+				entries.forEach(entry => {
+					isIntersection.value = entry.isIntersecting
+				})
+			},
+			observerInit?.()
+		)
 		const currentTarget = target.value
 		observe.observe(currentTarget)
 		onCleanup(() => {

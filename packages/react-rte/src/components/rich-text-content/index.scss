@@ -3,109 +3,109 @@
 @use '@youknown/css/src/rte-desktop.scss' as *;
 
 .#{$ui-editor-prefix}-content {
-  /* stylelint-disable-next-line scss/at-extend-no-missing-placeholder */
-  @extend .rich-text-container;
+	/* stylelint-disable-next-line scss/at-extend-no-missing-placeholder */
+	@extend .rich-text-container;
 
-  position: relative;
+	position: relative;
 
-  .ProseMirror {
-    outline: none;
+	.ProseMirror {
+		outline: none;
 
-    &.resize-cursor {
-      cursor: ew-resize;
-      cursor: col-resize;
-    }
+		&.resize-cursor {
+			cursor: ew-resize;
+			cursor: col-resize;
+		}
 
-    /* ----------------------- PLACEHOLDER ------------------------- */
-    p.is-editor-empty:first-child::before {
-      color: #adb5bd;
-      content: attr(data-placeholder);
-      float: left;
-      height: 0;
-      pointer-events: none;
-    }
+		/* ----------------------- PLACEHOLDER ------------------------- */
+		p.is-editor-empty:first-child::before {
+			pointer-events: none;
+			content: attr(data-placeholder);
+			float: left;
+			height: 0;
+			color: #adb5bd;
+		}
 
-    h1.is-empty::before,
-    p.is-empty::before {
-      color: #adb5bd;
-      content: attr(data-placeholder);
-      float: left;
-      height: 0;
-      pointer-events: none;
-    }
+		h1.is-empty::before,
+		p.is-empty::before {
+			pointer-events: none;
+			content: attr(data-placeholder);
+			float: left;
+			height: 0;
+			color: #adb5bd;
+		}
 
-    /* ----------------------- TABLE ------------------------- */
-    table {
-      border-collapse: collapse;
-      margin: 0;
-      max-width: 100%;
-      overflow: hidden;
-      table-layout: fixed;
+		/* ----------------------- TABLE ------------------------- */
+		table {
+			overflow: hidden;
+			table-layout: fixed;
+			border-collapse: collapse;
+			max-width: 100%;
+			margin: 0;
 
-      td,
-      th {
-        position: relative;
-      }
+			td,
+			th {
+				position: relative;
+			}
 
-      p {
-        margin: 0;
-      }
+			p {
+				margin: 0;
+			}
 
-      .selectedCell::after {
-        background: rgb(200 200 255 / 40%);
-        content: '';
-        inset: 0;
-        pointer-events: none;
-        position: absolute;
-        z-index: 2;
-      }
+			.selectedCell::after {
+				pointer-events: none;
+				content: '';
+				position: absolute;
+				z-index: 2;
+				inset: 0;
+				background: rgb(200 200 255 / 40%);
+			}
 
-      .column-resize-handle {
-        background-color: $color-primary;
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        top: 0;
-        pointer-events: none;
-        width: 3px;
-      }
-    }
+			.column-resize-handle {
+				pointer-events: none;
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				width: 3px;
+				background-color: $color-primary;
+			}
+		}
 
-    .tableWrapper {
-      padding: 1rem 0;
-      overflow-x: auto;
-    }
+		.tableWrapper {
+			overflow-x: auto;
+			padding: 1rem 0;
+		}
 
-    /* ----------------------- IMAGE ------------------------- */
-    img {
-      transition: filter 0.1s ease-in-out;
+		/* ----------------------- IMAGE ------------------------- */
+		img {
+			transition: filter 0.1s ease-in-out;
 
-      &.ProseMirror-selectednode {
-        outline: 3px solid $color-primary;
-        filter: brightness(90%);
-      }
-    }
+			&.ProseMirror-selectednode {
+				filter: brightness(90%);
+				outline: 3px solid $color-primary;
+			}
+		}
 
-    .image-resizer {
-      display: inline-flex;
-      position: relative;
-      flex-grow: 0;
+		.image-resizer {
+			position: relative;
+			display: inline-flex;
+			flex-grow: 0;
 
-      .resize-trigger {
-        position: absolute;
-        right: -6px;
-        bottom: -9px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        color: #fff;
-        background-color: #3259a5;
-        border-radius: 999vmax;
-        padding: 0 8px;
-      }
+			.resize-trigger {
+				position: absolute;
+				right: -6px;
+				bottom: -9px;
+				padding: 0 8px;
+				color: #fff;
+				opacity: 0;
+				background-color: #3259a5;
+				border-radius: 999vmax;
+				transition: opacity 0.3s ease;
+			}
 
-      &:hover .resize-trigger {
-        opacity: 1;
-      }
-    }
-  }
+			&:hover .resize-trigger {
+				opacity: 1;
+			}
+		}
+	}
 }

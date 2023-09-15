@@ -2,9 +2,9 @@
 
 $prefix: '#{$ui-prefix}-checkbox-group';
 .#{$prefix} {
-  @include basic;
-	
-  &-disabled {
-    cursor: not-allowed;
-  }
+	@include basic;
+
+	&-disabled {
+		cursor: not-allowed;
+	}
 }

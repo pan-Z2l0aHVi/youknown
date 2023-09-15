@@ -2,41 +2,41 @@
 
 $prefix: '#{$ui-editor-prefix}-table-item';
 .#{$prefix} {
-  @include icon;
+	@include icon;
 }
 
 .#{$prefix}-popup {
-  padding: 0 8px;
+	padding: 0 8px;
 
-  .#{$prefix}-list {
-    display: grid;
-    grid-template-rows: repeat(10, auto);
-    grid-template-columns: repeat(10, auto);
-    border-left: 1px solid $bd-line;
-    border-top: 1px solid $bd-line;
-    background-color: $bg-1;
+	.#{$prefix}-list {
+		display: grid;
+		grid-template-columns: repeat(10, auto);
+		grid-template-rows: repeat(10, auto);
+		background-color: $bg-1;
+		border-top: 1px solid $bd-line;
+		border-left: 1px solid $bd-line;
 
-    .#{$prefix}-ceil {
-      width: 18px;
-      height: 18px;
-      border-right: 1px solid $bd-line;
-      border-bottom: 1px solid $bd-line;
-      background-color: $bg-0;
+		.#{$prefix}-ceil {
+			width: 18px;
+			height: 18px;
+			background-color: $bg-0;
+			border-right: 1px solid $bd-line;
+			border-bottom: 1px solid $bd-line;
 
-      &.active {
-        background: $color-hover;
-      }
-    }
-  }
+			&.active {
+				background: $color-hover;
+			}
+		}
+	}
 
-  .#{$prefix}-rows-cols {
-    display: flex;
-    justify-content: center;
-    margin-top: 8px;
-  }
+	.#{$prefix}-rows-cols {
+		display: flex;
+		justify-content: center;
+		margin-top: 8px;
+	}
 }
 
 .#{$prefix}-chevron-icon {
-  font-size: $font-size-l;
-  margin-right: -4px;
+	margin-right: -4px;
+	font-size: $font-size-l;
 }

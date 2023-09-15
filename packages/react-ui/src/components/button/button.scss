@@ -2,128 +2,128 @@
 
 $prefix: '#{$ui-prefix}-button';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: max-content;
-  padding: 4px 12px;
-  outline: none;
-  border: 1px solid $bd-line;
-  border-radius: $radius-m;
-  background-color: $bg-1;
-  user-select: none;
-  cursor: pointer;
-  transition: all $duration-f;
+	cursor: pointer;
+	user-select: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: max-content;
+	padding: 4px 12px;
+	background-color: $bg-1;
+	border: 1px solid $bd-line;
+	border-radius: $radius-m;
+	outline: none;
+	transition: all $duration-f;
 
-  &-inner-ml {
-    margin-left: 8px;
-  }
+	&-inner-ml {
+		margin-left: 8px;
+	}
 
-  &-inner-mr {
-    margin-right: 8px;
-  }
+	&-inner-mr {
+		margin-right: 8px;
+	}
 
-  &-small {
-    height: 24px;
-    &.#{$prefix}-circle,
-    &.#{$prefix}-square {
-      width: 24px;
-    }
-  }
+	&-small {
+		height: 24px;
+		&.#{$prefix}-circle,
+		&.#{$prefix}-square {
+			width: 24px;
+		}
+	}
 
-  &-medium {
-    height: 32px;
-    &.#{$prefix}-circle,
-    &.#{$prefix}-square {
-      width: 32px;
-    }
-  }
+	&-medium {
+		height: 32px;
+		&.#{$prefix}-circle,
+		&.#{$prefix}-square {
+			width: 32px;
+		}
+	}
 
-  &-large {
-    height: 40px;
-    &.#{$prefix}-circle,
-    &.#{$prefix}-square {
-      width: 40px;
-    }
-  }
+	&-large {
+		height: 40px;
+		&.#{$prefix}-circle,
+		&.#{$prefix}-square {
+			width: 40px;
+		}
+	}
 
-  &-primary {
-    border: 1px solid $color-primary;
-    background-color: $color-primary;
-    color: #fff;
-  }
+	&-primary {
+		color: #fff;
+		background-color: $color-primary;
+		border: 1px solid $color-primary;
+	}
 
-  &-danger {
-    border: 1px solid $color-danger;
-    background-color: $color-danger;
-    color: #fff;
-  }
+	&-danger {
+		color: #fff;
+		background-color: $color-danger;
+		border: 1px solid $color-danger;
+	}
 
-  &:not(&-disabled) {
-    &:hover {
-      background-color: $color-hover;
+	&:not(&-disabled) {
+		&:hover {
+			background-color: $color-hover;
 
-      &.#{$prefix}-primary {
-        background-color: $color-primary-hover;
-      }
+			&.#{$prefix}-primary {
+				background-color: $color-primary-hover;
+			}
 
-      &.#{$prefix}-danger {
-        background-color: $color-danger-hover;
-      }
-    }
-		
-    &:active {
-      background-color: $color-active;
-			
-      &.#{$prefix}-primary {
-        background-color: $color-primary-active;
-      }
+			&.#{$prefix}-danger {
+				background-color: $color-danger-hover;
+			}
+		}
 
-      &.#{$prefix}-danger {
-        background-color: $color-danger-active;
-      }
-    }
-		
-    &:focus-visible {
-      @include focus-outline;
-    }
-  }
+		&:active {
+			background-color: $color-active;
 
-  &-disabled {
-    cursor: not-allowed;
-    opacity: $opacity-disabled;;
-  }
+			&.#{$prefix}-primary {
+				background-color: $color-primary-active;
+			}
 
-  &-text {
-    background-color: transparent;
-    border: none;
-	
-    &:not(.#{$prefix}-disabled) {
-      &:hover {
-        background-color: $color-hover;
-      }
+			&.#{$prefix}-danger {
+				background-color: $color-danger-active;
+			}
+		}
 
-      &:active {
-        background-color: $color-active;
-      }
-    }
-  }
+		&:focus-visible {
+			@include focus-outline;
+		}
+	}
 
-  &-round {
-    border-radius: $round;
-  }
+	&-disabled {
+		cursor: not-allowed;
+		opacity: $opacity-disabled;
+	}
 
-  &-circle {
-    padding: 0;
-    width: 32px;
-    border-radius: $round;
-  }
+	&-text {
+		background-color: transparent;
+		border: none;
 
-  &-square {
-    padding: 0;
-    width: 32px;
-    border-radius: $radius-m;
-  }
+		&:not(.#{$prefix}-disabled) {
+			&:hover {
+				background-color: $color-hover;
+			}
+
+			&:active {
+				background-color: $color-active;
+			}
+		}
+	}
+
+	&-round {
+		border-radius: $round;
+	}
+
+	&-circle {
+		width: 32px;
+		padding: 0;
+		border-radius: $round;
+	}
+
+	&-square {
+		width: 32px;
+		padding: 0;
+		border-radius: $radius-m;
+	}
 }

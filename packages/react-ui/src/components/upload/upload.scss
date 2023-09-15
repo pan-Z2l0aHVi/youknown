@@ -2,67 +2,67 @@
 
 $prefix: '#{$ui-prefix}-upload';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  position: relative;
-  display: flex;
-  background-color: $bg-2;
-  transition: all $duration-n;
-  cursor: pointer;
-  user-select: none;
-  padding: 8px;
-  border-radius: $radius-m;
-  border: 1px dashed $bd-line;
-  width: max-content;
+	cursor: pointer;
+	user-select: none;
+	position: relative;
+	display: flex;
+	width: max-content;
+	padding: 8px;
+	background-color: $bg-2;
+	border: 1px dashed $bd-line;
+	border-radius: $radius-m;
+	transition: all $duration-n;
 
-  &-circle {
-    border-radius: $round;
+	&-circle {
+		border-radius: $round;
 
-    .#{$prefix}-thumb {
-      border-radius: $round;
-    }
-  }
+		.#{$prefix}-thumb {
+			border-radius: $round;
+		}
+	}
 
-  &:not(&-disabled) {
-    &:has(:focus-visible) {
-      @include focus-outline;
-    }
-		
-    &:hover {
-      border-color: $color-primary;
-    }
-  }
+	&:not(&-disabled) {
+		&:has(:focus-visible) {
+			@include focus-outline;
+		}
 
-  &-disabled {
-    cursor: not-allowed;
-    opacity: $opacity-disabled;
-  }
+		&:hover {
+			border-color: $color-primary;
+		}
+	}
 
-  &-inner {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    margin: 0;
-  }
+	&-disabled {
+		cursor: not-allowed;
+		opacity: $opacity-disabled;
+	}
 
-  &-plus-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: $text-3;
-    font-size: 24px;
-  }
+	&-inner {
+		width: 0;
+		height: 0;
+		margin: 0;
+		opacity: 0;
+	}
 
-  &-thumb-default {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 72px;
-    height: 72px;
-  }
+	&-plus-icon {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: 24px;
+		color: $text-3;
+	}
 
-  &-thumb {
-    object-fit: contain;
-  }
+	&-thumb-default {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 72px;
+		height: 72px;
+	}
+
+	&-thumb {
+		object-fit: contain;
+	}
 }

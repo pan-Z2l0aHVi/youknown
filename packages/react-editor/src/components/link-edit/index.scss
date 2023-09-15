@@ -2,9 +2,9 @@
 
 $prefix: '#{$ui-editor-prefix}-link-edit';
 .#{$prefix} {
-  @include icon;
-  @include interactive;
+	@include icon;
+	@include interactive;
 
-  padding: 4px;
-  border-radius: $radius-m;
+	padding: 4px;
+	border-radius: $radius-m;
 }

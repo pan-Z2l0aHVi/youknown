@@ -2,44 +2,44 @@
 
 $prefix: '#{$ui-prefix}-card';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  display: flex;
-  flex-direction: column;
-  width: max-content;
-  height: max-content;
-  border-radius: $radius-l;
-  background: $bg-1;
-	
-  &-bordered {
-    border: 1px solid $bd-line;
-  }
-	
-  &-shadow {
-    box-shadow: $shadow-l;
-  }
-	
-  &-header {
-    padding: 24px 24px 0;
-  }
-	
-  &-content {
-    padding: 24px;
-  }
-	
-  &-footer {
-    padding: 0 24px 24px;
-  }
-	
-  &-cover {
-    overflow: hidden;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    width: 100%;
-		
-    img {
-      display: block;
-      width: 100%;
-    }
-  }
+	display: flex;
+	flex-direction: column;
+	width: max-content;
+	height: max-content;
+	background: $bg-1;
+	border-radius: $radius-l;
+
+	&-bordered {
+		border: 1px solid $bd-line;
+	}
+
+	&-shadow {
+		box-shadow: $shadow-l;
+	}
+
+	&-header {
+		padding: 24px 24px 0;
+	}
+
+	&-content {
+		padding: 24px;
+	}
+
+	&-footer {
+		padding: 0 24px 24px;
+	}
+
+	&-cover {
+		overflow: hidden;
+		width: 100%;
+		border-top-left-radius: 6px;
+		border-top-right-radius: 6px;
+
+		img {
+			display: block;
+			width: 100%;
+		}
+	}
 }

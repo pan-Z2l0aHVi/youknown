@@ -2,45 +2,45 @@
 
 $prefix: '#{$ui-prefix}-drawer';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  &-mask {
-    z-index: 1000;
-    background: rgba($color: #000, $alpha: 50%);
-  }
+	&-mask {
+		z-index: 1000;
+		background: rgba($color: #000, $alpha: 50%);
+	}
 
-  &-wrap {
-    position: fixed;
-    background: $bg-1;
+	&-wrap {
+		position: fixed;
+		background: $bg-1;
 
-    &-left {
-      top: 0;
-      left: 0;
-      height: 100%;
-    }
+		&-left {
+			top: 0;
+			left: 0;
+			height: 100%;
+		}
 
-    &-top {
-      top: 0;
-      left: 0;
-      width: 100%;
-    }
+		&-top {
+			top: 0;
+			left: 0;
+			width: 100%;
+		}
 
-    &-right {
-      top: 0;
-      right: 0;
-      height: 100%;
-    }
+		&-right {
+			top: 0;
+			right: 0;
+			height: 100%;
+		}
 
-    &-bottom {
-      left: 0;
-      bottom: 0;
-      width: 100%;
-    }
-  }
+		&-bottom {
+			bottom: 0;
+			left: 0;
+			width: 100%;
+		}
+	}
 
-  &-close-icon {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-  }
+	&-close-icon {
+		position: absolute;
+		top: 16px;
+		right: 16px;
+	}
 }

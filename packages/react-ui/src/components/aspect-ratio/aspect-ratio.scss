@@ -2,17 +2,17 @@
 
 $prefix: '#{$ui-prefix}-aspect-ratio';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  position: relative;
-  box-sizing: border-box;
-  width: 100%;
-  height: 0;
-	
-  &-content {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: auto;
-  }
+	position: relative;
+	box-sizing: border-box;
+	width: 100%;
+	height: 0;
+
+	&-content {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: auto;
+	}
 }

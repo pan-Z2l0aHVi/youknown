@@ -2,138 +2,138 @@
 
 $prefix: '#{$ui-prefix}-switch';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  display: inline-block;
-  position: relative;
-  border-radius: $round;
-  background-color: $bg-3;
-  transition: all $duration-n;
-  cursor: pointer;
-  user-select: none;
+	cursor: pointer;
+	user-select: none;
+	position: relative;
+	display: inline-block;
+	background-color: $bg-3;
+	border-radius: $round;
+	transition: all $duration-n;
 
-  &-inner {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    margin: 0;
-  }
+	&::after {
+		content: '';
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		background-color: #fff;
+		border-radius: $round;
+		box-shadow: 0 1px 4px rgba($color: #000, $alpha: 20%);
+		transition: all $duration-n;
+	}
 
-  &::after {
-    content: '';
-    position: absolute;
-    left: 2px;
-    top: 2px;
-    background-color: #fff;
-    border-radius: $round;
-    box-shadow: 0 1px 4px rgba($color: #000, $alpha: 20%);
-    transition: all $duration-n;
-  }
+	&-inner {
+		width: 0;
+		height: 0;
+		margin: 0;
+		opacity: 0;
+	}
 
-  &:not(&-disabled) {
-    &:has(:focus-visible) {
-      @include focus-outline;
-    }
-  }
+	&:not(&-disabled) {
+		&:has(:focus-visible) {
+			@include focus-outline;
+		}
+	}
 
-  &-disabled {
-    cursor: not-allowed;
-    opacity: $opacity-disabled;
-  }
+	&-disabled {
+		cursor: not-allowed;
+		opacity: $opacity-disabled;
+	}
 
-  &-small {
-    width: 24px;
-    height: 16px;
+	&-small {
+		width: 24px;
+		height: 16px;
 
-    &::after {
-      width: 12px;
-      height: 12px;
-    }
+		&::after {
+			width: 12px;
+			height: 12px;
+		}
 
-    &.#{$prefix}-checked {
-      background-color: $color-primary;
+		&.#{$prefix}-checked {
+			background-color: $color-primary;
 
-      &::after {
-        left: 10px;
-      }
-    }
+			&::after {
+				left: 10px;
+			}
+		}
 
-    &:not(.#{$prefix}-disabled) {
-      &:active {
-        &::after {
-          width: 14px;
-        }
+		&:not(.#{$prefix}-disabled) {
+			&:active {
+				&::after {
+					width: 14px;
+				}
 
-        &.#{$prefix}-checked {
-          &::after {
-            left: 8px;
-          }
-        }
-      }
-    }
-  }
+				&.#{$prefix}-checked {
+					&::after {
+						left: 8px;
+					}
+				}
+			}
+		}
+	}
 
-  &-medium {
-    width: 34px;
-    height: 22px;
+	&-medium {
+		width: 34px;
+		height: 22px;
 
-    &::after {
-      width: 18px;
-      height: 18px;
-    }
+		&::after {
+			width: 18px;
+			height: 18px;
+		}
 
-    &.#{$prefix}-checked {
-      background-color: $color-primary;
+		&.#{$prefix}-checked {
+			background-color: $color-primary;
 
-      &::after {
-        left: 14px;
-      }
-    }
+			&::after {
+				left: 14px;
+			}
+		}
 
-    &:not(.#{$prefix}-disabled) {
-      &:active {
-        &::after {
-          width: 22px;
-        }
+		&:not(.#{$prefix}-disabled) {
+			&:active {
+				&::after {
+					width: 22px;
+				}
 
-        &.#{$prefix}-checked {
-          &::after {
-            left: 10px;
-          }
-        }
-      }
-    }
-  }
+				&.#{$prefix}-checked {
+					&::after {
+						left: 10px;
+					}
+				}
+			}
+		}
+	}
 
-  &-large {
-    width: 44px;
-    height: 28px;
+	&-large {
+		width: 44px;
+		height: 28px;
 
-    &::after {
-      width: 24px;
-      height: 24px;
-    }
+		&::after {
+			width: 24px;
+			height: 24px;
+		}
 
-    &.#{$prefix}-checked {
-      background-color: $color-primary;
+		&.#{$prefix}-checked {
+			background-color: $color-primary;
 
-      &::after {
-        left: 18px;
-      }
-    }
+			&::after {
+				left: 18px;
+			}
+		}
 
-    &:not(.#{$prefix}-disabled) {
-      &:active {
-        &::after {
-          width: 30px;
-        }
+		&:not(.#{$prefix}-disabled) {
+			&:active {
+				&::after {
+					width: 30px;
+				}
 
-        &.#{$prefix}-checked {
-          &::after {
-            left: 12px;
-          }
-        }
-      }
-    }
-  }
+				&.#{$prefix}-checked {
+					&::after {
+						left: 12px;
+					}
+				}
+			}
+		}
+	}
 }

@@ -2,149 +2,149 @@
 
 $prefix: '#{$ui-prefix}-tabs';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  display: flex;
-  max-width: max-content;
+	display: flex;
+	max-width: max-content;
 
-  &-segment-list {
-    display: flex;
-    background: $bg-3;
-    padding: 2px;
-    border-radius: calc($radius-m + 2px);
-  }
+	&-segment-list {
+		display: flex;
+		padding: 2px;
+		background: $bg-3;
+		border-radius: calc($radius-m + 2px);
+	}
 
-  &-tab-item {
-    display: flex;
-    align-items: center;
-    padding: 4px 0;
-    user-select: none;
-    cursor: pointer;
+	&-tab-item {
+		cursor: pointer;
+		user-select: none;
+		display: flex;
+		align-items: center;
+		padding: 4px 0;
 
-    &-close-icon {
-      padding: 2px 0 2px 2px;
-      margin-left: 4px;
-      font-size: 14px;
-      color: $text-3;
-      line-height: 0;
-    }
+		&-close-icon {
+			margin-left: 4px;
+			padding: 2px 0 2px 2px;
+			font-size: 14px;
+			line-height: 0;
+			color: $text-3;
+		}
 
-    &:focus-visible {
-      @include focus-outline;
-    }
+		&:focus-visible {
+			@include focus-outline;
+		}
 
-    &-line {
-      min-height: 32px;
-      border-bottom: 2px solid transparent;
-      color: $text-2;
+		&-line {
+			min-height: 32px;
+			color: $text-2;
+			border-bottom: 2px solid transparent;
 
-      &-disabled {
-        cursor: not-allowed;
-        opacity: $opacity-disabled;
-      }
+			&-disabled {
+				cursor: not-allowed;
+				opacity: $opacity-disabled;
+			}
 
-      &:not(&-disabled) {
-        &:hover {
-          color: $text-1;
-        }
+			&:not(&-disabled) {
+				&:hover {
+					color: $text-1;
+				}
 
-        &.#{$prefix}-tab-item-line-active {
-          color: $color-primary;
-          border-bottom: 2px solid $color-primary;
-        }
-      }
+				&.#{$prefix}-tab-item-line-active {
+					color: $color-primary;
+					border-bottom: 2px solid $color-primary;
+				}
+			}
 
-      .#{$prefix}-tab-item-close-icon {
-        &:hover {
-          color: $color-primary;
-        }
-      }
-    }
+			.#{$prefix}-tab-item-close-icon {
+				&:hover {
+					color: $color-primary;
+				}
+			}
+		}
 
-    &-round {
-      min-height: 28px;
-      border-radius: $round;
-      padding: 4px 10px;
-      transition: all $duration-f;
+		&-round {
+			min-height: 28px;
+			padding: 4px 10px;
+			border-radius: $round;
+			transition: all $duration-f;
 
-      &-disabled {
-        cursor: not-allowed;
-        opacity: $opacity-disabled;
-      }
+			&-disabled {
+				cursor: not-allowed;
+				opacity: $opacity-disabled;
+			}
 
-      &:not(&-disabled) {
-        &:hover {
-          background-color: $color-hover;
-        }
+			&:not(&-disabled) {
+				&:hover {
+					background-color: $color-hover;
+				}
 
-        &:active {
-          background-color: $color-active;
-        }
+				&:active {
+					background-color: $color-active;
+				}
 
-        &.#{$prefix}-tab-item-round-active {
-          color: #fff;
-          background-color: $color-primary;
+				&.#{$prefix}-tab-item-round-active {
+					color: #fff;
+					background-color: $color-primary;
 
-          .#{$prefix}-tab-item-close-icon {
-            color: #fff;
-          }
-        }
-      }
+					.#{$prefix}-tab-item-close-icon {
+						color: #fff;
+					}
+				}
+			}
 
-      .#{$prefix}-tab-item-close-icon {
-        margin-right: -4px;
+			.#{$prefix}-tab-item-close-icon {
+				margin-right: -4px;
 
-        &:hover {
-          color: $color-primary;
-        }
-      }
-    }
+				&:hover {
+					color: $color-primary;
+				}
+			}
+		}
 
-    &-segment {
-      display: flex;
-      align-items: center;
-      height: 28px;
-      padding: 4px 16px;
-      background-color: $bg-3;
-      border-radius: $radius-m;
-      color: $text-2;
+		&-segment {
+			display: flex;
+			align-items: center;
+			height: 28px;
+			padding: 4px 16px;
+			color: $text-2;
+			background-color: $bg-3;
+			border-radius: $radius-m;
 
-      &-disabled {
-        cursor: not-allowed;
-        opacity: $opacity-disabled;
-      }
+			&-disabled {
+				cursor: not-allowed;
+				opacity: $opacity-disabled;
+			}
 
-      &:not(&-disabled) {
-        &:hover {
-          background-color: $color-hover;
-        }
+			&:not(&-disabled) {
+				&:hover {
+					background-color: $color-hover;
+				}
 
-        &:active {
-          background-color: $color-active;
-        }
+				&:active {
+					background-color: $color-active;
+				}
 
-        &.#{$prefix}-tab-item-segment-active {
-          color: $text-1;
-          background-color: $bg-0;
-          box-shadow: 0 1px 4px rgba($color: #000, $alpha: 10%);
-          z-index: 1;
-        }
+				&.#{$prefix}-tab-item-segment-active {
+					z-index: 1;
+					color: $text-1;
+					background-color: $bg-0;
+					box-shadow: 0 1px 4px rgba($color: #000, $alpha: 10%);
+				}
 
-        .#{$prefix}-tab-item-close-icon {
-          border-radius: $radius-m;
-          padding: 2px;
-          margin-left: 8px;
-          margin-right: -4px;
+				.#{$prefix}-tab-item-close-icon {
+					margin-right: -4px;
+					margin-left: 8px;
+					padding: 2px;
+					border-radius: $radius-m;
 
-          &:hover {
-            background-color: $color-hover;
-          }
-                    
-          &:active {
-            background-color: $color-active;
-          }
-        }
-      }
-    }
-  }
+					&:hover {
+						background-color: $color-hover;
+					}
+
+					&:active {
+						background-color: $color-active;
+					}
+				}
+			}
+		}
+	}
 }

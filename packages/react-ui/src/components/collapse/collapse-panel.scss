@@ -2,41 +2,43 @@
 
 $prefix: '#{$ui-prefix}-collapse-panel';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  padding: 4px;
+	padding: 4px;
 
-  &-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 32px;
-    padding: 4px 8px;
-    cursor: pointer;
+	&-header {
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 32px;
+		padding: 4px 8px;
 
-    &-icon {
-      background-color: inherit;
+		&-icon {
+			background-color: inherit;
 
-      > svg {
-        transition: transform $duration-n;
-      }
-    }
-  }
+			> svg {
+				transition: transform $duration-n;
+			}
+		}
+	}
 
-  &-box {
-    transition: max-height $duration-n ease-out, opacity $duration-n ease-out;
-    overflow: hidden;
+	&-box {
+		overflow: hidden;
+		transition:
+			max-height $duration-n ease-out,
+			opacity $duration-n ease-out;
 
-    &-entered {
-      opacity: 1;
-    }
+		&-entered {
+			opacity: 1;
+		}
 
-    &-exited {
-      opacity: 0;
-    }
-  }
+		&-exited {
+			opacity: 0;
+		}
+	}
 
-  &:not(&-is-custom-header) {
-    border-bottom: 1px solid $bd-line;
-  }
+	&:not(&-is-custom-header) {
+		border-bottom: 1px solid $bd-line;
+	}
 }

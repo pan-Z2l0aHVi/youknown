@@ -2,91 +2,91 @@
 
 $prefix: '#{$ui-prefix}-select';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: max-content;
-  min-width: 120px;
-  min-height: 32px;
-  margin: 0;
-  padding: 0;
-  padding-left: 12px;
-  border: 1px solid $bd-line;
-  background-color: $bg-1;
-  border-radius: $radius-m;
-  cursor: pointer;
-  transition: all $duration-n ease-out;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: max-content;
+	min-width: 120px;
+	min-height: 32px;
+	margin: 0;
+	padding: 0;
+	padding-left: 12px;
+	background-color: $bg-1;
+	border: 1px solid $bd-line;
+	border-radius: $radius-m;
+	transition: all $duration-n ease-out;
 
-  &:not(&-disabled) {
-    &:focus-visible {
-      @include focus-outline;
-    }
-  }
+	&:not(&-disabled) {
+		&:focus-visible {
+			@include focus-outline;
+		}
+	}
 
-  &-disabled {
-    cursor: not-allowed;
-    opacity: $opacity-disabled;
-  }
+	&-disabled {
+		cursor: not-allowed;
+		opacity: $opacity-disabled;
+	}
 
-  &-selector {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    user-select: none;
-    min-height: 22px;
+	&-selector {
+		user-select: none;
+		display: flex;
+		flex: 1;
+		align-items: center;
+		min-height: 22px;
 
-    &-filter {
-      width: 100%;
-      padding-left: 0;
+		&-filter {
+			width: 100%;
+			padding-left: 0;
 
-      .#{$ui-prefix}-input-inner {
-        padding-left: 0;
-      }
+			.#{$ui-prefix}-input-inner {
+				padding-left: 0;
+			}
 
-      &-placeholder-darker {
-        .#{$ui-prefix}-input-inner {
-          &::placeholder {
-            color: $text-1;
-          }
-        }
-      }
-    }
+			&-placeholder-darker {
+				.#{$ui-prefix}-input-inner {
+					&::placeholder {
+						color: $text-1;
+					}
+				}
+			}
+		}
 
-    &-tag-list {
-      padding-right: 12px;
-    }
-  }
+		&-tag-list {
+			padding-right: 12px;
+		}
+	}
 
-  &-arrow {
-    font-size: 16px;
-    color: $text-2;
-    margin-right: 4px;
-  }
+	&-arrow {
+		margin-right: 4px;
+		font-size: 16px;
+		color: $text-2;
+	}
 
-  &-placeholder {
-    color: $text-3;
-  }
+	&-placeholder {
+		color: $text-3;
+	}
 
-  &-item-icon {
-    @include flex-center;
+	&-item-icon {
+		@include flex-center;
 
-    width: 16px;
-    font-size: 16px;
-    color: $color-primary;
-  }
+		width: 16px;
+		font-size: 16px;
+		color: $color-primary;
+	}
 
-  &-item-selected {
-    &.#{$ui-prefix}-dropdown-item {
-      background-color: $color-hover;
-    }
-  }
+	&-item-selected {
+		&.#{$ui-prefix}-dropdown-item {
+			background-color: $color-hover;
+		}
+	}
 
-  &-empty {
-    @include flex-center;
+	&-empty {
+		@include flex-center;
 
-    height: 48px;
-    color: $text-3;
-  }
+		height: 48px;
+		color: $text-3;
+	}
 }

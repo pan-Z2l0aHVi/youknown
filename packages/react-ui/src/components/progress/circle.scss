@@ -2,27 +2,27 @@
 
 $prefix: '#{$ui-prefix}-circle';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  position: relative;
-  user-select: none;
+	user-select: none;
+	position: relative;
 
-  > svg {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+	> svg {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
-  &-circle {
-    fill: none;
-    stroke: $color-primary;
-    transform: rotate(-90deg);
-    transform-origin: center;
-    transform-box: fill-box;
-    transition: all;
+	&-circle {
+		transform-origin: center;
+		transform-box: fill-box;
+		transform: rotate(-90deg);
+		fill: none;
+		stroke: $color-primary;
+		transition: all;
 
-    &-round {
-      stroke-linecap: round;
-    }
-  }
+		&-round {
+			stroke-linecap: round;
+		}
+	}
 }

@@ -3,41 +3,41 @@
 
 $prefix: '#{$ui-prefix}-space';
 .#{$prefix} {
-  @include basic;
+	@include basic;
 
-  color: unset;
-  font-size: unset;
-  flex-wrap: nowrap;
+	flex-wrap: nowrap;
+	font-size: unset;
+	color: unset;
 
-  &-horizontal {
-    width: max-content;
+	&-horizontal {
+		width: max-content;
 
-    &-small {
-      @include polyfills.flex-gap(4px, 'row nowrap');
-    }
+		&-small {
+			@include polyfills.flex-gap(4px, 'row nowrap');
+		}
 
-    &-medium {
-      @include polyfills.flex-gap(12px, 'row nowrap');
-    }
+		&-medium {
+			@include polyfills.flex-gap(12px, 'row nowrap');
+		}
 
-    &-large {
-      @include polyfills.flex-gap(24px, 'row nowrap');
-    }
-  }
+		&-large {
+			@include polyfills.flex-gap(24px, 'row nowrap');
+		}
+	}
 
-  &-vertical {
-    height: max-content;
-		
-    &-small {
-      @include polyfills.flex-gap(4px, 'column nowrap');
-    }
+	&-vertical {
+		height: max-content;
 
-    &-medium {
-      @include polyfills.flex-gap(12px, 'column nowrap');
-    }
+		&-small {
+			@include polyfills.flex-gap(4px, 'column nowrap');
+		}
 
-    &-large {
-      @include polyfills.flex-gap(24px, 'column nowrap');
-    }
-  }
+		&-medium {
+			@include polyfills.flex-gap(12px, 'column nowrap');
+		}
+
+		&-large {
+			@include polyfills.flex-gap(24px, 'column nowrap');
+		}
+	}
 }
