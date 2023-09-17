@@ -8,7 +8,6 @@ import { Divider, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import { UI_EDITOR_PREFIX } from '../../common'
-import { useLink } from '../../hooks/useLink'
 import EraserBtn from '../eraser-btn'
 import InsertPicker, { insertListItem } from '../insert-picker'
 import RedoBtn from '../redo-btn'
@@ -34,7 +33,6 @@ interface MenuBarProps {
 }
 export function MenuBar(props: MenuBarProps) {
 	const { editor, tooltip = true, list, insertList } = props
-	const linkProps = useLink()
 
 	const btnList = useCreation(() => {
 		const defaultList = [
@@ -75,8 +73,7 @@ export function MenuBar(props: MenuBarProps) {
 					key: extension.name,
 					editor,
 					extension,
-					tooltip,
-					...linkProps
+					tooltip
 				})
 			}
 			return createElement(menu, {

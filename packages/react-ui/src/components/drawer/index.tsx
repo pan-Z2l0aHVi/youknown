@@ -35,7 +35,7 @@ const Drawer: FC<DrawerProps> = props => {
 		maskClosable = true,
 		maskStyle,
 		closable = false,
-		unmountOnExit = false,
+		unmountOnExit,
 		onCancel,
 		style,
 		...rest

@@ -97,7 +97,7 @@ const CheckboxGroup = (props: CheckboxGroupProps, propRef: ForwardedRef<HTMLDivE
 						? cloneElement(child, {
 								size,
 								disabled: disabled || child.props.disabled,
-								value: !!child.props.label && value.includes(child.props.label),
+								value: child.props.label != null && value.includes(child.props.label),
 								onChange: getHandleSubChange(child.props.label)
 						  })
 						: child

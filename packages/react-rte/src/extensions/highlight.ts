@@ -5,13 +5,15 @@ import HighlightPicker from '../components/highlight-picker'
 export default TiptapHighlight.extend<
 	HighlightOptions & {
 		menu: typeof HighlightPicker
+		bubble: typeof HighlightPicker
 	}
 >({
 	addOptions() {
 		return {
 			...this.parent?.(),
 			multicolor: true,
-			menu: HighlightPicker
+			menu: HighlightPicker,
+			bubble: HighlightPicker
 		}
 	}
 })

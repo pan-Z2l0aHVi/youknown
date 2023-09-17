@@ -105,8 +105,10 @@ const Input = (props: InputProps, propRef: ForwardedRef<HTMLInputElement>) => {
 
 	useLayoutEffect(() => {
 		if (autoFocus) {
-			inputRef.current.focus()
-			setFocus()
+			setTimeout(() => {
+				inputRef.current.focus()
+				setFocus()
+			})
 		}
 	}, [autoFocus, inputRef, setFocus])
 

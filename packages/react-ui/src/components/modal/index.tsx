@@ -24,7 +24,7 @@ const Modal: FC<ModalProps> = props => {
 		children,
 		className,
 		maskClosable = true,
-		unmountOnExit = false,
+		unmountOnExit,
 		alignCenter = true,
 		open = false,
 		onCancel,

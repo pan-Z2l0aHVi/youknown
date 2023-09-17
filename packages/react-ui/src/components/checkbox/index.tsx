@@ -1,7 +1,7 @@
 import './checkbox.scss'
 
 import { ChangeEventHandler, ForwardedRef, forwardRef, LabelHTMLAttributes, useRef } from 'react'
-import { GoCheck } from 'react-icons/go'
+import { HiCheck } from 'react-icons/hi'
 
 import { useComposeRef, useControllable } from '@youknown/react-hook/src'
 import { cls, omit } from '@youknown/utils/src'
@@ -49,7 +49,7 @@ const Checkbox = (props: CheckboxProps, propRef: ForwardedRef<HTMLInputElement>)
 		>
 			<input
 				disabled={disabled}
-				className={`${prefixCls}-inner`}
+				className={`${prefixCls}-input`}
 				ref={checkboxRef}
 				type="checkbox"
 				aria-checked={checked}
@@ -57,7 +57,7 @@ const Checkbox = (props: CheckboxProps, propRef: ForwardedRef<HTMLInputElement>)
 				onChange={handleChange}
 			/>
 			<div className={`${prefixCls}-icon`}>
-				<GoCheck className={cls(`${prefixCls}-icon-inner`, `${prefixCls}-icon-inner-${size}`)} />
+				<HiCheck className={cls(`${prefixCls}-icon-inner`)} />
 			</div>
 			{children}
 		</label>

@@ -6,7 +6,7 @@ import {
 	ForwardedRef,
 	forwardRef,
 	HTMLAttributes,
-	ReactElement,
+	isValidElement,
 	ReactNode,
 	useRef
 } from 'react'
@@ -56,7 +56,6 @@ export const EventsByTriggerNeed = [
 )[]
 
 interface TriggerProps extends HTMLAttributes<HTMLElement> {
-	children: ReactElement
 	open?: boolean
 	defaultOpen?: boolean
 	popup?: ReactNode
@@ -87,7 +86,7 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 		spacing = 8,
 		crossOffset = 0,
 		disabled = false,
-		unmountOnExit = true,
+		unmountOnExit = false,
 		motion = 'none',
 		appendTo = document.body,
 		zIndexLevel = 'tooltip',
@@ -144,8 +143,6 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 	const role = useRole(context, { role: ariaRole })
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([hover, click, focus, dismiss, role])
-
-	const child = Children.only(children)
 
 	const zIndex = useZIndex(zIndexLevel, open)
 
@@ -222,16 +219,22 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 	}
 
 	const ref = useMergeRefs([propRef, refs.setReference])
-	const triggerEle = cloneElement(child, {
-		ref: (node: HTMLElement) => {
-			refRef.current = node
-			ref?.(node)
-		},
-		...getReferenceProps(child.props)
-	})
+	const triggerEle = Children.map(children, child =>
+		isValidElement(child)
+			? cloneElement(child, {
+					ref: (node: HTMLElement) => {
+						refRef.current = node
+						ref?.(node)
+					},
+					...getReferenceProps(child.props)
+			  } as HTMLAttributes<HTMLElement>)
+			: child
+	)
 
 	return disabled ? (
-		cloneElement(child, { ref })
+		Children.map(children, child =>
+			isValidElement(child) ? cloneElement(child, { ref } as HTMLAttributes<HTMLElement>) : child
+		)
 	) : (
 		<>
 			{triggerEle}

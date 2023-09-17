@@ -1,6 +1,6 @@
 import './popover.scss'
 
-import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, ReactNode } from 'react'
+import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, isValidElement, ReactNode } from 'react'
 
 import { pick, pickDataAttrs } from '@youknown/utils/src'
 
@@ -35,6 +35,14 @@ const Popover = (props: PopoverProps, propRef: ForwardedRef<HTMLElement>) => {
 	const prefixCls = `${UI_PREFIX}-popover`
 
 	const popup = <div className={`${prefixCls}-content`}>{content}</div>
+	const triggerEle = Children.map(children, child =>
+		isValidElement(child)
+			? cloneElement(child, {
+					...pick(rest, ...EventsByTriggerNeed),
+					...pickDataAttrs(rest)
+			  })
+			: child
+	)
 
 	return (
 		<Trigger
@@ -57,10 +65,7 @@ const Popover = (props: PopoverProps, propRef: ForwardedRef<HTMLElement>) => {
 			zIndexLevel="popover"
 			ariaRole="tooltip"
 		>
-			{cloneElement(Children.only(children), {
-				...pick(rest, ...EventsByTriggerNeed),
-				...pickDataAttrs(rest)
-			})}
+			{triggerEle}
 		</Trigger>
 	)
 }

@@ -31,7 +31,7 @@ function CommandBtn(props: CommandBtnProps, ref: ForwardedRef<HTMLButtonElement>
 	} = props
 	const prefixCls = `${UI_EDITOR_PREFIX}-command-btn`
 	return (
-		<Tooltip ref={ref} placement="bottom" title={tooltip} disabled={tooltipDisabled}>
+		<Tooltip ref={ref} placement="bottom" title={tooltip} disabled={tooltipDisabled} appendTo={null}>
 			<button
 				className={cls(prefixCls, className, {
 					active,

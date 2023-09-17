@@ -1,8 +1,7 @@
 import './index.scss'
 
 import { useMemo, useState } from 'react'
-import { MdOutlineTableChart } from 'react-icons/md'
-import { TbChevronRight } from 'react-icons/tb'
+import { TbChevronRight, TbTablePlus } from 'react-icons/tb'
 
 import { Editor } from '@tiptap/react'
 import { Dropdown } from '@youknown/react-ui/src'
@@ -65,7 +64,7 @@ export default function TableItem(props: { editor: Editor }) {
 				disabled={insertDisabled}
 				prefix={
 					<div className={prefixCls}>
-						<MdOutlineTableChart />
+						<TbTablePlus />
 					</div>
 				}
 				suffix={<TbChevronRight className={`${prefixCls}-chevron-icon`} />}

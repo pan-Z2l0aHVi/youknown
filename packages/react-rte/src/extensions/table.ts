@@ -8,13 +8,15 @@ import TableItem from '../components/table-item'
 export default TiptapTable.extend<
 	TableOptions & {
 		insert: typeof TableItem
+		floating: typeof TableItem
 	}
 >({
 	addOptions() {
 		return {
 			...this.parent?.(),
 			resizable: true,
-			insert: TableItem
+			insert: TableItem,
+			floating: TableItem
 		}
 	},
 

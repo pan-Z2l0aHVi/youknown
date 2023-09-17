@@ -1,12 +1,11 @@
 import './index.scss'
 
-import { PiQuotesBold } from 'react-icons/pi'
-
 import { Editor } from '@tiptap/react'
 import { Dropdown } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import { UI_EDITOR_PREFIX } from '../../common'
+import { RiDoubleQuotesL } from 'react-icons/ri'
 
 export default function BlockquoteItem(props: { editor: Editor }) {
 	const { editor } = props
@@ -20,7 +19,7 @@ export default function BlockquoteItem(props: { editor: Editor }) {
 						disabled: !editor.can().toggleBlockquote()
 					})}
 				>
-					<PiQuotesBold />
+					<RiDoubleQuotesL />
 				</div>
 			}
 			closeAfterItemClick

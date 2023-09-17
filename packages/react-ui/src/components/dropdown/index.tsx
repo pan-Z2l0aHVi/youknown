@@ -1,4 +1,4 @@
-import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, ReactNode } from 'react'
+import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, isValidElement, ReactNode } from 'react'
 
 import { pick, pickDataAttrs } from '@youknown/utils/src'
 
@@ -33,6 +33,15 @@ const Dropdown = (props: DropdownProps, propRef: ForwardedRef<HTMLElement>) => {
 		...rest
 	} = props
 
+	const triggerEle = Children.map(children, child =>
+		isValidElement(child)
+			? cloneElement(child, {
+					...pick(rest, ...EventsByTriggerNeed),
+					...pickDataAttrs(rest)
+			  })
+			: child
+	)
+
 	return (
 		<Trigger
 			ref={propRef}
@@ -54,10 +63,7 @@ const Dropdown = (props: DropdownProps, propRef: ForwardedRef<HTMLElement>) => {
 			zIndexLevel="popover"
 			ariaRole="menu"
 		>
-			{cloneElement(Children.only(children), {
-				...pick(rest, ...EventsByTriggerNeed),
-				...pickDataAttrs(rest)
-			})}
+			{triggerEle}
 		</Trigger>
 	)
 }

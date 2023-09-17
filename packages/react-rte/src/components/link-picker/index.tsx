@@ -1,6 +1,6 @@
 import './index.scss'
 
-import { Dispatch, SetStateAction, useState } from 'react'
+import { ComponentProps, useState } from 'react'
 import { BiEditAlt } from 'react-icons/bi'
 import { TbLink } from 'react-icons/tb'
 
@@ -10,30 +10,23 @@ import { cls } from '@youknown/utils/src'
 import { ButtonProps, UI_EDITOR_PREFIX } from '../../common'
 import CommandBtn from '../command-btn'
 
-interface LinkPickerProps extends ButtonProps {
-	linkPopOpen: boolean
-	setLinkPopOpen: Dispatch<SetStateAction<boolean>>
+interface LinkPickerProps extends ButtonProps, ComponentProps<typeof Popover> {
 	isEdit?: boolean
 }
 export default function LinkPicker(props: LinkPickerProps) {
-	const { editor, tooltip = true, linkPopOpen, setLinkPopOpen, isEdit = false } = props
+	const { editor, tooltip = true, isEdit = false, trigger = 'click', open, onOpenChange, ...rest } = props
 
 	const [href, setHref] = useState('')
 
 	const saveLinkHref = () => {
-		editor.chain().setLink({ href }).focus().run()
-		setLinkPopOpen(false)
+		editor.chain().focus().setLink({ href }).run()
+		onOpenChange?.(false)
 	}
 	const disabled = !editor.can().toggleLink({ href: '' })
 
 	const prefixCls = `${UI_EDITOR_PREFIX}-link-picker`
 	const linkPopup = (
-		<Space
-			size="small"
-			onClick={e => {
-				e.stopPropagation()
-			}}
-		>
+		<Space size="small">
 			<Input
 				className={cls(`${prefixCls}-href-input`)}
 				autoFocus
@@ -42,6 +35,9 @@ export default function LinkPicker(props: LinkPickerProps) {
 				value={href}
 				onChange={setHref}
 				onEnter={saveLinkHref}
+				onClick={event => {
+					event.stopPropagation()
+				}}
 			/>
 			<Button primary onClick={saveLinkHref}>
 				确认
@@ -51,27 +47,27 @@ export default function LinkPicker(props: LinkPickerProps) {
 
 	return (
 		<Popover
-			trigger="click"
 			placement="bottom"
-			spacing={12}
 			disabled={disabled}
 			content={linkPopup}
-			open={linkPopOpen}
-			onOpenChange={setLinkPopOpen}
+			trigger={trigger}
+			open={open}
+			onOpenChange={onOpenChange}
+			{...rest}
 		>
 			<CommandBtn
 				className={cls(prefixCls)}
 				arrow
 				tooltip={isEdit ? '编辑链接' : '链接'}
 				tooltipDisabled={!tooltip}
-				active={linkPopOpen}
+				active={open}
 				disabled={disabled}
 				onCommand={() => {
+					if (trigger === 'manual') {
+						onOpenChange?.(!open)
+					}
 					const selectedLink: string = editor.getAttributes('link').href ?? ''
 					setHref(selectedLink)
-				}}
-				onClick={e => {
-					e.stopPropagation()
 				}}
 			>
 				{isEdit ? <BiEditAlt /> : <TbLink />}

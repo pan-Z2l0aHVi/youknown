@@ -14,6 +14,7 @@ export interface ImageOptions {
 		height?: number
 	}>
 	insert: typeof ImageItem
+	floating: typeof ImageItem
 }
 
 declare module '@tiptap/core' {
@@ -44,7 +45,8 @@ const Image = Node.create<ImageOptions>({
 			allowBase64: false,
 			HTMLAttributes: {},
 			onCustomUpload: undefined,
-			insert: ImageItem
+			insert: ImageItem,
+			floating: ImageItem
 		}
 	},
 

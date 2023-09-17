@@ -1,0 +1,10 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-editor-prefix}-floating';
+.#{$prefix} {
+	// empty block
+}
+
+.#{$prefix}-dropdown {
+	min-width: 160px;
+}

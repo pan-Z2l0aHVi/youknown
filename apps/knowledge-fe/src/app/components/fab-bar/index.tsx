@@ -22,12 +22,7 @@ export default function FabBar() {
 
 			{fab_list.map(item => (
 				<Tooltip key={item.id} title={item.title} disabled={item.tooltip_disabled}>
-					<Button
-						circle
-						size="large"
-						className="shadow-shadow-m bg-bg1! bg-bg1! hover-brightness-95 active-brightness-90"
-						onClick={item.handler}
-					>
+					<Button circle size="large" className="shadow-shadow-m" onClick={item.handler}>
 						{item.icon}
 					</Button>
 				</Tooltip>

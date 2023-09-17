@@ -1,18 +1,18 @@
 import './index.scss'
 
-import { useState } from 'react'
+import { ComponentProps, useState } from 'react'
 import { BiSolidChevronDown } from 'react-icons/bi'
-import { LuHighlighter } from 'react-icons/lu'
+import { RiMarkPenLine } from 'react-icons/ri'
 
-import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Divider, Popover, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import { ButtonProps, UI_EDITOR_PREFIX } from '../../common'
 import CommandBtn from '../command-btn'
 
-export default function HighlightPicker(props: ButtonProps) {
-	const { editor, tooltip = true } = props
+interface HighlightPickerProps extends ButtonProps, ComponentProps<typeof Popover> {}
+export default function HighlightPicker(props: HighlightPickerProps) {
+	const { editor, tooltip = true, trigger = 'click', open, onOpenChange, ...rest } = props
 	const options = [
 		'#ffffff',
 		'#cccccc',
@@ -35,7 +35,6 @@ export default function HighlightPicker(props: ButtonProps) {
 	]
 
 	const [inkColor, setInkColor] = useState('#faf594')
-	const [open, { setBool: setOpen }] = useBoolean(false)
 
 	const hasActive = options.some(opt => editor.isActive('highlight', { color: opt }))
 
@@ -71,7 +70,7 @@ export default function HighlightPicker(props: ButtonProps) {
 	)
 
 	return (
-		<Tooltip disabled={!tooltip} placement="bottom" title="标记">
+		<Tooltip disabled={!tooltip} placement="bottom" title="标记" appendTo={null}>
 			<div className={prefixCls}>
 				<CommandBtn
 					className={cls(`${prefixCls}-setter`)}
@@ -82,23 +81,30 @@ export default function HighlightPicker(props: ButtonProps) {
 						editor.chain().focus().toggleHighlight({ color: inkColor }).run()
 					}}
 				>
-					<LuHighlighter size={15} />
+					<RiMarkPenLine size={15} />
 					<div className={`${prefixCls}-line`} style={{ backgroundColor: inkColor }}></div>
 				</CommandBtn>
 
 				<Popover
 					disabled={highlightDisabled}
-					trigger="click"
-					onOpenChange={setOpen}
+					trigger={trigger}
+					open={open}
+					onOpenChange={onOpenChange}
 					placement="bottom-start"
 					crossOffset={-26}
 					content={popContentEle}
+					{...rest}
 				>
 					<button
 						className={cls(`${prefixCls}-arrow-btn`, {
 							active: open,
 							disabled: highlightDisabled
 						})}
+						onClick={() => {
+							if (trigger === 'manual') {
+								onOpenChange?.(!open)
+							}
+						}}
 					>
 						<BiSolidChevronDown />
 					</button>

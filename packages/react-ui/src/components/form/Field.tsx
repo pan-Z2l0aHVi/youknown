@@ -55,7 +55,6 @@ const Field = (props: FieldProps, propRef: ForwardedRef<HTMLLabelElement & HTMLD
 			</div>
 		)
 
-	const child = Children.only(children)
 	const controllerProps = _form.subscribe(label, {
 		onChange() {
 			update()
@@ -72,7 +71,9 @@ const Field = (props: FieldProps, propRef: ForwardedRef<HTMLLabelElement & HTMLD
 			)}
 			<div className={`${prefixCls}-control`}>
 				<div className={`${prefixCls}-control-inner`}>
-					{isValidElement(child) && cloneElement(child, controllerProps)}
+					{Children.map(children, child =>
+						isValidElement(child) ? cloneElement(child, controllerProps) : child
+					)}
 				</div>
 				{/* <div className={`${prefixCls}-message`}>is required</div> */}
 			</div>

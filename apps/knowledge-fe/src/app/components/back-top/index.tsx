@@ -38,12 +38,7 @@ export default function BackTop(props: BackTop) {
 	return (
 		<Tooltip title="返回顶部">
 			<Motion.Zoom in={visible}>
-				<Button
-					circle
-					size="large"
-					className="shadow-shadow-m bg-bg1! hover-brightness-95 active-brightness-90"
-					onClick={handle_to_top}
-				>
+				<Button circle size="large" className="shadow-shadow-m" onClick={handle_to_top}>
 					<TbArrowBarToUp className="text-22px" />
 				</Button>
 			</Motion.Zoom>

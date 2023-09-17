@@ -1,41 +1,85 @@
-import './stretch.scss'
-import './slip.scss'
-
-import { FC } from 'react'
-import { CSSTransition } from 'react-transition-group'
-import { CSSTransitionProps } from 'react-transition-group/CSSTransition'
+import { FC, HTMLAttributes, ReactNode, cloneElement, isValidElement, useRef } from 'react'
+import { Transition } from 'react-transition-group'
 
 import { Collapse, Fade, Grow, Slide, Zoom } from '@mui/material'
+import { TransitionProps } from 'react-transition-group/Transition'
+import { useComposeRef } from '@youknown/react-hook/src'
 
-type StretchProps = Omit<CSSTransitionProps, 'addEventListener'> & {
+interface StretchProps
+	extends Pick<
+			TransitionProps,
+			| 'in'
+			| 'mountOnEnter'
+			| 'unmountOnExit'
+			| 'onEnter'
+			| 'onEntering'
+			| 'onEntered'
+			| 'onExit'
+			| 'onExiting'
+			| 'onExited'
+			| 'nodeRef'
+		>,
+		HTMLAttributes<HTMLElement> {
+	children?: ReactNode
 	direction?: 'top' | 'bottom' | 'left' | 'right'
 }
 
 const Stretch: FC<StretchProps> = props => {
-	const { children, direction = 'bottom', ...rest } = props
+	const { children, direction = 'bottom', in: inProp, style, ...rest } = props
+
+	const getTransformStyle = () => {
+		switch (direction) {
+			case 'top':
+			case 'bottom':
+				return 'scaleY(0.8)'
+			case 'left':
+			case 'right':
+				return 'scaleX(0.8)'
+		}
+	}
+
+	const getTransformOrigin = () => {
+		switch (direction) {
+			case 'top':
+				return 'bottom'
+			case 'bottom':
+				return 'top'
+			case 'left':
+				return 'right'
+			case 'right':
+				return 'left'
+			default:
+				return 'center'
+		}
+	}
+	const nodeRef = useRef(null)
+	const handleRef = useComposeRef(nodeRef, (children as any).ref)
 
 	return (
-		<CSSTransition timeout={225} classNames={`stretch-${direction}`} {...rest}>
-			{children}
-		</CSSTransition>
+		<Transition nodeRef={nodeRef} in={inProp} timeout={225} {...rest}>
+			{(state, childProps) =>
+				isValidElement<any>(children)
+					? cloneElement(children, {
+							style: {
+								visibility: state === 'exited' && !inProp ? 'hidden' : undefined,
+								opacity: state === 'entering' || state === 'entered' ? 1 : 0,
+								transformOrigin: getTransformOrigin(),
+								transform:
+									state === 'entering' || state === 'entered' ? 'scale(1)' : getTransformStyle(),
+								transition:
+									'opacity 0.225s cubic-bezier(0.4, 0, 0.2, 1), transform 0.225s cubic-bezier(0.4, 0, 0.2, 1)',
+								...style,
+								...children.props.style
+							},
+							ref: handleRef,
+							...childProps
+					  })
+					: children
+			}
+		</Transition>
 	)
 }
 Stretch.displayName = 'Stretch'
-
-type SlipProps = Omit<CSSTransitionProps, 'addEventListener'> & {
-	direction?: 'top' | 'bottom' | 'left' | 'right'
-}
-
-const Slip: FC<SlipProps> = props => {
-	const { children, direction = 'top', ...rest } = props
-
-	return (
-		<CSSTransition timeout={225} classNames={`slip-${direction}`} {...rest}>
-			{children}
-		</CSSTransition>
-	)
-}
-Slip.displayName = 'Slip'
 
 const Motion = {
 	Fade,
@@ -43,7 +87,6 @@ const Motion = {
 	Slide,
 	Zoom,
 	Collapse,
-	Stretch,
-	Slip
+	Stretch
 }
 export default Motion

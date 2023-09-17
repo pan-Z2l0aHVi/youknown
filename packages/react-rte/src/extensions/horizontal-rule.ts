@@ -5,12 +5,14 @@ import HorizontalRuleItem from '../components/horizontal-rule-item'
 export default TiptapHorizontalRule.extend<
 	HorizontalRuleOptions & {
 		insert: typeof HorizontalRuleItem
+		floating: typeof HorizontalRuleItem
 	}
 >({
 	addOptions() {
 		return {
 			...this.parent?.(),
-			insert: HorizontalRuleItem
+			insert: HorizontalRuleItem,
+			floating: HorizontalRuleItem
 		}
 	}
 })

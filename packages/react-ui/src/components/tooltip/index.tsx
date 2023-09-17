@@ -1,6 +1,6 @@
 import './tooltip.scss'
 
-import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef } from 'react'
+import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, isValidElement } from 'react'
 
 import { cls, pick, pickDataAttrs } from '@youknown/utils/src'
 
@@ -26,7 +26,7 @@ const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 		spacing,
 		crossOffset,
 		disabled,
-		unmountOnExit = true,
+		unmountOnExit,
 		appendTo,
 		onClickOutside,
 		onOpenChange,
@@ -37,6 +37,14 @@ const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 
 	const popup = (
 		<div className={cls(`${prefixCls}-content`, `${prefixCls}-content-${light ? 'light' : 'dark'}`)}>{title}</div>
+	)
+	const triggerEle = Children.map(children, child =>
+		isValidElement(child)
+			? cloneElement(child, {
+					...pick(rest, ...EventsByTriggerNeed),
+					...pickDataAttrs(rest)
+			  })
+			: child
 	)
 
 	return (
@@ -60,10 +68,7 @@ const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 			zIndexLevel="tooltip"
 			ariaRole="tooltip"
 		>
-			{cloneElement(Children.only(children), {
-				...pick(rest, ...EventsByTriggerNeed),
-				...pickDataAttrs(rest)
-			})}
+			{triggerEle}
 		</Trigger>
 	)
 }

@@ -33,10 +33,10 @@ const App = () => {
 					to={`/component/${path}`}
 					className={({ isActive }) =>
 						cls(
-							'flex items-center w-100% h-30px p-[0_12px] rd-radius-l color-text-1 text-15px decoration-none',
+							'flex items-center w-100% h-30px p-[0_12px] rd-radius-l color-text-1 text-15px decoration-none select-none',
 							'hover-bg-hover active-bg-active',
 							{
-								'bg-active': isActive
+								'!bg-active': isActive
 							}
 						)
 					}
@@ -53,7 +53,7 @@ const App = () => {
 				<TbMenu2 />
 			</Button>
 			{sidebarVisible && (
-				<div className="w-240px h-100% p-[48px_8px_16px_8px] b-solid b-r-1px b-bd-line bg-bg2 overflow-y-auto">
+				<div className="w-240px h-100% p-[48px_8px_16px_8px] b-r-solid b-r-1px b-bd-line bg-bg2 overflow-y-auto">
 					{navEle}
 				</div>
 			)}

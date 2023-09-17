@@ -1,6 +1,6 @@
 import './index.scss'
 
-import { useState } from 'react'
+import { ComponentProps, useState } from 'react'
 import { BiFont, BiSolidChevronDown } from 'react-icons/bi'
 
 import { Button, Divider, Popover, Tooltip } from '@youknown/react-ui/src'
@@ -9,8 +9,9 @@ import { cls } from '@youknown/utils/src'
 import { ButtonProps, UI_EDITOR_PREFIX } from '../../common'
 import CommandBtn from '../command-btn'
 
-export default function TextColorPicker(props: ButtonProps) {
-	const { editor, tooltip = true } = props
+interface TextColorPickerProps extends ButtonProps, ComponentProps<typeof Popover> {}
+export default function TextColorPicker(props: TextColorPickerProps) {
+	const { editor, tooltip = true, trigger = 'click', open, onOpenChange, ...rest } = props
 	const DEFAULT_COLOR = 'var(--ui-text-1)'
 	const options = [
 		'#ffffff',
@@ -34,7 +35,6 @@ export default function TextColorPicker(props: ButtonProps) {
 	]
 
 	const [inkColor, setInkColor] = useState(DEFAULT_COLOR)
-	const [open, setOpen] = useState(false)
 
 	const hasActive = options.some(opt => editor.isActive('textStyle', { color: opt }))
 
@@ -52,7 +52,12 @@ export default function TextColorPicker(props: ButtonProps) {
 	const prefixCls = `${UI_EDITOR_PREFIX}-text-color-picker`
 
 	const contentEle = (
-		<div className={`${prefixCls}-popup`}>
+		<div
+			className={`${prefixCls}-popup`}
+			// onClick={event => {
+			// 	event.stopPropagation()
+			// }}
+		>
 			<Button style={{ width: '100%' }} onClick={handleReset}>
 				恢复默认
 			</Button>
@@ -65,7 +70,9 @@ export default function TextColorPicker(props: ButtonProps) {
 							className={cls(`${prefixCls}-item`, {
 								active: editor.isActive('textStyle', { color: opt })
 							})}
-							onClick={() => handleSelect(opt)}
+							onClick={() => {
+								handleSelect(opt)
+							}}
 							style={{ backgroundColor: opt }}
 						></div>
 					)
@@ -75,7 +82,7 @@ export default function TextColorPicker(props: ButtonProps) {
 	)
 
 	return (
-		<Tooltip disabled={!tooltip} placement="bottom" title="文字颜色">
+		<Tooltip disabled={!tooltip} placement="bottom" title="文字颜色" appendTo={null}>
 			<div className={prefixCls}>
 				<CommandBtn
 					className={cls(`${prefixCls}-setter`)}
@@ -92,18 +99,24 @@ export default function TextColorPicker(props: ButtonProps) {
 
 				<Popover
 					disabled={setColorDisabled}
-					trigger="click"
+					trigger={trigger}
 					open={open}
-					onOpenChange={setOpen}
+					onOpenChange={onOpenChange}
 					placement="bottom-start"
 					crossOffset={-26}
 					content={contentEle}
+					{...rest}
 				>
 					<button
 						className={cls(`${prefixCls}-arrow-btn`, {
 							active: open,
 							disabled: setColorDisabled
 						})}
+						onClick={() => {
+							if (trigger === 'manual') {
+								onOpenChange?.(!open)
+							}
+						}}
 					>
 						<BiSolidChevronDown />
 					</button>
