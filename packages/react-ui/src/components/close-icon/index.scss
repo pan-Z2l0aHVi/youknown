@@ -15,24 +15,11 @@ $prefix: '#{$ui-prefix}-close-icon';
 	border-radius: $round;
 	transition: background-color $duration-f;
 
-	&::before {
-		content: '';
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		background-color: transparent;
-		border-radius: $round;
-	}
-
 	&:hover {
-		&::before {
-			background-color: $color-hover;
-		}
+		background-color: $color-secondary-hover;
 	}
 
 	&:active {
-		&::before {
-			background-color: $color-active;
-		}
+		background-color: $color-secondary-active;
 	}
 }

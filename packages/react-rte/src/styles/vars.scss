@@ -1,8 +1,10 @@
 $ui-prefix: 'ui';
 $ui-editor-prefix: '#{$ui-prefix}-rte';
+$color-focus: var(--ui-color-focus, #000);
 $color-hover: var(--ui-color-hover, #f5f5f4);
 $color-active: var(--ui-color-active, #e7e5e4);
-$color-focus: var(--ui-color-focus, #000);
+$color-secondary-hover: var(--ui-color-secondary-hover, #e5e6eb);
+$color-secondary-active: var(--ui-color-secondary-active, #c9cdd4);
 $color-primary: var(--ui-color-primary, #007bca);
 $color-primary-hover: var(--ui-color-primary-hover, #0095da);
 $color-primary-active: var(--ui-color-primary-active, #0063a7);

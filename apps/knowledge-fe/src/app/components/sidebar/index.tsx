@@ -1,6 +1,7 @@
 import { useEffect, useState, useTransition } from 'react'
 import { TbDotsVertical } from 'react-icons/tb'
 
+import { EXPAND_KEY, useUIStore } from '@/stores'
 import { useBoolean, useCreation, useLatestRef } from '@youknown/react-hook/src'
 import { Divider, Tooltip } from '@youknown/react-ui/src'
 import { cls, storage } from '@youknown/utils/src'
@@ -8,16 +9,15 @@ import { cls, storage } from '@youknown/utils/src'
 import Account from './components/account'
 import Menu from './components/menu'
 
-const EXPAND_KEY = 'sidebar-expand'
 const WIDTH_KEY = 'sidebar-width'
 const DEFAULT_W = 240
 const MIN_W = 160
 const MAX_W = 400
 
 export default function Sidebar() {
-	const local_expand = useCreation(() => storage.local.get<boolean>(EXPAND_KEY))
 	const local_width = useCreation(() => storage.local.get<number>(WIDTH_KEY))
-	const [expand, { setReverse: toggle_expand }] = useBoolean(local_expand ?? true)
+	const expand = useUIStore(state => state.sidebar_expand)
+	const toggle_expand = useUIStore(state => state.toggle_sidebar_expand)
 
 	const [sidebar_width, set_sidebar_width] = useState(local_width ?? DEFAULT_W)
 	const [dragging, { setTrue: start_drag, setFalse: stop_drag }] = useBoolean(false)

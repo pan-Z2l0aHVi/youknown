@@ -87,7 +87,7 @@ export function MenuBar(props: MenuBarProps) {
 	})
 
 	return (
-		<Space className={cls(prefixCls)} size="small" align="center">
+		<Space className={cls(prefixCls)} align="center">
 			<UndoBtn editor={editor} tooltip={tooltip} />
 			<RedoBtn editor={editor} tooltip={tooltip} />
 			<EraserBtn editor={editor} tooltip={tooltip} />

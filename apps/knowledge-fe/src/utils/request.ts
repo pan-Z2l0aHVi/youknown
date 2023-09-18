@@ -1,6 +1,7 @@
 import { B_CODE } from '@/consts'
 import { useUserStore } from '@/stores'
 import { get_local_token } from '@/utils/local'
+import { Toast } from '@youknown/react-ui/src'
 import { headers2Obj, Net } from '@youknown/utils/src'
 
 interface Cause {
@@ -34,6 +35,7 @@ export const net = Net.create({
 	.use(async (ctx, next) => {
 		await next()
 		if (ctx.err) {
+			Toast.error({ content: '网络连接错误' })
 			return
 		}
 		switch (ctx.data?.code) {

@@ -1,6 +1,0 @@
-@use '../../styles/mixins.scss' as *;
-
-$prefix: '#{$ui-editor-prefix}-code-block-btn';
-.#{$prefix} {
-	@include icon;
-}

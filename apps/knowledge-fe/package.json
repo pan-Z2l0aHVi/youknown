@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "@youknown/css": "workspace:*",
-    "@youknown/react-editor": "workspace:*",
+    "@youknown/react-rte": "workspace:*",
     "@youknown/react-hook": "workspace:*",
     "@youknown/react-ui": "workspace:*",
     "@youknown/utils": "workspace:*",

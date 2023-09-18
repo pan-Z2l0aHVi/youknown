@@ -10,8 +10,27 @@ import DocOptionsModal from '@/components/doc-options-modal'
 import More from '@/components/more'
 import { useRecordStore, useUIStore } from '@/stores'
 import { NetFetchError } from '@/utils/request'
-import { EditorContent, Toolbar, useEditor } from '@youknown/react-editor/src'
 import { useBoolean, useCreation, useFetch } from '@youknown/react-hook/src'
+import {
+	Blockquote,
+	Bold,
+	BulletList,
+	Code,
+	CodeBlock,
+	Heading,
+	Highlight,
+	HorizontalRule,
+	Image,
+	Italic,
+	Link,
+	OrderedList,
+	RTE,
+	Strike,
+	Table,
+	TextAlign,
+	TextColor,
+	Underline
+} from '@youknown/react-rte/src'
 import { Button, Dialog, Divider, Dropdown, Space, Toast } from '@youknown/react-ui/src'
 import { cls, storage } from '@youknown/utils/src'
 
@@ -19,6 +38,7 @@ export default function Doc() {
 	const navigate = useNavigate()
 	const recording = useRecordStore(state => state.recording)
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const sidebar_expand = useUIStore(state => state.sidebar_expand)
 	const local_doc_last_modify = useCreation(() => storage.local.get<string>('doc-last-modify'))
 	const [last_modify, set_last_modify] = useState(local_doc_last_modify ?? '')
 	const [had_modify, { setTrue: modify }] = useBoolean(false)
@@ -28,9 +48,35 @@ export default function Doc() {
 		useBoolean(false)
 
 	const local_doc_content = useCreation(() => storage.local.get<string>('doc-content'))
-	const editor = useEditor({
-		content: local_doc_content ?? '',
+	const editor = RTE.use({
+		extensions: [
+			Heading,
+			Bold,
+			Strike,
+			Italic,
+			Underline,
+			Code,
+			Link,
+			TextColor,
+			Highlight,
+			TextAlign,
+			Blockquote,
+			Table,
+			BulletList,
+			OrderedList,
+			CodeBlock,
+			HorizontalRule,
+			Image.configure({
+				onCustomUpload: async () => {
+					return {
+						src: ''
+					}
+				}
+			})
+		],
 		autofocus: 'end',
+		placeholder: '请输入',
+		content: local_doc_content,
 		onUpdate({ editor }) {
 			const now = dayjs().toString()
 			set_last_modify(now)
@@ -165,15 +211,17 @@ export default function Doc() {
 
 			<DocOptionsModal open={doc_options_modal_open} hide_modal={hide_doc_options_modal} doc_id={doc_id} />
 
-			<div className="flex justify-center sticky top-56px z-10 bg-bg-0 b-b-bd-line b-b-1 b-b-solid">
-				<div className="p-[12px_32px] bg-bg-0 shadow-[0_12px_16px_-8px_rgba(0,0,0,0.02)]">
-					<Toolbar editor={editor} />
-				</div>
+			<div
+				className={cls('sticky top-56px z-10 flex p-[12px_32px] bg-bg-0 b-b-bd-line b-b-1 b-b-solid', {
+					'justify-center': !sidebar_expand
+				})}
+			>
+				<RTE.Menu editor={editor} />
 			</div>
 
 			<div className="flex pt-40px pb-24px">
 				<div className="w-720px m-auto">
-					<EditorContent editor={editor} />
+					<RTE.Content editor={editor} />
 				</div>
 			</div>
 		</>

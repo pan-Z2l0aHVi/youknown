@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 import { set_local_settings } from '@/utils/local'
-import { delay, setRootStyle } from '@youknown/utils/src'
+import { delay, setRootStyle, storage } from '@youknown/utils/src'
 
 interface UIState {
 	progress_percent: number
@@ -9,6 +9,7 @@ interface UIState {
 	primary_color: string
 	radius: number[]
 	is_dark_theme: boolean
+	sidebar_expand: boolean
 	set_progress_percent: (percent: number) => void
 	show_progress: () => void
 	hide_progress: () => void
@@ -17,7 +18,9 @@ interface UIState {
 	set_hue: (hue: string) => Promise<void>
 	set_radius: (radius: number[]) => void
 	set_dark_theme: (is_dark: boolean) => void
+	toggle_sidebar_expand: () => void
 }
+export const EXPAND_KEY = 'sidebar-expand'
 
 let timer = 0
 
@@ -27,6 +30,7 @@ export const useUIStore = create<UIState>((set, get) => ({
 	primary_color: '',
 	radius: [],
 	is_dark_theme: false,
+	sidebar_expand: storage.local.get<boolean>(EXPAND_KEY) ?? true,
 
 	set_progress_percent: percent =>
 		set({
@@ -103,5 +107,10 @@ export const useUIStore = create<UIState>((set, get) => ({
 			root.classList.add('light-theme')
 			root.classList.remove('dark-theme')
 		}
-	}
+	},
+
+	toggle_sidebar_expand: () =>
+		set({
+			sidebar_expand: !get().sidebar_expand
+		})
 }))
