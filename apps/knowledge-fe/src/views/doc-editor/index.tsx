@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import { useState } from 'react'
-import { TbSettings, TbTrash } from 'react-icons/tb'
+import { LuSettings2 } from 'react-icons/lu'
+import { TbTrash } from 'react-icons/tb'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { delete_doc, get_doc_info, update_doc } from '@/apis/doc'
@@ -130,7 +131,7 @@ export default function Doc() {
 				<Dropdown.Menu className="w-160px">
 					<Dropdown.Item
 						closeAfterItemClick
-						prefix={<TbSettings className="ml-8px text-18px" />}
+						prefix={<LuSettings2 className="ml-8px text-18px" />}
 						onClick={show_doc_options_modal}
 					>
 						文档设置

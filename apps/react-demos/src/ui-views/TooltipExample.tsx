@@ -3,7 +3,7 @@ import { TbCheck, TbSearch, TbX } from 'react-icons/tb'
 import { Button, Divider, Space, Switch, Tooltip } from '@youknown/react-ui/src'
 
 export default () => {
-	const ceilStyle = {
+	const cellStyle = {
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center'
@@ -14,43 +14,43 @@ export default () => {
 			<Divider />
 			<div className="grid grid-cols-[repeat(3,160px)] grid-rows-[repeat(5,auto)] gap-12px justify-center justify-items-center">
 				<Tooltip placement="top-start" title="Top start">
-					<Button style={ceilStyle}>Top start</Button>
+					<Button style={cellStyle}>Top start</Button>
 				</Tooltip>
 				<Tooltip placement="top" title="Top">
-					<Button style={ceilStyle}>Top</Button>
+					<Button style={cellStyle}>Top</Button>
 				</Tooltip>
 				<Tooltip placement="top-end" title="Top end">
-					<Button style={ceilStyle}>Top end</Button>
+					<Button style={cellStyle}>Top end</Button>
 				</Tooltip>
 				<Tooltip placement="left-start" title="Left start">
-					<Button style={ceilStyle}>Left start</Button>
+					<Button style={cellStyle}>Left start</Button>
 				</Tooltip>
-				<div style={ceilStyle}></div>
+				<div style={cellStyle}></div>
 				<Tooltip placement="right-start" title="Right start">
-					<Button style={ceilStyle}>Right start</Button>
+					<Button style={cellStyle}>Right start</Button>
 				</Tooltip>
 				<Tooltip placement="left" title="Left">
-					<Button style={ceilStyle}>Left</Button>
+					<Button style={cellStyle}>Left</Button>
 				</Tooltip>
-				<div style={ceilStyle}></div>
+				<div style={cellStyle}></div>
 				<Tooltip placement="right" title="Right">
-					<Button style={ceilStyle}>Right</Button>
+					<Button style={cellStyle}>Right</Button>
 				</Tooltip>
 				<Tooltip placement="left-end" title="Left end">
-					<Button style={ceilStyle}>Left end</Button>
+					<Button style={cellStyle}>Left end</Button>
 				</Tooltip>
-				<div style={ceilStyle}></div>
+				<div style={cellStyle}></div>
 				<Tooltip placement="right-end" title="Right end">
-					<Button style={ceilStyle}>Right end</Button>
+					<Button style={cellStyle}>Right end</Button>
 				</Tooltip>
 				<Tooltip placement="bottom-start" title="Bottom start">
-					<Button style={ceilStyle}>Bottom start</Button>
+					<Button style={cellStyle}>Bottom start</Button>
 				</Tooltip>
 				<Tooltip placement="bottom" title="Bottom">
-					<Button style={ceilStyle}>Bottom</Button>
+					<Button style={cellStyle}>Bottom</Button>
 				</Tooltip>
 				<Tooltip placement="bottom-end" title="Bottom end">
-					<Button style={ceilStyle}>Bottom end</Button>
+					<Button style={cellStyle}>Bottom end</Button>
 				</Tooltip>
 			</div>
 			<Divider />

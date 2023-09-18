@@ -1,12 +1,12 @@
 import { Suspense, useEffect } from 'react'
+import { CgDarkMode } from 'react-icons/cg'
+import { TbMenu2 } from 'react-icons/tb'
 import { NavLink, useRoutes } from 'react-router-dom'
 
 import router, { componentRoutes } from '@/router/routes'
+import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Loading, Space, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import { TbMenu2 } from 'react-icons/tb'
-import { useBoolean } from '@youknown/react-hook/src'
-import { CgDarkMode } from 'react-icons/cg'
 
 const App = () => {
 	const contentEle = useRoutes(router)

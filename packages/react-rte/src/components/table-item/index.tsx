@@ -15,9 +15,14 @@ export default function TableItem(props: { editor: Editor }) {
 	const [col, setCol] = useState(3)
 
 	const insertDisabled = !editor.can().insertTable({ rows: row, cols: col })
+
 	const handleSelect = () => {
 		editor.chain().focus().insertTable({ rows: row, cols: col }).run()
 		Dropdown.close()
+	}
+	const reset = () => {
+		setRow(3)
+		setCol(3)
 	}
 
 	const tableList = useMemo(() => Array.from(Array(10)).map(() => Array.from(Array(10))), [])
@@ -32,7 +37,7 @@ export default function TableItem(props: { editor: Editor }) {
 						item.map((_, j) => (
 							<div
 								key={`${i}x${j}`}
-								className={cls(`${prefixCls}-ceil`, {
+								className={cls(`${prefixCls}-cell`, {
 									active: i < row && j < col
 								})}
 								onMouseEnter={() => {
@@ -59,6 +64,11 @@ export default function TableItem(props: { editor: Editor }) {
 			placement="right-start"
 			content={contentEle}
 			appendTo={null}
+			onOpenChange={open => {
+				if (open) {
+					reset()
+				}
+			}}
 		>
 			<Dropdown.Item
 				disabled={insertDisabled}

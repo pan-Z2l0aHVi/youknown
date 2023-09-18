@@ -1,8 +1,8 @@
-import { FC, HTMLAttributes, ReactNode, cloneElement, isValidElement, useRef } from 'react'
+import { cloneElement, ForwardedRef, forwardRef, HTMLAttributes, isValidElement, ReactNode, useRef } from 'react'
 import { Transition } from 'react-transition-group'
+import { TransitionProps } from 'react-transition-group/Transition'
 
 import { Collapse, Fade, Grow, Slide, Zoom } from '@mui/material'
-import { TransitionProps } from 'react-transition-group/Transition'
 import { useComposeRef } from '@youknown/react-hook/src'
 
 interface StretchProps
@@ -24,7 +24,7 @@ interface StretchProps
 	direction?: 'top' | 'bottom' | 'left' | 'right'
 }
 
-const Stretch: FC<StretchProps> = props => {
+const Stretch = (props: StretchProps, ref: ForwardedRef<HTMLElement>) => {
 	const { children, direction = 'bottom', in: inProp, style, ...rest } = props
 
 	const getTransformStyle = () => {
@@ -53,7 +53,7 @@ const Stretch: FC<StretchProps> = props => {
 		}
 	}
 	const nodeRef = useRef(null)
-	const handleRef = useComposeRef(nodeRef, (children as any).ref)
+	const handleRef = useComposeRef(ref, nodeRef, (children as any).ref)
 
 	return (
 		<Transition nodeRef={nodeRef} in={inProp} timeout={225} {...rest}>
@@ -87,6 +87,6 @@ const Motion = {
 	Slide,
 	Zoom,
 	Collapse,
-	Stretch
+	Stretch: forwardRef(Stretch)
 }
 export default Motion

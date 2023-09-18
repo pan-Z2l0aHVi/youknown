@@ -1,13 +1,13 @@
 import './index.scss'
 
 import { ChangeEvent, useRef } from 'react'
+import { TbPhotoPlus } from 'react-icons/tb'
 
 import { Editor } from '@tiptap/react'
 import { Dropdown } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import { UI_EDITOR_PREFIX } from '../../common'
-import { TbPhotoPlus } from 'react-icons/tb'
 
 interface UploadResult {
 	src: string

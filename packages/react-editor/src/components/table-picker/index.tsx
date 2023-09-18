@@ -32,7 +32,7 @@ export default function TablePicker() {
 						item.map((_, j) => (
 							<div
 								key={`${i}x${j}`}
-								className={cls(`${prefixCls}-ceil`, {
+								className={cls(`${prefixCls}-cell`, {
 									active: i < row && j < col
 								})}
 								onMouseEnter={() => {

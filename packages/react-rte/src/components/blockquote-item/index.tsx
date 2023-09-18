@@ -1,11 +1,12 @@
 import './index.scss'
 
+import { RiDoubleQuotesL } from 'react-icons/ri'
+
 import { Editor } from '@tiptap/react'
 import { Dropdown } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import { UI_EDITOR_PREFIX } from '../../common'
-import { RiDoubleQuotesL } from 'react-icons/ri'
 
 export default function BlockquoteItem(props: { editor: Editor }) {
 	const { editor } = props

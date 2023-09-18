@@ -1,4 +1,5 @@
-import { TbLogout, TbSettings2 } from 'react-icons/tb'
+import { LuSettings2 } from 'react-icons/lu'
+import { TbLogout } from 'react-icons/tb'
 
 import { useModalStore, useUserStore } from '@/stores'
 import { Avatar, Divider, Dropdown, Motion, Tooltip } from '@youknown/react-ui/src'
@@ -26,7 +27,7 @@ export default function Personal({ expand }: PersonalProps) {
 						<Dropdown.Menu className="w-208px">
 							<Dropdown.Item
 								closeAfterItemClick
-								prefix={<TbSettings2 className="text-18px" />}
+								prefix={<LuSettings2 className="text-18px" />}
 								onClick={open_preferences_modal}
 							>
 								设置

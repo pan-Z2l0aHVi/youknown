@@ -4,7 +4,7 @@ import { Button, Divider, Popover, Space } from '@youknown/react-ui/src'
 
 export default () => {
 	const [open, setOpen] = useState(false)
-	const ceilStyle = {
+	const cellStyle = {
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center'
@@ -33,43 +33,43 @@ export default () => {
 			<Divider />
 			<div className="grid grid-cols-[repeat(3,160px)] grid-rows-[repeat(5,auto)] gap-12px justify-center justify-items-center">
 				<Popover trigger="hover" placement="top-start" content="Top start">
-					<Button style={ceilStyle}>Top start</Button>
+					<Button style={cellStyle}>Top start</Button>
 				</Popover>
 				<Popover trigger="hover" placement="top" content="Top">
-					<Button style={ceilStyle}>Top</Button>
+					<Button style={cellStyle}>Top</Button>
 				</Popover>
 				<Popover trigger="hover" placement="top-end" content="Top end">
-					<Button style={ceilStyle}>Top end</Button>
+					<Button style={cellStyle}>Top end</Button>
 				</Popover>
 				<Popover trigger="hover" placement="left-start" content="Left start">
-					<Button style={ceilStyle}>Left start</Button>
+					<Button style={cellStyle}>Left start</Button>
 				</Popover>
-				<div style={ceilStyle}></div>
+				<div style={cellStyle}></div>
 				<Popover trigger="hover" placement="right-start" content="Right start">
-					<Button style={ceilStyle}>Right start</Button>
+					<Button style={cellStyle}>Right start</Button>
 				</Popover>
 				<Popover trigger="hover" placement="left" content="Left">
-					<Button style={ceilStyle}>Left</Button>
+					<Button style={cellStyle}>Left</Button>
 				</Popover>
-				<div style={ceilStyle}></div>
+				<div style={cellStyle}></div>
 				<Popover trigger="hover" placement="right" content="Right">
-					<Button style={ceilStyle}>Right</Button>
+					<Button style={cellStyle}>Right</Button>
 				</Popover>
 				<Popover trigger="hover" placement="left-end" content="Left end">
-					<Button style={ceilStyle}>Left end</Button>
+					<Button style={cellStyle}>Left end</Button>
 				</Popover>
-				<div style={ceilStyle}></div>
+				<div style={cellStyle}></div>
 				<Popover trigger="hover" placement="right-end" content="Right end">
-					<Button style={ceilStyle}>Right end</Button>
+					<Button style={cellStyle}>Right end</Button>
 				</Popover>
 				<Popover trigger="hover" placement="bottom-start" content="Bottom start">
-					<Button style={ceilStyle}>Bottom start</Button>
+					<Button style={cellStyle}>Bottom start</Button>
 				</Popover>
 				<Popover trigger="hover" placement="bottom" content="Bottom">
-					<Button style={ceilStyle}>Bottom</Button>
+					<Button style={cellStyle}>Bottom</Button>
 				</Popover>
 				<Popover trigger="hover" placement="bottom-end" content="Bottom end">
-					<Button style={ceilStyle}>Bottom end</Button>
+					<Button style={cellStyle}>Bottom end</Button>
 				</Popover>
 			</div>
 		</div>

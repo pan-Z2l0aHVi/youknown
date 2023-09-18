@@ -1,16 +1,17 @@
 import './index.scss'
 
 import { cloneElement, createElement, useState } from 'react'
+import { TbPlus } from 'react-icons/tb'
 
 import { Editor, FloatingMenu } from '@tiptap/react'
 import { useCreation } from '@youknown/react-hook/src'
 import { Button, Divider, Dropdown } from '@youknown/react-ui/src'
 
 import { UI_EDITOR_PREFIX } from '../../common'
-import { TbPlus } from 'react-icons/tb'
 
 export type FloatingListItem =
 	| '-' // divider
+	| 'heading'
 	| 'blockquote'
 	| 'image'
 	| 'table'
@@ -31,6 +32,7 @@ export function Floating(props: FloatingProps) {
 			'image',
 			'table',
 			'-',
+			'heading',
 			'blockquote',
 			'codeBlock',
 			'horizontalRule',
