@@ -67,7 +67,7 @@ const Stretch = (props: StretchProps, ref: ForwardedRef<HTMLElement>) => {
 								transform:
 									state === 'entering' || state === 'entered' ? 'scale(1)' : getTransformStyle(),
 								transition:
-									'opacity 0.225s cubic-bezier(0.4, 0, 0.2, 1), transform 0.225s cubic-bezier(0.4, 0, 0.2, 1)',
+									'opacity 0.225s cubic-bezier(0.075, 0.82, 0.165, 1), transform 0.225s cubic-bezier(0.075, 0.82, 0.165, 1)',
 								...style,
 								...children.props.style
 							},

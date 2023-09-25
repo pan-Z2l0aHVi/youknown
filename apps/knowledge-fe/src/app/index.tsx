@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { useMatch, useRoutes } from 'react-router-dom'
 
+import useRouteScrollTop from '@/hooks/use-route-scroll-top'
 import { useUIStore, useUserStore } from '@/stores'
 import { get_local_settings, get_local_token } from '@/utils/local'
 import { useEvent, useMount } from '@youknown/react-hook/src'
@@ -11,7 +12,6 @@ import routes from '../router/routes'
 import FabBar from './components/fab-bar'
 import PageProgress from './components/page-progress'
 import Sidebar from './components/sidebar'
-import useRouteScrollTop from '@/hooks/use-route-scroll-top'
 
 const PreferencesModal = lazy(() => import('./components/preferences-modal'))
 const LoginModal = lazy(() => import('./components/login-modal'))

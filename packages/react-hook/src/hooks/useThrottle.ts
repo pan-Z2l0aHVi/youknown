@@ -1,7 +1,9 @@
 import { throttle } from 'lodash-es'
 import { useMemo } from 'react'
+
 import { useLatestRef } from './useLatestRef'
 import { useUnmount } from './useUnmount'
+
 type noop = (...args: any[]) => any
 export interface ThrottleOptions {
 	leading?: boolean

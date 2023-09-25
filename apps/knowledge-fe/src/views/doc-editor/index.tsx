@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import { useRef } from 'react'
 import { LuSettings2 } from 'react-icons/lu'
 import { TbTrash } from 'react-icons/tb'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -8,8 +9,9 @@ import Header from '@/app/components/header'
 import DocOptionsModal from '@/components/doc-options-modal'
 import More from '@/components/more'
 import { useRecordStore, useUIStore } from '@/stores'
+import { upload_file } from '@/utils/qiniu'
 import { NetFetchError } from '@/utils/request'
-import { useBoolean, useFetch, useDebounce, useUnmount } from '@youknown/react-hook/src'
+import { useBoolean, useDebounce, useFetch, useUnmount } from '@youknown/react-hook/src'
 import {
 	Blockquote,
 	Bold,
@@ -33,8 +35,6 @@ import {
 } from '@youknown/react-rte/src'
 import { Button, Dialog, Divider, Dropdown, Space, Toast } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import { upload_file } from '@/utils/qiniu'
-import { useRef } from 'react'
 
 const EMPTY_CONTENT = '<p></p>'
 

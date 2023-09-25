@@ -6,6 +6,17 @@ import { Button, Checkbox, DatePicker, Divider, Form, Input, Radio, Select, Swit
 export default () => {
 	const [layout, setLayout] = useState<'horizontal' | 'vertical' | 'inline'>('horizontal')
 
+	const checkRequired = async (val: string) => {
+		if (!val.length) {
+			return Promise.reject('It is required')
+		}
+	}
+	const checkNumbers = async (val: string) => {
+		if (!/^[0-9]+$/.test(val)) {
+			return Promise.reject('It can only numbers.')
+		}
+	}
+
 	const form = Form.useForm({
 		defaultState: {
 			username: 'Initial username',
@@ -20,8 +31,8 @@ export default () => {
 		onFulfilled(values) {
 			console.log('submit fulfilled', values)
 		},
-		onFailed() {
-			console.log('submit failed')
+		onFailed(explainsMap) {
+			console.log('submit failed', explainsMap)
 		},
 		onStateChange(source) {
 			console.log('state changed: ', source, form.getState()[source.label])
@@ -45,14 +56,39 @@ export default () => {
 			<Divider />
 			<div className="m-w-640px">
 				<Form form={form} layout={layout}>
-					<Form.Field label="username" labelText="Username">
+					<Form.Field label="username" labelText="Username" validators={[checkRequired]}>
 						<Input />
 					</Form.Field>
-					<Form.Field label="pwd" labelText="Password">
-						<Input />
+					<Form.Field
+						label="pwd"
+						labelText="Password"
+						validators={[
+							checkRequired,
+							checkNumbers,
+							async val => {
+								if (val && form.getState().retypePwd) {
+									form.validate('retypePwd')
+								}
+							}
+						]}
+					>
+						<Input type="password" />
 					</Form.Field>
-					<Form.Field label="retypePwd" labelText="Retype password">
-						<Input />
+					<Form.Field
+						label="retypePwd"
+						labelText="Retype password"
+						validators={[
+							checkRequired,
+							checkNumbers,
+							async val => {
+								const { pwd } = form.getState()
+								if (val !== pwd) {
+									return Promise.reject('Two passwords are inconsistent.')
+								}
+							}
+						]}
+					>
+						<Input type="password" />
 					</Form.Field>
 					<Form.Field label="system" labelText="System">
 						<Select

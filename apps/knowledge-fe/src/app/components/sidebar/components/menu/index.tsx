@@ -4,9 +4,9 @@ import { BiSolidChevronDown } from 'react-icons/bi'
 import TransitionNavLink from '@/components/transition-nav-link'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { nav_routes, RouteItem } from '@/router/routes'
+import { useUIStore } from '@/stores'
 import { Motion, Tooltip } from '@youknown/react-ui/src'
 import { cls, DeepRequired } from '@youknown/utils/src'
-import { useUIStore } from '@/stores'
 
 const nav_open_map = nav_routes
 	.filter(route => route.children?.length)

@@ -39,6 +39,7 @@ const DatePicker = (props: DatePickerProps, ref: ForwardedRef<HTMLButtonElement>
 		...rest
 	} = omit(props, 'defaultValue', 'value', 'onChange')
 
+	const [open, setOpen] = useState(false)
 	const [dateSelection, setDateSelection] = useControllable(props, {
 		defaultValue: dayjs(null)
 	})
@@ -69,6 +70,7 @@ const DatePicker = (props: DatePickerProps, ref: ForwardedRef<HTMLButtonElement>
 		const today = dayjs()
 		setCurrentMonth(today)
 		setDateSelection(today)
+		setOpen(false)
 	}
 
 	const firstDayOfMonth = currentMonth.startOf('month')
@@ -140,7 +142,9 @@ const DatePicker = (props: DatePickerProps, ref: ForwardedRef<HTMLButtonElement>
 			placement="bottom-start"
 			disabled={disabled}
 			content={calendar}
+			open={open}
 			onOpenChange={open => {
+				setOpen(open)
 				if (open) {
 					setCurrentMonth(dayjs())
 				}

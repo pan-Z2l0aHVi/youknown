@@ -23,6 +23,7 @@ import { UI_PREFIX } from '../../constants'
 import Textarea from './Textarea'
 
 interface InputProps extends Omit<HTMLAttributes<HTMLInputElement>, 'maxLength' | 'onChange' | 'prefix'> {
+	type?: string
 	value?: string
 	size?: 'small' | 'medium' | 'large'
 	round?: boolean
@@ -42,6 +43,7 @@ const Input = (props: InputProps, propRef: ForwardedRef<HTMLInputElement>) => {
 		className,
 		prefix,
 		suffix,
+		type = 'text',
 		size = 'medium',
 		round = false,
 		disabled = false,
@@ -132,7 +134,7 @@ const Input = (props: InputProps, propRef: ForwardedRef<HTMLInputElement>) => {
 				ref={inputRef}
 				// 去除 size=20 最小宽度
 				size={1}
-				type="text"
+				type={type}
 				value={value}
 				onChange={handleChange}
 				onFocus={handleFocus}

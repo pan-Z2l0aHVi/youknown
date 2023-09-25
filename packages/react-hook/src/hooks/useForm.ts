@@ -10,6 +10,8 @@ interface State {
 }
 interface FieldOptions<S> {
 	onChange?(arg: ValueOf<S> | controllerChangeEvent): void
+	validators?: ((value: S) => Promise<string | void>)[]
+	onExplainsChange?(explains: string[]): void
 }
 interface Field<S> {
 	label: keyof S
@@ -19,12 +21,12 @@ type controllerChangeEvent = ChangeEvent<HTMLSelectElement | HTMLInputElement>
 interface Options<S> {
 	defaultState: S
 	onFulfilled?(state: S): void
-	onFailed?(): void
+	onFailed?(explainsMap: Record<keyof S, string[]>): void
 	onStateChange?(org: Field<S>): void
 }
 interface FieldController<S = any> {
 	defaultValue?: ValueOf<S>
-	value?: ValueOf<S>
+	value?: S
 	onChange(arg: ValueOf<S> | controllerChangeEvent): void
 }
 export interface Form<S = any> {
@@ -32,9 +34,10 @@ export interface Form<S = any> {
 	getState(): S
 	setState(state: Partial<S>): void
 	onSubmit: FormEventHandler<Element>
-	subscribe(label: Field<S>['label'], options?: Field<S>['options']): FieldController<S>
-	unsubscribe(label: string): void
+	subscribe(label: keyof S, options?: FieldOptions<S>): FieldController<S>
+	unsubscribe(label: keyof S): void
 	reset(): void
+	validate(...labels: (keyof S)[]): Promise<Record<keyof S, string[]>>
 }
 
 export function useForm<S extends State>(opts: Options<S>): Form<S> {
@@ -42,7 +45,7 @@ export function useForm<S extends State>(opts: Options<S>): Form<S> {
 	// shallow copy
 	const state = useRef<S>({ ...defaultState })
 	const fields = useRef<Field<S>[]>([])
-	const controllerMap = useRef<Partial<Record<Field<S>['label'], any>>>({})
+	const controllerMap = useRef<Partial<Record<keyof S, any>>>({})
 
 	const getState = useEvent(() => state.current)
 
@@ -61,8 +64,14 @@ export function useForm<S extends State>(opts: Options<S>): Form<S> {
 		setState(defaultState)
 	})
 
-	const submit = useEvent(() => {
-		opts.onFulfilled?.(state.current)
+	const submit = useEvent(async () => {
+		const explainsMap = await validate()
+		const isValid = !Object.values(explainsMap).flat().length
+		if (isValid) {
+			opts.onFulfilled?.(state.current)
+		} else {
+			opts.onFailed?.(explainsMap)
+		}
 	})
 
 	const onSubmit: FormEventHandler = useEvent(event => {
@@ -71,9 +80,14 @@ export function useForm<S extends State>(opts: Options<S>): Form<S> {
 		submit()
 	})
 
-	const subscribe = useEvent((label: Field<S>['label'], options: Field<S>['options']) => {
+	const subscribe = useEvent((label: keyof S, options: FieldOptions<S>) => {
 		const field: Field<S> = { label, options }
-		fields.current.push(field)
+		const index = fields.current.findIndex(field => field.label === label)
+		if (index > -1) {
+			fields.current.splice(index, 1, field)
+		} else {
+			fields.current.push(field)
+		}
 		const controller: FieldController<S> = {
 			onChange(arg) {
 				let val = arg
@@ -83,6 +97,7 @@ export function useForm<S extends State>(opts: Options<S>): Form<S> {
 				state.current[label] = val as ValueOf<S>
 				opts.onStateChange?.(field)
 				options.onChange?.(val)
+				validateField(field)
 			}
 		}
 
@@ -95,9 +110,43 @@ export function useForm<S extends State>(opts: Options<S>): Form<S> {
 		return controller
 	})
 
-	const unsubscribe = useEvent((label: string) => {
+	const unsubscribe = useEvent((label: keyof S) => {
 		fields.current = fields.current.filter(field => field.label !== label)
 		delete controllerMap.current[label]
+	})
+
+	const validateField = useEvent(async (field: Field<S>) => {
+		const { validators = [] } = field.options
+		const results = await Promise.allSettled(
+			validators.map(validator => {
+				const value = getState()[field.label]
+				return validator(value)
+			})
+		)
+		const explains = results
+			.map<string>(res => {
+				if (res.status === 'rejected') {
+					return res.reason
+				}
+				return ''
+			})
+			.filter(Boolean)
+		field.options.onExplainsChange?.(explains)
+		console.log('explains: ', explains)
+		return explains
+	})
+
+	const validate = useEvent(async (...labels: (keyof S)[]) => {
+		const isValidateAll = is.array.empty(labels)
+		const toBeVerifiedFields = isValidateAll
+			? fields.current
+			: fields.current.filter(field => labels.includes(field.label))
+		const result = {} as Record<keyof S, string[]>
+		for (const field of toBeVerifiedFields) {
+			const explains = await validateField(field)
+			result[field.label] = explains
+		}
+		return result
 	})
 
 	const [form] = useState({
@@ -107,7 +156,8 @@ export function useForm<S extends State>(opts: Options<S>): Form<S> {
 		onSubmit,
 		subscribe,
 		unsubscribe,
-		reset
+		reset,
+		validate
 	})
 	return form
 }

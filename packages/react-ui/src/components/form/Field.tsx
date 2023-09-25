@@ -8,13 +8,16 @@ import {
 	HTMLAttributes,
 	isValidElement,
 	LabelHTMLAttributes,
-	useContext
+	useContext,
+	useState
 } from 'react'
+import { TransitionGroup } from 'react-transition-group'
 
 import { Form, useUpdate } from '@youknown/react-hook/src'
 import { cls } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
+import Motion from '../motion'
 import { FormContext, FormCtx } from './FormCtx'
 
 interface FieldProps
@@ -23,13 +26,16 @@ interface FieldProps
 	label?: string
 	labelText?: string
 	form?: Form
+	validators?: ((value: any) => Promise<string | void>)[]
 }
 
 const Field = (props: FieldProps, propRef: ForwardedRef<HTMLLabelElement & HTMLDivElement>) => {
-	const { className, children, form, label, labelText, labelWidth, labelAlign, labelSuffix, ...rest } = props
+	const { className, children, form, label, labelText, labelWidth, labelAlign, labelSuffix, validators, ...rest } =
+		props
 
 	const formCtx = useContext(FormCtx)
 	const update = useUpdate()
+	const [explains, setExplains] = useState<string[]>([])
 
 	const labelAttrs = {
 		width: labelWidth ?? formCtx.labelWidth ?? 200,
@@ -56,9 +62,9 @@ const Field = (props: FieldProps, propRef: ForwardedRef<HTMLLabelElement & HTMLD
 		)
 
 	const controllerProps = _form.subscribe(label, {
-		onChange() {
-			update()
-		}
+		validators,
+		onChange: update,
+		onExplainsChange: setExplains
 	})
 
 	return (
@@ -75,7 +81,13 @@ const Field = (props: FieldProps, propRef: ForwardedRef<HTMLLabelElement & HTMLD
 						isValidElement(child) ? cloneElement(child, controllerProps) : child
 					)}
 				</div>
-				{/* <div className={`${prefixCls}-message`}>is required</div> */}
+				<TransitionGroup component={null}>
+					{Array.from(new Set(explains)).map(explain => (
+						<Motion.Stretch key={explain} direction="bottom" unmountOnExit>
+							<div className={`${prefixCls}-explain`}>{explain}</div>
+						</Motion.Stretch>
+					))}
+				</TransitionGroup>
 			</div>
 		</div>
 	)

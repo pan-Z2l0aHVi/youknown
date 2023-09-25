@@ -1,5 +1,6 @@
 import './image-preview.scss'
 
+import { throttle } from 'lodash-es'
 import { MouseEventHandler, useEffect, useRef, useState, WheelEventHandler } from 'react'
 import {
 	TbDownload,
@@ -11,7 +12,6 @@ import {
 	TbZoomIn,
 	TbZoomOut
 } from 'react-icons/tb'
-import { throttle } from 'lodash-es'
 
 import { useBoolean, useEvent, useLatestRef } from '@youknown/react-hook/src'
 import { cls, downloadFile } from '@youknown/utils/src'
