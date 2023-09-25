@@ -1,3 +1,4 @@
+export { Editor } from '@tiptap/core'
 import { MenuBar } from './components/menu-bar'
 import { RichTextContent } from './components/rich-text-content'
 import { useRTE } from './hooks/useRTE'

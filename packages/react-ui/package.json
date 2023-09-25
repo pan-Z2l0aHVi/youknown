@@ -23,7 +23,7 @@
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
         "@floating-ui/react": "^0.25.4",
-        "@mui/material": "^5.14.9",
+        "@mui/material": "^5.14.10",
         "@youknown/react-hook": "workspace:*",
         "@youknown/utils": "workspace:*",
         "modern-css-reset": "^1.4.0",

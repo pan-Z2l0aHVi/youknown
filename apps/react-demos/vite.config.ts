@@ -22,13 +22,13 @@ export default defineConfig(({ mode }) => {
 			cors: true,
 			proxy: {
 				'/proxy': {
-					target: env.VITE_PROXY_URL,
+					target: env.VITE_PROXY_BASE_URL,
 					changeOrigin: true,
 					secure: false,
 					rewrite: path => path.replace(/^\/proxy/, '')
 				},
 				'/cdn': {
-					target: env.VITE_CDN_URL,
+					target: env.VITE_CDN_BASE_URL,
 					changeOrigin: true,
 					secure: false,
 					rewrite: path => path.replace(/^\/cdn/, '')

@@ -6,6 +6,7 @@ import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { nav_routes, RouteItem } from '@/router/routes'
 import { Motion, Tooltip } from '@youknown/react-ui/src'
 import { cls, DeepRequired } from '@youknown/utils/src'
+import { useUIStore } from '@/stores'
 
 const nav_open_map = nav_routes
 	.filter(route => route.children?.length)
@@ -38,6 +39,7 @@ interface MenuProps {
 
 export default function Menu({ expand }: MenuProps) {
 	const navigate = useTransitionNavigate()
+	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const [open_map, set_open_map] = useState<Record<string, boolean>>(nav_open_map)
 
 	const set_open = (name: string, open: boolean) => {
@@ -73,7 +75,12 @@ export default function Menu({ expand }: MenuProps) {
 							<>
 								{expand ? (
 									<div
-										className="b-rd-radius-s w-24px h-24px flex items-center justify-center text-12px !active-bg-active hover-bg-hover"
+										className={cls(
+											'b-rd-radius-s w-24px h-24px flex items-center justify-center text-12px bg-inherit',
+											is_dark_theme
+												? 'active-brightness-120 hover-brightness-110'
+												: 'active-lighten-90 hover-lighten-95'
+										)}
 										onClick={toggle_sub_menu}
 									>
 										{chevron_down_icon}
@@ -95,7 +102,7 @@ export default function Menu({ expand }: MenuProps) {
 								<div
 									className="group w-100% h-32px flex items-center pl-12px pr-4px b-rd-radius-m mb-8px
 								decoration-none color-inherit cursor-pointer
-								active-bg-active hover-not-active-bg-hover"
+								active-bg-secondary-active hover-not-active-bg-secondary-hover"
 									onClick={() => {
 										navigate(`/${path}/${children[0].path}`)
 										set_open(path, true)
@@ -109,9 +116,9 @@ export default function Menu({ expand }: MenuProps) {
 									className={({ isActive }) =>
 										cls(
 											'group w-100% h-32px flex items-center pl-12px pr-4px b-rd-radius-m mb-8px decoration-none color-inherit',
+											'active-bg-secondary-active hover-not-active-bg-secondary-hover',
 											{
-												'active-bg-active hover-not-active-bg-hover': !isActive,
-												'bg-active': isActive
+												'bg-secondary-hover': isActive
 											}
 										)
 									}
@@ -143,10 +150,9 @@ export default function Menu({ expand }: MenuProps) {
 														className={({ isActive }) =>
 															cls(
 																'group w-100% h-32px flex items-center pl-12px pr-4px b-rd-radius-m mb-8px decoration-none color-inherit',
+																'active-bg-secondary-active hover-not-active-bg-secondary-hover',
 																{
-																	'active-bg-active hover-not-active-bg-hover':
-																		!isActive,
-																	'bg-active': isActive
+																	'bg-secondary-hover': isActive
 																}
 															)
 														}

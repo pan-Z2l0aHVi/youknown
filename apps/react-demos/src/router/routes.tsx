@@ -151,6 +151,11 @@ export const componentRoutes = [
 		name: 'UseInfinity',
 		path: 'use_infinity',
 		element: createElement(lazy(() => import('@/hook-views/UseInfinityExample')))
+	},
+	{
+		name: 'UseHTMLDiff',
+		path: 'use_html_diff',
+		element: createElement(lazy(() => import('@/other-views/UseHTMLDiff')))
 	}
 ]
 

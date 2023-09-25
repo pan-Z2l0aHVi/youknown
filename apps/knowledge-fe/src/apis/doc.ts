@@ -13,6 +13,11 @@ export interface Doc {
 	creation_time: string
 	update_time: string
 }
+export interface Draft {
+	content: string
+	creation_time: string
+	update_time: string
+}
 
 interface GetDocInfoParams {
 	doc_id: string
@@ -67,4 +72,24 @@ interface DocsResp {
 export const get_docs = (params: DocsParams) =>
 	net.fetch<DocsResp>('/proxy/doc/docs', {
 		params
+	})
+
+interface GetDocDraftParams {
+	doc_id: string
+	page: number
+	page_size: number
+}
+export const get_doc_drafts = (params: GetDocDraftParams) =>
+	net.fetch<Draft[]>('/proxy/doc/drafts', {
+		params
+	})
+
+interface UpdateDocDraftPayload {
+	doc_id: string
+	content: string
+}
+export const update_doc_draft = (payload: UpdateDocDraftPayload) =>
+	net.fetch<Draft>('/proxy/doc/update_draft', {
+		method: 'put',
+		payload
 	})

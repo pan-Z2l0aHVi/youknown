@@ -28,6 +28,9 @@ const Notice = (props: NoticeProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const timer = useRef(0)
 
 	const startTimer = useCallback(() => {
+		if (duration === Infinity) {
+			return
+		}
 		timer.current = window.setTimeout(() => {
 			onClose?.()
 		}, duration)

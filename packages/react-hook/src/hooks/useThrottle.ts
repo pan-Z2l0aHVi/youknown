@@ -1,16 +1,31 @@
-import { useEffect, useRef, useState } from 'react'
+import { throttle } from 'lodash-es'
+import { useMemo } from 'react'
+import { useLatestRef } from './useLatestRef'
+import { useUnmount } from './useUnmount'
+type noop = (...args: any[]) => any
+export interface ThrottleOptions {
+	leading?: boolean
+	trailing?: boolean
+}
+export function useThrottle<T extends noop>(fn: T, wait = 1000, options?: ThrottleOptions) {
+	const fnRef = useLatestRef(fn)
 
-import { throttle } from '@youknown/utils/src'
-
-export function useThrottle<T>(val: T, wait?: number): T | void {
-	const [state, setState] = useState<T>()
-	const fnRef = useRef(
-		throttle((nextState: T) => {
-			setState(nextState)
-		}, wait)
+	const throttled = useMemo(
+		() =>
+			throttle(
+				(...args: Parameters<T>): ReturnType<T> => {
+					return fnRef.current(...args)
+				},
+				wait,
+				options
+			),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[]
 	)
-	useEffect(() => {
-		fnRef.current(val)
-	}, [val])
-	return state
+
+	useUnmount(() => {
+		throttled.cancel()
+	})
+
+	return throttled
 }

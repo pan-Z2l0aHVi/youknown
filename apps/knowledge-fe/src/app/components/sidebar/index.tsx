@@ -1,7 +1,6 @@
 import { useEffect, useState, useTransition } from 'react'
 import { TbDotsVertical } from 'react-icons/tb'
 
-import { EXPAND_KEY, useUIStore } from '@/stores'
 import { useBoolean, useCreation, useLatestRef } from '@youknown/react-hook/src'
 import { Divider, Tooltip } from '@youknown/react-ui/src'
 import { cls, storage } from '@youknown/utils/src'
@@ -9,15 +8,16 @@ import { cls, storage } from '@youknown/utils/src'
 import Account from './components/account'
 import Menu from './components/menu'
 
+const EXPAND_KEY = 'sidebar-expand'
 const WIDTH_KEY = 'sidebar-width'
 const DEFAULT_W = 240
 const MIN_W = 160
 const MAX_W = 400
 
 export default function Sidebar() {
+	const local_expand = useCreation(() => storage.local.get<boolean>(EXPAND_KEY))
 	const local_width = useCreation(() => storage.local.get<number>(WIDTH_KEY))
-	const expand = useUIStore(state => state.sidebar_expand)
-	const toggle_expand = useUIStore(state => state.toggle_sidebar_expand)
+	const [expand, { setReverse: toggle_expand }] = useBoolean(local_expand ?? true)
 
 	const [sidebar_width, set_sidebar_width] = useState(local_width ?? DEFAULT_W)
 	const [dragging, { setTrue: start_drag, setFalse: stop_drag }] = useBoolean(false)
@@ -84,7 +84,7 @@ export default function Sidebar() {
 
 	return (
 		<aside
-			className={cls('relative flex flex-col h-screen b-r-1 b-r-solid b-r-bd-line bg-bg-2 p-12px', {
+			className={cls('z-12 relative flex flex-col h-screen b-r-1 b-r-solid b-r-bd-line bg-bg-2 p-12px', {
 				'transition-width-300': !dragging,
 				'w-68px': !expand
 			})}
@@ -93,7 +93,7 @@ export default function Sidebar() {
 			<div className="h-32px mb-24px">
 				<img
 					className="w-32px h-32px ml-6px b-rd-radius-m b-1 b-bd-line b-solid"
-					src={`${import.meta.env.VITE_CDN_URL}/branch.png`}
+					src={`${import.meta.env.VITE_CDN_BASE_URL}/branch.png`}
 				/>
 			</div>
 
@@ -106,7 +106,7 @@ export default function Sidebar() {
 			<Tooltip title={expand ? '收起' : '展开'} placement="right" spacing={20}>
 				<button
 					className="border-0 bg-transparent w-44px h-32px flex items-center justify-center b-rd-radius-m
-					active-bg-active hover-not-active-bg-hover cursor-pointer text-16px color-text-1"
+					active-bg-secondary-active hover-not-active-bg-secondary-hover cursor-pointer text-16px color-text-1"
 					onClick={toggle_expand}
 				>
 					<TbDotsVertical />

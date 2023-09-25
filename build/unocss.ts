@@ -5,9 +5,11 @@ export const theme = {
             2: 'var(--ui-text-2)',
             3: 'var(--ui-text-3)'
         },
-        hover: 'var(--ui-color-hover)',
         focus: 'var(--ui-color-focus)',
+        hover: 'var(--ui-color-hover)',
         active: 'var(--ui-color-active)',
+        'secondary-hover': 'var(--ui-color-secondary-hover)',
+        'secondary-active': 'var(--ui-color-secondary-active)',
         primary: 'var(--ui-color-primary)',
         'primary-hover': 'var(--ui-color-primary-hover)',
         'primary-active': 'var(--ui-color-primary-active)',

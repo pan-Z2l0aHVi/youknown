@@ -60,7 +60,7 @@
         "@youknown/react-hook": "workspace:*",
         "@youknown/react-ui": "workspace:*",
         "@youknown/utils": "workspace:*",
-        "react-moveable": "^0.54.1"
+        "react-moveable": "^0.54.2"
     },
     "lint-staged": {
         "*.{js,ts,jsx,tsx}": "eslint --cache --fix",

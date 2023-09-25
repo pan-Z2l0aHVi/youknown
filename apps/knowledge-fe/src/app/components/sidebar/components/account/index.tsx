@@ -46,7 +46,7 @@ export default function Personal({ expand }: PersonalProps) {
 					<div
 						className={cls(
 							'border-0 bg-transparent w-100% h-44px flex items-center p-4px b-rd-radius-m cursor-pointer select-none',
-							'active-bg-active hover-not-active-bg-hover'
+							'active-bg-secondary-active hover-not-active-bg-secondary-hover'
 						)}
 						onClick={() => {
 							if (has_login) return

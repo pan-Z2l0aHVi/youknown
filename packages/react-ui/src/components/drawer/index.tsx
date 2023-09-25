@@ -1,6 +1,6 @@
 import './drawer.scss'
 
-import { CSSProperties, FC, HTMLAttributes, useRef } from 'react'
+import { CSSProperties, FC, HTMLAttributes } from 'react'
 import { createPortal } from 'react-dom'
 
 import { FloatingOverlay } from '@floating-ui/react'
@@ -50,25 +50,9 @@ const Drawer: FC<DrawerProps> = props => {
 		right: 'left'
 	}
 	const direction = directionMap[placement]
-	const preBodyOverflowRef = useRef('')
-
-	const setBodyOverflowHidden = () => {
-		preBodyOverflowRef.current = document.body.style.getPropertyValue('overflow')
-		document.body.style.setProperty('overflow', 'hidden')
-	}
-
-	const resetBodyOverflowHidden = () => {
-		document.body.style.setProperty('overflow', preBodyOverflowRef.current)
-	}
 
 	return createPortal(
-		<Motion.Fade
-			in={open}
-			mountOnEnter
-			unmountOnExit={unmountOnExit}
-			onEnter={setBodyOverflowHidden}
-			onExited={resetBodyOverflowHidden}
-		>
+		<Motion.Fade in={open} mountOnEnter unmountOnExit={unmountOnExit}>
 			<FloatingOverlay
 				className={cls(maskClassName, `${prefixCls}-mask`)}
 				onClick={event => {

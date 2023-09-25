@@ -1,6 +1,6 @@
 import './modal.scss'
 
-import { FC, HTMLAttributes, useRef } from 'react'
+import { FC, HTMLAttributes } from 'react'
 import { createPortal } from 'react-dom'
 
 import { FloatingOverlay } from '@floating-ui/react'
@@ -34,17 +34,6 @@ const Modal: FC<ModalProps> = props => {
 		...rest
 	} = props
 
-	const preBodyOverflowRef = useRef('')
-
-	const setBodyOverflowHidden = () => {
-		preBodyOverflowRef.current = document.body.style.getPropertyValue('overflow')
-		document.body.style.setProperty('overflow', 'hidden')
-	}
-
-	const resetBodyOverflowHidden = () => {
-		document.body.style.setProperty('overflow', preBodyOverflowRef.current)
-	}
-
 	const zIndex = useZIndex('modal', open)
 
 	const prefixCls = `${UI_PREFIX}-modal`
@@ -54,10 +43,8 @@ const Modal: FC<ModalProps> = props => {
 			in={open}
 			mountOnEnter
 			unmountOnExit={unmountOnExit}
-			onEnter={setBodyOverflowHidden}
 			onExited={() => {
 				afterClose?.()
-				resetBodyOverflowHidden()
 			}}
 		>
 			<FloatingOverlay

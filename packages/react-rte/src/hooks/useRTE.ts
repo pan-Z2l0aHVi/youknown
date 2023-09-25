@@ -24,13 +24,17 @@ export function useRTE(options?: RTEOptions, deps?: DependencyList) {
 				Document,
 				Text,
 				Paragraph,
-				Dropcursor,
+				Dropcursor.configure({
+					color: 'var(--ui-color-primary)',
+					width: 4
+				}),
 				Gapcursor,
 				History,
 				CharacterCount,
 				ListItem,
 				Placeholder.configure({
-					placeholder
+					placeholder,
+					includeChildren: true
 				})
 			])
 		},

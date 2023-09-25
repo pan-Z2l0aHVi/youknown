@@ -9,7 +9,7 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd())
 	return {
-		base: mode === 'development' ? '' : env.VITE_CDN_URL,
+		base: mode === 'development' ? '' : env.VITE_CDN_BASE_URL,
 		plugins: [tsconfigPaths(), react(), Unocss(), visualizer() as PluginOption],
 		resolve: {
 			alias: {
@@ -22,13 +22,13 @@ export default defineConfig(({ mode }) => {
 			cors: true,
 			proxy: {
 				'/proxy': {
-					target: env.VITE_PROXY_URL,
+					target: env.VITE_PROXY_BASE_URL,
 					changeOrigin: true,
 					secure: false,
 					rewrite: path => path.replace(/^\/proxy/, '')
 				},
 				'/cdn': {
-					target: env.VITE_CDN_URL,
+					target: env.VITE_CDN_BASE_URL,
 					changeOrigin: true,
 					secure: false,
 					rewrite: path => path.replace(/^\/cdn/, '')

@@ -1,22 +1,22 @@
 import dayjs from 'dayjs'
-import { useState } from 'react'
 import { LuSettings2 } from 'react-icons/lu'
 import { TbTrash } from 'react-icons/tb'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import { delete_doc, get_doc_info, update_doc } from '@/apis/doc'
+import { delete_doc, get_doc_drafts, get_doc_info, update_doc, update_doc_draft } from '@/apis/doc'
 import Header from '@/app/components/header'
 import DocOptionsModal from '@/components/doc-options-modal'
 import More from '@/components/more'
 import { useRecordStore, useUIStore } from '@/stores'
 import { NetFetchError } from '@/utils/request'
-import { useBoolean, useCreation, useFetch } from '@youknown/react-hook/src'
+import { useBoolean, useFetch, useDebounce, useUnmount } from '@youknown/react-hook/src'
 import {
 	Blockquote,
 	Bold,
 	BulletList,
 	Code,
 	CodeBlock,
+	Editor,
 	Heading,
 	Highlight,
 	HorizontalRule,
@@ -32,22 +32,23 @@ import {
 	Underline
 } from '@youknown/react-rte/src'
 import { Button, Dialog, Divider, Dropdown, Space, Toast } from '@youknown/react-ui/src'
-import { cls, storage } from '@youknown/utils/src'
+import { cls } from '@youknown/utils/src'
+import { upload_file } from '@/utils/qiniu'
+import { useRef } from 'react'
+
+const EMPTY_CONTENT = '<p></p>'
 
 export default function Doc() {
 	const navigate = useNavigate()
-	const recording = useRecordStore(state => state.recording)
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
-	const sidebar_expand = useUIStore(state => state.sidebar_expand)
-	const local_doc_last_modify = useCreation(() => storage.local.get<string>('doc-last-modify'))
-	const [last_modify, set_last_modify] = useState(local_doc_last_modify ?? '')
-	const [had_modify, { setTrue: modify }] = useBoolean(false)
 	const [search_params] = useSearchParams()
 	const doc_id = search_params.get('doc_id') as string
+	const recording = useRecordStore(state => state.recording)
+	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const [had_modify, { setTrue: modify }] = useBoolean(false)
 	const [doc_options_modal_open, { setTrue: show_doc_options_modal, setFalse: hide_doc_options_modal }] =
 		useBoolean(false)
+	const dialogRef = useRef<ReturnType<typeof Dialog.confirm>>()
 
-	const local_doc_content = useCreation(() => storage.local.get<string>('doc-content'))
 	const editor = RTE.use({
 		extensions: [
 			Heading,
@@ -67,27 +68,59 @@ export default function Doc() {
 			CodeBlock,
 			HorizontalRule,
 			Image.configure({
-				onCustomUpload: async () => {
-					return {
-						src: ''
-					}
-				}
+				onCustomUpload: file =>
+					new Promise((resolve, reject) => {
+						upload_file(file, {
+							complete(url) {
+								resolve({
+									src: url
+								})
+							},
+							error(err) {
+								Toast.error({ content: '上传图片失败' })
+								reject(err)
+							}
+						})
+					})
 			})
 		],
 		autofocus: 'end',
-		placeholder: '请输入',
-		content: local_doc_content,
+		placeholder: ({ node }) => {
+			if (node.type.name === 'heading') {
+				return '请输入标题'
+			}
+			return '输入内容 / 唤起更多'
+		},
 		onUpdate({ editor }) {
-			const now = dayjs().toString()
-			set_last_modify(now)
-			modify()
-			storage.local.set('doc-last-modify', now)
-			storage.local.set('doc-content', editor.getHTML())
+			debounced_update(editor)
 		}
 	})
 
-	const { data: doc_info, loading } = useFetch(get_doc_info, {
-		ready: !!doc_id && !!editor,
+	const update_draft = async (content: string) => {
+		try {
+			const new_draft = await update_doc_draft({
+				doc_id,
+				content
+			})
+			set_draft([new_draft])
+		} catch (error) {
+			console.error('error: ', error)
+		}
+	}
+
+	const debounced_update = useDebounce(async (editor: Editor) => {
+		modify()
+		update_draft(editor?.getHTML())
+	}, 500)
+
+	const doc_ready = !!doc_id && !!editor
+
+	const {
+		data: doc_info,
+		loading,
+		mutate: set_doc_info
+	} = useFetch(get_doc_info, {
+		ready: doc_ready,
 		params: [
 			{
 				doc_id
@@ -103,6 +136,40 @@ export default function Doc() {
 			editor?.commands.setContent(res.content)
 		}
 	})
+	const { data: [draft] = [], mutate: set_draft } = useFetch(get_doc_drafts, {
+		ready: doc_ready,
+		params: [
+			{
+				doc_id,
+				page: 1,
+				page_size: 1
+			}
+		],
+		refreshDeps: [doc_id],
+		onError(err: NetFetchError) {
+			Toast.error({
+				content: err.cause.msg
+			})
+		},
+		onSuccess([res]) {
+			if (res.content === EMPTY_CONTENT || res.creation_time === res.update_time) {
+				return
+			}
+			dialogRef.current = Dialog.confirm({
+				title: '草稿箱',
+				content: `检测到上次内容修改于${dayjs(res.update_time).format('YYYY-MM-DD')}，是否立即恢复？`,
+				okText: '恢复',
+				cancelText: '取消',
+				onOk() {
+					editor?.commands.setContent(res.content)
+				}
+			})
+		}
+	})
+
+	useUnmount(() => {
+		dialogRef.current?.close()
+	})
 
 	if (!editor) return null
 	const text_len = editor.storage.characterCount.characters()
@@ -113,14 +180,15 @@ export default function Doc() {
 			content: editor.getHTML()
 		}
 		try {
-			const doc = await update_doc(payload)
+			const new_doc = await update_doc(payload)
+			set_doc_info(new_doc)
 			recording({
 				action: '更新',
 				target: '',
 				target_id: '',
 				obj_type: '文章',
-				obj: doc.title,
-				obj_id: doc.doc_id
+				obj: new_doc.title,
+				obj_id: new_doc.doc_id
 			})
 			Toast.success({ content: '更新成功' })
 		} catch (error) {
@@ -143,7 +211,6 @@ export default function Doc() {
 			okText: '删除',
 			cancelText: '取消',
 			closeIcon: null,
-			unmountOnExit: true,
 			onOk: async () => {
 				await delete_doc({ doc_ids: [doc_id] })
 				go_doc_list()
@@ -163,7 +230,9 @@ export default function Doc() {
 			{had_modify && (
 				<>
 					<span className="text-text-3 ml-16px mr-16px">·</span>
-					{last_modify && <div className="text-text-3">最近保存：{dayjs(last_modify).format('HH:mm')}</div>}
+					{draft?.update_time && (
+						<div className="text-text-3">最近保存：{dayjs(draft.update_time).format('HH:mm')}</div>
+					)}
 				</>
 			)}
 		</div>
@@ -200,6 +269,7 @@ export default function Doc() {
 	return (
 		<>
 			<Header heading="文档" bordered sticky>
+				<span className="flex-1 truncate ml-24px mr-24px color-text-2">{doc_info?.title}</span>
 				<Space align="center" size="large">
 					{doc_tips}
 					<Button disabled={editor.isEmpty} primary onClick={update_doc_content}>
@@ -209,21 +279,30 @@ export default function Doc() {
 				</Space>
 			</Header>
 
-			<DocOptionsModal open={doc_options_modal_open} hide_modal={hide_doc_options_modal} doc_id={doc_id} />
+			<DocOptionsModal
+				open={doc_options_modal_open}
+				hide_modal={hide_doc_options_modal}
+				doc_id={doc_id}
+				on_updated={set_doc_info}
+			/>
 
 			<div
-				className={cls('sticky top-56px z-10 flex p-[12px_32px] bg-bg-0 b-b-bd-line b-b-1 b-b-solid', {
-					'justify-center': !sidebar_expand
-				})}
+				className={cls(
+					'z-10 fixed top-56px left-50% translate-x--50%',
+					'w-max flex p-[12px_32px] bg-bg-0',
+					'after:content-empty after:absolute after:bottom-0 after:left-50% after:translate-x--50% after:w-100vw after:h-1px after:bg-bd-line'
+				)}
 			>
 				<RTE.Menu editor={editor} />
 			</div>
 
-			<div className="flex pt-40px pb-24px">
-				<div className="w-720px m-auto">
-					<RTE.Content editor={editor} />
+			{loading || (
+				<div className="flex pt-80px pb-24px">
+					<div className="w-720px m-auto">
+						<RTE.Content editor={editor} />
+					</div>
 				</div>
-			</div>
+			)}
 		</>
 	)
 }

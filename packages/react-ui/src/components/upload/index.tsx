@@ -20,10 +20,11 @@ import Loading from '../loading'
 interface UploadAttr {
 	uid: string | number
 	url?: string
+	previewURL?: string
 	status?: 'success' | 'error' | 'uploading'
 }
 
-interface UploadFile extends File, UploadAttr {}
+export interface UploadFile extends File, UploadAttr {}
 
 interface UploadProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
 	disabled?: boolean
@@ -56,12 +57,21 @@ const Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => 
 	})
 
 	const doUpload = (file: UploadFile) => {
+		file.previewURL = URL.createObjectURL(file)
+		setFileList(p => [...p, file])
 		setUploading(true)
 		action(file)
 			.then(url => {
-				file.url = url
-				file.status = 'success'
-				setFileList(p => [...p, file])
+				setFileList(p =>
+					p.map(item => {
+						if (item.uid === file.uid) {
+							file.url = url
+							file.status = 'success'
+							return file
+						}
+						return item
+					})
+				)
 			})
 			.catch(() => {
 				file.status = 'error'
@@ -75,17 +85,20 @@ const Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => 
 		const { files } = event.target
 		if (!files || !files.length) return
 
-		const fileArr = Array.from(files).map(file =>
+		const fileArr = Array.from(files).map<UploadFile>(file =>
 			Object.assign(file, {
 				status: 'uploading' as UploadAttr['status'],
 				uid: uuid(),
-				url: ''
+				url: '',
+				previewURL: ''
 			})
 		)
 		fileArr.forEach(doUpload)
 	}
 
-	const picURL = fileList?.[0]?.url
+	const lastFile = fileList?.[fileList.length - 1]
+	const lastPicURL = lastFile?.url ?? ''
+	const lastPreviewURL = lastFile?.previewURL ?? ''
 	const prefixCls = `${UI_PREFIX}-upload`
 
 	return (
@@ -105,17 +118,15 @@ const Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => 
 				disabled={disabled}
 				onChange={handleChange}
 			/>
-			{!uploading && !picURL && <TbPlus className={`${prefixCls}-plus-icon`} />}
+			{!uploading && !lastFile && <TbPlus className={`${prefixCls}-plus-icon`} />}
 			{children || (
-				<>
-					<div className={`${prefixCls}-thumb-default`}>
-						{uploading ? (
-							<Loading spinning />
-						) : (
-							<>{picURL && <img className={cls(`${prefixCls}-thumb`)} src={picURL} />}</>
-						)}
-					</div>
-				</>
+				<div className={`${prefixCls}-thumb-default`}>
+					{(lastPreviewURL || lastPicURL) && (
+						<Loading spinning={uploading} className={`${prefixCls}-thumb-default-loading`}>
+							<img className={cls(`${prefixCls}-thumb`)} src={lastPreviewURL || lastPicURL} />
+						</Loading>
+					)}
+				</div>
 			)}
 		</label>
 	)

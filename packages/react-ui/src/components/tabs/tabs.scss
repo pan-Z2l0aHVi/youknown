@@ -116,11 +116,11 @@ $prefix: '#{$ui-prefix}-tabs';
 
 			&:not(&-disabled) {
 				&:hover {
-					background-color: $color-hover;
+					background-color: $color-secondary-hover;
 				}
 
 				&:active {
-					background-color: $color-active;
+					background-color: $color-secondary-active;
 				}
 
 				&.#{$prefix}-tab-item-segment-active {
@@ -137,11 +137,11 @@ $prefix: '#{$ui-prefix}-tabs';
 					border-radius: $radius-m;
 
 					&:hover {
-						background-color: $color-hover;
+						background-color: $color-secondary-hover;
 					}
 
 					&:active {
-						background-color: $color-active;
+						background-color: $color-secondary-active;
 					}
 				}
 			}

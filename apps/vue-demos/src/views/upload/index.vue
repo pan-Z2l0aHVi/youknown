@@ -62,7 +62,7 @@ const uploadFile = async (file: File) => {
 		complete(res) {
 			console.log('complete res: ', res)
 			// ...
-			const url = `${import.meta.env.VITE_CDN_URL}/${res.hash}`
+			const url = `${import.meta.env.VITE_CDN_BASE_URL}/${res.hash}`
 			uploadMaterial(url)
 		}
 	})

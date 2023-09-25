@@ -1,16 +1,33 @@
-import { useEffect, useRef, useState } from 'react'
+import { debounce } from 'lodash-es'
+import { useMemo } from 'react'
+import { useLatestRef } from './useLatestRef'
+import { useUnmount } from './useUnmount'
 
-import { debounce } from '@youknown/utils/src'
+type noop = (...args: any[]) => any
+export interface DebounceOptions {
+	leading?: boolean
+	trailing?: boolean
+	maxWait?: number
+}
+export function useDebounce<T extends noop>(fn: T, wait = 1000, options?: DebounceOptions) {
+	const fnRef = useLatestRef(fn)
 
-export function useDebounce<T>(val: T, wait?: number): T | void {
-	const [state, setState] = useState<T>()
-	const fnRef = useRef(
-		debounce((nextState: T) => {
-			setState(nextState)
-		}, wait)
+	const debounced = useMemo(
+		() =>
+			debounce(
+				(...args: Parameters<T>): ReturnType<T> => {
+					return fnRef.current(...args)
+				},
+				wait,
+				options
+			),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[]
 	)
-	useEffect(() => {
-		fnRef.current(val)
-	}, [val])
-	return state
+
+	useUnmount(() => {
+		debounced.cancel()
+	})
+
+	return debounced
 }

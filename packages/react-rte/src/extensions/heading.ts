@@ -12,9 +12,9 @@ export default TiptapHeading.extend<
 	addOptions() {
 		return {
 			...this.parent?.(),
+			levels: [1, 2, 3, 4],
 			menu: HeadingPicker,
-			floating: HeadingItem,
-			levels: [1, 2, 3, 4]
+			floating: HeadingItem
 		}
 	}
 })

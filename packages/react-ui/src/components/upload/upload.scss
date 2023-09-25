@@ -60,9 +60,16 @@ $prefix: '#{$ui-prefix}-upload';
 		justify-content: center;
 		width: 72px;
 		height: 72px;
+
+		&-loading {
+			width: 100%;
+			height: 100%;
+		}
 	}
 
 	&-thumb {
-		object-fit: contain;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 }

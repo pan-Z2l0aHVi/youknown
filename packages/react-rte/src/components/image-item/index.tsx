@@ -35,8 +35,12 @@ export default function ImageItem(props: ImageItemProps) {
 			return
 		}
 		for await (const file of files) {
-			const imgRes = await onCustomUpload(file)
-			editor.chain().focus().setImage(imgRes).setTextSelection(editor.state.selection.to).run()
+			try {
+				const imgRes = await onCustomUpload(file)
+				editor.chain().focus().setImage(imgRes).setTextSelection(editor.state.selection.to).run()
+			} catch (error) {
+				console.error('onCustomUpload error: ', error)
+			}
 		}
 	}
 

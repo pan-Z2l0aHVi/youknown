@@ -37,14 +37,14 @@ const Loading = (props: LoadingProps, propRef: ForwardedRef<HTMLDivElement>) => 
 
 	if (isWrap)
 		return (
-			<div ref={propRef} className={cls(className, prefixCls, `${prefixCls}-is-wrap`)} {...rest}>
-				<div
-					className={cls(`${prefixCls}-content`, {
-						[`${prefixCls}-content-spinning`]: spinning
-					})}
-				>
-					{children}
-				</div>
+			<div
+				ref={propRef}
+				className={cls(className, prefixCls, `${prefixCls}-is-wrap`, {
+					[`${prefixCls}-spinning`]: spinning
+				})}
+				{...rest}
+			>
+				{children}
 
 				<Motion.Fade in={spinning}>
 					<div className={`${prefixCls}-layer`}>

@@ -34,7 +34,7 @@ export default function Header(props: HeaderProps) {
 				>
 					<TbArrowLeft className="text-18px color-primary" />
 				</Button>
-				<h3>{heading}</h3>
+				<h3 className="whitespace-nowrap">{heading}</h3>
 			</div>
 			{children}
 		</header>

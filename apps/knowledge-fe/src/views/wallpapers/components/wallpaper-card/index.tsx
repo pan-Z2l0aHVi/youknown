@@ -30,7 +30,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		})
 	}
 
-	const previewPicture = () => {
+	const preview_picture = () => {
 		Image.preview({
 			url: detail_url,
 			onDownloadError() {
@@ -50,7 +50,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 				src={thumb_url}
 				loading="lazy"
 				onLoad={set_img_loaded}
-				onClick={previewPicture}
+				onClick={preview_picture}
 			/>
 
 			{img_loaded && (
@@ -73,7 +73,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 						spacing={4}
 						content={
 							<Dropdown.Menu className="w-112px" onClick={stop_hover}>
-								<Dropdown.Item closeAfterItemClick onClick={previewPicture}>
+								<Dropdown.Item closeAfterItemClick onClick={preview_picture}>
 									<span>查看原图</span>
 								</Dropdown.Item>
 								<Dropdown.Item closeAfterItemClick>

@@ -11,9 +11,10 @@ import {
 	TbZoomIn,
 	TbZoomOut
 } from 'react-icons/tb'
+import { throttle } from 'lodash-es'
 
 import { useBoolean, useEvent, useLatestRef } from '@youknown/react-hook/src'
-import { cls, downloadFile, throttle } from '@youknown/utils/src'
+import { cls, downloadFile } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Button from '../button'
@@ -34,7 +35,7 @@ interface ImagePreviewProps {
 	unmountOnExit?: boolean
 	open: boolean
 	onClose: () => void
-	onDownloadSuccess?: (res: string) => void
+	onDownloadSuccess?: () => void
 	onDownloadError?: (err: string | Event) => void
 }
 
