@@ -50,7 +50,7 @@ export default function Menu({ expand }: MenuProps) {
 	}
 
 	return (
-		<div className="flex-1 select-none">
+		<div className="flex-1 overflow-y-auto select-none">
 			{menu_list.map(menu_item => {
 				const { path, state } = menu_item
 				const children = (menu_item.children ?? []) as MenuRouteItem[]

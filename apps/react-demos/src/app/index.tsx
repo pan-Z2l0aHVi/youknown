@@ -48,16 +48,24 @@ const App = () => {
 	)
 
 	return (
-		<div className="flex h-100vh bg-bg-0 color-text-1">
-			<Button className="fixed left-8px top-8px" square onClick={toggleSidebar}>
+		<main className="flex bg-bg-0 color-text-1">
+			<Button className="z-1 fixed left-8px top-8px" square onClick={toggleSidebar}>
 				<TbMenu2 />
 			</Button>
 			{sidebarVisible && (
-				<div className="w-240px h-100% p-[48px_8px_16px_8px] b-r-solid b-r-1px b-bd-line bg-bg2 overflow-y-auto">
-					{navEle}
+				// 外层 relative 撑起容器高度
+				<div className="relative">
+					<div
+						className={cls(
+							'sticky top-0 max-h-100vh',
+							'w-240px h-100% p-[48px_8px_16px_8px] b-r-solid b-r-1px b-bd-line bg-bg2 overflow-y-auto'
+						)}
+					>
+						{navEle}
+					</div>
 				</div>
 			)}
-			<div className="flex-1 overflow-y-auto">
+			<div className="flex-1">
 				<div className="p-[8px_64px]">
 					<Tooltip placement="bottom" title={`切换${isDark ? '浅色' : '深色'}模式`}>
 						<Button square onClick={toggleDark}>
@@ -69,7 +77,7 @@ const App = () => {
 					<Suspense fallback={<Loading spinning />}>{contentEle}</Suspense>
 				</div>
 			</div>
-		</div>
+		</main>
 	)
 }
 

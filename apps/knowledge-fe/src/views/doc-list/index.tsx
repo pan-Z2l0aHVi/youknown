@@ -3,7 +3,6 @@ import { TbCheckbox, TbChecks, TbFilter, TbPlus, TbTrashX, TbX } from 'react-ico
 
 import { create_doc, delete_doc, Doc, get_docs } from '@/apis/doc'
 import Header from '@/app/components/header'
-import { useAppContentEl } from '@/hooks'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
 import { useBoolean, useInfinity } from '@youknown/react-hook/src'
@@ -30,7 +29,6 @@ export default function DocList() {
 	const has_login = useUserStore(state => state.has_login)
 	const recording = useRecordStore(state => state.recording)
 	const navigate = useTransitionNavigate()
-	const app_content_el = useAppContentEl()
 	const loading_ref = useRef(null)
 
 	const docs_fetcher = async () => {
@@ -51,7 +49,7 @@ export default function DocList() {
 		initialPageSize: 20,
 		target: loading_ref,
 		observerInit: {
-			root: app_content_el,
+			root: null,
 			rootMargin: '0px 0px 200px 0px'
 		},
 		ready: has_login,
@@ -213,8 +211,8 @@ export default function DocList() {
 						</Button>
 					</Tooltip>
 
-					<div className="pl-16px pr-16px b-l-1 b-r-1 b-l-solid b-r-solid b-bd-line select-none">
-						已选中：{selection.length}
+					<div className="pl-16px pr-16px b-l-1 b-r-1 b-l-solid b-r-solid b-bd-line select-none color-text-2">
+						已选中：<span className="inline-block min-w-32px color-text-1">{selection.length}</span>
 					</div>
 
 					<Tooltip spacing={12} placement="top" title={is_all_selected ? '取消全选' : '全选'}>

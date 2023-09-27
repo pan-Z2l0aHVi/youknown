@@ -3,6 +3,11 @@ import { Navigate } from 'react-router-dom'
 
 export const componentRoutes = [
 	{
+		name: 'Anchor',
+		path: 'anchor',
+		element: createElement(lazy(() => import('@/ui-views/AnchorExample')))
+	},
+	{
 		name: 'Button',
 		path: 'button',
 		element: createElement(lazy(() => import('@/ui-views/ButtonExample')))

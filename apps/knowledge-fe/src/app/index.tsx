@@ -51,19 +51,21 @@ export default function App() {
 				<LoginModal />
 			</Suspense>
 
-			{with_layout && <Sidebar />}
+			{with_layout && (
+				// 外层 relative 撑起容器高度
+				<div className="relative">
+					<Sidebar />
+				</div>
+			)}
 
 			<Suspense
 				fallback={
-					<div className="flex-1 h-screen flex justify-center items-center">
+					<div className="flex-1 flex justify-center items-center">
 						<Loading spinning size="large" />
 					</div>
 				}
 			>
-				<div
-					id="app-content"
-					className={cls('flex-1 h-screen overflow-y-auto overflow-y-overlay scrollbar-custom')}
-				>
+				<div className={cls('flex-1 scrollbar-custom min-h-screen')}>
 					{content}
 
 					{with_layout && <FabBar />}

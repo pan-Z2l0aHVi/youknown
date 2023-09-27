@@ -6,6 +6,7 @@ import { isAllNumber, isNumber } from './number'
 import { isAllObject, isEmptyObject, isObject, isPlainObject } from './object'
 import { isAllString, isString } from './string'
 import { isAllUndefined, isUndefined } from './undefined'
+import { isWindow } from './window'
 
 const object = isObject as typeof isObject & {
 	empty: typeof isEmptyObject
@@ -30,6 +31,7 @@ export default {
 	function: isFunction,
 	object,
 	array,
+	window: isWindow,
 	all: {
 		undefined: isAllUndefined,
 		null: isAllNull,

@@ -1,37 +1,36 @@
 import { useEffect, useState } from 'react'
 import { TbArrowBarToUp } from 'react-icons/tb'
 
-import { useAppContentEl } from '@/hooks'
 import { useDebounce } from '@youknown/react-hook/src'
 import { Button, Motion, Tooltip } from '@youknown/react-ui/src'
+import { is } from '@youknown/utils/src'
 
 interface BackTop {
 	threshold?: number
+	container?: Element
 }
 export default function BackTop(props: BackTop) {
-	const { threshold = window.innerHeight } = props
+	const { threshold = window.innerHeight, container = window } = props
 	const [visible, setVisible] = useState(false)
-	const target = useAppContentEl()
 
 	const handle_to_top = () => {
-		target?.scrollTo({
+		container?.scrollTo({
 			top: 0,
 			behavior: 'smooth'
 		})
 	}
 
 	const scroll_handler = useDebounce(() => {
-		if (!target) return
-		setVisible(target.scrollTop > threshold)
+		const scrollContainer = is.window(container) ? document.documentElement : container
+		setVisible(scrollContainer.scrollTop > threshold)
 	}, 100)
 
 	useEffect(() => {
-		if (!target) return
-		target.addEventListener('scroll', scroll_handler)
+		container.addEventListener('scroll', scroll_handler)
 		return () => {
-			target.removeEventListener('scroll', scroll_handler)
+			container.removeEventListener('scroll', scroll_handler)
 		}
-	}, [target, scroll_handler])
+	}, [container, scroll_handler])
 
 	return (
 		<Tooltip title="返回顶部">

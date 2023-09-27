@@ -8,6 +8,7 @@ declare module 'react' {
 	): (props: P & React.RefAttributes<T>) => React.ReactElement | null
 }
 
+export { default as Anchor } from './components/anchor'
 export { default as Motion } from './components/motion'
 export { default as Divider } from './components/divider'
 export { default as Space } from './components/space'

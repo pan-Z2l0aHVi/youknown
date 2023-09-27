@@ -1,6 +1,7 @@
 import { Doc, get_doc_info, update_doc } from '@/apis/doc'
 import PicUpload from '@/components/pic-upload'
 import { useUIStore } from '@/stores'
+import { validateMaxLength, validateRequired } from '@/utils/validators'
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Card, CloseIcon, Form, Input, Loading, Modal, Motion, Radio, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
@@ -93,10 +94,14 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 					<Loading spinning={initial_loading}>
 						<div className="w-480px max-w-[calc(100vw-32px)] p-24px">
 							<Form form={form} labelWidth="120px">
-								<Form.Field label="cover" labelText="封面：">
+								<Form.Field label="cover" labelText="封面：" validators={[validateRequired()]}>
 									<PicUpload />
 								</Form.Field>
-								<Form.Field label="title" labelText="标题：">
+								<Form.Field
+									label="title"
+									labelText="标题："
+									validators={[validateRequired(), validateMaxLength(30)]}
+								>
 									<Input />
 								</Form.Field>
 								<Form.Field label="is_publish" labelText="动态设置：">

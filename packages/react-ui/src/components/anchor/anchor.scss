@@ -1,0 +1,44 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-prefix}-anchor';
+.#{$prefix} {
+	@include basic;
+
+	margin: 0;
+	padding: 0 0 0 4px;
+	list-style: none;
+	border-left: 2px solid $bd-line;
+
+	&-item {
+		cursor: pointer;
+		position: relative;
+		margin: 0;
+		padding: 4px 32px 4px 0;
+		border-radius: $radius-m;
+
+		&:hover {
+			background-color: $color-hover;
+		}
+
+		&:active {
+			background-color: $color-active;
+		}
+
+		&.selected {
+			color: $color-primary;
+
+			&::before {
+				content: '';
+				position: absolute;
+				top: 50%;
+				left: -10px;
+				transform: translateY(-50%);
+				width: 10px;
+				height: 10px;
+				background: $bg-0;
+				border: 2px solid $color-primary;
+				border-radius: $round;
+			}
+		}
+	}
+}
