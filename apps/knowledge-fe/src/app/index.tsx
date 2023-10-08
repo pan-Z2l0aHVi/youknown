@@ -41,7 +41,7 @@ export default function App() {
 	})
 
 	return (
-		<div className="flex">
+		<div className="flex min-h-screen">
 			<PageProgress />
 
 			<Suspense>
@@ -65,7 +65,7 @@ export default function App() {
 					</div>
 				}
 			>
-				<div className={cls('flex-1 scrollbar-custom min-h-screen')}>
+				<div className={cls('flex-1 scrollbar-custom')}>
 					{content}
 
 					{with_layout && <FabBar />}

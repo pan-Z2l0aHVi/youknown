@@ -1,6 +1,6 @@
 import { net } from '@/utils/request'
 
-interface Wallpaper {
+export interface Wallpaper {
 	id: string
 	url: string
 	short_url: string

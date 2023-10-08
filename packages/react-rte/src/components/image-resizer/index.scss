@@ -1,9 +1,9 @@
 @use '../../styles/mixins.scss' as *;
 
 .image-resizer-moveable {
-	z-index: 99;
-
 	&.moveable-control-box {
 		--moveable-color: var(--ui-color-primary, #4af);
+
+		z-index: 99;
 	}
 }

@@ -83,8 +83,8 @@ export default function DocCard(props: DocCardProps) {
 			<div
 				ref={container_ref}
 				className={cls(
-					'relative flex flex-col h-224px b-1 b-solid b-bd-line b-rd-radius-l',
-					'bg-bg-1 bg-cover bg-center cursor-pointer overflow-hidden',
+					'relative flex flex-col h-224px b-1 b-solid b-bd-line rd-radius-l',
+					'bg-bg-1 bg-cover bg-center cursor-pointer overflow-hidden select-none',
 					selected
 						? 'b-primary shadow-[var(--ui-shadow-l),0_0_0_1px_var(--ui-color-primary)]'
 						: 'shadow-shadow-m hover-b-primary hover-shadow-[var(--ui-shadow-l),0_0_0_1px_var(--ui-color-primary)]'
@@ -95,7 +95,7 @@ export default function DocCard(props: DocCardProps) {
 					<div
 						className={cls(
 							'absolute top-8px right-8px flex items-center justify-center w-24px h-24px',
-							'b-rd-round b-4px b-solid b-[rgba(255,255,255,0.8)] bg-primary'
+							'rd-full b-4px b-solid b-[rgba(255,255,255,0.8)] bg-primary'
 						)}
 					>
 						<GoCheck className="text-14px color-#fff" />

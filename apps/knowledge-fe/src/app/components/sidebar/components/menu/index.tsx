@@ -50,7 +50,7 @@ export default function Menu({ expand }: MenuProps) {
 	}
 
 	return (
-		<div className="flex-1 overflow-y-auto select-none">
+		<div className="flex-1 overflow-y-auto overflow-x-hidden select-none p-12px">
 			{menu_list.map(menu_item => {
 				const { path, state } = menu_item
 				const children = (menu_item.children ?? []) as MenuRouteItem[]
@@ -76,17 +76,25 @@ export default function Menu({ expand }: MenuProps) {
 								{expand ? (
 									<div
 										className={cls(
-											'b-rd-radius-s w-24px h-24px flex items-center justify-center text-12px bg-inherit',
+											'rd-radius-s w-24px h-24px flex items-center justify-center text-12px bg-inherit',
 											is_dark_theme
 												? 'active-brightness-120 hover-brightness-110'
-												: 'active-lighten-90 hover-lighten-95'
+												: 'active-brightness-90 hover-brightness-95'
 										)}
 										onClick={toggle_sub_menu}
 									>
 										{chevron_down_icon}
 									</div>
 								) : (
-									<div className="flex items-center text-12px" onClick={toggle_sub_menu}>
+									<div
+										className={cls(
+											'flex items-center text-12px bg-inherit h-100% rd-tr-radius-m rd-br-radius-m',
+											is_dark_theme
+												? 'active-brightness-120 hover-brightness-110'
+												: 'active-brightness-90 hover-brightness-95'
+										)}
+										onClick={toggle_sub_menu}
+									>
 										{chevron_down_icon}
 									</div>
 								)}
@@ -100,7 +108,7 @@ export default function Menu({ expand }: MenuProps) {
 						<Tooltip title={state.nav_name} placement="right" spacing={20} disabled={expand}>
 							{has_sub_nav ? (
 								<div
-									className="group w-100% h-32px flex items-center pl-12px pr-4px b-rd-radius-m mb-8px
+									className="group w-100% h-32px flex items-center pl-12px pr-4px rd-radius-m mb-8px
 								decoration-none color-inherit cursor-pointer
 								active-bg-secondary-active hover-not-active-bg-secondary-hover"
 									onClick={() => {
@@ -115,7 +123,7 @@ export default function Menu({ expand }: MenuProps) {
 									to={`/${path}`}
 									className={({ isActive }) =>
 										cls(
-											'group w-100% h-32px flex items-center pl-12px pr-4px b-rd-radius-m mb-8px decoration-none color-inherit',
+											'group w-100% h-32px flex items-center pl-12px pr-4px rd-radius-m mb-8px decoration-none color-inherit',
 											'active-bg-secondary-active hover-not-active-bg-secondary-hover',
 											{
 												'bg-secondary-hover': isActive
@@ -130,7 +138,7 @@ export default function Menu({ expand }: MenuProps) {
 
 						{has_sub_nav && (
 							<Motion.Collapse in={open_map[path]} className="w-100% mt-0! mb-0!" unmountOnExit>
-								<Motion.Fade in={open_map[path]}>
+								<Motion.Fade in={open_map[path]} unmountOnExit>
 									<div
 										className={cls({
 											'ml-32px': expand
@@ -149,7 +157,7 @@ export default function Menu({ expand }: MenuProps) {
 														to={`/${path}/${child.path}`}
 														className={({ isActive }) =>
 															cls(
-																'group w-100% h-32px flex items-center pl-12px pr-4px b-rd-radius-m mb-8px decoration-none color-inherit',
+																'group w-100% h-32px flex items-center pl-12px pr-4px rd-radius-m mb-8px decoration-none color-inherit',
 																'active-bg-secondary-active hover-not-active-bg-secondary-hover',
 																{
 																	'bg-secondary-hover': isActive

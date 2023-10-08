@@ -60,7 +60,7 @@ const Drawer: FC<DrawerProps> = props => {
 						if (maskClosable) onCancel?.()
 					}
 				}}
-				lockScroll
+				lockScroll={open}
 				style={maskStyle}
 			>
 				<Motion.Slide in={open} direction={direction}>

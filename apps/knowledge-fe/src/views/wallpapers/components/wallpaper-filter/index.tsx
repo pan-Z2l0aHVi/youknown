@@ -1,10 +1,9 @@
-import { useState } from 'react'
 import { RiFilter3Fill } from 'react-icons/ri'
 import { TbChevronDown, TbSearch } from 'react-icons/tb'
 
-import { useBoolean, useCreation, useEvent, useMount, useUpdate } from '@youknown/react-hook/src'
+import { FormInstance, useBoolean } from '@youknown/react-hook/src'
 import { Button, Form, Input, Motion, Select, Space } from '@youknown/react-ui/src'
-import { cls, microDefer, storage } from '@youknown/utils/src'
+import { cls, microDefer } from '@youknown/utils/src'
 
 export interface filterState {
 	ai_art_filter: 0 | 1
@@ -24,89 +23,17 @@ export type WallpaperQuery = Omit<filterState, 'categories' | 'purity'> & {
 }
 
 interface WallpaperFilerProps {
+	form: FormInstance<filterState>
 	loading: boolean
-	on_query_change: (query: WallpaperQuery) => void
-	search: (query: WallpaperQuery) => void
-	reset: () => void
+	keywords: string
+	on_keywords_input: (keywords: string) => void
+	on_search: (keywords: string) => void
+	on_reset: () => void
 }
 
-const FILTER_STATE_KEY = 'wallpaper_filter_state'
-const FILTER_KEYWORDS_KEY = 'wallpaper_filter_keywords'
-
 export default function WallpaperFilter(props: WallpaperFilerProps) {
-	const { loading, on_query_change, search, reset } = props
-	const update = useUpdate()
+	const { form, keywords, on_keywords_input, loading, on_search, on_reset } = props
 	const [filter_open, { setReverse: toggle_filter }] = useBoolean(true)
-	const session_keywords = useCreation(() => storage.session.get(FILTER_KEYWORDS_KEY))
-	const [keywords, set_keywords] = useState(session_keywords ?? '')
-	const session_filter_state = useCreation(() => storage.session.get<filterState>(FILTER_STATE_KEY))
-
-	const form = Form.useForm<filterState>({
-		defaultState: session_filter_state ?? {
-			ai_art_filter: 0,
-			categories: [1, 2, 3],
-			purity: [1],
-			atleast: '0x0',
-			ratios: 'landscape',
-			sorting: 'toplist',
-			topRange: '1M',
-			order: 'desc'
-		},
-		onFulfilled(state) {
-			storage.session.set(FILTER_STATE_KEY, state)
-			search(get_format_query())
-		},
-		onStateChange(org) {
-			change_query()
-			switch (org.label) {
-				case 'sorting':
-					update()
-					break
-
-				case 'ratios':
-					update()
-					break
-
-				default:
-					break
-			}
-		}
-	})
-
-	const get_format_query = (): WallpaperQuery => {
-		const state = form.getState()
-		let categories = '000'
-		let purity = '000'
-		if (state.categories.includes(1)) {
-			categories = '1' + categories.slice(1)
-		}
-		if (state.categories.includes(2)) {
-			categories = categories.slice(0, 1) + '1' + categories.slice(2)
-		}
-		if (state.categories.includes(3)) {
-			categories = categories.slice(0, 2) + '1'
-		}
-		if (state.purity.includes(1)) {
-			purity = '1' + purity.slice(1)
-		}
-		if (state.purity.includes(2)) {
-			purity = purity.slice(0, 1) + '1' + purity.slice(2)
-		}
-		return {
-			...state,
-			keywords,
-			categories,
-			purity
-		}
-	}
-
-	const change_query = useEvent(() => {
-		on_query_change(get_format_query())
-	})
-
-	useMount(() => {
-		change_query()
-	})
 
 	const { sorting } = form.getState()
 	const at_least_options = [
@@ -169,16 +96,8 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 						placeholder="关键词"
 						allowClear
 						value={keywords}
-						onChange={val => {
-							storage.session.set(FILTER_KEYWORDS_KEY, val)
-							set_keywords(val)
-							microDefer(() => {
-								change_query()
-							})
-						}}
-						onEnter={() => {
-							search(get_format_query())
-						}}
+						onChange={on_keywords_input}
+						onEnter={on_search}
 					/>
 					<Button prefixIcon={<RiFilter3Fill className="text-16px" />} onClick={toggle_filter}>
 						<div className="flex items-center">
@@ -191,7 +110,7 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 				</Space>
 			</div>
 			<Motion.Collapse in={filter_open}>
-				<div className="m-16px p-32px b-1 b-solid b-bd-line b-rd-radius-m bg-bg-2 shadow-shadow-l">
+				<div className="m-16px p-32px b-1 b-solid b-bd-line rd-radius-m bg-bg-2 shadow-shadow-l">
 					<Form form={form} layout="inline">
 						<Form.Field label="ai_art_filter">
 							<Select
@@ -288,7 +207,7 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 								className="w-240px!"
 								options={[
 									{
-										label: '排行',
+										label: '排行榜',
 										value: 'toplist'
 									},
 									{
@@ -311,23 +230,7 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 							/>
 						</Form.Field>
 
-						<Form.Field label="order">
-							<Select
-								className="w-240px!"
-								options={[
-									{
-										label: '降序',
-										value: 'desc'
-									},
-									{
-										label: '升序',
-										value: 'asc'
-									}
-								]}
-							/>
-						</Form.Field>
-
-						{sorting === 'toplist' && (
+						{sorting === 'toplist' ? (
 							<Form.Field label="topRange">
 								<Select
 									className="w-240px!"
@@ -359,6 +262,22 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 									]}
 								/>
 							</Form.Field>
+						) : (
+							<Form.Field label="order">
+								<Select
+									className="w-240px!"
+									options={[
+										{
+											label: '降序',
+											value: 'desc'
+										},
+										{
+											label: '升序',
+											value: 'asc'
+										}
+									]}
+								/>
+							</Form.Field>
 						)}
 					</Form>
 
@@ -366,8 +285,9 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 						<Button
 							onClick={() => {
 								form.reset()
+								on_keywords_input('')
 								microDefer(() => {
-									reset()
+									on_reset()
 								})
 							}}
 						>

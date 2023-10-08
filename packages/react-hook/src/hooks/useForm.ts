@@ -24,12 +24,12 @@ interface Options<S> {
 	onFailed?(explainsMap: Record<keyof S, string[]>): void
 	onStateChange?(org: Field<S>): void
 }
-interface FieldController<S = any> {
+interface FieldController<S> {
 	defaultValue?: ValueOf<S>
 	value?: S
 	onChange(arg: ValueOf<S> | controllerChangeEvent): void
 }
-export interface Form<S = any> {
+export interface FormInstance<S = any> {
 	submit(): void
 	getState(): S
 	setState(state: Partial<S>): void
@@ -40,7 +40,7 @@ export interface Form<S = any> {
 	validate(...labels: (keyof S)[]): Promise<Record<keyof S, string[]>>
 }
 
-export function useForm<S extends State>(opts: Options<S>): Form<S> {
+export function useForm<S extends State>(opts: Options<S>): FormInstance<S> {
 	const defaultState = useCreation(() => opts.defaultState)
 	// shallow copy
 	const state = useRef<S>({ ...defaultState })
@@ -132,7 +132,6 @@ export function useForm<S extends State>(opts: Options<S>): Form<S> {
 			})
 			.filter(Boolean)
 		field.options.onExplainsChange?.(explains)
-		console.log('explains: ', explains)
 		return explains
 	})
 

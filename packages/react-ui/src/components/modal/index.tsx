@@ -51,7 +51,7 @@ const Modal: FC<ModalProps> = props => {
 				className={cls(className, prefixCls, {
 					[`${prefixCls}-align-center`]: alignCenter
 				})}
-				lockScroll
+				lockScroll={open}
 				onClick={event => {
 					if (event.target === event.currentTarget) {
 						onClick?.(event)

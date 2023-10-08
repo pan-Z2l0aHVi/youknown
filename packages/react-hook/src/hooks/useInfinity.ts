@@ -35,10 +35,10 @@ export function useInfinity<T extends any[], S extends any[]>(
 		...fetchOpts,
 		ready,
 		onSuccess(data, params) {
+			fetchOpts.onSuccess?.(data, params)
 			if (noMore) {
 				return
 			}
-			fetchOpts.onSuccess?.(data, params)
 			setData(p => {
 				if (page <= initialPage) {
 					return data

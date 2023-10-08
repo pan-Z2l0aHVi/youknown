@@ -1,7 +1,6 @@
 import dayjs from 'dayjs'
-import { useRef } from 'react'
 import { LuSettings2 } from 'react-icons/lu'
-import { TbTrash } from 'react-icons/tb'
+import { TbCloudCheck, TbTrash } from 'react-icons/tb'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { delete_doc, get_doc_drafts, get_doc_info, update_doc, update_doc_draft } from '@/apis/doc'
@@ -11,7 +10,7 @@ import More from '@/components/more'
 import { useRecordStore, useUIStore } from '@/stores'
 import { upload_file } from '@/utils/qiniu'
 import { NetFetchError } from '@/utils/request'
-import { useBoolean, useDebounce, useFetch, useUnmount } from '@youknown/react-hook/src'
+import { useBoolean, useDebounce, useFetch } from '@youknown/react-hook/src'
 import {
 	Blockquote,
 	Bold,
@@ -36,7 +35,7 @@ import {
 import { Button, Dialog, Divider, Dropdown, Space, Toast } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
-const EMPTY_CONTENT = '<p></p>'
+import DocHistoryDrawer from './components/doc-history-drawer'
 
 export default function Doc() {
 	const navigate = useNavigate()
@@ -44,10 +43,9 @@ export default function Doc() {
 	const doc_id = search_params.get('doc_id') as string
 	const recording = useRecordStore(state => state.recording)
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
-	const [had_modify, { setTrue: modify }] = useBoolean(false)
 	const [doc_options_modal_open, { setTrue: show_doc_options_modal, setFalse: hide_doc_options_modal }] =
 		useBoolean(false)
-	const dialogRef = useRef<ReturnType<typeof Dialog.confirm>>()
+	const [history_drawer_open, { setTrue: show_history_drawer, setFalse: hide_history_drawer }] = useBoolean(false)
 
 	const editor = RTE.use({
 		extensions: [
@@ -109,9 +107,8 @@ export default function Doc() {
 	}
 
 	const debounced_update = useDebounce(async (editor: Editor) => {
-		modify()
 		update_draft(editor?.getHTML())
-	}, 500)
+	}, 1000)
 
 	const doc_ready = !!doc_id && !!editor
 
@@ -150,25 +147,7 @@ export default function Doc() {
 			Toast.error({
 				content: err.cause.msg
 			})
-		},
-		onSuccess([res]) {
-			if (res.content === EMPTY_CONTENT || res.creation_time === res.update_time) {
-				return
-			}
-			dialogRef.current = Dialog.confirm({
-				title: '草稿箱',
-				content: `检测到上次内容修改于${dayjs(res.update_time).format('YYYY-MM-DD')}，是否立即恢复？`,
-				okText: '恢复',
-				cancelText: '取消',
-				onOk() {
-					editor?.commands.setContent(res.content)
-				}
-			})
 		}
-	})
-
-	useUnmount(() => {
-		dialogRef.current?.close()
 	})
 
 	if (!editor) return null
@@ -177,11 +156,12 @@ export default function Doc() {
 	const update_doc_content = async () => {
 		const payload = {
 			doc_id,
-			content: editor.getHTML()
+			content: editor.getHTML() ?? ''
 		}
 		try {
 			const new_doc = await update_doc(payload)
 			set_doc_info(new_doc)
+			editor.commands.setContent(new_doc.content)
 			recording({
 				action: '更新',
 				target: '',
@@ -218,21 +198,24 @@ export default function Doc() {
 		})
 	}
 
+	const recovery_doc = (doc_content: string) => {
+		editor.commands.setContent(doc_content)
+		update_draft(doc_content)
+	}
+
 	if (!doc_id) {
 		return null
 	}
 
 	const doc_tips = (
 		<div className="flex">
-			<div className="text-text-3">
-				正文字数：<span className="inline-block">{text_len}</span>
+			<div className="text-text-3 text-12px">
+				正文字数 <span className="inline-block">{text_len}</span>
 			</div>
-			{had_modify && (
+			{draft && (
 				<>
-					<span className="text-text-3 ml-16px mr-16px">·</span>
-					{draft?.update_time && (
-						<div className="text-text-3">最近保存：{dayjs(draft.update_time).format('HH:mm')}</div>
-					)}
+					<span className="text-text-3 text-12px ml-16px mr-16px">·</span>
+					<div className="text-text-3 text-12px">自动保存于 {dayjs(draft.creation_time).format('HH:mm')}</div>
 				</>
 			)}
 		</div>
@@ -270,8 +253,14 @@ export default function Doc() {
 		<>
 			<Header heading="文档" bordered sticky>
 				<span className="flex-1 truncate ml-24px mr-24px color-text-2">{doc_info?.title}</span>
-				<Space align="center" size="large">
+				<Space align="center">
 					{doc_tips}
+					<Button
+						onClick={show_history_drawer}
+						prefixIcon={<TbCloudCheck className="color-text-2" size={16} />}
+					>
+						草稿箱
+					</Button>
 					<Button disabled={editor.isEmpty} primary onClick={update_doc_content}>
 						更新
 					</Button>
@@ -286,10 +275,18 @@ export default function Doc() {
 				on_updated={set_doc_info}
 			/>
 
+			<DocHistoryDrawer
+				open={history_drawer_open}
+				on_close={hide_history_drawer}
+				doc_id={doc_id}
+				doc_content={doc_info?.content ?? ''}
+				on_recovery={recovery_doc}
+			/>
+
 			<div
 				className={cls(
 					'z-10 fixed top-56px left-50% translate-x--50%',
-					'w-max flex p-[12px_32px] bg-bg-0',
+					'w-screen flex justify-center p-[12px_32px] bg-bg-0',
 					'after:content-empty after:absolute after:bottom-0 after:left-50% after:translate-x--50% after:w-100vw after:h-1px after:bg-bd-line'
 				)}
 			>

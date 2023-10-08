@@ -14,7 +14,7 @@ const More = forwardRef<HTMLButtonElement, MoreProps>((props, ref) => {
 			type="button"
 			className={cls(
 				'm-0 p-0 cursor-pointer',
-				'relative b-12 b-solid b-rd-round bg-primary b-[rgba(255,255,255,0.8)]',
+				'relative b-12 b-solid rd-full bg-primary b-[rgba(255,255,255,0.8)]',
 				'hover-brightness-95 active-brightness-90!',
 				active && 'opacity-50'
 			)}

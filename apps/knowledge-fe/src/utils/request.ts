@@ -35,7 +35,7 @@ export const net = Net.create({
 	.use(async (ctx, next) => {
 		await next()
 		if (ctx.err) {
-			Toast.error({ content: '网络连接错误' })
+			Toast.error({ content: '网络连接异常' })
 			return
 		}
 		switch (ctx.data?.code) {

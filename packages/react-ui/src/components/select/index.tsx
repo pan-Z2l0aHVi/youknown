@@ -55,7 +55,7 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 	] = useBoolean(false)
 
 	const [value, setValue] = useControllable(props, {
-		defaultValue: (multiple ? [] : '') as T | T[]
+		defaultValue: (multiple ? [] : undefined) as T | T[]
 	})
 	const _valueRef = useLatestRef(value)
 

@@ -1,26 +1,94 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { search_wallpapers } from '@/apis/wallpaper'
 import Header from '@/app/components/header'
-import { useAppContentEl } from '@/hooks'
-import { useInfinity } from '@youknown/react-hook/src'
-import { Loading, Toast } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
+import { useCreation, useEvent, useInfinity, useUpdate } from '@youknown/react-hook/src'
+import { Form, Loading, Toast } from '@youknown/react-ui/src'
+import { cls, microDefer, storage } from '@youknown/utils/src'
 
 import WallpaperCard from './components/wallpaper-card'
-import WallpaperFilter, { WallpaperQuery } from './components/wallpaper-filter'
+import WallpaperFilter, { filterState, WallpaperQuery } from './components/wallpaper-filter'
+
+const FILTER_STATE_KEY = 'wallpaper_filter_state'
+const FILTER_KEYWORDS_KEY = 'wallpaper_filter_keywords'
 
 export default function Wallpapers() {
-	const [params, set_params] = useState<WallpaperQuery>()
-	const app_content_el = useAppContentEl()
+	const update = useUpdate()
 	const loading_ref = useRef<HTMLDivElement>(null)
 	const wrapper_ref = useRef<HTMLDivElement>(null)
 
-	const wallpaper_fetcher = async () => {
-		if (!params) {
-			return []
+	const session_keywords = useCreation(() => storage.session.get(FILTER_KEYWORDS_KEY))
+	const [keywords, set_keywords] = useState(session_keywords ?? '')
+	const session_filter_state = useCreation(() => storage.session.get<filterState>(FILTER_STATE_KEY))
+
+	const [params, set_params] = useState<WallpaperQuery>()
+
+	const form = Form.useForm<filterState>({
+		defaultState: session_filter_state ?? {
+			ai_art_filter: 0,
+			categories: [1, 2, 3],
+			purity: [1],
+			atleast: '0x0',
+			ratios: 'landscape',
+			sorting: 'toplist',
+			topRange: '1M',
+			order: 'desc'
+		},
+		onFulfilled(state) {
+			storage.session.set(FILTER_STATE_KEY, state)
+			reload_wallpapers()
+		},
+		onStateChange(org) {
+			update_params()
+
+			switch (org.label) {
+				case 'sorting':
+					update()
+					break
+
+				case 'ratios':
+					update()
+					break
+
+				default:
+					break
+			}
 		}
-		const { keywords, ai_art_filter, atleast, ratios, sorting, topRange, order, categories, purity } = params
+	})
+
+	const update_params = useEvent(() => {
+		const state = form.getState()
+		let categories = '000'
+		let purity = '000'
+		if (state.categories.includes(1)) {
+			categories = '1' + categories.slice(1)
+		}
+		if (state.categories.includes(2)) {
+			categories = categories.slice(0, 1) + '1' + categories.slice(2)
+		}
+		if (state.categories.includes(3)) {
+			categories = categories.slice(0, 2) + '1'
+		}
+		if (state.purity.includes(1)) {
+			purity = '1' + purity.slice(1)
+		}
+		if (state.purity.includes(2)) {
+			purity = purity.slice(0, 1) + '1' + purity.slice(2)
+		}
+		set_params({
+			...state,
+			keywords,
+			categories,
+			purity
+		})
+	})
+
+	useEffect(() => {
+		update_params()
+	}, [update_params])
+
+	const wallpaper_fetcher = async () => {
+		const { keywords, ai_art_filter, atleast, ratios, sorting, topRange, order, categories, purity } = params!
 		const search_params: Parameters<typeof search_wallpapers>['0'] = {
 			q: keywords,
 			ai_art_filter,
@@ -46,7 +114,7 @@ export default function Wallpapers() {
 		ready: !!params,
 		target: loading_ref,
 		observerInit: {
-			root: app_content_el,
+			root: null,
 			rootMargin: '0px 0px 280px 0px'
 		},
 		onError() {
@@ -62,11 +130,16 @@ export default function Wallpapers() {
 			{wallpapers.map(wallpaper => (
 				<WallpaperCard
 					key={wallpaper.id}
-					thumb_url={wallpaper.thumbs.original}
-					detail_url={wallpaper.path}
-					ratio={1 / Number(wallpaper.ratio)}
-					resolution_x={wallpaper.dimension_x}
-					resolution_y={wallpaper.dimension_y}
+					wallpaper={wallpaper}
+					search_similar={() => {
+						set_keywords(`like:${wallpaper.id}`)
+						microDefer(() => {
+							update_params()
+							microDefer(() => {
+								reload_wallpapers()
+							})
+						})
+					}}
 				/>
 			))}
 		</div>
@@ -78,10 +151,18 @@ export default function Wallpapers() {
 
 			<div className="p-[32px_16px_0]">
 				<WallpaperFilter
+					form={form}
+					keywords={keywords}
+					on_keywords_input={val => {
+						storage.session.set(FILTER_KEYWORDS_KEY, val)
+						set_keywords(val)
+						microDefer(() => {
+							update_params()
+						})
+					}}
 					loading={loading}
-					on_query_change={set_params}
-					search={reload_wallpapers}
-					reset={reload_wallpapers}
+					on_search={reload_wallpapers}
+					on_reset={reload_wallpapers}
 				/>
 			</div>
 			<div className="p-[0_32px]">

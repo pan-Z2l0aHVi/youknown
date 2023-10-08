@@ -16,7 +16,6 @@ export interface Doc {
 export interface Draft {
 	content: string
 	creation_time: string
-	update_time: string
 }
 
 interface GetDocInfoParams {

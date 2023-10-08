@@ -45,7 +45,7 @@ export default function Personal({ expand }: PersonalProps) {
 				>
 					<div
 						className={cls(
-							'border-0 bg-transparent w-100% h-44px flex items-center p-4px b-rd-radius-m cursor-pointer select-none',
+							'border-0 bg-transparent w-100% h-44px flex items-center p-4px rd-radius-m cursor-pointer select-none',
 							'active-bg-secondary-active hover-not-active-bg-secondary-hover'
 						)}
 						onClick={() => {
@@ -56,7 +56,7 @@ export default function Personal({ expand }: PersonalProps) {
 						{has_login ? (
 							<Avatar round size={36} src={profile.avatar} />
 						) : (
-							<div className="flex justify-center items-center w-36px min-w-36px h-36px rd-round bg-primary color-#fff text-13px font-500">
+							<div className="flex justify-center items-center w-36px min-w-36px h-36px rd-full bg-primary color-#fff text-13px font-500">
 								登录
 							</div>
 						)}

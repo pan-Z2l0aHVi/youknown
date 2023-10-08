@@ -27,7 +27,6 @@ export const theme = {
         }
     },
     borderRadius: {
-        round: '999vmax',
         'radius-s': 'var(--ui-radius-s)',
         'radius-m': 'var(--ui-radius-m)',
         'radius-l': 'var(--ui-radius-l)'

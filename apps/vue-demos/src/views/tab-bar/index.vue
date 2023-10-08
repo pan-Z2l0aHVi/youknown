@@ -1,7 +1,7 @@
 <template>
 	<div class="relative">
 		<div class="fixed box-border w-100% p-8px bg-orange">
-			<div class="flex items-center h-32px pl-16px b-rd-999vmax bg-#fff color-#999">搜索</div>
+			<div class="flex items-center h-32px pl-16px rd-full bg-#fff color-#999">搜索</div>
 		</div>
 		<div class="h-400px bg-blue"></div>
 		<TabsBar :offsetTop="96" :tabList="tabList"> </TabsBar>

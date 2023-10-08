@@ -1,9 +1,9 @@
 import { createContext } from 'react'
 
-import { Form } from '@youknown/react-hook/src'
+import { FormInstance } from '@youknown/react-hook/src'
 
 export interface FormContext {
-	form: Form
+	form: FormInstance
 	labelWidth: string
 	labelAlign: 'top' | 'left' | 'right'
 	labelSuffix: string

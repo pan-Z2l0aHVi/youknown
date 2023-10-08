@@ -87,12 +87,15 @@ export default function FeedList(props: FeedProps) {
 									</div>
 								</TransitionLink>
 
-								<div className="" dangerouslySetInnerHTML={{ __html: feed.content }}></div>
+								<div
+									className="rich-text-container"
+									dangerouslySetInnerHTML={{ __html: feed.content }}
+								></div>
 							</div>
 
 							<TransitionLink to={doc_detail_url}>
 								<img
-									className="w-160px h-108px b-bd-line b-1 b-solid b-rd-radius-m object-cover ml-48px"
+									className="w-160px h-108px b-bd-line b-1 b-solid rd-radius-m object-cover ml-48px"
 									src={feed.cover}
 									loading="lazy"
 								/>

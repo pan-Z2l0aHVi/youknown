@@ -53,6 +53,7 @@ export default function LinkPicker(props: LinkPickerProps) {
 			trigger={trigger}
 			open={open}
 			onOpenChange={onOpenChange}
+			unmountOnExit
 			{...rest}
 		>
 			<CommandBtn

@@ -2,7 +2,7 @@ import { useEffect, useState, useTransition } from 'react'
 import { TbDotsVertical } from 'react-icons/tb'
 
 import { useBoolean, useCreation, useLatestRef } from '@youknown/react-hook/src'
-import { Divider, Tooltip } from '@youknown/react-ui/src'
+import { Tooltip } from '@youknown/react-ui/src'
 import { cls, storage } from '@youknown/utils/src'
 
 import Account from './components/account'
@@ -86,7 +86,7 @@ export default function Sidebar() {
 		<aside
 			className={cls(
 				'z-12 sticky top-0 flex flex-col h-100% max-h-screen',
-				'b-r-1 b-r-solid b-r-bd-line bg-bg-2 p-12px',
+				'b-r-1 b-r-solid b-r-bd-line bg-bg-2',
 				{
 					'transition-width-300': !dragging,
 					'w-68px': !expand
@@ -94,28 +94,38 @@ export default function Sidebar() {
 			)}
 			style={sidebar_style}
 		>
-			<div className="h-32px mb-24px">
+			<div
+				className={cls(
+					'sticky top-0 p-12px bg-bg2',
+					'after:content-empty after:absolute after:left-12px after:bottom-0 after:w-[calc(100%-24px)] after:h-1px after:bg-bd-line'
+				)}
+			>
 				<img
-					className="w-32px h-32px ml-6px b-rd-radius-m b-1 b-bd-line b-solid"
+					className="w-32px h-32px ml-6px rd-radius-m b-1 b-bd-line b-solid"
 					src={`${import.meta.env.VITE_CDN_BASE_URL}/branch.png`}
 				/>
 			</div>
 
 			<Menu expand={expand} />
 
-			<Account expand={expand} />
+			<div
+				className={cls(
+					'sticky bottom-0 p-12px bg-bg-2',
+					'after:content-empty after:absolute after:left-12px after:top-0 after:w-[calc(100%-24px)] after:h-1px after:bg-bd-line'
+				)}
+			>
+				<Account expand={expand} />
 
-			<Divider />
-
-			<Tooltip title={expand ? '收起' : '展开'} placement="right" spacing={20}>
-				<button
-					className="border-0 bg-transparent w-44px h-32px flex items-center justify-center b-rd-radius-m
+				<Tooltip title={expand ? '收起' : '展开'} placement="right" spacing={20}>
+					<button
+						className="mt-16px border-0 bg-transparent w-44px h-32px flex items-center justify-center rd-radius-m
 					active-bg-secondary-active hover-not-active-bg-secondary-hover cursor-pointer text-16px color-text-1"
-					onClick={toggle_expand}
-				>
-					<TbDotsVertical />
-				</button>
-			</Tooltip>
+						onClick={toggle_expand}
+					>
+						<TbDotsVertical />
+					</button>
+				</Tooltip>
+			</div>
 
 			{drag_divider}
 		</aside>

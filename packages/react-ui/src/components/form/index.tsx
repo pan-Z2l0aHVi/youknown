@@ -2,7 +2,7 @@ import './form.scss'
 
 import { FormEvent, FormHTMLAttributes, ForwardedRef, forwardRef } from 'react'
 
-import { Form as FormType, useForm } from '@youknown/react-hook/src'
+import { FormInstance, useForm } from '@youknown/react-hook/src'
 import { cls, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
@@ -10,7 +10,7 @@ import Field from './Field'
 import { FormContext, FormCtx } from './FormCtx'
 
 interface FormProps extends FormHTMLAttributes<HTMLFormElement>, Omit<Partial<FormContext>, 'labelAlign'> {
-	form: FormType
+	form: FormInstance
 	layout?: 'horizontal' | 'vertical' | 'inline'
 }
 

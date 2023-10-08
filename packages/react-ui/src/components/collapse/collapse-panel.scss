@@ -26,7 +26,7 @@ $prefix: '#{$ui-prefix}-collapse-panel';
 	&-box {
 		overflow: hidden;
 		transition:
-			max-height $duration-n ease-out,
+			max-height $duration-n cubic-bezier(0.075, 0.82, 0.165, 1),
 			opacity $duration-n ease-out;
 
 		&-entered {

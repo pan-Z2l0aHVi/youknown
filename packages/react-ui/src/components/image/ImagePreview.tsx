@@ -1,6 +1,5 @@
 import './image-preview.scss'
 
-import { throttle } from 'lodash-es'
 import { MouseEventHandler, useEffect, useRef, useState, WheelEventHandler } from 'react'
 import {
 	TbDownload,
@@ -13,7 +12,7 @@ import {
 	TbZoomOut
 } from 'react-icons/tb'
 
-import { useBoolean, useEvent, useLatestRef } from '@youknown/react-hook/src'
+import { useBoolean, useEvent, useLatestRef, useThrottle } from '@youknown/react-hook/src'
 import { cls, downloadFile } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
@@ -160,14 +159,14 @@ const ImagePreview = (props: ImagePreviewProps) => {
 		}
 	}
 
-	const handleWheel: WheelEventHandler<HTMLElement> = event => {
+	const handleWheel: WheelEventHandler<HTMLElement> = useThrottle(event => {
 		if (dragging) return
 		if (event.deltaY < 0) {
 			handleZoomOut()
 		} else {
 			handleZoomIn()
 		}
-	}
+	}, 100)
 
 	// 无感知重置
 	const resetTimerRef = useRef(0)
@@ -257,7 +256,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 	)
 
 	return (
-		<Modal unmountOnExit={unmountOnExit} open={open} onCancel={onClose} onWheel={throttle(handleWheel, 200)}>
+		<Modal unmountOnExit={unmountOnExit} open={open} onCancel={onClose} onWheel={handleWheel}>
 			<div
 				className={`${prefixCls}`}
 				onClick={event => {

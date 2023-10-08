@@ -203,9 +203,9 @@ export default function DocList() {
 
 	const choosing_bar = (
 		<Motion.Slide in={choosing} direction="up" unmountOnExit>
-			<div className="z-2 fixed bottom-40px left-[calc(50%-120px)] p-8px bg-bg-1 b-1 b-solid b-bd-line b-rd-radius-l shadow-shadow-l">
+			<div className="z-2 fixed bottom-40px left-[calc(50%-120px)] p-8px bg-bg-1 b-1 b-solid b-bd-line rd-radius-l shadow-shadow-l">
 				<Space align="center">
-					<Tooltip spacing={12} placement="top" title="删除">
+					<Tooltip disabled={!has_selection} spacing={12} placement="top" title="批量删除">
 						<Button circle text disabled={!has_selection} onClick={show_doc_delete_dialog}>
 							<TbTrashX className={cls('text-18px', has_selection && 'color-danger')} />
 						</Button>
@@ -235,7 +235,7 @@ export default function DocList() {
 			{choosing || (
 				<div
 					className={cls(
-						'flex justify-center items-center h-224px bg-bg-2 b-rd-radius-l b-1 b-dashed b-bd-line cursor-pointer',
+						'flex justify-center items-center h-224px bg-bg-2 rd-radius-l b-1 b-dashed b-bd-line cursor-pointer',
 						'group active-bg-active hover-not-active-bg-hover hover-b-primary hover-b-2px'
 					)}
 					onClick={create_new_doc}

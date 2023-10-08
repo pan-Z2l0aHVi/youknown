@@ -28,7 +28,7 @@ export default function SignInModal() {
 	}
 
 	const handle_wechat_login = () => {
-		Toast.warning({ content: '还没做...' })
+		Toast.warning({ content: '敬请期待...' })
 	}
 
 	return (

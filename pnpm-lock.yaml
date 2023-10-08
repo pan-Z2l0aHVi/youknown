@@ -183,6 +183,9 @@ importers:
       chroma-js:
         specifier: ^2.4.2
         version: registry.npmmirror.com/chroma-js@2.4.2
+      html-diff-ts:
+        specifier: ^1.4.2
+        version: registry.npmmirror.com/html-diff-ts@1.4.2
       qiniu-js:
         specifier: ^3.4.1
         version: registry.npmmirror.com/qiniu-js@3.4.1
