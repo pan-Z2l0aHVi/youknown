@@ -46,7 +46,6 @@ const Anchor = (props: AnchorProps, ref: ForwardedRef<HTMLUListElement>) => {
 			const offsetTop = top - containerRect.top
 			if (is.window(container)) {
 				const innerTargetOffset = documentHeight / 2
-				console.log('innerTargetOffset: ', innerTargetOffset)
 				return (top >= 0 && top <= innerTargetOffset) || (top <= 0 && top + height >= innerTargetOffset)
 			}
 			const innerTargetOffset = containerRect.height / 2

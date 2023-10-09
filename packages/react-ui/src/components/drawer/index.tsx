@@ -9,6 +9,7 @@ import { cls } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import CloseIcon from '../close-icon'
 import Motion from '../motion'
+import { useEscape } from '../../hooks/useEscape'
 
 interface DrawerProps extends HTMLAttributes<HTMLElement> {
 	open?: boolean
@@ -18,6 +19,7 @@ interface DrawerProps extends HTMLAttributes<HTMLElement> {
 	maskStyle?: CSSProperties
 	maskClassName?: string
 	maskClosable?: boolean
+	escClosable?: boolean
 	closable?: boolean
 	unmountOnExit?: boolean
 	onCancel?: () => void
@@ -33,6 +35,7 @@ const Drawer: FC<DrawerProps> = props => {
 		height,
 		maskClassName,
 		maskClosable = true,
+		escClosable = true,
 		maskStyle,
 		closable = false,
 		unmountOnExit,
@@ -40,6 +43,8 @@ const Drawer: FC<DrawerProps> = props => {
 		style,
 		...rest
 	} = props
+
+	useEscape(open && escClosable, onCancel)
 
 	const prefixCls = `${UI_PREFIX}-drawer`
 

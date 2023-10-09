@@ -8,11 +8,13 @@ import { cls } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import { useZIndex } from '../../hooks/useZIndex'
+import { useEscape } from '../../hooks/useEscape'
 import Motion from '../motion'
 
 interface ModalProps extends HTMLAttributes<HTMLElement> {
 	open?: boolean
 	maskClosable?: boolean
+	escClosable?: boolean
 	unmountOnExit?: boolean
 	alignCenter?: boolean
 	onCancel?: () => void
@@ -24,6 +26,7 @@ const Modal: FC<ModalProps> = props => {
 		children,
 		className,
 		maskClosable = true,
+		escClosable = true,
 		unmountOnExit,
 		alignCenter = true,
 		open = false,
@@ -33,6 +36,8 @@ const Modal: FC<ModalProps> = props => {
 		style,
 		...rest
 	} = props
+
+	useEscape(open && escClosable, onCancel)
 
 	const zIndex = useZIndex('modal', open)
 
