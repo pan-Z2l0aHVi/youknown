@@ -9,6 +9,7 @@ import { Loading } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import routes from '../router/routes'
+import Banner from './components/banner'
 import FabBar from './components/fab-bar'
 import PageProgress from './components/page-progress'
 import Sidebar from './components/sidebar'
@@ -41,9 +42,8 @@ export default function App() {
 	})
 
 	return (
-		<div className="flex min-h-screen">
+		<>
 			<PageProgress />
-
 			<Suspense>
 				<PreferencesModal />
 			</Suspense>
@@ -51,26 +51,37 @@ export default function App() {
 				<LoginModal />
 			</Suspense>
 
-			{with_layout && (
-				// 外层 relative 撑起容器高度
-				<div className="relative">
-					<Sidebar />
-				</div>
-			)}
-
-			<Suspense
-				fallback={
-					<div className="flex-1 flex justify-center items-center">
-						<Loading spinning size="large" />
+			{with_layout ? (
+				<div className="flex flex-col min-h-screen">
+					<Banner />
+					<div className="flex-1 flex">
+						{/* 外层 relative 撑起容器高度 */}
+						<div className="relative">
+							<Sidebar />
+						</div>
+						<Suspense
+							fallback={
+								<div className="flex-1 flex justify-center items-center">
+									<Loading spinning size="large" />
+								</div>
+							}
+						>
+							<div className={cls('flex-1 scrollbar-custom')}>{content}</div>
+						</Suspense>
 					</div>
-				}
-			>
-				<div className={cls('flex-1 scrollbar-custom')}>
-					{content}
-
-					{with_layout && <FabBar />}
+					<FabBar />
 				</div>
-			</Suspense>
-		</div>
+			) : (
+				<Suspense
+					fallback={
+						<div className="min-h-screen flex justify-center items-center">
+							<Loading spinning size="large" />
+						</div>
+					}
+				>
+					<div className={cls('min-h-screen scrollbar-custom')}>{content}</div>
+				</Suspense>
+			)}
+		</>
 	)
 }

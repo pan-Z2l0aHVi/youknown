@@ -71,7 +71,7 @@ export default function Sidebar() {
 
 	const drag_divider = expand ? (
 		<div
-			className="group absolute right--8px top-0 p-[4px_8px] h-100% cursor-col-resize active:cursor-col-resize select-none"
+			className="group absolute right--8px top-0 p-[4px_8px] h-100% cursor-col-resize active-cursor-col-resize select-none"
 			onMouseDown={handle_mousedown}
 		>
 			<div

@@ -7,8 +7,8 @@ import { FloatingOverlay } from '@floating-ui/react'
 import { cls } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
-import { useZIndex } from '../../hooks/useZIndex'
 import { useEscape } from '../../hooks/useEscape'
+import { useZIndex } from '../../hooks/useZIndex'
 import Motion from '../motion'
 
 interface ModalProps extends HTMLAttributes<HTMLElement> {

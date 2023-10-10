@@ -2,8 +2,20 @@ import { Doc, get_doc_info, update_doc } from '@/apis/doc'
 import PicUpload from '@/components/pic-upload'
 import { useUIStore } from '@/stores'
 import { validateMaxLength, validateRequired } from '@/utils/validators'
-import { useFetch } from '@youknown/react-hook/src'
-import { Button, Card, CloseIcon, Form, Input, Loading, Modal, Motion, Radio, Space } from '@youknown/react-ui/src'
+import { useBoolean, useFetch } from '@youknown/react-hook/src'
+import {
+	Button,
+	Card,
+	CloseIcon,
+	Form,
+	Input,
+	Loading,
+	Modal,
+	Motion,
+	Radio,
+	Space,
+	Toast
+} from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 interface DocOptionsModalProps {
@@ -17,25 +29,25 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 	const { open, hide_modal, doc_id, on_updated } = props
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 
-	const { loading: save_loading, run: save_doc } = useFetch(
-		() => {
-			const state = form.getState()
-			return update_doc({
+	const [save_loading, { setTrue: show_save_loading, setFalse: hide_save_loading }] = useBoolean(false)
+	const save_doc = async () => {
+		const state = form.getState()
+		show_save_loading()
+		try {
+			const res = await update_doc({
 				doc_id,
 				title: state.title,
 				cover: state.cover,
-				public: !!state.is_publish,
-				content: 'aaaaa'
+				public: !!state.is_publish
 			})
-		},
-		{
-			manual: true,
-			onSuccess(data) {
-				on_updated?.(data)
-				hide_modal()
-			}
+			on_updated?.(res)
+			hide_modal()
+		} catch (error) {
+			Toast.error({ content: '保存失败' })
+		} finally {
+			hide_save_loading()
 		}
-	)
+	}
 
 	const form = Form.useForm({
 		defaultState: {
@@ -93,8 +105,8 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 				>
 					<Loading spinning={initial_loading}>
 						<div className="w-480px max-w-[calc(100vw-32px)] p-24px">
-							<Form form={form} labelWidth="120px">
-								<Form.Field label="cover" labelText="封面：" validators={[validateRequired()]}>
+							<Form form={form} labelWidth="148px">
+								<Form.Field label="cover" labelText="封面：">
 									<PicUpload />
 								</Form.Field>
 								<Form.Field

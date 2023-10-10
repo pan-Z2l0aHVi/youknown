@@ -6,7 +6,7 @@ export default () => {
 	const [open, setOpen] = useState(false)
 
 	const createContent = (text: string) => (
-		<div className="w-max p-8px b-solid b-1px b-bd-line bg-#fff shadow-[1px_4px_8px_rgba(0,0,0,.1)]">{text}</div>
+		<div className="w-max p-8px b-solid b-1 b-bd-line bg-#fff shadow-[1px_4px_8px_rgba(0,0,0,.1)]">{text}</div>
 	)
 
 	return (

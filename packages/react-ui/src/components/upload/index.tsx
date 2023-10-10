@@ -35,6 +35,7 @@ interface UploadProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultVal
 	multiple?: InputHTMLAttributes<HTMLInputElement>['multiple']
 	action?: (file: File) => Promise<string>
 	circle?: boolean
+	headless?: boolean
 }
 
 const Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => {
@@ -46,6 +47,7 @@ const Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => 
 		multiple,
 		action = async () => '',
 		circle = false,
+		headless = false,
 		...rest
 	} = omit(props, 'value', 'onChange', 'defaultValue')
 
@@ -104,6 +106,7 @@ const Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => 
 	return (
 		<label
 			className={cls(className, prefixCls, {
+				[`${prefixCls}-headless`]: headless,
 				[`${prefixCls}-disabled`]: disabled,
 				[`${prefixCls}-circle`]: circle
 			})}
@@ -118,15 +121,21 @@ const Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => 
 				disabled={disabled}
 				onChange={handleChange}
 			/>
-			{!uploading && !lastFile && <TbPlus className={`${prefixCls}-plus-icon`} />}
-			{children || (
-				<div className={`${prefixCls}-thumb-default`}>
-					{(lastPreviewURL || lastPicURL) && (
-						<Loading spinning={uploading} className={`${prefixCls}-thumb-default-loading`}>
-							<img className={cls(`${prefixCls}-thumb`)} src={lastPreviewURL || lastPicURL} />
-						</Loading>
+			{headless ? (
+				children
+			) : (
+				<>
+					{!uploading && !lastFile && <TbPlus className={`${prefixCls}-plus-icon`} />}
+					{children || (
+						<div className={`${prefixCls}-thumb-default`}>
+							{(lastPreviewURL || lastPicURL) && (
+								<Loading spinning={uploading} className={`${prefixCls}-thumb-default-loading`}>
+									<img className={cls(`${prefixCls}-thumb`)} src={lastPreviewURL || lastPicURL} />
+								</Loading>
+							)}
+						</div>
 					)}
-				</div>
+				</>
 			)}
 		</label>
 	)

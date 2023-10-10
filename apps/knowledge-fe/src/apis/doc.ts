@@ -39,7 +39,7 @@ export const create_doc = (payload: CreateDocPayload) =>
 
 interface UpdateDocPayload {
 	doc_id: string
-	content: string
+	content?: string
 	title?: string
 	cover?: string
 	public?: boolean

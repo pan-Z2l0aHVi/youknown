@@ -24,10 +24,7 @@ $prefix: '#{$ui-prefix}-switch';
 	}
 
 	&-inner {
-		width: 0;
-		height: 0;
-		margin: 0;
-		opacity: 0;
+		display: none;
 	}
 
 	&:not(&-disabled) {

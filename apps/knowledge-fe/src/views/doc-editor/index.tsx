@@ -1,13 +1,11 @@
 import dayjs from 'dayjs'
-import { LuSettings2 } from 'react-icons/lu'
-import { TbCloudCheck, TbTrash } from 'react-icons/tb'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { TbCloudCheck } from 'react-icons/tb'
+import { useSearchParams } from 'react-router-dom'
 
-import { delete_doc, get_doc_drafts, get_doc_info, update_doc, update_doc_draft } from '@/apis/doc'
+import { get_doc_drafts, get_doc_info, update_doc, update_doc_draft } from '@/apis/doc'
 import Header from '@/app/components/header'
-import DocOptionsModal from '@/components/doc-options-modal'
-import More from '@/components/more'
-import { useRecordStore, useUIStore } from '@/stores'
+import { useRecordStore } from '@/stores'
 import { upload_file } from '@/utils/qiniu'
 import { NetFetchError } from '@/utils/request'
 import { useBoolean, useDebounce, useFetch } from '@youknown/react-hook/src'
@@ -32,20 +30,22 @@ import {
 	TextColor,
 	Underline
 } from '@youknown/react-rte/src'
-import { Button, Dialog, Divider, Dropdown, Space, Toast } from '@youknown/react-ui/src'
+import { Button, Input, Space, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
+import CoverUpload from './components/cover-upload'
 import DocHistoryDrawer from './components/doc-history-drawer'
+import DocOptionsDropdown from './components/doc-options-dropdown'
 
 export default function Doc() {
-	const navigate = useNavigate()
 	const [search_params] = useSearchParams()
 	const doc_id = search_params.get('doc_id') as string
 	const recording = useRecordStore(state => state.recording)
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
-	const [doc_options_modal_open, { setTrue: show_doc_options_modal, setFalse: hide_doc_options_modal }] =
-		useBoolean(false)
+
 	const [history_drawer_open, { setTrue: show_history_drawer, setFalse: hide_history_drawer }] = useBoolean(false)
+	const [title_focus, { setTrue: focus_title, setFalse: blur_title }] = useBoolean(false)
+	const [title_val, set_title_val] = useState('')
+	const title_input_ref = useRef<HTMLInputElement>(null)
 
 	const editor = RTE.use({
 		extensions: [
@@ -150,6 +150,13 @@ export default function Doc() {
 		}
 	})
 
+	const doc_title = doc_info?.title ?? ''
+	useEffect(() => {
+		if (doc_title) {
+			set_title_val(doc_title)
+		}
+	}, [doc_title])
+
 	if (!editor) return null
 	const text_len = editor.storage.characterCount.characters()
 
@@ -175,32 +182,36 @@ export default function Doc() {
 			console.error('error: ', error)
 		}
 	}
-	const go_doc_list = () => {
-		navigate('/library/doc/doc-list')
-	}
 
-	const show_doc_delete_dialog = () => {
-		Dialog.confirm({
-			title: '删除文档',
-			content: '一旦执行该操作数据将无法恢复，是否确认删除？',
-			maskClassName: cls(
-				'backdrop-blur-xl',
-				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
-			),
-			okDanger: true,
-			okText: '删除',
-			cancelText: '取消',
-			closeIcon: null,
-			onOk: async () => {
-				await delete_doc({ doc_ids: [doc_id] })
-				go_doc_list()
-			}
-		})
+	const update_doc_title = async () => {
+		blur_title()
+		if (!title_val) {
+			Toast.warning({ content: '标题不能为空' })
+			set_title_val(doc_title)
+			return
+		}
+		if (title_val === doc_info?.title) {
+			return
+		}
+		const payload = {
+			doc_id,
+			title: title_val
+		}
+		try {
+			const new_doc = await update_doc(payload)
+			set_doc_info(new_doc)
+			Toast.success({ content: '标题更新成功' })
+		} catch (error) {
+			console.error('error: ', error)
+		}
 	}
 
 	const recovery_doc = (doc_content: string) => {
 		editor.commands.setContent(doc_content)
-		update_draft(doc_content)
+		// 应用的内容与最新草稿不相同才更新草稿
+		if (doc_content != draft.content) {
+			update_draft(doc_content)
+		}
 	}
 
 	if (!doc_id) {
@@ -214,45 +225,36 @@ export default function Doc() {
 			</div>
 			{draft && (
 				<>
-					<span className="text-text-3 text-12px ml-16px mr-16px">·</span>
+					<span className="text-text-3 text-12px ml-8px mr-8px">·</span>
 					<div className="text-text-3 text-12px">自动保存于 {dayjs(draft.creation_time).format('HH:mm')}</div>
 				</>
 			)}
 		</div>
 	)
 
-	const more_dropdown = (
-		<Dropdown
-			trigger="click"
-			placement="bottom-end"
-			content={
-				<Dropdown.Menu className="w-160px">
-					<Dropdown.Item
-						closeAfterItemClick
-						prefix={<LuSettings2 className="ml-8px text-18px" />}
-						onClick={show_doc_options_modal}
-					>
-						文档设置
-					</Dropdown.Item>
-					<Divider size="small" />
-					<Dropdown.Item
-						closeAfterItemClick
-						prefix={<TbTrash className="ml-8px text-18px color-danger" />}
-						onClick={show_doc_delete_dialog}
-					>
-						<span className="color-danger">删除</span>
-					</Dropdown.Item>
-				</Dropdown.Menu>
-			}
-		>
-			<More />
-		</Dropdown>
-	)
-
 	return (
 		<>
 			<Header heading="文档" bordered sticky>
-				<span className="flex-1 truncate ml-24px mr-24px color-text-2">{doc_info?.title}</span>
+				{title_focus ? (
+					<Input
+						ref={title_input_ref}
+						className="flex-1 ml-24px mr-24px"
+						value={title_val}
+						onChange={set_title_val}
+						autoFocus
+						placeholder="请输入标题"
+						onBlur={update_doc_title}
+						onEnter={update_doc_title}
+					/>
+				) : (
+					<div className="flex-1 w-0 truncate ml-24px mr-24px">
+						<Tooltip title="点击此处修改标题" placement="bottom-start">
+							<span className="max-w-100% color-text-2" onClick={focus_title}>
+								{doc_title}
+							</span>
+						</Tooltip>
+					</div>
+				)}
 				<Space align="center">
 					{doc_tips}
 					<Button
@@ -264,16 +266,9 @@ export default function Doc() {
 					<Button disabled={editor.isEmpty} primary onClick={update_doc_content}>
 						更新
 					</Button>
-					{more_dropdown}
+					<DocOptionsDropdown doc_id={doc_id} on_updated={set_doc_info} />
 				</Space>
 			</Header>
-
-			<DocOptionsModal
-				open={doc_options_modal_open}
-				hide_modal={hide_doc_options_modal}
-				doc_id={doc_id}
-				on_updated={set_doc_info}
-			/>
 
 			<DocHistoryDrawer
 				open={history_drawer_open}
@@ -285,19 +280,18 @@ export default function Doc() {
 
 			<div
 				className={cls(
-					'z-10 fixed top-56px left-50% translate-x--50%',
-					'w-screen flex justify-center p-[12px_32px] bg-bg-0',
-					'after:content-empty after:absolute after:bottom-0 after:left-50% after:translate-x--50% after:w-100vw after:h-1px after:bg-bd-line'
+					'z-10 sticky top-56px right-0',
+					'w-100% flex justify-center p-[12px_32px] bg-bg-0',
+					'after:content-empty after:absolute after:bottom-0 after:left-50% after:translate-x--50% after:w-100% after:h-1px after:bg-bd-line'
 				)}
 			>
 				<RTE.Menu editor={editor} />
 			</div>
 
 			{loading || (
-				<div className="flex pt-80px pb-24px">
-					<div className="w-720px m-auto">
-						<RTE.Content editor={editor} />
-					</div>
+				<div className="w-720px pt-24px pb-24px m-[0_auto]">
+					<CoverUpload doc_id={doc_id} cover={doc_info?.cover} on_updated={set_doc_info} />
+					<RTE.Content editor={editor} />
 				</div>
 			)}
 		</>

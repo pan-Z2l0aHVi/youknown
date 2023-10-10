@@ -2,14 +2,15 @@ import './drawer.scss'
 
 import { CSSProperties, FC, HTMLAttributes } from 'react'
 import { createPortal } from 'react-dom'
+import { Transition } from 'react-transition-group'
 
 import { FloatingOverlay } from '@floating-ui/react'
 import { cls } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
+import { useEscape } from '../../hooks/useEscape'
 import CloseIcon from '../close-icon'
 import Motion from '../motion'
-import { useEscape } from '../../hooks/useEscape'
 
 interface DrawerProps extends HTMLAttributes<HTMLElement> {
 	open?: boolean
@@ -57,29 +58,36 @@ const Drawer: FC<DrawerProps> = props => {
 	const direction = directionMap[placement]
 
 	return createPortal(
-		<Motion.Fade in={open} mountOnEnter unmountOnExit={unmountOnExit}>
-			<FloatingOverlay
-				className={cls(maskClassName, `${prefixCls}-mask`)}
-				onClick={event => {
-					if (event.target === event.currentTarget) {
-						if (maskClosable) onCancel?.()
-					}
-				}}
-				lockScroll={open}
-				style={maskStyle}
-			>
-				<Motion.Slide in={open} direction={direction}>
-					<div
-						className={cls(className, `${prefixCls}-wrap`, `${prefixCls}-wrap-${placement}`)}
-						style={{ ...style, width, height }}
-						{...rest}
-					>
-						{closable && <CloseIcon className={`${prefixCls}-close-icon`} onClick={() => onCancel?.()} />}
-						{children}
-					</div>
-				</Motion.Slide>
-			</FloatingOverlay>
-		</Motion.Fade>,
+		<Transition in={open} mountOnEnter unmountOnExit={unmountOnExit} timeout={225}>
+			{state => (
+				<FloatingOverlay
+					className={cls(maskClassName, `${prefixCls}-mask`)}
+					onClick={event => {
+						if (event.target === event.currentTarget) {
+							if (maskClosable) onCancel?.()
+						}
+					}}
+					lockScroll={open}
+					style={{
+						...maskStyle,
+						visibility: state === 'exited' && !open ? 'hidden' : undefined
+					}}
+				>
+					<Motion.Slide in={open} direction={direction}>
+						<div
+							className={cls(className, `${prefixCls}-wrap`, `${prefixCls}-wrap-${placement}`)}
+							style={{ ...style, width, height }}
+							{...rest}
+						>
+							{closable && (
+								<CloseIcon className={`${prefixCls}-close-icon`} onClick={() => onCancel?.()} />
+							)}
+							{children}
+						</div>
+					</Motion.Slide>
+				</FloatingOverlay>
+			)}
+		</Transition>,
 		document.body
 	)
 }

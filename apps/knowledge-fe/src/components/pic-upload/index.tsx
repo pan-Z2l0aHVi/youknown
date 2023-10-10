@@ -17,8 +17,8 @@ export default function PicUpload(props: PicUploadProps) {
 	const [file_list, set_file_list] = useState<UploadFile>([])
 	const preview_url = file_list[file_list.length - 1]?.previewURL ?? ''
 
-	const upload_cover = (file: File) => {
-		return new Promise<string>((resolve, reject) => {
+	const upload_cover = (file: File) =>
+		new Promise<string>((resolve, reject) => {
 			start_uploading()
 			upload_file(file, {
 				progress(progress) {
@@ -37,7 +37,6 @@ export default function PicUpload(props: PicUploadProps) {
 				}
 			})
 		})
-	}
 
 	return (
 		<Upload action={upload_cover} value={file_list} onChange={set_file_list}>

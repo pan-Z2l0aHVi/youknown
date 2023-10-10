@@ -7,7 +7,6 @@ import {
 	ForwardedRef,
 	forwardRef,
 	KeyboardEventHandler,
-	MutableRefObject,
 	TextareaHTMLAttributes,
 	useRef,
 	useState
@@ -24,6 +23,7 @@ interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>
 	minRows?: number
 	maxRows?: number
 	disabled?: boolean
+	autoFocus?: boolean
 	bordered?: boolean
 	outline?: boolean
 	value?: string
@@ -36,6 +36,7 @@ const Textarea = (props: TextareaProps, propRef: ForwardedRef<HTMLTextAreaElemen
 		className,
 		autosize = false,
 		disabled = false,
+		autoFocus = false,
 		bordered = true,
 		outline = true,
 		minRows = 1,
@@ -48,7 +49,16 @@ const Textarea = (props: TextareaProps, propRef: ForwardedRef<HTMLTextAreaElemen
 	} = omit(props, 'defaultValue', 'value', 'onChange')
 
 	const innerRef = useRef<HTMLTextAreaElement>(null)
-	const textareaRef = useComposeRef(propRef, innerRef) as MutableRefObject<null>
+	const hasFocusedRef = useRef(false)
+	const textareaRef = useComposeRef(propRef, innerRef, node => {
+		// 当输入元素被渲染后，聚焦
+		if (autoFocus && !hasFocusedRef.current) {
+			hasFocusedRef.current = true
+			setTimeout(() => {
+				node?.focus()
+			})
+		}
+	})
 	const [focus, { setTrue: setFocus, setFalse: setBlur }] = useBoolean(false)
 	const [lockScroll, setLockScroll] = useState(false)
 	const [value, setValue] = useControllable(props, {

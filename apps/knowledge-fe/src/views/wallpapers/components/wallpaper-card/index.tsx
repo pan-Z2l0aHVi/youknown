@@ -48,14 +48,14 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 				'relative before:b-solid before:rd-radius-m',
 				'before:content-empty before:pointer-events-none before:absolute before:left-0 before:right-0 before:top-0 before:bottom-0',
 				is_sketchy
-					? 'before:b-2px before:b-[rgba(255,200,64,0.8)] before:shadow-[inset_0_0_4px_rgba(0,0,0,0.5)]'
-					: 'before:b-bd-line before:b-1px'
+					? 'before:b-3 before:b-[rgb(255,200,64)] before:shadow-[inset_0_0_2px_rgba(0,0,0,0.2)]'
+					: 'before:b-bd-line before:b-1'
 			)}
 			onMouseEnter={start_hover}
 			onMouseLeave={stop_hover}
 		>
 			<img
-				className={cls('rd-radius-m shadow-shadow-l select-none bg-bg-2 b-bd-line b-1px')}
+				className={cls('rd-radius-m shadow-shadow-l select-none bg-bg-2 b-bd-line b-1')}
 				style={{
 					width: 240,
 					height: 240 * (1 / Number(wallpaper.ratio))

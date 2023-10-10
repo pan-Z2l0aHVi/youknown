@@ -29,8 +29,8 @@ export default function LinkPicker(props: LinkPickerProps) {
 		<Space size="small">
 			<Input
 				className={cls(`${prefixCls}-href-input`)}
-				autoFocus
 				bordered={false}
+				autoFocus
 				placeholder="输入链接"
 				value={href}
 				onChange={setHref}

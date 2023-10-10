@@ -6,7 +6,7 @@ import { go_github_login } from '@/utils'
 import { Button, Card, CloseIcon, Modal, Motion, Toast } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
-export default function SignInModal() {
+export default function LoginModal() {
 	const modal_open = useModalStore(state => state.login_modal_open)
 	const close_login_modal = useModalStore(state => state.close_login_modal)
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)

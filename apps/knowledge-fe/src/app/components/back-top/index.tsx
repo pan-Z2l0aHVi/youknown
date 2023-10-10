@@ -5,11 +5,11 @@ import { useDebounce } from '@youknown/react-hook/src'
 import { Button, Motion, Tooltip } from '@youknown/react-ui/src'
 import { is } from '@youknown/utils/src'
 
-interface BackTop {
+interface BackTopProps {
 	threshold?: number
 	container?: Element
 }
-export default function BackTop(props: BackTop) {
+export default function BackTop(props: BackTopProps) {
 	const { threshold = window.innerHeight, container = window } = props
 	const [visible, setVisible] = useState(false)
 

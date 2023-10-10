@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 import { get_doc_drafts } from '@/apis/doc'
 import { useInfinity } from '@youknown/react-hook/src'
-import { Button, Divider, Drawer, Loading, Select, Toast } from '@youknown/react-ui/src'
+import { Button, Drawer, Loading, Select, Toast } from '@youknown/react-ui/src'
 import { is } from '@youknown/utils/src'
 
 interface DocHistoryDrawerProps {
@@ -34,9 +34,10 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 		loading,
 		data: drafts,
 		page,
-		pageSize: page_size
+		pageSize: page_size,
+		reload
 	} = useInfinity(drafts_fetcher, {
-		ready: open,
+		manual: true,
 		initialPageSize: 100,
 		onError() {
 			Toast.error({ content: '服务异常，请稍后再试' })
@@ -53,11 +54,17 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 			}),
 		[drafts]
 	)
-	const selectedDraftContent = useMemo(
+	const selected_draft_content = useMemo(
 		() => drafts.find(draft => draft.creation_time === selection)?.content ?? '',
 		[drafts, selection]
 	)
-	const diffContent = useMemo(() => diff(doc_content, selectedDraftContent), [doc_content, selectedDraftContent])
+	const diff_html = useMemo(() => diff(doc_content, selected_draft_content), [doc_content, selected_draft_content])
+
+	useEffect(() => {
+		if (open) {
+			reload()
+		}
+	}, [open, reload])
 
 	useEffect(() => {
 		if (open) {
@@ -71,7 +78,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 	return (
 		<Drawer className="w-880px max-w-80% overflow-y-auto" open={open} onCancel={on_close} placement="right">
 			<Loading className="w-100%!" spinning={loading}>
-				<div className="sticky top-0 flex items-center justify-between p-[16px_24px] bg-bg-0 b-b-solid b-bd-line b-b-1px">
+				<div className="sticky top-0 flex items-center justify-between p-[16px_24px] bg-bg-0 b-b-solid b-bd-line b-b-1">
 					<div className="flex items-center">
 						<span>当前版本</span>
 						<span className="mr-8px ml-8px color-text-3">与</span>
@@ -90,9 +97,10 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 					</div>
 
 					<Button
+						disabled={!selected_draft_content}
 						onClick={() => {
 							on_close()
-							on_recovery(selectedDraftContent)
+							on_recovery(selected_draft_content)
 						}}
 					>
 						应用此版本
@@ -100,7 +108,9 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 				</div>
 
 				<div className="p-[0_16px_32px_16px]">
-					<div className="rich-text-container" dangerouslySetInnerHTML={{ __html: diffContent }}></div>
+					{selected_draft_content && (
+						<div className="rich-text-container" dangerouslySetInnerHTML={{ __html: diff_html }}></div>
+					)}
 				</div>
 			</Loading>
 		</Drawer>
