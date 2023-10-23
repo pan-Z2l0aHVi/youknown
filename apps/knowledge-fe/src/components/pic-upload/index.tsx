@@ -1,17 +1,17 @@
 import { ComponentProps, useState } from 'react'
 
 import { upload_file } from '@/utils/qiniu'
-import { useBoolean } from '@youknown/react-hook/src'
 import { Progress, Upload } from '@youknown/react-ui/src'
 
 interface PicUploadProps {
 	value?: string
 	onChange?: (value: string) => void
+	uploading: boolean
+	set_uploading: (uploading: boolean) => void
 }
 export default function PicUpload(props: PicUploadProps) {
-	const { value = '', onChange } = props
+	const { value = '', onChange, uploading, set_uploading } = props
 
-	const [uploading, { setTrue: start_uploading, setFalse: stop_uploading }] = useBoolean(false)
 	const [progress, set_progress] = useState(0)
 	type UploadFile = Required<ComponentProps<typeof Upload>>['value']
 	const [file_list, set_file_list] = useState<UploadFile>([])
@@ -19,21 +19,21 @@ export default function PicUpload(props: PicUploadProps) {
 
 	const upload_cover = (file: File) =>
 		new Promise<string>((resolve, reject) => {
-			start_uploading()
+			set_uploading(true)
 			upload_file(file, {
 				progress(progress) {
 					set_progress(progress.total.percent)
 				},
 				complete(url) {
-					resolve(url)
-					stop_uploading()
+					set_uploading(false)
 					set_progress(0)
 					onChange?.(url)
+					resolve(url)
 				},
 				error(err) {
-					reject(err)
-					stop_uploading()
+					set_uploading(false)
 					set_progress(0)
+					reject(err)
 				}
 			})
 		})

@@ -73,7 +73,7 @@ function ToLowerLoadMore() {
 	return (
 		<>
 			<Button onClick={reload}>Reload</Button>
-			<div ref={containerRef} className="max-h-400px overflow-auto">
+			<div ref={containerRef} className="h-400px overflow-auto">
 				{data.length > 0 && (
 					<List size="large">
 						{data.map(item => {
@@ -92,9 +92,9 @@ function ToLowerLoadMore() {
 export default () => {
 	return (
 		<>
-			<ClickLoadMore />
-			<Divider />
 			<ToLowerLoadMore />
+			<Divider />
+			<ClickLoadMore />
 		</>
 	)
 }

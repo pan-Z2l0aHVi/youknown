@@ -1,11 +1,12 @@
-import dayjs from 'dayjs'
 import { useEffect, useRef, useState } from 'react'
 import { TbCloudCheck } from 'react-icons/tb'
 import { useSearchParams } from 'react-router-dom'
 
-import { get_doc_drafts, get_doc_info, update_doc, update_doc_draft } from '@/apis/doc'
+import { Doc, get_doc_drafts, get_doc_info, update_doc, update_doc_draft } from '@/apis/doc'
 import Header from '@/app/components/header'
+import { DOC_TITLE_MAX_LEN } from '@/consts'
 import { useRecordStore } from '@/stores'
+import { format_time } from '@/utils'
 import { upload_file } from '@/utils/qiniu'
 import { NetFetchError } from '@/utils/request'
 import { useBoolean, useDebounce, useFetch } from '@youknown/react-hook/src'
@@ -124,11 +125,6 @@ export default function Doc() {
 			}
 		],
 		refreshDeps: [doc_id],
-		onError(err: NetFetchError) {
-			Toast.error({
-				content: err.cause.msg
-			})
-		},
 		onSuccess(res) {
 			editor?.commands.setContent(res.content)
 		}
@@ -160,23 +156,28 @@ export default function Doc() {
 	if (!editor) return null
 	const text_len = editor.storage.characterCount.characters()
 
+	const record_update_doc = (new_doc: Doc) => {
+		recording({
+			action: '更新',
+			target: '',
+			target_id: '',
+			obj_type: '文档',
+			obj: new_doc.title,
+			obj_id: new_doc.doc_id
+		})
+	}
+
 	const update_doc_content = async () => {
 		const payload = {
 			doc_id,
-			content: editor.getHTML() ?? ''
+			content: editor.getHTML(),
+			summary: editor.getText()
 		}
 		try {
 			const new_doc = await update_doc(payload)
 			set_doc_info(new_doc)
 			editor.commands.setContent(new_doc.content)
-			recording({
-				action: '更新',
-				target: '',
-				target_id: '',
-				obj_type: '文章',
-				obj: new_doc.title,
-				obj_id: new_doc.doc_id
-			})
+			record_update_doc(new_doc)
 			Toast.success({ content: '更新成功' })
 		} catch (error) {
 			console.error('error: ', error)
@@ -226,7 +227,7 @@ export default function Doc() {
 			{draft && (
 				<>
 					<span className="text-text-3 text-12px ml-8px mr-8px">·</span>
-					<div className="text-text-3 text-12px">自动保存于 {dayjs(draft.creation_time).format('HH:mm')}</div>
+					<div className="text-text-3 text-12px">自动保存于 {format_time(draft.creation_time)}</div>
 				</>
 			)}
 		</div>
@@ -234,18 +235,20 @@ export default function Doc() {
 
 	return (
 		<>
-			<Header heading="文档" bordered sticky>
+			<Header heading="文档" bordered="visible">
 				{title_focus ? (
-					<Input
-						ref={title_input_ref}
-						className="flex-1 ml-24px mr-24px"
-						value={title_val}
-						onChange={set_title_val}
-						autoFocus
-						placeholder="请输入标题"
-						onBlur={update_doc_title}
-						onEnter={update_doc_title}
-					/>
+					<div className="flex-1 ml-24px mr-24px">
+						<Input
+							ref={title_input_ref}
+							className="w-100%! max-w-400px"
+							maxLength={DOC_TITLE_MAX_LEN}
+							value={title_val}
+							onChange={set_title_val}
+							autoFocus
+							placeholder="请输入标题"
+							onBlur={update_doc_title}
+						/>
+					</div>
 				) : (
 					<div className="flex-1 w-0 truncate ml-24px mr-24px">
 						<Tooltip title="点击此处修改标题" placement="bottom-start">

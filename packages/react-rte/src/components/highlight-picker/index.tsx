@@ -70,7 +70,7 @@ export default function HighlightPicker(props: HighlightPickerProps) {
 	)
 
 	return (
-		<Tooltip disabled={!tooltip} placement="bottom" title="标记" appendTo={null}>
+		<Tooltip disabled={!tooltip} placement="bottom" title="标记">
 			<div className={prefixCls}>
 				<CommandBtn
 					className={cls(`${prefixCls}-setter`)}

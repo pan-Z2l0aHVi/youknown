@@ -5,9 +5,10 @@ import diff from 'html-diff-ts'
 import { useEffect, useMemo, useState } from 'react'
 
 import { get_doc_drafts } from '@/apis/doc'
+import { useUIStore } from '@/stores'
 import { useInfinity } from '@youknown/react-hook/src'
 import { Button, Drawer, Loading, Select, Toast } from '@youknown/react-ui/src'
-import { is } from '@youknown/utils/src'
+import { cls, is, macroDefer } from '@youknown/utils/src'
 
 interface DocHistoryDrawerProps {
 	open: boolean
@@ -20,6 +21,7 @@ interface DocHistoryDrawerProps {
 export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 	const { open, on_close, doc_id, doc_content, on_recovery } = props
 
+	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const [selection, set_selection] = useState<string>()
 
 	const drafts_fetcher = async () => {
@@ -35,12 +37,18 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 		data: drafts,
 		page,
 		pageSize: page_size,
-		reload
+		reload,
+		loadMore: load_more
 	} = useInfinity(drafts_fetcher, {
 		manual: true,
-		initialPageSize: 100,
-		onError() {
-			Toast.error({ content: '服务异常，请稍后再试' })
+		initialPageSize: 50,
+		onSuccess(data) {
+			if (data.length < page_size) {
+				return
+			}
+			macroDefer(() => {
+				load_more()
+			})
 		}
 	})
 
@@ -76,7 +84,16 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 	}, [open, options])
 
 	return (
-		<Drawer className="w-880px max-w-80% overflow-y-auto" open={open} onCancel={on_close} placement="right">
+		<Drawer
+			className="w-880px max-w-80% overflow-y-auto b-l-solid b-l-1px b-l-bd-line shadow-shadow-l"
+			maskClassName={cls(
+				'backdrop-blur-xl',
+				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+			)}
+			open={open}
+			onCancel={on_close}
+			placement="right"
+		>
 			<Loading className="w-100%!" spinning={loading}>
 				<div className="sticky top-0 flex items-center justify-between p-[16px_24px] bg-bg-0 b-b-solid b-bd-line b-b-1">
 					<div className="flex items-center">

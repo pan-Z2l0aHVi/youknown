@@ -14,8 +14,8 @@ interface UserState {
 	has_login: boolean
 	login: () => void
 	logout: () => void
-	profile: Partial<Profile>
-	set_profile: (profile: Partial<Profile>) => void
+	profile: Profile | null
+	set_profile: (profile: Profile) => void
 	remove_profile: () => void
 	fetch_profile: () => Promise<void>
 	do_login: (code: string) => Promise<void>
@@ -24,11 +24,11 @@ interface UserState {
 
 export const useUserStore = create<UserState>((set, get) => ({
 	has_login: false,
-	profile: {},
+	profile: null,
 
 	set_profile: profile => set({ profile }),
 
-	remove_profile: () => set({ profile: {} }),
+	remove_profile: () => set({ profile: null }),
 
 	fetch_profile: async () => {
 		const { login, set_profile } = get()

@@ -5,13 +5,11 @@ import {
 	FocusEventHandler,
 	ForwardedRef,
 	forwardRef,
-	HTMLAttributes,
+	InputHTMLAttributes,
 	KeyboardEventHandler,
 	MouseEventHandler,
-	MutableRefObject,
 	ReactNode,
 	useEffect,
-	useLayoutEffect,
 	useRef
 } from 'react'
 import { IoMdCloseCircle } from 'react-icons/io'
@@ -22,7 +20,7 @@ import { cls, omit } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import Textarea from './Textarea'
 
-interface InputProps extends Omit<HTMLAttributes<HTMLInputElement>, 'maxLength' | 'onChange' | 'prefix'> {
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'prefix' | 'size'> {
 	type?: string
 	value?: string
 	size?: 'small' | 'medium' | 'large'

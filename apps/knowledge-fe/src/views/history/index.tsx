@@ -1,12 +1,13 @@
-import dayjs from 'dayjs'
 import { useEffect } from 'react'
 import { TbSearch } from 'react-icons/tb'
 
 import Header from '@/app/components/header'
 import TransitionLink from '@/components/transition-link'
 import { useRecordStore } from '@/stores'
+import { format_time } from '@/utils'
 import { Button, Input, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+import { RiHistoryFill } from 'react-icons/ri'
 
 export default function History() {
 	const record_list = useRecordStore(state => state.record_list)
@@ -16,22 +17,6 @@ export default function History() {
 	useEffect(() => {
 		init_records()
 	}, [init_records])
-
-	const stringify_date = (timing: number) => {
-		const dayDiff = dayjs(timing).diff(dayjs(), 'day')
-		const yearDiff = dayjs(timing).diff(dayjs(), 'year')
-		if (dayDiff < 1) {
-			return '今天'
-		} else if (dayDiff >= 1 && dayDiff < 2) {
-			return '昨天'
-		} else if (dayDiff >= 2 && dayDiff < 3) {
-			return '前天'
-		} else if (yearDiff > 1) {
-			return dayjs(timing).format('YYYY-MM-DD')
-		} else {
-			return dayjs(timing).format('MM-DD')
-		}
-	}
 
 	return (
 		<>
@@ -45,10 +30,11 @@ export default function History() {
 			<div className="flex justify-center p-32px">
 				<div className="flex-1 max-w-960px">
 					{record_list.map(record => {
-						const timing_desc = stringify_date(record.timing)
+						const timing_desc = format_time(record.timing)
 						return (
 							<div key={record.id} className="group flex hover-bg-hover rd-radius-l p-[0_16px]">
-								<div className="flex w-80px mt--4px text-text-3 group-hover-text-text-2">
+								<div className="flex items-center w-80px mt--4px text-12px color-text-3 group-hover-text-text-2">
+									<RiHistoryFill className="mr-4px text-14px" />
 									{timing_desc}
 								</div>
 								<div className="group relative flex pl-32px ml-32px h-80px b-l-2 b-l-solid b-l-bd-line group-last:b-l-transparent">

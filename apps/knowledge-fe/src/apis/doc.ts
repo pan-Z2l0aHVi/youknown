@@ -5,6 +5,7 @@ import { Profile } from './user'
 export interface Doc {
 	doc_id: string
 	content: string
+	summary: string
 	title: string
 	cover: string
 	author_id: string
@@ -15,6 +16,7 @@ export interface Doc {
 }
 export interface Draft {
 	content: string
+	summary: string
 	creation_time: string
 }
 
@@ -29,6 +31,7 @@ export const get_doc_info = (params: GetDocInfoParams) =>
 interface CreateDocPayload {
 	title: string
 	content?: string
+	summary?: string
 	cover?: string
 }
 export const create_doc = (payload: CreateDocPayload) =>
@@ -40,6 +43,7 @@ export const create_doc = (payload: CreateDocPayload) =>
 interface UpdateDocPayload {
 	doc_id: string
 	content?: string
+	summary?: string
 	title?: string
 	cover?: string
 	public?: boolean
@@ -47,7 +51,8 @@ interface UpdateDocPayload {
 export const update_doc = (payload: UpdateDocPayload) =>
 	net.fetch<Doc>('/proxy/doc/update', {
 		method: 'post',
-		payload
+		payload,
+		silent: true
 	})
 
 interface DeleteDocPayload {
@@ -63,12 +68,15 @@ interface DocsParams {
 	page: number
 	page_size: number
 	author_id?: string
+	keywords?: string
+	sort_by?: string
+	sort_type?: string
 }
 interface DocsResp {
 	total: number
 	list: Doc[]
 }
-export const get_docs = (params: DocsParams) =>
+export const search_docs = (params: DocsParams) =>
 	net.fetch<DocsResp>('/proxy/doc/docs', {
 		params
 	})

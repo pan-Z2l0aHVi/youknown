@@ -7,8 +7,11 @@ export function omit<T extends object, S extends keyof T>(obj: T, ...keys: S[]):
 }
 
 export function pick<T extends object, S extends keyof T>(obj: T, ...keys: S[]): Pick<T, S> {
-	return keys.reduce((ret, key) => {
-		if (key in obj) ret[key] = obj[key]
-		return ret
-	}, {} as Pick<T, S>)
+	return keys.reduce(
+		(ret, key) => {
+			if (key in obj) ret[key] = obj[key]
+			return ret
+		},
+		{} as Pick<T, S>
+	)
 }

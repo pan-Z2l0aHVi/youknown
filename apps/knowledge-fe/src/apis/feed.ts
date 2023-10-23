@@ -4,8 +4,13 @@ import { Profile } from './user'
 
 export interface Feed {
 	feed_id: string
+	likes: {
+		creation_time: string
+		user_id: string
+	}[]
 	likes_count: number
 	content: string
+	summary: string
 	title: string
 	cover: string
 	author_id: string
@@ -17,7 +22,9 @@ export interface Feed {
 interface GetFeedListParams {
 	page: number
 	page_size: number
-	list_type?: 1 | 2
+	keywords?: string
+	sort_by?: 'creation_time' | 'update_time'
+	sort_type?: 'desc' | 'asc'
 }
 interface FeedListResp {
 	total: number
@@ -26,4 +33,22 @@ interface FeedListResp {
 export const get_feed_list = (params: GetFeedListParams) =>
 	net.fetch<FeedListResp>('/proxy/feed/list', {
 		params
+	})
+
+interface GetFeedDetailParams {
+	feed_id: string
+}
+export const get_feed_detail = (params: GetFeedDetailParams) =>
+	net.fetch<Feed>('/proxy/feed/detail', {
+		params
+	})
+
+interface PraiseFeedPayload {
+	event: 'like' | 'unlike'
+	feed_id: string
+}
+export const praise_feed = (payload: PraiseFeedPayload) =>
+	net.fetch('/proxy/feed/praise', {
+		method: 'post',
+		payload
 	})

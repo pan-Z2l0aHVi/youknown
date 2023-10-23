@@ -10,8 +10,8 @@ export interface FetchOptions<T, S> {
 	params?: S
 	onBefore?(params: S): void
 	onSuccess?(data: T, params: S): void
-	onError?(error: Error): void
-	onFinally?(): void
+	onError?(error: Error, params: S): void
+	onFinally?(params: S): void
 }
 
 export function useFetch<T, S extends any[]>(fetcher: (...args: S) => Promise<T>, opts: FetchOptions<T, S> = {}) {
@@ -50,13 +50,13 @@ export function useFetch<T, S extends any[]>(fetcher: (...args: S) => Promise<T>
 			.catch((err: Error) => {
 				if (fetchCount.current !== currentCount) return
 				setError(err)
-				onError?.(err)
+				onError?.(err, currentParams)
 			})
 			.finally(() => {
-				if (fetchCount.current !== currentCount) return
 				clearTimeout(loadingTimer)
+				if (fetchCount.current !== currentCount) return
 				setLoading(false)
-				onFinally?.()
+				onFinally?.(currentParams)
 			})
 	})
 

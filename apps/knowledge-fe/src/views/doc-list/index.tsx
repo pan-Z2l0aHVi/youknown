@@ -1,27 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { TbCheckbox, TbChecks, TbFilter, TbPlus, TbTrashX, TbX } from 'react-icons/tb'
 
-import { create_doc, delete_doc, Doc, get_docs } from '@/apis/doc'
+import { create_doc, delete_doc, Doc, search_docs } from '@/apis/doc'
 import Header from '@/app/components/header'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
 import { useBoolean, useInfinity } from '@youknown/react-hook/src'
-import {
-	Button,
-	Dialog,
-	Drawer,
-	Form,
-	Input,
-	Loading,
-	Motion,
-	Select,
-	Space,
-	Toast,
-	Tooltip
-} from '@youknown/react-ui/src'
+import { Button, Dialog, Drawer, Form, Loading, Motion, Space, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
 
 import DocCard from './components/doc-card'
+import DocFilter from './components/doc-filter'
 
 export default function DocList() {
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
@@ -30,11 +19,32 @@ export default function DocList() {
 	const recording = useRecordStore(state => state.recording)
 	const navigate = useTransitionNavigate()
 	const loading_ref = useRef(null)
+	const [filter_open, { setTrue: open_filter, setFalse: close_filter }] = useBoolean(false)
+
+	const form = Form.useForm({
+		defaultState: {
+			keywords: '',
+			sort_by: 'update_time',
+			sort_type: 'desc'
+		},
+		async onFulfilled() {
+			if (!has_login) {
+				open_login_modal()
+				return
+			}
+			await reload()
+			close_filter()
+		}
+	})
 
 	const docs_fetcher = async () => {
-		const { list } = await get_docs({
+		const { keywords, sort_by, sort_type } = form.getState()
+		const { list } = await search_docs({
 			page,
-			page_size
+			page_size,
+			keywords,
+			sort_by,
+			sort_type
 		})
 		return list
 	}
@@ -44,7 +54,9 @@ export default function DocList() {
 		pageSize: page_size,
 		data: doc_list,
 		noMore: no_more,
-		mutate: set_doc_list
+		loading,
+		mutate: set_doc_list,
+		reload
 	} = useInfinity(docs_fetcher, {
 		initialPageSize: 20,
 		target: loading_ref,
@@ -52,10 +64,7 @@ export default function DocList() {
 			root: null,
 			rootMargin: '0px 0px 200px 0px'
 		},
-		ready: has_login,
-		onError() {
-			Toast.error({ content: '服务异常，请稍后再试' })
-		}
+		ready: has_login
 	})
 
 	const [choosing, { setTrue: do_choosing, setFalse: cancel_choosing }] = useBoolean(false)
@@ -71,26 +80,13 @@ export default function DocList() {
 		set_selection(is_all_selected ? [] : doc_list)
 	}
 
-	const [filter_open, { setTrue: open_filter, setFalse: close_filter }] = useBoolean(false)
-	const form = Form.useForm({
-		defaultState: {
-			keywords: '',
-			order_by: 1
-		},
-		onFulfilled(val) {
-			console.log('submit val', val)
-			close_filter()
-		}
-	})
-
 	const create_new_doc = async () => {
 		if (!has_login) {
 			open_login_modal()
 			return
 		}
 		const payload = {
-			title: '未命名',
-			content: 'new 123123'
+			title: '未命名'
 		}
 		try {
 			const { doc_id } = await create_doc(payload)
@@ -107,18 +103,38 @@ export default function DocList() {
 
 	const selected_ids = selection.map(item => item.doc_id)
 
-	const on_batching_deleted = () => {
-		set_doc_list(p => p.filter(item => !selected_ids.includes(item.doc_id)))
-		cancel_choosing()
+	const record_batching_delete_doc = () => {
 		selection.forEach(item => {
 			recording({
-				action: '删除',
+				action: '批量删除',
 				target: '',
 				target_id: '',
-				obj_type: '文章',
+				obj_type: '文档',
 				obj: item.title,
 				obj_id: item.doc_id
 			})
+		})
+	}
+
+	const record_delete_doc = (doc_info: Doc) => {
+		recording({
+			action: '删除',
+			target: '',
+			target_id: '',
+			obj_type: '文档',
+			obj: doc_info.title,
+			obj_id: doc_info.doc_id
+		})
+	}
+
+	const record_update_doc = (doc_info: Doc) => {
+		recording({
+			action: doc_info.public ? '更新并发布' : '更新',
+			target: '',
+			target_id: '',
+			obj_type: '文档',
+			obj: doc_info.title,
+			obj_id: doc_info.doc_id
 		})
 	}
 
@@ -137,14 +153,16 @@ export default function DocList() {
 			unmountOnExit: true,
 			onOk: async () => {
 				await delete_doc({ doc_ids: selected_ids })
-				on_batching_deleted()
+				set_doc_list(p => p.filter(item => !selected_ids.includes(item.doc_id)))
+				cancel_choosing()
+				record_batching_delete_doc()
 			}
 		})
 	}
 
 	const filter_drawer = (
 		<Drawer
-			className="b-l-solid b-l-1px b-l-bd-line shadow-shadow-l"
+			className="w-440px b-l-solid b-l-1px b-l-bd-line shadow-shadow-l"
 			maskClassName={cls(
 				'backdrop-blur-xl',
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
@@ -152,36 +170,12 @@ export default function DocList() {
 			open={filter_open}
 			onCancel={close_filter}
 		>
-			<div className="p-[32px_24px_32px_16px]">
-				<Form form={form} labelWidth="80px">
-					<Form.Field label="keywords" labelText="关键词">
-						<Input placeholder="请输入" />
-					</Form.Field>
-					<Form.Field label="order_by" labelText="排序">
-						<Select
-							options={[
-								{
-									label: '最新',
-									value: 1
-								}
-							]}
-						/>
-					</Form.Field>
-					<Form.Field labelText=" ">
-						<Space>
-							<Button onClick={close_filter}>取消</Button>
-							<Button type="submit" primary>
-								筛选
-							</Button>
-						</Space>
-					</Form.Field>
-				</Form>
-			</div>
+			<DocFilter form={form} loading={loading} on_cancel={close_filter} />
 		</Drawer>
 	)
 
 	const header = (
-		<Header heading="文档" bordered sticky>
+		<Header heading="文档">
 			<Space>
 				{choosing ? (
 					<Button onClick={cancel_choosing} prefixIcon={<TbX className="text-16px color-primary" />}>
@@ -255,14 +249,7 @@ export default function DocList() {
 				}
 				const on_deleted = () => {
 					set_doc_list(p => p.filter(item => item.doc_id !== doc.doc_id))
-					recording({
-						action: '删除',
-						target: '',
-						target_id: '',
-						obj_type: '文章',
-						obj: doc.title,
-						obj_id: doc.doc_id
-					})
+					record_delete_doc(doc)
 				}
 				const on_updated = (doc: Doc) => {
 					set_doc_list(p => {
@@ -271,14 +258,7 @@ export default function DocList() {
 						result.splice(index, 1, doc)
 						return result
 					})
-					recording({
-						action: doc.public ? '更新并发布' : '更新',
-						target: '',
-						target_id: '',
-						obj_type: '文章',
-						obj: doc.title,
-						obj_id: doc.doc_id
-					})
+					record_update_doc(doc)
 				}
 				return (
 					<DocCard

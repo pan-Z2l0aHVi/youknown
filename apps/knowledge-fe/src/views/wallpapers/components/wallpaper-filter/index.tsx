@@ -3,7 +3,7 @@ import { TbChevronDown, TbSearch } from 'react-icons/tb'
 
 import { FormInstance, useBoolean } from '@youknown/react-hook/src'
 import { Button, Form, Input, Motion, Select, Space } from '@youknown/react-ui/src'
-import { cls, microDefer } from '@youknown/utils/src'
+import { cls, macroDefer } from '@youknown/utils/src'
 
 export interface filterState {
 	ai_art_filter: 0 | 1
@@ -286,7 +286,7 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 							onClick={() => {
 								form.reset()
 								on_keywords_input('')
-								microDefer(() => {
+								macroDefer(() => {
 									on_reset()
 								})
 							}}

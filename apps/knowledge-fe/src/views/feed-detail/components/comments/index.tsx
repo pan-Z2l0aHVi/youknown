@@ -2,21 +2,23 @@ import { useState } from 'react'
 import { RiEmotionHappyLine } from 'react-icons/ri'
 import { TbPhoto, TbSend } from 'react-icons/tb'
 
+import { useUserStore } from '@/stores'
 import { Avatar, Button, Input, Space, Tooltip } from '@youknown/react-ui/src'
 
 interface CommentsProps {
-	doc_id: string
+	feed_id: string
 }
 
 export default function Comments(props: CommentsProps) {
-	const { doc_id } = props
+	const { feed_id } = props
+	const profile = useUserStore(state => state.profile)
 
 	const [text, set_text] = useState('')
 
 	return (
 		<div className="w-720px p-[24px_0] m-[0_auto] mb-120px">
 			<div className="flex items-start">
-				<Avatar className="mr-16px" round src="" />
+				<Avatar className="mr-16px" round src={profile?.avatar} />
 				<div className="flex-1 mr-16px">
 					<Input.Textarea
 						className="w-100%!"

@@ -8,7 +8,7 @@ import { storage } from '@youknown/utils/src'
 export default function Banner() {
 	const [visible, { setTrue: show, setFalse: hide }] = useBoolean(false)
 	const CLOSED_KEY = 'banner-closed'
-	const text = '你好！'
+	const text = 'Hello!!!'
 
 	useEffect(() => {
 		const closed_date = storage.local.get<Dayjs>(CLOSED_KEY)

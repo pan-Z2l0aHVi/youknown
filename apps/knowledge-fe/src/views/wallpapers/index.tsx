@@ -4,7 +4,7 @@ import { search_wallpapers } from '@/apis/wallpaper'
 import Header from '@/app/components/header'
 import { useCreation, useEvent, useInfinity, useUpdate } from '@youknown/react-hook/src'
 import { Form, Loading, Toast } from '@youknown/react-ui/src'
-import { cls, microDefer, storage } from '@youknown/utils/src'
+import { cls, macroDefer, storage } from '@youknown/utils/src'
 
 import WallpaperCard from './components/wallpaper-card'
 import WallpaperFilter, { filterState, WallpaperQuery } from './components/wallpaper-filter'
@@ -116,9 +116,6 @@ export default function Wallpapers() {
 		observerInit: {
 			root: null,
 			rootMargin: '0px 0px 280px 0px'
-		},
-		onError() {
-			Toast.error({ content: '服务异常，请稍后再试' })
 		}
 	})
 
@@ -133,9 +130,9 @@ export default function Wallpapers() {
 					wallpaper={wallpaper}
 					search_similar={() => {
 						set_keywords(`like:${wallpaper.id}`)
-						microDefer(() => {
+						macroDefer(() => {
 							update_params()
-							microDefer(() => {
+							macroDefer(() => {
 								reload_wallpapers()
 							})
 						})
@@ -147,7 +144,7 @@ export default function Wallpapers() {
 
 	return (
 		<>
-			<Header heading="壁纸" bordered sticky></Header>
+			<Header heading="壁纸"></Header>
 
 			<div className="p-[32px_16px_0]">
 				<WallpaperFilter
@@ -156,7 +153,7 @@ export default function Wallpapers() {
 					on_keywords_input={val => {
 						storage.session.set(FILTER_KEYWORDS_KEY, val)
 						set_keywords(val)
-						microDefer(() => {
+						macroDefer(() => {
 							update_params()
 						})
 					}}

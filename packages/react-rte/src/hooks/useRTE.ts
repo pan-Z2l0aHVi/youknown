@@ -33,8 +33,7 @@ export function useRTE(options?: RTEOptions, deps?: DependencyList) {
 				CharacterCount,
 				ListItem,
 				Placeholder.configure({
-					placeholder,
-					includeChildren: true
+					placeholder
 				})
 			])
 		},

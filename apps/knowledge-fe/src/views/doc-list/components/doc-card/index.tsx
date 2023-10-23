@@ -1,4 +1,3 @@
-import dayjs from 'dayjs'
 import { useRef } from 'react'
 import { GoCheck } from 'react-icons/go'
 import { RiHistoryFill } from 'react-icons/ri'
@@ -8,6 +7,7 @@ import DocOptionsModal from '@/components/doc-options-modal'
 import More from '@/components/more'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
+import { format_time } from '@/utils'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dialog, Dropdown, Motion } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
@@ -116,7 +116,7 @@ export default function DocCard(props: DocCardProps) {
 					<div className="flex items-center justify-between p-12px bg-bg-1 b-t-bd-line b-t-1 b-t-solid cursor-default">
 						<div className="flex items-center color-text-3">
 							<RiHistoryFill className="mr-4px text-14px" />
-							<span className="text-12px">{dayjs(info.update_time).format('YYYY-MM-DD')}</span>
+							<span className="text-12px">{format_time(info.update_time)}</span>
 						</div>
 
 						<Dropdown

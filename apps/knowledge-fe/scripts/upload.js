@@ -7,7 +7,7 @@ const QINIU_CONF = {
 	prefix: '', // 七牛目录
 	accessKey: 'ZJAw5p66HbXlJQbXjDV5Y_qLAQXEirlm8MXcG-l2', //七牛accessKey
 	secretKey: 'JOR_yrHI5nxg1SbZ1DF0i0BmkHYW45UH9FAXXx3m', //七牛secretKey
-	space: 'newyouknown' //七牛空间名
+	space: 'youknown1120' //七牛空间名
 }
 
 //自己七牛云的秘钥

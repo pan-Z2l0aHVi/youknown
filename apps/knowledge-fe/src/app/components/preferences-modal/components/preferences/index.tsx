@@ -132,7 +132,7 @@ export default function Preferences() {
 	})
 
 	return (
-		<div className="w-480px h-560px max-w-[calc(100vw-32px)] p-24px">
+		<div className="w-480px h-480px max-w-[calc(100vw-32px)] p-24px">
 			<Form form={form} labelWidth="108px">
 				<Form.Field label="style" labelText="界面风格">
 					<RadiusStyle />

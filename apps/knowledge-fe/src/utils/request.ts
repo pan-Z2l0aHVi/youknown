@@ -33,9 +33,12 @@ export const net = Net.create({
 		await next()
 	})
 	.use(async (ctx, next) => {
+		const silent: boolean = ctx.req.configure?.silent ?? false
+
 		await next()
+
 		if (ctx.err) {
-			Toast.error({ content: '网络连接异常' })
+			Toast.error({ content: '无法连接到服务器，请检查网络连接' })
 			return
 		}
 		switch (ctx.data?.code) {
@@ -50,6 +53,11 @@ export const net = Net.create({
 
 			default:
 				ctx.err = new NetFetchError(ctx.data)
+				if (!silent && ctx.data.msg) {
+					Toast.error({
+						content: ctx.data.msg
+					})
+				}
 				break
 		}
 	})

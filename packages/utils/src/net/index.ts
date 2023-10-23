@@ -4,13 +4,14 @@ import { pick } from '../object'
 import QS from '../qs'
 import { delay } from '../time'
 
-export type Configure = RequestInit & {
+export interface Configure extends RequestInit {
 	baseURL?: string
 	params?: Record<string, any>
 	payload?: any
 	timeout?: number
 	responseType?: 'json' | 'text' | 'blob' | 'formData' | 'arrayBuffer'
 	custom?: Record<string, any>
+	[key: string]: any
 }
 export interface Request {
 	url: string

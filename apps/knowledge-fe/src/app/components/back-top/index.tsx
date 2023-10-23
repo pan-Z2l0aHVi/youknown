@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { TbArrowBarToUp } from 'react-icons/tb'
 
 import { useDebounce } from '@youknown/react-hook/src'
-import { Button, Motion, Tooltip } from '@youknown/react-ui/src'
+import { Button, Motion } from '@youknown/react-ui/src'
 import { is } from '@youknown/utils/src'
 
 interface BackTopProps {
@@ -33,12 +33,10 @@ export default function BackTop(props: BackTopProps) {
 	}, [container, scroll_handler])
 
 	return (
-		<Tooltip title="返回顶部">
-			<Motion.Zoom in={visible}>
-				<Button circle size="large" className="shadow-shadow-m" onClick={handle_to_top}>
-					<TbArrowBarToUp className="text-22px" />
-				</Button>
-			</Motion.Zoom>
-		</Tooltip>
+		<Motion.Zoom in={visible}>
+			<Button circle size="large" className="shadow-shadow-m" onClick={handle_to_top}>
+				<TbArrowBarToUp className="text-22px" />
+			</Button>
+		</Motion.Zoom>
 	)
 }

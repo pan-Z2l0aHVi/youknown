@@ -1,6 +1,7 @@
 import { computed, nextTick, Ref, ref } from 'vue'
 
 import { omit } from '@/utils/object'
+import { checkElementInContainer } from '@youknown/utils/src'
 
 import { FetchOptions, useFetch } from './useFetch'
 import useIntersection from './useIntersection'
@@ -50,6 +51,19 @@ export function useInfinity<T extends any[], S extends any[]>(
 			} else {
 				page.value++
 			}
+
+			if (target)
+				nextTick(() => {
+					const targetEle = target.value
+					const container = (observerInit?.().root as HTMLElement) ?? null
+					const rootMargin = observerInit?.().rootMargin ?? ''
+					if (targetEle) {
+						const notEnough = checkElementInContainer(targetEle, container, rootMargin)
+						if (notEnough) {
+							run()
+						}
+					}
+				})
 		}
 	})
 	const { run, ...rest } = omit(fetchResult, 'data')

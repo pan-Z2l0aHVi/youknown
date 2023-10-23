@@ -137,7 +137,7 @@ const Tabs = <T extends string | number>(props: TabsProps<T>, propRef: Forwarded
 	return (
 		<div ref={propRef} className={cls(className, prefixCls)} role="tablist" {...rest}>
 			{type === 'line' && <Space size="large">{tabListEle}</Space>}
-			{type === 'round' && <Space>{tabListEle}</Space>}
+			{type === 'round' && <Space size="large">{tabListEle}</Space>}
 			{type === 'segment' && <div className={`${prefixCls}-segment-list`}>{tabListEle}</div>}
 		</div>
 	)

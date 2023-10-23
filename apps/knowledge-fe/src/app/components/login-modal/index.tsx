@@ -22,13 +22,13 @@ export default function LoginModal() {
 			})
 			.catch(() => {
 				Toast.error({
-					content: 'closed'
+					content: '登录失败'
 				})
 			})
 	}
 
 	const handle_wechat_login = () => {
-		Toast.warning({ content: '敬请期待...' })
+		Toast.warning({ content: '施工中...' })
 	}
 
 	return (
@@ -55,7 +55,7 @@ export default function LoginModal() {
 							prefixIcon={<GrGithub className="text-20px" />}
 							onClick={handle_github_login}
 						>
-							通过Github 登录
+							Github授权登录
 						</Button>
 						<Button
 							className="w-100%! mb-16px"
@@ -63,7 +63,7 @@ export default function LoginModal() {
 							prefixIcon={<RiWechatFill className="text-20px color-#55B837" />}
 							onClick={handle_wechat_login}
 						>
-							通过微信登录
+							微信授权登录
 						</Button>
 						<div className="color-text-3 text-12px">
 							点击上方按钮，代表你同意

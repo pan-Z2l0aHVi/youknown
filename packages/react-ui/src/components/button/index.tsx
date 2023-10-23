@@ -64,25 +64,25 @@ const Button = (props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
 				</>
 			)
 		}
-		if (circle || square) {
-			return children
+		if (prefixIcon || suffixIcon) {
+			return (
+				<>
+					{prefixIcon}
+					{children && (
+						<span
+							className={cls({
+								[`${prefixCls}-inner-ml`]: prefixIcon,
+								[`${prefixCls}-inner-mr`]: suffixIcon
+							})}
+						>
+							{children}
+						</span>
+					)}
+					{suffixIcon}
+				</>
+			)
 		}
-		return (
-			<>
-				{prefixIcon}
-				{children && (
-					<span
-						className={cls({
-							[`${prefixCls}-inner-ml`]: prefixIcon,
-							[`${prefixCls}-inner-mr`]: suffixIcon
-						})}
-					>
-						{children}
-					</span>
-				)}
-				{suffixIcon}
-			</>
-		)
+		return children
 	}
 
 	return (

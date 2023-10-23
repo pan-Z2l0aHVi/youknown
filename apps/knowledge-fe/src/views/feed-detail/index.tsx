@@ -2,44 +2,46 @@ import '@youknown/css/src/rte-desktop.scss'
 
 import { useSearchParams } from 'react-router-dom'
 
-import { get_doc_info } from '@/apis/doc'
+import { Feed, get_feed_detail } from '@/apis/feed'
 import Header from '@/app/components/header'
 import { useRecordStore } from '@/stores'
 import { useFetch } from '@youknown/react-hook/src'
 import { Loading } from '@youknown/react-ui/src'
 
-import Comments from './components/comments'
-
-export default function DocDetail() {
+export default function FeedDetail() {
 	const recording = useRecordStore(state => state.recording)
 	const [search] = useSearchParams()
-	const doc_id = search.get('doc_id') ?? ''
+	const feed_id = search.get('feed_id') ?? ''
 
-	const { data: doc_info, loading } = useFetch(get_doc_info, {
+	const record_read_feed = (feed_info: Feed) => {
+		recording({
+			action: '阅读',
+			target: feed_info.author_info.nickname,
+			target_id: feed_info.author_id,
+			obj_type: '公开文档',
+			obj: feed_info.title,
+			obj_id: feed_info.feed_id
+		})
+	}
+
+	const { data: detail, loading } = useFetch(get_feed_detail, {
 		params: [
 			{
-				doc_id
+				feed_id
 			}
 		],
-		ready: !!doc_id,
-		refreshDeps: [doc_id],
+		ready: !!feed_id,
+		refreshDeps: [feed_id],
 		onSuccess(data) {
-			recording({
-				action: '阅读',
-				target: data.author_info.nickname,
-				target_id: data.author_id,
-				obj_type: '文章',
-				obj: data.title,
-				obj_id: data.doc_id
-			})
+			record_read_feed(data)
 		}
 	})
 
-	const doc_content = doc_info?.content ?? ''
+	const doc_content = detail?.content ?? ''
 
 	return (
 		<>
-			<Header heading="文档" bordered sticky></Header>
+			<Header heading={detail?.title || '详情'}></Header>
 
 			{loading ? (
 				<div className="flex justify-center items-center w-100% mt-40%">
@@ -48,12 +50,11 @@ export default function DocDetail() {
 			) : (
 				<div className="flex p-24px">
 					<div className="w-720px m-auto">
+						<img className="w-100% max-h-30vh min-h-40px object-cover rd-radius-m" src={detail?.cover} />
 						<div className="rich-text-container" dangerouslySetInnerHTML={{ __html: doc_content }}></div>
 					</div>
 				</div>
 			)}
-
-			<Comments doc_id={doc_id} />
 		</>
 	)
 }

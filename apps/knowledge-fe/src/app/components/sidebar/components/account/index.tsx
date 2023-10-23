@@ -1,5 +1,5 @@
 import { LuSettings2 } from 'react-icons/lu'
-import { TbLogout } from 'react-icons/tb'
+import { TbLogin, TbLogout } from 'react-icons/tb'
 
 import { useModalStore, useUserStore } from '@/stores'
 import { Avatar, Divider, Dropdown, Motion, Tooltip } from '@youknown/react-ui/src'
@@ -18,9 +18,13 @@ export default function Personal({ expand }: PersonalProps) {
 
 	return (
 		<>
-			<Tooltip title={has_login ? profile.nickname : '去登录'} placement="right" spacing={20} disabled={expand}>
+			<Tooltip
+				title={has_login ? profile?.nickname : '立即登录'}
+				placement="right"
+				spacing={20}
+				disabled={expand}
+			>
 				<Dropdown
-					disabled={!has_login}
 					placement="top-start"
 					trigger="click"
 					content={
@@ -33,13 +37,23 @@ export default function Personal({ expand }: PersonalProps) {
 								设置
 							</Dropdown.Item>
 							<Divider size="small" />
-							<Dropdown.Item
-								closeAfterItemClick
-								prefix={<TbLogout className="text-18px color-danger" />}
-								onClick={do_logout}
-							>
-								<span className="color-danger">退出登录</span>
-							</Dropdown.Item>
+							{has_login ? (
+								<Dropdown.Item
+									closeAfterItemClick
+									prefix={<TbLogout className="text-18px color-danger" />}
+									onClick={do_logout}
+								>
+									<span className="color-danger">退出登录</span>
+								</Dropdown.Item>
+							) : (
+								<Dropdown.Item
+									closeAfterItemClick
+									prefix={<TbLogin className="text-18px color-primary" />}
+									onClick={open_login_modal}
+								>
+									<span className="color-primary">去登录</span>
+								</Dropdown.Item>
+							)}
 						</Dropdown.Menu>
 					}
 				>
@@ -48,13 +62,9 @@ export default function Personal({ expand }: PersonalProps) {
 							'border-0 bg-transparent w-100% h-44px flex items-center p-4px rd-radius-m cursor-pointer select-none',
 							'active-bg-secondary-active hover-not-active-bg-secondary-hover'
 						)}
-						onClick={() => {
-							if (has_login) return
-							open_login_modal()
-						}}
 					>
 						{has_login ? (
-							<Avatar round size={36} src={profile.avatar} />
+							<Avatar round size={36} src={profile?.avatar} />
 						) : (
 							<div className="flex justify-center items-center w-36px min-w-36px h-36px rd-full bg-primary color-#fff text-13px font-500">
 								登录
@@ -62,7 +72,7 @@ export default function Personal({ expand }: PersonalProps) {
 						)}
 						<Motion.Fade in={expand} unmountOnExit>
 							<div className="flex-1 break-all ws-nowrap ml-8px">
-								{has_login ? profile.nickname : '立即登录'}
+								{has_login ? profile?.nickname : '立即登录'}
 							</div>
 						</Motion.Fade>
 					</div>

@@ -82,7 +82,7 @@ export default function TextColorPicker(props: TextColorPickerProps) {
 	)
 
 	return (
-		<Tooltip disabled={!tooltip} placement="bottom" title="文字颜色" appendTo={null}>
+		<Tooltip disabled={!tooltip} placement="bottom" title="文字颜色">
 			<div className={prefixCls}>
 				<CommandBtn
 					className={cls(`${prefixCls}-setter`)}

@@ -1,5 +1,6 @@
 import { createElement, lazy, ReactNode } from 'react'
-import { TbBook2, TbDeviceDesktop, TbHistory, TbLayout, TbNotes, TbStar } from 'react-icons/tb'
+import { LuWallpaper } from 'react-icons/lu'
+import { TbBook2, TbHistory, TbLayout, TbNotes, TbStar } from 'react-icons/tb'
 import { Navigate, RouteObject } from 'react-router-dom'
 
 export type RouteItem = RouteObject & {
@@ -24,15 +25,15 @@ export const nav_routes = [
 				element: createElement(lazy(() => import('@/views/browse')))
 			},
 			{
-				path: 'doc-detail',
-				element: createElement(lazy(() => import('@/views/doc-detail')))
+				path: 'feed-detail',
+				element: createElement(lazy(() => import('@/views/feed-detail')))
 			}
 		]
 	},
 	{
 		path: 'library',
 		state: {
-			nav_name: '知识库',
+			nav_name: '我的知识库',
 			icon: <TbBook2 />
 		},
 		children: [
@@ -60,7 +61,7 @@ export const nav_routes = [
 		element: createElement(lazy(() => import('@/views/wallpapers'))),
 		state: {
 			nav_name: '壁纸',
-			icon: <TbDeviceDesktop />
+			icon: <LuWallpaper />
 		}
 	},
 	{
