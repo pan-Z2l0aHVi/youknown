@@ -9,8 +9,10 @@ import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
 import { useBoolean } from '@youknown/react-hook/src'
-import { Dialog, Dropdown, Motion } from '@youknown/react-ui/src'
+import { Dialog, Dropdown, Motion, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
+import copy from 'copy-to-clipboard'
+import { TbEyeSearch } from 'react-icons/tb'
 
 interface DocCardProps {
 	choosing: boolean
@@ -75,9 +77,46 @@ export default function DocCard(props: DocCardProps) {
 			}
 		})
 	}
+	const copy_share_url = () => {
+		copy(
+			QS.stringify({
+				base: `${window.location.origin}/browse/feed-detail`,
+				query: {
+					feed_id: info.doc_id
+				}
+			})
+		)
+		Toast.success({ content: '复制分享链接成功' })
+	}
 
 	const container_ref = useRef(null)
+	const footer = (
+		<Motion.Slide in={!choosing} appear={false} container={container_ref.current} direction="up" unmountOnExit>
+			<div className="flex items-center justify-between p-12px bg-bg-1 b-t-bd-line b-t-1 b-t-solid cursor-default">
+				<div className="flex items-center color-text-3">
+					<RiHistoryFill className="mr-4px text-14px" />
+					<span className="text-12px">{format_time(info.update_time)}</span>
+				</div>
 
+				<Dropdown
+					trigger="click"
+					content={
+						<Dropdown.Menu className="w-120px" closeAfterItemClick>
+							<Dropdown.Item onClick={select_doc}>编辑</Dropdown.Item>
+							{info.public && <Dropdown.Item onClick={copy_share_url}>分享</Dropdown.Item>}
+							<Dropdown.Item onClick={edit_doc_options}>文档设置</Dropdown.Item>
+							<Dropdown.Item onClick={handle_delete_doc}>
+								<span className="color-danger">删除</span>
+							</Dropdown.Item>
+						</Dropdown.Menu>
+					}
+					onOpenChange={set_more_open}
+				>
+					<More active={more_open} />
+				</Dropdown>
+			</div>
+		</Motion.Slide>
+	)
 	return (
 		<>
 			<div
@@ -91,6 +130,20 @@ export default function DocCard(props: DocCardProps) {
 				)}
 				style={{ backgroundImage: `url(${info.cover})` }}
 			>
+				{info.public && (
+					<div
+						className="absolute top-0 left-16px w-24px h-32px bg-primary text-center"
+						style={{ clipPath: 'polygon(0% 0%, 100% 0, 100% 100%, 50% 80%, 0% 100%)' }}
+					>
+						<TbEyeSearch className="color-#fff text-16px" />
+					</div>
+					// <div
+					// 	className="absolute top-0 left-0 w-32px h-32px bg-primary text-center"
+					// 	style={{
+					// 		clipPath: 'polygon(0% 0%, 100% 0%, 0% 100%)'
+					// 	}}
+					// ></div>
+				)}
 				{choosing && selected && (
 					<div
 						className={cls(
@@ -103,43 +156,12 @@ export default function DocCard(props: DocCardProps) {
 				)}
 
 				<div className="flex-1 pt-32px" onClick={select_doc}>
-					<div className="p-[0_8px_0_12px] text-16px font-600 select-none">{info.title}</div>
+					<div className="p-[0_8px_0_12px] text-16px font-600 text-shadow-[0px_0px_16px_#fff] select-none">
+						{info.title}
+					</div>
 				</div>
 
-				<Motion.Slide
-					in={!choosing}
-					appear={false}
-					container={container_ref.current}
-					direction="up"
-					unmountOnExit
-				>
-					<div className="flex items-center justify-between p-12px bg-bg-1 b-t-bd-line b-t-1 b-t-solid cursor-default">
-						<div className="flex items-center color-text-3">
-							<RiHistoryFill className="mr-4px text-14px" />
-							<span className="text-12px">{format_time(info.update_time)}</span>
-						</div>
-
-						<Dropdown
-							trigger="click"
-							content={
-								<Dropdown.Menu className="w-120px">
-									<Dropdown.Item closeAfterItemClick onClick={select_doc}>
-										<span>编辑</span>
-									</Dropdown.Item>
-									<Dropdown.Item closeAfterItemClick onClick={edit_doc_options}>
-										<span>文档设置</span>
-									</Dropdown.Item>
-									<Dropdown.Item closeAfterItemClick onClick={handle_delete_doc}>
-										<span className="color-danger">删除</span>
-									</Dropdown.Item>
-								</Dropdown.Menu>
-							}
-							onOpenChange={set_more_open}
-						>
-							<More active={more_open} />
-						</Dropdown>
-					</div>
-				</Motion.Slide>
+				{footer}
 			</div>
 
 			<DocOptionsModal

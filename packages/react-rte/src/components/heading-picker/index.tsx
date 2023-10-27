@@ -61,7 +61,7 @@ export default function HeadingPicker(props: ButtonProps<HeadingOptions>) {
 			trigger="click"
 			onOpenChange={setOpen}
 			content={
-				<Dropdown.Menu className={`${prefixCls}-dropdown`}>
+				<Dropdown.Menu className={`${prefixCls}-dropdown`} closeAfterItemClick>
 					{options.map(opt => {
 						const heading = createElement(opt.tagName, {}, opt.label)
 						const active = selection.value === opt.value
@@ -71,7 +71,6 @@ export default function HeadingPicker(props: ButtonProps<HeadingOptions>) {
 								key={opt.value}
 								className={`${prefixCls}-dropdown-item`}
 								prefix={active ? <TbCheck className={iconCls} /> : <div className={iconCls}></div>}
-								closeAfterItemClick
 								onClick={() => handleSelect(opt)}
 							>
 								{heading}

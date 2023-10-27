@@ -7,15 +7,18 @@ import DocOptionsModal from '@/components/doc-options-modal'
 import More from '@/components/more'
 import { useUIStore } from '@/stores'
 import { useBoolean } from '@youknown/react-hook/src'
-import { Dialog, Divider, Dropdown } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
+import { Dialog, Divider, Dropdown, Toast } from '@youknown/react-ui/src'
+import { cls, QS } from '@youknown/utils/src'
+import copy from 'copy-to-clipboard'
+import { TbShare2 } from 'react-icons/tb'
 
 interface DocOptionsDropdownProps {
 	doc_id: string
+	is_public: boolean
 	on_updated: (doc: Doc) => void
 }
 export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
-	const { doc_id, on_updated } = props
+	const { doc_id, is_public, on_updated } = props
 
 	const navigate = useNavigate()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
@@ -44,15 +47,32 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 			}
 		})
 	}
+
+	const copy_share_url = () => {
+		copy(
+			QS.stringify({
+				base: `${window.location.origin}/browse/feed-detail`,
+				query: {
+					feed_id: doc_id
+				}
+			})
+		)
+		Toast.success({ content: '复制分享链接成功' })
+	}
+
 	return (
 		<>
 			<Dropdown
 				trigger="click"
 				placement="bottom-end"
 				content={
-					<Dropdown.Menu className="w-160px">
+					<Dropdown.Menu className="w-160px" closeAfterItemClick>
+						{is_public && (
+							<Dropdown.Item prefix={<TbShare2 className="ml-8px text-18px" />} onClick={copy_share_url}>
+								分享
+							</Dropdown.Item>
+						)}
 						<Dropdown.Item
-							closeAfterItemClick
 							prefix={<LuSettings2 className="ml-8px text-18px" />}
 							onClick={show_doc_options_modal}
 						>
@@ -60,7 +80,6 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 						</Dropdown.Item>
 						<Divider size="small" />
 						<Dropdown.Item
-							closeAfterItemClick
 							prefix={<PiTrashSimpleBold className="ml-8px text-18px color-danger" />}
 							onClick={show_doc_delete_dialog}
 						>

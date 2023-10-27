@@ -65,14 +65,9 @@ export default function HeadingPicker(props: ButtonProps<HeadingOptions>) {
 	const prefixCls = `${UI_EDITOR_PREFIX}-heading-item`
 
 	const contentEle = (
-		<Dropdown.Menu>
+		<Dropdown.Menu closeAfterItemClick>
 			{options.map(opt => (
-				<Dropdown.Item
-					key={opt.value}
-					prefix={<opt.icon size={18} />}
-					closeAfterItemClick
-					onClick={() => handleSelect(opt)}
-				>
+				<Dropdown.Item key={opt.value} prefix={<opt.icon size={18} />} onClick={() => handleSelect(opt)}>
 					{opt.label}
 				</Dropdown.Item>
 			))}

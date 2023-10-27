@@ -15,14 +15,15 @@
   "license": "MIT",
   "dependencies": {
     "@youknown/css": "workspace:*",
-    "@youknown/react-rte": "workspace:*",
     "@youknown/react-hook": "workspace:*",
+    "@youknown/react-rte": "workspace:*",
     "@youknown/react-ui": "workspace:*",
     "@youknown/utils": "workspace:*",
     "chroma-js": "^2.4.2",
+    "html-diff-ts": "^1.4.2",
+    "idb-keyval": "^6.2.1",
     "qiniu-js": "^3.4.1",
-    "zustand": "^4.4.1",
-    "html-diff-ts": "^1.4.2"
+    "zustand": "^4.4.1"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": "eslint --cache --fix",

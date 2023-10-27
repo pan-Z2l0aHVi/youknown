@@ -28,9 +28,8 @@ export default function Personal({ expand }: PersonalProps) {
 					placement="top-start"
 					trigger="click"
 					content={
-						<Dropdown.Menu className="w-208px">
+						<Dropdown.Menu className="w-208px" closeAfterItemClick>
 							<Dropdown.Item
-								closeAfterItemClick
 								prefix={<LuSettings2 className="text-18px" />}
 								onClick={open_preferences_modal}
 							>
@@ -39,7 +38,6 @@ export default function Personal({ expand }: PersonalProps) {
 							<Divider size="small" />
 							{has_login ? (
 								<Dropdown.Item
-									closeAfterItemClick
 									prefix={<TbLogout className="text-18px color-danger" />}
 									onClick={do_logout}
 								>
@@ -47,7 +45,6 @@ export default function Personal({ expand }: PersonalProps) {
 								</Dropdown.Item>
 							) : (
 								<Dropdown.Item
-									closeAfterItemClick
 									prefix={<TbLogin className="text-18px color-primary" />}
 									onClick={open_login_modal}
 								>

@@ -27,8 +27,8 @@ export default function useFeedPraise(feed: Feed) {
 	const record_praise_feed = (action: string) => {
 		recording({
 			action,
-			target: '',
-			target_id: '',
+			target: feed.author_info.nickname,
+			target_id: feed.author_id,
 			obj_type: '公开文档',
 			obj: feed.title,
 			obj_id: feed_id

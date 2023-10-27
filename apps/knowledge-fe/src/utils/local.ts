@@ -1,4 +1,3 @@
-import { RecordMeta } from '@/stores'
 import { storage } from '@youknown/utils/src'
 
 // Setting
@@ -18,20 +17,6 @@ export function set_local_settings(newSettings: LocalSettings) {
 
 export function get_local_settings() {
 	return storage.local.get<LocalSettings>(SETTINGS_KEY) ?? {}
-}
-
-// Records
-const RECORDS_KEY = 'records'
-export function set_local_records(records: RecordMeta[]) {
-	storage.local.set(RECORDS_KEY, records)
-}
-
-export function get_local_records() {
-	return storage.local.get<RecordMeta[]>(RECORDS_KEY) ?? []
-}
-
-export function remove_local_records() {
-	return storage.local.remove(RECORDS_KEY)
 }
 
 // AUTH TOKEN

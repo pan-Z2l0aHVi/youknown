@@ -269,7 +269,11 @@ export default function Doc() {
 					<Button disabled={editor.isEmpty} primary onClick={update_doc_content}>
 						更新
 					</Button>
-					<DocOptionsDropdown doc_id={doc_id} on_updated={set_doc_info} />
+					<DocOptionsDropdown
+						doc_id={doc_id}
+						is_public={doc_info?.public ?? false}
+						on_updated={set_doc_info}
+					/>
 				</Space>
 			</Header>
 

@@ -1,48 +1,51 @@
-import dayjs from 'dayjs'
 import { create } from 'zustand'
+import { devtools } from 'zustand/middleware'
 
-import { get_local_records, remove_local_records, set_local_records } from '@/utils/local'
 import { uuid } from '@youknown/utils/src'
-
-export interface RecordMeta {
-	action: string
-	target: string
-	target_id: string
-	obj: string
-	obj_type: string
-	obj_id: string
-	id: string
-	timing: number
-}
+import { RecordValue, find_records, insert_record, delete_record, clear_records } from '@/utils/idb'
 
 interface RecordState {
-	record_list: RecordMeta[]
-	recording: (record: Omit<RecordMeta, 'timing' | 'id'>) => void
+	record_list: RecordValue[]
+	recording: (record: Omit<RecordValue, 'creation_time' | 'id'>) => void
 	init_records: () => void
+	delete_record: (record_id: string) => void
 	clear_records: () => void
 }
 
-export const useRecordStore = create<RecordState>(set => ({
-	record_list: [],
+export const useRecordStore = create<RecordState>()(
+	devtools(
+		set => ({
+			record_list: [],
 
-	recording: record =>
-		set(state => {
-			const record_item: RecordMeta = {
-				...record,
-				timing: dayjs().valueOf(),
-				id: uuid()
-			}
-			const new_record_list = [record_item, ...state.record_list]
-			set_local_records(new_record_list)
-			return {
-				record_list: new_record_list
+			recording: async record => {
+				const record_item: RecordValue = {
+					...record,
+					id: uuid(),
+					creation_time: new Date()
+				}
+				await insert_record(record_item)
+				set(state => ({
+					record_list: [record_item, ...state.record_list]
+				}))
+			},
+
+			init_records: async () => {
+				const records = await find_records()
+				set({ record_list: records })
+			},
+
+			delete_record: async record_id => {
+				await delete_record(record_id)
+				set(state => ({
+					record_list: state.record_list.filter(record => record.id !== record_id)
+				}))
+			},
+
+			clear_records: async () => {
+				await clear_records()
+				set({ record_list: [] })
 			}
 		}),
-
-	init_records: () => set({ record_list: get_local_records() }),
-
-	clear_records: () => {
-		set({ record_list: [] })
-		remove_local_records()
-	}
-}))
+		{ store: 'record' }
+	)
+)

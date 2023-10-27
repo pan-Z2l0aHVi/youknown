@@ -2,9 +2,10 @@ import { RxDotsHorizontal } from 'react-icons/rx'
 import { TbEyeCheck } from 'react-icons/tb'
 
 import { Wallpaper } from '@/apis/wallpaper'
-import { useBoolean } from '@youknown/react-hook/src'
+import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import { Dropdown, Image, Motion, Toast, Tooltip } from '@youknown/react-ui/src'
-import { cls, downloadFile, storage } from '@youknown/utils/src'
+import { cls, downloadFile } from '@youknown/utils/src'
+import { find_wallpaper_seen, insert_wallpaper_seen } from '@/utils/idb'
 
 interface WallpaperCardProps {
 	wallpaper: Wallpaper
@@ -17,8 +18,9 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 	const [hovered, { setTrue: start_hover, setFalse: stop_hover }] = useBoolean(false)
 	const [more_open, { setBool: set_more_open }] = useBoolean(false)
 	const [img_loaded, { setTrue: set_img_loaded }] = useBoolean(false)
-	const SEEN_KEY = `seen/${wallpaper.id}`
-	const seen = storage.local.get<boolean>(SEEN_KEY)
+	const { data: seen } = useFetch(find_wallpaper_seen, {
+		params: [wallpaper.id]
+	})
 
 	const toast_download_err = () => {
 		Toast.error({
@@ -38,7 +40,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 				toast_download_err()
 			}
 		})
-		storage.local.set(SEEN_KEY, true)
+		insert_wallpaper_seen(wallpaper.id)
 	}
 	const is_sketchy = wallpaper.purity === 'sketchy'
 
@@ -98,14 +100,14 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 						trigger="click"
 						spacing={4}
 						content={
-							<Dropdown.Menu className="w-112px" onClick={stop_hover}>
-								<Dropdown.Item closeAfterItemClick onClick={handle_download}>
+							<Dropdown.Menu className="w-112px" onClick={stop_hover} closeAfterItemClick>
+								<Dropdown.Item onClick={handle_download}>
 									<span>下载</span>
 								</Dropdown.Item>
-								<Dropdown.Item closeAfterItemClick>
+								<Dropdown.Item>
 									<span>收藏</span>
 								</Dropdown.Item>
-								<Dropdown.Item closeAfterItemClick onClick={search_similar}>
+								<Dropdown.Item onClick={search_similar}>
 									<span>查找相似</span>
 								</Dropdown.Item>
 							</Dropdown.Menu>

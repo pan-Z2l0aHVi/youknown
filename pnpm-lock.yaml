@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 importers:
 
   .:
@@ -186,12 +182,15 @@ importers:
       html-diff-ts:
         specifier: ^1.4.2
         version: registry.npmmirror.com/html-diff-ts@1.4.2
+      idb-keyval:
+        specifier: ^6.2.1
+        version: registry.npmmirror.com/idb-keyval@6.2.1
       qiniu-js:
         specifier: ^3.4.1
         version: registry.npmmirror.com/qiniu-js@3.4.1
       zustand:
         specifier: ^4.4.1
-        version: registry.npmmirror.com/zustand@4.4.1(@types/react@18.2.22)(react@18.2.0)
+        version: registry.npmmirror.com/zustand@4.4.1(react@18.2.0)
     devDependencies:
       '@types/chroma-js':
         specifier: ^2.4.1
@@ -6980,6 +6979,12 @@ packages:
       safer-buffer: registry.npmmirror.com/safer-buffer@2.1.2
     dev: true
 
+  registry.npmmirror.com/idb-keyval@6.2.1:
+    resolution: {integrity: sha512-8Sb3veuYCyrZL+VBt9LJfZjLUPWVvqn8tG28VqYNFCo43KHcKuq+b4EiXGeuaLAQWL2YmyDgMp2aSpH9JHsEQg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/idb-keyval/-/idb-keyval-6.2.1.tgz}
+    name: idb-keyval
+    version: 6.2.1
+    dev: false
+
   registry.npmmirror.com/ignore@5.2.4:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ignore/-/ignore-5.2.4.tgz}
     name: ignore
@@ -12430,7 +12435,7 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  registry.npmmirror.com/zustand@4.4.1(@types/react@18.2.22)(react@18.2.0):
+  registry.npmmirror.com/zustand@4.4.1(react@18.2.0):
     resolution: {integrity: sha512-QCPfstAS4EBiTQzlaGP1gmorkh/UL1Leaj2tdj+zZCZ/9bm0WS7sI2wnfD5lpOszFqWJ1DcPnGoY8RDL61uokw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/zustand/-/zustand-4.4.1.tgz}
     id: registry.npmmirror.com/zustand/4.4.1
     name: zustand
@@ -12448,7 +12453,10 @@ packages:
       react:
         optional: true
     dependencies:
-      '@types/react': registry.npmmirror.com/@types/react@18.2.22
       react: registry.npmmirror.com/react@18.2.0
       use-sync-external-store: registry.npmmirror.com/use-sync-external-store@1.2.0(react@18.2.0)
     dev: false
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
