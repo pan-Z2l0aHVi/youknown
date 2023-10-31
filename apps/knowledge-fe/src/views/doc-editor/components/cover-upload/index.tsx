@@ -3,7 +3,7 @@ import { PiTrashSimpleBold } from 'react-icons/pi'
 import { TbPhotoPlus } from 'react-icons/tb'
 
 import { Doc, update_doc } from '@/apis/doc'
-import { upload_file } from '@/utils/qiniu'
+import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
 
@@ -31,7 +31,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 	const upload_cover = (file: File) =>
 		new Promise<string>((resolve, reject) => {
 			start_updating()
-			upload_file(file, {
+			upload_cloudflare_r2(file, {
 				complete(url) {
 					save_doc_cover(url).finally(() => {
 						stop_updating()

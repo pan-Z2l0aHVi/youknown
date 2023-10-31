@@ -2,10 +2,10 @@ import { RxDotsHorizontal } from 'react-icons/rx'
 import { TbEyeCheck } from 'react-icons/tb'
 
 import { Wallpaper } from '@/apis/wallpaper'
+import { find_wallpaper_seen, insert_wallpaper_seen } from '@/utils/idb'
 import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import { Dropdown, Image, Motion, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls, downloadFile } from '@youknown/utils/src'
-import { find_wallpaper_seen, insert_wallpaper_seen } from '@/utils/idb'
 
 interface WallpaperCardProps {
 	wallpaper: Wallpaper

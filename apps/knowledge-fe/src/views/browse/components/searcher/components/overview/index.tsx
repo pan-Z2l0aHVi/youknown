@@ -1,7 +1,8 @@
+import { RiHistoryFill } from 'react-icons/ri'
+
 import { Feed } from '@/apis/feed'
 import { format_time } from '@/utils'
 import { Avatar } from '@youknown/react-ui/src'
-import { RiHistoryFill } from 'react-icons/ri'
 
 interface OverviewProps {
 	selection: Feed

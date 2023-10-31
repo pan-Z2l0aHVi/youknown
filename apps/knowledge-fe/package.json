@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && node scripts/upload.js",
+    "build": "tsc && vite build && node scripts/upload-r2.js",
     "preview": "vite preview"
   },
   "author": "Grey",
@@ -35,6 +35,10 @@
     "not dead"
   ],
   "devDependencies": {
-    "@types/chroma-js": "^2.4.1"
+    "@types/chroma-js": "^2.4.1",
+    "@types/mime-types": "^2.1.3",
+    "@aws-sdk/client-s3": "^3.437.0",
+    "@aws-sdk/lib-storage": "^3.438.0",
+    "mime-types": "^2.1.35"
   }
 }

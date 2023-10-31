@@ -1,6 +1,6 @@
 import { ComponentProps, useState } from 'react'
 
-import { upload_file } from '@/utils/qiniu'
+import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { Progress, Upload } from '@youknown/react-ui/src'
 
 interface PicUploadProps {
@@ -20,9 +20,9 @@ export default function PicUpload(props: PicUploadProps) {
 	const upload_cover = (file: File) =>
 		new Promise<string>((resolve, reject) => {
 			set_uploading(true)
-			upload_file(file, {
+			upload_cloudflare_r2(file, {
 				progress(progress) {
-					set_progress(progress.total.percent)
+					set_progress(progress.percent)
 				},
 				complete(url) {
 					set_uploading(false)

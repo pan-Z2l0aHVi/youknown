@@ -7,7 +7,7 @@ import Header from '@/app/components/header'
 import { DOC_TITLE_MAX_LEN } from '@/consts'
 import { useRecordStore } from '@/stores'
 import { format_time } from '@/utils'
-import { upload_file } from '@/utils/qiniu'
+import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { NetFetchError } from '@/utils/request'
 import { useBoolean, useDebounce, useFetch } from '@youknown/react-hook/src'
 import {
@@ -69,7 +69,7 @@ export default function Doc() {
 			Image.configure({
 				onCustomUpload: file =>
 					new Promise((resolve, reject) => {
-						upload_file(file, {
+						upload_cloudflare_r2(file, {
 							complete(url) {
 								resolve({
 									src: url
@@ -204,6 +204,7 @@ export default function Doc() {
 			Toast.success({ content: '标题更新成功' })
 		} catch (error) {
 			console.error('error: ', error)
+			set_title_val(doc_title)
 		}
 	}
 

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useTransition } from 'react'
+import { GoInbox } from 'react-icons/go'
 import { TbSearch } from 'react-icons/tb'
 
 import { Feed, get_feed_list } from '@/apis/feed'
@@ -6,9 +7,9 @@ import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useEvent, useInfinity } from '@youknown/react-hook/src'
 import { Card, Input, Loading } from '@youknown/react-ui/src'
 import { QS } from '@youknown/utils/src'
-import ResultList from './components/result-list'
+
 import Overview from './components/overview'
-import { GoInbox } from 'react-icons/go'
+import ResultList from './components/result-list'
 
 export default function Searcher() {
 	const [, start_transition] = useTransition()

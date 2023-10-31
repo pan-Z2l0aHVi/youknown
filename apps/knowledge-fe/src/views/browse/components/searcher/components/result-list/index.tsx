@@ -1,9 +1,10 @@
+import { forwardRef, ReactNode, useEffect, useRef } from 'react'
+import { TbArrowBack } from 'react-icons/tb'
+
 import { Feed } from '@/apis/feed'
 import { useComposeRef, useEvent } from '@youknown/react-hook/src'
 import { Button } from '@youknown/react-ui/src'
 import { checkElementInContainer, cls } from '@youknown/utils/src'
-import { ReactNode, forwardRef, useEffect, useRef } from 'react'
-import { TbArrowBack } from 'react-icons/tb'
 
 interface ResultListProps {
 	footer?: ReactNode

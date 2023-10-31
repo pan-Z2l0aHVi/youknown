@@ -1,4 +1,4 @@
-import { get_bucket_token } from '@/apis/bucket'
+import { get_qiniu_token } from '@/apis/bucket'
 import { storage } from '@youknown/utils/src'
 
 import type { QiniuError, QiniuNetworkError, QiniuRequestError } from 'qiniu-js'
@@ -14,7 +14,7 @@ interface Options {
 
 async function refresh_token() {
 	try {
-		const res = await get_bucket_token()
+		const res = await get_qiniu_token()
 		const token = res.token
 		storage.session.set(QINIU_TOKEN_KEY, token)
 		return token
@@ -24,7 +24,7 @@ async function refresh_token() {
 	}
 }
 
-export async function upload_file(file: File, options?: Options) {
+export async function upload_qiniu(file: File, options?: Options) {
 	let token = storage.session.get<string>(QINIU_TOKEN_KEY)
 	if (!token) {
 		token = await refresh_token()
@@ -53,7 +53,7 @@ export async function upload_file(file: File, options?: Options) {
 			console.error('qiniu sdk error err: ', err)
 			if (err.name) {
 				storage.session.remove(QINIU_TOKEN_KEY)
-				upload_file(file, options)
+				upload_qiniu(file, options)
 				return
 			}
 			options?.error?.(err)

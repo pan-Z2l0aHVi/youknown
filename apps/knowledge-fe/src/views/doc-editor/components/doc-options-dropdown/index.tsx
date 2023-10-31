@@ -1,5 +1,7 @@
+import copy from 'copy-to-clipboard'
 import { LuSettings2 } from 'react-icons/lu'
 import { PiTrashSimpleBold } from 'react-icons/pi'
+import { TbShare2 } from 'react-icons/tb'
 import { useNavigate } from 'react-router-dom'
 
 import { delete_doc, Doc } from '@/apis/doc'
@@ -9,8 +11,6 @@ import { useUIStore } from '@/stores'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dialog, Divider, Dropdown, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
-import copy from 'copy-to-clipboard'
-import { TbShare2 } from 'react-icons/tb'
 
 interface DocOptionsDropdownProps {
 	doc_id: string

@@ -1,6 +1,8 @@
+import copy from 'copy-to-clipboard'
 import { useRef } from 'react'
 import { GoCheck } from 'react-icons/go'
 import { RiHistoryFill } from 'react-icons/ri'
+import { TbEyeSearch } from 'react-icons/tb'
 
 import { delete_doc, Doc } from '@/apis/doc'
 import DocOptionsModal from '@/components/doc-options-modal'
@@ -11,8 +13,6 @@ import { format_time } from '@/utils'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dialog, Dropdown, Motion, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
-import copy from 'copy-to-clipboard'
-import { TbEyeSearch } from 'react-icons/tb'
 
 interface DocCardProps {
 	choosing: boolean

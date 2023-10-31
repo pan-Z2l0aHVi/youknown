@@ -1,5 +1,6 @@
+import { del, delMany, get, getMany, keys, set } from 'idb-keyval'
+
 import { is } from '@youknown/utils/src'
-import { getMany, keys, set, del, delMany, get } from 'idb-keyval'
 
 export interface RecordValue {
 	action: string

@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
+import { RiHistoryFill } from 'react-icons/ri'
 import { TbSearch } from 'react-icons/tb'
 
 import Header from '@/app/components/header'
+import More from '@/components/more'
 import TransitionLink from '@/components/transition-link'
 import { useRecordStore } from '@/stores'
 import { format_time } from '@/utils'
 import { Button, Dialog, Dropdown, Input, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import { RiHistoryFill } from 'react-icons/ri'
-import More from '@/components/more'
 
 export default function History() {
 	const record_list = useRecordStore(state => state.record_list)
