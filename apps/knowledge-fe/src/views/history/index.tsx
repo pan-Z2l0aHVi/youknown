@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { startTransition, useEffect, useState } from 'react'
 import { RiHistoryFill } from 'react-icons/ri'
 import { TbSearch } from 'react-icons/tb'
 
@@ -16,9 +16,31 @@ export default function History() {
 	const clear_records = useRecordStore(state => state.clear_records)
 	const delete_record = useRecordStore(state => state.delete_record)
 
+	const [search_input, set_search_input] = useState('')
+	const [records_result, set_records_result] = useState<typeof record_list>([])
+
 	useEffect(() => {
 		init_records()
 	}, [init_records])
+
+	useEffect(() => {
+		if (!search_input.trim()) {
+			set_records_result(record_list)
+		} else {
+			startTransition(() => {
+				const next_record_list = record_list.filter(record => {
+					if (record.target.includes(search_input)) {
+						return true
+					}
+					if (record.obj.includes(search_input)) {
+						return true
+					}
+					return false
+				})
+				set_records_result(next_record_list)
+			})
+		}
+	}, [record_list, search_input])
 
 	const handle_clear_history = () => {
 		Dialog.confirm({
@@ -38,14 +60,20 @@ export default function History() {
 		<>
 			<Header heading="历史记录">
 				<Space>
-					<Input prefix={<TbSearch />} placeholder="搜索" />
+					<Input
+						prefix={<TbSearch />}
+						allowClear
+						placeholder="搜索"
+						value={search_input}
+						onChange={set_search_input}
+					/>
 					<Button onClick={handle_clear_history}>清除历史记录</Button>
 				</Space>
 			</Header>
 
 			<div className="flex justify-center p-32px">
 				<div className="flex-1 max-w-960px">
-					{record_list.map(record => {
+					{records_result.map(record => {
 						const timing_desc = format_time(record.creation_time.getTime())
 						return (
 							<div key={record.id} className="group flex hover-bg-hover rd-radius-l p-[0_16px]">

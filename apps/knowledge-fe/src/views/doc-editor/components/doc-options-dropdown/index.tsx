@@ -68,19 +68,16 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 				content={
 					<Dropdown.Menu className="w-160px" closeAfterItemClick>
 						{is_public && (
-							<Dropdown.Item prefix={<TbShare2 className="ml-8px text-18px" />} onClick={copy_share_url}>
+							<Dropdown.Item prefix={<TbShare2 className="text-16px" />} onClick={copy_share_url}>
 								分享
 							</Dropdown.Item>
 						)}
-						<Dropdown.Item
-							prefix={<LuSettings2 className="ml-8px text-18px" />}
-							onClick={show_doc_options_modal}
-						>
+						<Dropdown.Item prefix={<LuSettings2 className="text-16px" />} onClick={show_doc_options_modal}>
 							文档设置
 						</Dropdown.Item>
 						<Divider size="small" />
 						<Dropdown.Item
-							prefix={<PiTrashSimpleBold className="ml-8px text-18px color-danger" />}
+							prefix={<PiTrashSimpleBold className="text-16px color-danger" />}
 							onClick={show_doc_delete_dialog}
 						>
 							<span className="color-danger">删除</span>

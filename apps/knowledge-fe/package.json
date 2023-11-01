@@ -8,8 +8,9 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && node scripts/upload-r2.js",
-    "preview": "vite preview"
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "deploy":"node scripts/upload-r2.js"
   },
   "author": "Grey",
   "license": "MIT",

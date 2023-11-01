@@ -5,18 +5,31 @@ import { BiEditAlt } from 'react-icons/bi'
 import { TbLink } from 'react-icons/tb'
 
 import { Button, Input, Popover, Space } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
+import { cls, omit } from '@youknown/utils/src'
 
 import { ButtonProps, UI_EDITOR_PREFIX } from '../../common'
 import CommandBtn from '../command-btn'
+import { useControllable } from '@youknown/react-hook/src'
 
 interface LinkPickerProps extends ButtonProps, ComponentProps<typeof Popover> {
 	isEdit?: boolean
 }
 export default function LinkPicker(props: LinkPickerProps) {
-	const { editor, tooltip = true, isEdit = false, trigger = 'click', open, onOpenChange, ...rest } = props
+	const {
+		editor,
+		tooltip = true,
+		isEdit = false,
+		trigger = 'click',
+		...rest
+	} = omit(props, 'defaultOpen', 'open', 'onOpenChange')
 
 	const [href, setHref] = useState('')
+	const [open, onOpenChange] = useControllable(props, {
+		defaultValue: false,
+		defaultValuePropName: 'defaultOpen',
+		valuePropName: 'open',
+		trigger: 'onOpenChange'
+	})
 
 	const saveLinkHref = () => {
 		editor.chain().focus().setLink({ href }).run()

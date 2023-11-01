@@ -7,7 +7,7 @@ import { useBoolean } from '@youknown/react-hook/src'
 import { Input, Modal, Tabs } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
-import FeedList from './components/feed-list'
+import FeedList, { FEED_TAB } from './components/feed-list'
 import Searcher from './components/searcher'
 
 export default function Browse() {
@@ -23,8 +23,8 @@ export default function Browse() {
 					value={feed_tab}
 					onChange={set_feed_tab}
 					tabList={[
-						{ key: 1, name: '最新' },
-						{ key: 2, name: '关注' }
+						{ key: FEED_TAB.LATEST, name: '最新' },
+						{ key: FEED_TAB.MINE, name: '我的' }
 					]}
 				/>
 

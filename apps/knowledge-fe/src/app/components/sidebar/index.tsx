@@ -7,6 +7,7 @@ import { cls, storage } from '@youknown/utils/src'
 
 import Account from './components/account'
 import Menu from './components/menu'
+import TransitionLink from '@/components/transition-link'
 
 const EXPAND_KEY = 'sidebar-expand'
 const WIDTH_KEY = 'sidebar-width'
@@ -100,10 +101,12 @@ export default function Sidebar() {
 					'after:content-empty after:absolute after:left-12px after:bottom-0 after:w-[calc(100%-24px)] after:h-1px after:bg-bd-line'
 				)}
 			>
-				<img
-					className="w-32px h-32px ml-6px rd-radius-m b-1 b-bd-line b-solid"
-					src={`${import.meta.env.VITE_CDN_BASE_URL}/branch.png`}
-				/>
+				<TransitionLink to="/">
+					<img
+						className="w-32px h-32px ml-6px rd-radius-m b-1 b-bd-line b-solid"
+						src={`${import.meta.env.VITE_CDN_BASE_URL}/branch.png`}
+					/>
+				</TransitionLink>
 			</div>
 
 			<Menu expand={expand} />

@@ -1,8 +1,8 @@
 import copy from 'copy-to-clipboard'
 import { useRef } from 'react'
 import { GoCheck } from 'react-icons/go'
-import { RiHistoryFill } from 'react-icons/ri'
-import { TbEyeSearch } from 'react-icons/tb'
+import { RiEditCircleLine, RiHistoryFill } from 'react-icons/ri'
+import { TbCloudUpload, TbShare2 } from 'react-icons/tb'
 
 import { delete_doc, Doc } from '@/apis/doc'
 import DocOptionsModal from '@/components/doc-options-modal'
@@ -13,6 +13,8 @@ import { format_time } from '@/utils'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dialog, Dropdown, Motion, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
+import { PiTrashSimpleBold } from 'react-icons/pi'
+import { LuSettings2 } from 'react-icons/lu'
 
 interface DocCardProps {
 	choosing: boolean
@@ -102,10 +104,21 @@ export default function DocCard(props: DocCardProps) {
 					trigger="click"
 					content={
 						<Dropdown.Menu className="w-120px" closeAfterItemClick>
-							<Dropdown.Item onClick={select_doc}>编辑</Dropdown.Item>
-							{info.public && <Dropdown.Item onClick={copy_share_url}>分享</Dropdown.Item>}
-							<Dropdown.Item onClick={edit_doc_options}>文档设置</Dropdown.Item>
-							<Dropdown.Item onClick={handle_delete_doc}>
+							<Dropdown.Item prefix={<RiEditCircleLine className="text-16px" />} onClick={select_doc}>
+								编辑
+							</Dropdown.Item>
+							{info.public && (
+								<Dropdown.Item prefix={<TbShare2 className="text-16px" />} onClick={copy_share_url}>
+									分享
+								</Dropdown.Item>
+							)}
+							<Dropdown.Item prefix={<LuSettings2 className="text-16px" />} onClick={edit_doc_options}>
+								文档设置
+							</Dropdown.Item>
+							<Dropdown.Item
+								prefix={<PiTrashSimpleBold className="color-danger text-16px" />}
+								onClick={handle_delete_doc}
+							>
 								<span className="color-danger">删除</span>
 							</Dropdown.Item>
 						</Dropdown.Menu>
@@ -128,21 +141,15 @@ export default function DocCard(props: DocCardProps) {
 						? 'b-primary shadow-[var(--ui-shadow-l),0_0_0_1px_var(--ui-color-primary)]'
 						: 'shadow-shadow-m hover-b-primary hover-shadow-[var(--ui-shadow-l),0_0_0_1px_var(--ui-color-primary)]'
 				)}
-				style={{ backgroundImage: `url(${info.cover})` }}
+				style={{ backgroundImage: `url("${info.cover}")` }}
 			>
 				{info.public && (
 					<div
-						className="absolute top-0 left-16px w-24px h-32px bg-primary text-center"
-						style={{ clipPath: 'polygon(0% 0%, 100% 0, 100% 100%, 50% 80%, 0% 100%)' }}
+						className="absolute top-0 left-16px w-20px h-24px bg-primary text-center"
+						style={{ clipPath: 'polygon(0% 0%, 100% 0, 100% 100%, 50% 65%, 0% 100%)' }}
 					>
-						<TbEyeSearch className="color-#fff text-16px" />
+						<TbCloudUpload className="color-#fff text-16px" />
 					</div>
-					// <div
-					// 	className="absolute top-0 left-0 w-32px h-32px bg-primary text-center"
-					// 	style={{
-					// 		clipPath: 'polygon(0% 0%, 100% 0%, 0% 100%)'
-					// 	}}
-					// ></div>
 				)}
 				{choosing && selected && (
 					<div

@@ -8,20 +8,21 @@ export interface Profile {
 	avatar: string
 }
 
-interface LoginPayload {
+export interface LoginPayload {
 	type: number
 	code: string
 }
-type LoginRes = Profile & {
-	token: string
-}
 export const login = (payload: LoginPayload) =>
-	net.fetch<LoginRes>('/proxy/user/sign_in', {
+	net.fetch<
+		Profile & {
+			token: string
+		}
+	>('/proxy/user/sign_in', {
 		method: 'post',
 		payload
 	})
 
-interface GetProfileParams {
+export interface GetProfileParams {
 	user_id?: string
 }
 export const get_profile = (params?: GetProfileParams) =>

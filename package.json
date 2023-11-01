@@ -28,7 +28,8 @@
         "dev:css": "pnpm -C packages/css run dev",
         "dev:knowledge-fe": "pnpm -C apps/knowledge-fe run dev",
         "dev:react-demos": "pnpm -C apps/react-demos run dev",
-        "dev:vue-demos": "pnpm -C apps/vue-demos run dev"
+        "dev:vue-demos": "pnpm -C apps/vue-demos run dev",
+        "deploy:knowledge-fe": "pnpm -C apps/knowledge-fe run deploy"
     },
     "dependencies": {
         "copy-to-clipboard": "^3.3.3",

@@ -5,7 +5,7 @@ export const get_qiniu_token = () =>
 		token: string
 	}>('/proxy/common/qiniu_token')
 
-interface GetR2SignedURLParams {
+export interface GetR2SignedURLParams {
 	key: string
 }
 export const get_r2_signed_url = (params: GetR2SignedURLParams) =>

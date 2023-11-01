@@ -1,6 +1,6 @@
 import { net } from '@/utils/request'
 
-interface Material {
+export interface Material {
 	material_id: string
 	type: number
 	content: string
@@ -8,22 +8,21 @@ interface Material {
 	uploader_id: string
 }
 
-interface MaterialSearchParams {
+export interface MaterialSearchParams {
 	page: number
 	page_size: number
 	type: number
 	keywords: string
 }
-type MaterialSearchRes = {
-	total: number
-	list: Material[]
-}
 export const search_material = (params: MaterialSearchParams) =>
-	net.fetch<MaterialSearchRes>('/proxy/material/search', {
+	net.fetch<{
+		total: number
+		list: Material[]
+	}>('/proxy/material/search', {
 		params
 	})
 
-interface GetMaterialInfoParams {
+export interface GetMaterialInfoParams {
 	material_id: string
 }
 export const get_material_info = (params: GetMaterialInfoParams) =>
@@ -31,7 +30,7 @@ export const get_material_info = (params: GetMaterialInfoParams) =>
 		params
 	})
 
-interface UploadMaterialPayload {
+export interface UploadMaterialPayload {
 	type: number
 	url: string
 }

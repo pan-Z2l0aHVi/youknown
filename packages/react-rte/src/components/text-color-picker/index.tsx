@@ -4,14 +4,15 @@ import { ComponentProps, useState } from 'react'
 import { BiFont, BiSolidChevronDown } from 'react-icons/bi'
 
 import { Button, Divider, Popover, Tooltip } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
+import { cls, omit } from '@youknown/utils/src'
 
 import { ButtonProps, UI_EDITOR_PREFIX } from '../../common'
 import CommandBtn from '../command-btn'
+import { useControllable } from '@youknown/react-hook/src'
 
 interface TextColorPickerProps extends ButtonProps, ComponentProps<typeof Popover> {}
 export default function TextColorPicker(props: TextColorPickerProps) {
-	const { editor, tooltip = true, trigger = 'click', open, onOpenChange, ...rest } = props
+	const { editor, tooltip = true, trigger = 'click', ...rest } = omit(props, 'defaultOpen', 'open', 'onOpenChange')
 	const DEFAULT_COLOR = 'var(--ui-text-1)'
 	const options = [
 		'#ffffff',
@@ -35,6 +36,12 @@ export default function TextColorPicker(props: TextColorPickerProps) {
 	]
 
 	const [inkColor, setInkColor] = useState(DEFAULT_COLOR)
+	const [open, onOpenChange] = useControllable(props, {
+		defaultValue: false,
+		defaultValuePropName: 'defaultOpen',
+		valuePropName: 'open',
+		trigger: 'onOpenChange'
+	})
 
 	const hasActive = options.some(opt => editor.isActive('textStyle', { color: opt }))
 

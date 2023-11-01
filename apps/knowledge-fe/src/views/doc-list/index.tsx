@@ -201,7 +201,7 @@ export default function DocList() {
 				<Space align="center">
 					<Tooltip disabled={!has_selection} spacing={12} placement="top" title="批量删除">
 						<Button circle text disabled={!has_selection} onClick={show_doc_delete_dialog}>
-							<TbTrashX className={cls('text-18px', has_selection && 'color-danger')} />
+							<TbTrashX className={cls('text-16px', has_selection && 'color-danger')} />
 						</Button>
 					</Tooltip>
 
@@ -216,7 +216,7 @@ export default function DocList() {
 					</Tooltip>
 					<Tooltip spacing={12} placement="top" title="取消选择">
 						<Button circle text onClick={cancel_choosing}>
-							<TbX className="text-18px" />
+							<TbX className="text-16px" />
 						</Button>
 					</Tooltip>
 				</Space>

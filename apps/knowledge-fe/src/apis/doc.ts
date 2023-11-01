@@ -20,7 +20,7 @@ export interface Draft {
 	creation_time: string
 }
 
-interface GetDocInfoParams {
+export interface GetDocInfoParams {
 	doc_id: string
 }
 export const get_doc_info = (params: GetDocInfoParams) =>
@@ -28,7 +28,7 @@ export const get_doc_info = (params: GetDocInfoParams) =>
 		params
 	})
 
-interface CreateDocPayload {
+export interface CreateDocPayload {
 	title: string
 	content?: string
 	summary?: string
@@ -40,7 +40,7 @@ export const create_doc = (payload: CreateDocPayload) =>
 		payload
 	})
 
-interface UpdateDocPayload {
+export interface UpdateDocPayload {
 	doc_id: string
 	content?: string
 	summary?: string
@@ -55,7 +55,7 @@ export const update_doc = (payload: UpdateDocPayload) =>
 		silent: true
 	})
 
-interface DeleteDocPayload {
+export interface DeleteDocPayload {
 	doc_ids: string[]
 }
 export const delete_doc = (payload: DeleteDocPayload) =>
@@ -64,7 +64,7 @@ export const delete_doc = (payload: DeleteDocPayload) =>
 		payload
 	})
 
-interface DocsParams {
+export interface DocsParams {
 	page: number
 	page_size: number
 	author_id?: string
@@ -72,16 +72,15 @@ interface DocsParams {
 	sort_by?: string
 	sort_type?: string
 }
-interface DocsResp {
-	total: number
-	list: Doc[]
-}
 export const search_docs = (params: DocsParams) =>
-	net.fetch<DocsResp>('/proxy/doc/docs', {
+	net.fetch<{
+		total: number
+		list: Doc[]
+	}>('/proxy/doc/docs', {
 		params
 	})
 
-interface GetDocDraftParams {
+export interface GetDocDraftParams {
 	doc_id: string
 	page: number
 	page_size: number
@@ -91,7 +90,7 @@ export const get_doc_drafts = (params: GetDocDraftParams) =>
 		params
 	})
 
-interface UpdateDocDraftPayload {
+export interface UpdateDocDraftPayload {
 	doc_id: string
 	content: string
 }

@@ -30,7 +30,7 @@ export default function Personal({ expand }: PersonalProps) {
 					content={
 						<Dropdown.Menu className="w-208px" closeAfterItemClick>
 							<Dropdown.Item
-								prefix={<LuSettings2 className="text-18px" />}
+								prefix={<LuSettings2 className="text-16px" />}
 								onClick={open_preferences_modal}
 							>
 								设置
@@ -38,14 +38,14 @@ export default function Personal({ expand }: PersonalProps) {
 							<Divider size="small" />
 							{has_login ? (
 								<Dropdown.Item
-									prefix={<TbLogout className="text-18px color-danger" />}
+									prefix={<TbLogout className="text-16px color-danger" />}
 									onClick={do_logout}
 								>
 									<span className="color-danger">退出登录</span>
 								</Dropdown.Item>
 							) : (
 								<Dropdown.Item
-									prefix={<TbLogin className="text-18px color-primary" />}
+									prefix={<TbLogin className="text-16px color-primary" />}
 									onClick={open_login_modal}
 								>
 									<span className="color-primary">去登录</span>

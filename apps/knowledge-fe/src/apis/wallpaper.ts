@@ -24,7 +24,7 @@ export interface Wallpaper {
 	tags: null
 }
 
-interface SearchWallpapersParams {
+export interface SearchWallpapersParams {
 	page: number
 	q: string
 	ai_art_filter: number
@@ -42,7 +42,7 @@ export const search_wallpapers = (params: SearchWallpapersParams) =>
 		params
 	})
 
-interface GetWallpaperInfoParams {
+export interface GetWallpaperInfoParams {
 	url: string
 }
 export const get_wallpaper_info = (params: GetWallpaperInfoParams) =>

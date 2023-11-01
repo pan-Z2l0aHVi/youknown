@@ -19,23 +19,23 @@ export interface Feed {
 	update_time: string
 }
 
-interface GetFeedListParams {
+export interface GetFeedListParams {
 	page: number
 	page_size: number
 	keywords?: string
 	sort_by?: 'creation_time' | 'update_time'
 	sort_type?: 'desc' | 'asc'
-}
-interface FeedListResp {
-	total: number
-	list: Feed[]
+	author_id?: string
 }
 export const get_feed_list = (params: GetFeedListParams) =>
-	net.fetch<FeedListResp>('/proxy/feed/list', {
+	net.fetch<{
+		total: number
+		list: Feed[]
+	}>('/proxy/feed/list', {
 		params
 	})
 
-interface GetFeedDetailParams {
+export interface GetFeedDetailParams {
 	feed_id: string
 }
 export const get_feed_detail = (params: GetFeedDetailParams) =>
@@ -43,7 +43,7 @@ export const get_feed_detail = (params: GetFeedDetailParams) =>
 		params
 	})
 
-interface PraiseFeedPayload {
+export interface PraiseFeedPayload {
 	event: 'like' | 'unlike'
 	feed_id: string
 }
