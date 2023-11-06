@@ -6,6 +6,7 @@ import { Doc, update_doc } from '@/apis/doc'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Image, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
+import { with_api } from '@/utils/request'
 
 interface CoverUploadProps {
 	doc_id: string
@@ -17,15 +18,14 @@ export default function CoverUpload(props: CoverUploadProps) {
 
 	const [updating, { setTrue: start_updating, setFalse: stop_updating }] = useBoolean(false)
 	const save_doc_cover = async (cover_url: string) => {
-		try {
-			const res = await update_doc({
-				doc_id,
-				cover: cover_url
-			})
-			on_updated(res)
-		} catch (error) {
-			console.error('error: ', error)
+		const [err, res] = await with_api(update_doc)({
+			doc_id,
+			cover: cover_url
+		})
+		if (err) {
+			return
 		}
+		on_updated(res)
 	}
 
 	const upload_cover = (file: File) =>

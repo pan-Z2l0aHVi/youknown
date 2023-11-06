@@ -8,7 +8,7 @@ import { DOC_TITLE_MAX_LEN } from '@/consts'
 import { useRecordStore } from '@/stores'
 import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
-import { NetFetchError } from '@/utils/request'
+import { NetFetchError, with_api } from '@/utils/request'
 import { useBoolean, useDebounce, useFetch } from '@youknown/react-hook/src'
 import {
 	Blockquote,
@@ -96,15 +96,14 @@ export default function Doc() {
 	})
 
 	const update_draft = async (content: string) => {
-		try {
-			const new_draft = await update_doc_draft({
-				doc_id,
-				content
-			})
-			set_draft([new_draft])
-		} catch (error) {
-			console.error('error: ', error)
+		const [err, res] = await with_api(update_doc_draft)({
+			doc_id,
+			content
+		})
+		if (err) {
+			return
 		}
+		set_draft([res])
 	}
 
 	const debounced_update = useDebounce(async (editor: Editor) => {
@@ -173,15 +172,14 @@ export default function Doc() {
 			content: editor.getHTML(),
 			summary: editor.getText()
 		}
-		try {
-			const new_doc = await update_doc(payload)
-			set_doc_info(new_doc)
-			editor.commands.setContent(new_doc.content)
-			record_update_doc(new_doc)
-			Toast.success({ content: '更新成功' })
-		} catch (error) {
-			console.error('error: ', error)
+		const [err, res] = await with_api(update_doc)(payload)
+		if (err) {
+			return
 		}
+		set_doc_info(res)
+		editor.commands.setContent(res.content)
+		record_update_doc(res)
+		Toast.success({ content: '更新成功' })
 	}
 
 	const update_doc_title = async () => {
@@ -198,14 +196,13 @@ export default function Doc() {
 			doc_id,
 			title: title_val
 		}
-		try {
-			const new_doc = await update_doc(payload)
-			set_doc_info(new_doc)
-			Toast.success({ content: '标题更新成功' })
-		} catch (error) {
-			console.error('error: ', error)
+		const [err, res] = await with_api(update_doc)(payload)
+		if (err) {
 			set_title_val(doc_title)
+			return
 		}
+		set_doc_info(res)
+		Toast.success({ content: '标题更新成功' })
 	}
 
 	const recovery_doc = (doc_content: string) => {

@@ -8,6 +8,7 @@ import { validateMaxLength, validateRequired } from '@/utils/validators'
 import { useBoolean, useFetch, useUpdate } from '@youknown/react-hook/src'
 import { Button, Card, CloseIcon, Form, Input, Loading, Modal, Motion, Radio, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+import { with_api } from '@/utils/request'
 
 interface DocOptionsModalProps {
 	open: boolean
@@ -25,20 +26,18 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 	const save_doc = async () => {
 		const state = form.getState()
 		show_save_loading()
-		try {
-			const res = await update_doc({
-				doc_id,
-				title: state.title,
-				cover: state.cover,
-				public: !!state.is_publish
-			})
-			on_updated?.(res)
-			hide_modal()
-		} catch (error) {
-			console.error('error: ', error)
-		} finally {
-			hide_save_loading()
+		const [err, res] = await with_api(update_doc)({
+			doc_id,
+			title: state.title,
+			cover: state.cover,
+			public: !!state.is_publish
+		})
+		hide_save_loading()
+		if (err) {
+			return
 		}
+		on_updated?.(res)
+		hide_modal()
 	}
 
 	const update = useUpdate()

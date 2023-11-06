@@ -4,12 +4,30 @@ import { TbChevronDown, TbSearch } from 'react-icons/tb'
 
 import { FormInstance, useBoolean } from '@youknown/react-hook/src'
 import { Button, Form, Input, Motion, Select, Space } from '@youknown/react-ui/src'
-import { cls, macroDefer } from '@youknown/utils/src'
+import { cls, macroDefer, storage } from '@youknown/utils/src'
 
+export const enum SWITCH {
+	ON = 1,
+	OFF = 0
+}
+export const enum CATE {
+	GENERAL = 1,
+	ANIME = 2,
+	PEOPLE = 3
+}
+export const enum PURITY {
+	SFW = 1,
+	SKETCHY = 2,
+	NSFW = 3
+}
+export const enum ORDER {
+	DESC = 'desc',
+	ASC = 'asc'
+}
 export interface filterState {
-	ai_art_filter: 0 | 1
-	categories: (1 | 2 | 3)[]
-	purity: (1 | 2)[]
+	ai_art_filter: SWITCH
+	categories: CATE[]
+	purity: PURITY[]
 	atleast: string
 	ratios: string
 	sorting: string
@@ -97,6 +115,23 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 		}
 	]
 
+	const purity_options = [
+		{
+			label: 'SFW',
+			value: PURITY.SFW
+		},
+		{
+			label: 'SKETCHY',
+			value: PURITY.SKETCHY
+		}
+	]
+	if (storage.local.get('nsfw')) {
+		purity_options.push({
+			label: 'NSFW',
+			value: PURITY.NSFW
+		})
+	}
+
 	return (
 		<>
 			<div className="flex flex-row-reverse ml-16px mr-16px">
@@ -129,11 +164,11 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 								options={[
 									{
 										label: '含AI作品',
-										value: 0
+										value: SWITCH.OFF
 									},
 									{
 										label: '不含AI作品',
-										value: 1
+										value: SWITCH.ON
 									}
 								]}
 							/>
@@ -146,35 +181,22 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 								options={[
 									{
 										label: '寻常',
-										value: 1
+										value: CATE.GENERAL
 									},
 									{
 										label: '二次元',
-										value: 2
+										value: CATE.ANIME
 									},
 									{
 										label: '人物',
-										value: 3
+										value: CATE.PEOPLE
 									}
 								]}
 							/>
 						</Form.Field>
 
 						<Form.Field label="purity">
-							<Select
-								className="w-240px!"
-								multiple
-								options={[
-									{
-										label: 'SFW',
-										value: 1
-									},
-									{
-										label: 'NSFW',
-										value: 2
-									}
-								]}
-							/>
+							<Select className="w-240px!" multiple options={purity_options} />
 						</Form.Field>
 
 						<div className="w-100%"></div>
@@ -280,11 +302,11 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 									options={[
 										{
 											label: '降序',
-											value: 'desc'
+											value: ORDER.DESC
 										},
 										{
 											label: '升序',
-											value: 'asc'
+											value: ORDER.ASC
 										}
 									]}
 								/>

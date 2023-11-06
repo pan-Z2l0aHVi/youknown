@@ -11,6 +11,7 @@ import { cls, QS } from '@youknown/utils/src'
 
 import DocCard from './components/doc-card'
 import DocFilter from './components/doc-filter'
+import { with_api } from '@/utils/request'
 
 export default function DocList() {
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
@@ -85,20 +86,20 @@ export default function DocList() {
 			open_login_modal()
 			return
 		}
-		const payload = {
+		const [err, res] = await with_api(create_doc)({
 			title: '未命名'
+		})
+		if (err) {
+			return
 		}
-		try {
-			const { doc_id } = await create_doc(payload)
-			navigate(
-				QS.stringify({
-					base: '/library/doc/doc-editor',
-					query: { doc_id }
-				})
-			)
-		} catch (error) {
-			console.error('error: ', error)
-		}
+		navigate(
+			QS.stringify({
+				base: '/library/doc/doc-editor',
+				query: {
+					doc_id: res.doc_id
+				}
+			})
+		)
 	}
 
 	const selected_ids = selection.map(item => item.doc_id)

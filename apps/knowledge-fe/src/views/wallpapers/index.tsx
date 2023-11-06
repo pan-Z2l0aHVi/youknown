@@ -7,7 +7,15 @@ import { Form, Loading } from '@youknown/react-ui/src'
 import { cls, macroDefer, storage } from '@youknown/utils/src'
 
 import WallpaperCard from './components/wallpaper-card'
-import WallpaperFilter, { filterState, ImperativeHandle, WallpaperQuery } from './components/wallpaper-filter'
+import WallpaperFilter, {
+	CATE,
+	filterState,
+	ImperativeHandle,
+	ORDER,
+	PURITY,
+	SWITCH,
+	WallpaperQuery
+} from './components/wallpaper-filter'
 
 const FILTER_STATE_KEY = 'wallpaper_filter_state'
 const FILTER_KEYWORDS_KEY = 'wallpaper_filter_keywords'
@@ -26,14 +34,14 @@ export default function Wallpapers() {
 
 	const form = Form.useForm<filterState>({
 		defaultState: session_filter_state ?? {
-			ai_art_filter: 0,
-			categories: [1, 2, 3],
-			purity: [1],
+			ai_art_filter: SWITCH.OFF,
+			categories: [CATE.GENERAL, CATE.ANIME, CATE.PEOPLE],
+			purity: [PURITY.NSFW],
 			atleast: '0x0',
 			ratios: 'landscape',
 			sorting: 'toplist',
 			topRange: '1M',
-			order: 'desc'
+			order: ORDER.DESC
 		},
 		onFulfilled(state) {
 			storage.session.set(FILTER_STATE_KEY, state)
@@ -59,28 +67,31 @@ export default function Wallpapers() {
 
 	const update_params = useEvent(() => {
 		const state = form.getState()
-		let categories = '000'
-		let purity = '000'
-		if (state.categories.includes(1)) {
-			categories = '1' + categories.slice(1)
+		const categories_arr = Array(3).fill(SWITCH.OFF)
+		const purity_arr = Array(3).fill(SWITCH.OFF)
+		if (state.categories.includes(CATE.GENERAL)) {
+			categories_arr[0] = SWITCH.ON
 		}
-		if (state.categories.includes(2)) {
-			categories = categories.slice(0, 1) + '1' + categories.slice(2)
+		if (state.categories.includes(CATE.ANIME)) {
+			categories_arr[1] = SWITCH.ON
 		}
-		if (state.categories.includes(3)) {
-			categories = categories.slice(0, 2) + '1'
+		if (state.categories.includes(CATE.PEOPLE)) {
+			categories_arr[2] = SWITCH.ON
 		}
-		if (state.purity.includes(1)) {
-			purity = '1' + purity.slice(1)
+		if (state.purity.includes(PURITY.SFW)) {
+			purity_arr[0] = SWITCH.ON
 		}
-		if (state.purity.includes(2)) {
-			purity = purity.slice(0, 1) + '1' + purity.slice(2)
+		if (state.purity.includes(PURITY.SKETCHY)) {
+			purity_arr[1] = SWITCH.ON
+		}
+		if (state.purity.includes(PURITY.NSFW)) {
+			purity_arr[2] = SWITCH.ON
 		}
 		set_params({
 			...state,
 			keywords,
-			categories,
-			purity
+			categories: categories_arr.join(''),
+			purity: purity_arr.join('')
 		})
 	})
 

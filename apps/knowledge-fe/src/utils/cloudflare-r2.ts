@@ -1,5 +1,6 @@
 import { get_r2_signed_url } from '@/apis/bucket'
 import { uuid } from '@youknown/utils/src'
+import { with_api } from './request'
 
 interface UploadProgress {
 	loaded: number
@@ -14,16 +15,14 @@ interface Options {
 export async function upload_cloudflare_r2(file: File, options?: Options) {
 	const id = uuid()
 	const key = `${id}/${file.name}`
-	let signed_url = ''
-	try {
-		const { url } = await get_r2_signed_url({ key })
-		signed_url = url
-	} catch (err) {
-		options?.error?.(err)
-	}
 
+	const [err, res] = await with_api(get_r2_signed_url)({ key })
+	if (err) {
+		options?.error?.(err)
+		return
+	}
 	const xhr = new XMLHttpRequest()
-	xhr.open('PUT', signed_url, true)
+	xhr.open('PUT', res.url, true)
 	xhr.setRequestHeader('Content-Type', file.type)
 	xhr.upload.addEventListener('progress', event => {
 		if (event.lengthComputable) {

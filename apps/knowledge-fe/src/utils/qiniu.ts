@@ -3,6 +3,7 @@ import { storage } from '@youknown/utils/src'
 
 import type { QiniuError, QiniuNetworkError, QiniuRequestError } from 'qiniu-js'
 import type { UploadProgress } from 'qiniu-js/esm/upload'
+import { with_api } from './request'
 
 const QINIU_TOKEN_KEY = 'qiniu_token'
 
@@ -13,15 +14,13 @@ interface Options {
 }
 
 async function refresh_token() {
-	try {
-		const res = await get_qiniu_token()
-		const token = res.token
-		storage.session.set(QINIU_TOKEN_KEY, token)
-		return token
-	} catch (error) {
-		console.error('get qiniu token error: ', error)
+	const [err, res] = await with_api(get_qiniu_token)()
+	if (err) {
 		return refresh_token()
 	}
+	const token = res.token
+	storage.session.set(QINIU_TOKEN_KEY, token)
+	return token
 }
 
 export async function upload_qiniu(file: File, options?: Options) {

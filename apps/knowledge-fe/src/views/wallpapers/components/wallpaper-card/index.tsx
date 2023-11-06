@@ -47,21 +47,23 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		})
 	}
 	const is_sketchy = wallpaper.purity === 'sketchy'
+	const is_nsfw = wallpaper.purity === 'nsfw'
 
 	return (
 		<figure
 			className={cls(
-				'relative before:b-solid before:rd-radius-m',
+				'relative before:rd-radius-m',
 				'before:content-empty before:pointer-events-none before:absolute before:left-0 before:right-0 before:top-0 before:bottom-0',
-				is_sketchy
-					? 'before:b-3 before:b-[rgb(255,200,64)] before:shadow-[inset_0_0_2px_rgba(0,0,0,0.2)]'
-					: 'before:b-bd-line before:b-1'
+				{
+					'before:b-2 before:b-solid before:b-yellow': is_sketchy,
+					'before:b-2 before:b-solid before:b-red': is_nsfw
+				}
 			)}
 			onMouseEnter={start_hover}
 			onMouseLeave={stop_hover}
 		>
 			<Image
-				className={cls('rd-radius-m shadow-shadow-l select-none bg-bg-2 b-bd-line b-1')}
+				className={cls('rd-radius-m shadow-shadow-s select-none bg-bg-2 b-bd-line b-1')}
 				style={{
 					width: 320,
 					height: 320 * (1 / Number(wallpaper.ratio))

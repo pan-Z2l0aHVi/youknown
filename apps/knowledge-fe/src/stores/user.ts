@@ -3,6 +3,7 @@ import { devtools } from 'zustand/middleware'
 
 import { get_profile, login as request_login } from '@/apis/user'
 import { remove_local_token, set_local_token } from '@/utils/local'
+import { with_api } from '@/utils/request'
 
 interface Profile {
 	user_id: string
@@ -35,13 +36,12 @@ export const useUserStore = create<UserState>()(
 
 			fetch_profile: async () => {
 				const { login, set_profile } = get()
-				try {
-					const profile = await get_profile()
-					login()
-					set_profile(profile)
-				} catch (error) {
-					console.error('error: ', error)
+				const [err, res] = await with_api(get_profile)()
+				if (err) {
+					return
 				}
+				login()
+				set_profile(res)
 			},
 
 			login: () => set({ has_login: true }),
@@ -54,14 +54,13 @@ export const useUserStore = create<UserState>()(
 					type: 1,
 					code
 				}
-				try {
-					const { token } = await request_login(payload)
-					set_local_token(token)
-					login()
-					fetch_profile()
-				} catch (error) {
-					console.error('error: ', error)
+				const [err, res] = await with_api(request_login)(payload)
+				if (err) {
+					return
 				}
+				set_local_token(res.token)
+				login()
+				fetch_profile()
 			},
 
 			do_logout: () => {

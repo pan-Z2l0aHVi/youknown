@@ -2,7 +2,7 @@ import { B_CODE } from '@/consts'
 import { useUserStore } from '@/stores'
 import { get_local_token } from '@/utils/local'
 import { Toast } from '@youknown/react-ui/src'
-import { headers2Obj, Net } from '@youknown/utils/src'
+import { ArgumentType, headers2Obj, Net, PromiseFnResult } from '@youknown/utils/src'
 
 interface Cause {
 	code: number
@@ -61,3 +61,15 @@ export const net = Net.create({
 				break
 		}
 	})
+
+type Fetcher = (...args: any[]) => Promise<any>
+export const with_api =
+	<T extends Fetcher>(fetcher: T) =>
+	async (...args: ArgumentType<T>[]): Promise<[null, PromiseFnResult<T>] | [NetFetchError, null]> => {
+		try {
+			const res: PromiseFnResult<T> = await fetcher(...args)
+			return [null, res]
+		} catch (err) {
+			return [err as NetFetchError, null]
+		}
+	}
