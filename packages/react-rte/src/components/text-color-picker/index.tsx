@@ -3,12 +3,12 @@ import './index.scss'
 import { ComponentProps, useState } from 'react'
 import { BiFont, BiSolidChevronDown } from 'react-icons/bi'
 
+import { useControllable } from '@youknown/react-hook/src'
 import { Button, Divider, Popover, Tooltip } from '@youknown/react-ui/src'
 import { cls, omit } from '@youknown/utils/src'
 
 import { ButtonProps, UI_EDITOR_PREFIX } from '../../common'
 import CommandBtn from '../command-btn'
-import { useControllable } from '@youknown/react-hook/src'
 
 interface TextColorPickerProps extends ButtonProps, ComponentProps<typeof Popover> {}
 export default function TextColorPicker(props: TextColorPickerProps) {

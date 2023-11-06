@@ -10,7 +10,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "deploy":"node scripts/upload-r2.js"
+    "deploy": "node scripts/upload-r2.js"
   },
   "author": "Grey",
   "license": "MIT",
@@ -24,7 +24,7 @@
     "html-diff-ts": "^1.4.2",
     "idb-keyval": "^6.2.1",
     "qiniu-js": "^3.4.1",
-    "zustand": "^4.4.1"
+    "zustand": "^4.4.6"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": "eslint --cache --fix",
@@ -36,10 +36,10 @@
     "not dead"
   ],
   "devDependencies": {
-    "@types/chroma-js": "^2.4.1",
+    "@aws-sdk/client-s3": "^3.441.0",
+    "@aws-sdk/lib-storage": "^3.441.0",
+    "@types/chroma-js": "^2.4.2",
     "@types/mime-types": "^2.1.3",
-    "@aws-sdk/client-s3": "^3.437.0",
-    "@aws-sdk/lib-storage": "^3.438.0",
     "mime-types": "^2.1.35"
   }
 }

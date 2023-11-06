@@ -2,7 +2,7 @@ import { RiHistoryFill } from 'react-icons/ri'
 
 import { Feed } from '@/apis/feed'
 import { format_time } from '@/utils'
-import { Avatar } from '@youknown/react-ui/src'
+import { Avatar, Image } from '@youknown/react-ui/src'
 
 interface OverviewProps {
 	selection: Feed
@@ -12,12 +12,12 @@ export default function Overview(props: OverviewProps) {
 	return (
 		<>
 			{selection.cover ? (
-				<img
-					className="object-cover w-136px h-136px rd-radius-m shadow-shadow-l b-1 b-solid b-bd-line"
+				<Image
+					className="object-cover w-144px h-144px rd-radius-m shadow-shadow-l b-1 b-solid b-bd-line"
 					src={selection.cover}
 				/>
 			) : (
-				<div className="flex items-center justify-center w-136px h-136px rd-radius-m shadow-shadow-l b-1 b-solid b-bd-line bg-bg-2">
+				<div className="flex items-center justify-center w-144px h-144px rd-radius-m shadow-shadow-l b-1 b-solid b-bd-line bg-bg-2">
 					<span className="color-text-3 text-16px font-600">暂无封面</span>
 				</div>
 			)}

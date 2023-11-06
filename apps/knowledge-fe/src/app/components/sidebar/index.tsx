@@ -1,13 +1,13 @@
 import { useEffect, useState, useTransition } from 'react'
 import { TbDotsVertical } from 'react-icons/tb'
 
+import TransitionLink from '@/components/transition-link'
 import { useBoolean, useCreation, useLatestRef } from '@youknown/react-hook/src'
-import { Tooltip } from '@youknown/react-ui/src'
+import { Image, Tooltip } from '@youknown/react-ui/src'
 import { cls, storage } from '@youknown/utils/src'
 
 import Account from './components/account'
 import Menu from './components/menu'
-import TransitionLink from '@/components/transition-link'
 
 const EXPAND_KEY = 'sidebar-expand'
 const WIDTH_KEY = 'sidebar-width'
@@ -102,7 +102,7 @@ export default function Sidebar() {
 				)}
 			>
 				<TransitionLink to="/">
-					<img
+					<Image
 						className="w-32px h-32px ml-6px rd-radius-m b-1 b-bd-line b-solid"
 						src={`${import.meta.env.VITE_CDN_BASE_URL}/branch.png`}
 					/>

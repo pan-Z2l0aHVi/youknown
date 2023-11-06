@@ -3,11 +3,11 @@ import { useEffect, useRef, useState } from 'react'
 import { search_wallpapers } from '@/apis/wallpaper'
 import Header from '@/app/components/header'
 import { useCreation, useEvent, useInfinity, useUpdate } from '@youknown/react-hook/src'
-import { Form, Loading, Toast } from '@youknown/react-ui/src'
+import { Form, Loading } from '@youknown/react-ui/src'
 import { cls, macroDefer, storage } from '@youknown/utils/src'
 
 import WallpaperCard from './components/wallpaper-card'
-import WallpaperFilter, { filterState, WallpaperQuery } from './components/wallpaper-filter'
+import WallpaperFilter, { filterState, ImperativeHandle, WallpaperQuery } from './components/wallpaper-filter'
 
 const FILTER_STATE_KEY = 'wallpaper_filter_state'
 const FILTER_KEYWORDS_KEY = 'wallpaper_filter_keywords'
@@ -20,6 +20,7 @@ export default function Wallpapers() {
 	const session_keywords = useCreation(() => storage.session.get(FILTER_KEYWORDS_KEY))
 	const [keywords, set_keywords] = useState(session_keywords ?? '')
 	const session_filter_state = useCreation(() => storage.session.get<filterState>(FILTER_STATE_KEY))
+	const keywords_filter_ref = useRef<ImperativeHandle>(null)
 
 	const [params, set_params] = useState<WallpaperQuery>()
 
@@ -122,7 +123,7 @@ export default function Wallpapers() {
 	const wallpaper_list = (
 		<div
 			ref={wrapper_ref}
-			className={cls('grid gap-16px items-center justify-center', 'grid-cols-[repeat(auto-fill,240px)]')}
+			className={cls('grid gap-16px items-center justify-center', 'grid-cols-[repeat(auto-fill,320px)]')}
 		>
 			{wallpapers.map(wallpaper => (
 				<WallpaperCard
@@ -130,6 +131,12 @@ export default function Wallpapers() {
 					wallpaper={wallpaper}
 					search_similar={() => {
 						set_keywords(`like:${wallpaper.id}`)
+						window.scrollTo({
+							top: 0,
+							left: 0,
+							behavior: 'instant'
+						})
+						keywords_filter_ref.current?.focus_keywords_input()
 						macroDefer(() => {
 							update_params()
 							macroDefer(() => {
@@ -146,8 +153,9 @@ export default function Wallpapers() {
 		<>
 			<Header heading="壁纸"></Header>
 
-			<div className="p-[32px_16px_0]">
+			<div className="p-[16px_16px_0]">
 				<WallpaperFilter
+					ref={keywords_filter_ref}
 					form={form}
 					keywords={keywords}
 					on_keywords_input={val => {

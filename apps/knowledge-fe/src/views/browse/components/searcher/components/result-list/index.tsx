@@ -81,7 +81,7 @@ const ResultList = forwardRef<HTMLDivElement, ResultListProps>((props, prop_ref)
 	}
 
 	return (
-		<div ref={ref} className="z-1 overflow-y-auto overflow-y-overlay h-100% p-12px">
+		<div ref={ref} className="z-1 overflow-y-auto overflow-y-overlay h-100% p-12px pl-16px pr-16px">
 			{result.map(item => {
 				const selected = selection?.feed_id === item.feed_id
 				return (

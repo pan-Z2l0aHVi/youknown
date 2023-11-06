@@ -1,6 +1,6 @@
 import './image-preview.scss'
 
-import { MouseEventHandler, useEffect, useRef, useState, WheelEventHandler } from 'react'
+import { MouseEventHandler, ReactEventHandler, useEffect, useRef, useState, WheelEventHandler } from 'react'
 import {
 	TbDownload,
 	TbPhotoX,
@@ -34,6 +34,8 @@ interface ImagePreviewProps {
 	unmountOnExit?: boolean
 	open: boolean
 	onClose: () => void
+	onLoad?: ReactEventHandler<HTMLImageElement>
+	onError?: ReactEventHandler<HTMLImageElement>
 	onDownloadSuccess?: () => void
 	onDownloadError?: (err: string | Event) => void
 }
@@ -46,6 +48,8 @@ const ImagePreview = (props: ImagePreviewProps) => {
 		scaleRange = [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 5, 8],
 		unmountOnExit = true,
 		onClose,
+		onLoad,
+		onError,
 		onDownloadSuccess,
 		onDownloadError
 	} = props
@@ -293,8 +297,14 @@ const ImagePreview = (props: ImagePreviewProps) => {
 								: {})
 						}}
 						onMouseDown={handleDragDetailStart}
-						onLoad={handleDetailLoaded}
-						onError={handleDetailError}
+						onLoad={event => {
+							onLoad?.(event)
+							handleDetailLoaded()
+						}}
+						onError={event => {
+							onError?.(event)
+							handleDetailError()
+						}}
 						onClick={() => {
 							if (detailLoading) {
 								onClose?.()

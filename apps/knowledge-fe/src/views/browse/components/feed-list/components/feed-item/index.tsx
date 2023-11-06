@@ -6,7 +6,7 @@ import { Feed } from '@/apis/feed'
 import TransitionLink from '@/components/transition-link'
 import useFeedPraise from '@/hooks/use-feed-praise'
 import { format_time } from '@/utils'
-import { Avatar, Button, Tooltip } from '@youknown/react-ui/src'
+import { Avatar, Button, Image, Tooltip } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
 
 interface FeedItemProps {
@@ -64,7 +64,7 @@ export default function FeedItem(props: FeedItemProps) {
 
 				{feed.cover && (
 					<TransitionLink className="ml-48px" to={doc_detail_url}>
-						<img
+						<Image
 							className="w-160px h-108px b-bd-line b-1 b-solid rd-radius-m object-cover"
 							src={feed.cover}
 							loading="lazy"

@@ -6,7 +6,7 @@ import { Feed, get_feed_detail } from '@/apis/feed'
 import Header from '@/app/components/header'
 import { useRecordStore } from '@/stores'
 import { useFetch } from '@youknown/react-hook/src'
-import { Loading } from '@youknown/react-ui/src'
+import { Image, Loading } from '@youknown/react-ui/src'
 
 export default function FeedDetail() {
 	const recording = useRecordStore(state => state.recording)
@@ -50,7 +50,12 @@ export default function FeedDetail() {
 			) : (
 				<div className="flex p-24px">
 					<div className="w-720px m-auto">
-						<img className="w-100% max-h-30vh min-h-40px object-cover rd-radius-m" src={detail?.cover} />
+						{detail?.cover && (
+							<Image
+								className="w-100% max-h-30vh min-h-40px object-cover rd-radius-m"
+								src={detail.cover}
+							/>
+						)}
 						<div className="rich-text-container" dangerouslySetInnerHTML={{ __html: doc_content }}></div>
 					</div>
 				</div>

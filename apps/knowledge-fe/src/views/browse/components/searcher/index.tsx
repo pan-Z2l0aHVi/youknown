@@ -76,13 +76,13 @@ export default function Searcher() {
 	})
 
 	const card_header = (
-		<div className="p-12px b-b-1 b-b-solid b-b-bd-line">
+		<div className="p-16px b-b-1 b-b-solid b-b-bd-line">
 			<Input
 				className="w-100%! text-16px"
 				autoFocus
 				size="large"
 				placeholder="搜一搜"
-				prefix={<TbSearch className="text-16px mr-4px ml-4px" />}
+				prefix={<TbSearch className="color-text-3 text-16px mr-4px ml-4px" />}
 				allowClear
 				value={keywords}
 				onChange={set_keywords}
@@ -101,7 +101,7 @@ export default function Searcher() {
 			<Loading className="w-100%!" spinning={loading && page === 1}>
 				{has_keywords && has_result ? (
 					<div className="flex h-400px">
-						<div className="flex flex-col items-center w-160px pt-12px b-r-solid b-r-1 b-r-bd-line">
+						<div className="flex flex-col items-center w-160px p-t-12px pb-12px pl-16px">
 							{selection && <Overview selection={selection} />}
 						</div>
 						<div className="flex-1">

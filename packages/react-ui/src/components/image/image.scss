@@ -6,7 +6,7 @@ $prefix: '#{$ui-prefix}-image';
 
 	cursor: pointer;
 
-	&-disabled {
-		cursor: default;
+	&-can-preview {
+		cursor: pointer;
 	}
 }

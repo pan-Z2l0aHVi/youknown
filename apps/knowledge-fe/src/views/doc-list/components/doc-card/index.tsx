@@ -1,8 +1,12 @@
 import copy from 'copy-to-clipboard'
 import { useRef } from 'react'
+import { FiEdit3 } from 'react-icons/fi'
 import { GoCheck } from 'react-icons/go'
-import { RiEditCircleLine, RiHistoryFill } from 'react-icons/ri'
-import { TbCloudUpload, TbShare2 } from 'react-icons/tb'
+import { LuSettings2 } from 'react-icons/lu'
+import { MdOutlinePublic } from 'react-icons/md'
+import { PiTrashSimpleBold } from 'react-icons/pi'
+import { RiHistoryFill } from 'react-icons/ri'
+import { TbShare2 } from 'react-icons/tb'
 
 import { delete_doc, Doc } from '@/apis/doc'
 import DocOptionsModal from '@/components/doc-options-modal'
@@ -13,8 +17,6 @@ import { format_time } from '@/utils'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dialog, Dropdown, Motion, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
-import { PiTrashSimpleBold } from 'react-icons/pi'
-import { LuSettings2 } from 'react-icons/lu'
 
 interface DocCardProps {
 	choosing: boolean
@@ -88,7 +90,7 @@ export default function DocCard(props: DocCardProps) {
 				}
 			})
 		)
-		Toast.success({ content: '复制分享链接成功' })
+		Toast.success({ content: '已复制分享链接' })
 	}
 
 	const container_ref = useRef(null)
@@ -104,7 +106,7 @@ export default function DocCard(props: DocCardProps) {
 					trigger="click"
 					content={
 						<Dropdown.Menu className="w-120px" closeAfterItemClick>
-							<Dropdown.Item prefix={<RiEditCircleLine className="text-16px" />} onClick={select_doc}>
+							<Dropdown.Item prefix={<FiEdit3 className="text-16px" />} onClick={select_doc}>
 								编辑
 							</Dropdown.Item>
 							{info.public && (
@@ -146,9 +148,9 @@ export default function DocCard(props: DocCardProps) {
 				{info.public && (
 					<div
 						className="absolute top-0 left-16px w-20px h-24px bg-primary text-center"
-						style={{ clipPath: 'polygon(0% 0%, 100% 0, 100% 100%, 50% 65%, 0% 100%)' }}
+						style={{ clipPath: 'polygon(0% 0%, 100% 0, 100% 100%, 50% 75%, 0% 100%)' }}
 					>
-						<TbCloudUpload className="color-#fff text-16px" />
+						<MdOutlinePublic className="color-#fff text-18px" />
 					</div>
 				)}
 				{choosing && selected && (
@@ -163,7 +165,7 @@ export default function DocCard(props: DocCardProps) {
 				)}
 
 				<div className="flex-1 pt-32px" onClick={select_doc}>
-					<div className="p-[0_8px_0_12px] text-16px font-600 text-shadow-[0px_0px_16px_#fff] select-none">
+					<div className="p-[0_8px_0_12px] text-16px font-600 text-shadow-[0px_0px_4px_#fff] select-none">
 						{info.title}
 					</div>
 				</div>

@@ -28,7 +28,12 @@ export default function Browse() {
 					]}
 				/>
 
-				<Input prefix={<TbSearch />} placeholder="搜一搜" outline={false} onFocus={show_search_modal} />
+				<Input
+					prefix={<TbSearch className="color-text-3" />}
+					placeholder="搜一搜"
+					outline={false}
+					onFocus={show_search_modal}
+				/>
 			</Header>
 
 			<Modal

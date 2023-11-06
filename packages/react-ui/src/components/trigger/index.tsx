@@ -108,8 +108,9 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 		trigger: 'onOpenChange'
 	})
 
-	const { x, y, strategy, refs, context } = useFloating({
-		open: open,
+	const { refs, context, floatingStyles } = useFloating({
+		transform: false,
+		open,
 		onOpenChange: setOpen,
 		placement,
 		whileElementsMounted: autoUpdate,
@@ -153,11 +154,8 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 			ref={refs.setFloating}
 			className={`${prefixCls}-content`}
 			style={{
-				position: strategy,
-				top: y ?? 0,
-				left: x ?? 0,
-				width: 'max-content',
 				zIndex,
+				...floatingStyles,
 				...style
 			}}
 			{...getFloatingProps(rest)}

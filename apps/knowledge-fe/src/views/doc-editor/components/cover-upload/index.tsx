@@ -5,7 +5,7 @@ import { TbPhotoPlus } from 'react-icons/tb'
 import { Doc, update_doc } from '@/apis/doc'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { useBoolean } from '@youknown/react-hook/src'
-import { Button, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
+import { Button, Image, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
 
 interface CoverUploadProps {
 	doc_id: string
@@ -52,7 +52,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 		<Loading className="w-100%!" spinning={updating}>
 			{cover ? (
 				<div className="group relative">
-					<img className="w-100% max-h-30vh min-h-40px object-cover rd-radius-m" src={cover} />
+					<Image className="w-100% max-h-30vh min-h-40px object-cover rd-radius-m" src={cover} />
 					<Space className="group-hover-display-flex! display-none! absolute right-16px bottom-16px">
 						<Upload ref={upload_ref} headless action={upload_cover}>
 							<Button

@@ -1,6 +1,6 @@
 import './image.scss'
 
-import { ForwardedRef, forwardRef, ImgHTMLAttributes, useEffect, useRef } from 'react'
+import { ForwardedRef, forwardRef, ImgHTMLAttributes, useEffect, useRef, useState } from 'react'
 
 import { useComposeRef, useEvent } from '@youknown/react-hook/src'
 import { ArgumentType, cls, is } from '@youknown/utils/src'
@@ -11,7 +11,7 @@ import { preview } from './preview'
 export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement>, Omit<ArgumentType<typeof preview>, 'url'> {
 	src: string
 	previewSrc?: string | (() => Promise<string>)
-	previewDisabled?: boolean
+	canPreview?: boolean
 }
 
 const Image = (props: ImageProps, propRef: ForwardedRef<HTMLImageElement>) => {
@@ -19,17 +19,19 @@ const Image = (props: ImageProps, propRef: ForwardedRef<HTMLImageElement>) => {
 		className,
 		src = '',
 		previewSrc = src,
-		previewDisabled = false,
+		canPreview = false,
 		toolbarVisible,
 		scaleRange,
 		onDownloadSuccess,
 		onDownloadError,
 		onClick,
+		onError,
 		...rest
 	} = props
 
 	const innerRef = useRef<HTMLImageElement>(null)
 	const imgRef = useComposeRef(propRef, innerRef)
+	const [isError, setIsError] = useState(false)
 
 	const previewInstRef = useRef<ReturnType<typeof preview>>()
 	const showDetail = useEvent((url: string) => {
@@ -60,19 +62,26 @@ const Image = (props: ImageProps, propRef: ForwardedRef<HTMLImageElement>) => {
 	return (
 		<img
 			className={cls(className, prefixCls, {
-				[`${prefixCls}-disabled`]: previewDisabled
+				[`${prefixCls}-can-preview`]: canPreview,
+				[`${prefixCls}-is-error`]: isError
 			})}
 			ref={imgRef}
-			src={src}
+			src={isError ? '//cdn.youknown.cc/iShot_2023-11-04_17.29.10.png' : src}
+			onError={event => {
+				onError?.(event)
+				setIsError(true)
+			}}
 			onClick={event => {
 				onClick?.(event)
 
-				if (is.string(previewSrc)) {
-					showDetail(previewSrc)
-				} else {
-					previewSrc().then(url => {
-						showDetail(url)
-					})
+				if (canPreview) {
+					if (is.string(previewSrc)) {
+						showDetail(previewSrc)
+					} else {
+						previewSrc().then(url => {
+							showDetail(url)
+						})
+					}
 				}
 			}}
 			{...rest}

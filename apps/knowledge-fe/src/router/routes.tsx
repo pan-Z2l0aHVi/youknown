@@ -1,6 +1,5 @@
 import { createElement, lazy, ReactNode } from 'react'
-import { LuWallpaper } from 'react-icons/lu'
-import { TbBook2, TbHistory, TbLayout, TbNotes, TbStar } from 'react-icons/tb'
+import { TbBook2, TbBookmarks, TbHistory, TbLayout, TbNotes, TbPhotoSquareRounded } from 'react-icons/tb'
 import { Navigate, RouteObject } from 'react-router-dom'
 
 export type RouteItem = RouteObject & {
@@ -61,7 +60,7 @@ export const nav_routes = [
 		element: createElement(lazy(() => import('@/views/wallpapers'))),
 		state: {
 			nav_name: '壁纸',
-			icon: <LuWallpaper />
+			icon: <TbPhotoSquareRounded />
 		}
 	},
 	{
@@ -69,7 +68,7 @@ export const nav_routes = [
 		element: createElement(lazy(() => import('@/views/favorites'))),
 		state: {
 			nav_name: '收藏夹',
-			icon: <TbStar />
+			icon: <TbBookmarks />
 		}
 	},
 	{

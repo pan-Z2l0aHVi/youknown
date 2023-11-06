@@ -61,9 +61,9 @@ export default function History() {
 			<Header heading="历史记录">
 				<Space>
 					<Input
-						prefix={<TbSearch />}
+						prefix={<TbSearch className="color-text-3" />}
 						allowClear
-						placeholder="搜索"
+						placeholder="搜索历史记录"
 						value={search_input}
 						onChange={set_search_input}
 					/>
@@ -71,13 +71,13 @@ export default function History() {
 				</Space>
 			</Header>
 
-			<div className="flex justify-center p-32px">
+			<div className="flex justify-center p-[0_32px_32px_32px]">
 				<div className="flex-1 max-w-960px">
 					{records_result.map(record => {
 						const timing_desc = format_time(record.creation_time.getTime())
 						return (
 							<div key={record.id} className="group flex hover-bg-hover rd-radius-l p-[0_16px]">
-								<div className="flex items-center w-80px text-12px color-text-3 group-hover-text-text-2">
+								<div className="flex items-center justify-end w-160px text-12px color-text-3 group-hover-text-text-2">
 									<RiHistoryFill className="mr-4px text-14px" />
 									{timing_desc}
 								</div>

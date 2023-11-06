@@ -1,5 +1,6 @@
+import { FiDownloadCloud, FiHeart } from 'react-icons/fi'
 import { RxDotsHorizontal } from 'react-icons/rx'
-import { TbEyeCheck } from 'react-icons/tb'
+import { TbEyeCheck, TbPhotoSearch } from 'react-icons/tb'
 
 import { Wallpaper } from '@/apis/wallpaper'
 import { find_wallpaper_seen, insert_wallpaper_seen } from '@/utils/idb'
@@ -18,7 +19,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 	const [hovered, { setTrue: start_hover, setFalse: stop_hover }] = useBoolean(false)
 	const [more_open, { setBool: set_more_open }] = useBoolean(false)
 	const [img_loaded, { setTrue: set_img_loaded }] = useBoolean(false)
-	const { data: seen } = useFetch(find_wallpaper_seen, {
+	const { data: seen, run: get_seen } = useFetch(find_wallpaper_seen, {
 		params: [wallpaper.id]
 	})
 
@@ -33,14 +34,17 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		})
 	}
 
-	const preview_picture = () => {
+	const preview_picture = async () => {
 		Image.preview({
 			url: wallpaper.path,
 			onDownloadError() {
 				toast_download_err()
+			},
+			async onLoad() {
+				await insert_wallpaper_seen(wallpaper.id)
+				get_seen()
 			}
 		})
-		insert_wallpaper_seen(wallpaper.id)
 	}
 	const is_sketchy = wallpaper.purity === 'sketchy'
 
@@ -56,11 +60,11 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 			onMouseEnter={start_hover}
 			onMouseLeave={stop_hover}
 		>
-			<img
+			<Image
 				className={cls('rd-radius-m shadow-shadow-l select-none bg-bg-2 b-bd-line b-1')}
 				style={{
-					width: 240,
-					height: 240 * (1 / Number(wallpaper.ratio))
+					width: 320,
+					height: 320 * (1 / Number(wallpaper.ratio))
 				}}
 				src={wallpaper.thumbs.original}
 				loading="lazy"
@@ -100,14 +104,20 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 						trigger="click"
 						spacing={4}
 						content={
-							<Dropdown.Menu className="w-112px" onClick={stop_hover} closeAfterItemClick>
-								<Dropdown.Item onClick={handle_download}>
+							<Dropdown.Menu className="w-120px" onClick={stop_hover} closeAfterItemClick>
+								<Dropdown.Item
+									prefix={<FiDownloadCloud className="text-16px" />}
+									onClick={handle_download}
+								>
 									<span>下载</span>
 								</Dropdown.Item>
-								<Dropdown.Item>
+								<Dropdown.Item prefix={<FiHeart className="text-16px" />}>
 									<span>收藏</span>
 								</Dropdown.Item>
-								<Dropdown.Item onClick={search_similar}>
+								<Dropdown.Item
+									prefix={<TbPhotoSearch className="text-16px" />}
+									onClick={search_similar}
+								>
 									<span>查找相似</span>
 								</Dropdown.Item>
 							</Dropdown.Menu>

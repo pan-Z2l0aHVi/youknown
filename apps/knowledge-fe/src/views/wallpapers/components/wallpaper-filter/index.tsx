@@ -1,3 +1,4 @@
+import { forwardRef, Ref, useImperativeHandle, useRef } from 'react'
 import { RiFilter3Fill } from 'react-icons/ri'
 import { TbChevronDown, TbSearch } from 'react-icons/tb'
 
@@ -30,10 +31,19 @@ interface WallpaperFilerProps {
 	on_search: (keywords: string) => void
 	on_reset: () => void
 }
+export interface ImperativeHandle {
+	focus_keywords_input: () => void
+}
 
-export default function WallpaperFilter(props: WallpaperFilerProps) {
+function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>) {
 	const { form, keywords, on_keywords_input, loading, on_search, on_reset } = props
 	const [filter_open, { setReverse: toggle_filter }] = useBoolean(true)
+	const keywords_input_ref = useRef<HTMLInputElement>(null)
+	useImperativeHandle(ref, () => ({
+		focus_keywords_input() {
+			keywords_input_ref.current?.focus()
+		}
+	}))
 
 	const { sorting } = form.getState()
 	const at_least_options = [
@@ -92,7 +102,8 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 			<div className="flex flex-row-reverse ml-16px mr-16px">
 				<Space>
 					<Input
-						prefix={<TbSearch />}
+						ref={keywords_input_ref}
+						prefix={<TbSearch className="color-text-3" />}
 						placeholder="关键词"
 						allowClear
 						value={keywords}
@@ -302,3 +313,5 @@ export default function WallpaperFilter(props: WallpaperFilerProps) {
 		</>
 	)
 }
+
+export default forwardRef(WallpaperFilter)

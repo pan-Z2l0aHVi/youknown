@@ -7,7 +7,7 @@ export default function Favorites() {
 	return (
 		<>
 			<Header heading="收藏夹">
-				<Input prefix={<TbSearch />} placeholder="搜收藏" />
+				<Input prefix={<TbSearch className="color-text-3" />} placeholder="搜收藏" />
 			</Header>
 
 			<div className="p-32px"></div>
