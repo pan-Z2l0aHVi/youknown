@@ -1,8 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import mime from 'mime-types'
-import { S3Client } from '@aws-sdk/client-s3'
-import { Upload } from '@aws-sdk/lib-storage'
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 
 const BUCKET = 'youknown'
 const ACCOUNT_ID = '70bc20cd210d1c9e762acb3786056b90'
@@ -37,20 +36,15 @@ function upload(localFile) {
 	const fileExtension = localFile.split('.').pop()
 	const contentType = mime.contentType(fileExtension)
 
-	const upload = new Upload({
-		client,
-		params: {
-			Bucket: BUCKET,
-			Key: key,
-			Body: fs.readFileSync(localFile),
-			ContentType: contentType
-		}
-	})
-	upload.on('httpUploadProgress', progress => {
-		console.log(`进度:${Math.floor(progress.loaded / progress.total) * 100}%`, progress)
-	})
-	upload
-		.done()
+	client
+		.send(
+			new PutObjectCommand({
+				Bucket: BUCKET,
+				Key: key,
+				Body: fs.readFileSync(localFile),
+				ContentType: contentType
+			})
+		)
 		.then(res => {
 			console.log(key, res, '文件上传成功！')
 		})

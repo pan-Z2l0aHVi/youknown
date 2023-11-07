@@ -37,7 +37,6 @@
   ],
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.441.0",
-    "@aws-sdk/lib-storage": "^3.441.0",
     "@types/chroma-js": "^2.4.2",
     "@types/mime-types": "^2.1.3",
     "mime-types": "^2.1.35"
