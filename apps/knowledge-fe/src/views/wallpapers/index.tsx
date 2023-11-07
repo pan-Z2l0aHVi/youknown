@@ -36,7 +36,7 @@ export default function Wallpapers() {
 		defaultState: session_filter_state ?? {
 			ai_art_filter: SWITCH.OFF,
 			categories: [CATE.GENERAL, CATE.ANIME, CATE.PEOPLE],
-			purity: [PURITY.NSFW],
+			purity: [PURITY.SFW],
 			atleast: '0x0',
 			ratios: 'landscape',
 			sorting: 'toplist',

@@ -7,6 +7,7 @@ import { ArgumentType, cls, is } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import { preview } from './preview'
+import crackImage from './crack-image'
 
 export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement>, Omit<ArgumentType<typeof preview>, 'url'> {
 	src: string
@@ -66,7 +67,7 @@ const Image = (props: ImageProps, propRef: ForwardedRef<HTMLImageElement>) => {
 				[`${prefixCls}-is-error`]: isError
 			})}
 			ref={imgRef}
-			src={isError ? '//cdn.youknown.cc/iShot_2023-11-04_17.29.10.png' : src}
+			src={isError ? crackImage : src}
 			onError={event => {
 				onError?.(event)
 				setIsError(true)

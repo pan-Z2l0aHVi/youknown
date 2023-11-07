@@ -15,7 +15,7 @@ import Space from '../space'
 export interface DialogProps extends ComponentProps<typeof Modal> {
 	hasCancel?: boolean
 	closeIcon?: ReactNode
-	maskClassName?: string
+	overlayClassName?: string
 	title?: string
 	okText?: string
 	cancelText?: string
@@ -31,8 +31,8 @@ const Dialog: FC<DialogProps> = props => {
 		children,
 		className,
 		open,
-		maskClassName,
-		maskClosable,
+		overlayClassName,
+		overlayClosable,
 		hasCancel = true,
 		title,
 		okText = 'Ok',
@@ -46,7 +46,7 @@ const Dialog: FC<DialogProps> = props => {
 	} = props
 
 	return (
-		<Modal open={open} className={maskClassName} maskClosable={maskClosable} onCancel={onCancel} {...rest}>
+		<Modal open={open} className={overlayClassName} overlayClosable={overlayClosable} onCancel={onCancel} {...rest}>
 			<Motion.Zoom in={open}>
 				<Card
 					className={cls(className, prefixCls)}

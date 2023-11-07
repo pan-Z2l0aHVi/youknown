@@ -32,7 +32,7 @@ import { useControllable } from '@youknown/react-hook/src'
 import { omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
-import { useZIndex, ZIndexLevel } from '../../hooks/useZIndex'
+import { useZIndex } from '../../hooks/useZIndex'
 import Motion from '../motion'
 
 export const EventsByTriggerNeed = [
@@ -69,7 +69,6 @@ interface TriggerProps extends HTMLAttributes<HTMLElement> {
 	unmountOnExit?: boolean
 	motion?: 'none' | 'grow' | 'stretch' | 'fade' | 'zoom'
 	appendTo?: HTMLElement | null
-	zIndexLevel?: ZIndexLevel
 	ariaRole?: 'dialog' | 'alertdialog' | 'tooltip' | 'menu' | 'listbox' | 'grid' | 'tree'
 	onClickOutside?: (event: globalThis.MouseEvent) => void
 	onOpenChange?: (open: boolean) => void
@@ -89,7 +88,6 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 		unmountOnExit = false,
 		motion = 'none',
 		appendTo = document.body,
-		zIndexLevel = 'tooltip',
 		ariaRole = 'tooltip',
 		onClickOutside,
 		style,
@@ -145,7 +143,7 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([hover, click, focus, dismiss, role])
 
-	const zIndex = useZIndex(zIndexLevel, open)
+	const zIndex = useZIndex('popup', open)
 
 	const prefixCls = `${UI_PREFIX}-trigger`
 
@@ -173,7 +171,7 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 		case 'stretch':
 			const [stretchDirection] = placement.split('-') as ('left' | 'top' | 'right' | 'bottom')[]
 			portalEle = (
-				<Motion.Stretch in={open} mountOnEnter unmountOnExit={unmountOnExit} direction={stretchDirection}>
+				<Motion.Stretch in={open} unmountOnExit={unmountOnExit} direction={stretchDirection}>
 					{popupEle}
 				</Motion.Stretch>
 			)
@@ -195,21 +193,21 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 			}
 			const transformOrigin = growOriginMap[placement] ?? 'center'
 			portalEle = (
-				<Motion.Grow in={open} mountOnEnter unmountOnExit={unmountOnExit} style={{ transformOrigin }}>
+				<Motion.Grow in={open} unmountOnExit={unmountOnExit} style={{ transformOrigin }}>
 					{popupEle}
 				</Motion.Grow>
 			)
 			break
 		case 'fade':
 			portalEle = (
-				<Motion.Fade in={open} mountOnEnter unmountOnExit={unmountOnExit}>
+				<Motion.Fade in={open} unmountOnExit={unmountOnExit}>
 					{popupEle}
 				</Motion.Fade>
 			)
 			break
 		case 'zoom':
 			portalEle = (
-				<Motion.Zoom in={open} mountOnEnter unmountOnExit={unmountOnExit}>
+				<Motion.Zoom in={open} unmountOnExit={unmountOnExit}>
 					{popupEle}
 				</Motion.Zoom>
 			)

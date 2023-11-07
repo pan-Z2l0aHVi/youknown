@@ -13,10 +13,11 @@ import Motion from '../motion'
 
 interface ModalProps extends HTMLAttributes<HTMLElement> {
 	open?: boolean
-	maskClosable?: boolean
+	overlayClosable?: boolean
 	escClosable?: boolean
 	unmountOnExit?: boolean
 	alignCenter?: boolean
+	appendTo?: HTMLElement | null
 	onCancel?: () => void
 	afterClose?: () => void
 }
@@ -25,10 +26,11 @@ const Modal: FC<ModalProps> = props => {
 	const {
 		children,
 		className,
-		maskClosable = true,
+		overlayClosable = true,
 		escClosable = true,
 		unmountOnExit,
 		alignCenter = true,
+		appendTo = document.body,
 		open = false,
 		onCancel,
 		afterClose,
@@ -39,14 +41,12 @@ const Modal: FC<ModalProps> = props => {
 
 	useEscape(open && escClosable, onCancel)
 
-	const zIndex = useZIndex('modal', open)
+	const zIndex = useZIndex('popup', open)
 
 	const prefixCls = `${UI_PREFIX}-modal`
-
-	return createPortal(
+	const ele = (
 		<Motion.Fade
 			in={open}
-			mountOnEnter
 			unmountOnExit={unmountOnExit}
 			onExited={() => {
 				afterClose?.()
@@ -60,23 +60,23 @@ const Modal: FC<ModalProps> = props => {
 				onClick={event => {
 					if (event.target === event.currentTarget) {
 						onClick?.(event)
-						if (maskClosable) {
+						if (overlayClosable) {
 							onCancel?.()
 						}
 					}
 				}}
 				style={{
 					zIndex,
-					overflow: 'overlay',
 					...style
 				}}
 				{...rest}
 			>
 				{children}
 			</FloatingOverlay>
-		</Motion.Fade>,
-		document.body
+		</Motion.Fade>
 	)
+
+	return appendTo ? createPortal(ele, appendTo) : ele
 }
 Modal.displayName = 'Modal'
 export default Modal

@@ -68,6 +68,7 @@ export default function DocList() {
 		ready: has_login
 	})
 
+	const [create_loading, set_create_loading] = useState(false)
 	const [choosing, { setTrue: do_choosing, setFalse: cancel_choosing }] = useBoolean(false)
 	const [selection, set_selection] = useState<typeof doc_list>([])
 	const has_selection = selection.length > 0
@@ -86,9 +87,11 @@ export default function DocList() {
 			open_login_modal()
 			return
 		}
+		set_create_loading(true)
 		const [err, res] = await with_api(create_doc)({
 			title: '未命名'
 		})
+		set_create_loading(false)
 		if (err) {
 			return
 		}
@@ -143,7 +146,7 @@ export default function DocList() {
 		Dialog.confirm({
 			title: '批量删除文档',
 			content: '一旦执行该操作数据将无法恢复，是否确认删除？',
-			maskClassName: cls(
+			overlayClassName: cls(
 				'backdrop-blur-xl',
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
 			),
@@ -163,8 +166,8 @@ export default function DocList() {
 
 	const filter_drawer = (
 		<Drawer
-			className="w-440px b-l-solid b-l-1px b-l-bd-line shadow-shadow-l"
-			maskClassName={cls(
+			className="w-440px shadow-shadow-l"
+			overlayClassName={cls(
 				'backdrop-blur-xl',
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
 			)}
@@ -228,15 +231,17 @@ export default function DocList() {
 	const doc_card_list = (
 		<div className="grid grid-cols-[repeat(auto-fill,184px)] grid-gap-[32px_24px] justify-center">
 			{choosing || (
-				<div
-					className={cls(
-						'flex justify-center items-center h-224px bg-bg-2 rd-radius-l b-1 b-dashed b-bd-line cursor-pointer',
-						'group active-bg-active hover-not-active-bg-hover hover-b-primary hover-b-2px'
-					)}
-					onClick={create_new_doc}
-				>
-					<TbPlus className="text-28px color-text-3 group-hover-color-primary" />
-				</div>
+				<Loading className="w-100%!" spinning={create_loading} size="large">
+					<div
+						className={cls(
+							'flex justify-center items-center h-224px bg-bg-2 rd-radius-l b-1 b-dashed b-bd-line cursor-pointer',
+							'group active-bg-active hover-not-active-bg-hover hover-b-primary hover-b-2px'
+						)}
+						onClick={create_new_doc}
+					>
+						<TbPlus className="text-28px color-text-3 group-hover-color-primary" />
+					</div>
+				</Loading>
 			)}
 
 			{doc_list.map(doc => {

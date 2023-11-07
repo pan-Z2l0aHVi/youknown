@@ -65,7 +65,6 @@ const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 			onClickOutside={onClickOutside}
 			onOpenChange={onOpenChange}
 			motion="grow"
-			zIndexLevel="tooltip"
 			ariaRole="tooltip"
 		>
 			{triggerEle}

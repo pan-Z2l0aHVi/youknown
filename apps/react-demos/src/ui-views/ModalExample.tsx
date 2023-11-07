@@ -12,7 +12,7 @@ export default () => {
 			<Divider />
 			<Button onClick={show}>Show modal</Button>
 			<Modal open={open} onCancel={hide}>
-				<Card className="w-320px h-200px">Content</Card>
+				<Card className="w-320px! h-200px!">Content</Card>
 			</Modal>
 			<Divider />
 		</div>

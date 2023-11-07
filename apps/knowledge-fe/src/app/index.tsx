@@ -30,7 +30,7 @@ export default function App() {
 
 	const init_settings = useEvent(() => {
 		const local_settings = get_local_settings()
-		set_hue(local_settings.primary_color ?? '#de7802')
+		set_hue(local_settings.primary_color ?? '#007aff')
 		set_radius(local_settings.radius ?? [4, 8, 12])
 		set_dark_theme(local_settings.is_dark_theme ?? false)
 	})

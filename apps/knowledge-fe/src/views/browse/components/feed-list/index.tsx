@@ -40,6 +40,7 @@ export default function FeedList(props: FeedProps) {
 		reload
 	} = useInfinity(feeds_fetcher, {
 		initialPageSize: 10,
+		manual: true,
 		target: loading_ref,
 		observerInit: {
 			rootMargin: '0px 0px 200px 0px'

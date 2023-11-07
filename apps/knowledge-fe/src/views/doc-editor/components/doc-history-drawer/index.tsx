@@ -85,8 +85,8 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 
 	return (
 		<Drawer
-			className="w-880px max-w-80% overflow-y-auto b-l-solid b-l-1px b-l-bd-line shadow-shadow-l"
-			maskClassName={cls(
+			className="w-880px max-w-80% overflow-y-auto shadow-shadow-l"
+			overlayClassName={cls(
 				'backdrop-blur-xl',
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
 			)}

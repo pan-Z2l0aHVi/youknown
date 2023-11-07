@@ -78,8 +78,3 @@
 		@error "The second paramater $flex-flow is set to be '#{$flex-flow}', which is illegal.";
 	}
 }
-
-// inset
-@mixin inset($top, $right, $bottom, $left) {
-	inset: $top $right $bottom $left;
-}

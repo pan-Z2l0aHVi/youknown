@@ -33,7 +33,7 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 		Dialog.confirm({
 			title: '删除文档',
 			content: '一旦执行该操作数据将无法恢复，是否确认删除？',
-			maskClassName: cls(
+			overlayClassName: cls(
 				'backdrop-blur-xl',
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
 			),

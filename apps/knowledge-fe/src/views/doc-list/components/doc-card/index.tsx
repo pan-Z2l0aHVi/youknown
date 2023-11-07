@@ -29,9 +29,9 @@ interface DocCardProps {
 export default function DocCard(props: DocCardProps) {
 	const { choosing, selected, info, on_choose, on_deleted, on_updated } = props
 
+	const navigate = useTransitionNavigate()
 	const has_login = useUserStore(state => state.has_login)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
-	const navigate = useTransitionNavigate()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const [more_open, { setBool: set_more_open }] = useBoolean(false)
 	const [doc_options_modal_open, { setTrue: show_doc_options_modal, setFalse: hide_doc_options_modal }] =
@@ -66,7 +66,7 @@ export default function DocCard(props: DocCardProps) {
 		Dialog.confirm({
 			title: '删除文档',
 			content: '一旦执行该操作数据将无法恢复，是否确认删除？',
-			maskClassName: cls(
+			overlayClassName: cls(
 				'backdrop-blur-xl',
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
 			),
@@ -165,7 +165,12 @@ export default function DocCard(props: DocCardProps) {
 				)}
 
 				<div className="flex-1 pt-32px" onClick={select_doc}>
-					<div className="p-[0_8px_0_12px] text-16px font-600 text-shadow-[0px_0px_4px_#fff] select-none">
+					<div
+						className={cls(
+							'p-[0_8px_0_12px] text-16px font-600 select-none',
+							is_dark_theme ? 'text-shadow-[0px_0px_4px_#000]' : 'text-shadow-[0px_0px_4px_#fff]'
+						)}
+					>
 						{info.title}
 					</div>
 				</div>

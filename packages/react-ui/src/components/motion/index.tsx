@@ -1,4 +1,4 @@
-import { cloneElement, ForwardedRef, forwardRef, HTMLAttributes, isValidElement, ReactNode, useRef } from 'react'
+import { cloneElement, ForwardedRef, forwardRef, HTMLAttributes, isValidElement, useRef } from 'react'
 import { Transition } from 'react-transition-group'
 import { TransitionProps } from 'react-transition-group/Transition'
 
@@ -9,6 +9,7 @@ interface StretchProps
 	extends Pick<
 			TransitionProps,
 			| 'in'
+			| 'timeout'
 			| 'mountOnEnter'
 			| 'unmountOnExit'
 			| 'onEnter'
@@ -20,12 +21,11 @@ interface StretchProps
 			| 'nodeRef'
 		>,
 		HTMLAttributes<HTMLElement> {
-	children?: ReactNode
 	direction?: 'top' | 'bottom' | 'left' | 'right'
 }
 
 const Stretch = (props: StretchProps, ref: ForwardedRef<HTMLElement>) => {
-	const { children, direction = 'bottom', in: inProp, style, ...rest } = props
+	const { children, direction = 'bottom', in: inProp, timeout = 225, style, ...rest } = props
 
 	const getTransformStyle = () => {
 		switch (direction) {
@@ -56,7 +56,7 @@ const Stretch = (props: StretchProps, ref: ForwardedRef<HTMLElement>) => {
 	const handleRef = useComposeRef(ref, nodeRef, (children as any).ref)
 
 	return (
-		<Transition nodeRef={nodeRef} in={inProp} timeout={225} {...rest}>
+		<Transition nodeRef={nodeRef} in={inProp} timeout={timeout} {...rest}>
 			{(state, childProps) =>
 				isValidElement<any>(children)
 					? cloneElement(children, {
@@ -81,12 +81,53 @@ const Stretch = (props: StretchProps, ref: ForwardedRef<HTMLElement>) => {
 }
 Stretch.displayName = 'Stretch'
 
+type DisappearanceProps = Pick<
+	TransitionProps,
+	| 'in'
+	| 'timeout'
+	| 'mountOnEnter'
+	| 'unmountOnExit'
+	| 'onEnter'
+	| 'onEntering'
+	| 'onEntered'
+	| 'onExit'
+	| 'onExiting'
+	| 'onExited'
+	| 'nodeRef'
+> &
+	HTMLAttributes<HTMLElement>
+const Disappearance = (props: DisappearanceProps, ref: ForwardedRef<HTMLElement>) => {
+	const { children, in: inProp, style, timeout = 225, ...rest } = props
+	const nodeRef = useRef(null)
+	const handleRef = useComposeRef(ref, nodeRef, (children as any).ref)
+
+	return (
+		<Transition nodeRef={nodeRef} in={inProp} timeout={timeout} {...rest}>
+			{(state, childProps) => {
+				return isValidElement<any>(children)
+					? cloneElement(children, {
+							style: {
+								display: state === 'exited' && !inProp ? 'none' : undefined,
+								...style,
+								...children.props.style
+							},
+							ref: handleRef,
+							...childProps
+					  })
+					: children
+			}}
+		</Transition>
+	)
+}
+Disappearance.displayName = 'Disappearance'
+
 const Motion = {
 	Fade,
 	Grow,
 	Slide,
 	Zoom,
 	Collapse,
-	Stretch: forwardRef(Stretch)
+	Stretch: forwardRef(Stretch),
+	Disappearance: forwardRef(Disappearance)
 }
 export default Motion
