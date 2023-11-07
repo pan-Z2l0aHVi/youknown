@@ -51,10 +51,7 @@ export default function FeedDetail() {
 				<div className="flex p-24px">
 					<div className="w-720px m-auto">
 						{detail?.cover && (
-							<Image
-								className="w-100% max-h-30vh min-h-40px object-cover rd-radius-m"
-								src={detail.cover}
-							/>
+							<Image className="w-100% max-h-30vh min-h-40px  rd-radius-m" src={detail.cover} />
 						)}
 						<div className="rich-text-container" dangerouslySetInnerHTML={{ __html: doc_content }}></div>
 					</div>

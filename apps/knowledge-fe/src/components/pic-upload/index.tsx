@@ -43,7 +43,7 @@ export default function PicUpload(props: PicUploadProps) {
 			<div className="relative flex items-center justify-center w-200px h-120px">
 				{uploading ? (
 					<>
-						{preview_url && <Image className="w-100% h-100% object-cover opacity-40" src={preview_url} />}
+						{preview_url && <Image className="w-100% h-100% opacity-40" src={preview_url} />}
 						<Progress.Circle
 							className="absolute! left-50% top-50% translate-x--50% translate-y--50%"
 							defaultMolecule={0}
@@ -51,7 +51,7 @@ export default function PicUpload(props: PicUploadProps) {
 						/>
 					</>
 				) : (
-					value && <Image className="w-100% h-100% object-cover" src={value} />
+					value && <Image className="w-100% h-100%" src={value} />
 				)}
 			</div>
 		</Upload>

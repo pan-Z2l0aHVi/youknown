@@ -13,7 +13,7 @@ export default function Overview(props: OverviewProps) {
 		<>
 			{selection.cover ? (
 				<Image
-					className="object-cover w-144px h-144px rd-radius-m shadow-shadow-l b-1 b-solid b-bd-line"
+					className="w-144px h-144px rd-radius-m shadow-shadow-l b-1 b-solid b-bd-line"
 					src={selection.cover}
 				/>
 			) : (

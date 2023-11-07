@@ -52,7 +52,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 		<Loading className="w-100%!" spinning={updating}>
 			{cover ? (
 				<div className="group relative">
-					<Image className="w-100% max-h-30vh min-h-40px object-cover rd-radius-m" src={cover} />
+					<Image className="w-100% max-h-30vh min-h-40px rd-radius-m" src={cover} />
 					<Space className="group-hover-display-flex! display-none! absolute right-16px bottom-16px">
 						<Upload ref={upload_ref} headless action={upload_cover}>
 							<Button
