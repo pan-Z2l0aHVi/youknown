@@ -10,7 +10,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "deploy": "node scripts/upload-r2.js"
+    "deploy": "node scripts/upload-r2.js && scripts/deploy.sh"
   },
   "author": "Grey",
   "license": "MIT",
