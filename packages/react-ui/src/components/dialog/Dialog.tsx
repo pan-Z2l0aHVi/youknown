@@ -8,11 +8,11 @@ import { UI_PREFIX } from '../../constants'
 import Button from '../button'
 import Card from '../card'
 import CloseIcon from '../close-icon'
-import Modal from '../modal'
+import Overlay from '../overlay'
 import Motion from '../motion'
 import Space from '../space'
 
-export interface DialogProps extends ComponentProps<typeof Modal> {
+export interface DialogProps extends ComponentProps<typeof Overlay> {
 	hasCancel?: boolean
 	closeIcon?: ReactNode
 	overlayClassName?: string
@@ -46,7 +46,13 @@ const Dialog: FC<DialogProps> = props => {
 	} = props
 
 	return (
-		<Modal open={open} className={overlayClassName} overlayClosable={overlayClosable} onCancel={onCancel} {...rest}>
+		<Overlay
+			open={open}
+			className={overlayClassName}
+			overlayClosable={overlayClosable}
+			onCancel={onCancel}
+			{...rest}
+		>
 			<Motion.Zoom in={open}>
 				<Card
 					className={cls(className, prefixCls)}
@@ -71,7 +77,7 @@ const Dialog: FC<DialogProps> = props => {
 					<div className={`${prefixCls}-content`}>{children}</div>
 				</Card>
 			</Motion.Zoom>
-		</Modal>
+		</Overlay>
 	)
 }
 

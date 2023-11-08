@@ -18,7 +18,7 @@ import { cls, downloadFile } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import Button from '../button'
 import Loading from '../loading'
-import Modal from '../modal'
+import Overlay from '../overlay'
 import Motion from '../motion'
 import Space from '../space'
 import Tooltip from '../tooltip'
@@ -260,7 +260,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 	)
 
 	return (
-		<Modal unmountOnExit={unmountOnExit} open={open} onCancel={onClose} onWheel={handleWheel}>
+		<Overlay unmountOnExit={unmountOnExit} open={open} onCancel={onClose} onWheel={handleWheel}>
 			<div
 				className={`${prefixCls}`}
 				onClick={event => {
@@ -315,7 +315,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 			</div>
 			{ratioVisible && <div className={`${prefixCls}-ratio`}>{scalePercent}</div>}
 			{toolbarEle}
-		</Modal>
+		</Overlay>
 	)
 }
 ImagePreview.displayName = 'ImagePreview'

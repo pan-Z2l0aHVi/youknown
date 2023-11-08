@@ -4,7 +4,7 @@ import { RiWechatFill } from 'react-icons/ri'
 
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
 import { go_github_login } from '@/utils'
-import { Button, Card, CloseIcon, Modal, Motion, Toast } from '@youknown/react-ui/src'
+import { Button, Card, CloseIcon, Overlay, Motion, Toast } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import LoginCard from './components/login-card'
@@ -56,7 +56,7 @@ export default function LoginModal() {
 	}
 
 	return (
-		<Modal
+		<Overlay
 			className={cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]')}
 			open={modal_open}
 			onCancel={close_login_modal}
@@ -100,6 +100,6 @@ export default function LoginModal() {
 					</div>
 				</Card>
 			</Motion.Zoom>
-		</Modal>
+		</Overlay>
 	)
 }

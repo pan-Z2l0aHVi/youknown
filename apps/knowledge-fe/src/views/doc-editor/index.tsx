@@ -249,11 +249,12 @@ export default function Doc() {
 					</div>
 				) : (
 					<div className="flex-1 w-0 truncate ml-24px mr-24px">
-						<Tooltip title="点击此处修改标题" placement="bottom-start">
-							<span className="max-w-100% color-text-2" onClick={focus_title}>
-								{doc_title}
-							</span>
-						</Tooltip>
+						<span
+							className="max-w-100% p-[4px_8px] rd-radius-m color-text-2 hover-bg-hover cursor-default"
+							onClick={focus_title}
+						>
+							{doc_title}
+						</span>
 					</div>
 				)}
 				<Space align="center">

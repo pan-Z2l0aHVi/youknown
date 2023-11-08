@@ -1,5 +1,5 @@
 import { useModalStore, useUIStore } from '@/stores'
-import { Card, CloseIcon, Modal, Motion } from '@youknown/react-ui/src'
+import { Card, CloseIcon, Overlay, Motion } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import Preferences from './components/preferences'
@@ -10,7 +10,7 @@ export default function PreferencesModal() {
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 
 	return (
-		<Modal
+		<Overlay
 			className={cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]')}
 			open={modal_open}
 			onCancel={close_preferences_modal}
@@ -29,6 +29,6 @@ export default function PreferencesModal() {
 					<Preferences />
 				</Card>
 			</Motion.Zoom>
-		</Modal>
+		</Overlay>
 	)
 }

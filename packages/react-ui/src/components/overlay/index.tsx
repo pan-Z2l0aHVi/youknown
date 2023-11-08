@@ -1,4 +1,4 @@
-import './modal.scss'
+import './overlay.scss'
 
 import { FC, HTMLAttributes } from 'react'
 import { createPortal } from 'react-dom'
@@ -11,7 +11,7 @@ import { useEscape } from '../../hooks/useEscape'
 import { useZIndex } from '../../hooks/useZIndex'
 import Motion from '../motion'
 
-interface ModalProps extends HTMLAttributes<HTMLElement> {
+interface OverlayProps extends HTMLAttributes<HTMLElement> {
 	open?: boolean
 	overlayClosable?: boolean
 	escClosable?: boolean
@@ -22,7 +22,7 @@ interface ModalProps extends HTMLAttributes<HTMLElement> {
 	afterClose?: () => void
 }
 
-const Modal: FC<ModalProps> = props => {
+const Overlay: FC<OverlayProps> = props => {
 	const {
 		children,
 		className,
@@ -78,5 +78,5 @@ const Modal: FC<ModalProps> = props => {
 
 	return appendTo ? createPortal(ele, appendTo) : ele
 }
-Modal.displayName = 'Modal'
-export default Modal
+Overlay.displayName = 'Overlay'
+export default Overlay

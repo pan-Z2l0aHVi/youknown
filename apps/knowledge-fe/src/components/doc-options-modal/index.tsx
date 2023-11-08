@@ -6,7 +6,7 @@ import { DOC_TITLE_MAX_LEN } from '@/consts'
 import { useUIStore } from '@/stores'
 import { validateMaxLength, validateRequired } from '@/utils/validators'
 import { useBoolean, useFetch, useUpdate } from '@youknown/react-hook/src'
-import { Button, Card, CloseIcon, Form, Input, Loading, Modal, Motion, Radio, Space } from '@youknown/react-ui/src'
+import { Button, Card, CloseIcon, Form, Input, Loading, Overlay, Motion, Radio, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import { with_api } from '@/utils/request'
 
@@ -80,7 +80,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 	})
 
 	return (
-		<Modal
+		<Overlay
 			className={cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]')}
 			open={open}
 			onCancel={hide_modal}
@@ -154,6 +154,6 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 					</Loading>
 				</Card>
 			</Motion.Zoom>
-		</Modal>
+		</Overlay>
 	)
 }

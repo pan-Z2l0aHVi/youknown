@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Button, Card, Divider, Modal } from '@youknown/react-ui/src'
+import { Button, Card, Divider, Overlay } from '@youknown/react-ui/src'
 
 export default () => {
 	const [open, setOpen] = useState(false)
@@ -8,12 +8,12 @@ export default () => {
 	const hide = () => setOpen(false)
 	return (
 		<div>
-			<h1>Modal</h1>
+			<h1>Overlay</h1>
 			<Divider />
-			<Button onClick={show}>Show modal</Button>
-			<Modal open={open} onCancel={hide}>
+			<Button onClick={show}>Show overlay</Button>
+			<Overlay open={open} onCancel={hide}>
 				<Card className="w-320px! h-200px!">Content</Card>
-			</Modal>
+			</Overlay>
 			<Divider />
 		</div>
 	)

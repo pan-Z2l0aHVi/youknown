@@ -53,9 +53,9 @@ export const componentRoutes = [
 		element: createElement(lazy(() => import('@/ui-views/ListExample')))
 	},
 	{
-		name: 'Modal',
-		path: 'modal',
-		element: createElement(lazy(() => import('@/ui-views/ModalExample')))
+		name: 'Overlay',
+		path: 'overlay',
+		element: createElement(lazy(() => import('@/ui-views/OverlayExample')))
 	},
 	{
 		name: 'Card',

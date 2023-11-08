@@ -4,7 +4,7 @@ import { TbSearch } from 'react-icons/tb'
 import Header from '@/app/components/header'
 import { useUIStore } from '@/stores'
 import { useBoolean } from '@youknown/react-hook/src'
-import { Input, Modal, Tabs } from '@youknown/react-ui/src'
+import { Input, Overlay, Tabs } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import FeedList, { FEED_TAB } from './components/feed-list'
@@ -36,7 +36,7 @@ export default function Browse() {
 				/>
 			</Header>
 
-			<Modal
+			<Overlay
 				className={cls(
 					'backdrop-blur-xl',
 					is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
@@ -47,7 +47,7 @@ export default function Browse() {
 				unmountOnExit
 			>
 				<Searcher />
-			</Modal>
+			</Overlay>
 
 			<div className="flex justify-center p-32px">
 				<FeedList feed_tab={feed_tab} />
