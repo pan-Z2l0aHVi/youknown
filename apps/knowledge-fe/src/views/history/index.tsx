@@ -63,7 +63,7 @@ export default function History() {
 					<Input
 						prefix={<TbSearch className="color-text-3" />}
 						allowClear
-						placeholder="搜索历史记录"
+						placeholder="搜历史记录"
 						value={search_input}
 						onChange={set_search_input}
 					/>

@@ -1,5 +1,5 @@
-import { useUIStore } from '@/stores'
-import { Form, Space, Switch } from '@youknown/react-ui/src'
+import { THEME, useUIStore } from '@/stores'
+import { Form, Select, Space } from '@youknown/react-ui/src'
 import { cls, is } from '@youknown/utils/src'
 
 const style_options: StyleItem[] = [
@@ -96,7 +96,7 @@ function Hue(props: HueProps) {
 }
 
 export default function Preferences() {
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const theme = useUIStore(state => state.theme)
 	const primary_color = useUIStore(state => state.primary_color)
 	const radius = useUIStore(state => state.radius)
 	const set_radius = useUIStore(state => state.set_radius)
@@ -107,7 +107,7 @@ export default function Preferences() {
 		defaultState: {
 			style: style_options.find(opt => is.array.equal(opt.radius, radius)) as StyleItem,
 			hue: primary_color,
-			is_dark: is_dark_theme
+			theme
 		},
 		onStateChange(org) {
 			const state = form.getState()
@@ -121,8 +121,8 @@ export default function Preferences() {
 					set_hue(state.hue)
 					break
 
-				case 'is_dark':
-					set_dark_theme(state.is_dark)
+				case 'theme':
+					set_dark_theme(state.theme)
 					break
 
 				default:
@@ -137,11 +137,26 @@ export default function Preferences() {
 				<Form.Field label="style" labelText="界面风格">
 					<RadiusStyle />
 				</Form.Field>
-				<Form.Field label="hue" labelText="主色调">
+				<Form.Field label="hue" labelText="色调">
 					<Hue />
 				</Form.Field>
-				<Form.Field label="is_dark" labelText="夜间模式">
-					<Switch />
+				<Form.Field label="theme" labelText="主题">
+					<Select
+						options={[
+							{
+								label: '浅色',
+								value: THEME.LIGHT
+							},
+							{
+								label: '深色',
+								value: THEME.DARK
+							},
+							{
+								label: '跟随系统',
+								value: THEME.SYSTEM
+							}
+						]}
+					/>
 				</Form.Field>
 			</Form>
 		</div>

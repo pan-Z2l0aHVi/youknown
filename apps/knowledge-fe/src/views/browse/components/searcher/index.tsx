@@ -76,13 +76,14 @@ export default function Searcher() {
 	})
 
 	const card_header = (
-		<div className="p-16px b-b-1 b-b-solid b-b-bd-line">
+		<div className="p-4px b-b-1 b-b-solid b-b-bd-line">
 			<Input
-				className="w-100%! text-16px"
+				className="w-100%! text-16px!"
 				autoFocus
+				bordered={false}
 				size="large"
 				placeholder="搜一搜"
-				prefix={<TbSearch className="color-text-3 text-16px mr-4px ml-4px" />}
+				prefix={<TbSearch className="color-text-3 text-18px mr-4px ml-4px" />}
 				allowClear
 				value={keywords}
 				onChange={set_keywords}
@@ -91,7 +92,7 @@ export default function Searcher() {
 	)
 
 	const card_footer = (
-		<div className="pl-16px bg-bg-2 line-height-32px color-text-3 text-12px">
+		<div className="pl-16px bg-bg-2 b-t-1 b-t-solid b-t-bd-line line-height-32px color-text-3 text-12px">
 			支持 ↑↓ 键选择、Enter 键打开、双击打开
 		</div>
 	)

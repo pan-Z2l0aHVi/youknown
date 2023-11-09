@@ -37,6 +37,7 @@ import { cls } from '@youknown/utils/src'
 import CoverUpload from './components/cover-upload'
 import DocHistoryDrawer from './components/doc-history-drawer'
 import DocOptionsDropdown from './components/doc-options-dropdown'
+import { export_html, export_pdf } from '@/utils/exports'
 
 export default function Doc() {
 	const [search_params] = useSearchParams()
@@ -217,6 +218,26 @@ export default function Doc() {
 		return null
 	}
 
+	const on_export_pdf = () => {
+		export_pdf(editor.getHTML(), doc_info?.title + '.pdf')
+			.then(() => {
+				Toast.success({
+					content: '导出PDF完成'
+				})
+			})
+			.catch(() => {
+				Toast.error({
+					content: '导出PDF失败'
+				})
+			})
+	}
+	const on_export_html = () => {
+		export_html(editor.getHTML(), doc_info?.title + '.html')
+		Toast.success({
+			content: '导出HTML完成'
+		})
+	}
+
 	const doc_tips = (
 		<div className="flex">
 			<div className="text-text-3 text-12px">
@@ -272,6 +293,8 @@ export default function Doc() {
 						doc_id={doc_id}
 						is_public={doc_info?.public ?? false}
 						on_updated={set_doc_info}
+						on_export_pdf={on_export_pdf}
+						on_export_html={on_export_html}
 					/>
 				</Space>
 			</Header>

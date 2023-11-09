@@ -33,6 +33,11 @@ const Image = (props: ImageProps, propRef: ForwardedRef<HTMLImageElement>) => {
 	const innerRef = useRef<HTMLImageElement>(null)
 	const imgRef = useComposeRef(propRef, innerRef)
 	const [isError, setIsError] = useState(false)
+	useEffect(() => {
+		if (src) {
+			setIsError(false)
+		}
+	}, [src])
 
 	const previewInstRef = useRef<ReturnType<typeof preview>>()
 	const showDetail = useEvent((url: string) => {
@@ -48,7 +53,6 @@ const Image = (props: ImageProps, propRef: ForwardedRef<HTMLImageElement>) => {
 			previewInstRef.current.open()
 		}
 	})
-
 	useEffect(
 		() => () => {
 			if (previewInstRef.current) {

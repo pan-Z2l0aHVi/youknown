@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect } from 'react'
 import { useLocation, useMatch, useRoutes } from 'react-router-dom'
 
 import useRouteScrollTop from '@/hooks/use-route-scroll-top'
-import { useUIStore, useUserStore } from '@/stores'
+import { THEME, useUIStore, useUserStore } from '@/stores'
 import { get_local_settings, get_local_token } from '@/utils/local'
 import { report } from '@/utils/report'
 import { useEvent, useMount } from '@youknown/react-hook/src'
@@ -32,7 +32,7 @@ export default function App() {
 		const local_settings = get_local_settings()
 		set_hue(local_settings.primary_color ?? '#007aff')
 		set_radius(local_settings.radius ?? [4, 8, 12])
-		set_dark_theme(local_settings.is_dark_theme ?? false)
+		set_dark_theme(local_settings.theme ?? THEME.SYSTEM)
 	})
 
 	useMount(() => {

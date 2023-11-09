@@ -65,12 +65,12 @@ export default function CoverUpload(props: CoverUploadProps) {
 							</Button>
 						</Upload>
 						<Button
-							prefixIcon={<PiTrashSimpleBold />}
+							prefixIcon={<PiTrashSimpleBold className="color-danger" />}
 							onClick={() => {
 								save_doc_cover('')
 							}}
 						>
-							移除封面
+							<span className="color-danger">移除封面</span>
 						</Button>
 					</Space>
 				</div>

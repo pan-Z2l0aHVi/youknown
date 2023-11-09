@@ -43,7 +43,7 @@ const Overlay: FC<OverlayProps> = props => {
 
 	const zIndex = useZIndex('popup', open)
 
-	const prefixCls = `${UI_PREFIX}-modal`
+	const prefixCls = `${UI_PREFIX}-overlay`
 	const ele = (
 		<Motion.Fade
 			in={open}

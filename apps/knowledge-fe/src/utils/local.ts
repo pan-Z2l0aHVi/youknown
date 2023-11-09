@@ -4,7 +4,7 @@ import { storage } from '@youknown/utils/src'
 interface LocalSettings {
 	primary_color?: string
 	radius?: number[]
-	is_dark_theme?: boolean
+	theme?: number
 }
 
 const SETTINGS_KEY = 'settings'
