@@ -9,6 +9,8 @@ interface ConfirmConfig
 	extends Pick<
 		DialogProps,
 		| 'title'
+		| 'header'
+		| 'footer'
 		| 'hasCancel'
 		| 'closeIcon'
 		| 'overlayClosable'

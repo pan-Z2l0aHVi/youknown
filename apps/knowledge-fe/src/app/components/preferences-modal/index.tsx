@@ -1,5 +1,5 @@
 import { useModalStore, useUIStore } from '@/stores'
-import { Card, CloseIcon, Overlay, Motion } from '@youknown/react-ui/src'
+import { Card, CloseIcon, Motion, Overlay } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import Preferences from './components/preferences'

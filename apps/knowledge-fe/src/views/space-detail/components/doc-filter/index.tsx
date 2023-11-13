@@ -11,7 +11,7 @@ export default function DocFilter(props: DocFilterProps) {
 
 	return (
 		<div className="p-[32px_24px_32px_16px]">
-			<Form form={form} labelWidth="120px">
+			<Form form={form} labelWidth={120}>
 				<Form.Field label="keywords" labelText="关键词">
 					<Input placeholder="请输入" />
 				</Form.Field>

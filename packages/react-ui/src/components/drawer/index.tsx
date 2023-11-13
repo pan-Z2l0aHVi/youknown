@@ -8,9 +8,9 @@ import { cls } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import { useEscape } from '../../hooks/useEscape'
+import { useZIndex } from '../../hooks/useZIndex'
 import CloseIcon from '../close-icon'
 import Motion from '../motion'
-import { useZIndex } from '../../hooks/useZIndex'
 
 interface DrawerProps extends HTMLAttributes<HTMLElement> {
 	open?: boolean

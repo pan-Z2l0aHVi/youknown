@@ -19,7 +19,6 @@ export default function Sidebar() {
 	const local_expand = useCreation(() => storage.local.get<boolean>(EXPAND_KEY))
 	const local_width = useCreation(() => storage.local.get<number>(WIDTH_KEY))
 	const [expand, { setReverse: toggle_expand }] = useBoolean(local_expand ?? true)
-
 	const [sidebar_width, set_sidebar_width] = useState(local_width ?? DEFAULT_W)
 	const [dragging, { setTrue: start_drag, setFalse: stop_drag }] = useBoolean(false)
 	const dragging_ref = useLatestRef(dragging)

@@ -3,7 +3,7 @@ import { TbSearch } from 'react-icons/tb'
 import Header from '@/app/components/header'
 import { Input } from '@youknown/react-ui/src'
 
-export default function Favorites() {
+export default function Collection() {
 	return (
 		<>
 			<Header heading="收藏夹">

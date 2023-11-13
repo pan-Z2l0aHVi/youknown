@@ -24,7 +24,7 @@ interface FieldProps
 	extends Omit<LabelHTMLAttributes<HTMLLabelElement> & HTMLAttributes<HTMLDivElement>, 'form'>,
 		Partial<FormContext> {
 	label?: string
-	labelText?: string
+	labelText?: string | number
 	form?: FormInstance
 	validators?: ((value: any) => Promise<string | void>)[]
 }

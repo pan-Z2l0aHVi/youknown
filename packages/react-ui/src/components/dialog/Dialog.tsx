@@ -2,14 +2,14 @@ import './dialog.scss'
 
 import { ComponentProps, FC, ReactNode } from 'react'
 
-import { cls } from '@youknown/utils/src'
+import { cls, is } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Button from '../button'
 import Card from '../card'
 import CloseIcon from '../close-icon'
-import Overlay from '../overlay'
 import Motion from '../motion'
+import Overlay from '../overlay'
 import Space from '../space'
 
 export interface DialogProps extends ComponentProps<typeof Overlay> {
@@ -17,6 +17,8 @@ export interface DialogProps extends ComponentProps<typeof Overlay> {
 	closeIcon?: ReactNode
 	overlayClassName?: string
 	title?: string
+	footer?: ReactNode
+	header?: ReactNode
 	okText?: string
 	cancelText?: string
 	okLoading?: boolean
@@ -41,7 +43,9 @@ const Dialog: FC<DialogProps> = props => {
 		okDanger = false,
 		onCancel,
 		onOk,
-		closeIcon = <CloseIcon className={`${prefixCls}-close-icon`} onClick={onCancel} />,
+		closeIcon,
+		footer,
+		header,
 		...rest
 	} = props
 
@@ -58,22 +62,34 @@ const Dialog: FC<DialogProps> = props => {
 					className={cls(className, prefixCls)}
 					shadow
 					header={
-						<div className={`${prefixCls}-header`}>
-							<strong className={`${prefixCls}-header-title`}>{title}</strong>
-						</div>
+						is.undefined(header) ? (
+							<div className={`${prefixCls}-header`}>
+								<strong className={`${prefixCls}-header-title`}>{title}</strong>
+							</div>
+						) : (
+							header
+						)
 					}
 					footer={
-						<div className={`${prefixCls}-footer`}>
-							<Space>
-								{hasCancel && <Button onClick={onCancel}>{cancelText}</Button>}
-								<Button primary={!okDanger} danger={okDanger} loading={okLoading} onClick={onOk}>
-									{okText}
-								</Button>
-							</Space>
-						</div>
+						is.undefined(footer) ? (
+							<div className={`${prefixCls}-footer`}>
+								<Space>
+									{hasCancel && <Button onClick={onCancel}>{cancelText}</Button>}
+									<Button primary={!okDanger} danger={okDanger} loading={okLoading} onClick={onOk}>
+										{okText}
+									</Button>
+								</Space>
+							</div>
+						) : (
+							footer
+						)
 					}
 				>
-					{closeIcon}
+					{is.undefined(closeIcon) ? (
+						<CloseIcon className={`${prefixCls}-close-icon`} onClick={onCancel} />
+					) : (
+						closeIcon
+					)}
 					<div className={`${prefixCls}-content`}>{children}</div>
 				</Card>
 			</Motion.Zoom>

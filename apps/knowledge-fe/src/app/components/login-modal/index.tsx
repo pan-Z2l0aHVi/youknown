@@ -4,7 +4,7 @@ import { RiWechatFill } from 'react-icons/ri'
 
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
 import { go_github_login } from '@/utils'
-import { Button, Card, CloseIcon, Overlay, Motion, Toast } from '@youknown/react-ui/src'
+import { Button, Card, CloseIcon, Motion, Overlay, Toast } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import LoginCard from './components/login-card'
@@ -73,7 +73,7 @@ export default function LoginModal() {
 					}
 				>
 					<div className="flex flex-col items-center w-360px p-24px">
-						<div className="w-100% grid grid-cols-[repeat(2,1fr)] gap-24px mb-24px">
+						<div className="w-100% grid grid-cols-[repeat(2,1fr)] gap-16px mb-24px">
 							<LoginCard
 								title="Github登录"
 								icon={<GrGithub className="text-40px" />}

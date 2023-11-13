@@ -1,8 +1,9 @@
 import copy from 'copy-to-clipboard'
 import { LuLogOut, LuSettings2 } from 'react-icons/lu'
+import { MdOutlineIosShare } from 'react-icons/md'
 import { PiTrashSimpleBold } from 'react-icons/pi'
 import { TbChevronRight } from 'react-icons/tb'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { delete_doc, Doc } from '@/apis/doc'
 import DocOptionsModal from '@/components/doc-options-modal'
@@ -11,7 +12,6 @@ import { useUIStore } from '@/stores'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dialog, Divider, Dropdown, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
-import { MdOutlineIosShare } from 'react-icons/md'
 
 interface DocOptionsDropdownProps {
 	doc_id: string
@@ -24,12 +24,13 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 	const { doc_id, is_public, on_updated, on_export_html, on_export_pdf } = props
 
 	const navigate = useNavigate()
+	const { space_id } = useParams()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const [doc_options_modal_open, { setTrue: show_doc_options_modal, setFalse: hide_doc_options_modal }] =
 		useBoolean(false)
 
 	const go_doc_list = () => {
-		navigate('/library/doc/doc-list')
+		navigate(`/library/${space_id}`)
 	}
 
 	const show_doc_delete_dialog = () => {

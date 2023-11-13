@@ -4,7 +4,7 @@ import { FormInstance } from '@youknown/react-hook/src'
 
 export interface FormContext {
 	form: FormInstance
-	labelWidth: string
+	labelWidth: string | number
 	labelAlign: 'top' | 'left' | 'right'
 	labelSuffix: string
 }

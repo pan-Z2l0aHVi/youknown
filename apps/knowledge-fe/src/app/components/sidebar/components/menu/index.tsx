@@ -1,46 +1,57 @@
-import { Fragment, MouseEvent, useState } from 'react'
+import { Fragment, MouseEvent, useCallback, useMemo, useState } from 'react'
 import { BiSolidChevronDown } from 'react-icons/bi'
+import { TbNotes } from 'react-icons/tb'
 
 import TransitionNavLink from '@/components/transition-nav-link'
-import useTransitionNavigate from '@/hooks/use-transition-navigate'
-import { nav_routes, RouteItem } from '@/router/routes'
-import { useUIStore } from '@/stores'
+import routes, { RouteItem } from '@/router/routes'
+import { useSpaceStore, useUIStore } from '@/stores'
 import { Motion, Tooltip } from '@youknown/react-ui/src'
-import { cls, DeepRequired } from '@youknown/utils/src'
+import { cls, DeepRequired, pick } from '@youknown/utils/src'
 
-const nav_open_map = nav_routes
-	.filter(route => route.children?.length)
-	.reduce<Record<string, boolean>>((obj, cur) => {
-		obj[cur.path] = true
-		return obj
-	}, {})
-
-type MenuRouteItem = RouteItem & {
+type MenuRouteItem = Omit<RouteItem, 'children'> & {
 	state: DeepRequired<RouteItem>['state']
+	children: MenuRouteItem[]
 }
-function pick_menu_list(routes: RouteItem[] = []): MenuRouteItem[] {
-	return routes
-		.filter(route => route.state)
-		.map(route => {
-			if (route.children?.length) {
-				return {
-					...route,
-					children: pick_menu_list(route.children)
-				}
-			}
-			return route
-		}) as MenuRouteItem[]
-}
-const menu_list = pick_menu_list(nav_routes)
-
 interface MenuProps {
 	expand: boolean
 }
-
 export default function Menu({ expand }: MenuProps) {
-	const navigate = useTransitionNavigate()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
-	const [open_map, set_open_map] = useState<Record<string, boolean>>(nav_open_map)
+	const space_list = useSpaceStore(state => state.space_list)
+
+	const get_nav = (path: string) => {
+		const route = routes.find(route => route.path === path)!
+		return pick(route, 'path', 'state')
+	}
+	const get_library_nav = useCallback(() => {
+		const route = routes.find(route => route.path === 'library')!
+		return {
+			...pick(route, 'path', 'state'),
+			children: space_list.map(space => {
+				return {
+					path: space.space_id,
+					state: {
+						title: space.name,
+						icon: <TbNotes />
+					}
+				}
+			})
+		}
+	}, [space_list])
+
+	const nav_list = useMemo(
+		() =>
+			[
+				get_nav('browse'),
+				get_library_nav(),
+				get_nav('wallpapers'),
+				get_nav('collection'),
+				get_nav('history')
+			] as MenuRouteItem[],
+		[get_library_nav]
+	)
+
+	const [open_map, set_open_map] = useState<Record<string, boolean>>({})
 
 	const set_open = (name: string, open: boolean) => {
 		set_open_map(p => ({
@@ -51,12 +62,13 @@ export default function Menu({ expand }: MenuProps) {
 
 	return (
 		<div className="flex-1 overflow-y-auto overflow-x-hidden select-none p-12px">
-			{menu_list.map(menu_item => {
+			{nav_list.map(menu_item => {
 				const { path, state } = menu_item
-				const children = (menu_item.children ?? []) as MenuRouteItem[]
+				const { children = [] } = menu_item
 				const has_sub_nav = children.length > 0
 
 				const toggle_sub_menu = (e: MouseEvent) => {
+					e.preventDefault()
 					e.stopPropagation()
 					set_open(path, !open_map[path])
 				}
@@ -69,7 +81,7 @@ export default function Menu({ expand }: MenuProps) {
 					<>
 						<div className="leading-0 text-18px color-primary">{state.icon}</div>
 						<Motion.Fade in={expand} unmountOnExit>
-							<div className="ml-8px flex-1 w-0 break-all ws-nowrap">{state.nav_name}</div>
+							<div className="ml-8px flex-1 w-0 break-all ws-nowrap">{state.title}</div>
 						</Motion.Fade>
 						{has_sub_nav && (
 							<>
@@ -105,40 +117,30 @@ export default function Menu({ expand }: MenuProps) {
 
 				return (
 					<Fragment key={path}>
-						<Tooltip title={state.nav_name} placement="right" spacing={20} disabled={expand}>
-							{has_sub_nav ? (
-								<div
-									className="group w-100% h-32px flex items-center pl-12px pr-4px rd-radius-m mb-8px
-								decoration-none color-inherit cursor-pointer
-								active-bg-secondary-active hover-not-active-bg-secondary-hover"
-									onClick={() => {
-										navigate(`/${path}/${children[0].path}`)
-										set_open(path, true)
-									}}
-								>
-									{nav_content}
-								</div>
-							) : (
-								<TransitionNavLink
-									to={`/${path}`}
-									className={({ isActive }) =>
-										cls(
-											'group w-100% h-32px flex items-center pl-12px pr-4px rd-radius-m mb-8px decoration-none color-inherit',
-											'active-bg-secondary-active hover-not-active-bg-secondary-hover',
-											{
-												'bg-secondary-hover': isActive
-											}
-										)
-									}
-								>
-									{nav_content}
-								</TransitionNavLink>
-							)}
+						<Tooltip title={state.title} placement="right" spacing={20} disabled={expand}>
+							<TransitionNavLink
+								to={`/${path}`}
+								end={open_map[path]}
+								className={({ isActive }) =>
+									cls(
+										'group w-100% h-32px flex items-center pl-12px pr-4px rd-radius-m mb-8px decoration-none color-inherit',
+										'active-bg-secondary-active hover-not-active-bg-secondary-hover',
+										{
+											'bg-secondary-hover': isActive
+										}
+									)
+								}
+								onClick={() => {
+									set_open(path, true)
+								}}
+							>
+								{nav_content}
+							</TransitionNavLink>
 						</Tooltip>
 
 						{has_sub_nav && (
 							<Motion.Collapse in={open_map[path]} className="w-100% mt-0! mb-0!" unmountOnExit>
-								<Motion.Fade in={open_map[path]} unmountOnExit>
+								<Motion.Fade in={open_map[path]}>
 									<div
 										className={cls({
 											'ml-32px': expand
@@ -148,7 +150,7 @@ export default function Menu({ expand }: MenuProps) {
 											return (
 												<Tooltip
 													key={child.path}
-													title={child.state.nav_name}
+													title={child.state.title}
 													placement="right"
 													spacing={20}
 													disabled={expand}
@@ -170,7 +172,7 @@ export default function Menu({ expand }: MenuProps) {
 														</div>
 														<Motion.Fade in={expand} unmountOnExit>
 															<div className="flex-1 break-all ws-nowrap ml-8px">
-																{child.state.nav_name}
+																{child.state.title}
 															</div>
 														</Motion.Fade>
 													</TransitionNavLink>

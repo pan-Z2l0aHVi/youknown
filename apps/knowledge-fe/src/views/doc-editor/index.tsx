@@ -8,6 +8,7 @@ import { DOC_TITLE_MAX_LEN } from '@/consts'
 import { useRecordStore } from '@/stores'
 import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
+import { export_html, export_pdf } from '@/utils/exports'
 import { NetFetchError, with_api } from '@/utils/request'
 import { useBoolean, useDebounce, useFetch } from '@youknown/react-hook/src'
 import {
@@ -37,7 +38,6 @@ import { cls } from '@youknown/utils/src'
 import CoverUpload from './components/cover-upload'
 import DocHistoryDrawer from './components/doc-history-drawer'
 import DocOptionsDropdown from './components/doc-options-dropdown'
-import { export_html, export_pdf } from '@/utils/exports'
 
 export default function Doc() {
 	const [search_params] = useSearchParams()

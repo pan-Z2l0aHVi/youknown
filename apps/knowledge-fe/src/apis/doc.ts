@@ -29,6 +29,7 @@ export const get_doc_info = (params: GetDocInfoParams) =>
 	})
 
 export interface CreateDocPayload {
+	space_id: string
 	title: string
 	content?: string
 	summary?: string
@@ -59,7 +60,7 @@ export interface DeleteDocPayload {
 	doc_ids: string[]
 }
 export const delete_doc = (payload: DeleteDocPayload) =>
-	net.fetch<Doc>('/proxy/doc/delete', {
+	net.fetch<void>('/proxy/doc/delete', {
 		method: 'post',
 		payload
 	})
@@ -67,6 +68,7 @@ export const delete_doc = (payload: DeleteDocPayload) =>
 export interface DocsParams {
 	page: number
 	page_size: number
+	space_id?: string
 	author_id?: string
 	keywords?: string
 	sort_by?: string

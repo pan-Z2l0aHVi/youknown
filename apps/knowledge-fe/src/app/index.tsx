@@ -1,8 +1,8 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { useLocation, useMatch, useRoutes } from 'react-router-dom'
+import { RouteObject, useLocation, useMatch, useRoutes } from 'react-router-dom'
 
 import useRouteScrollTop from '@/hooks/use-route-scroll-top'
-import { THEME, useUIStore, useUserStore } from '@/stores'
+import { THEME, useSpaceStore, useUIStore, useUserStore } from '@/stores'
 import { get_local_settings, get_local_token } from '@/utils/local'
 import { report } from '@/utils/report'
 import { useEvent, useMount } from '@youknown/react-hook/src'
@@ -19,11 +19,13 @@ const PreferencesModal = lazy(() => import('./components/preferences-modal'))
 const LoginModal = lazy(() => import('./components/login-modal'))
 
 export default function App() {
-	const content = useRoutes(routes)
+	const content = useRoutes(routes as RouteObject[])
 	const set_hue = useUIStore(state => state.set_hue)
 	const set_radius = useUIStore(state => state.set_radius)
 	const set_dark_theme = useUIStore(state => state.set_dark_theme)
+	const has_login = useUserStore(state => state.has_login)
 	const fetch_profile = useUserStore(state => state.fetch_profile)
+	const fetch_space_list = useSpaceStore(state => state.fetch_space_list)
 	useRouteScrollTop()
 	const login_success_match = useMatch('/login-success')
 	const with_layout = !login_success_match
@@ -49,6 +51,12 @@ export default function App() {
 			payload: location
 		})
 	}, [location])
+
+	useEffect(() => {
+		if (has_login) {
+			fetch_space_list()
+		}
+	}, [has_login, fetch_space_list])
 
 	return (
 		<>

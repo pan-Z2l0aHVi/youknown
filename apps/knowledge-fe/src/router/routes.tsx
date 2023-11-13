@@ -1,21 +1,21 @@
 import { createElement, lazy, ReactNode } from 'react'
-import { TbBook2, TbHeart, TbHistory, TbLayout, TbNotes, TbPhotoSquareRounded } from 'react-icons/tb'
+import { TbBook2, TbHeart, TbHistory, TbLayout, TbPhotoSquareRounded } from 'react-icons/tb'
 import { Navigate, RouteObject } from 'react-router-dom'
 
-export type RouteItem = RouteObject & {
+export type RouteItem = Omit<RouteObject, 'children'> & {
 	path: string
 	state?: {
-		nav_name: string
-		icon: ReactNode
+		title?: string
+		icon?: ReactNode
 	}
 	children?: RouteItem[]
 }
 
-export const nav_routes = [
+const routes: RouteItem[] = [
 	{
 		path: 'browse',
 		state: {
-			nav_name: '浏览',
+			title: '浏览',
 			icon: <TbLayout />
 		},
 		children: [
@@ -32,23 +32,20 @@ export const nav_routes = [
 	{
 		path: 'library',
 		state: {
-			nav_name: '我的知识库',
+			title: '我的知识库',
 			icon: <TbBook2 />
 		},
+		element: createElement(lazy(() => import('@/views/library'))),
 		children: [
 			{
-				path: 'doc',
-				state: {
-					nav_name: '文档',
-					icon: <TbNotes />
-				},
+				path: ':space_id',
 				children: [
 					{
 						path: '',
-						element: createElement(lazy(() => import('@/views/doc-list')))
+						element: createElement(lazy(() => import('@/views/space-detail')))
 					},
 					{
-						path: 'doc-editor',
+						path: 'editor',
 						element: createElement(lazy(() => import('@/views/doc-editor')))
 					}
 				]
@@ -59,15 +56,15 @@ export const nav_routes = [
 		path: 'wallpapers',
 		element: createElement(lazy(() => import('@/views/wallpapers'))),
 		state: {
-			nav_name: '壁纸',
+			title: '壁纸',
 			icon: <TbPhotoSquareRounded />
 		}
 	},
 	{
-		path: 'favorites',
-		element: createElement(lazy(() => import('@/views/favorites'))),
+		path: 'collection',
+		element: createElement(lazy(() => import('@/views/collection'))),
 		state: {
-			nav_name: '收藏夹',
+			title: '收藏夹',
 			icon: <TbHeart />
 		}
 	},
@@ -75,14 +72,10 @@ export const nav_routes = [
 		path: 'history',
 		element: createElement(lazy(() => import('@/views/history'))),
 		state: {
-			nav_name: '历史记录',
+			title: '历史记录',
 			icon: <TbHistory />
 		}
-	}
-]
-
-const routes = [
-	...nav_routes,
+	},
 	{
 		path: 'login-success',
 		element: createElement(lazy(() => import('@/views/login-success')))

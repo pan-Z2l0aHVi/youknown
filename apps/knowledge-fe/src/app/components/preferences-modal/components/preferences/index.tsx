@@ -132,33 +132,31 @@ export default function Preferences() {
 	})
 
 	return (
-		<div className="w-480px h-480px max-w-[calc(100vw-32px)] p-24px">
-			<Form form={form} labelWidth="108px">
-				<Form.Field label="style" labelText="界面风格">
-					<RadiusStyle />
-				</Form.Field>
-				<Form.Field label="hue" labelText="色调">
-					<Hue />
-				</Form.Field>
-				<Form.Field label="theme" labelText="主题">
-					<Select
-						options={[
-							{
-								label: '浅色',
-								value: THEME.LIGHT
-							},
-							{
-								label: '深色',
-								value: THEME.DARK
-							},
-							{
-								label: '跟随系统',
-								value: THEME.SYSTEM
-							}
-						]}
-					/>
-				</Form.Field>
-			</Form>
-		</div>
+		<Form className="w-480px h-480px max-w-[calc(100vw-32px)] p-24px" form={form} labelWidth={108}>
+			<Form.Field label="style" labelText="界面风格">
+				<RadiusStyle />
+			</Form.Field>
+			<Form.Field label="hue" labelText="色调">
+				<Hue />
+			</Form.Field>
+			<Form.Field label="theme" labelText="主题">
+				<Select
+					options={[
+						{
+							label: '浅色',
+							value: THEME.LIGHT
+						},
+						{
+							label: '深色',
+							value: THEME.DARK
+						},
+						{
+							label: '跟随系统',
+							value: THEME.SYSTEM
+						}
+					]}
+				/>
+			</Form.Field>
+		</Form>
 	)
 }

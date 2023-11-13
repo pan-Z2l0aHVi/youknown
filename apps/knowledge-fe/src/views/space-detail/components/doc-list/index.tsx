@@ -1,26 +1,32 @@
 import { useEffect, useRef, useState } from 'react'
-import { TbCheckbox, TbChecks, TbFilter, TbPlus, TbTrashX, TbX } from 'react-icons/tb'
+import { TbChecks, TbPlus, TbTrashX, TbX } from 'react-icons/tb'
 
 import { create_doc, delete_doc, Doc, search_docs } from '@/apis/doc'
-import Header from '@/app/components/header'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
-import { useBoolean, useInfinity } from '@youknown/react-hook/src'
+import { with_api } from '@/utils/request'
+import { useInfinity } from '@youknown/react-hook/src'
 import { Button, Dialog, Drawer, Form, Loading, Motion, Space, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
 
-import DocCard from './components/doc-card'
-import DocFilter from './components/doc-filter'
-import { with_api } from '@/utils/request'
+import DocCard from '../doc-card'
+import DocFilter from '../doc-filter'
 
-export default function DocList() {
+interface DocListProps {
+	space_id: string
+	filter_open: boolean
+	close_filter: () => void
+	choosing: boolean
+	cancel_choosing: () => void
+}
+export default function DocList(props: DocListProps) {
+	const { space_id, filter_open, close_filter, choosing, cancel_choosing } = props
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const has_login = useUserStore(state => state.has_login)
 	const recording = useRecordStore(state => state.recording)
 	const navigate = useTransitionNavigate()
 	const loading_ref = useRef(null)
-	const [filter_open, { setTrue: open_filter, setFalse: close_filter }] = useBoolean(false)
 
 	const form = Form.useForm({
 		defaultState: {
@@ -43,6 +49,7 @@ export default function DocList() {
 		const { list } = await search_docs({
 			page,
 			page_size,
+			space_id,
 			keywords,
 			sort_by,
 			sort_type
@@ -69,7 +76,6 @@ export default function DocList() {
 	})
 
 	const [create_loading, set_create_loading] = useState(false)
-	const [choosing, { setTrue: do_choosing, setFalse: cancel_choosing }] = useBoolean(false)
 	const [selection, set_selection] = useState<typeof doc_list>([])
 	const has_selection = selection.length > 0
 
@@ -89,15 +95,17 @@ export default function DocList() {
 		}
 		set_create_loading(true)
 		const [err, res] = await with_api(create_doc)({
+			space_id,
 			title: '未命名'
 		})
 		set_create_loading(false)
 		if (err) {
 			return
 		}
+		Toast.success({ content: '创建文档成功' })
 		navigate(
 			QS.stringify({
-				base: '/library/doc/doc-editor',
+				base: `editor`,
 				query: {
 					doc_id: res.doc_id
 				}
@@ -176,27 +184,6 @@ export default function DocList() {
 		>
 			<DocFilter form={form} loading={loading} on_cancel={close_filter} />
 		</Drawer>
-	)
-
-	const header = (
-		<Header heading="文档">
-			<Space>
-				{choosing ? (
-					<Button onClick={cancel_choosing} prefixIcon={<TbX className="text-16px color-primary" />}>
-						取消
-					</Button>
-				) : (
-					<>
-						<Button onClick={do_choosing} prefixIcon={<TbCheckbox className="text-16px color-primary" />}>
-							选择
-						</Button>
-						<Button prefixIcon={<TbFilter className="text-16px color-primary" />} onClick={open_filter}>
-							筛选
-						</Button>
-					</>
-				)}
-			</Space>
-		</Header>
 	)
 
 	const choosing_bar = (
@@ -283,7 +270,6 @@ export default function DocList() {
 
 	return (
 		<>
-			{header}
 			<div className="p-32px">{doc_card_list}</div>
 			{has_login && (
 				<>

@@ -1,10 +1,10 @@
 import { get_qiniu_token } from '@/apis/bucket'
 import { storage } from '@youknown/utils/src'
 
-import type { QiniuError, QiniuNetworkError, QiniuRequestError } from 'qiniu-js'
-import type { UploadProgress } from 'qiniu-js/esm/upload'
 import { with_api } from './request'
 
+import type { QiniuError, QiniuNetworkError, QiniuRequestError } from 'qiniu-js'
+import type { UploadProgress } from 'qiniu-js/esm/upload'
 const QINIU_TOKEN_KEY = 'qiniu_token'
 
 interface Options {

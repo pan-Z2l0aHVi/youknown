@@ -24,10 +24,10 @@ export default function History() {
 	}, [init_records])
 
 	useEffect(() => {
-		if (!search_input.trim()) {
-			set_records_result(record_list)
-		} else {
-			startTransition(() => {
+		startTransition(() => {
+			if (!search_input.trim()) {
+				set_records_result(record_list)
+			} else {
 				const next_record_list = record_list.filter(record => {
 					if (record.target.includes(search_input)) {
 						return true
@@ -38,8 +38,13 @@ export default function History() {
 					return false
 				})
 				set_records_result(next_record_list)
+			}
+			window.scrollTo({
+				left: 0,
+				top: 0,
+				behavior: 'instant'
 			})
-		}
+		})
 	}, [record_list, search_input])
 
 	const handle_clear_history = () => {

@@ -8,6 +8,10 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from '@/app'
 
+import { registerServiceWorker } from './worker'
+
+registerServiceWorker()
+
 createRoot(document.getElementById('app') as HTMLElement).render(
 	<BrowserRouter>
 		<App />

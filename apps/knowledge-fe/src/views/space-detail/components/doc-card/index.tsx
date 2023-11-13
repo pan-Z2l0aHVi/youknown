@@ -43,7 +43,7 @@ export default function DocCard(props: DocCardProps) {
 		} else {
 			navigate(
 				QS.stringify({
-					base: '/library/doc/doc-editor',
+					base: 'editor',
 					query: {
 						doc_id: info.doc_id
 					}

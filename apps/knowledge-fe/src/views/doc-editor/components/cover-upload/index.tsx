@@ -1,12 +1,12 @@
 import { useRef } from 'react'
 import { PiTrashSimpleBold } from 'react-icons/pi'
-import { TbPhotoPlus } from 'react-icons/tb'
+import { TbPhotoEdit, TbPhotoPlus } from 'react-icons/tb'
 
 import { Doc, update_doc } from '@/apis/doc'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
+import { with_api } from '@/utils/request'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Image, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
-import { with_api } from '@/utils/request'
 
 interface CoverUploadProps {
 	doc_id: string
@@ -56,7 +56,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 					<Space className="group-hover-display-flex! display-none! absolute right-16px bottom-16px">
 						<Upload ref={upload_ref} headless action={upload_cover}>
 							<Button
-								prefixIcon={<TbPhotoPlus />}
+								prefixIcon={<TbPhotoEdit />}
 								onClick={() => {
 									upload_ref.current?.click()
 								}}
