@@ -101,10 +101,7 @@ export default function Sidebar() {
 				)}
 			>
 				<TransitionLink to="/">
-					<Image
-						className="w-32px h-32px ml-6px rd-radius-m shadow-[0_1px_2px_rgba(0,0,0,0.2)]"
-						src={`${import.meta.env.VITE_CDN_BASE_URL}/branch.png`}
-					/>
+					<Image className="w-32px h-32px ml-6px" src={`${import.meta.env.VITE_CDN_BASE_URL}/branch.png`} />
 				</TransitionLink>
 			</div>
 

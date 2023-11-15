@@ -141,7 +141,7 @@ export default function DocCard(props: DocCardProps) {
 					'bg-bg-1 bg-cover bg-center cursor-pointer overflow-hidden select-none',
 					selected
 						? 'b-primary shadow-[var(--ui-shadow-l),0_0_0_1px_var(--ui-color-primary)]'
-						: 'shadow-shadow-m hover-b-primary hover-shadow-[var(--ui-shadow-l),0_0_0_1px_var(--ui-color-primary)]'
+						: 'hover-b-primary hover-shadow-[var(--ui-shadow-l),0_0_0_1px_var(--ui-color-primary)]'
 				)}
 				style={{ backgroundImage: `url("${info.cover}")` }}
 			>

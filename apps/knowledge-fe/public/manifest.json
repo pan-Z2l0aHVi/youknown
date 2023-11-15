@@ -1,0 +1,16 @@
+{
+  "name": "Known",
+  "short_name": "Known",
+  "description": "knowledge base",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/branch.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -125,7 +125,7 @@ const Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => 
 				children
 			) : (
 				<>
-					{!uploading && !lastFile && <TbPlus className={`${prefixCls}-plus-icon`} />}
+					<TbPlus className={`${prefixCls}-plus-icon`} />
 					{children || (
 						<div className={`${prefixCls}-thumb-default`}>
 							{(lastPreviewURL || lastPicURL) && (

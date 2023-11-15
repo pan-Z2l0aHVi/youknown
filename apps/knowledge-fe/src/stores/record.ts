@@ -6,10 +6,10 @@ import { uuid } from '@youknown/utils/src'
 
 interface RecordState {
 	record_list: RecordValue[]
-	recording: (record: Omit<RecordValue, 'creation_time' | 'id'>) => void
-	init_records: () => void
-	delete_record: (record_id: string) => void
-	clear_records: () => void
+	recording: (record: Omit<RecordValue, 'creation_time' | 'id'>) => Promise<void>
+	init_records: () => Promise<void>
+	delete_record: (record_id: string) => Promise<void>
+	clear_records: () => Promise<void>
 }
 
 export const useRecordStore = create<RecordState>()(

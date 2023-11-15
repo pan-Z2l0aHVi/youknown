@@ -144,7 +144,6 @@ export default function Wallpapers() {
 						set_keywords(`like:${wallpaper.id}`)
 						window.scrollTo({
 							top: 0,
-							left: 0,
 							behavior: 'instant'
 						})
 						keywords_filter_ref.current?.focus_keywords_input()

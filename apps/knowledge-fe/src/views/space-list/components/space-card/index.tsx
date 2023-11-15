@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { FcFolder } from 'react-icons/fc'
 import { LuSettings2 } from 'react-icons/lu'
 import { PiTrashSimpleBold } from 'react-icons/pi'
@@ -19,6 +20,7 @@ export default function SpaceCard(props: SpaceCardProps) {
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const delete_spaces = useSpaceStore(state => state.delete_spaces)
 	const navigate = useTransitionNavigate()
+	const [more_open, set_more_open] = useState(false)
 
 	const go_space_docs = () => {
 		navigate(`${info.space_id}`)
@@ -82,8 +84,9 @@ export default function SpaceCard(props: SpaceCardProps) {
 						</Dropdown.Item>
 					</Dropdown.Menu>
 				}
+				onOpenChange={set_more_open}
 			>
-				<More onClick={e => e.stopPropagation()} />
+				<More active={more_open} onClick={e => e.stopPropagation()} />
 			</Dropdown>
 		</div>
 	)

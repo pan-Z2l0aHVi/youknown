@@ -1,7 +1,8 @@
 import { ComponentProps, useState } from 'react'
 
+import { parse_file_size_mb } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
-import { Image, Progress, Upload } from '@youknown/react-ui/src'
+import { Image, Progress, Toast, Upload } from '@youknown/react-ui/src'
 
 interface PicUploadProps {
 	value?: string
@@ -19,6 +20,11 @@ export default function PicUpload(props: PicUploadProps) {
 
 	const upload_cover = (file: File) =>
 		new Promise<string>((resolve, reject) => {
+			if (parse_file_size_mb(file) > 1) {
+				reject('Exceed the size limit')
+				Toast.warning({ content: '图像大小不能超过1M' })
+				return
+			}
 			set_uploading(true)
 			upload_cloudflare_r2(file, {
 				progress(progress) {

@@ -50,3 +50,13 @@ export const format_time = (timing: number | string): string => {
 	}
 	return date.format(`MM月DD日 ${formatter}`)
 }
+
+export function parse_file_size_kb(file: File) {
+	const fileSizeInBytes = file.size
+	return fileSizeInBytes / 1024
+}
+
+export function parse_file_size_mb(file: File) {
+	const fileSizeInKB = parse_file_size_kb(file)
+	return fileSizeInKB / 1024
+}
