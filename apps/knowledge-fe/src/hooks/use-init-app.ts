@@ -6,6 +6,7 @@ import { THEME, useRecordStore, useSpaceStore, useUIStore, useUserStore } from '
 import { get_local_settings, get_local_token } from '@/utils/local'
 import { report } from '@/utils/report'
 import { useEvent, useMount } from '@youknown/react-hook/src'
+import { Toast } from '@youknown/react-ui/src'
 
 export default function useInitApp() {
 	const set_hue = useUIStore(state => state.set_hue)
@@ -28,6 +29,15 @@ export default function useInitApp() {
 			fetch_profile()
 		}
 		init_settings()
+	})
+
+	useMount(() => {
+		window.addEventListener('online', () => {
+			Toast.success({ content: '网络连接恢复' })
+		})
+		window.addEventListener('offline', () => {
+			Toast.error({ content: '网络连接中断' })
+		})
 	})
 
 	const { title } = useRouteMeta()

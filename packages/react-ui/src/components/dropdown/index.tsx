@@ -27,7 +27,7 @@ const Dropdown = (props: DropdownProps, propRef: ForwardedRef<HTMLElement>) => {
 		crossOffset,
 		disabled,
 		appendTo,
-		unmountOnExit,
+		unmountOnExit = true,
 		onClickOutside,
 		onOpenChange,
 		...rest

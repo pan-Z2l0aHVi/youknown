@@ -25,7 +25,7 @@ const Popover = (props: PopoverProps, propRef: ForwardedRef<HTMLElement>) => {
 		spacing,
 		crossOffset,
 		disabled,
-		unmountOnExit,
+		unmountOnExit = true,
 		appendTo,
 		onClickOutside,
 		onOpenChange,

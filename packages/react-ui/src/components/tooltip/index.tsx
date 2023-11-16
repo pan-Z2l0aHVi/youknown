@@ -26,7 +26,7 @@ const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 		spacing,
 		crossOffset,
 		disabled,
-		unmountOnExit,
+		unmountOnExit = true,
 		appendTo,
 		onClickOutside,
 		onOpenChange,

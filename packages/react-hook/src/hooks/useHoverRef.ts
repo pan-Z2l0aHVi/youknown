@@ -1,6 +1,6 @@
-import { MutableRefObject, useEffect, useState } from 'react'
+import { RefObject, useEffect, useState } from 'react'
 
-export function useHoverRef(ref: MutableRefObject<Element>): boolean {
+export function useHoverRef(ref: RefObject<Element>): boolean {
 	const [hovered, setHovered] = useState(false)
 	useEffect(() => {
 		const onMouseEnter = () => {
