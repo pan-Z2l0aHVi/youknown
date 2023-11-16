@@ -32,6 +32,7 @@ interface ImagePreviewProps {
 	toolbarVisible?: boolean
 	scaleRange?: number[]
 	unmountOnExit?: boolean
+	downloadFileName?: string
 	open: boolean
 	onClose: () => void
 	onLoad?: ReactEventHandler<HTMLImageElement>
@@ -47,6 +48,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 		toolbarVisible = true,
 		scaleRange = [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 5, 8],
 		unmountOnExit = true,
+		downloadFileName = 'picture',
 		onClose,
 		onLoad,
 		onError,
@@ -159,7 +161,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 		if (!detailLoaded) return
 
 		if (src) {
-			downloadFile(src, 'wallpaper').then(onDownloadSuccess).catch(onDownloadError)
+			downloadFile(src, downloadFileName).then(onDownloadSuccess).catch(onDownloadError)
 		}
 	}
 

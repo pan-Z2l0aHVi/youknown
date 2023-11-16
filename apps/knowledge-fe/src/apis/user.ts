@@ -1,3 +1,4 @@
+import { LOGIN_TYPE } from '@/consts'
 import { net } from '@/utils/request'
 
 export interface Profile {
@@ -9,7 +10,7 @@ export interface Profile {
 }
 
 export interface LoginPayload {
-	type: number
+	type: LOGIN_TYPE
 	code: string
 }
 export const login = (payload: LoginPayload) =>
@@ -27,5 +28,21 @@ export interface GetProfileParams {
 }
 export const get_profile = (params?: GetProfileParams) =>
 	net.fetch<Profile>('/proxy/user/profile', {
+		params
+	})
+
+export const get_yd_qrcode = () =>
+	net.fetch<{
+		qrcode_url: string
+		temp_user_id: string
+	}>('/proxy/user/yd_qrcode')
+
+export interface CheckYDLoginStatusParams {
+	temp_user_id: string
+}
+export const check_yd_login_status = (params?: CheckYDLoginStatusParams) =>
+	net.fetch<{
+		has_login: boolean
+	}>('/proxy/user/yd_login_status', {
 		params
 	})

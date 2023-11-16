@@ -29,7 +29,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		})
 	}
 	const handle_download = () => {
-		downloadFile(wallpaper.path, 'wallpaper').catch(() => {
+		downloadFile(wallpaper.path, wallpaper.id).catch(() => {
 			toast_download_err()
 		})
 	}
@@ -37,6 +37,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 	const preview_picture = async () => {
 		Image.preview({
 			url: wallpaper.path,
+			downloadFileName: wallpaper.id,
 			onDownloadError() {
 				toast_download_err()
 			},

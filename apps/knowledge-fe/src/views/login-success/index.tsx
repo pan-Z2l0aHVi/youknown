@@ -6,6 +6,7 @@ import { send_to_opener_window_cancel, send_to_opener_window_ok } from '@/utils/
 import { set_local_token } from '@/utils/local'
 import { Loading } from '@youknown/react-ui/src'
 import { storage } from '@youknown/utils/src'
+import { LOGIN_TYPE } from '@/consts'
 
 export default function LoginSuccess() {
 	const [search_params, set_search_params] = useSearchParams()
@@ -38,7 +39,7 @@ export default function LoginSuccess() {
 				pre.delete('code')
 				return pre
 			})
-			login({ type: 1, code })
+			login({ type: LOGIN_TYPE.GITHUB, code })
 				.then(({ token }) => {
 					set_local_token(token)
 					send_to_opener_window_ok(token)

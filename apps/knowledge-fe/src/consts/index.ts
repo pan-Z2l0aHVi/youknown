@@ -5,3 +5,8 @@ export const B_CODE = {
 }
 
 export const DOC_TITLE_MAX_LEN = 30
+
+export const enum LOGIN_TYPE {
+	GITHUB = 1,
+	WECHAT = 2
+}
