@@ -158,9 +158,14 @@ export const componentRoutes = [
 		element: createElement(lazy(() => import('@/hook-views/UseInfinityExample')))
 	},
 	{
-		name: 'UseHTMLDiff',
-		path: 'use_html_diff',
-		element: createElement(lazy(() => import('@/other-views/UseHTMLDiff')))
+		name: 'HTMLDiff',
+		path: 'html_diff',
+		element: createElement(lazy(() => import('@/other-views/HTMLDiffExample')))
+	},
+	{
+		name: 'KeepAlive',
+		path: 'keep_alive',
+		element: createElement(lazy(() => import('@/other-views/KeepAliveExample')))
 	}
 ]
 

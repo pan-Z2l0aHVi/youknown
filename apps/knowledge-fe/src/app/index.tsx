@@ -22,7 +22,17 @@ export default function App() {
 	const login_success_match = useMatch('/login-success')
 	const with_layout = !login_success_match
 
-	return (
+	const fallback_ele = with_layout ? (
+		<div className="flex-1 flex justify-center items-center">
+			<Loading spinning size="large" />
+		</div>
+	) : (
+		<div className="min-h-screen flex justify-center items-center">
+			<Loading spinning size="large" />
+		</div>
+	)
+
+	const global_els = (
 		<>
 			<PageProgress />
 			<Suspense>
@@ -31,6 +41,12 @@ export default function App() {
 			<Suspense>
 				<LoginModal />
 			</Suspense>
+		</>
+	)
+
+	return (
+		<>
+			{global_els}
 
 			{with_layout ? (
 				<div className="flex flex-col min-h-screen">
@@ -40,26 +56,15 @@ export default function App() {
 						<div className="relative">
 							<Sidebar />
 						</div>
-						<Suspense
-							fallback={
-								<div className="flex-1 flex justify-center items-center">
-									<Loading spinning size="large" />
-								</div>
-							}
-						>
+
+						<Suspense fallback={fallback_ele}>
 							<div className={cls('flex-1 scrollbar-custom')}>{content}</div>
 						</Suspense>
 					</div>
 					<FabBar />
 				</div>
 			) : (
-				<Suspense
-					fallback={
-						<div className="min-h-screen flex justify-center items-center">
-							<Loading spinning size="large" />
-						</div>
-					}
-				>
+				<Suspense fallback={fallback_ele}>
 					<div className={cls('min-h-screen scrollbar-custom')}>{content}</div>
 				</Suspense>
 			)}

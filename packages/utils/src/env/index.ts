@@ -12,3 +12,7 @@ export function checkAndroidMobile(): boolean {
 	const ua = navigator.userAgent
 	return !!ua.match(/(Android)/i)
 }
+
+export function checkPWA(): boolean {
+	return window.matchMedia('(display-mode: standalone)').matches
+}

@@ -2,12 +2,12 @@ import { useRef } from 'react'
 import { RiWechatFill } from 'react-icons/ri'
 
 import { check_yd_login_status, get_yd_qrcode, login as login_api } from '@/apis/user'
-import { useBoolean, useFetch, useHover, useUnmount } from '@youknown/react-hook/src'
-import { Loading } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
-import { useModalStore, useUserStore } from '@/stores'
 import { LOGIN_TYPE } from '@/consts'
+import { useModalStore, useUserStore } from '@/stores'
 import { set_local_token } from '@/utils/local'
+import { useBoolean, useFetch, useHover, useUnmount } from '@youknown/react-hook/src'
+import { Loading, Toast } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 
 export default function WeChatCard() {
 	const close_login_modal = useModalStore(state => state.close_login_modal)
@@ -38,6 +38,7 @@ export default function WeChatCard() {
 					login()
 					set_profile({ ...rest })
 					close_login_modal()
+					Toast.success({ content: '登录成功' })
 				})
 				return
 			}

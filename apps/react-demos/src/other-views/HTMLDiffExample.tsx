@@ -1,4 +1,4 @@
-import './use-html-diff.scss'
+import './html-diff.scss'
 
 import diff from 'html-diff-ts'
 import { useMemo, useState } from 'react'

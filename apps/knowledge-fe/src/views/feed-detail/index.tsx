@@ -10,8 +10,8 @@ import { Image, Loading } from '@youknown/react-ui/src'
 
 export default function FeedDetail() {
 	const recording = useRecordStore(state => state.recording)
-	const [search] = useSearchParams()
-	const feed_id = search.get('feed_id') ?? ''
+	const [search_params] = useSearchParams()
+	const feed_id = search_params.get('feed_id') ?? ''
 
 	const record_read_feed = (feed_info: Feed) => {
 		recording({

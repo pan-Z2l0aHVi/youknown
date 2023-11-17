@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 import { search_wallpapers } from '@/apis/wallpaper'
 import Header from '@/app/components/header'
 import { useCreation, useEvent, useInfinity, useUpdate } from '@youknown/react-hook/src'
 import { Form, Loading } from '@youknown/react-ui/src'
-import { cls, macroDefer, storage } from '@youknown/utils/src'
+import { checkPWA, cls, macroDefer, QS, storage } from '@youknown/utils/src'
 
 import WallpaperCard from './components/wallpaper-card'
 import WallpaperFilter, {
@@ -21,12 +22,15 @@ const FILTER_STATE_KEY = 'wallpaper_filter_state'
 const FILTER_KEYWORDS_KEY = 'wallpaper_filter_keywords'
 
 export default function Wallpapers() {
+	const [search_params] = useSearchParams()
 	const update = useUpdate()
 	const loading_ref = useRef<HTMLDivElement>(null)
 	const wrapper_ref = useRef<HTMLDivElement>(null)
 
-	const session_keywords = useCreation(() => storage.session.get(FILTER_KEYWORDS_KEY))
-	const [keywords, set_keywords] = useState(session_keywords ?? '')
+	const default_keywords = useCreation(
+		() => search_params.get('keywords') ?? storage.session.get(FILTER_KEYWORDS_KEY) ?? ''
+	)
+	const [keywords, set_keywords] = useState(default_keywords)
 	const session_filter_state = useCreation(() => storage.session.get<filterState>(FILTER_STATE_KEY))
 	const keywords_filter_ref = useRef<ImperativeHandle>(null)
 
@@ -131,6 +135,33 @@ export default function Wallpapers() {
 		}
 	})
 
+	const search_in_current_page = (similar_keywords: string) => {
+		set_keywords(similar_keywords)
+		window.scrollTo({
+			top: 0,
+			behavior: 'instant'
+		})
+		keywords_filter_ref.current?.focus_keywords_input()
+		macroDefer(() => {
+			update_params()
+			macroDefer(() => {
+				reload_wallpapers()
+			})
+		})
+	}
+
+	const search_open_new_page = (similar_keywords: string) => {
+		window.open(
+			QS.stringify({
+				base: '/wallpapers',
+				query: {
+					keywords: similar_keywords
+				}
+			}),
+			'_blank'
+		)
+	}
+
 	const wallpaper_list = (
 		<div
 			ref={wrapper_ref}
@@ -141,18 +172,12 @@ export default function Wallpapers() {
 					key={wallpaper.id}
 					wallpaper={wallpaper}
 					search_similar={() => {
-						set_keywords(`like:${wallpaper.id}`)
-						window.scrollTo({
-							top: 0,
-							behavior: 'instant'
-						})
-						keywords_filter_ref.current?.focus_keywords_input()
-						macroDefer(() => {
-							update_params()
-							macroDefer(() => {
-								reload_wallpapers()
-							})
-						})
+						const similar_keywords = `like:${wallpaper.id}`
+						if (checkPWA()) {
+							search_in_current_page(similar_keywords)
+						} else {
+							search_open_new_page(similar_keywords)
+						}
 					}}
 				/>
 			))}

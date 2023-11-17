@@ -100,7 +100,7 @@ export default function Sidebar() {
 					'after:content-empty after:absolute after:left-12px after:bottom-0 after:w-[calc(100%-24px)] after:h-1px after:bg-bd-line'
 				)}
 			>
-				<TransitionLink to="/">
+				<TransitionLink className="block w-max" to="/">
 					<Image className="w-32px h-32px ml-6px" src={`${import.meta.env.VITE_CDN_BASE_URL}/branch.png`} />
 				</TransitionLink>
 			</div>
