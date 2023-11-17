@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"jsx": "react-jsx",
-		"target": "ES2022",
+		"target": "ESNext",
 		"module": "ESNext",
 		"esModuleInterop": true,
 		"declaration": false,

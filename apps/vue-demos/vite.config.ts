@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 import Unocss from 'unocss/vite'
-import { defineConfig, loadEnv, PluginOption, type } from 'vite'
+import { defineConfig, loadEnv, PluginOption } from 'vite'
 import eslintPlugin from 'vite-plugin-eslint'
 
 import vue from '@vitejs/plugin-vue'
@@ -17,6 +17,9 @@ export default defineConfig(({ mode }) => {
 			Unocss(),
 			visualizer() as PluginOption
 		],
+		build: {
+			target: 'es2015'
+		},
 		resolve: {
 			alias: {
 				'@': resolve(__dirname, 'src')

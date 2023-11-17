@@ -16,6 +16,9 @@ export default defineConfig(({ mode }) => {
 				'@': resolve(__dirname, 'src')
 			}
 		},
+		build: {
+			target: 'es2015'
+		},
 		server: {
 			host: '0.0.0.0',
 			open: true,

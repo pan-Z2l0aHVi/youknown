@@ -12,6 +12,7 @@ export default defineConfig({
 		alias: {}
 	},
 	build: {
+		target: 'es2015',
 		lib: {
 			formats: ['es'],
 			entry: resolve(__dirname, 'src/index.ts'),
