@@ -15,6 +15,7 @@ export default function useInitApp() {
 	const has_login = useUserStore(state => state.has_login)
 	const fetch_profile = useUserStore(state => state.fetch_profile)
 	const fetch_space_list = useSpaceStore(state => state.fetch_space_list)
+	const clear_space_list = useSpaceStore(state => state.clear_space_list)
 	const init_records = useRecordStore(state => state.init_records)
 
 	const init_settings = useEvent(() => {
@@ -62,6 +63,8 @@ export default function useInitApp() {
 	useEffect(() => {
 		if (has_login) {
 			fetch_space_list()
+		} else {
+			clear_space_list()
 		}
-	}, [has_login, fetch_space_list])
+	}, [has_login, fetch_space_list, clear_space_list])
 }

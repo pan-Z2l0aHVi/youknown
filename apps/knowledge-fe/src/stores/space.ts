@@ -6,6 +6,7 @@ import { create_doc_space, delete_doc_space, DocSpace, get_spaces, update_doc_sp
 interface SpaceState {
 	space_list: DocSpace[]
 	fetch_space_list: () => Promise<void>
+	clear_space_list: () => void
 	create_space: (name: string, desc: string) => Promise<void>
 	update_space: (space_id: string, name: string, desc: string) => Promise<void>
 	delete_spaces: (...space_ids: string[]) => Promise<void>
@@ -15,6 +16,8 @@ export const useSpaceStore = create<SpaceState>()(
 	devtools(
 		(set, get) => ({
 			space_list: [],
+
+			clear_space_list: () => set({ space_list: [] }),
 
 			fetch_space_list: async () => {
 				const res = await get_spaces()

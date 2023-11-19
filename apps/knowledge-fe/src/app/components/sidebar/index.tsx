@@ -6,8 +6,8 @@ import { useBoolean, useCreation, useLatestRef } from '@youknown/react-hook/src'
 import { Image, Tooltip } from '@youknown/react-ui/src'
 import { cls, storage } from '@youknown/utils/src'
 
-import Account from './components/account'
 import Menu from './components/menu'
+import My from './components/my'
 
 const EXPAND_KEY = 'sidebar-expand'
 const WIDTH_KEY = 'sidebar-width'
@@ -113,7 +113,7 @@ export default function Sidebar() {
 					'after:content-empty after:absolute after:left-12px after:top-0 after:w-[calc(100%-24px)] after:h-1px after:bg-bd-line'
 				)}
 			>
-				<Account expand={expand} />
+				<My expand={expand} />
 
 				<Tooltip title={expand ? '收起' : '展开'} placement="right" spacing={20}>
 					<button

@@ -1,8 +1,8 @@
 import { useState } from 'react'
+import { BiBookmarkAlt } from 'react-icons/bi'
 import { FcFolder } from 'react-icons/fc'
 import { LuSettings2 } from 'react-icons/lu'
 import { PiTrashSimpleBold } from 'react-icons/pi'
-import { TbInfoSquare } from 'react-icons/tb'
 
 import { DocSpace } from '@/apis/space'
 import More from '@/components/more'
@@ -70,7 +70,7 @@ export default function SpaceCard(props: SpaceCardProps) {
 				placement="bottom-start"
 				content={
 					<Dropdown.Menu className="w-120px" closeAfterItemClick onClick={e => e.stopPropagation()}>
-						<Dropdown.Item prefix={<TbInfoSquare className="text-16px" />} onClick={handle_show_desc}>
+						<Dropdown.Item prefix={<BiBookmarkAlt className="text-16px" />} onClick={handle_show_desc}>
 							查看简介
 						</Dropdown.Item>
 						<Dropdown.Item prefix={<LuSettings2 className="text-16px" />} onClick={on_edit}>

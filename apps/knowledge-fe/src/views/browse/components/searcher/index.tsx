@@ -3,6 +3,7 @@ import { GoInbox } from 'react-icons/go'
 import { TbSearch } from 'react-icons/tb'
 
 import { Feed, get_feed_list } from '@/apis/feed'
+import MoreLoading from '@/components/more-loading'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useEvent, useInfinity } from '@youknown/react-hook/src'
 import { Card, Input, Loading } from '@youknown/react-ui/src'
@@ -116,14 +117,7 @@ export default function Searcher() {
 									if (!feed) return
 									go_feed_detail(feed.feed_id)
 								}}
-								footer={
-									no_more ||
-									(has_keywords && (
-										<div ref={loading_ref} className="text-center color-text-3 text-12px">
-											加载中...
-										</div>
-									))
-								}
+								footer={no_more || (has_keywords && <MoreLoading ref={loading_ref} />)}
 							/>
 						</div>
 					</div>

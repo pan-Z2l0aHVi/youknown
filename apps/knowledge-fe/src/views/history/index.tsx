@@ -2,13 +2,15 @@ import { useCallback, useEffect, useState, useTransition } from 'react'
 import { TbSearch } from 'react-icons/tb'
 
 import Header from '@/app/components/header'
-import { useRecordStore } from '@/stores'
+import { useRecordStore, useUIStore } from '@/stores'
 import { useEvent } from '@youknown/react-hook/src'
 import { Button, Dialog, Input, Space } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 
 import RecordItem from './components/record-item'
 
 export default function History() {
+	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const record_list = useRecordStore(state => state.record_list)
 	const clear_records = useRecordStore(state => state.clear_records)
 	const [search_input, set_search_input] = useState('')
@@ -57,6 +59,10 @@ export default function History() {
 		Dialog.confirm({
 			title: '要清除历史记录吗？',
 			content: '一旦执行该操作，你的所有历史记录将从当前设备中清除。',
+			overlayClassName: cls(
+				'backdrop-blur-xl',
+				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+			),
 			onOk() {
 				clear_records()
 			},

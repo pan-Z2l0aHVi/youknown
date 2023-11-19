@@ -32,7 +32,7 @@ export default function DocFilter(props: DocFilterProps) {
 				</Form.Field>
 				<Form.Field label="sort_type" labelText="顺序">
 					<Select
-						className="w-200px!"
+						className="w-160px!"
 						options={[
 							{
 								label: '最新的排在前',

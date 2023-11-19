@@ -5,7 +5,15 @@ const MSG_EVENT = {
 
 export function open_login_window<T>(url: string) {
 	return new Promise<T>((resolve, reject) => {
-		const new_window = window.open(url, '_blank', 'width=800,height=600')
+		const w = 800
+		const h = 600
+		const screen_w = window.screen.width
+		const screen_h = window.screen.height
+		const left = (screen_w - w) / 2
+		const top = (screen_h - h) / 2
+		const new_window = window.open(url, '_blank', `width=${w},height=${h},left=${left},top=${top}`)
+		new_window?.focus()
+
 		const msg_handler = (event: MessageEvent) => {
 			if (event.source !== new_window) {
 				return

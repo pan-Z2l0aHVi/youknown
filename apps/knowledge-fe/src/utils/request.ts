@@ -1,5 +1,5 @@
 import { B_CODE } from '@/consts'
-import { useUserStore } from '@/stores'
+import { useModalStore, useSpaceStore, useUserStore } from '@/stores'
 import { get_local_token } from '@/utils/local'
 import { Toast } from '@youknown/react-ui/src'
 import { ArgumentType, headers2Obj, Net, PromiseFnResult } from '@youknown/utils/src'
@@ -49,6 +49,10 @@ export const net = Net.create({
 			case B_CODE.NOT_AUTH:
 				ctx.err = new NetFetchError(ctx.data)
 				useUserStore.getState().do_logout()
+				Toast.error({
+					content: '身份验证失效，请重新登录'
+				})
+				useModalStore.getState().open_login_modal()
 				break
 
 			default:

@@ -78,6 +78,10 @@ const routes: RouteItem[] = [
 		}
 	},
 	{
+		path: 'user-center',
+		element: createElement(lazy(() => import('@/views/user-center')))
+	},
+	{
 		path: 'login-success',
 		element: createElement(lazy(() => import('@/views/login-success')))
 	},

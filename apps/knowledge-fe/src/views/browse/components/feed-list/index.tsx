@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react'
 
 import { get_feed_list, GetFeedListParams } from '@/apis/feed'
+import MoreLoading from '@/components/more-loading'
+import NoMore from '@/components/no-more'
 import { useUserStore } from '@/stores'
 import { useInfinity } from '@youknown/react-hook/src'
 
@@ -58,13 +60,7 @@ export default function FeedList(props: FeedProps) {
 			{feed_list?.map(feed => {
 				return <FeedItem key={feed.feed_id} feed={feed} />
 			})}
-			{no_more ? (
-				<div className="text-center text-text-3">暂时没有更多了~</div>
-			) : (
-				<div ref={loading_ref} className="text-center text-text-3">
-					加载中...
-				</div>
-			)}
+			{no_more ? <NoMore /> : <MoreLoading ref={loading_ref} />}
 		</div>
 	)
 }

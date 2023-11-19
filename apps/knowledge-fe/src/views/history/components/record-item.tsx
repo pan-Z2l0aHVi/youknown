@@ -7,7 +7,7 @@ import { useRecordStore } from '@/stores'
 import { format_time } from '@/utils'
 import { RecordValue } from '@/utils/idb'
 import { Dropdown } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
+import { QS, cls } from '@youknown/utils/src'
 
 interface RecordItemProps {
 	record: RecordValue
@@ -17,6 +17,19 @@ export default function RecordItem(props: RecordItemProps) {
 	const delete_record = useRecordStore(state => state.delete_record)
 	const [more_open, set_more_open] = useState(false)
 	const timing_desc = format_time(record.creation_time.getTime())
+	const target_user_center_url = QS.stringify({
+		base: '/user-center',
+		query: {
+			target_user_id: record.target_id
+		}
+	})
+	const feed_url = QS.stringify({
+		base: '/browse/feed-detail',
+		query: {
+			feed_id: record.obj_id
+		}
+	})
+
 	return (
 		<div key={record.id} className="group flex hover-bg-hover rd-radius-l p-[0_16px]">
 			<div className="flex items-center justify-end w-160px text-12px color-text-3 group-hover-text-text-2">
@@ -35,7 +48,7 @@ export default function RecordItem(props: RecordItemProps) {
 						<>
 							<TransitionLink
 								className="inline-block max-w-200px truncate color-purple! hover-underline!"
-								to=""
+								to={target_user_center_url}
 							>
 								{record.target}
 							</TransitionLink>
@@ -47,7 +60,7 @@ export default function RecordItem(props: RecordItemProps) {
 							{record.obj_type}
 							<TransitionLink
 								className="inline-block max-w-200px truncate color-blue! hover-underline!"
-								to=""
+								to={feed_url}
 							>
 								{record.obj}
 							</TransitionLink>

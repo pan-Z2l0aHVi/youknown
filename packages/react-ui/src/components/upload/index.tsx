@@ -77,6 +77,7 @@ const Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => 
 			})
 			.catch(() => {
 				file.status = 'error'
+				delete file.previewURL
 			})
 			.finally(() => {
 				setUploading(false)

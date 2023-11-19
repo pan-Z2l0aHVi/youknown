@@ -1,17 +1,10 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
-import { get_profile, login as request_login } from '@/apis/user'
+import { get_profile, login as request_login, Profile } from '@/apis/user'
 import { remove_local_token, set_local_token } from '@/utils/local'
 import { with_api } from '@/utils/request'
 
-interface Profile {
-	user_id: string
-	associated: number
-	github_id: number
-	nickname: string
-	avatar: string
-}
 interface UserState {
 	has_login: boolean
 	login: () => void

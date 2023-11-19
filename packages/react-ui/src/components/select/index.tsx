@@ -235,8 +235,8 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 			{filter
 				? filterEle
 				: is.undefined(value)
-				? placeholderEle
-				: options.find(opt => opt.value === value)?.label}
+				  ? placeholderEle
+				  : options.find(opt => opt.value === value)?.label}
 		</div>
 	)
 

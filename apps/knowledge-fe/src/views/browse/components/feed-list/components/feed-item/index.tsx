@@ -5,6 +5,7 @@ import { FiArrowRightCircle } from 'react-icons/fi'
 import { Feed } from '@/apis/feed'
 import TransitionLink from '@/components/transition-link'
 import useFeedPraise from '@/hooks/use-feed-praise'
+import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { format_time } from '@/utils'
 import { Avatar, Button, Image, Tooltip } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
@@ -16,6 +17,7 @@ export default function FeedItem(props: FeedItemProps) {
 	const { feed } = props
 	const { feed_id } = feed
 
+	const navigate = useTransitionNavigate()
 	const { praise_count, toggle_praise, praised } = useFeedPraise(feed)
 
 	const doc_detail_url = useMemo(
@@ -29,13 +31,32 @@ export default function FeedItem(props: FeedItemProps) {
 		[feed_id]
 	)
 
+	const go_user_center = () => {
+		navigate(
+			QS.stringify({
+				base: '/user-center',
+				query: {
+					target_user_id: feed.author_id
+				}
+			})
+		)
+	}
+
 	return (
 		<div key={feed.feed_id} className="b-b-bd-line b-b b-b-solid mb-32px">
 			<div className="flex items-center mb-16px">
-				<Avatar size="small" round src={feed.author_info.avatar} />
+				<Avatar
+					className=" cursor-pointer"
+					size="small"
+					round
+					src={feed.author_info.avatar}
+					onClick={go_user_center}
+				/>
 
 				<div className="flex items-center">
-					<div className="ml-12px color-text-2">{feed.author_info.nickname}</div>
+					<div className="ml-12px color-text-2 cursor-pointer" onClick={go_user_center}>
+						{feed.author_info.nickname}
+					</div>
 					<div className="ml-8px color-text-3 text-12px">{format_time(feed.update_time)}</div>
 				</div>
 			</div>

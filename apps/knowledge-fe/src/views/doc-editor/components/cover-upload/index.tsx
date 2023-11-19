@@ -41,8 +41,8 @@ export default function CoverUpload(props: CoverUploadProps) {
 				complete(url) {
 					save_doc_cover(url).finally(() => {
 						stop_updating()
+						resolve(url)
 					})
-					resolve(url)
 				},
 				error(err) {
 					Toast.error({ content: '图片上传失败' })

@@ -1,6 +1,5 @@
 import dayjs from 'dayjs'
 
-import { Toast } from '@youknown/react-ui/src'
 import { is, QS, storage, uuid } from '@youknown/utils/src'
 
 import { open_login_window } from './correspond'
@@ -16,12 +15,7 @@ export const go_github_login = async () => {
 			state
 		}
 	})
-	try {
-		await open_login_window<string>(url)
-		Toast.success({ content: '授权登陆成功' })
-	} catch (error) {
-		Toast.error({ content: '授权登陆失败' })
-	}
+	await open_login_window<string>(url)
 }
 
 export const format_time = (timing: number | string): string => {

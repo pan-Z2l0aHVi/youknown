@@ -4,7 +4,6 @@ $prefix: '#{$ui-prefix}-image';
 .#{$prefix} {
 	@include basic;
 
-	cursor: pointer;
 	object-fit: cover;
 
 	&-can-preview {

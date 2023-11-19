@@ -1,6 +1,7 @@
 import { LuSettings2 } from 'react-icons/lu'
-import { TbLogin, TbLogout } from 'react-icons/tb'
+import { TbLogin, TbLogout, TbUser } from 'react-icons/tb'
 
+import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useModalStore, useUserStore } from '@/stores'
 import { Avatar, Divider, Dropdown, Motion, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
@@ -9,12 +10,16 @@ interface PersonalProps {
 	expand: boolean
 }
 
-export default function Personal({ expand }: PersonalProps) {
+export default function My({ expand }: PersonalProps) {
 	const has_login = useUserStore(state => state.has_login)
 	const profile = useUserStore(state => state.profile)
 	const do_logout = useUserStore(state => state.do_logout)
 	const open_preferences_modal = useModalStore(state => state.open_preferences_modal)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
+	const navigate = useTransitionNavigate()
+	const go_my_user_center = () => {
+		navigate('/user-center')
+	}
 
 	return (
 		<>
@@ -35,6 +40,11 @@ export default function Personal({ expand }: PersonalProps) {
 							>
 								设置
 							</Dropdown.Item>
+							{has_login && (
+								<Dropdown.Item prefix={<TbUser className="text-16px" />} onClick={go_my_user_center}>
+									个人主页
+								</Dropdown.Item>
+							)}
 							<Divider size="small" />
 							{has_login ? (
 								<Dropdown.Item

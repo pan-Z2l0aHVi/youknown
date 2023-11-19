@@ -7,6 +7,7 @@ export interface Profile {
 	github_id: number
 	nickname: string
 	avatar: string
+	creation_time: string
 }
 
 export interface LoginPayload {
@@ -29,6 +30,16 @@ export interface GetProfileParams {
 export const get_profile = (params?: GetProfileParams) =>
 	net.fetch<Profile>('/proxy/user/profile', {
 		params
+	})
+
+export interface UpdateProfilePayload {
+	nickname?: string
+	avatar?: string
+}
+export const update_profile = (payload?: UpdateProfilePayload) =>
+	net.fetch<Profile>('/proxy/user/profile', {
+		method: 'post',
+		payload
 	})
 
 export const get_yd_qrcode = () =>

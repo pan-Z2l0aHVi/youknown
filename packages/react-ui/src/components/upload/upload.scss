@@ -25,6 +25,11 @@ $prefix: '#{$ui-prefix}-upload';
 		.#{$prefix}-thumb {
 			border-radius: $round;
 		}
+
+		.#{$prefix}-thumb-default-loading {
+			overflow: hidden;
+			border-radius: $round;
+		}
 	}
 
 	&:not(&-disabled) {
