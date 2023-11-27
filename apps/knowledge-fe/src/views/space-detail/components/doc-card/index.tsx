@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import { FiEdit3 } from 'react-icons/fi'
 import { GoCheck } from 'react-icons/go'
 import { LuSettings2 } from 'react-icons/lu'
-import { MdOutlinePublic } from 'react-icons/md'
+import { RiGlobalLine } from 'react-icons/ri'
 import { PiTrashSimpleBold } from 'react-icons/pi'
 import { RiHistoryFill } from 'react-icons/ri'
 import { TbShare2 } from 'react-icons/tb'
@@ -150,7 +150,7 @@ export default function DocCard(props: DocCardProps) {
 						className="absolute top-0 left-16px w-20px h-24px bg-primary text-center"
 						style={{ clipPath: 'polygon(0% 0%, 100% 0, 100% 100%, 50% 75%, 0% 100%)' }}
 					>
-						<MdOutlinePublic className="color-#fff text-18px" />
+						<RiGlobalLine className="color-#fff text-16px mt-1px" />
 					</div>
 				)}
 				{choosing && selected && (

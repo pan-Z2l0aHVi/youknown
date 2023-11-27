@@ -1,7 +1,14 @@
-export async function downloadFile(src: string, filename = 'picture') {
-	const response = await fetch(src)
-	const blob = await response.blob()
-	const url = window.URL.createObjectURL(blob)
+export function downloadFile(file: File, filename: string): Promise<void>
+export function downloadFile(src: string, filename: string): Promise<void>
+export async function downloadFile(arg: File | string, filename = 'picture') {
+	let url: string
+	if (arg instanceof File) {
+		url = window.URL.createObjectURL(arg)
+	} else {
+		const response = await fetch(arg)
+		const blob = await response.blob()
+		url = window.URL.createObjectURL(blob)
+	}
 	const a = document.createElement('a')
 	a.href = url
 	a.download = filename

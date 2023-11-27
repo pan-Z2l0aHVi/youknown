@@ -44,7 +44,7 @@ export default function Comments(props: CommentsProps) {
 								</Button>
 							</Tooltip>
 						</Space>
-						<Button primary prefixIcon={<TbSend className="text-16px" />}>
+						<Button primary prefixIcon={<TbSend />}>
 							发表
 						</Button>
 					</div>

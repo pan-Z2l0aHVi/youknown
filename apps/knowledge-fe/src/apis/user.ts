@@ -1,5 +1,7 @@
 import { LOGIN_TYPE } from '@/consts'
 import { net } from '@/utils/request'
+import { Feed } from './feed'
+import { Wallpaper } from './wallpaper'
 
 export interface Profile {
 	user_id: string
@@ -8,6 +10,7 @@ export interface Profile {
 	nickname: string
 	avatar: string
 	creation_time: string
+	followed_user_ids: string[]
 }
 
 export interface LoginPayload {
@@ -56,4 +59,67 @@ export const check_yd_login_status = (params?: CheckYDLoginStatusParams) =>
 		has_login: boolean
 	}>('/proxy/user/yd_login_status', {
 		params
+	})
+
+export const get_collected_feed_list = () =>
+	net.fetch<{
+		list: Feed[]
+		total: number
+	}>('/proxy/user/collected_feeds')
+
+export interface CollectFeedPayload {
+	feed_id: string
+}
+export const collect_feed = (payload: CollectFeedPayload) =>
+	net.fetch('/proxy/user/collect_feed', {
+		method: 'post',
+		payload
+	})
+
+export const get_followed_users = () =>
+	net.fetch<{
+		list: Profile[]
+		total: number
+	}>('/proxy/user/followed_users')
+
+export interface FollowUserPayload {
+	user_id: string
+}
+export const follow_user = (payload: FollowUserPayload) =>
+	net.fetch('/proxy/user/follow_user', {
+		method: 'post',
+		payload
+	})
+
+export interface UnFollowUserPayload {
+	user_id: string
+}
+export const unfollow_user = (payload: UnFollowUserPayload) =>
+	net.fetch('/proxy/user/unfollow_user', {
+		method: 'post',
+		payload
+	})
+
+export const get_collected_wallpaper_list = () =>
+	net.fetch<{
+		list: Wallpaper[]
+		total: number
+	}>('/proxy/user/collected_wallpapers')
+
+export interface CollectWallpaperPayload {
+	wallpaper: Wallpaper
+}
+export const collect_wallpaper = (payload: CollectWallpaperPayload) =>
+	net.fetch('/proxy/user/collect_wallpaper', {
+		method: 'post',
+		payload
+	})
+
+export interface CancelCollectWallpaperPayload {
+	wallpaper_id: string
+}
+export const cancel_collect_wallpaper = (payload: CancelCollectWallpaperPayload) =>
+	net.fetch('/proxy/user/cancel_collect_wallpaper', {
+		method: 'post',
+		payload
 	})

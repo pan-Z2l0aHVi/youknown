@@ -17,7 +17,7 @@ export default function Browse() {
 
 	return (
 		<>
-			<Header heading="浏览">
+			<Header heading={<div className="w-152px">浏览</div>}>
 				<Tabs
 					type="segment"
 					value={feed_tab}
@@ -29,6 +29,7 @@ export default function Browse() {
 				/>
 
 				<Input
+					className="w-200px!"
 					prefix={<TbSearch className="color-text-3" />}
 					placeholder="搜一搜"
 					outline={false}

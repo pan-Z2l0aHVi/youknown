@@ -1,4 +1,4 @@
-import { FiDownloadCloud, FiHeart } from 'react-icons/fi'
+import { FiDownloadCloud } from 'react-icons/fi'
 import { RxDotsHorizontal } from 'react-icons/rx'
 import { TbEyeCheck, TbPhotoSearch } from 'react-icons/tb'
 
@@ -6,15 +6,22 @@ import { Wallpaper } from '@/apis/wallpaper'
 import { find_wallpaper_seen, insert_wallpaper_seen } from '@/utils/idb'
 import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import { Dropdown, Image, Motion, Toast, Tooltip } from '@youknown/react-ui/src'
-import { cls, downloadFile } from '@youknown/utils/src'
+import { cls, downloadFile, is } from '@youknown/utils/src'
+import { LuHeartOff, LuHeart } from 'react-icons/lu'
+import { with_api } from '@/utils/request'
+import { cancel_collect_wallpaper, collect_wallpaper } from '@/apis/user'
 
 interface WallpaperCardProps {
+	className?: string
 	wallpaper: Wallpaper
-	search_similar: () => void
+	is_collected?: boolean
+	can_collected?: boolean
+	on_removed?: () => void
+	search_similar?: () => void
 }
 
 export default function WallpaperCard(props: WallpaperCardProps) {
-	const { wallpaper, search_similar } = props
+	const { className, wallpaper, can_collected = false, is_collected = false, on_removed, search_similar } = props
 
 	const [hovered, { setTrue: start_hover, setFalse: stop_hover }] = useBoolean(false)
 	const [more_open, { setBool: set_more_open }] = useBoolean(false)
@@ -22,6 +29,26 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 	const { data: seen, run: get_seen } = useFetch(find_wallpaper_seen, {
 		params: [wallpaper.id]
 	})
+
+	const add_to_collection = async () => {
+		const [err] = await with_api(collect_wallpaper)({
+			wallpaper
+		})
+		if (err) {
+			return
+		}
+		Toast.success({ content: '收藏成功' })
+	}
+	const remove_from_collection = async () => {
+		const [err] = await with_api(cancel_collect_wallpaper)({
+			wallpaper_id: wallpaper.id
+		})
+		if (err) {
+			return
+		}
+		Toast.success({ content: '取消收藏成功' })
+		on_removed?.()
+	}
 
 	const toast_download_err = () => {
 		Toast.error({
@@ -58,7 +85,8 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 				{
 					'before:b-2 before:b-solid before:b-yellow': is_sketchy,
 					'before:b-2 before:b-solid before:b-red': is_nsfw
-				}
+				},
+				className
 			)}
 			onMouseEnter={start_hover}
 			onMouseLeave={stop_hover}
@@ -112,17 +140,35 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 									prefix={<FiDownloadCloud className="text-16px" />}
 									onClick={handle_download}
 								>
-									<span>下载</span>
+									<span>下载原图</span>
 								</Dropdown.Item>
-								<Dropdown.Item prefix={<FiHeart className="text-16px" />}>
-									<span>收藏</span>
-								</Dropdown.Item>
-								<Dropdown.Item
-									prefix={<TbPhotoSearch className="text-16px" />}
-									onClick={search_similar}
-								>
-									<span>查找相似</span>
-								</Dropdown.Item>
+								{can_collected && (
+									<>
+										{is_collected ? (
+											<Dropdown.Item
+												prefix={<LuHeartOff className="text-16px color-danger" />}
+												onClick={remove_from_collection}
+											>
+												<span className="color-danger">取消收藏</span>
+											</Dropdown.Item>
+										) : (
+											<Dropdown.Item
+												prefix={<LuHeart className="text-16px" />}
+												onClick={add_to_collection}
+											>
+												<span>收藏</span>
+											</Dropdown.Item>
+										)}
+									</>
+								)}
+								{is.function(search_similar) && (
+									<Dropdown.Item
+										prefix={<TbPhotoSearch className="text-16px" />}
+										onClick={search_similar}
+									>
+										<span>查找相似</span>
+									</Dropdown.Item>
+								)}
 							</Dropdown.Menu>
 						}
 						onOpenChange={set_more_open}

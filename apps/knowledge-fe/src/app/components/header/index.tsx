@@ -8,7 +8,7 @@ import { cls } from '@youknown/utils/src'
 
 interface HeaderProps {
 	children?: ReactNode
-	heading: string
+	heading: ReactNode
 	bordered?: 'auto' | 'visible' | 'hidden'
 }
 

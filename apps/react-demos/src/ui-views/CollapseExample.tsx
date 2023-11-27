@@ -64,7 +64,8 @@ export default () => {
 			</Collapse>
 			<Divider />
 			<Collapse.Panel
-				title={
+				bordered={false}
+				custom={
 					<Button
 						onClick={() => {
 							setCustomHeaderExpend(p => !p)

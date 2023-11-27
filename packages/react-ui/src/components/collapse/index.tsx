@@ -8,16 +8,16 @@ import { cls, is, omit } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import CollapsePanel from './CollapsePanel'
 
-interface CollapseProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+interface CollapseProps<T> extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
 	accordion?: boolean
-	defaultActives?: (string | number)[]
-	actives?: (string | number)[]
-	onChange?: (actives: (string | number)[]) => void
+	defaultActives?: T[]
+	actives?: T[]
+	onChange?: (actives: T[]) => void
 }
 
-const Collapse = (props: CollapseProps, propRef: ForwardedRef<HTMLDivElement>) => {
+const Collapse = <T extends string | number>(props: CollapseProps<T>, propRef: ForwardedRef<HTMLDivElement>) => {
 	const { className, children, accordion = false, ...rest } = omit(props, 'defaultActives', 'actives', 'onChange')
-	const [actives, setActives] = useControllable<(string | number)[]>(props, {
+	const [actives, setActives] = useControllable<T[]>(props, {
 		defaultValue: [],
 		defaultValuePropName: 'defaultActives',
 		valuePropName: 'actives'
@@ -30,7 +30,7 @@ const Collapse = (props: CollapseProps, propRef: ForwardedRef<HTMLDivElement>) =
 			{Children.map(children, child => {
 				if (!isValidElement<ComponentProps<typeof CollapsePanel>>(child)) return child
 
-				const { itemKey } = child.props
+				const itemKey = child.props.itemKey as T
 				if (is.undefined(itemKey)) return child
 
 				return cloneElement<ComponentProps<typeof CollapsePanel>>(child, {

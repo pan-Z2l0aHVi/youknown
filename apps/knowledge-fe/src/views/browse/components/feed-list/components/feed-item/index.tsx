@@ -106,7 +106,12 @@ export default function FeedItem(props: FeedItemProps) {
 				</Tooltip>
 				<span className={cls('min-w-24px', praised ? 'color-primary' : 'color-text-3')}>{praise_count}</span>
 				<TransitionLink className="ml-8px" to={doc_detail_url}>
-					<Button className="color-text-3!" text round prefixIcon={<FiArrowRightCircle size={16} />}>
+					<Button
+						className="color-text-3!"
+						text
+						round
+						prefixIcon={<FiArrowRightCircle className="text-16px" />}
+					>
 						阅读全文
 					</Button>
 				</TransitionLink>

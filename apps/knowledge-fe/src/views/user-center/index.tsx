@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { TbUserEdit } from 'react-icons/tb'
+import { TbUserCheck, TbUserEdit } from 'react-icons/tb'
 import { useSearchParams } from 'react-router-dom'
 
-import { get_profile, update_profile } from '@/apis/user'
+import { follow_user, get_profile, unfollow_user, update_profile } from '@/apis/user'
 import Header from '@/app/components/header'
 import { useUserStore } from '@/stores'
 import { format_time, parse_file_size_mb } from '@/utils'
@@ -11,6 +11,7 @@ import { with_api } from '@/utils/request'
 import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import { AspectRatio, Button, Divider, Image, Input, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+import { RiUserFollowLine, RiUserUnfollowLine } from 'react-icons/ri'
 
 export default function UserCenter() {
 	const profile = useUserStore(state => state.profile)
@@ -25,6 +26,8 @@ export default function UserCenter() {
 	const user_info = is_self ? profile : target_user_info
 	const [is_edit, { setTrue: start_edit, setFalse: stop_edit }] = useBoolean(false)
 	const [updating_avatar, set_updating_avatar] = useState('')
+	const [follow_loading, set_follow_loading] = useState(false)
+	const [unfollow_loading, set_unfollow_loading] = useState(false)
 
 	const upload_cover = (file: File) =>
 		new Promise<string>((resolve, reject) => {
@@ -71,18 +74,52 @@ export default function UserCenter() {
 		stop_edit()
 	}
 
+	const handle_follow_user = async () => {
+		const target_user_id = user_info?.user_id
+		if (!target_user_id) {
+			return
+		}
+		set_follow_loading(true)
+		const [err, new_profile] = await with_api(follow_user)({
+			user_id: target_user_id
+		})
+		if (err) {
+			return
+		}
+		set_follow_loading(false)
+		Toast.success({ content: '关注成功' })
+		set_profile(new_profile)
+	}
+
+	const handle_unfollow_user = async () => {
+		const target_user_id = user_info?.user_id
+		if (!target_user_id) {
+			return
+		}
+		set_unfollow_loading(true)
+		const [err, new_profile] = await with_api(unfollow_user)({
+			user_id: target_user_id
+		})
+		set_unfollow_loading(false)
+		if (err) {
+			return
+		}
+		Toast.success({ content: '取消关注成功' })
+		set_profile(new_profile)
+	}
+
 	const header = (
 		<Header heading="个人主页">
 			{is_self &&
 				(is_edit ? (
 					<Space>
 						<Button onClick={stop_edit}>取消</Button>
-						<Button primary loading={saving} onClick={handle_save_profile}>
+						<Button primary prefixIcon={<TbUserCheck />} loading={saving} onClick={handle_save_profile}>
 							保存
 						</Button>
 					</Space>
 				) : (
-					<Button prefixIcon={<TbUserEdit className="text-16px" />} onClick={start_edit}>
+					<Button prefixIcon={<TbUserEdit />} onClick={start_edit}>
 						编辑资料
 					</Button>
 				))}
@@ -96,7 +133,7 @@ export default function UserCenter() {
 					className={cls(
 						'relative w-100% h-100%',
 						'after:content-empty after:absolute after:top-0 after:left-0 after:w-100% after:h-100%',
-						'after:backdrop-blur-2xl after:brightness-90'
+						'after:backdrop-blur-2xl'
 					)}
 				>
 					<Image className="w-100% h-100%" src={user_info?.avatar ?? ''} />
@@ -105,17 +142,39 @@ export default function UserCenter() {
 		</Loading>
 	)
 
+	const is_followed = profile?.followed_user_ids.includes(user_info?.user_id ?? '')
+	const follow_btn = !is_self && user_info && (
+		<>
+			{is_followed ? (
+				<Button
+					className="absolute! top--45px right-0"
+					prefixIcon={<RiUserUnfollowLine className="text-14px" />}
+					loading={unfollow_loading}
+					onClick={handle_unfollow_user}
+				>
+					取消关注
+				</Button>
+			) : (
+				<Button
+					className="absolute! top--45px right-0"
+					prefixIcon={<RiUserFollowLine className="text-14px" />}
+					loading={follow_loading}
+					primary
+					onClick={handle_follow_user}
+				>
+					关注
+				</Button>
+			)}
+		</>
+	)
+
 	return (
 		<>
 			{header}
 			{banner}
 
 			<div className="relative p-32px max-w-720px m-[0_auto]">
-				{is_self || (
-					<Button className="absolute! top--45px right-0" primary>
-						关注
-					</Button>
-				)}
+				{follow_btn}
 
 				{is_edit ? (
 					<Upload className="absolute! top--45px" circle action={upload_cover} />

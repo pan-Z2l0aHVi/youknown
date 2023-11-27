@@ -38,7 +38,7 @@ $prefix: '#{$ui-prefix}-collapse-panel';
 		}
 	}
 
-	&:not(&-is-custom-header) {
+	&-bordered {
 		border-bottom: 1px solid $bd-line;
 	}
 }

@@ -19,7 +19,7 @@ const style_options: StyleItem[] = [
 		desc: '大圆角'
 	}
 ]
-const hue_options = ['#007aff', '#af52de', '#ff2d55', '#ff3b30', '#ff9500', '#ffcc00', '#34c759', '#8e8e93']
+const hue_options = ['#007aff', '#af52de', '#e55b9d', '#ff3b30', '#ff9500', '#ffcc00', '#34c759', '#8e8e93']
 
 interface StyleItem {
 	id: 1 | 2 | 3

@@ -75,7 +75,7 @@ const Drawer: FC<DrawerProps> = props => {
 
 	const ele = (
 		<>
-			<Motion.Fade in={open} unmountOnExit={unmountOnExit}>
+			<Motion.Fade in={open} mountOnEnter unmountOnExit={unmountOnExit}>
 				{overlay}
 			</Motion.Fade>
 			<Motion.Slide in={open} direction={direction}>

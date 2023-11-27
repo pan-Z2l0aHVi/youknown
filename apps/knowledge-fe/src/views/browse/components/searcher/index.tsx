@@ -70,7 +70,7 @@ export default function Searcher() {
 	const go_feed_detail = useEvent((feed_id: string) => {
 		navigate(
 			QS.stringify({
-				base: 'feed-detail',
+				base: '/browse/feed-detail',
 				query: { feed_id }
 			})
 		)

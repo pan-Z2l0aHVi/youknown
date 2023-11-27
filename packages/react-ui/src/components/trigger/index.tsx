@@ -171,7 +171,7 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 		case 'stretch':
 			const [stretchDirection] = placement.split('-') as ('left' | 'top' | 'right' | 'bottom')[]
 			portalEle = (
-				<Motion.Stretch in={open} unmountOnExit={unmountOnExit} direction={stretchDirection}>
+				<Motion.Stretch in={open} mountOnEnter unmountOnExit={unmountOnExit} direction={stretchDirection}>
 					{popupEle}
 				</Motion.Stretch>
 			)
@@ -193,21 +193,21 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 			}
 			const transformOrigin = growOriginMap[placement] ?? 'center'
 			portalEle = (
-				<Motion.Grow in={open} unmountOnExit={unmountOnExit} style={{ transformOrigin }}>
+				<Motion.Grow in={open} mountOnEnter unmountOnExit={unmountOnExit} style={{ transformOrigin }}>
 					{popupEle}
 				</Motion.Grow>
 			)
 			break
 		case 'fade':
 			portalEle = (
-				<Motion.Fade in={open} unmountOnExit={unmountOnExit}>
+				<Motion.Fade in={open} mountOnEnter unmountOnExit={unmountOnExit}>
 					{popupEle}
 				</Motion.Fade>
 			)
 			break
 		case 'zoom':
 			portalEle = (
-				<Motion.Zoom in={open} unmountOnExit={unmountOnExit}>
+				<Motion.Zoom in={open} mountOnEnter unmountOnExit={unmountOnExit}>
 					{popupEle}
 				</Motion.Zoom>
 			)

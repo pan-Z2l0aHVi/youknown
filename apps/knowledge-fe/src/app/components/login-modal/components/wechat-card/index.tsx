@@ -12,6 +12,7 @@ import { cls } from '@youknown/utils/src'
 export default function WeChatCard() {
 	const close_login_modal = useModalStore(state => state.close_login_modal)
 	const login = useUserStore(state => state.login)
+	const has_user_login = useUserStore(state => state.has_login)
 	const set_profile = useUserStore(state => state.set_profile)
 	const [loading, { setTrue: start_loading, setFalse: stop_loading }] = useBoolean(false)
 	const timer = useRef(0)
@@ -44,7 +45,9 @@ export default function WeChatCard() {
 			}
 			clearTimeout(timer.current)
 			timer.current = setTimeout(() => {
-				check_status()
+				if (!has_user_login) {
+					check_status()
+				}
 			}, 1500)
 		}
 	})

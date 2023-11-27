@@ -47,6 +47,7 @@ const Overlay: FC<OverlayProps> = props => {
 	const ele = (
 		<Motion.Fade
 			in={open}
+			mountOnEnter
 			unmountOnExit={unmountOnExit}
 			onExited={() => {
 				afterClose?.()

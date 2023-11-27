@@ -74,8 +74,8 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 			value: '1920x1080'
 		},
 		{
-			label: '至少 2560x1400',
-			value: '2560x1400'
+			label: '至少 2560x1440',
+			value: '2560x1440'
 		},
 		{
 			label: '至少 3840x2160',

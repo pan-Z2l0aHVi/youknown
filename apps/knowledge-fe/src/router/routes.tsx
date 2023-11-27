@@ -1,5 +1,5 @@
 import { createElement, lazy, ReactNode } from 'react'
-import { TbBook2, TbHeart, TbHistory, TbLayout, TbPhotoSquareRounded } from 'react-icons/tb'
+import { TbBook2, TbFolderHeart, TbHistory, TbLayout, TbPhotoSquareRounded } from 'react-icons/tb'
 import { Navigate } from 'react-router-dom'
 
 export interface RouteItem {
@@ -66,7 +66,7 @@ const routes: RouteItem[] = [
 		element: createElement(lazy(() => import('@/views/collection'))),
 		meta: {
 			title: '收藏夹',
-			icon: <TbHeart />
+			icon: <TbFolderHeart />
 		}
 	},
 	{

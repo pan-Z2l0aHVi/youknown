@@ -10,7 +10,7 @@ function MoreLoading(props: MoreLoadingProps, ref: ForwardedRef<HTMLDivElement>)
 	return (
 		<div ref={ref} className="flex justify-center items-center h-80px">
 			<Loading spinning className="mr-8px" />
-			<span className="color-text-2">{loading_text}</span>
+			<span className="color-text-3">{loading_text}</span>
 		</div>
 	)
 }
