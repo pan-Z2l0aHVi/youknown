@@ -3,7 +3,7 @@ import { BiChevronDown } from 'react-icons/bi'
 import { TbNotes } from 'react-icons/tb'
 
 import TransitionNavLink from '@/components/transition-nav-link'
-import routes, { RouteItem } from '@/router/routes'
+import { routes, RouteItem } from '@/router/routes'
 import { useSpaceStore, useUIStore } from '@/stores'
 import { Motion, Tooltip } from '@youknown/react-ui/src'
 import { cls, DeepRequired, pick } from '@youknown/utils/src'

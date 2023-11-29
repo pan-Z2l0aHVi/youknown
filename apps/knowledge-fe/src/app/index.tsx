@@ -1,12 +1,11 @@
 import { lazy, Suspense } from 'react'
-import { useMatch, useRoutes } from 'react-router-dom'
+import { Outlet, useMatch } from 'react-router-dom'
 
 import useInitApp from '@/hooks/use-init-app'
 import useRouteScrollTop from '@/hooks/use-route-scroll-top'
 import { Loading } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
-import routes from '../router/routes'
 import Banner from './components/banner'
 import FabBar from './components/fab-bar'
 import PageProgress from './components/page-progress'
@@ -18,7 +17,6 @@ const LoginModal = lazy(() => import('./components/login-modal'))
 export default function App() {
 	useRouteScrollTop()
 	useInitApp()
-	const content = useRoutes(routes)
 	const login_success_match = useMatch('/login-success')
 	const with_layout = !login_success_match
 
@@ -58,14 +56,18 @@ export default function App() {
 						</div>
 
 						<Suspense fallback={fallback_ele}>
-							<div className={cls('flex-1 scrollbar-custom')}>{content}</div>
+							<div className={cls('flex-1 scrollbar-custom')}>
+								<Outlet />
+							</div>
 						</Suspense>
 					</div>
 					<FabBar />
 				</div>
 			) : (
 				<Suspense fallback={fallback_ele}>
-					<div className={cls('min-h-screen scrollbar-custom')}>{content}</div>
+					<div className={cls('min-h-screen scrollbar-custom')}>
+						<Outlet />
+					</div>
 				</Suspense>
 			)}
 		</>

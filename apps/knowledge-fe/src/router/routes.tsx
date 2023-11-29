@@ -12,7 +12,7 @@ export interface RouteItem {
 	}
 }
 
-const routes: RouteItem[] = [
+export const routes: RouteItem[] = [
 	{
 		path: 'browse',
 		meta: {
@@ -90,5 +90,3 @@ const routes: RouteItem[] = [
 		element: <Navigate to="browse" replace />
 	}
 ]
-
-export default routes

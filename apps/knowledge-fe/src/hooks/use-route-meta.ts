@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { matchRoutes, useLocation } from 'react-router-dom'
 
-import routes from '@/router/routes'
+import { routes } from '@/router/routes'
 
 export default function useRouteMeta() {
 	const location = useLocation()
