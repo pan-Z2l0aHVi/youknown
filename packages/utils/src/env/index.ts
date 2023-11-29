@@ -16,3 +16,7 @@ export function checkAndroidMobile(): boolean {
 export function checkPWA(): boolean {
 	return window.matchMedia('(display-mode: standalone)').matches
 }
+
+export function checkHoverSupported(): boolean {
+	return window.matchMedia('(hover: hover)').matches
+}

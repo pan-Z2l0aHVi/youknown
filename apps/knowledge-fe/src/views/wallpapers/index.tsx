@@ -173,8 +173,6 @@ export default function Wallpapers() {
 				<WallpaperCard
 					key={wallpaper.id}
 					wallpaper={wallpaper}
-					can_collected
-					is_collected={false}
 					search_similar={() => {
 						const similar_keywords = `like:${wallpaper.id}`
 						if (checkPWA()) {

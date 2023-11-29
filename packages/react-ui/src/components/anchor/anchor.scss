@@ -17,7 +17,9 @@ $prefix: '#{$ui-prefix}-anchor';
 		border-radius: $radius-m;
 
 		&:hover {
-			background-color: $color-hover;
+			@media (hover: hover) {
+				background-color: $color-hover;
+			}
 		}
 
 		&:active {

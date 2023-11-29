@@ -7,7 +7,7 @@ import { useRecordStore } from '@/stores'
 import { format_time } from '@/utils'
 import { RecordValue } from '@/utils/idb'
 import { Dropdown } from '@youknown/react-ui/src'
-import { QS, cls } from '@youknown/utils/src'
+import { cls, QS } from '@youknown/utils/src'
 
 interface RecordItemProps {
 	record: RecordValue

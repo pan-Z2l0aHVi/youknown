@@ -1,5 +1,6 @@
 import { ForwardedRef, forwardRef } from 'react'
 
+import { useUIStore } from '@/stores'
 import { cls } from '@youknown/utils/src'
 
 interface MoreLoadingProps {
@@ -7,12 +8,14 @@ interface MoreLoadingProps {
 }
 function NoMore(props: MoreLoadingProps, ref: ForwardedRef<HTMLDivElement>) {
 	const { ending_text = '没有更多内容了' } = props
+	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	return (
 		<div
 			ref={ref}
 			className={cls(
 				'relative flex justify-center items-center h-80px',
-				'after:absolute after:content-empty after:w-240px after:b-b-1 after:b-b-solid after:b-bd-line'
+				'after:absolute after:content-empty after:w-280px after:h-1px after:bg-gradient-to-r',
+				is_dark_theme ? 'from-#000 via-#fff to-#000' : 'from-#fff via-#666 to-#fff'
 			)}
 		>
 			<div className="z-1 pl-8px pr-8px bg-bg-0 color-text-3">{ending_text}</div>

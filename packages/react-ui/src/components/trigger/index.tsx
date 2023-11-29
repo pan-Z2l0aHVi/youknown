@@ -29,7 +29,7 @@ import {
 	useRole
 } from '@floating-ui/react'
 import { useControllable } from '@youknown/react-hook/src'
-import { omit } from '@youknown/utils/src'
+import { checkHoverSupported, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import { useZIndex } from '../../hooks/useZIndex'
@@ -227,7 +227,7 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 			: child
 	)
 
-	return disabled ? (
+	return disabled || (isHover && !checkHoverSupported()) ? (
 		Children.map(children, child =>
 			isValidElement(child) ? cloneElement(child, { ref } as HTMLAttributes<HTMLElement>) : child
 		)

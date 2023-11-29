@@ -107,7 +107,9 @@
 			}
 
 			&:hover .resize-trigger {
-				opacity: 1;
+				@media (hover: hover) {
+					opacity: 1;
+				}
 			}
 		}
 	}

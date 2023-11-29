@@ -22,6 +22,7 @@ export interface Wallpaper {
 		small: string
 	}
 	tags: null
+	collected: boolean
 }
 
 export interface SearchWallpapersParams {

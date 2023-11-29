@@ -55,7 +55,9 @@ $prefix: '#{$ui-prefix}-image-preview';
 	&-icon-wrap {
 		&:not(&-disabled) {
 			&:hover {
-				color: $color-primary;
+				@media (hover: hover) {
+					color: $color-primary;
+				}
 			}
 		}
 	}

@@ -45,7 +45,9 @@ $prefix: '#{$ui-prefix}-tabs';
 
 			&:not(&-disabled) {
 				&:hover {
-					color: $text-1;
+					@media (hover: hover) {
+						color: $text-1;
+					}
 				}
 
 				&.#{$prefix}-tab-item-line-active {
@@ -56,7 +58,9 @@ $prefix: '#{$ui-prefix}-tabs';
 
 			.#{$prefix}-tab-item-close-icon {
 				&:hover {
-					color: $color-primary;
+					@media (hover: hover) {
+						color: $color-primary;
+					}
 				}
 			}
 		}
@@ -74,7 +78,9 @@ $prefix: '#{$ui-prefix}-tabs';
 
 			&:not(&-disabled) {
 				&:hover {
-					background-color: $color-hover;
+					@media (hover: hover) {
+						background-color: $color-hover;
+					}
 				}
 
 				&:active {
@@ -95,7 +101,9 @@ $prefix: '#{$ui-prefix}-tabs';
 				margin-right: -4px;
 
 				&:hover {
-					color: $color-primary;
+					@media (hover: hover) {
+						color: $color-primary;
+					}
 				}
 			}
 		}
@@ -116,7 +124,9 @@ $prefix: '#{$ui-prefix}-tabs';
 
 			&:not(&-disabled) {
 				&:hover {
-					background-color: $color-secondary-hover;
+					@media (hover: hover) {
+						background-color: $color-secondary-hover;
+					}
 				}
 
 				&:active {
@@ -137,7 +147,9 @@ $prefix: '#{$ui-prefix}-tabs';
 					border-radius: $radius-m;
 
 					&:hover {
-						background-color: $color-secondary-hover;
+						@media (hover: hover) {
+							background-color: $color-secondary-hover;
+						}
 					}
 
 					&:active {

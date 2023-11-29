@@ -15,6 +15,7 @@ export default function Overview(props: OverviewProps) {
 				<Image
 					className="w-144px h-144px rd-radius-m shadow-shadow-l b-1 b-solid b-bd-line"
 					src={selection.cover}
+					canPreview
 				/>
 			) : (
 				<div className="flex items-center justify-center w-144px h-144px rd-radius-m shadow-shadow-l b-1 b-solid b-bd-line bg-bg-2">
@@ -23,7 +24,7 @@ export default function Overview(props: OverviewProps) {
 			)}
 			<div className="w-100% mt-16px line-clamp-2 text-center text-16px font-600">{selection.title}</div>
 			<div className="flex items-center justify-center w-100% mt-16px">
-				<Avatar size="small" src={selection.author_info.avatar} />
+				<Avatar size="small" round src={selection.author_info.avatar} />
 				<span className="ml-8px truncate color-text-2">{selection.author_info.nickname}</span>
 			</div>
 			<div className="flex items-center mt-16px text-center color-text-3 text-12px">

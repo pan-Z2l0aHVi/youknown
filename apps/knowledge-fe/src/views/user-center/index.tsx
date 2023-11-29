@@ -1,29 +1,31 @@
 import { useEffect, useState } from 'react'
+import { RiUserFollowLine, RiUserUnfollowLine } from 'react-icons/ri'
 import { TbUserCheck, TbUserEdit } from 'react-icons/tb'
 import { useSearchParams } from 'react-router-dom'
 
-import { follow_user, get_profile, unfollow_user, update_profile } from '@/apis/user'
+import { follow_user, get_user_info, unfollow_user, update_profile } from '@/apis/user'
 import Header from '@/app/components/header'
-import { useUserStore } from '@/stores'
+import { useModalStore, useUserStore } from '@/stores'
 import { format_time, parse_file_size_mb } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { with_api } from '@/utils/request'
 import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import { AspectRatio, Button, Divider, Image, Input, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import { RiUserFollowLine, RiUserUnfollowLine } from 'react-icons/ri'
 
 export default function UserCenter() {
 	const profile = useUserStore(state => state.profile)
 	const set_profile = useUserStore(state => state.set_profile)
+	const has_login = useUserStore(state => state.has_login)
+	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const [search_params] = useSearchParams()
 	const target_user_id = search_params.get('target_user_id') ?? ''
 	const is_self = !target_user_id || target_user_id === profile?.user_id
-	const { data: target_user_info } = useFetch(get_profile, {
-		ready: !is_self,
+	const { data: target_user_info, mutate: set_user_info } = useFetch(get_user_info, {
+		ready: !!target_user_id,
 		params: [{ user_id: target_user_id }]
 	})
-	const user_info = is_self ? profile : target_user_info
+	const user_info = is_self ? { ...profile, collected: false } : target_user_info
 	const [is_edit, { setTrue: start_edit, setFalse: stop_edit }] = useBoolean(false)
 	const [updating_avatar, set_updating_avatar] = useState('')
 	const [follow_loading, set_follow_loading] = useState(false)
@@ -75,12 +77,16 @@ export default function UserCenter() {
 	}
 
 	const handle_follow_user = async () => {
+		if (!has_login) {
+			open_login_modal()
+			return
+		}
 		const target_user_id = user_info?.user_id
 		if (!target_user_id) {
 			return
 		}
 		set_follow_loading(true)
-		const [err, new_profile] = await with_api(follow_user)({
+		const [err] = await with_api(follow_user)({
 			user_id: target_user_id
 		})
 		if (err) {
@@ -88,16 +94,20 @@ export default function UserCenter() {
 		}
 		set_follow_loading(false)
 		Toast.success({ content: '关注成功' })
-		set_profile(new_profile)
+		set_user_info(p => (p ? { ...p, collected: true } : p))
 	}
 
 	const handle_unfollow_user = async () => {
+		if (!has_login) {
+			open_login_modal()
+			return
+		}
 		const target_user_id = user_info?.user_id
 		if (!target_user_id) {
 			return
 		}
 		set_unfollow_loading(true)
-		const [err, new_profile] = await with_api(unfollow_user)({
+		const [err] = await with_api(unfollow_user)({
 			user_id: target_user_id
 		})
 		set_unfollow_loading(false)
@@ -105,7 +115,7 @@ export default function UserCenter() {
 			return
 		}
 		Toast.success({ content: '取消关注成功' })
-		set_profile(new_profile)
+		set_user_info(p => (p ? { ...p, collected: false } : p))
 	}
 
 	const header = (
@@ -142,10 +152,9 @@ export default function UserCenter() {
 		</Loading>
 	)
 
-	const is_followed = profile?.followed_user_ids.includes(user_info?.user_id ?? '')
 	const follow_btn = !is_self && user_info && (
 		<>
-			{is_followed ? (
+			{user_info.collected ? (
 				<Button
 					className="absolute! top--45px right-0"
 					prefixIcon={<RiUserUnfollowLine className="text-14px" />}
@@ -182,6 +191,7 @@ export default function UserCenter() {
 					<Image
 						className="absolute top--45px w-90px h-90px rd-full bg-bg-2 shadow-shadow-l"
 						src={user_info?.avatar ?? ''}
+						canPreview
 					/>
 				)}
 				{is_edit ? (

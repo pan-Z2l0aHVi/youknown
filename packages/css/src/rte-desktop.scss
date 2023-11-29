@@ -129,8 +129,10 @@
 		border-radius: var(--ui-radius-m);
 
 		&:hover {
-			color: var(--ui-color-link-hover);
-			background-color: var(--ui-bg-2);
+			@media (hover: hover) {
+				color: var(--ui-color-link-hover);
+				background-color: var(--ui-bg-2);
+			}
 		}
 	}
 }

@@ -46,7 +46,7 @@ export const get_spaces = (params?: GetSpacesQuery) =>
 	}>('/proxy/space/search', {
 		params: {
 			page: 1,
-			page_size: 20,
+			page_size: 50,
 			...params
 		}
 	})

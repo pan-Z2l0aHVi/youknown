@@ -1,15 +1,22 @@
 import '@youknown/css/src/rte-desktop.scss'
 
+import { useState } from 'react'
+import { LuHeart, LuHeartOff } from 'react-icons/lu'
 import { useSearchParams } from 'react-router-dom'
 
 import { Feed, get_feed_detail } from '@/apis/feed'
+import { cancel_collect_feed, collect_feed } from '@/apis/user'
 import Header from '@/app/components/header'
-import { useRecordStore } from '@/stores'
+import { useModalStore, useRecordStore, useUserStore } from '@/stores'
+import { with_api } from '@/utils/request'
 import { useFetch } from '@youknown/react-hook/src'
-import { Image, Loading } from '@youknown/react-ui/src'
+import { Button, Image, Loading, Toast } from '@youknown/react-ui/src'
 
 export default function FeedDetail() {
 	const recording = useRecordStore(state => state.recording)
+	const profile = useUserStore(state => state.profile)
+	const has_login = useUserStore(state => state.has_login)
+	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const [search_params] = useSearchParams()
 	const feed_id = search_params.get('feed_id') ?? ''
 
@@ -24,7 +31,11 @@ export default function FeedDetail() {
 		})
 	}
 
-	const { data: detail, loading } = useFetch(get_feed_detail, {
+	const {
+		data: detail,
+		loading,
+		mutate: set_detail
+	} = useFetch(get_feed_detail, {
 		params: [
 			{
 				feed_id
@@ -37,11 +48,64 @@ export default function FeedDetail() {
 		}
 	})
 
+	const [collect_loading, set_collect_loading] = useState(false)
+	const [cancel_collect_loading, set_cancel_collect_loading] = useState(false)
+	const handle_collect_feed = async () => {
+		if (!has_login) {
+			open_login_modal()
+			return
+		}
+		set_collect_loading(true)
+		const [err] = await with_api(collect_feed)({
+			feed_id
+		})
+		set_collect_loading(false)
+		if (err) {
+			return
+		}
+		Toast.success({ content: '收藏成功' })
+		set_detail(p => (p ? { ...p, collected: true } : p))
+	}
+	const handle_cancel_collect_feed = async () => {
+		if (!has_login) {
+			open_login_modal()
+			return
+		}
+		set_cancel_collect_loading(true)
+		const [err] = await with_api(cancel_collect_feed)({
+			feed_id
+		})
+		set_cancel_collect_loading(false)
+		if (err) {
+			return
+		}
+		Toast.success({ content: '取消收藏成功' })
+		set_detail(p => (p ? { ...p, collected: false } : p))
+	}
+
+	const is_owner = detail?.author_id === profile?.user_id
+	const collect_btn = detail && !is_owner && (
+		<>
+			{detail.collected ? (
+				<Button
+					prefixIcon={<LuHeartOff className="color-danger" />}
+					loading={cancel_collect_loading}
+					onClick={handle_cancel_collect_feed}
+				>
+					<span className="color-danger">取消收藏</span>
+				</Button>
+			) : (
+				<Button prefixIcon={<LuHeart />} loading={collect_loading} onClick={handle_collect_feed}>
+					收藏
+				</Button>
+			)}
+		</>
+	)
 	const doc_content = detail?.content ?? ''
 
 	return (
 		<>
-			<Header heading={detail?.title || '详情'}></Header>
+			<Header heading={detail?.title || '详情'}>{collect_btn}</Header>
 
 			{loading ? (
 				<div className="flex justify-center items-center w-100% mt-40%">
@@ -51,7 +115,11 @@ export default function FeedDetail() {
 				<div className="flex p-24px">
 					<div className="w-720px m-auto">
 						{detail?.cover && (
-							<Image className="w-100% max-h-30vh min-h-40px  rd-radius-m" src={detail.cover} />
+							<Image
+								className="w-100% max-h-30vh min-h-40px  rd-radius-m"
+								src={detail.cover}
+								canPreview
+							/>
 						)}
 						<div className="rich-text-container" dangerouslySetInnerHTML={{ __html: doc_content }}></div>
 					</div>

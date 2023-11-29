@@ -1,20 +1,24 @@
-import { Feed } from '@/apis/feed'
-import More from '@/components/more'
-import useTransitionNavigate from '@/hooks/use-transition-navigate'
-import { format_time } from '@/utils'
-import { Dropdown, Image } from '@youknown/react-ui/src'
-import { QS, cls } from '@youknown/utils/src'
 import { useState } from 'react'
 import { LuHeartOff } from 'react-icons/lu'
 import { RiHistoryFill } from 'react-icons/ri'
 import { TbUser } from 'react-icons/tb'
 
+import { Feed } from '@/apis/feed'
+import { cancel_collect_feed } from '@/apis/user'
+import More from '@/components/more'
+import useTransitionNavigate from '@/hooks/use-transition-navigate'
+import { format_time } from '@/utils'
+import { with_api } from '@/utils/request'
+import { Dropdown, Image } from '@youknown/react-ui/src'
+import { cls, QS } from '@youknown/utils/src'
+
 interface FeedCardProps {
 	className?: string
 	feed: Feed
+	on_removed?: () => void
 }
 export default function FeedCard(props: FeedCardProps) {
-	const { className, feed } = props
+	const { className, feed, on_removed } = props
 	const navigate = useTransitionNavigate()
 	const [more_open, set_more_open] = useState(false)
 	const go_feed_detail = () => {
@@ -26,12 +30,29 @@ export default function FeedCard(props: FeedCardProps) {
 		)
 	}
 
+	const handle_cancel_collect_feed = async () => {
+		const [err] = await with_api(cancel_collect_feed)({
+			feed_id: feed.feed_id
+		})
+		if (err) {
+			return
+		}
+		on_removed?.()
+	}
+
 	const action_ele = (
 		<Dropdown
 			trigger="click"
 			placement="bottom-start"
 			content={
-				<Dropdown.Menu className="w-120px" closeAfterItemClick onClick={e => e.stopPropagation()}>
+				<Dropdown.Menu
+					className="w-120px"
+					closeAfterItemClick
+					onClick={e => {
+						e.stopPropagation()
+						handle_cancel_collect_feed()
+					}}
+				>
 					<Dropdown.Item prefix={<LuHeartOff className="color-danger text-16px" />}>
 						<span className="color-danger">取消收藏</span>
 					</Dropdown.Item>

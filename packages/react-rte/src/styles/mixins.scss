@@ -23,7 +23,12 @@
 	}
 
 	&:not(.disabled) {
-		&:hover,
+		&:hover {
+			@media (hover: hover) {
+				background-color: $color-hover;
+			}
+		}
+
 		&.active {
 			background-color: $color-hover;
 		}

@@ -52,10 +52,16 @@ $prefix: '#{$ui-editor-prefix}-text-color-picker';
 			border: 1px solid rgba($color: #000, $alpha: 10%);
 			border-radius: $radius-m;
 
-			&.active,
-			&:hover {
+			&.active {
 				border: 1px solid #fff;
 				box-shadow: 0 0 0 2px var(--ui-color-primary);
+			}
+
+			&:hover {
+				@media (hover: hover) {
+					border: 1px solid #fff;
+					box-shadow: 0 0 0 2px var(--ui-color-primary);
+				}
 			}
 		}
 	}

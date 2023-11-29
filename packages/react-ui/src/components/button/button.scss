@@ -63,14 +63,16 @@ $prefix: '#{$ui-prefix}-button';
 
 	&:not(&-disabled) {
 		&:hover {
-			background-color: $color-hover;
+			@media (hover: hover) {
+				background-color: $color-hover;
 
-			&.#{$prefix}-primary {
-				background-color: $color-primary-hover;
-			}
+				&.#{$prefix}-primary {
+					background-color: $color-primary-hover;
+				}
 
-			&.#{$prefix}-danger {
-				background-color: $color-danger-hover;
+				&.#{$prefix}-danger {
+					background-color: $color-danger-hover;
+				}
 			}
 		}
 
@@ -102,7 +104,9 @@ $prefix: '#{$ui-prefix}-button';
 
 		&:not(.#{$prefix}-disabled) {
 			&:hover {
-				background-color: $color-hover;
+				@media (hover: hover) {
+					background-color: $color-hover;
+				}
 			}
 
 			&:active {

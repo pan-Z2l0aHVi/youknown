@@ -13,7 +13,13 @@ $prefix: '#{$ui-prefix}-dropdown-menu';
 	border-radius: $radius-l;
 	box-shadow: $shadow-l;
 
-	&:hover {
+	@media (hover: hover) {
+		&:hover {
+			@include scroll-y;
+		}
+	}
+
+	@media (hover: none) {
 		@include scroll-y;
 	}
 }

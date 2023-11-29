@@ -36,7 +36,9 @@ $prefix: '#{$ui-editor-prefix}-text-align-picker';
 
 		&:not(.disabled) {
 			&:hover {
-				background: $color-hover;
+				@media (hover: hover) {
+					background: $color-hover;
+				}
 			}
 
 			&:active {

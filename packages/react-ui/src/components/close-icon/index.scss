@@ -16,7 +16,9 @@ $prefix: '#{$ui-prefix}-close-icon';
 	transition: background-color $duration-f;
 
 	&:hover {
-		background-color: $color-secondary-hover;
+		@media (hover: hover) {
+			background-color: $color-secondary-hover;
+		}
 	}
 
 	&:active {

@@ -59,7 +59,9 @@ $prefix: '#{$ui-prefix}-radio';
 	&:not(&-checked, &-disabled) {
 		&:hover {
 			.#{$prefix}-icon {
-				background-color: $color-hover;
+				@media (hover: hover) {
+					background-color: $color-hover;
+				}
 			}
 		}
 

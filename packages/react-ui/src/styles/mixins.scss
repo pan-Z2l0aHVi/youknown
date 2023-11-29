@@ -39,7 +39,9 @@
 		border-radius: $round; // 滚动条的圆角
 
 		&:hover {
-			background: $thumb-color-hover; // 滚动条的背景颜色
+			@media (hover: hover) {
+				background: $thumb-color-hover; // 滚动条的背景颜色
+			}
 		}
 	}
 

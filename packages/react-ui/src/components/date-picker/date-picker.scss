@@ -50,7 +50,9 @@ $prefix: '#{$ui-prefix}-date-picker';
 			border-radius: $radius-m;
 
 			&:hover {
-				background-color: $color-hover;
+				@media (hover: hover) {
+					background-color: $color-hover;
+				}
 			}
 
 			&:active {
@@ -62,7 +64,9 @@ $prefix: '#{$ui-prefix}-date-picker';
 				background-color: $color-primary;
 
 				&:hover {
-					background-color: $color-primary-hover;
+					@media (hover: hover) {
+						background-color: $color-primary-hover;
+					}
 				}
 
 				&:active {
