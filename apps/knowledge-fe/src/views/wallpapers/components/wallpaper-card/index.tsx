@@ -11,6 +11,7 @@ import { with_api } from '@/utils/request'
 import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import { Dropdown, Image, Motion, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls, downloadFile, is } from '@youknown/utils/src'
+import { useModalStore, useUserStore } from '@/stores'
 
 interface WallpaperCardProps {
 	className?: string
@@ -22,6 +23,8 @@ interface WallpaperCardProps {
 export default function WallpaperCard(props: WallpaperCardProps) {
 	const { className, wallpaper, on_removed, search_similar } = props
 
+	const has_login = useUserStore(state => state.has_login)
+	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const [hovered, { setTrue: start_hover, setFalse: stop_hover }] = useBoolean(false)
 	const [more_open, { setBool: set_more_open }] = useBoolean(false)
 	const [img_loaded, { setTrue: set_img_loaded }] = useBoolean(false)
@@ -35,6 +38,10 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 	}, [wallpaper_collected])
 
 	const add_to_collection = async () => {
+		if (!has_login) {
+			open_login_modal()
+			return
+		}
 		const [err] = await with_api(collect_wallpaper)({
 			wallpaper
 		})
@@ -45,6 +52,10 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		set_collected(true)
 	}
 	const remove_from_collection = async () => {
+		if (!has_login) {
+			open_login_modal()
+			return
+		}
 		const [err] = await with_api(cancel_collect_wallpaper)({
 			wallpaper_id: wallpaper.id
 		})

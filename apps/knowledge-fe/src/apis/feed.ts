@@ -14,6 +14,7 @@ export interface Feed {
 	title: string
 	cover: string
 	author_id: string
+	space_id: string
 	author_info: Profile
 	creation_time: string
 	update_time: string

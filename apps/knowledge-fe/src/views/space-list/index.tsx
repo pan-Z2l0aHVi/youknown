@@ -9,6 +9,7 @@ import { Button, Toast } from '@youknown/react-ui/src'
 
 import SpaceCard from './components/space-card'
 import SpaceOptionsModal from './components/space-options-modal'
+import { GoInbox } from 'react-icons/go'
 
 export default function SpaceList() {
 	const has_login = useUserStore(state => state.has_login)
@@ -68,9 +69,16 @@ export default function SpaceList() {
 				</Button>
 			</Header>
 
-			<div className="grid grid-cols-[repeat(auto-fill,400px)] gap-16px justify-center p-[16px_32px_32px_32px]">
-				{spaces_ele}
-			</div>
+			{space_list.length ? (
+				<div className="grid grid-cols-[repeat(auto-fill,400px)] gap-16px justify-center p-[16px_32px_32px_32px]">
+					{spaces_ele}
+				</div>
+			) : (
+				<div className="flex flex-col items-center color-text-3 mt-40px">
+					<GoInbox className="text-32px mb-16px" />
+					<div>空空如也，快来创建你的专属知识空间吧~</div>
+				</div>
+			)}
 
 			<SpaceOptionsModal
 				open={options_modal_open}

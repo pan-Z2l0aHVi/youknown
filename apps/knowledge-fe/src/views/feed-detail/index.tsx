@@ -11,12 +11,16 @@ import { useModalStore, useRecordStore, useUserStore } from '@/stores'
 import { with_api } from '@/utils/request'
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Image, Loading, Toast } from '@youknown/react-ui/src'
+import { FiEdit3 } from 'react-icons/fi'
+import useTransitionNavigate from '@/hooks/use-transition-navigate'
+import { QS } from '@youknown/utils/src'
 
 export default function FeedDetail() {
 	const recording = useRecordStore(state => state.recording)
 	const profile = useUserStore(state => state.profile)
 	const has_login = useUserStore(state => state.has_login)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
+	const navigate = useTransitionNavigate()
 	const [search_params] = useSearchParams()
 	const feed_id = search_params.get('feed_id') ?? ''
 
@@ -83,21 +87,43 @@ export default function FeedDetail() {
 		set_detail(p => (p ? { ...p, collected: false } : p))
 	}
 
+	const go_doc_editor = () => {
+		if (!detail) {
+			return
+		}
+		navigate(
+			QS.stringify({
+				base: `/library/${detail.space_id}/editor`,
+				query: {
+					doc_id: detail.feed_id
+				}
+			})
+		)
+	}
+
 	const is_owner = detail?.author_id === profile?.user_id
-	const collect_btn = detail && !is_owner && (
+	const action_btn = detail && (
 		<>
-			{detail.collected ? (
-				<Button
-					prefixIcon={<LuHeartOff className="color-danger" />}
-					loading={cancel_collect_loading}
-					onClick={handle_cancel_collect_feed}
-				>
-					<span className="color-danger">取消收藏</span>
+			{is_owner ? (
+				<Button prefixIcon={<FiEdit3 />} onClick={go_doc_editor}>
+					编辑
 				</Button>
 			) : (
-				<Button prefixIcon={<LuHeart />} loading={collect_loading} onClick={handle_collect_feed}>
-					收藏
-				</Button>
+				<>
+					{detail.collected ? (
+						<Button
+							prefixIcon={<LuHeartOff className="color-danger" />}
+							loading={cancel_collect_loading}
+							onClick={handle_cancel_collect_feed}
+						>
+							<span className="color-danger">取消收藏</span>
+						</Button>
+					) : (
+						<Button prefixIcon={<LuHeart />} loading={collect_loading} onClick={handle_collect_feed}>
+							收藏
+						</Button>
+					)}
+				</>
 			)}
 		</>
 	)
@@ -105,7 +131,7 @@ export default function FeedDetail() {
 
 	return (
 		<>
-			<Header heading={detail?.title || '详情'}>{collect_btn}</Header>
+			<Header heading={detail?.title || '详情'}>{action_btn}</Header>
 
 			{loading ? (
 				<div className="flex justify-center items-center w-100% mt-40%">
