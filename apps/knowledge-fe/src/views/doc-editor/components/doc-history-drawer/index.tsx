@@ -7,8 +7,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { get_doc_drafts } from '@/apis/doc'
 import { useUIStore } from '@/stores'
 import { useInfinity } from '@youknown/react-hook/src'
-import { Button, Drawer, Loading, Select, Toast } from '@youknown/react-ui/src'
-import { cls, is, macroDefer } from '@youknown/utils/src'
+import { Button, Drawer, Loading, Select } from '@youknown/react-ui/src'
+import { cls, is } from '@youknown/utils/src'
 
 interface DocHistoryDrawerProps {
 	open: boolean
@@ -33,6 +33,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 		return list
 	}
 	const {
+		noMore: no_more,
 		loading,
 		data: drafts,
 		page,
@@ -41,15 +42,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 		loadMore: load_more
 	} = useInfinity(drafts_fetcher, {
 		manual: true,
-		initialPageSize: 50,
-		onSuccess(data) {
-			if (data.length < page_size) {
-				return
-			}
-			macroDefer(() => {
-				load_more()
-			})
-		}
+		initialPageSize: 20
 	})
 
 	const options = useMemo(
@@ -101,6 +94,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 						<span className="mr-8px ml-8px color-text-3">与</span>
 						<Select
 							className="w-200px!"
+							noMore={no_more}
 							value={selection}
 							onChange={val => {
 								if (!is.array(val)) {
@@ -109,6 +103,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 							}}
 							options={options}
 							placeholder="请选择历史"
+							onLoad={load_more}
 						/>
 						<span className="ml-8px color-text-3">对比</span>
 					</div>

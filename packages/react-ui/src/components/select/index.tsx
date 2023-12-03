@@ -13,7 +13,7 @@ import {
 } from 'react'
 import { TbCheck, TbSelector } from 'react-icons/tb'
 
-import { useBoolean, useControllable, useLatestRef } from '@youknown/react-hook/src'
+import { useBoolean, useControllable, useEvent, useIntersection, useLatestRef } from '@youknown/react-hook/src'
 import { cls, is, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
@@ -21,6 +21,7 @@ import Dropdown from '../dropdown'
 import Input from '../input'
 import Space from '../space'
 import Tag from '../tag'
+import Loading from '../loading'
 
 interface SelectProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
 	multiple?: boolean
@@ -28,10 +29,12 @@ interface SelectProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue
 	filter?: boolean
 	placeholder?: string
 	allowClear?: boolean
+	noMore?: boolean
 	value?: T | T[]
 	defaultValue?: T | T[]
 	options?: { label: ReactNode; value: T; disabled?: boolean }[]
 	onChange?: (value: T | T[]) => void
+	onLoad?: () => void
 }
 
 const Select = <T extends string | number>(props: SelectProps<T>) => {
@@ -42,7 +45,9 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 		filter = false,
 		placeholder = '请选择',
 		allowClear = false,
+		noMore = false,
 		options = [],
+		onLoad,
 		onClick,
 		onKeyDown,
 		...rest
@@ -130,8 +135,31 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 		}
 	}, [dropdownVisible])
 
+	const menuRef = useRef(null)
+	const loadingRef = useRef(null)
+	const isIntersection = useIntersection(loadingRef, {
+		root: menuRef.current
+	})
+	const onLoadEvent = useEvent(() => onLoad?.())
+	useEffect(() => {
+		if (isIntersection) {
+			onLoadEvent?.()
+		}
+	}, [isIntersection, onLoadEvent])
+
+	const loadingEle = (
+		<>
+			{noMore || (
+				<div ref={loadingRef} className={cls(`${prefixCls}-loading`)}>
+					<Loading spinning />
+				</div>
+			)}
+		</>
+	)
+
 	const dropdownContentEle = (
 		<Dropdown.Menu
+			ref={menuRef}
 			style={{ minWidth }}
 			onMouseLeave={() => {
 				setSelectedIndex(-1)
@@ -176,6 +204,7 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 					)
 				})
 			)}
+			{loadingEle}
 		</Dropdown.Menu>
 	)
 
