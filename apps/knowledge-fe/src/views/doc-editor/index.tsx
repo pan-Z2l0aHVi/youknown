@@ -6,7 +6,7 @@ import { Doc, get_doc_drafts, get_doc_info, update_doc, update_doc_draft } from 
 import Header from '@/app/components/header'
 import { DOC_TITLE_MAX_LEN } from '@/consts'
 import { useRecordStore } from '@/stores'
-import { format_time, parse_file_size_mb } from '@/utils'
+import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { export_html, export_pdf } from '@/utils/exports'
 import { NetFetchError, with_api } from '@/utils/request'
@@ -69,23 +69,25 @@ export default function Doc() {
 			HorizontalRule,
 			Image.configure({
 				onCustomUpload: file =>
-					new Promise((resolve, reject) => {
-						if (parse_file_size_mb(file) > 1) {
-							reject('Exceed the size limit')
-							Toast.warning({ content: '图像大小不能超过1M' })
-							return
+					new Promise(async (resolve, reject) => {
+						try {
+							const { compressImage } = await import('@youknown/img-wasm/src')
+							const compressed_file = await compressImage(file, 1200, 800)
+							upload_cloudflare_r2(compressed_file, {
+								complete(url) {
+									resolve({
+										src: url
+									})
+								},
+								error(err) {
+									Toast.error({ content: '上传图片失败' })
+									reject(err)
+								}
+							})
+						} catch (err) {
+							Toast.error({ content: '上传图片失败' })
+							reject(err)
 						}
-						upload_cloudflare_r2(file, {
-							complete(url) {
-								resolve({
-									src: url
-								})
-							},
-							error(err) {
-								Toast.error({ content: '上传图片失败' })
-								reject(err)
-							}
-						})
 					})
 			})
 		],

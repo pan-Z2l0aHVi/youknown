@@ -6,12 +6,13 @@ import { useSearchParams } from 'react-router-dom'
 import { follow_user, get_user_info, unfollow_user, update_profile } from '@/apis/user'
 import Header from '@/app/components/header'
 import { useModalStore, useUserStore } from '@/stores'
-import { format_time, parse_file_size_mb } from '@/utils'
+import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { with_api } from '@/utils/request'
 import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import { AspectRatio, Button, Divider, Image, Input, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+import { IMAGE_ACCEPT } from '@/consts'
 
 export default function UserCenter() {
 	const profile = useUserStore(state => state.profile)
@@ -31,23 +32,25 @@ export default function UserCenter() {
 	const [follow_loading, set_follow_loading] = useState(false)
 	const [unfollow_loading, set_unfollow_loading] = useState(false)
 
-	const upload_cover = (file: File) =>
-		new Promise<string>((resolve, reject) => {
-			if (parse_file_size_mb(file) > 1) {
-				reject('Exceed the size limit')
-				Toast.warning({ content: '图像大小不能超过1M' })
-				return
+	const upload_avatar = (file: File) =>
+		new Promise<string>(async (resolve, reject) => {
+			try {
+				const { compressImage } = await import('@youknown/img-wasm/src')
+				const compressed_file = await compressImage(file, 520, 520)
+				upload_cloudflare_r2(compressed_file, {
+					complete(url) {
+						resolve(url)
+						set_updating_avatar(url)
+					},
+					error(err) {
+						Toast.error({ content: '图片上传失败' })
+						reject(err)
+					}
+				})
+			} catch (err) {
+				Toast.error({ content: '图片上传失败' })
+				reject(err)
 			}
-			upload_cloudflare_r2(file, {
-				complete(url) {
-					resolve(url)
-					set_updating_avatar(url)
-				},
-				error(err) {
-					Toast.error({ content: '图片上传失败' })
-					reject(err)
-				}
-			})
 		})
 
 	const [nickname_val, set_nickname_val] = useState('')
@@ -186,7 +189,7 @@ export default function UserCenter() {
 				{follow_btn}
 
 				{is_edit ? (
-					<Upload className="absolute! top--45px" circle action={upload_cover} />
+					<Upload className="absolute! top--45px" circle accept={IMAGE_ACCEPT} action={upload_avatar} />
 				) : (
 					<Image
 						className="absolute top--45px w-90px h-90px rd-full bg-bg-2 shadow-shadow-l"

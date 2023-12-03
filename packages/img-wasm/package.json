@@ -1,0 +1,36 @@
+{
+    "name": "@youknown/img-wasm",
+    "version": "1.0.0",
+    "description": "",
+    "author": "Grey",
+    "license": "MIT",
+    "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "src",
+        "dist"
+    ],
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "scripts": {
+        "build": "rm -rf ./dist && tsc",
+        "watch": "tsc -w",
+        "test": "jest --detectOpenHandles"
+    },
+    "dependencies": {
+        "@jsquash/jpeg": "^1.4.0",
+        "@jsquash/png": "^2.2.0",
+        "@jsquash/webp": "^1.4.0"
+    },
+    "lint-staged": {
+        "*.{js,ts,jsx,tsx}": "eslint --cache --fix",
+        "**/*.scss": "stylelint --fix"
+    },
+    "browserslist": [
+        "last 1 version",
+        "> 1%",
+        "not dead"
+    ]
+}

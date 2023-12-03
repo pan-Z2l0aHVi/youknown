@@ -3,11 +3,11 @@ import { PiTrashSimpleBold } from 'react-icons/pi'
 import { TbPhotoEdit, TbPhotoPlus } from 'react-icons/tb'
 
 import { Doc, update_doc } from '@/apis/doc'
-import { parse_file_size_mb } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { with_api } from '@/utils/request'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Image, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
+import { IMAGE_ACCEPT } from '@/consts'
 
 interface CoverUploadProps {
 	doc_id: string
@@ -30,26 +30,29 @@ export default function CoverUpload(props: CoverUploadProps) {
 	}
 
 	const upload_cover = (file: File) =>
-		new Promise<string>((resolve, reject) => {
-			if (parse_file_size_mb(file) > 1) {
-				reject('Exceed the size limit')
-				Toast.warning({ content: '图像大小不能超过1M' })
-				return
-			}
+		new Promise<string>(async (resolve, reject) => {
 			start_updating()
-			upload_cloudflare_r2(file, {
-				complete(url) {
-					save_doc_cover(url).finally(() => {
+			try {
+				const { compressImage } = await import('@youknown/img-wasm/src')
+				const compressed_file = await compressImage(file, 1200, 800)
+				upload_cloudflare_r2(compressed_file, {
+					complete(url) {
+						save_doc_cover(url).finally(() => {
+							stop_updating()
+							resolve(url)
+						})
+					},
+					error(err) {
+						Toast.error({ content: '图片上传失败' })
 						stop_updating()
-						resolve(url)
-					})
-				},
-				error(err) {
-					Toast.error({ content: '图片上传失败' })
-					stop_updating()
-					reject(err)
-				}
-			})
+						reject(err)
+					}
+				})
+			} catch (err) {
+				Toast.error({ content: '图片上传失败' })
+				stop_updating()
+				reject(err)
+			}
 		})
 
 	const upload_ref = useRef<HTMLInputElement>(null)
@@ -60,7 +63,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 				<div className="group relative">
 					<Image className="w-100% max-h-30vh min-h-40px rd-radius-m" src={cover} canPreview />
 					<Space className="group-hover-display-flex! display-none! absolute right-16px bottom-16px">
-						<Upload ref={upload_ref} headless action={upload_cover}>
+						<Upload accept={IMAGE_ACCEPT} ref={upload_ref} headless action={upload_cover}>
 							<Button
 								prefixIcon={<TbPhotoEdit />}
 								onClick={() => {
@@ -81,7 +84,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 					</Space>
 				</div>
 			) : (
-				<Upload headless action={upload_cover}>
+				<Upload accept={IMAGE_ACCEPT} headless action={upload_cover}>
 					<div className="flex items-center w-max p-[4px_12px] ml-16px bg-bg-2 rd-full color-text-2 hover-color-primary">
 						<TbPhotoPlus className="mr-8px text-16px" />
 						添加封面

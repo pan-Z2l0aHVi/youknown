@@ -1,0 +1,16 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+        "baseUrl": ".",
+		"outDir": "./dist",
+        "target": "ES2015"
+	},
+    "include": ["./src/**/*"],
+    "exclude": [
+        "./dist/**/*",
+        "**/*.test.ts",
+        "**/*.spec.ts",
+        "**/*.test.tsx",
+        "**/*.spec.tsx"
+    ]
+}

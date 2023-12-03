@@ -164,6 +164,9 @@ importers:
       '@youknown/css':
         specifier: workspace:*
         version: link:../../packages/css
+      '@youknown/img-wasm':
+        specifier: workspace:*
+        version: link:../../packages/img-wasm
       '@youknown/react-hook':
         specifier: workspace:*
         version: link:../../packages/react-hook
@@ -213,6 +216,9 @@ importers:
       '@youknown/css':
         specifier: workspace:*
         version: link:../../packages/css
+      '@youknown/img-wasm':
+        specifier: workspace:*
+        version: link:../../packages/img-wasm
       '@youknown/react-hook':
         specifier: workspace:*
         version: link:../../packages/react-hook
@@ -264,6 +270,18 @@ importers:
         version: registry.npmmirror.com/@types/crypto-js@4.2.1
 
   packages/css: {}
+
+  packages/img-wasm:
+    dependencies:
+      '@jsquash/jpeg':
+        specifier: ^1.4.0
+        version: registry.npmmirror.com/@jsquash/jpeg@1.4.0
+      '@jsquash/png':
+        specifier: ^2.2.0
+        version: registry.npmmirror.com/@jsquash/png@2.2.0
+      '@jsquash/webp':
+        specifier: ^1.4.0
+        version: registry.npmmirror.com/@jsquash/webp@1.4.0
 
   packages/react-hook:
     dependencies:
@@ -3161,6 +3179,26 @@ packages:
       '@jridgewell/resolve-uri': registry.npmmirror.com/@jridgewell/resolve-uri@3.1.1
       '@jridgewell/sourcemap-codec': registry.npmmirror.com/@jridgewell/sourcemap-codec@1.4.15
     dev: true
+
+  registry.npmmirror.com/@jsquash/jpeg@1.4.0:
+    resolution: {integrity: sha512-I/uGQ5Gk3qOEQNufUcR9boZ0qH+eoXW7cp0mW9eNInlgjRXwEhepvfbnutQ+RM1dNeuIHoOM5YVCEK1y/ATipQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@jsquash/jpeg/-/jpeg-1.4.0.tgz}
+    name: '@jsquash/jpeg'
+    version: 1.4.0
+    dev: false
+
+  registry.npmmirror.com/@jsquash/png@2.2.0:
+    resolution: {integrity: sha512-k7BiVGekzaXj88ikJL9SXatU3Eq2DJtklYV4n5/y+NU3xcGFVkVcoa2EW+3oRk1AG+WwRPjTQDIKeYd6oTu6bg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@jsquash/png/-/png-2.2.0.tgz}
+    name: '@jsquash/png'
+    version: 2.2.0
+    dev: false
+
+  registry.npmmirror.com/@jsquash/webp@1.4.0:
+    resolution: {integrity: sha512-yKJb6Hilq+qV/4C4qTDEalBobNwJO09LeHHtilmWg5mYHFUDwMunfeAap/r3cL5KsHkGOoI0IjY2nKbTaHq9Bw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@jsquash/webp/-/webp-1.4.0.tgz}
+    name: '@jsquash/webp'
+    version: 1.4.0
+    dependencies:
+      wasm-feature-detect: registry.npmmirror.com/wasm-feature-detect@1.6.1
+    dev: false
 
   registry.npmmirror.com/@mui/base@5.0.0-beta.24(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-bKt2pUADHGQtqWDZ8nvL2Lvg2GNJyd/ZUgZAJoYzRgmnxBL9j36MSlS3+exEdYkikcnvVafcBtD904RypFKb0w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@mui/base/-/base-5.0.0-beta.24.tgz}
@@ -13521,6 +13559,12 @@ packages:
     dependencies:
       makeerror: registry.npmmirror.com/makeerror@1.0.12
     dev: true
+
+  registry.npmmirror.com/wasm-feature-detect@1.6.1:
+    resolution: {integrity: sha512-R1i9ED8UlLu/foILNB1ck9XS63vdtqU/tP1MCugVekETp/ySCrBZRk5I/zI67cI1wlQYeSonNm1PLjDHZDNg6g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/wasm-feature-detect/-/wasm-feature-detect-1.6.1.tgz}
+    name: wasm-feature-detect
+    version: 1.6.1
+    dev: false
 
   registry.npmmirror.com/webidl-conversions@7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/webidl-conversions/-/webidl-conversions-7.0.0.tgz}

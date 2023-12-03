@@ -19,6 +19,7 @@
     "@youknown/react-rte": "workspace:*",
     "@youknown/react-ui": "workspace:*",
     "@youknown/utils": "workspace:*",
+    "@youknown/img-wasm": "workspace:*",
     "html-diff-ts": "^1.4.2"
   },
   "lint-staged": {

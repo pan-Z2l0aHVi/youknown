@@ -166,6 +166,11 @@ export const componentRoutes = [
 		name: 'KeepAlive',
 		path: 'keep_alive',
 		element: createElement(lazy(() => import('@/other-views/KeepAliveExample')))
+	},
+	{
+		name: 'ImageCompress',
+		path: 'image_compress',
+		element: createElement(lazy(() => import('@/other-views/ImageCompressExample')))
 	}
 ]
 

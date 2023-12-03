@@ -1,8 +1,8 @@
 import { ComponentProps, useState } from 'react'
 
-import { parse_file_size_mb } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
-import { Image, Progress, Toast, Upload } from '@youknown/react-ui/src'
+import { Image, Progress, Upload } from '@youknown/react-ui/src'
+import { IMAGE_ACCEPT } from '@/consts'
 
 interface PicUploadProps {
 	value?: string
@@ -19,33 +19,36 @@ export default function PicUpload(props: PicUploadProps) {
 	const preview_url = file_list[file_list.length - 1]?.previewURL ?? ''
 
 	const upload_cover = (file: File) =>
-		new Promise<string>((resolve, reject) => {
-			if (parse_file_size_mb(file) > 1) {
-				reject('Exceed the size limit')
-				Toast.warning({ content: '图像大小不能超过1M' })
-				return
-			}
+		new Promise<string>(async (resolve, reject) => {
 			set_uploading(true)
-			upload_cloudflare_r2(file, {
-				progress(progress) {
-					set_progress(progress.percent)
-				},
-				complete(url) {
-					set_uploading(false)
-					set_progress(0)
-					onChange?.(url)
-					resolve(url)
-				},
-				error(err) {
-					set_uploading(false)
-					set_progress(0)
-					reject(err)
-				}
-			})
+			try {
+				const { compressImage } = await import('@youknown/img-wasm/src')
+				const compressed_file = await compressImage(file, 1200, 800)
+				upload_cloudflare_r2(compressed_file, {
+					progress(progress) {
+						set_progress(progress.percent)
+					},
+					complete(url) {
+						set_uploading(false)
+						set_progress(0)
+						onChange?.(url)
+						resolve(url)
+					},
+					error(err) {
+						set_uploading(false)
+						set_progress(0)
+						reject(err)
+					}
+				})
+			} catch (err) {
+				reject(err)
+				set_uploading(false)
+				set_progress(0)
+			}
 		})
 
 	return (
-		<Upload action={upload_cover} value={file_list} onChange={set_file_list}>
+		<Upload accept={IMAGE_ACCEPT} action={upload_cover} value={file_list} onChange={set_file_list}>
 			<div className="relative flex items-center justify-center w-200px h-120px">
 				{uploading ? (
 					<>
