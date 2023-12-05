@@ -1,8 +1,10 @@
 import './index.scss'
 
-import Moveable from 'react-moveable'
+import { lazy, Suspense } from 'react'
 
 import { Editor } from '@tiptap/react'
+
+const Moveable = lazy(() => import('react-moveable'))
 
 export default function ImageResizer({ editor }: { editor: Editor }) {
 	const updateMediaSize = () => {
@@ -19,7 +21,7 @@ export default function ImageResizer({ editor }: { editor: Editor }) {
 	}
 
 	return (
-		<>
+		<Suspense>
 			<Moveable
 				className="image-resizer-moveable"
 				target={document.querySelector('.ProseMirror-selectednode') as HTMLImageElement}
@@ -52,6 +54,6 @@ export default function ImageResizer({ editor }: { editor: Editor }) {
 					target.style.transform = transform
 				}}
 			/>
-		</>
+		</Suspense>
 	)
 }

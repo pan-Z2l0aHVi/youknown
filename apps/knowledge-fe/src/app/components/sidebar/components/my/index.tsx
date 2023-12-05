@@ -49,7 +49,10 @@ export default function My({ expand }: PersonalProps) {
 							{has_login ? (
 								<Dropdown.Item
 									prefix={<TbLogout className="text-16px color-danger" />}
-									onClick={do_logout}
+									onClick={() => {
+										do_logout()
+										navigate('/')
+									}}
 								>
 									<span className="color-danger">退出登录</span>
 								</Dropdown.Item>
@@ -67,7 +70,7 @@ export default function My({ expand }: PersonalProps) {
 					<div
 						className={cls(
 							'border-0 bg-transparent w-100% h-44px flex items-center p-4px rd-radius-m cursor-pointer select-none',
-							'active-bg-secondary-active hover-not-active-bg-secondary-hover'
+							'active-bg-secondary-active [@media(hover:hover)]-hover-not-active-bg-secondary-hover'
 						)}
 					>
 						{has_login ? (

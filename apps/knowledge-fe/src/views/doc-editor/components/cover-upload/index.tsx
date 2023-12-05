@@ -3,11 +3,11 @@ import { PiTrashSimpleBold } from 'react-icons/pi'
 import { TbPhotoEdit, TbPhotoPlus } from 'react-icons/tb'
 
 import { Doc, update_doc } from '@/apis/doc'
+import { IMAGE_ACCEPT } from '@/consts'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { with_api } from '@/utils/request'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Image, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
-import { IMAGE_ACCEPT } from '@/consts'
 
 interface CoverUploadProps {
 	doc_id: string
@@ -34,7 +34,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 			start_updating()
 			try {
 				const { compressImage } = await import('@youknown/img-wasm/src')
-				const compressed_file = await compressImage(file, 1200, 800)
+				const compressed_file = await compressImage(file, 1600, 1200)
 				upload_cloudflare_r2(compressed_file, {
 					complete(url) {
 						save_doc_cover(url).finally(() => {
@@ -62,7 +62,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 			{cover ? (
 				<div className="group relative">
 					<Image className="w-100% max-h-30vh min-h-40px rd-radius-m" src={cover} canPreview />
-					<Space className="group-hover-display-flex! display-none! absolute right-16px bottom-16px">
+					<Space className="[@media(hover:hover)]-group-hover-display-flex! display-none! absolute right-16px bottom-16px">
 						<Upload accept={IMAGE_ACCEPT} ref={upload_ref} headless action={upload_cover}>
 							<Button
 								prefixIcon={<TbPhotoEdit />}
@@ -85,7 +85,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 				</div>
 			) : (
 				<Upload accept={IMAGE_ACCEPT} headless action={upload_cover}>
-					<div className="flex items-center w-max p-[4px_12px] ml-16px bg-bg-2 rd-full color-text-2 hover-color-primary">
+					<div className="flex items-center w-max p-[4px_12px] ml-16px bg-bg-2 rd-full color-text-2 [@media(hover:hover)]-hover-color-primary">
 						<TbPhotoPlus className="mr-8px text-16px" />
 						添加封面
 					</div>

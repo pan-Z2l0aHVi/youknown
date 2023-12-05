@@ -1,18 +1,18 @@
 import '@youknown/css/src/rte-desktop.scss'
 
 import { useState } from 'react'
+import { FiEdit3 } from 'react-icons/fi'
 import { LuHeart, LuHeartOff } from 'react-icons/lu'
 import { useSearchParams } from 'react-router-dom'
 
 import { Feed, get_feed_detail } from '@/apis/feed'
 import { cancel_collect_feed, collect_feed } from '@/apis/user'
 import Header from '@/app/components/header'
+import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useModalStore, useRecordStore, useUserStore } from '@/stores'
 import { with_api } from '@/utils/request'
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Image, Loading, Toast } from '@youknown/react-ui/src'
-import { FiEdit3 } from 'react-icons/fi'
-import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { QS } from '@youknown/utils/src'
 
 export default function FeedDetail() {

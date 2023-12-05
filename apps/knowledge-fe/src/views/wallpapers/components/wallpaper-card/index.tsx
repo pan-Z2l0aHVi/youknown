@@ -6,12 +6,12 @@ import { TbEyeCheck, TbPhotoSearch } from 'react-icons/tb'
 
 import { cancel_collect_wallpaper, collect_wallpaper } from '@/apis/user'
 import { Wallpaper } from '@/apis/wallpaper'
+import { useModalStore, useUserStore } from '@/stores'
 import { find_wallpaper_seen, insert_wallpaper_seen } from '@/utils/idb'
 import { with_api } from '@/utils/request'
 import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import { Dropdown, Image, Motion, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls, downloadFile, is } from '@youknown/utils/src'
-import { useModalStore, useUserStore } from '@/stores'
 
 interface WallpaperCardProps {
 	className?: string
@@ -192,7 +192,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 							<div
 								className={cls(
 									'absolute bottom-8px right-8px',
-									'rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl hover-bg-primary',
+									'rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl [@media(hover:hover)]-hover-bg-primary',
 									'flex items-center justify-center w-24px h-24px cursor-pointer select-none'
 								)}
 								onClick={start_hover}

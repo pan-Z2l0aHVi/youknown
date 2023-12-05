@@ -3,7 +3,7 @@ import { BiChevronDown } from 'react-icons/bi'
 import { TbNotes } from 'react-icons/tb'
 
 import TransitionNavLink from '@/components/transition-nav-link'
-import { routes, RouteItem } from '@/router/routes'
+import { RouteItem, routes } from '@/router/routes'
 import { useSpaceStore, useUIStore } from '@/stores'
 import { Motion, Tooltip } from '@youknown/react-ui/src'
 import { cls, DeepRequired, pick } from '@youknown/utils/src'
@@ -93,8 +93,8 @@ export default function Menu({ expand }: MenuProps) {
 										className={cls(
 											'rd-radius-s w-22px h-22px flex items-center justify-center text-12px bg-inherit',
 											is_dark_theme
-												? 'active-brightness-120 hover-brightness-110'
-												: 'active-brightness-90 hover-brightness-95'
+												? 'active-brightness-120 [@media(hover:hover)]-hover-brightness-110'
+												: 'active-brightness-90 [@media(hover:hover)]-hover-brightness-95'
 										)}
 										onClick={toggle_sub_menu}
 									>
@@ -105,8 +105,8 @@ export default function Menu({ expand }: MenuProps) {
 										className={cls(
 											'flex items-center text-12px bg-inherit h-100% rd-tr-radius-m rd-br-radius-m',
 											is_dark_theme
-												? 'active-brightness-120 hover-brightness-110'
-												: 'active-brightness-90 hover-brightness-95'
+												? 'active-brightness-120 [@media(hover:hover)]-hover-brightness-110'
+												: 'active-brightness-90 [@media(hover:hover)]-hover-brightness-95'
 										)}
 										onClick={toggle_sub_menu}
 									>
@@ -127,7 +127,7 @@ export default function Menu({ expand }: MenuProps) {
 								className={({ isActive }) =>
 									cls(
 										'w-100% h-28px flex items-center pl-12px pr-4px rd-radius-m mb-8px decoration-none color-inherit',
-										'active-bg-secondary-active hover-not-active-bg-secondary-hover',
+										'active-bg-secondary-active [@media(hover:hover)]-hover-not-active-bg-secondary-hover',
 										{
 											'bg-secondary-hover': isActive
 										}
@@ -163,7 +163,7 @@ export default function Menu({ expand }: MenuProps) {
 														className={({ isActive }) =>
 															cls(
 																'w-100% h-28px flex items-center pl-12px pr-4px rd-radius-m mb-8px decoration-none color-inherit',
-																'active-bg-secondary-active hover-not-active-bg-secondary-hover',
+																'active-bg-secondary-active [@media(hover:hover)]-hover-not-active-bg-secondary-hover',
 																{
 																	'bg-secondary-hover': isActive
 																}

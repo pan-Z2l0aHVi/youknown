@@ -224,11 +224,11 @@ export default function DocList(props: DocListProps) {
 					<div
 						className={cls(
 							'flex justify-center items-center h-224px bg-bg-2 rd-radius-l b-1 b-dashed b-bd-line cursor-pointer',
-							'group active-bg-active hover-not-active-bg-hover hover-b-primary hover-b-2px'
+							'group active-bg-active [@media(hover:hover)]-hover-not-active-bg-hover [@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-b-2px'
 						)}
 						onClick={create_new_doc}
 					>
-						<TbPlus className="text-28px color-text-3 group-hover-color-primary" />
+						<TbPlus className="text-28px color-text-3 [@media(hover:hover)]-group-hover-color-primary" />
 					</div>
 				</Loading>
 			)}

@@ -19,9 +19,9 @@ import { cls, is, omit } from '@youknown/utils/src'
 import { UI_PREFIX } from '../../constants'
 import Dropdown from '../dropdown'
 import Input from '../input'
+import Loading from '../loading'
 import Space from '../space'
 import Tag from '../tag'
-import Loading from '../loading'
 
 interface SelectProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
 	multiple?: boolean

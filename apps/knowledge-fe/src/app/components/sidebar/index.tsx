@@ -75,7 +75,7 @@ export default function Sidebar() {
 			onMouseDown={handle_mousedown}
 		>
 			<div
-				className={cls('w-2px h-100% group-hover-bg-primary', {
+				className={cls('w-2px h-100% [@media(hover:hover)]-group-hover-bg-primary', {
 					'bg-primary': dragging
 				})}
 			></div>
@@ -118,7 +118,7 @@ export default function Sidebar() {
 				<Tooltip title={expand ? '收起' : '展开'} placement="right" spacing={20}>
 					<button
 						className="mt-16px border-0 bg-transparent w-44px h-32px flex items-center justify-center rd-radius-m
-					active-bg-secondary-active hover-not-active-bg-secondary-hover cursor-pointer text-16px color-text-1"
+					active-bg-secondary-active [@media(hover:hover)]-hover-not-active-bg-secondary-hover cursor-pointer text-16px color-text-1"
 						onClick={toggle_expand}
 					>
 						<TbDotsVertical />

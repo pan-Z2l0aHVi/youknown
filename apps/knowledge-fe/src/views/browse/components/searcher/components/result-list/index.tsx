@@ -92,7 +92,7 @@ const ResultList = forwardRef<HTMLDivElement, ResultListProps>((props, prop_ref)
 						}}
 						className={cls(
 							'flex items-center justify-between rd-radius-m b-1 b-solid b-bd-line p-8px mb-12px',
-							'hover-shadow-shadow-l cursor-pointer',
+							'[@media(hover:hover)]-hover-shadow-shadow-l cursor-pointer',
 							{
 								'b-primary shadow-[inset_0_0_0_1px_var(--ui-color-primary)]!': selected
 							}

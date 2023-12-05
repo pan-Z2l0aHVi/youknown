@@ -29,7 +29,7 @@ export default function Banner() {
 				{text}
 			</div>
 			<div
-				className="absolute right-8px flex items-center justify-center w-24px h-24px cursor-pointer color-primary hover-color-primary-hover"
+				className="absolute right-8px flex items-center justify-center w-24px h-24px cursor-pointer color-primary [@media(hover:hover)]-hover-color-primary-hover"
 				onClick={() => {
 					storage.local.set(CLOSED_KEY, dayjs())
 					hide()

@@ -21,12 +21,13 @@
     },
     "dependencies": {
         "@jsquash/jpeg": "^1.4.0",
+        "@jsquash/oxipng": "^2.1.0",
         "@jsquash/png": "^2.2.0",
         "@jsquash/webp": "^1.4.0"
     },
     "lint-staged": {
         "*.{js,ts,jsx,tsx}": "eslint --cache --fix",
-        "**/*.scss": "stylelint --fix"
+        "**/*.{css,scss,less}": "stylelint --fix"
     },
     "browserslist": [
         "last 1 version",

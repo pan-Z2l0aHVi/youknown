@@ -4,6 +4,10 @@
 	&.moveable-control-box {
 		--moveable-color: var(--ui-color-primary, #4af);
 
-		z-index: 99;
+		z-index: 9;
+
+		.moveable-line {
+			background-color: transparent;
+		}
 	}
 }

@@ -1,3 +1,6 @@
+import { FcConferenceCall, FcGallery, FcViewDetails } from 'react-icons/fc'
+import { GoInbox } from 'react-icons/go'
+
 import { get_collected_feed_list, get_collected_wallpaper_list, get_followed_users, Profile } from '@/apis/user'
 import Header from '@/app/components/header'
 import { useModalStore, useUserStore } from '@/stores'
@@ -8,8 +11,6 @@ import { cls } from '@youknown/utils/src'
 import WallpaperCard from '../wallpapers/components/wallpaper-card'
 import FeedCard from './components/feed-card'
 import UserCard from './components/user-card'
-import { GoInbox } from 'react-icons/go'
-import { FcConferenceCall, FcGallery, FcViewDetails } from 'react-icons/fc'
 
 const enum COLLECTION_TYPE {
 	FEED = 1,

@@ -20,3 +20,7 @@ export function checkPWA(): boolean {
 export function checkHoverSupported(): boolean {
 	return window.matchMedia('(hover: hover)').matches
 }
+
+export function checkTouchDevice(): boolean {
+	return 'ontouchstart' in window || !!navigator.maxTouchPoints
+}

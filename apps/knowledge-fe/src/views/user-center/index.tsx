@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 
 import { follow_user, get_user_info, unfollow_user, update_profile } from '@/apis/user'
 import Header from '@/app/components/header'
+import { IMAGE_ACCEPT } from '@/consts'
 import { useModalStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
@@ -12,7 +13,6 @@ import { with_api } from '@/utils/request'
 import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import { AspectRatio, Button, Divider, Image, Input, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import { IMAGE_ACCEPT } from '@/consts'
 
 export default function UserCenter() {
 	const profile = useUserStore(state => state.profile)

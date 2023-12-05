@@ -60,7 +60,7 @@ export default function WeChatCard() {
 		<div
 			className={cls(
 				'flex flex-col items-center justify-center rd-radius-m bg-bg-0 b-1 b-solid b-bd-line',
-				'cursor-pointer select-none hover-bg-hover active-bg-active'
+				'cursor-pointer select-none [@media(hover:hover)]-hover-bg-hover active-bg-active'
 			)}
 			onClick={fetch_qrcode}
 		>

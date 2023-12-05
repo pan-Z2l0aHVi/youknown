@@ -24,7 +24,7 @@
     },
     "lint-staged": {
         "*.{js,ts,jsx,tsx}": "eslint --cache --fix",
-        "**/*.scss": "stylelint --fix"
+        "**/*.{css,scss,less}": "stylelint --fix"
     },
     "browserslist": [
         "last 1 version",

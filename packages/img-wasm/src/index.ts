@@ -90,8 +90,8 @@ function resizeImageData(input: ImageData, width: number, height: number): Image
 	return output
 }
 
-async function decode(sourceType: string, fileBuffer: ArrayBuffer): Promise<ImageData> {
-	switch (sourceType) {
+async function decode(type: string, fileBuffer: ArrayBuffer): Promise<ImageData> {
+	switch (type) {
 		case 'jpeg': {
 			const { decode } = await import('@jsquash/jpeg')
 			return await decode(fileBuffer)
@@ -105,25 +105,26 @@ async function decode(sourceType: string, fileBuffer: ArrayBuffer): Promise<Imag
 			return await decode(fileBuffer)
 		}
 		default:
-			throw new Error(`Unknown source type: ${sourceType}`)
+			throw new Error(`Unknown source type: ${type}`)
 	}
 }
 
-async function encode(outputType: string, imageData: ImageData): Promise<ArrayBuffer> {
-	switch (outputType) {
+async function encode(type: string, imageData: ImageData): Promise<ArrayBuffer> {
+	switch (type) {
 		case 'jpeg': {
 			const { encode } = await import('@jsquash/jpeg')
 			return await encode(imageData)
 		}
 		case 'png': {
 			const { encode } = await import('@jsquash/png')
-			return await encode(imageData)
+			const { optimise } = await import('@jsquash/oxipng')
+			return await optimise(await encode(imageData), { level: 3 })
 		}
 		case 'webp': {
 			const { encode } = await import('@jsquash/webp')
 			return await encode(imageData)
 		}
 		default:
-			throw new Error(`Unknown output type: ${outputType}`)
+			throw new Error(`Unknown output type: ${type}`)
 	}
 }

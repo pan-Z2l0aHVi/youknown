@@ -72,7 +72,7 @@ export default function Doc() {
 					new Promise(async (resolve, reject) => {
 						try {
 							const { compressImage } = await import('@youknown/img-wasm/src')
-							const compressed_file = await compressImage(file, 1200, 800)
+							const compressed_file = await compressImage(file, 1600, 1200)
 							upload_cloudflare_r2(compressed_file, {
 								complete(url) {
 									resolve({
@@ -278,7 +278,7 @@ export default function Doc() {
 				) : (
 					<div className="flex-1 w-0 truncate ml-24px mr-24px">
 						<span
-							className="max-w-100% p-[4px_8px] rd-radius-m color-text-2 hover-bg-hover cursor-default"
+							className="max-w-100% p-[4px_8px] rd-radius-m color-text-2 [@media(hover:hover)]-hover-bg-hover cursor-default"
 							onClick={focus_title}
 						>
 							{doc_title}

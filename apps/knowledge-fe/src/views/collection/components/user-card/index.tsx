@@ -70,7 +70,7 @@ export default function UserCard(props: UserCardProps) {
 			className={cls(
 				'relative w-144px',
 				'b-solid b-1 b-bd-line rd-radius-m cursor-pointer select-none overflow-hidden',
-				'hover-b-primary hover-shadow-[var(--ui-shadow-l),0_0_0_1px_var(--ui-color-primary)]',
+				'[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-l),0_0_0_1px_var(--ui-color-primary)]',
 				className
 			)}
 			onClick={go_user_center}

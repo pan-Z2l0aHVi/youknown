@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
 		base: mode === 'development' ? '' : env.VITE_CDN_BASE_URL,
 		plugins: [tsconfigPaths(), react(), Unocss(), visualizer() as PluginOption],
 		optimizeDeps: {
-			exclude: ['@jsquash/jpeg', '@jsquash/png', '@jsquash/webp']
+			exclude: ['@jsquash/jpeg', '@jsquash/webp', '@jsquash/png', '@jsquash/oxipng']
 		},
 		resolve: {
 			alias: {

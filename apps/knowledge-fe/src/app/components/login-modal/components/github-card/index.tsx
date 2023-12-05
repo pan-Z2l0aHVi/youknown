@@ -29,7 +29,7 @@ export default function GithubCard() {
 			className={cls(
 				'flex flex-col items-center justify-center rd-radius-m bg-bg-0 b-1 b-solid b-bd-line',
 				'cursor-pointer select-none',
-				'hover-bg-hover active-bg-active'
+				'[@media(hover:hover)]-hover-bg-hover active-bg-active'
 			)}
 			onClick={handle_github_login}
 		>

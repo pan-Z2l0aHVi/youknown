@@ -31,8 +31,8 @@ export default function RecordItem(props: RecordItemProps) {
 	})
 
 	return (
-		<div key={record.id} className="group flex hover-bg-hover rd-radius-l p-[0_16px]">
-			<div className="flex items-center justify-end w-160px text-12px color-text-3 group-hover-text-text-2">
+		<div key={record.id} className="group flex [@media(hover:hover)]-hover-bg-hover rd-radius-l p-[0_16px]">
+			<div className="flex items-center justify-end w-160px text-12px color-text-3 [@media(hover:hover)]-group-hover-text-text-2">
 				<RiHistoryFill className="mr-4px text-14px" />
 				{timing_desc}
 			</div>
@@ -42,12 +42,12 @@ export default function RecordItem(props: RecordItemProps) {
 						'absolute left--8px w-14px h-14px bg-primary rd-full b-4 b-solid b-[rgba(255,255,255,0.8)]'
 					)}
 				></div>
-				<div className="flex-1 flex items-center text-text-2 whitespace-nowrap group-hover-text-text-1 transition-colors">
+				<div className="flex-1 flex items-center text-text-2 whitespace-nowrap [@media(hover:hover)]-group-hover-text-text-1 transition-colors">
 					你<span className="color-orange">{record.action}</span>了
 					{record.target && (
 						<>
 							<TransitionLink
-								className="inline-block max-w-200px truncate color-purple! hover-underline!"
+								className="inline-block max-w-200px truncate color-purple! [@media(hover:hover)]-hover-underline!"
 								to={target_user_center_url}
 							>
 								{record.target}
@@ -59,7 +59,7 @@ export default function RecordItem(props: RecordItemProps) {
 						<>
 							{record.obj_type}
 							<TransitionLink
-								className="inline-block max-w-200px truncate color-blue! hover-underline!"
+								className="inline-block max-w-200px truncate color-blue! [@media(hover:hover)]-hover-underline!"
 								to={feed_url}
 							>
 								{record.obj}

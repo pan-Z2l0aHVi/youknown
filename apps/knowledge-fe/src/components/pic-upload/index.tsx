@@ -1,8 +1,8 @@
 import { ComponentProps, useState } from 'react'
 
+import { IMAGE_ACCEPT } from '@/consts'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { Image, Progress, Upload } from '@youknown/react-ui/src'
-import { IMAGE_ACCEPT } from '@/consts'
 
 interface PicUploadProps {
 	value?: string
@@ -23,7 +23,7 @@ export default function PicUpload(props: PicUploadProps) {
 			set_uploading(true)
 			try {
 				const { compressImage } = await import('@youknown/img-wasm/src')
-				const compressed_file = await compressImage(file, 1200, 800)
+				const compressed_file = await compressImage(file, 1600, 1200)
 				upload_cloudflare_r2(compressed_file, {
 					progress(progress) {
 						set_progress(progress.percent)

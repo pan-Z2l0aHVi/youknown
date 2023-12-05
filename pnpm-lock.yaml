@@ -276,6 +276,9 @@ importers:
       '@jsquash/jpeg':
         specifier: ^1.4.0
         version: registry.npmmirror.com/@jsquash/jpeg@1.4.0
+      '@jsquash/oxipng':
+        specifier: ^2.1.0
+        version: registry.npmmirror.com/@jsquash/oxipng@2.1.0
       '@jsquash/png':
         specifier: ^2.2.0
         version: registry.npmmirror.com/@jsquash/png@2.2.0
@@ -3186,6 +3189,14 @@ packages:
     version: 1.4.0
     dev: false
 
+  registry.npmmirror.com/@jsquash/oxipng@2.1.0:
+    resolution: {integrity: sha512-029u73uUgQG8IPL57pugXAxx2MZdFMVqwCXhW9i1a41lBMnqoqxR8zEBDDztouR+4bQW/RuYvoeB1Ow6Y/QIpg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@jsquash/oxipng/-/oxipng-2.1.0.tgz}
+    name: '@jsquash/oxipng'
+    version: 2.1.0
+    dependencies:
+      wasm-feature-detect: registry.npmmirror.com/wasm-feature-detect@1.6.1
+    dev: false
+
   registry.npmmirror.com/@jsquash/png@2.2.0:
     resolution: {integrity: sha512-k7BiVGekzaXj88ikJL9SXatU3Eq2DJtklYV4n5/y+NU3xcGFVkVcoa2EW+3oRk1AG+WwRPjTQDIKeYd6oTu6bg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@jsquash/png/-/png-2.2.0.tgz}
     name: '@jsquash/png'
@@ -5646,7 +5657,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': registry.npmmirror.com/@vue/compiler-ssr@3.3.8
       '@vue/shared': registry.npmmirror.com/@vue/shared@3.3.8
-      vue: registry.npmmirror.com/vue@3.3.8
+      vue: registry.npmmirror.com/vue@3.3.8(typescript@5.2.2)
 
   registry.npmmirror.com/@vue/shared@3.3.8:
     resolution: {integrity: sha512-8PGwybFwM4x8pcfgqEQFy70NaQxASvOC5DJwLQfpArw1UDfUXrJkdxD3BhVTMS+0Lef/TU7YO0Jvr0jJY8T+mw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vue/shared/-/shared-3.3.8.tgz}
@@ -13518,6 +13529,7 @@ packages:
       '@vue/runtime-dom': registry.npmmirror.com/@vue/runtime-dom@3.3.8
       '@vue/server-renderer': registry.npmmirror.com/@vue/server-renderer@3.3.8(vue@3.3.8)
       '@vue/shared': registry.npmmirror.com/@vue/shared@3.3.8
+    dev: false
 
   registry.npmmirror.com/vue@3.3.8(typescript@5.2.2):
     resolution: {integrity: sha512-5VSX/3DabBikOXMsxzlW8JyfeLKlG9mzqnWgLQLty88vdZL7ZJgrdgBOmrArwxiLtmS+lNNpPcBYqrhE6TQW5w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue/-/vue-3.3.8.tgz}

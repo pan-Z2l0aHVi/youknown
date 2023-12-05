@@ -34,7 +34,7 @@ const App = () => {
 					className={({ isActive }) =>
 						cls(
 							'flex items-center w-100% h-30px p-[0_12px] rd-radius-l color-text-1 text-15px decoration-none select-none',
-							'hover-bg-hover active-bg-active',
+							'[@media(hover:hover)]-hover-bg-hover active-bg-active',
 							{
 								'!bg-active': isActive
 							}

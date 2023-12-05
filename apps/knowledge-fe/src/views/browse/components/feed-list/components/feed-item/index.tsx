@@ -69,7 +69,7 @@ export default function FeedItem(props: FeedItemProps) {
 								'inline text-16px font-600 cursor-pointer',
 								'transition-property-[background-size] transition-duration-300ms ease-out',
 								'bg-gradient-to-tr from-primary to-primary bg-no-repeat bg-right-bottom bg-[length:0%_2px]',
-								'group-hover-bg-left-bottom group-hover-bg-[length:100%_2px]'
+								'[@media(hover:hover)]-group-hover-bg-left-bottom [@media(hover:hover)]-group-hover-bg-[length:100%_2px]'
 							)}
 						>
 							{feed.title}
@@ -77,7 +77,7 @@ export default function FeedItem(props: FeedItemProps) {
 					</TransitionLink>
 
 					<TransitionLink to={doc_detail_url}>
-						<div className="line-clamp-3 color-text-2 hover-color-text-3 transition-colors">
+						<div className="line-clamp-3 color-text-2 [@media(hover:hover)]-hover-color-text-3 transition-colors">
 							{feed.summary}
 						</div>
 					</TransitionLink>

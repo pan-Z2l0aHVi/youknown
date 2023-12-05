@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { GoInbox } from 'react-icons/go'
 import { TbFolderPlus } from 'react-icons/tb'
 
 import Header from '@/app/components/header'
@@ -9,7 +10,6 @@ import { Button, Toast } from '@youknown/react-ui/src'
 
 import SpaceCard from './components/space-card'
 import SpaceOptionsModal from './components/space-options-modal'
-import { GoInbox } from 'react-icons/go'
 
 export default function SpaceList() {
 	const has_login = useUserStore(state => state.has_login)
