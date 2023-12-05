@@ -11,7 +11,7 @@ $prefix: '#{$ui-prefix}-loading';
 		color: $color-primary;
 
 		&-small {
-			font-size: 12px;
+			font-size: 16px;
 		}
 
 		&-medium {
@@ -19,7 +19,7 @@ $prefix: '#{$ui-prefix}-loading';
 		}
 
 		&-large {
-			font-size: 48px;
+			font-size: 32px;
 		}
 
 		&-bordered {
@@ -28,7 +28,7 @@ $prefix: '#{$ui-prefix}-loading';
 			box-shadow: $shadow-m;
 
 			&.#{$prefix}-icon-small {
-				padding: 4px;
+				padding: 6px;
 			}
 
 			&.#{$prefix}-icon-medium {
@@ -36,7 +36,7 @@ $prefix: '#{$ui-prefix}-loading';
 			}
 
 			&.#{$prefix}-icon-large {
-				padding: 12px;
+				padding: 10px;
 			}
 		}
 	}

@@ -45,7 +45,7 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 		filter = false,
 		placeholder = '请选择',
 		allowClear = false,
-		noMore = false,
+		noMore = true,
 		options = [],
 		onLoad,
 		onClick,
@@ -151,7 +151,7 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 		<>
 			{noMore || (
 				<div ref={loadingRef} className={cls(`${prefixCls}-loading`)}>
-					<Loading spinning />
+					<Loading spinning size="small" />
 				</div>
 			)}
 		</>
