@@ -117,8 +117,9 @@ async function encode(type: string, imageData: ImageData): Promise<ArrayBuffer> 
 		}
 		case 'png': {
 			const { encode } = await import('@jsquash/png')
-			const { optimise } = await import('@jsquash/oxipng')
-			return await optimise(await encode(imageData), { level: 3 })
+			// const { optimise } = await import('@jsquash/oxipng')
+			// return await optimise(await encode(imageData), { level: 3 })
+			return await encode(imageData)
 		}
 		case 'webp': {
 			const { encode } = await import('@jsquash/webp')
