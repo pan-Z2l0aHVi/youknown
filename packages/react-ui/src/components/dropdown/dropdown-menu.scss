@@ -11,7 +11,7 @@ $prefix: '#{$ui-prefix}-dropdown-menu';
 	background: $bg-1;
 	border: 1px solid $bd-line;
 	border-radius: $radius-l;
-	box-shadow: $shadow-l;
+	box-shadow: $shadow-m;
 
 	@media (hover: hover) {
 		&:hover {

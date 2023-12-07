@@ -20,7 +20,6 @@ export default function LoginModal() {
 			<Motion.Zoom in={modal_open}>
 				<Card
 					shadow
-					bordered={true}
 					header={
 						<div className="flex justify-between p-[24px_24px_8px_24px]">
 							<span className="text-16px">用户登录</span>

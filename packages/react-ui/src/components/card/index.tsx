@@ -15,7 +15,7 @@ interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
 }
 
 const Card = (props: CardProps, propRef: ForwardedRef<HTMLDivElement>) => {
-	const { children, className, bordered = true, shadow = false, header, footer, cover, ...rest } = props
+	const { children, className, bordered = false, shadow = false, header, footer, cover, ...rest } = props
 
 	const prefixCls = `${UI_PREFIX}-card`
 

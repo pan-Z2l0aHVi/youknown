@@ -139,8 +139,8 @@ export default function DocCard(props: DocCardProps) {
 					'relative flex flex-col h-224px b-1 b-solid b-bd-line rd-radius-l',
 					'bg-bg-1 bg-cover bg-center cursor-pointer overflow-hidden select-none',
 					selected
-						? 'b-primary shadow-[var(--ui-shadow-l),0_0_0_1px_var(--ui-color-primary)]'
-						: '[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-l),0_0_0_1px_var(--ui-color-primary)]'
+						? 'b-primary shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]'
+						: '[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]'
 				)}
 				style={{ backgroundImage: `url("${info.cover}")` }}
 			>

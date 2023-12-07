@@ -68,7 +68,7 @@ export default function FeedCard(props: FeedCardProps) {
 		<div
 			className={cls(
 				'relative flex items-start w-440px h-120px b-solid b-1 b-bd-line rd-radius-m cursor-pointer overflow-hidden',
-				'[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-l),0_0_0_1px_var(--ui-color-primary)]',
+				'[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]',
 				className
 			)}
 			onClick={go_feed_detail}

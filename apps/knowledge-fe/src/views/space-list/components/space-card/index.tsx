@@ -57,7 +57,7 @@ export default function SpaceCard(props: SpaceCardProps) {
 		<div
 			className={cls(
 				'flex items-center p-16px b-solid b-1 b-bd-line rd-radius-m cursor-pointer',
-				'[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-l),0_0_0_1px_var(--ui-color-primary)]'
+				'[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]'
 			)}
 			onClick={go_space_docs}
 		>

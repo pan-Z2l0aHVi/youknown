@@ -14,15 +14,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tiptap/extension-placeholder": "^2.1.12",
-    "@tiptap/pm": "^2.1.12",
-    "@tiptap/starter-kit": "^2.1.12",
-    "@tiptap/vue-3": "^2.1.12",
+    "@tiptap/extension-placeholder": "^2.1.13",
+    "@tiptap/pm": "^2.1.13",
+    "@tiptap/starter-kit": "^2.1.13",
+    "@tiptap/vue-3": "^2.1.13",
     "@youknown/css": "workspace:*",
     "@youknown/utils": "workspace:*",
     "crypto-js": "^4.2.0",
     "qiniu-js": "^3.4.1",
-    "vant": "^4.7.3"
+    "vant": "^4.8.0"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,vue}": "eslint --cache --fix",

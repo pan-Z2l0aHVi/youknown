@@ -1,9 +1,12 @@
 import './index.scss'
 
 import { lazy, Suspense } from 'react'
+import ReactDOM from 'react-dom'
 
 import { Editor } from '@tiptap/react'
 
+const isReact18 = Number(ReactDOM.version?.split('.')[0]) > 17
+const flushSyncProps = isReact18 ? { flushSync: ReactDOM.flushSync } : {}
 const Moveable = lazy(() => import('react-moveable'))
 
 export default function ImageResizer({ editor }: { editor: Editor }) {
@@ -23,6 +26,7 @@ export default function ImageResizer({ editor }: { editor: Editor }) {
 	return (
 		<Suspense>
 			<Moveable
+				{...flushSyncProps}
 				className="image-resizer-moveable"
 				target={document.querySelector('.ProseMirror-selectednode') as HTMLImageElement}
 				container={null}

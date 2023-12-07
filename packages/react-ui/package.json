@@ -22,8 +22,8 @@
     "dependencies": {
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
-        "@floating-ui/react": "^0.26.2",
-        "@mui/material": "^5.14.18",
+        "@floating-ui/react": "^0.26.3",
+        "@mui/material": "^5.14.20",
         "@youknown/react-hook": "workspace:*",
         "@youknown/utils": "workspace:*",
         "modern-css-reset": "^1.4.0",
@@ -32,7 +32,7 @@
         "react-transition-group": "^4.4.5"
     },
     "devDependencies": {
-        "@types/react-transition-group": "^4.4.9"
+        "@types/react-transition-group": "^4.4.10"
     },
     "lint-staged": {
         "*.{js,ts,jsx,tsx}": "eslint --cache --fix",

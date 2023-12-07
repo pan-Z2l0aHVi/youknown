@@ -59,7 +59,7 @@ function UserCollapsePanel() {
 		<Loading
 			spinning={loading}
 			className={cls('w-100%! min-h-120px flex items-center flex-wrap p-[16px_0]', {
-				'justify-center': loading
+				'justify-center': loading || empty_visible
 			})}
 		>
 			{user_list?.map(user => (
@@ -84,7 +84,7 @@ function WallpaperCollapsePanel() {
 		<Loading
 			spinning={loading}
 			className={cls('w-100%! min-h-120px flex items-center flex-wrap p-[16px_0]', {
-				'justify-center': loading
+				'justify-center': loading || empty_visible
 			})}
 		>
 			{wallpaper_list?.map(wallpaper => {

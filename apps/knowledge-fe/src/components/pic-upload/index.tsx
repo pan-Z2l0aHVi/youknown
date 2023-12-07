@@ -4,6 +4,7 @@ import { IMAGE_ACCEPT } from '@/consts'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { Image, Progress, Upload } from '@youknown/react-ui/src'
 
+type UploadFile = Required<ComponentProps<typeof Upload>>['value']
 interface PicUploadProps {
 	value?: string
 	onChange?: (value: string) => void
@@ -14,7 +15,6 @@ export default function PicUpload(props: PicUploadProps) {
 	const { value = '', onChange, uploading, set_uploading } = props
 
 	const [progress, set_progress] = useState(0)
-	type UploadFile = Required<ComponentProps<typeof Upload>>['value']
 	const [file_list, set_file_list] = useState<UploadFile>([])
 	const preview_url = file_list[file_list.length - 1]?.previewURL ?? ''
 
