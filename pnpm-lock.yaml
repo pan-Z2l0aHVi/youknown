@@ -54,7 +54,7 @@ importers:
         specifier: ^5.62.0
         version: registry.npmmirror.com/@typescript-eslint/parser@5.62.0(eslint@8.55.0)(typescript@5.2.2)
       '@unocss/preset-rem-to-px':
-        specifier: ^0.55.7
+        specifier: 0.55.7
         version: registry.npmmirror.com/@unocss/preset-rem-to-px@0.55.7
       '@vitejs/plugin-react':
         specifier: ^4.2.0
@@ -138,7 +138,7 @@ importers:
         specifier: 5.2.2
         version: registry.npmmirror.com/typescript@5.2.2
       unocss:
-        specifier: ^0.55.7
+        specifier: 0.55.7
         version: registry.npmmirror.com/unocss@0.55.7(postcss@8.4.32)(vite@4.5.1)
       unocss-scrollbar-variant:
         specifier: ^0.37.2
@@ -146,6 +146,9 @@ importers:
       vite:
         specifier: ^4.5.1
         version: registry.npmmirror.com/vite@4.5.1(@types/node@20.10.3)(sass@1.69.5)
+      vite-plugin-chunk-split:
+        specifier: ^0.5.0
+        version: registry.npmmirror.com/vite-plugin-chunk-split@0.5.0(vite@4.5.1)
       vite-plugin-css-injected-by-js:
         specifier: ^3.3.0
         version: registry.npmmirror.com/vite-plugin-css-injected-by-js@3.3.0(vite@4.5.1)
@@ -438,12 +441,18 @@ importers:
       '@youknown/utils':
         specifier: workspace:*
         version: link:../utils
+      cropperjs:
+        specifier: ^1.6.1
+        version: registry.npmmirror.com/cropperjs@1.6.1
       modern-css-reset:
         specifier: ^1.4.0
         version: registry.npmmirror.com/modern-css-reset@1.4.0
       react-countup:
         specifier: ^6.5.0
         version: registry.npmmirror.com/react-countup@6.5.0(react@18.2.0)
+      react-cropper:
+        specifier: ^2.3.3
+        version: registry.npmmirror.com/react-cropper@2.3.3(react@18.2.0)
       react-textarea-autosize:
         specifier: ^8.5.3
         version: registry.npmmirror.com/react-textarea-autosize@8.5.3(react@18.2.0)
@@ -5651,7 +5660,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': registry.npmmirror.com/@vue/compiler-ssr@3.3.10
       '@vue/shared': registry.npmmirror.com/@vue/shared@3.3.10
-      vue: registry.npmmirror.com/vue@3.3.10
+      vue: registry.npmmirror.com/vue@3.3.10(typescript@5.2.2)
 
   registry.npmmirror.com/@vue/shared@3.3.10:
     resolution: {integrity: sha512-2y3Y2J1a3RhFa0WisHvACJR2ncvWiVHcP8t0Inxo+NKz+8RKO4ZV8eZgCxRgQoA6ITfV12L4E6POOL9HOU5nqw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vue/shared/-/shared-3.3.10.tgz}
@@ -6687,6 +6696,12 @@ packages:
     version: 1.0.6
     dev: false
 
+  registry.npmmirror.com/cropperjs@1.6.1:
+    resolution: {integrity: sha512-F4wsi+XkDHCOMrHMYjrTEE4QBOrsHHN5/2VsVAaRq8P7E5z7xQpT75S+f/9WikmBEailas3+yo+6zPIomW+NOA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/cropperjs/-/cropperjs-1.6.1.tgz}
+    name: cropperjs
+    version: 1.6.1
+    dev: false
+
   registry.npmmirror.com/cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/cross-spawn/-/cross-spawn-7.0.3.tgz}
     name: cross-spawn
@@ -7264,6 +7279,12 @@ packages:
       internal-slot: registry.npmmirror.com/internal-slot@1.0.6
       iterator.prototype: registry.npmmirror.com/iterator.prototype@1.1.2
       safe-array-concat: registry.npmmirror.com/safe-array-concat@1.0.1
+    dev: true
+
+  registry.npmmirror.com/es-module-lexer@1.4.1:
+    resolution: {integrity: sha512-cXLGjP0c4T3flZJKQSuziYoq7MlT+rnvfZjfp7h+I7K9BNX54kP9nyWvdbwjQ4u1iWbOL4u96fgeZLToQlZC7w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/es-module-lexer/-/es-module-lexer-1.4.1.tgz}
+    name: es-module-lexer
+    version: 1.4.1
     dev: true
 
   registry.npmmirror.com/es-set-tostringtag@2.0.2:
@@ -8360,6 +8381,12 @@ packages:
     dependencies:
       pkg-dir: registry.npmmirror.com/pkg-dir@4.2.0
       resolve-cwd: registry.npmmirror.com/resolve-cwd@3.0.0
+    dev: true
+
+  registry.npmmirror.com/import-meta-resolve@4.0.0:
+    resolution: {integrity: sha512-okYUR7ZQPH+efeuMJGlq4f8ubUgO50kByRPyt/Cy1Io4PSRsPjxME+YlVaCOx+NIToW7hCsZNFJyTPFFKepRSA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/import-meta-resolve/-/import-meta-resolve-4.0.0.tgz}
+    name: import-meta-resolve
+    version: 4.0.0
     dev: true
 
   registry.npmmirror.com/imurmurhash@0.1.4:
@@ -11400,6 +11427,18 @@ packages:
       react: registry.npmmirror.com/react@18.2.0
     dev: false
 
+  registry.npmmirror.com/react-cropper@2.3.3(react@18.2.0):
+    resolution: {integrity: sha512-zghiEYkUb41kqtu+2jpX2Ntigf+Jj1dF9ew4lAobPzI2adaPE31z0p+5TcWngK6TvmWQUwK3lj4G+NDh1PDQ1w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/react-cropper/-/react-cropper-2.3.3.tgz}
+    id: registry.npmmirror.com/react-cropper/2.3.3
+    name: react-cropper
+    version: 2.3.3
+    peerDependencies:
+      react: '>=17.0.2'
+    dependencies:
+      cropperjs: registry.npmmirror.com/cropperjs@1.6.1
+      react: registry.npmmirror.com/react@18.2.0
+    dev: false
+
   registry.npmmirror.com/react-css-styled@1.1.9:
     resolution: {integrity: sha512-M7fJZ3IWFaIHcZEkoFOnkjdiUFmwd8d+gTh2bpqMOcnxy/0Gsykw4dsL4QBiKsxcGow6tETUa4NAUcmJF+/nfw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/react-css-styled/-/react-css-styled-1.1.9.tgz}
     name: react-css-styled
@@ -13366,6 +13405,20 @@ packages:
       vue: registry.npmmirror.com/vue@3.3.10
     dev: false
 
+  registry.npmmirror.com/vite-plugin-chunk-split@0.5.0(vite@4.5.1):
+    resolution: {integrity: sha512-pasNKLhH+ICjoCF6HoKKvgmZ1LEPSCIKAa8Lz0ZpMyQC9bLmCLT7UxgKMULewsc9SUw89OX0udsGiIQCtr8wLA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite-plugin-chunk-split/-/vite-plugin-chunk-split-0.5.0.tgz}
+    id: registry.npmmirror.com/vite-plugin-chunk-split/0.5.0
+    name: vite-plugin-chunk-split
+    version: 0.5.0
+    peerDependencies:
+      vite: ^4 || ^5
+    dependencies:
+      es-module-lexer: registry.npmmirror.com/es-module-lexer@1.4.1
+      import-meta-resolve: registry.npmmirror.com/import-meta-resolve@4.0.0
+      magic-string: registry.npmmirror.com/magic-string@0.30.5
+      vite: registry.npmmirror.com/vite@4.5.1(@types/node@20.10.3)(sass@1.69.5)
+    dev: true
+
   registry.npmmirror.com/vite-plugin-css-injected-by-js@3.3.0(vite@4.5.1):
     resolution: {integrity: sha512-xG+jyHNCmUqi/TXp6q88wTJGeAOrNLSyUUTp4qEQ9QZLGcHWQQsCsSSKa59rPMQr8sOzfzmWDd8enGqfH/dBew==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite-plugin-css-injected-by-js/-/vite-plugin-css-injected-by-js-3.3.0.tgz}
     id: registry.npmmirror.com/vite-plugin-css-injected-by-js/3.3.0
@@ -13525,6 +13578,7 @@ packages:
       '@vue/runtime-dom': registry.npmmirror.com/@vue/runtime-dom@3.3.10
       '@vue/server-renderer': registry.npmmirror.com/@vue/server-renderer@3.3.10(vue@3.3.10)
       '@vue/shared': registry.npmmirror.com/@vue/shared@3.3.10
+    dev: false
 
   registry.npmmirror.com/vue@3.3.10(typescript@5.2.2):
     resolution: {integrity: sha512-zg6SIXZdTBwiqCw/1p+m04VyHjLfwtjwz8N57sPaBhEex31ND0RYECVOC1YrRwMRmxFf5T1dabl6SGUbMKKuVw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue/-/vue-3.3.10.tgz}

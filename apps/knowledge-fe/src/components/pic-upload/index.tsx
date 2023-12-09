@@ -19,32 +19,39 @@ export default function PicUpload(props: PicUploadProps) {
 	const preview_url = file_list[file_list.length - 1]?.previewURL ?? ''
 
 	const upload_cover = (file: File) =>
-		new Promise<string>(async (resolve, reject) => {
-			set_uploading(true)
-			try {
-				const { compressImage } = await import('@youknown/img-wasm/src')
-				const compressed_file = await compressImage(file, 1600, 1200)
-				upload_cloudflare_r2(compressed_file, {
-					progress(progress) {
-						set_progress(progress.percent)
-					},
-					complete(url) {
-						set_uploading(false)
-						set_progress(0)
-						onChange?.(url)
-						resolve(url)
-					},
-					error(err) {
-						set_uploading(false)
-						set_progress(0)
+		new Promise<string>((resolve, reject) => {
+			Image.clip({
+				file,
+				initialAspectRatio: 16 / 9,
+				onCancel: reject,
+				async onClip(result) {
+					set_uploading(true)
+					try {
+						const { compressImage } = await import('@youknown/img-wasm/src')
+						const compressed_file = await compressImage(result, 1600, 1200)
+						upload_cloudflare_r2(compressed_file, {
+							progress(progress) {
+								set_progress(progress.percent)
+							},
+							complete(url) {
+								set_uploading(false)
+								set_progress(0)
+								onChange?.(url)
+								resolve(url)
+							},
+							error(err) {
+								set_uploading(false)
+								set_progress(0)
+								reject(err)
+							}
+						})
+					} catch (err) {
 						reject(err)
+						set_uploading(false)
+						set_progress(0)
 					}
-				})
-			} catch (err) {
-				reject(err)
-				set_uploading(false)
-				set_progress(0)
-			}
+				}
+			})
 		})
 
 	return (

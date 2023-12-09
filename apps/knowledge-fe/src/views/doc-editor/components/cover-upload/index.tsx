@@ -33,28 +33,35 @@ export default function CoverUpload(props: CoverUploadProps) {
 
 	const upload_cover = (file: File) =>
 		new Promise<string>(async (resolve, reject) => {
-			start_updating()
-			try {
-				const { compressImage } = await import('@youknown/img-wasm/src')
-				const compressed_file = await compressImage(file, 1600, 1200)
-				upload_cloudflare_r2(compressed_file, {
-					complete(url) {
-						save_doc_cover(url).finally(() => {
-							stop_updating()
-							resolve(url)
+			Image.clip({
+				file,
+				initialAspectRatio: 16 / 9,
+				onCancel: reject,
+				async onClip(result) {
+					start_updating()
+					try {
+						const { compressImage } = await import('@youknown/img-wasm/src')
+						const compressed_file = await compressImage(result, 1600, 1200)
+						upload_cloudflare_r2(compressed_file, {
+							complete(url) {
+								save_doc_cover(url).finally(() => {
+									stop_updating()
+									resolve(url)
+								})
+							},
+							error(err) {
+								Toast.error({ content: '图片上传失败' })
+								stop_updating()
+								reject(err)
+							}
 						})
-					},
-					error(err) {
+					} catch (err) {
 						Toast.error({ content: '图片上传失败' })
 						stop_updating()
 						reject(err)
 					}
-				})
-			} catch (err) {
-				Toast.error({ content: '图片上传失败' })
-				stop_updating()
-				reject(err)
-			}
+				}
+			})
 		})
 
 	const preview_cover = file_list?.[file_list.length - 1]?.previewURL ?? ''

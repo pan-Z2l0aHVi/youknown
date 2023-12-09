@@ -35,6 +35,23 @@ export default () => {
 					Preview image without toolbar
 				</Button>
 			</Space>
+			<Divider />
+			<Space>
+				<input
+					type="file"
+					accept="image/*"
+					onChange={e => {
+						const [file] = e.target.files ?? []
+						Image.clip({
+							file,
+							onClip(result) {
+								console.log('clip result: ', result)
+							}
+						})
+					}}
+				/>
+			</Space>
+			<Divider />
 		</div>
 	)
 }

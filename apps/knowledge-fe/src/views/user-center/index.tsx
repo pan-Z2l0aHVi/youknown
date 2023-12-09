@@ -33,24 +33,32 @@ export default function UserCenter() {
 	const [unfollow_loading, set_unfollow_loading] = useState(false)
 
 	const upload_avatar = (file: File) =>
-		new Promise<string>(async (resolve, reject) => {
-			try {
-				const { compressImage } = await import('@youknown/img-wasm/src')
-				const compressed_file = await compressImage(file, 520, 520)
-				upload_cloudflare_r2(compressed_file, {
-					complete(url) {
-						resolve(url)
-						set_updating_avatar(url)
-					},
-					error(err) {
+		new Promise<string>((resolve, reject) => {
+			Image.clip({
+				file,
+				initialAspectRatio: 1,
+				aspectRatio: 1,
+				onCancel: reject,
+				async onClip(result) {
+					try {
+						const { compressImage } = await import('@youknown/img-wasm/src')
+						const compressed_file = await compressImage(result, 520, 520)
+						upload_cloudflare_r2(compressed_file, {
+							complete(url) {
+								resolve(url)
+								set_updating_avatar(url)
+							},
+							error(err) {
+								Toast.error({ content: '图片上传失败' })
+								reject(err)
+							}
+						})
+					} catch (err) {
 						Toast.error({ content: '图片上传失败' })
 						reject(err)
 					}
-				})
-			} catch (err) {
-				Toast.error({ content: '图片上传失败' })
-				reject(err)
-			}
+				}
+			})
 		})
 
 	const [nickname_val, set_nickname_val] = useState('')

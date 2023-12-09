@@ -32,7 +32,7 @@ import {
 	TextColor,
 	Underline
 } from '@youknown/react-rte/src'
-import { Button, Input, Space, Toast } from '@youknown/react-ui/src'
+import { Button, Image as ImageUI, Input, Space, Toast } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import CoverUpload from './components/cover-upload'
@@ -69,25 +69,31 @@ export default function Doc() {
 			HorizontalRule,
 			Image.configure({
 				onCustomUpload: file =>
-					new Promise(async (resolve, reject) => {
-						try {
-							const { compressImage } = await import('@youknown/img-wasm/src')
-							const compressed_file = await compressImage(file, 1600, 1200)
-							upload_cloudflare_r2(compressed_file, {
-								complete(url) {
-									resolve({
-										src: url
+					new Promise((resolve, reject) => {
+						ImageUI.clip({
+							file,
+							onCancel: reject,
+							async onClip(result) {
+								try {
+									const { compressImage } = await import('@youknown/img-wasm/src')
+									const compressed_file = await compressImage(result, 1600, 1200)
+									upload_cloudflare_r2(compressed_file, {
+										complete(url) {
+											resolve({
+												src: url
+											})
+										},
+										error(err) {
+											Toast.error({ content: '上传图片失败' })
+											reject(err)
+										}
 									})
-								},
-								error(err) {
+								} catch (err) {
 									Toast.error({ content: '上传图片失败' })
 									reject(err)
 								}
-							})
-						} catch (err) {
-							Toast.error({ content: '上传图片失败' })
-							reject(err)
-						}
+							}
+						})
 					})
 			})
 		],
