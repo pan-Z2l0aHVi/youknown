@@ -1,10 +1,5 @@
 {
     "typescript.tsdk": "node_modules/typescript/lib",
-    "unocss.root": [
-        "apps/knowledge-fe",
-        "apps/react-demos",
-        "apps/vue-demos"
-    ],
     "cSpell.words": [
         "atleast",
         "ciphertext",

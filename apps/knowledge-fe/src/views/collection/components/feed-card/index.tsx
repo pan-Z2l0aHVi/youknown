@@ -9,7 +9,7 @@ import More from '@/components/more'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { format_time } from '@/utils'
 import { with_api } from '@/utils/request'
-import { Dropdown, Image } from '@youknown/react-ui/src'
+import { ContextMenu, Dropdown, Image } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
 
 interface FeedCardProps {
@@ -40,57 +40,63 @@ export default function FeedCard(props: FeedCardProps) {
 		on_removed?.()
 	}
 
+	const ctx_menu = ContextMenu.useContextMenu()
+	const get_dropdown_menu = (is_context_menu = false) => {
+		return (
+			<Dropdown.Menu
+				className="w-120px"
+				closeAfterItemClick
+				closeDropdown={is_context_menu ? ctx_menu.closeContextMenu : undefined}
+				onClick={e => {
+					e.stopPropagation()
+					handle_cancel_collect_feed()
+				}}
+			>
+				<Dropdown.Item prefix={<LuHeartOff className="color-danger text-16px" />}>
+					<span className="color-danger">取消收藏</span>
+				</Dropdown.Item>
+			</Dropdown.Menu>
+		)
+	}
+
 	const action_ele = (
-		<Dropdown
-			trigger="click"
-			placement="bottom-start"
-			content={
-				<Dropdown.Menu
-					className="w-120px"
-					closeAfterItemClick
-					onClick={e => {
-						e.stopPropagation()
-						handle_cancel_collect_feed()
-					}}
-				>
-					<Dropdown.Item prefix={<LuHeartOff className="color-danger text-16px" />}>
-						<span className="color-danger">取消收藏</span>
-					</Dropdown.Item>
-				</Dropdown.Menu>
-			}
-			onOpenChange={set_more_open}
-		>
+		<Dropdown trigger="click" placement="bottom-start" content={get_dropdown_menu()} onOpenChange={set_more_open}>
 			<More className="" active={more_open} onClick={e => e.stopPropagation()} />
 		</Dropdown>
 	)
 
 	return (
-		<div
-			className={cls(
-				'relative flex items-start w-440px h-120px b-solid b-1 b-bd-line rd-radius-m cursor-pointer overflow-hidden',
-				'[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]',
-				className
-			)}
-			onClick={go_feed_detail}
-		>
-			<Image className="w-136px h-100%" src={feed.cover} />
-			<div className="flex-1 flex flex-col justify-between w-0 h-100% p-[16px]">
-				<div>
-					<div className="flex items-center">
-						<div className="flex-1 line-clamp-1 text-16px font-700">{feed.title}</div>
-						{action_ele}
+		<>
+			<div
+				className={cls(
+					'relative flex items-start w-440px h-120px b-solid b-1 b-bd-line rd-radius-m cursor-pointer overflow-hidden',
+					'[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]',
+					className
+				)}
+				onClick={go_feed_detail}
+				onContextMenu={ctx_menu.onContextMenu}
+			>
+				<Image className="w-136px h-100%" src={feed.cover} />
+				<div className="flex-1 flex flex-col justify-between w-0 h-100% p-[16px]">
+					<div>
+						<div className="flex items-center">
+							<div className="flex-1 line-clamp-1 text-16px font-700">{feed.title}</div>
+							{action_ele}
+						</div>
+						<div className="truncate color-text-2 mt-4px">{feed.summary}</div>
 					</div>
-					<div className="truncate color-text-2 mt-4px">{feed.summary}</div>
-				</div>
-				<div className="p-[4px_8px] line-clamp-1 text-12px color-text-3 whitespace-nowrap bg-bg-2 rd-radius-m">
-					<div className="flex items-center w-max max-w-100%">
-						<TbUser className="mr-4px" />
-						<div className="flex-1 truncate">{feed.author_info.nickname}</div>
-						<RiHistoryFill className="ml-8px mr-4px" />
-						{format_time(feed.update_time)}
+					<div className="p-[4px_8px] line-clamp-1 text-12px color-text-3 whitespace-nowrap bg-bg-2 rd-radius-m">
+						<div className="flex items-center w-max max-w-100%">
+							<TbUser className="mr-4px" />
+							<div className="flex-1 truncate">{feed.author_info.nickname}</div>
+							<RiHistoryFill className="ml-8px mr-4px" />
+							{format_time(feed.update_time)}
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+
+			<ContextMenu {...ctx_menu.contextMenuProps}>{get_dropdown_menu(true)}</ContextMenu>
+		</>
 	)
 }

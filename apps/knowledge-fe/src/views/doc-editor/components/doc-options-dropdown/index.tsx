@@ -114,6 +114,7 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 			>
 				<More />
 			</Dropdown>
+
 			<DocOptionsModal
 				open={doc_options_modal_open}
 				hide_modal={hide_doc_options_modal}

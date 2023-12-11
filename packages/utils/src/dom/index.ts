@@ -63,3 +63,11 @@ export function checkElementInContainer(el: HTMLElement, container: HTMLElement 
 export function checkScrollbarVisible(el: HTMLElement, vertical = true): boolean {
 	return vertical ? el.scrollHeight > el.clientHeight : el.scrollWidth > el.clientWidth
 }
+
+export function getViewportWidth(): number {
+	return window.innerWidth || document.documentElement.clientWidth
+}
+
+export function getViewportHeight(): number {
+	return window.innerHeight || document.documentElement.clientHeight
+}

@@ -10,6 +10,9 @@ importers:
       dayjs:
         specifier: ^1.11.10
         version: registry.npmmirror.com/dayjs@1.11.10
+      file64:
+        specifier: ^1.0.3
+        version: registry.npmmirror.com/file64@1.0.3
       lodash-es:
         specifier: ^4.17.21
         version: registry.npmmirror.com/lodash-es@4.17.21
@@ -146,9 +149,6 @@ importers:
       vite:
         specifier: ^4.5.1
         version: registry.npmmirror.com/vite@4.5.1(@types/node@20.10.3)(sass@1.69.5)
-      vite-plugin-chunk-split:
-        specifier: ^0.5.0
-        version: registry.npmmirror.com/vite-plugin-chunk-split@0.5.0(vite@4.5.1)
       vite-plugin-css-injected-by-js:
         specifier: ^3.3.0
         version: registry.npmmirror.com/vite-plugin-css-injected-by-js@3.3.0(vite@4.5.1)
@@ -7281,12 +7281,6 @@ packages:
       safe-array-concat: registry.npmmirror.com/safe-array-concat@1.0.1
     dev: true
 
-  registry.npmmirror.com/es-module-lexer@1.4.1:
-    resolution: {integrity: sha512-cXLGjP0c4T3flZJKQSuziYoq7MlT+rnvfZjfp7h+I7K9BNX54kP9nyWvdbwjQ4u1iWbOL4u96fgeZLToQlZC7w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/es-module-lexer/-/es-module-lexer-1.4.1.tgz}
-    name: es-module-lexer
-    version: 1.4.1
-    dev: true
-
   registry.npmmirror.com/es-set-tostringtag@2.0.2:
     resolution: {integrity: sha512-BuDyupZt65P9D2D2vA/zqcI3G5xRsklm5N3xCwuiy+/vKy8i0ifdsQP1sLgO4tZDSCaQUSnmC48khknGMV3D2Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/es-set-tostringtag/-/es-set-tostringtag-2.0.2.tgz}
     name: es-set-tostringtag
@@ -7785,6 +7779,13 @@ packages:
     dependencies:
       flat-cache: registry.npmmirror.com/flat-cache@3.2.0
     dev: true
+
+  registry.npmmirror.com/file64@1.0.3:
+    resolution: {integrity: sha512-XTPmQ/uhnQWw6RgEG1uXhByWRrMZucXGL4fGUB1JVuuwjUUoDEvD5HvGqg7+NiFZ+ymFa36cEaG+v7i2FpThOQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/file64/-/file64-1.0.3.tgz}
+    name: file64
+    version: 1.0.3
+    engines: {node: '>=18'}
+    dev: false
 
   registry.npmmirror.com/fill-range@7.0.1:
     resolution: {integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/fill-range/-/fill-range-7.0.1.tgz}
@@ -8381,12 +8382,6 @@ packages:
     dependencies:
       pkg-dir: registry.npmmirror.com/pkg-dir@4.2.0
       resolve-cwd: registry.npmmirror.com/resolve-cwd@3.0.0
-    dev: true
-
-  registry.npmmirror.com/import-meta-resolve@4.0.0:
-    resolution: {integrity: sha512-okYUR7ZQPH+efeuMJGlq4f8ubUgO50kByRPyt/Cy1Io4PSRsPjxME+YlVaCOx+NIToW7hCsZNFJyTPFFKepRSA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/import-meta-resolve/-/import-meta-resolve-4.0.0.tgz}
-    name: import-meta-resolve
-    version: 4.0.0
     dev: true
 
   registry.npmmirror.com/imurmurhash@0.1.4:
@@ -13404,20 +13399,6 @@ packages:
       '@vue/shared': registry.npmmirror.com/@vue/shared@3.3.10
       vue: registry.npmmirror.com/vue@3.3.10
     dev: false
-
-  registry.npmmirror.com/vite-plugin-chunk-split@0.5.0(vite@4.5.1):
-    resolution: {integrity: sha512-pasNKLhH+ICjoCF6HoKKvgmZ1LEPSCIKAa8Lz0ZpMyQC9bLmCLT7UxgKMULewsc9SUw89OX0udsGiIQCtr8wLA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite-plugin-chunk-split/-/vite-plugin-chunk-split-0.5.0.tgz}
-    id: registry.npmmirror.com/vite-plugin-chunk-split/0.5.0
-    name: vite-plugin-chunk-split
-    version: 0.5.0
-    peerDependencies:
-      vite: ^4 || ^5
-    dependencies:
-      es-module-lexer: registry.npmmirror.com/es-module-lexer@1.4.1
-      import-meta-resolve: registry.npmmirror.com/import-meta-resolve@4.0.0
-      magic-string: registry.npmmirror.com/magic-string@0.30.5
-      vite: registry.npmmirror.com/vite@4.5.1(@types/node@20.10.3)(sass@1.69.5)
-    dev: true
 
   registry.npmmirror.com/vite-plugin-css-injected-by-js@3.3.0(vite@4.5.1):
     resolution: {integrity: sha512-xG+jyHNCmUqi/TXp6q88wTJGeAOrNLSyUUTp4qEQ9QZLGcHWQQsCsSSKa59rPMQr8sOzfzmWDd8enGqfH/dBew==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite-plugin-css-injected-by-js/-/vite-plugin-css-injected-by-js-3.3.0.tgz}

@@ -3,7 +3,7 @@ import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, isVal
 import { pick, pickDataAttrs } from '@youknown/utils/src'
 
 import Trigger, { EventsByTriggerNeed } from '../trigger'
-import { closeDropdown } from './closeDropdown'
+import { clickOutside } from './clickOutside'
 import DropdownItem from './DropdownItem'
 import DropdownMenu from './DropdownMenu'
 import DropdownTitle from './DropdownTitle'
@@ -73,11 +73,11 @@ const ExportDropdown = RefDropdown as typeof RefDropdown & {
 	Menu: typeof DropdownMenu
 	Item: typeof DropdownItem
 	Title: typeof DropdownTitle
-	close: typeof closeDropdown
+	close: typeof clickOutside
 }
 ExportDropdown.Menu = DropdownMenu
 ExportDropdown.Item = DropdownItem
 ExportDropdown.Title = DropdownTitle
-ExportDropdown.close = closeDropdown
+ExportDropdown.close = clickOutside
 
 export default ExportDropdown

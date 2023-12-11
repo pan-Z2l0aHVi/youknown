@@ -133,6 +133,11 @@ export const componentRoutes = [
 		element: createElement(lazy(() => import('@/ui-views/TriggerExample')))
 	},
 	{
+		name: 'ContextMenu',
+		path: 'context_menu',
+		element: createElement(lazy(() => import('@/ui-views/ContextMenuExample')))
+	},
+	{
 		name: 'Upload',
 		path: 'upload',
 		element: createElement(lazy(() => import('@/ui-views/UploadExample')))

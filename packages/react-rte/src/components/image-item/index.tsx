@@ -42,6 +42,8 @@ export default function ImageItem(props: ImageItemProps) {
 				console.error('onCustomUpload error: ', error)
 			}
 		}
+		// 重置 files，允许再次上传同一个 file
+		event.target.value = ''
 	}
 
 	const prefixCls = `${UI_EDITOR_PREFIX}-img-item`

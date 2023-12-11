@@ -97,6 +97,8 @@ const Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => 
 			})
 		)
 		fileArr.forEach(doUpload)
+		// 重置 files，允许再次上传同一个 file
+		event.target.value = ''
 	}
 
 	const lastFile = fileList?.[fileList.length - 1]

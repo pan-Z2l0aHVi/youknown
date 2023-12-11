@@ -14,7 +14,7 @@ import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
 import { useBoolean } from '@youknown/react-hook/src'
-import { Dialog, Dropdown, Motion, Toast } from '@youknown/react-ui/src'
+import { ContextMenu, Dialog, Dropdown, Motion, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
 
 interface DocCardProps {
@@ -92,6 +92,36 @@ export default function DocCard(props: DocCardProps) {
 		Toast.success({ content: '已复制分享链接' })
 	}
 
+	const ctx_menu = ContextMenu.useContextMenu()
+
+	const get_dropdown_menu = (is_context_menu = false) => {
+		return (
+			<Dropdown.Menu
+				className="w-120px"
+				closeAfterItemClick
+				closeDropdown={is_context_menu ? ctx_menu.closeContextMenu : undefined}
+			>
+				<Dropdown.Item prefix={<FiEdit3 className="text-16px" />} onClick={select_doc}>
+					编辑
+				</Dropdown.Item>
+				{info.public && (
+					<Dropdown.Item prefix={<TbShare2 className="text-16px" />} onClick={copy_share_url}>
+						分享
+					</Dropdown.Item>
+				)}
+				<Dropdown.Item prefix={<LuSettings2 className="text-16px" />} onClick={edit_doc_options}>
+					文档设置
+				</Dropdown.Item>
+				<Dropdown.Item
+					prefix={<PiTrashSimpleBold className="color-danger text-16px" />}
+					onClick={handle_delete_doc}
+				>
+					<span className="color-danger">删除</span>
+				</Dropdown.Item>
+			</Dropdown.Menu>
+		)
+	}
+
 	const container_ref = useRef(null)
 	const footer = (
 		<Motion.Slide in={!choosing} appear={false} container={container_ref.current} direction="up" unmountOnExit>
@@ -101,31 +131,7 @@ export default function DocCard(props: DocCardProps) {
 					<span className="text-12px">{format_time(info.update_time)}</span>
 				</div>
 
-				<Dropdown
-					trigger="click"
-					content={
-						<Dropdown.Menu className="w-120px" closeAfterItemClick>
-							<Dropdown.Item prefix={<FiEdit3 className="text-16px" />} onClick={select_doc}>
-								编辑
-							</Dropdown.Item>
-							{info.public && (
-								<Dropdown.Item prefix={<TbShare2 className="text-16px" />} onClick={copy_share_url}>
-									分享
-								</Dropdown.Item>
-							)}
-							<Dropdown.Item prefix={<LuSettings2 className="text-16px" />} onClick={edit_doc_options}>
-								文档设置
-							</Dropdown.Item>
-							<Dropdown.Item
-								prefix={<PiTrashSimpleBold className="color-danger text-16px" />}
-								onClick={handle_delete_doc}
-							>
-								<span className="color-danger">删除</span>
-							</Dropdown.Item>
-						</Dropdown.Menu>
-					}
-					onOpenChange={set_more_open}
-				>
+				<Dropdown trigger="click" content={get_dropdown_menu()} onOpenChange={set_more_open}>
 					<More active={more_open} />
 				</Dropdown>
 			</div>
@@ -143,6 +149,7 @@ export default function DocCard(props: DocCardProps) {
 						: '[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]'
 				)}
 				style={{ backgroundImage: `url("${info.cover}")` }}
+				onContextMenu={ctx_menu.onContextMenu}
 			>
 				{info.public && (
 					<div
@@ -176,6 +183,8 @@ export default function DocCard(props: DocCardProps) {
 
 				{footer}
 			</div>
+
+			<ContextMenu {...ctx_menu.contextMenuProps}>{get_dropdown_menu(true)}</ContextMenu>
 
 			<DocOptionsModal
 				open={doc_options_modal_open}

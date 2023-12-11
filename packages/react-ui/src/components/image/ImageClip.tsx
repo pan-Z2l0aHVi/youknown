@@ -1,11 +1,10 @@
 import 'cropperjs/dist/cropper.css'
 import './image-clip.scss'
 
+import { base64ToFile } from 'file64'
 import { useRef } from 'react'
 import Cropper, { ReactCropperElement } from 'react-cropper'
 import { TbCheck, TbRefreshDot, TbRotate, TbRotateClockwise, TbX } from 'react-icons/tb'
-
-import { base64ToFile } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Button from '../button'
@@ -57,11 +56,11 @@ export default function ImageClip(props: ImageClipProps) {
 			id: 'save',
 			title: '保存',
 			icon: <TbCheck className={`${prefixCls}-icon`} />,
-			handler: () => {
+			handler: async () => {
 				const cropper = cropperRef.current?.cropper
 				const base64 = cropper?.getCroppedCanvas().toDataURL() ?? ''
 				cropper?.destroy()
-				const result = base64ToFile(base64, file.name, file.type)
+				const result = await base64ToFile(base64, file.name)
 				onClip?.(result)
 				onClose?.()
 			}

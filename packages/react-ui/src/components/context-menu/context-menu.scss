@@ -1,0 +1,12 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-prefix}-content-menu';
+.#{$prefix} {
+	@include basic;
+
+	position: absolute;
+
+	&-overlay {
+		background-color: transparent;
+	}
+}
