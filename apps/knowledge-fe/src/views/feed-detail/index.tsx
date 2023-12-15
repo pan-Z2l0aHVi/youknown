@@ -1,6 +1,5 @@
-import '@youknown/css/src/rte-desktop.scss'
-
-import { useState } from 'react'
+import parse from 'html-react-parser'
+import { useEffect, useRef, useState } from 'react'
 import { FiEdit3 } from 'react-icons/fi'
 import { LuHeart, LuHeartOff } from 'react-icons/lu'
 import { useSearchParams } from 'react-router-dom'
@@ -101,6 +100,13 @@ export default function FeedDetail() {
 		)
 	}
 
+	const rich_text_container_ref = useRef<HTMLDivElement>(null)
+	useEffect(() => {
+		const dom = rich_text_container_ref.current
+		console.log('dom: ', dom)
+		// if (dom) hljs.highlightAll()
+	}, [])
+
 	const is_owner = detail?.author_id === profile?.user_id
 	const action_btn = detail && (
 		<>
@@ -147,7 +153,9 @@ export default function FeedDetail() {
 								canPreview
 							/>
 						)}
-						<div className="rich-text-container" dangerouslySetInnerHTML={{ __html: doc_content }}></div>
+						<div ref={rich_text_container_ref} className="rich-text-container">
+							{parse(doc_content, {})}
+						</div>
 					</div>
 				</div>
 			)}

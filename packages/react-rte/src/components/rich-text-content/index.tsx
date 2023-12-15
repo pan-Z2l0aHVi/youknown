@@ -1,6 +1,7 @@
 import './index.scss'
+import '@youknown/css/src/rte-desktop.scss'
 
-import { ComponentProps, lazy, Suspense } from 'react'
+import { ComponentProps } from 'react'
 
 import { EditorContent } from '@tiptap/react'
 import { cls } from '@youknown/utils/src'
@@ -8,8 +9,7 @@ import { cls } from '@youknown/utils/src'
 import { UI_EDITOR_PREFIX } from '../../common'
 import { Bubble, BubbleListItem } from '../bubble'
 import { Floating, FloatingListItem } from '../floating'
-
-const ImageResizer = lazy(() => import('../image-resizer'))
+import ImageResizer from '../image-resizer'
 
 interface RichTextContentProps extends ComponentProps<typeof EditorContent> {
 	tooltip?: boolean
@@ -31,11 +31,7 @@ export function RichTextContent(props: RichTextContentProps) {
 		>
 			{floating && <Floating editor={editor} tooltip={tooltip} list={floatingList} />}
 			{bubble && <Bubble editor={editor} tooltip={tooltip} list={bubbleList} />}
-			{hasImageExt && (
-				<Suspense>
-					<ImageResizer editor={editor} />
-				</Suspense>
-			)}
+			{hasImageExt && <ImageResizer editor={editor} />}
 			<EditorContent {...props} />
 		</div>
 	)

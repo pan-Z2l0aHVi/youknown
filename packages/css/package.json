@@ -11,6 +11,6 @@
     "watch": "sass --watch src:dist/css",
     "build": "rm -rf dist && sass src:dist/css"
   },
-  "devDependencies": {
+  "dependencies": {
   }
 }

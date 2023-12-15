@@ -60,7 +60,7 @@ export default () => {
 			HorizontalRule
 		],
 		placeholder: '请输入',
-		content: 'asdfsafsdfsfsdfasdfsdfsasdfsafsdfsfsdfasdfsdfsasdfsafsdfsfsdfasdfsdfs'
+		content: '```javascript'
 	})
 
 	return (

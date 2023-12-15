@@ -1,3 +1,5 @@
+@use 'sass:meta';
+
 .light-theme {
 	--ui-bg-0: #fff;
 	--ui-bg-1: #fff;
@@ -14,6 +16,8 @@
 	--ui-color-secondary-hover: #e5e6eb;
 	--ui-color-secondary-active: #c9cdd4;
 	--ui-color-focus: #000;
+
+	@include meta.load-css('highlight.js/styles/github.min.css');
 }
 
 .dark-theme {
@@ -32,4 +36,6 @@
 	--ui-color-secondary-hover: #3d3d3e;
 	--ui-color-secondary-active: #444;
 	--ui-color-focus: #fff;
+
+	@include meta.load-css('highlight.js/styles/github-dark.min.css');
 }

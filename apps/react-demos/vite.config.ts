@@ -1,18 +1,19 @@
 import { resolve } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
-import Unocss from 'unocss/vite'
+import unocss from 'unocss/vite'
 import { defineConfig, loadEnv, PluginOption, splitVendorChunkPlugin } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 import react from '@vitejs/plugin-react-swc'
+import { excludeDeps } from '@youknown/img-wasm'
 
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd())
 	return {
 		base: '',
-		plugins: [splitVendorChunkPlugin(), tsconfigPaths(), react(), Unocss(), visualizer() as PluginOption],
+		plugins: [splitVendorChunkPlugin(), tsconfigPaths(), react(), unocss(), visualizer() as PluginOption],
 		optimizeDeps: {
-			exclude: ['@jsquash/jpeg', '@jsquash/webp', '@jsquash/png', '@jsquash/oxipng']
+			exclude: [...excludeDeps]
 		},
 		resolve: {
 			alias: {

@@ -71,6 +71,10 @@ function ContextMenu(props: ContextMenuProps) {
 			escClosable={escClosable}
 			appendTo={appendTo}
 			unmountOnExit
+			onContextMenu={event => {
+				event.preventDefault()
+				setOpen(false)
+			}}
 		>
 			<div ref={containerRef} className={cls(className, prefixCls)} style={{ ...style, left, top }} {...rest}>
 				{children}

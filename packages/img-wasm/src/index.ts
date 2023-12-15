@@ -129,3 +129,5 @@ async function encode(type: string, imageData: ImageData): Promise<ArrayBuffer> 
 			throw new Error(`Unknown output type: ${type}`)
 	}
 }
+
+export const excludeDeps = ['@jsquash/jpeg', '@jsquash/webp', '@jsquash/png', '@jsquash/oxipng']

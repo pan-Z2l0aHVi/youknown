@@ -15,11 +15,11 @@
   "license": "MIT",
   "dependencies": {
     "@youknown/css": "workspace:*",
+    "@youknown/img-wasm": "workspace:*",
     "@youknown/react-hook": "workspace:*",
     "@youknown/react-rte": "workspace:*",
     "@youknown/react-ui": "workspace:*",
     "@youknown/utils": "workspace:*",
-    "@youknown/img-wasm": "workspace:*",
     "html-diff-ts": "^1.4.2"
   },
   "lint-staged": {

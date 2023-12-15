@@ -139,6 +139,9 @@ export function Bubble(props: BubbleProps) {
 				if (editor.isActive('image')) {
 					return false
 				}
+				if (editor.isActive('codeBlock')) {
+					return false
+				}
 				// if (editor.isActive('table')) {
 				// 	return false
 				// }
