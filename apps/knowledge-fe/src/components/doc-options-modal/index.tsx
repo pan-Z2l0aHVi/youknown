@@ -79,6 +79,61 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 		}
 	})
 
+	const form_ele = (
+		<Form className="" form={form} labelWidth={120}>
+			<Form.Field
+				label="cover"
+				labelText="封面："
+				validators={[
+					async cover => {
+						if (form.getState().is_publish && !cover) {
+							return Promise.reject('公开发布时，封面必填')
+						}
+					}
+				]}
+			>
+				<PicUpload uploading={cover_uploading} set_uploading={set_cover_uploading} />
+			</Form.Field>
+			<Form.Field
+				label="title"
+				labelText="标题："
+				validators={[validateRequired(), validateMaxLength(DOC_TITLE_MAX_LEN)]}
+			>
+				<Input className="w-280px!" />
+			</Form.Field>
+			<Form.Field label="is_publish" labelText="动态设置：">
+				<Radio.Group
+					options={[
+						{
+							label: 0,
+							child: '不公开'
+						},
+						{
+							label: 1,
+							child: '公开发布'
+						}
+					]}
+				/>
+			</Form.Field>
+			<Form.Field labelText=" " className="mb-0! mt-16px">
+				<Space>
+					<Button className="min-w-80px" onClick={hide_modal}>
+						取消
+					</Button>
+					<Button
+						className="min-w-80px"
+						disabled={cover_uploading}
+						loading={save_loading}
+						type="submit"
+						primary
+					>
+						保存
+					</Button>
+				</Space>
+			</Form.Field>
+		</Form>
+	)
+
 	return (
 		<Overlay
 			className={cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]')}
@@ -95,60 +150,13 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 							<CloseIcon onClick={hide_modal} />
 						</div>
 					}
+					footer=" "
 				>
-					<Loading spinning={initial_loading}>
-						<Form className="w-480px max-w-[calc(100vw-32px)] p-24px" form={form} labelWidth={120}>
-							<Form.Field
-								label="cover"
-								labelText="封面："
-								validators={[
-									async cover => {
-										if (form.getState().is_publish && !cover) {
-											return Promise.reject('公开发布时，封面必填')
-										}
-									}
-								]}
-							>
-								<PicUpload uploading={cover_uploading} set_uploading={set_cover_uploading} />
-							</Form.Field>
-							<Form.Field
-								label="title"
-								labelText="标题："
-								validators={[validateRequired(), validateMaxLength(DOC_TITLE_MAX_LEN)]}
-							>
-								<Input className="w-280px!" />
-							</Form.Field>
-							<Form.Field label="is_publish" labelText="动态设置：">
-								<Radio.Group
-									options={[
-										{
-											label: 0,
-											child: '不发布'
-										},
-										{
-											label: 1,
-											child: '公开发布'
-										}
-									]}
-								/>
-							</Form.Field>
-							<Form.Field labelText=" " className="mb-0! mt-16px">
-								<Space>
-									<Button className="min-w-80px" onClick={hide_modal}>
-										取消
-									</Button>
-									<Button
-										className="min-w-80px"
-										disabled={cover_uploading}
-										loading={save_loading}
-										type="submit"
-										primary
-									>
-										保存
-									</Button>
-								</Space>
-							</Form.Field>
-						</Form>
+					<Loading
+						className="w-480px! max-w-[calc(100vw-32px)] p-[24px_24px_0_24px]"
+						spinning={initial_loading}
+					>
+						{form_ele}
 					</Loading>
 				</Card>
 			</Motion.Zoom>

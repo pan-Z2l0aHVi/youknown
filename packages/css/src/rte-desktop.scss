@@ -1,7 +1,6 @@
 .rich-text-container {
 	--ui-color-link: #40a9ff; // #40a9ff
 	--ui-color-link-hover: #0069c2; // #0069c2
-	// --ui-bg-code: #f2f1f1;
 	--ui-heading-letter-spacing: -0.5;
 
 	padding: 8px 8px 8px 16px;
@@ -59,9 +58,6 @@
 
 	/* ----------------------- CODE ------------------------- */
 	code {
-		padding: 2px 4px;
-		font-family: Menlo, Consolas, monospace;
-		font-size: 13px;
 		background: var(--ui-bg-3);
 		border: 1px solid transparent;
 		border-radius: var(--ui-radius-m);
@@ -70,16 +66,15 @@
 
 	/* ----------------------- CODEBLOCK ------------------------- */
 	pre {
-		margin: 16px 8px 32px 0;
-		padding: 16px 40px 16px 16px;
-		background: var(--ui-bg-3);
-		border: 1px solid transparent;
+		border: 1px solid var(--ui-bd-line);
 		border-radius: var(--ui-radius-m);
 
 		code {
-			padding: 0;
-			background: unset;
-			border: unset;
+			overflow-x: auto;
+			display: block;
+			padding: 1em;
+			font-size: 12px;
+			background: transparent;
 		}
 	}
 

@@ -32,7 +32,7 @@ import {
 	TextColor,
 	Underline
 } from '@youknown/react-rte/src'
-import { Button, Image as ImageUI, Input, Space, Toast } from '@youknown/react-ui/src'
+import { Button, Image as ImageUI, Input, Loading, Space, Toast } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import CoverUpload from './components/cover-upload'
@@ -115,6 +115,9 @@ export default function Doc() {
 			content
 		})
 		if (err) {
+			return
+		}
+		if (doc_info?.content === content) {
 			return
 		}
 		set_draft([res])
@@ -330,12 +333,10 @@ export default function Doc() {
 				<RTE.Menu editor={editor} />
 			</div>
 
-			{loading || (
-				<div className="w-720px pt-24px pb-24px m-[0_auto]">
-					<CoverUpload doc_id={doc_id} cover={doc_info?.cover} on_updated={set_doc_info} />
-					<RTE.Content editor={editor} />
-				</div>
-			)}
+			<Loading className="w-720px! pt-24px pb-24px m-[0_auto]" spinning={loading} size="large">
+				<CoverUpload doc_id={doc_id} cover={doc_info?.cover} on_updated={set_doc_info} />
+				<RTE.Content editor={editor} />
+			</Loading>
 		</>
 	)
 }

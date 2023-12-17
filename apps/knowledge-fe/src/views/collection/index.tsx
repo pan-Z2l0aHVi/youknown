@@ -1,7 +1,7 @@
-import { FcConferenceCall, FcGallery, FcViewDetails } from 'react-icons/fc'
+import { FcBusinessContact, FcDocument, FcPicture } from 'react-icons/fc'
 import { GoInbox } from 'react-icons/go'
 
-import { get_collected_feed_list, get_collected_wallpaper_list, get_followed_users, Profile } from '@/apis/user'
+import { get_collected_feed_list, get_collected_wallpaper_list, get_followed_users } from '@/apis/user'
 import Header from '@/app/components/header'
 import { useModalStore, useUserStore } from '@/stores'
 import { useFetch } from '@youknown/react-hook/src'
@@ -124,13 +124,13 @@ export default function Collection() {
 	const collection_list = (
 		<>
 			{has_login && (
-				<Collapse accordion defaultActives={[COLLECTION_TYPE.FEED]}>
+				<Collapse defaultActives={[COLLECTION_TYPE.FEED]}>
 					<Collapse.Panel
 						className="bg-bg-2 rd-radius-m"
 						itemKey={COLLECTION_TYPE.FEED}
 						title={
 							<div className="flex items-center h-32px">
-								<FcViewDetails className="text-20px ml-4px mr-8px" />
+								<FcDocument className="text-20px ml-4px mr-8px" />
 								<span className="color-text-2 font-600">收藏的文档</span>
 							</div>
 						}
@@ -143,7 +143,7 @@ export default function Collection() {
 						itemKey={COLLECTION_TYPE.USER}
 						title={
 							<div className="flex items-center h-32px">
-								<FcConferenceCall className="text-20px ml-4px mr-8px" />
+								<FcBusinessContact className="text-20px ml-4px mr-8px" />
 								<span className="color-text-2 font-600">我关注的用户</span>
 							</div>
 						}
@@ -156,7 +156,7 @@ export default function Collection() {
 						itemKey={COLLECTION_TYPE.WALLPAPER}
 						title={
 							<div className="flex items-center h-32px">
-								<FcGallery className="text-20px ml-4px mr-8px" />
+								<FcPicture className="text-20px ml-4px mr-8px" />
 								<span className="color-text-2 font-600">收藏的壁纸</span>
 							</div>
 						}

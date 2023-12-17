@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import {
 	Blockquote,
 	Bold,
@@ -62,6 +64,13 @@ export default () => {
 		placeholder: '请输入',
 		content: '```javascript'
 	})
+
+	useEffect(() => {
+		;(async () => {
+			const { loadLanguages } = await import('@youknown/react-rte/src')
+			loadLanguages()
+		})()
+	}, [])
 
 	return (
 		<>

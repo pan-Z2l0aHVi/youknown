@@ -8,7 +8,4 @@ import { RouterProvider } from 'react-router-dom'
 
 import router from '@/router'
 
-import { registerServiceWorker } from './worker'
-
-registerServiceWorker()
 createRoot(document.getElementById('app') as HTMLElement).render(<RouterProvider router={router} />)

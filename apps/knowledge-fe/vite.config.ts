@@ -4,15 +4,39 @@ import unocss from 'unocss/vite'
 import { defineConfig, loadEnv, PluginOption, splitVendorChunkPlugin } from 'vite'
 import topLevelAwait from 'vite-plugin-top-level-await'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import { VitePWA } from 'vite-plugin-pwa'
 
 import react from '@vitejs/plugin-react-swc'
 import { excludeDeps } from '@youknown/img-wasm'
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, command }) => {
 	const env = loadEnv(mode, process.cwd())
+	const isBuild = command === 'build'
 	return {
-		base: mode === 'development' ? '' : env.VITE_CDN_BASE_URL,
+		base: isBuild ? env.VITE_CDN_BASE_URL : '',
 		plugins: [
+			VitePWA({
+				devOptions: {
+					enabled: true
+				},
+				base: isBuild ? `${env.VITE_BASE_URL}/` : '',
+				injectRegister: null,
+				manifest: {
+					name: 'Known',
+					short_name: 'Known',
+					description: 'knowledge base',
+					display: 'standalone',
+					background_color: '#ffffff',
+					theme_color: '#ffffff',
+					icons: [
+						{
+							src: '/branch.png',
+							sizes: '512x512',
+							type: 'image/png'
+						}
+					]
+				}
+			}),
 			splitVendorChunkPlugin(),
 			tsconfigPaths(),
 			topLevelAwait(),
@@ -41,12 +65,6 @@ export default defineConfig(({ mode }) => {
 					changeOrigin: true,
 					secure: false,
 					rewrite: path => path.replace(/^\/proxy/, '')
-				},
-				'/cdn': {
-					target: env.VITE_CDN_BASE_URL,
-					changeOrigin: true,
-					secure: false,
-					rewrite: path => path.replace(/^\/cdn/, '')
 				}
 			}
 		}

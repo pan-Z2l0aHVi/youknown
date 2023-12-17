@@ -30,7 +30,7 @@ const Loading = (props: LoadingProps, propRef: ForwardedRef<HTMLDivElement>) => 
 
 	const isWrap = Boolean(children)
 	const prefixCls = `${UI_PREFIX}-loading`
-	const iconWrapCls = cls(className, `${prefixCls}-icon`, {
+	const iconWrapCls = cls(`${prefixCls}-icon`, {
 		[`${prefixCls}-icon-${size}`]: size,
 		[`${prefixCls}-icon-bordered`]: bordered
 	})
@@ -57,7 +57,7 @@ const Loading = (props: LoadingProps, propRef: ForwardedRef<HTMLDivElement>) => 
 
 	return (
 		<Motion.Zoom in={spinning}>
-			<div ref={propRef} className={iconWrapCls} {...rest}>
+			<div ref={propRef} className={cls(className, iconWrapCls)} {...rest}>
 				{icon}
 			</div>
 		</Motion.Zoom>

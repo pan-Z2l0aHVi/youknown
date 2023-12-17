@@ -88,7 +88,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 			placement="right"
 		>
 			<Loading className="w-100%!" spinning={loading}>
-				<div className="sticky top-0 flex items-center justify-between p-[16px_24px] bg-bg-0 b-b-solid b-bd-line b-b-1">
+				<div className="sticky top-0 z-4 flex items-center justify-between p-[16px_24px] bg-bg-0 b-b-solid b-bd-line b-b-1">
 					<div className="flex items-center">
 						<span>当前版本</span>
 						<span className="mr-8px ml-8px color-text-3">与</span>

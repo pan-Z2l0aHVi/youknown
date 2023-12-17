@@ -10,7 +10,7 @@ import { excludeDeps } from '@youknown/img-wasm'
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd())
 	return {
-		base: '',
+		base: '/',
 		plugins: [splitVendorChunkPlugin(), tsconfigPaths(), react(), unocss(), visualizer() as PluginOption],
 		optimizeDeps: {
 			exclude: [...excludeDeps]
@@ -33,12 +33,6 @@ export default defineConfig(({ mode }) => {
 					changeOrigin: true,
 					secure: false,
 					rewrite: path => path.replace(/^\/proxy/, '')
-				},
-				'/cdn': {
-					target: env.VITE_CDN_BASE_URL,
-					changeOrigin: true,
-					secure: false,
-					rewrite: path => path.replace(/^\/cdn/, '')
 				}
 			}
 		}

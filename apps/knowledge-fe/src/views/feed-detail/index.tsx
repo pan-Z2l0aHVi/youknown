@@ -1,4 +1,4 @@
-import parse from 'html-react-parser'
+import hljs from 'highlight.js/lib/core'
 import { useEffect, useRef, useState } from 'react'
 import { FiEdit3 } from 'react-icons/fi'
 import { LuHeart, LuHeartOff } from 'react-icons/lu'
@@ -100,12 +100,14 @@ export default function FeedDetail() {
 		)
 	}
 
+	const doc_content = detail?.content ?? ''
 	const rich_text_container_ref = useRef<HTMLDivElement>(null)
 	useEffect(() => {
 		const dom = rich_text_container_ref.current
-		console.log('dom: ', dom)
-		// if (dom) hljs.highlightAll()
-	}, [])
+		if (dom && doc_content) {
+			hljs.highlightAll()
+		}
+	}, [doc_content])
 
 	const is_owner = detail?.author_id === profile?.user_id
 	const action_btn = detail && (
@@ -133,7 +135,6 @@ export default function FeedDetail() {
 			)}
 		</>
 	)
-	const doc_content = detail?.content ?? ''
 
 	return (
 		<>
@@ -153,9 +154,11 @@ export default function FeedDetail() {
 								canPreview
 							/>
 						)}
-						<div ref={rich_text_container_ref} className="rich-text-container">
-							{parse(doc_content, {})}
-						</div>
+						<div
+							ref={rich_text_container_ref}
+							className="rich-text-container"
+							dangerouslySetInnerHTML={{ __html: doc_content }}
+						></div>
 					</div>
 				</div>
 			)}

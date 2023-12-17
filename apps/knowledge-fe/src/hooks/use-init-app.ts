@@ -5,7 +5,7 @@ import useRouteMeta from '@/hooks/use-route-meta'
 import { THEME, useRecordStore, useSpaceStore, useUIStore, useUserStore } from '@/stores'
 import { get_local_settings, get_local_token } from '@/utils/local'
 import { report } from '@/utils/report'
-import { useEvent, useMount } from '@youknown/react-hook/src'
+import { useAsyncEffect, useEvent, useMount } from '@youknown/react-hook/src'
 import { Toast } from '@youknown/react-ui/src'
 
 export default function useInitApp() {
@@ -24,6 +24,11 @@ export default function useInitApp() {
 		set_radius(local_settings.radius ?? [4, 8, 12])
 		set_dark_theme(local_settings.theme ?? THEME.SYSTEM)
 	})
+
+	useAsyncEffect(async () => {
+		const { loadLanguages } = await import('@youknown/react-rte/src')
+		loadLanguages()
+	}, [])
 
 	useMount(() => {
 		if (get_local_token()) {

@@ -9,6 +9,8 @@ export const RTE = {
 	use: useRTE
 }
 
+export { loadLanguages } from './utils/load-langs'
+
 export { default as Underline } from './extensions/underline'
 export { default as Heading } from './extensions/heading'
 export { default as CodeBlock } from './extensions/code-block'
