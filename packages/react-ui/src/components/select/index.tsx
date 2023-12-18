@@ -22,7 +22,14 @@ import Input from '../input'
 import Loading from '../loading'
 import Space from '../space'
 import Tag from '../tag'
+import DropdownTitle from '../dropdown/DropdownTitle'
+import Divider from '../divider'
 
+interface Option<T> {
+	label: ReactNode
+	value: T
+	disabled?: boolean
+}
 interface SelectProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
 	multiple?: boolean
 	disabled?: boolean
@@ -32,7 +39,7 @@ interface SelectProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue
 	noMore?: boolean
 	value?: T | T[]
 	defaultValue?: T | T[]
-	options?: { label: ReactNode; value: T; disabled?: boolean }[]
+	menuList?: (Option<T> | '-' | string)[]
 	onChange?: (value: T | T[]) => void
 	onLoad?: () => void
 }
@@ -46,7 +53,7 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 		placeholder = '请选择',
 		allowClear = false,
 		noMore = true,
-		options = [],
+		menuList = [],
 		onLoad,
 		onClick,
 		onKeyDown,
@@ -95,11 +102,15 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 
 	const prefixCls = `${UI_PREFIX}-select`
 
-	const filteredOptions = options.filter(opt => {
-		if (!filter) return true
-
+	const checkOption = (opt: string | Option<T>): opt is Option<T> => is.object(opt)
+	const options = menuList.filter(checkOption)
+	const checkOptionFiltered = (opt: Option<T>) => {
+		if (!filter) {
+			return true
+		}
 		return String(opt.label).toLowerCase().includes(filterVal.toLowerCase())
-	})
+	}
+	const filteredOptions = options.filter(checkOptionFiltered)
 
 	const handleSelect = (val: T) => {
 		if (multiple) {
@@ -157,6 +168,42 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 		</>
 	)
 
+	const renderOption = (opt: Option<T>) => {
+		let isActive: boolean
+		if (multiple) {
+			isActive = (value as (string | number)[]).includes(opt.value)
+		} else {
+			isActive = opt.value === value
+		}
+		return (
+			<Dropdown.Item
+				key={opt.value}
+				className={cls({
+					[`${prefixCls}-item-selected`]: selectedItem?.value === opt.value
+				})}
+				aria-selected={isActive}
+				disabled={opt.disabled}
+				prefix={
+					isActive ? (
+						<TbCheck className={`${prefixCls}-item-icon`} />
+					) : (
+						<div className={`${prefixCls}-item-icon`}></div>
+					)
+				}
+				onClick={() => handleSelect(opt.value)}
+				onMouseDown={event => {
+					event.preventDefault()
+				}}
+				onMouseEnter={() => {
+					const index = options.findIndex(option => option.value === opt.value)
+					if (index > -1) setSelectedIndex(index)
+				}}
+			>
+				{opt.label}
+			</Dropdown.Item>
+		)
+	}
+
 	const dropdownContentEle = (
 		<Dropdown.Menu
 			ref={menuRef}
@@ -168,40 +215,21 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 			{is.array.empty(filteredOptions) ? (
 				<div className={`${prefixCls}-empty`}>暂无数据</div>
 			) : (
-				filteredOptions.map(opt => {
-					let isActive: boolean
-					if (multiple) {
-						isActive = (value as (string | number)[]).includes(opt.value)
-					} else {
-						isActive = opt.value === value
+				menuList.map((opt, index) => {
+					if (!checkOption(opt)) {
+						if (opt === '-') {
+							return <Divider key={`${opt}-${index}`} size="small" />
+						}
+						return (
+							<DropdownTitle key={`${opt}-${index}`} className={`${prefixCls}-group-title`}>
+								{opt}
+							</DropdownTitle>
+						)
 					}
-					return (
-						<Dropdown.Item
-							key={opt.value}
-							className={cls({
-								[`${prefixCls}-item-selected`]: selectedItem?.value === opt.value
-							})}
-							aria-selected={isActive}
-							disabled={opt.disabled}
-							prefix={
-								isActive ? (
-									<TbCheck className={`${prefixCls}-item-icon`} />
-								) : (
-									<div className={`${prefixCls}-item-icon`}></div>
-								)
-							}
-							onClick={() => handleSelect(opt.value)}
-							onMouseDown={event => {
-								event.preventDefault()
-							}}
-							onMouseEnter={() => {
-								const index = options.findIndex(option => option.value === opt.value)
-								if (index > -1) setSelectedIndex(index)
-							}}
-						>
-							{opt.label}
-						</Dropdown.Item>
-					)
+					if (!checkOptionFiltered(opt)) {
+						return null
+					}
+					return renderOption(opt)
 				})
 			)}
 			{loadingEle}
@@ -264,8 +292,8 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 			{filter
 				? filterEle
 				: is.undefined(value)
-				  ? placeholderEle
-				  : options.find(opt => opt.value === value)?.label}
+					? placeholderEle
+					: options.find(opt => opt.value === value)?.label}
 		</div>
 	)
 

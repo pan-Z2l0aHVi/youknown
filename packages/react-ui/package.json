@@ -22,8 +22,8 @@
     "dependencies": {
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
-        "@floating-ui/react": "^0.26.3",
-        "@mui/material": "^5.14.20",
+        "@floating-ui/react": "^0.26.4",
+        "@mui/material": "^5.15.0",
         "@youknown/react-hook": "workspace:*",
         "@youknown/utils": "workspace:*",
         "cropperjs": "^1.6.1",

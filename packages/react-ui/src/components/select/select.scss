@@ -39,6 +39,7 @@ $prefix: '#{$ui-prefix}-select';
 
 		&-filter {
 			width: 100%;
+			min-width: 120px;
 			padding-left: 0;
 
 			.#{$ui-prefix}-input-inner {
@@ -88,5 +89,9 @@ $prefix: '#{$ui-prefix}-select';
 
 		height: 48px;
 		color: $text-3;
+	}
+
+	&-group-title.#{$ui-prefix}-dropdown-title {
+		padding-left: 32px;
 	}
 }

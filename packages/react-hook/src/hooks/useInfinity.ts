@@ -23,7 +23,6 @@ export function useInfinity<T extends any[], S extends any[]>(
 	const [page, setPage] = useState(initialPage)
 	const [pageSize, setPageSize] = useState(initialPageSize)
 	const [noMore, setNoMore] = useState(false)
-	const [data, setData] = useState([] as unknown as T)
 
 	const isIntersecting = useIntersection(opts.target, opts.observerInit)
 	let { ready = true } = opts
@@ -36,7 +35,7 @@ export function useInfinity<T extends any[], S extends any[]>(
 		ready,
 		onSuccess(data, params) {
 			fetchOpts.onSuccess?.(data, params)
-			if (page <= initialPage) {
+			if (page <= 1) {
 				setData(data)
 			} else if (!noMore) {
 				setData(p => [...p, ...data] as T)
@@ -62,15 +61,25 @@ export function useInfinity<T extends any[], S extends any[]>(
 			}
 		}
 	})
+	const [data, setData] = useState(fetchResult.data ?? [])
 	const { run, ...rest } = omit(fetchResult, 'data', 'mutate')
 	const loadMore = useEvent(run)
-
+	const changePage = useEvent((arg: SetStateAction<number>) => {
+		if (is.function(arg)) {
+			setPage(p => {
+				const next = arg(p)
+				return Math.max(1, next)
+			})
+		} else {
+			setPage(Math.max(1, arg))
+		}
+	})
 	const changePageSize = useEvent((arg: SetStateAction<number>) => {
 		setPageSize(arg)
 	})
 
 	const reset = useEvent(() => {
-		setPage(initialPage)
+		setPage(1)
 		setPageSize(initialPageSize)
 		setNoMore(false)
 	})
@@ -78,7 +87,9 @@ export function useInfinity<T extends any[], S extends any[]>(
 	const reload = useEvent(() => {
 		return new Promise((resolve, reject) => {
 			reset()
-			setData(p => p.slice(0, initialPageSize) as T)
+			setData(p => {
+				return (p?.slice(0, initialPageSize) ?? []) as T
+			})
 			const root = opts.observerInit?.root
 			if (root instanceof HTMLElement) {
 				root.scrollTo(0, 0)
@@ -93,6 +104,7 @@ export function useInfinity<T extends any[], S extends any[]>(
 		data,
 		page,
 		pageSize,
+		changePage,
 		changePageSize,
 		reload,
 		reset,

@@ -80,7 +80,7 @@ export default function My({ expand }: PersonalProps) {
 								登录
 							</div>
 						)}
-						<Motion.Fade in={expand} unmountOnExit>
+						<Motion.Fade in={expand} mountOnEnter unmountOnExit>
 							<div className="flex-1 break-all ws-nowrap ml-8px">
 								{has_login ? profile?.nickname : '立即登录'}
 							</div>

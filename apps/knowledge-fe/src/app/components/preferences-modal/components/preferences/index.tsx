@@ -141,7 +141,7 @@ export default function Preferences() {
 			</Form.Field>
 			<Form.Field label="theme" labelText="主题">
 				<Select
-					options={[
+					menuList={[
 						{
 							label: '浅色',
 							value: THEME.LIGHT

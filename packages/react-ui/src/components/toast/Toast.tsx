@@ -36,6 +36,7 @@ const Toast = (props: ToastProps, propRef: ForwardedRef<HTMLDivElement>) => {
 					return (
 						<Motion.Zoom
 							key={id}
+							mountOnEnter
 							unmountOnExit
 							onExited={() => {
 								onClose?.()

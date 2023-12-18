@@ -78,7 +78,7 @@ const Drawer: FC<DrawerProps> = props => {
 			<Motion.Fade in={open} mountOnEnter unmountOnExit={unmountOnExit}>
 				{overlay}
 			</Motion.Fade>
-			<Motion.Slide in={open} direction={direction}>
+			<Motion.Slide in={open} mountOnEnter direction={direction}>
 				<div
 					className={cls(className, `${prefixCls}-wrap`, `${prefixCls}-wrap-${placement}`)}
 					style={{ zIndex, ...style, width, height }}

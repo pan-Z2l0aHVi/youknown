@@ -26,16 +26,16 @@ export interface Wallpaper {
 }
 
 export interface SearchWallpapersParams {
-	page: number
-	q: string
-	ai_art_filter: number
-	categories: string
-	purity: string
-	atleast: string
-	ratios: string
-	sorting: string
-	topRange: string
-	order: string
+	page?: number
+	q?: string
+	ai_art_filter?: number
+	categories?: string
+	purity?: string
+	atleast?: string
+	ratios?: string
+	sorting?: string
+	topRange?: string
+	order?: string
 }
 
 export const search_wallpapers = (params: SearchWallpapersParams) =>

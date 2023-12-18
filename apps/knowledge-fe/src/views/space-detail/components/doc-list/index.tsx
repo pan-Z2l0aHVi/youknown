@@ -189,7 +189,7 @@ export default function DocList(props: DocListProps) {
 	)
 
 	const choosing_bar = (
-		<Motion.Slide in={choosing} direction="up" unmountOnExit>
+		<Motion.Slide in={choosing} direction="up" mountOnEnter unmountOnExit>
 			<div className="z-2 fixed bottom-40px left-[calc(50%-120px)] p-8px bg-bg-1 b-1 b-solid b-bd-line rd-radius-l shadow-shadow-l">
 				<Space align="center">
 					<Tooltip disabled={!has_selection} spacing={12} placement="top" title="批量删除">

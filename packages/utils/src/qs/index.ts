@@ -1,3 +1,4 @@
+import { omitNil } from '../object'
 import path from '../path'
 
 interface URLObject {
@@ -11,8 +12,13 @@ const defaultOpts: URLObject = {
 	hash: ''
 }
 export default class QS {
-	static stringify(opts: Partial<URLObject>): string {
-		const { base, query, hash } = { ...defaultOpts, ...opts }
+	static stringify(opts: Partial<URLObject>, ignoreNil = true): string {
+		const options = { ...defaultOpts, ...opts }
+		const { base, hash } = options
+		let { query } = options
+		if (ignoreNil) {
+			query = omitNil(query)
+		}
 		const queryKeys = Object.keys(query)
 		if (!queryKeys.length) {
 			return base + hash

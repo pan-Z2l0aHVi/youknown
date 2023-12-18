@@ -10,9 +10,8 @@ export default () => {
 			<h1>Select</h1>
 			<Divider />
 			<Select
-				className="w-140px"
 				defaultValue={1}
-				options={[
+				menuList={[
 					{
 						value: 0,
 						label: 'Apple'
@@ -35,9 +34,8 @@ export default () => {
 			<Divider />
 			<Select
 				multiple
-				className="w-280px"
 				defaultValue={[2]}
-				options={[
+				menuList={[
 					{
 						value: 0,
 						label: 'Apple'
@@ -55,14 +53,13 @@ export default () => {
 			<Divider />
 			<Space>
 				<Select
-					className="w-140px"
 					value={selection}
 					onChange={val => {
 						if (!Array.isArray(val)) {
 							setSelection(val)
 						}
 					}}
-					options={[
+					menuList={[
 						{
 							value: 0,
 							label: 'Apple'
@@ -79,14 +76,13 @@ export default () => {
 				></Select>
 				<Select
 					multiple
-					className="w-280px"
 					value={multipleSelection}
 					onChange={val => {
 						if (Array.isArray(val)) {
 							setMultipleSelection(val)
 						}
 					}}
-					options={[
+					menuList={[
 						{
 							value: 0,
 							label: 'Apple'
@@ -105,9 +101,8 @@ export default () => {
 			<Divider />
 			<Select
 				disabled
-				className="w-140px"
 				defaultValue={1}
-				options={[
+				menuList={[
 					{
 						value: 0,
 						label: 'Apple'
@@ -127,9 +122,8 @@ export default () => {
 				<Select
 					filter
 					allowClear
-					className="w-160px"
 					defaultValue={1}
-					options={[
+					menuList={[
 						{
 							value: 0,
 							label: 'Apple'
@@ -147,9 +141,8 @@ export default () => {
 				<Select
 					filter
 					multiple
-					className="w-320px"
 					defaultValue={[0]}
-					options={[
+					menuList={[
 						{
 							value: 0,
 							label: 'Apple'

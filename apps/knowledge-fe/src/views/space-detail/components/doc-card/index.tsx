@@ -124,7 +124,14 @@ export default function DocCard(props: DocCardProps) {
 
 	const container_ref = useRef(null)
 	const footer = (
-		<Motion.Slide in={!choosing} appear={false} container={container_ref.current} direction="up" unmountOnExit>
+		<Motion.Slide
+			in={!choosing}
+			appear={false}
+			container={container_ref.current}
+			direction="up"
+			mountOnEnter
+			unmountOnExit
+		>
 			<div className="flex items-center justify-between p-12px bg-bg-1 b-t-bd-line b-t-1 b-t-solid cursor-default">
 				<div className="flex items-center color-text-3">
 					<RiHistoryFill className="mr-4px text-14px" />

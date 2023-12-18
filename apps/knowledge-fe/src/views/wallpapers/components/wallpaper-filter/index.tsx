@@ -69,18 +69,17 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 			label: '分辨率不限',
 			value: '0x0'
 		},
+		'-',
+		'竖屏',
 		{
-			label: '至少 1920x1080',
-			value: '1920x1080'
+			label: '至少 1080x2340',
+			value: '1080x2340'
 		},
 		{
-			label: '至少 2560x1440',
-			value: '2560x1440'
+			label: '至少 1284x2778',
+			value: '1284x2778'
 		},
-		{
-			label: '至少 3840x2160',
-			value: '3840x2160'
-		},
+		'21 x 9',
 		{
 			label: '至少 2560x1080',
 			value: '2560x1080'
@@ -93,14 +92,20 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 			label: '至少 5120x2160',
 			value: '5120x2160'
 		},
+		'16 x 9',
 		{
-			label: '至少 1080x2340',
-			value: '1080x2340'
+			label: '至少 1920x1080',
+			value: '1920x1080'
 		},
 		{
-			label: '至少 1284x2778',
-			value: '1284x2778'
+			label: '至少 2560x1440',
+			value: '2560x1440'
 		},
+		{
+			label: '至少 3840x2160',
+			value: '3840x2160'
+		},
+		'16 x 10',
 		{
 			label: '至少 1920x1440',
 			value: '1920x1440'
@@ -155,13 +160,13 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 					</Button>
 				</Space>
 			</div>
-			<Motion.Collapse in={filter_open}>
+			<Motion.Collapse in={filter_open} mountOnEnter>
 				<div className="m-16px p-32px b-1 b-solid b-bd-line rd-radius-m bg-bg-2 shadow-shadow-l">
 					<Form form={form} layout="inline">
 						<Form.Field label="ai_art_filter">
 							<Select
 								className="w-240px!"
-								options={[
+								menuList={[
 									{
 										label: '含AI作品',
 										value: SWITCH.OFF
@@ -178,7 +183,7 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 							<Select
 								className="w-240px!"
 								multiple
-								options={[
+								menuList={[
 									{
 										label: '寻常',
 										value: CATE.GENERAL
@@ -196,7 +201,7 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 						</Form.Field>
 
 						<Form.Field label="purity">
-							<Select className="w-240px!" multiple options={purity_options} />
+							<Select className="w-240px!" multiple menuList={purity_options} />
 						</Form.Field>
 
 						<div className="w-100%"></div>
@@ -204,33 +209,43 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 						<Form.Field label="ratios">
 							<Select
 								className="w-240px!"
-								options={[
+								menuList={[
 									{
 										label: '宽高比不限',
+										value: ''
+									},
+									'-',
+									{
+										label: '仅横图',
 										value: 'landscape'
+									},
+									{
+										label: '仅竖图',
+										value: 'portrait'
+									},
+									'-',
+									{
+										label: '21:9',
+										value: '21x9'
 									},
 									{
 										label: '16:9',
 										value: '16x9'
 									},
 									{
-										label: '21:9',
-										value: '21x9'
-									},
-									{
-										label: '9:19',
-										value: '9x19'
-									},
-									{
 										label: '4:3',
 										value: '4x3'
+									},
+									{
+										label: '9:19.5',
+										value: '9x19.5'
 									}
 								]}
 							/>
 						</Form.Field>
 
 						<Form.Field label="atleast">
-							<Select className="w-240px!" options={at_least_options} />
+							<Select className="w-240px!" menuList={at_least_options} />
 						</Form.Field>
 
 						<div className="w-100%"></div>
@@ -238,7 +253,7 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 						<Form.Field label="sorting">
 							<Select
 								className="w-240px!"
-								options={[
+								menuList={[
 									{
 										label: '排行榜',
 										value: 'toplist'
@@ -267,7 +282,7 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 							<Form.Field label="topRange">
 								<Select
 									className="w-240px!"
-									options={[
+									menuList={[
 										{
 											label: '昨天',
 											value: '1d'
@@ -299,7 +314,7 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 							<Form.Field label="order">
 								<Select
 									className="w-240px!"
-									options={[
+									menuList={[
 										{
 											label: '降序',
 											value: ORDER.DESC
@@ -319,9 +334,7 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 							onClick={() => {
 								form.reset()
 								on_keywords_input('')
-								macroDefer(() => {
-									on_reset()
-								})
+								macroDefer(on_reset)
 							}}
 						>
 							全部重置

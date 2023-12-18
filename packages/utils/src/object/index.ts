@@ -15,3 +15,12 @@ export function pick<T extends object, S extends keyof T>(obj: T, ...keys: S[]):
 		{} as Pick<T, S>
 	)
 }
+
+export function omitNil<T extends object>(obj: T): Partial<T> {
+	return Object.entries(obj).reduce((acc, [key, value]) => {
+		if (value != null) {
+			Object.assign(acc, { [key]: value })
+		}
+		return acc
+	}, {})
+}

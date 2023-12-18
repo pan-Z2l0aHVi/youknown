@@ -238,7 +238,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 	const detailLoading = !src || !detailLoaded
 	const operationDisabled = detailLoading || detailError
 	const toolbarEle = (
-		<Motion.Slide in={toolbarVisible} direction="up">
+		<Motion.Slide in={toolbarVisible} direction="up" mountOnEnter unmountOnExit>
 			<div className={`${prefixCls}-toolbar`}>
 				<Space size="small">
 					{toolbarList.map(item => (
@@ -295,7 +295,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 										position: 'fixed',
 										left: offset.x,
 										top: offset.y
-								  }
+									}
 								: {})
 						}}
 						onMouseDown={handleDragDetailStart}

@@ -92,8 +92,7 @@ export default () => {
 					</Form.Field>
 					<Form.Field label="system" labelText="System">
 						<Select
-							className="w-160px"
-							options={[
+							menuList={[
 								{
 									value: 'windows',
 									label: 'Windows'

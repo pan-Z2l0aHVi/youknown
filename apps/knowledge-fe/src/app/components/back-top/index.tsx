@@ -33,7 +33,7 @@ export default function BackTop(props: BackTopProps) {
 	}, [container, scroll_handler])
 
 	return (
-		<Motion.Zoom in={visible} unmountOnExit>
+		<Motion.Zoom in={visible} mountOnEnter unmountOnExit>
 			<Button circle size="large" className="shadow-shadow-m" onClick={handle_to_top}>
 				<TbArrowBarToUp className="text-22px" />
 			</Button>

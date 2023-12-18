@@ -101,7 +101,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 									set_selection(val)
 								}
 							}}
-							options={options}
+							menuList={options}
 							placeholder="请选择历史"
 							onLoad={load_more}
 						/>

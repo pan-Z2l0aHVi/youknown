@@ -83,7 +83,7 @@ export default function Menu({ expand }: MenuProps) {
 				const nav_content = (
 					<>
 						<div className="leading-0 text-18px color-primary">{meta.icon}</div>
-						<Motion.Fade in={expand} unmountOnExit>
+						<Motion.Fade in={expand} mountOnEnter unmountOnExit>
 							<div className="ml-8px flex-1 break-all ws-nowrap truncate">{meta.title}</div>
 						</Motion.Fade>
 						{has_sub_nav && (
@@ -142,7 +142,12 @@ export default function Menu({ expand }: MenuProps) {
 						</Tooltip>
 
 						{has_sub_nav && (
-							<Motion.Collapse in={open_map[path]} className="w-100% mt-0! mb-0!" unmountOnExit>
+							<Motion.Collapse
+								in={open_map[path]}
+								className="w-100% mt-0! mb-0!"
+								mountOnEnter
+								unmountOnExit
+							>
 								<Motion.Fade in={open_map[path]}>
 									<div
 										className={cls({
@@ -173,7 +178,7 @@ export default function Menu({ expand }: MenuProps) {
 														<div className="leading-0 text-18px color-primary">
 															{child.meta.icon}
 														</div>
-														<Motion.Fade in={expand} unmountOnExit>
+														<Motion.Fade in={expand} mountOnEnter unmountOnExit>
 															<div className="flex-1 break-all ws-nowrap truncate ml-8px">
 																{child.meta.title}
 															</div>

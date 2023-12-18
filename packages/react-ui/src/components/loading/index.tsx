@@ -56,7 +56,7 @@ const Loading = (props: LoadingProps, propRef: ForwardedRef<HTMLDivElement>) => 
 		)
 
 	return (
-		<Motion.Zoom in={spinning}>
+		<Motion.Zoom in={spinning} mountOnEnter unmountOnExit>
 			<div ref={propRef} className={cls(className, iconWrapCls)} {...rest}>
 				{icon}
 			</div>

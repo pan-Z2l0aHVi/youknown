@@ -3,7 +3,13 @@
 $prefix: '#{$ui-prefix}-date-picker';
 
 .#{$prefix} {
-	font-size: $font-size-m;
+	@include basic;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: max-content;
+	min-width: 160px;
 	color: $text-2;
 
 	&-clear-icon {

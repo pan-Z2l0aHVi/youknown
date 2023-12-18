@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { search_wallpapers } from '@/apis/wallpaper'
+import { search_wallpapers, SearchWallpapersParams, Wallpaper } from '@/apis/wallpaper'
 import Header from '@/app/components/header'
 import MoreLoading from '@/components/more-loading'
 import NoMore from '@/components/no-more'
-import { useCreation, useEvent, useInfinity, useUpdate } from '@youknown/react-hook/src'
+import { useCreation, useEvent, useInfinity, useMount, useUnmount, useUpdate } from '@youknown/react-hook/src'
 import { Form } from '@youknown/react-ui/src'
 import { checkPWA, cls, macroDefer, QS, storage } from '@youknown/utils/src'
 
@@ -22,6 +22,9 @@ import WallpaperFilter, {
 
 const FILTER_STATE_KEY = 'wallpaper_filter_state'
 const FILTER_KEYWORDS_KEY = 'wallpaper_filter_keywords'
+const WALLPAPERS_KEY = 'wallpapers'
+const WALLPAPER_PAGE_KEY = 'wallpaper_page'
+const WALLPAPER_SCROLL_Y_KEY = 'wallpaper_scroll_y'
 
 export default function Wallpapers() {
 	const [search_params] = useSearchParams()
@@ -35,7 +38,6 @@ export default function Wallpapers() {
 	const [keywords, set_keywords] = useState(default_keywords)
 	const session_filter_state = useCreation(() => storage.session.get<filterState>(FILTER_STATE_KEY))
 	const keywords_filter_ref = useRef<ImperativeHandle>(null)
-
 	const [params, set_params] = useState<WallpaperQuery>()
 
 	const form = Form.useForm<filterState>({
@@ -44,16 +46,16 @@ export default function Wallpapers() {
 			categories: [CATE.GENERAL, CATE.ANIME, CATE.PEOPLE],
 			purity: [PURITY.SFW],
 			atleast: '0x0',
-			ratios: 'landscape',
+			ratios: '',
 			sorting: 'toplist',
 			topRange: '1M',
 			order: ORDER.DESC
 		},
-		onFulfilled(state) {
-			storage.session.set(FILTER_STATE_KEY, state)
+		onFulfilled() {
 			reload_wallpapers()
 		},
 		onStateChange(org) {
+			storage.session.set(FILTER_STATE_KEY, form.getState())
 			update_params()
 
 			switch (org.label) {
@@ -105,10 +107,12 @@ export default function Wallpapers() {
 		update_params()
 	}, [update_params])
 
+	const wallpapers_cache = useCreation(() => storage.session.get<Wallpaper[]>(WALLPAPERS_KEY) ?? [])
+	const wallpaper_page_cache = useCreation(() => storage.session.get<number>(WALLPAPER_PAGE_KEY) ?? 1)
+
 	const wallpaper_fetcher = async () => {
 		const { keywords, ai_art_filter, atleast, ratios, sorting, topRange, order, categories, purity } = params!
-		const search_params: Parameters<typeof search_wallpapers>['0'] = {
-			q: keywords,
+		const search_params: SearchWallpapersParams = {
 			ai_art_filter,
 			categories,
 			purity,
@@ -119,6 +123,9 @@ export default function Wallpapers() {
 			order,
 			page
 		}
+		if (keywords) {
+			search_params.q = keywords
+		}
 		return search_wallpapers(search_params)
 	}
 	const {
@@ -126,8 +133,11 @@ export default function Wallpapers() {
 		data: wallpapers,
 		loading,
 		noMore: no_more,
-		reload: reload_wallpapers
+		reload,
+		changePage: change_page
 	} = useInfinity(wallpaper_fetcher, {
+		initialData: wallpapers_cache,
+		initialPage: wallpaper_page_cache,
 		initialPageSize: 48,
 		ready: !!params,
 		target: loading_ref,
@@ -136,6 +146,36 @@ export default function Wallpapers() {
 			rootMargin: '0px 0px 280px 0px'
 		}
 	})
+
+	const reload_wallpapers = () => {
+		change_page(0)
+		macroDefer(reload)
+	}
+
+	// 从缓存中恢复之前的浏览状态
+	// 包括：页码、壁纸数据、滚动条位置
+	const restore_scroll_y = () => {
+		const scroll_y_cache = storage.session.get<number>(WALLPAPER_SCROLL_Y_KEY)
+		if (scroll_y_cache) {
+			storage.session.remove(WALLPAPER_SCROLL_Y_KEY)
+			window.scrollTo({
+				top: scroll_y_cache,
+				behavior: 'instant'
+			})
+		}
+	}
+	useMount(() => {
+		restore_scroll_y()
+	})
+	useUnmount(() => {
+		storage.session.set(WALLPAPER_SCROLL_Y_KEY, window.scrollY)
+	})
+	useEffect(() => {
+		storage.session.set(WALLPAPER_PAGE_KEY, page)
+	}, [page])
+	useEffect(() => {
+		storage.session.set(WALLPAPERS_KEY, wallpapers)
+	}, [wallpapers])
 
 	const search_in_current_page = (similar_keywords: string) => {
 		set_keywords(similar_keywords)
@@ -146,9 +186,7 @@ export default function Wallpapers() {
 		keywords_filter_ref.current?.focus_keywords_input()
 		macroDefer(() => {
 			update_params()
-			macroDefer(() => {
-				reload_wallpapers()
-			})
+			reload_wallpapers()
 		})
 	}
 

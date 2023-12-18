@@ -83,7 +83,7 @@ const Field = (props: FieldProps, propRef: ForwardedRef<HTMLLabelElement & HTMLD
 				</div>
 				<TransitionGroup component={null}>
 					{Array.from(new Set(explains)).map(explain => (
-						<Motion.Stretch key={explain} direction="bottom" unmountOnExit>
+						<Motion.Stretch key={explain} direction="bottom" mountOnEnter unmountOnExit>
 							<div className={`${prefixCls}-explain`}>{explain}</div>
 						</Motion.Stretch>
 					))}

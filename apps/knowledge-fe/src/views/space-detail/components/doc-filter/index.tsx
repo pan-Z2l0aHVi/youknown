@@ -18,7 +18,7 @@ export default function DocFilter(props: DocFilterProps) {
 				<Form.Field label="sort_by" labelText="排序方式">
 					<Select
 						className="w-160px!"
-						options={[
+						menuList={[
 							{
 								label: '编辑日期',
 								value: 'update_time'
@@ -33,7 +33,7 @@ export default function DocFilter(props: DocFilterProps) {
 				<Form.Field label="sort_type" labelText="顺序">
 					<Select
 						className="w-160px!"
-						options={[
+						menuList={[
 							{
 								label: '最新的排在前',
 								value: 'desc'
