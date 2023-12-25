@@ -223,7 +223,7 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 						ref?.(node)
 					},
 					...getReferenceProps(child.props)
-			  } as HTMLAttributes<HTMLElement>)
+				} as HTMLAttributes<HTMLElement>)
 			: child
 	)
 
@@ -239,5 +239,4 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 	)
 }
 Trigger.displayName = 'Trigger'
-const RefTrigger = forwardRef(Trigger)
-export default RefTrigger
+export default forwardRef(Trigger)

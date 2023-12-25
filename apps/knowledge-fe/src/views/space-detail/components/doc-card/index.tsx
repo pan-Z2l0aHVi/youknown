@@ -4,8 +4,8 @@ import { FiEdit3 } from 'react-icons/fi'
 import { GoCheck } from 'react-icons/go'
 import { LuSettings2 } from 'react-icons/lu'
 import { PiTrashSimpleBold } from 'react-icons/pi'
-import { RiGlobalLine, RiHistoryFill } from 'react-icons/ri'
-import { TbShare2 } from 'react-icons/tb'
+import { RiHistoryFill } from 'react-icons/ri'
+import { TbShare2, TbWorld } from 'react-icons/tb'
 
 import { delete_doc, Doc } from '@/apis/doc'
 import DocOptionsModal from '@/components/doc-options-modal'
@@ -163,7 +163,7 @@ export default function DocCard(props: DocCardProps) {
 						className="absolute top-0 left-16px w-20px h-24px bg-primary text-center"
 						style={{ clipPath: 'polygon(0% 0%, 100% 0, 100% 100%, 50% 75%, 0% 100%)' }}
 					>
-						<RiGlobalLine className="color-#fff text-16px mt-1px" />
+						<TbWorld className="color-#fff text-16px mt-1px" />
 					</div>
 				)}
 				{choosing && selected && (

@@ -93,5 +93,4 @@ const Field = (props: FieldProps, propRef: ForwardedRef<HTMLLabelElement & HTMLD
 	)
 }
 Field.displayName = 'Field'
-const RefField = forwardRef(Field)
-export default RefField
+export default forwardRef(Field)

@@ -43,7 +43,7 @@ const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 			? cloneElement(child, {
 					...pick(rest, ...EventsByTriggerNeed),
 					...pickDataAttrs(rest)
-			  })
+				})
 			: child
 	)
 
@@ -72,5 +72,4 @@ const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 	)
 }
 Tooltip.displayName = 'Tooltip'
-const RefTooltip = forwardRef(Tooltip)
-export default RefTooltip
+export default forwardRef(Tooltip)

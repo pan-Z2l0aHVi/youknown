@@ -1,18 +1,18 @@
-import { clip } from './clip'
+import { crop } from './crop'
 import Image from './Image'
-import ImageClip from './ImageClip'
+import ImageCropper from './ImageCropper'
 import ImagePreview from './ImagePreview'
 import { preview } from './preview'
 
-interface DialogCommand {
+interface ImageCommand {
 	preview: typeof preview
 	ImagePreview: typeof ImagePreview
-	clip: typeof clip
-	ImageClip: typeof ImageClip
+	crop: typeof crop
+	ImageCropper: typeof ImageCropper
 }
-const ExportImage = Image as typeof Image & DialogCommand
+const ExportImage = Image as typeof Image & ImageCommand
 ExportImage.preview = preview
 ExportImage.ImagePreview = ImagePreview
-ExportImage.clip = clip
-ExportImage.ImageClip = ImageClip
+ExportImage.crop = crop
+ExportImage.ImageCropper = ImageCropper
 export default ExportImage

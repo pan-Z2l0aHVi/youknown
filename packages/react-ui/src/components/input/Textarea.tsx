@@ -94,7 +94,7 @@ const Textarea = (props: TextareaProps, propRef: ForwardedRef<HTMLTextAreaElemen
 				onHeightChange(height: number, { rowHeight }: TextareaHeightChangeMeta) {
 					setLockScroll(Math.ceil(height / rowHeight) < maxRows)
 				}
-		  }
+			}
 		: {}
 
 	const prefixCls = `${UI_PREFIX}-textarea`
@@ -127,5 +127,4 @@ const Textarea = (props: TextareaProps, propRef: ForwardedRef<HTMLTextAreaElemen
 }
 Textarea.displayName = 'Textarea'
 
-const RefTextarea = forwardRef(Textarea)
-export default RefTextarea
+export default forwardRef(Textarea)

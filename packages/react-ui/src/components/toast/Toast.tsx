@@ -56,5 +56,4 @@ const Toast = (props: ToastProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	)
 }
 Toast.displayName = 'Toast'
-const RefToast = forwardRef(Toast)
-export default RefToast
+export default forwardRef(Toast)

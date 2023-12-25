@@ -17,5 +17,4 @@ const CloseIcon = (props: HTMLAttributes<HTMLDivElement>, ref: ForwardedRef<HTML
 	)
 }
 CloseIcon.displayName = 'CloseIcon'
-const RefXIcon = forwardRef(CloseIcon)
-export default RefXIcon
+export default forwardRef(CloseIcon)

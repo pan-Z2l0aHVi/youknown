@@ -121,6 +121,7 @@ $prefix: '#{$ui-prefix}-button';
 
 	&-circle {
 		width: 32px;
+		min-width: 32px;
 		padding: 0;
 		border-radius: $round;
 	}

@@ -110,5 +110,4 @@ const Circle = (props: CircleProps, propRef: ForwardedRef<HTMLDivElement>) => {
 }
 Circle.displayName = 'Circle'
 
-const RefCircle = forwardRef(Circle)
-export default RefCircle
+export default forwardRef(Circle)

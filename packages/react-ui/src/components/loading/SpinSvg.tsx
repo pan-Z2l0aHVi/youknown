@@ -58,5 +58,4 @@ const SpinSvg = (props: SVGAttributes<SVGSVGElement>, propRef: ForwardedRef<SVGS
 	)
 }
 SpinSvg.displayName = 'SpinSvg'
-const RefSpinSvg = forwardRef(SpinSvg)
-export default RefSpinSvg
+export default forwardRef(SpinSvg)

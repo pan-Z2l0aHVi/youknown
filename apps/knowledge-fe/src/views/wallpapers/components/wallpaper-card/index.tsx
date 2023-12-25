@@ -153,6 +153,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 						height: 320 * (1 / Number(wallpaper.ratio))
 					}}
 					src={wallpaper.thumbs.original}
+					alt="Wallpaper thumb"
 					loading="lazy"
 					onLoad={set_img_loaded}
 					onClick={preview_picture}

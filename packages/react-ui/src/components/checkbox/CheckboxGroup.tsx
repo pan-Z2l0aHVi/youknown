@@ -99,7 +99,7 @@ const CheckboxGroup = (props: CheckboxGroupProps, propRef: ForwardedRef<HTMLDivE
 								disabled: disabled || child.props.disabled,
 								value: child.props.label != null && value.includes(child.props.label),
 								onChange: getHandleSubChange(child.props.label)
-						  })
+							})
 						: child
 				)}
 			</Space>
@@ -107,5 +107,4 @@ const CheckboxGroup = (props: CheckboxGroupProps, propRef: ForwardedRef<HTMLDivE
 	)
 }
 CheckboxGroup.displayName = 'CheckboxGroup'
-const RefCheckboxGroup = forwardRef(CheckboxGroup)
-export default RefCheckboxGroup
+export default forwardRef(CheckboxGroup)

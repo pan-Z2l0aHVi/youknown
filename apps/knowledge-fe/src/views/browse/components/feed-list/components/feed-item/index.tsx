@@ -89,6 +89,7 @@ export default function FeedItem(props: FeedItemProps) {
 							className="w-160px h-108px b-bd-line b-1 b-solid rd-radius-m"
 							src={feed.cover}
 							loading="lazy"
+							alt="Cover"
 						/>
 					</TransitionLink>
 				)}

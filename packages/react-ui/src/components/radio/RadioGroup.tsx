@@ -79,7 +79,7 @@ const RadioGroup = (props: RadioGroupProps, propRef: ForwardedRef<HTMLDivElement
 							disabled: disabled || child.props.disabled,
 							value: value === child.props.label,
 							onChange: getHandleSubChange(child.props.label)
-					  })
+						})
 					: child
 			)}
 		</>
@@ -98,5 +98,4 @@ const RadioGroup = (props: RadioGroupProps, propRef: ForwardedRef<HTMLDivElement
 	)
 }
 RadioGroup.displayName = 'RadioGroup'
-const RefRadioGroup = forwardRef(RadioGroup)
-export default RefRadioGroup
+export default forwardRef(RadioGroup)

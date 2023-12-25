@@ -64,5 +64,4 @@ const Loading = (props: LoadingProps, propRef: ForwardedRef<HTMLDivElement>) => 
 	)
 }
 Loading.displayName = 'Loading'
-const RefLoading = forwardRef(Loading)
-export default RefLoading
+export default forwardRef(Loading)

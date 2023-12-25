@@ -38,7 +38,7 @@ const Dropdown = (props: DropdownProps, propRef: ForwardedRef<HTMLElement>) => {
 			? cloneElement(child, {
 					...pick(rest, ...EventsByTriggerNeed),
 					...pickDataAttrs(rest)
-			  })
+				})
 			: child
 	)
 

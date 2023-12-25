@@ -152,6 +152,7 @@ export default function FeedDetail() {
 								className="w-100% max-h-30vh min-h-40px  rd-radius-m"
 								src={detail.cover}
 								canPreview
+								alt="Cover"
 							/>
 						)}
 						<div

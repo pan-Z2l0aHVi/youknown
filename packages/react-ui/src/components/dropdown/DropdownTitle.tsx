@@ -20,5 +20,4 @@ const DropdownTitle = (props: DropdownTitleProps, ref: ForwardedRef<HTMLDivEleme
 	)
 }
 DropdownTitle.displayName = 'DropdownTitle'
-const RefDropdownTitle = forwardRef(DropdownTitle)
-export default RefDropdownTitle
+export default forwardRef(DropdownTitle)

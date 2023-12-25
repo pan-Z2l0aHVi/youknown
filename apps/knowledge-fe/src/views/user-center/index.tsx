@@ -34,12 +34,14 @@ export default function UserCenter() {
 
 	const upload_avatar = (file: File) =>
 		new Promise<string>((resolve, reject) => {
-			Image.clip({
+			Image.crop({
 				file,
+				title: '设置头像',
+				cropShape: 'round',
 				initialAspectRatio: 1,
-				aspectRatio: 1,
+				aspectRatioFixed: true,
 				onCancel: reject,
-				async onClip(result) {
+				async onCrop(result) {
 					try {
 						const { compressImage } = await import('@youknown/img-wasm/src')
 						const compressed_file = await compressImage(result, 520, 520)
@@ -157,7 +159,7 @@ export default function UserCenter() {
 						'after:backdrop-blur-2xl'
 					)}
 				>
-					<Image className="w-100% h-100%" src={user_info?.avatar ?? ''} />
+					<Image className="w-100% h-100%" src={user_info?.avatar ?? ''} alt="Banner" />
 				</div>
 			</AspectRatio>
 		</Loading>
@@ -203,6 +205,7 @@ export default function UserCenter() {
 						className="absolute top--45px w-90px h-90px rd-full bg-bg-2 shadow-shadow-l"
 						src={user_info?.avatar ?? ''}
 						canPreview
+						alt="Avatar"
 					/>
 				)}
 				{is_edit ? (

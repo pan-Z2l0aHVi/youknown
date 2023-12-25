@@ -25,5 +25,4 @@ const Divider = (props: DividerProps, propRef: ForwardedRef<HTMLDivElement>) => 
 }
 Divider.displayName = 'Divider'
 
-const RefDivider = forwardRef(Divider)
-export default RefDivider
+export default forwardRef(Divider)

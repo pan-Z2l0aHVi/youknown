@@ -133,7 +133,11 @@ const Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => 
 						<div className={`${prefixCls}-thumb-default`}>
 							{(lastPreviewURL || lastPicURL) && (
 								<Loading spinning={uploading} className={`${prefixCls}-thumb-default-loading`}>
-									<img className={cls(`${prefixCls}-thumb`)} src={lastPicURL || lastPreviewURL} />
+									<img
+										className={cls(`${prefixCls}-thumb`)}
+										alt="Preview"
+										src={lastPicURL || lastPreviewURL}
+									/>
 								</Loading>
 							)}
 						</div>
@@ -144,5 +148,4 @@ const Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => 
 	)
 }
 Upload.displayName = 'Upload'
-const RefUpload = forwardRef(Upload)
-export default RefUpload
+export default forwardRef(Upload)

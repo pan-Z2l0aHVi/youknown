@@ -33,5 +33,4 @@ const ListItem = (props: ListItemProps, propRef: ForwardedRef<HTMLDivElement>) =
 	)
 }
 ListItem.displayName = 'ListItem'
-const RefListItem = forwardRef(ListItem)
-export default RefListItem
+export default forwardRef(ListItem)

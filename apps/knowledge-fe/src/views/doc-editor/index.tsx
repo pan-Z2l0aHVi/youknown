@@ -70,10 +70,10 @@ export default function Doc() {
 			Image.configure({
 				onCustomUpload: file =>
 					new Promise((resolve, reject) => {
-						ImageUI.clip({
+						ImageUI.crop({
 							file,
 							onCancel: reject,
-							async onClip(result) {
+							async onCrop(result) {
 								try {
 									const { compressImage } = await import('@youknown/img-wasm/src')
 									const compressed_file = await compressImage(result, 1600, 1200)

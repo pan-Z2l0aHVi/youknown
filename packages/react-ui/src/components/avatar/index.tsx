@@ -45,6 +45,7 @@ const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLDivElement>) => {
 				onError?.(err)
 				setError(err)
 			}}
+			alt="Avatar"
 		/>
 	)
 
@@ -56,11 +57,11 @@ const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLDivElement>) => {
 				height: `${size}px`,
 				minWidth: `${size}px`,
 				minHeight: `${size}px`
-		  }
+			}
 		: {
 				...style,
 				backgroundColor: color
-		  }
+			}
 
 	return (
 		<div

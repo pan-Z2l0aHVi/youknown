@@ -32,5 +32,4 @@ const DropdownMenu = (props: DropdownMenuProps, ref: ForwardedRef<HTMLDivElement
 	)
 }
 DropdownMenu.displayName = 'DropdownMenu'
-const RefDropdownMenu = forwardRef(DropdownMenu)
-export default RefDropdownMenu
+export default forwardRef(DropdownMenu)

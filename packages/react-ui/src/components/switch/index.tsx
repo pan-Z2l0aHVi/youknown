@@ -52,5 +52,4 @@ const Switch = (props: SwitchProps, propRef: ForwardedRef<HTMLInputElement>) => 
 	)
 }
 Switch.displayName = 'Switch'
-const RefSwitch = forwardRef(Switch)
-export default RefSwitch
+export default forwardRef(Switch)

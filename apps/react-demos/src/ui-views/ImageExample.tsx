@@ -42,9 +42,9 @@ export default () => {
 					accept="image/*"
 					onChange={e => {
 						const [file] = e.target.files ?? []
-						Image.clip({
+						Image.crop({
 							file,
-							onClip(result) {
+							onCrop(result) {
 								console.log('clip result: ', result)
 							}
 						})

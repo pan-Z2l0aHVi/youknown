@@ -32,7 +32,7 @@ const AvatarGroup: FC<AvatarGroupProps> = props => {
 							style: {
 								zIndex: 99 - sign * index
 							}
-					  })
+						})
 					: child
 			)}
 		</div>

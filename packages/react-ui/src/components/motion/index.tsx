@@ -73,7 +73,7 @@ const Stretch = (props: StretchProps, ref: ForwardedRef<HTMLElement>) => {
 							},
 							ref: handleRef,
 							...childProps
-					  })
+						})
 					: children
 			}
 		</Transition>
@@ -113,7 +113,7 @@ const Disappearance = (props: DisappearanceProps, ref: ForwardedRef<HTMLElement>
 							},
 							ref: handleRef,
 							...childProps
-					  })
+						})
 					: children
 			}}
 		</Transition>

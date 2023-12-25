@@ -10,7 +10,7 @@ $prefix: '#{$ui-prefix}-input';
 	width: 240px;
 	padding: 4px 8px;
 	background: $bg-1;
-	transition: all $duration-n ease-out;
+	transition: all $duration-f ease-out;
 
 	&-bordered {
 		border: 1px solid $bd-line;

@@ -17,7 +17,7 @@ $prefix: '#{$ui-prefix}-select';
 	background-color: $bg-1;
 	border: 1px solid $bd-line;
 	border-radius: $radius-m;
-	transition: all $duration-n ease-out;
+	transition: all $duration-f ease-out;
 
 	&:not(&-disabled) {
 		&:focus-visible {

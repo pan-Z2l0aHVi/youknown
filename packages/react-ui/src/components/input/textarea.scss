@@ -10,7 +10,7 @@ $prefix: '#{$ui-prefix}-textarea';
 	background: $bg-1;
 	border: 1px solid $bd-line;
 	border-radius: $radius-m;
-	transition: all $duration-n ease-out;
+	transition: all $duration-f ease-out;
 
 	&-inner {
 		@include scrollbar;

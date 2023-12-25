@@ -1,19 +1,19 @@
 import { ComponentProps } from 'react'
 
 import { render as renderReactRoot } from '../../utils/renderReactRoot'
-import ImageClip from './ImageClip'
+import ImageCropper from './ImageCropper'
 
-type ImageClipProps = ComponentProps<typeof ImageClip>
-type ClipConfig = Omit<ImageClipProps, 'open' | 'onClose'>
+type ImageCropperProps = ComponentProps<typeof ImageCropper>
+type CropConfig = Omit<ImageCropperProps, 'open' | 'onClose'>
 
-export const clip = (config: ClipConfig) => {
+export const crop = (config: CropConfig) => {
 	const div = document.createElement('div')
 	document.body.appendChild(div)
 
 	let root: ReturnType<typeof renderReactRoot> | void
 
 	function render() {
-		const ele = <ImageClip {...imageClipProps} />
+		const ele = <ImageCropper {...imageCropperProps} />
 		if (root) {
 			root.render(ele)
 		} else {
@@ -22,7 +22,7 @@ export const clip = (config: ClipConfig) => {
 		}
 	}
 
-	const imageClipProps: ComponentProps<typeof ImageClip> = {
+	const imageCropperProps: ComponentProps<typeof ImageCropper> = {
 		...config,
 		open: false,
 		onClose: close
@@ -30,12 +30,12 @@ export const clip = (config: ClipConfig) => {
 	open()
 
 	function open() {
-		imageClipProps.open = true
+		imageCropperProps.open = true
 		render()
 	}
 
 	function close() {
-		imageClipProps.open = false
+		imageCropperProps.open = false
 		render()
 	}
 

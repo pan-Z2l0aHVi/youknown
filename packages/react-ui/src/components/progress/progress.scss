@@ -15,7 +15,7 @@ $prefix: '#{$ui-prefix}-progress';
 	&-inset {
 		background: $color-primary;
 		border-radius: $round;
-		transition: all $duration-n;
+		transition: all $duration-f;
 	}
 
 	&-horizontal {

@@ -33,11 +33,12 @@ export default function CoverUpload(props: CoverUploadProps) {
 
 	const upload_cover = (file: File) =>
 		new Promise<string>(async (resolve, reject) => {
-			Image.clip({
+			Image.crop({
 				file,
+				title: '设置封面',
 				initialAspectRatio: 16 / 9,
 				onCancel: reject,
-				async onClip(result) {
+				async onCrop(result) {
 					start_updating()
 					try {
 						const { compressImage } = await import('@youknown/img-wasm/src')
@@ -75,6 +76,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 						className="w-100% max-h-30vh min-h-40px rd-radius-m"
 						src={updating ? preview_cover : cover}
 						canPreview
+						alt="Cover"
 					/>
 					<Space className="[@media(hover:hover)]-group-hover-display-flex! display-none! absolute right-16px bottom-16px">
 						<Upload

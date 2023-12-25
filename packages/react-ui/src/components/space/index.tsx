@@ -47,5 +47,4 @@ const Space = (props: SpaceProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	)
 }
 Space.displayName = 'Space'
-const RefSpace = forwardRef(Space)
-export default RefSpace
+export default forwardRef(Space)

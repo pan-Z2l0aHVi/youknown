@@ -43,5 +43,4 @@ const Card = (props: CardProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	)
 }
 Card.displayName = 'Card'
-const RefCard = forwardRef(Card)
-export default RefCard
+export default forwardRef(Card)

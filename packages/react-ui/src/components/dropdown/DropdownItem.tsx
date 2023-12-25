@@ -59,5 +59,4 @@ const DropdownItem = (props: DropdownItemProps, ref: ForwardedRef<HTMLDivElement
 	)
 }
 DropdownItem.displayName = 'DropdownItem'
-const RefDropdownItem = forwardRef(DropdownItem)
-export default RefDropdownItem
+export default forwardRef(DropdownItem)

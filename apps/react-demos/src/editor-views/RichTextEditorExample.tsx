@@ -12,6 +12,7 @@ import {
 	Image,
 	Italic,
 	Link,
+	loadLanguages,
 	OrderedList,
 	RTE,
 	Strike,
@@ -67,7 +68,6 @@ export default () => {
 
 	useEffect(() => {
 		;(async () => {
-			const { loadLanguages } = await import('@youknown/react-rte/src')
 			loadLanguages()
 		})()
 	}, [])

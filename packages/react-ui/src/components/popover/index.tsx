@@ -40,7 +40,7 @@ const Popover = (props: PopoverProps, propRef: ForwardedRef<HTMLElement>) => {
 			? cloneElement(child, {
 					...pick(rest, ...EventsByTriggerNeed),
 					...pickDataAttrs(rest)
-			  })
+				})
 			: child
 	)
 
@@ -70,5 +70,4 @@ const Popover = (props: PopoverProps, propRef: ForwardedRef<HTMLElement>) => {
 }
 Popover.displayName = 'Popover'
 
-const RefPopover = forwardRef(Popover)
-export default RefPopover
+export default forwardRef(Popover)

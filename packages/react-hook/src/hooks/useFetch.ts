@@ -1,7 +1,7 @@
 import { DependencyList, useEffect, useRef, useState } from 'react'
 
-import { useEvent } from './useEvent'
 import { useCreation } from './useCreation'
+import { useEvent } from './useEvent'
 
 export interface FetchOptions<T, S> {
 	initialData?: T

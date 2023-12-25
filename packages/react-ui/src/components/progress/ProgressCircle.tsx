@@ -65,5 +65,4 @@ const ProgressCircle = (props: ProgressCircleProps, propRef: ForwardedRef<HTMLDi
 	)
 }
 ProgressCircle.displayName = 'ProgressCircle'
-const RefProgressCircle = forwardRef(ProgressCircle)
-export default RefProgressCircle
+export default forwardRef(ProgressCircle)

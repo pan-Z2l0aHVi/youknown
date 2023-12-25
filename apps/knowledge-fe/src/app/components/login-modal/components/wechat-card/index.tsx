@@ -74,6 +74,7 @@ export default function WeChatCard() {
 							src={qrcode_url}
 							onLoad={stop_loading}
 							onError={stop_loading}
+							alt="WeChat QR code"
 						/>
 					)}
 				</Loading>

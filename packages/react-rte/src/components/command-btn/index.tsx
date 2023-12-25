@@ -54,5 +54,4 @@ function CommandBtn(props: CommandBtnProps, ref: ForwardedRef<HTMLButtonElement>
 	)
 }
 CommandBtn.displayName = 'CommandBtn'
-const RefCommandBtn = forwardRef(CommandBtn)
-export default RefCommandBtn
+export default forwardRef(CommandBtn)

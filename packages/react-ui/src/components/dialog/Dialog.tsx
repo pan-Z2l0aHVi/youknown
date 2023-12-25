@@ -90,7 +90,7 @@ const Dialog: FC<DialogProps> = props => {
 					) : (
 						closeIcon
 					)}
-					<div className={`${prefixCls}-content`}>{children}</div>
+					{children}
 				</Card>
 			</Motion.Zoom>
 		</Overlay>

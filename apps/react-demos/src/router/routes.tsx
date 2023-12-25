@@ -103,6 +103,11 @@ export const componentRoutes = [
 		element: createElement(lazy(() => import('@/ui-views/SelectExample')))
 	},
 	{
+		name: 'Slider',
+		path: 'slider',
+		element: createElement(lazy(() => import('@/ui-views/SliderExample')))
+	},
+	{
 		name: 'Toast',
 		path: 'toast',
 		element: createElement(lazy(() => import('@/ui-views/ToastExample')))

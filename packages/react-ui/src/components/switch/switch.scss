@@ -10,7 +10,7 @@ $prefix: '#{$ui-prefix}-switch';
 	display: inline-block;
 	background-color: $bg-3;
 	border-radius: $round;
-	transition: all $duration-n;
+	transition: all $duration-f;
 
 	&::after {
 		content: '';

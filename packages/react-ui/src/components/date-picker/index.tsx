@@ -183,5 +183,4 @@ const DatePicker = (props: DatePickerProps, ref: ForwardedRef<HTMLButtonElement>
 	)
 }
 DatePicker.displayName = 'DatePicker'
-const RefDatePicker = forwardRef(DatePicker)
-export default RefDatePicker
+export default forwardRef(DatePicker)

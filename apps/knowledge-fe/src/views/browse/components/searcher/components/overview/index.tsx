@@ -16,6 +16,7 @@ export default function Overview(props: OverviewProps) {
 					className="w-144px h-144px rd-radius-m shadow-shadow-l b-1 b-solid b-bd-line"
 					src={selection.cover}
 					canPreview
+					alt="Cover"
 				/>
 			) : (
 				<div className="flex items-center justify-center w-144px h-144px rd-radius-m shadow-shadow-l b-1 b-solid b-bd-line bg-bg-2">

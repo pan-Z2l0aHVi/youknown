@@ -144,5 +144,4 @@ const Tabs = <T extends string | number>(props: TabsProps<T>, propRef: Forwarded
 }
 Tabs.displayName = 'Tabs'
 
-const RefTabs = forwardRef(Tabs)
-export default RefTabs
+export default forwardRef(Tabs)

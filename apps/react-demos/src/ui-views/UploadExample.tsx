@@ -53,7 +53,7 @@ export default () => {
 											{file.url}
 										</li>
 									)
-							  })}
+								})}
 					</ul>
 				</Upload>
 			</Space>

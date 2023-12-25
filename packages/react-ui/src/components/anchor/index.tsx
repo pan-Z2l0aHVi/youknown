@@ -134,5 +134,4 @@ const Anchor = (props: AnchorProps, ref: ForwardedRef<HTMLUListElement>) => {
 
 Anchor.displayName = 'Anchor'
 
-const RefAnchor = forwardRef(Anchor)
-export default RefAnchor
+export default forwardRef(Anchor)

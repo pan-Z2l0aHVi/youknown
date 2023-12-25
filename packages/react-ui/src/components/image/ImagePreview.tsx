@@ -287,6 +287,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 							[`${prefixCls}-pic-loaded`]: !detailLoading
 						})}
 						src={src}
+						alt="Preview"
 						draggable={false}
 						style={{
 							transform: `scale(${scale}) rotate(${rotate}deg)`,

@@ -79,5 +79,4 @@ const Tag = (props: TagProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	)
 }
 Tag.displayName = 'Tag'
-const RefTag = forwardRef(Tag)
-export default RefTag
+export default forwardRef(Tag)

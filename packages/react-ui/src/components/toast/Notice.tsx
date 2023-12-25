@@ -86,5 +86,4 @@ const Notice = (props: NoticeProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	)
 }
 Notice.displayName = 'Notice'
-const RefNotice = forwardRef(Notice)
-export default RefNotice
+export default forwardRef(Notice)
