@@ -1,6 +1,6 @@
 import './dialog.scss'
 
-import { ComponentProps, FC, ReactNode } from 'react'
+import { ComponentProps, ForwardedRef, forwardRef, ReactNode } from 'react'
 
 import { cls, is } from '@youknown/utils/src'
 
@@ -27,7 +27,7 @@ export interface DialogProps extends ComponentProps<typeof Overlay> {
 	onOk?: () => void
 }
 
-const Dialog: FC<DialogProps> = props => {
+const Dialog = (props: DialogProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const prefixCls = `${UI_PREFIX}-dialog`
 	const {
 		children,
@@ -51,6 +51,7 @@ const Dialog: FC<DialogProps> = props => {
 
 	return (
 		<Overlay
+			ref={ref}
 			open={open}
 			className={overlayClassName}
 			overlayClosable={overlayClosable}
@@ -98,4 +99,4 @@ const Dialog: FC<DialogProps> = props => {
 }
 
 Dialog.displayName = 'Dialog'
-export default Dialog
+export default forwardRef(Dialog)

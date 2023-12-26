@@ -22,7 +22,8 @@ const Image = (props: ImageProps, propRef: ForwardedRef<HTMLImageElement>) => {
 		previewSrc = src,
 		canPreview = false,
 		toolbarVisible,
-		scaleRange,
+		minZoom,
+		maxZoom,
 		onDownloadSuccess,
 		onDownloadError,
 		onClick,
@@ -45,7 +46,8 @@ const Image = (props: ImageProps, propRef: ForwardedRef<HTMLImageElement>) => {
 			previewInstRef.current = preview({
 				url,
 				toolbarVisible,
-				scaleRange,
+				minZoom,
+				maxZoom,
 				onDownloadSuccess,
 				onDownloadError
 			})

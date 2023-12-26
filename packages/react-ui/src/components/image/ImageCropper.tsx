@@ -30,11 +30,11 @@ import { UI_PREFIX } from '../../constants'
 import { cropImageToBase64 } from '../../utils/image64'
 import Button from '../button'
 import Card from '../card'
+import CloseIcon from '../close-icon'
 import Overlay from '../overlay'
 import Slider from '../slider'
 import Space from '../space'
 import Tooltip from '../tooltip'
-import CloseIcon from '../close-icon'
 
 interface ImageCropperProps {
 	file: File

@@ -8,6 +8,10 @@ $prefix: '#{$ui-prefix}-image-preview';
 	display: flex;
 	justify-content: center;
 
+	&-overlay {
+		overflow: hidden !important;
+	}
+
 	&-loading-icon {
 		pointer-events: none;
 		position: absolute;
@@ -41,7 +45,7 @@ $prefix: '#{$ui-prefix}-image-preview';
 			0 0,
 			20px 20px;
 		background-size: 40px 40px;
-		transition: transform $duration-n ease-out;
+		transition: transform $duration-f;
 
 		&:active {
 			cursor: grabbing;

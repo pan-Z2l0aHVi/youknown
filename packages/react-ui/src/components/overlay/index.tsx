@@ -1,6 +1,6 @@
 import './overlay.scss'
 
-import { FC, HTMLAttributes } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
 import { createPortal } from 'react-dom'
 
 import { FloatingOverlay } from '@floating-ui/react'
@@ -22,7 +22,7 @@ interface OverlayProps extends HTMLAttributes<HTMLElement> {
 	afterClose?: () => void
 }
 
-const Overlay: FC<OverlayProps> = props => {
+const Overlay = (props: OverlayProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const {
 		children,
 		className,
@@ -54,6 +54,7 @@ const Overlay: FC<OverlayProps> = props => {
 			}}
 		>
 			<FloatingOverlay
+				ref={ref}
 				className={cls(className, prefixCls, {
 					[`${prefixCls}-align-center`]: alignCenter
 				})}
@@ -80,4 +81,4 @@ const Overlay: FC<OverlayProps> = props => {
 	return appendTo ? createPortal(ele, appendTo) : ele
 }
 Overlay.displayName = 'Overlay'
-export default Overlay
+export default forwardRef(Overlay)

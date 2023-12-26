@@ -8,7 +8,7 @@ export default () => {
 			<Divider />
 			<Image canPreview src={picSrc} width="300px" />
 			<Divider />
-			<Image canPreview src={picSrc} width="300px" scaleRange={[0.5, 1, 2]} />
+			<Image canPreview src={picSrc} width="300px" minZoom={0.5} maxZoom={2} />
 			<Divider />
 			<Image canPreview toolbarVisible={false} src={picSrc} width="300px" />
 			<Divider />

@@ -1,6 +1,6 @@
 import './image-preview.scss'
 
-import { MouseEventHandler, ReactEventHandler, useEffect, useRef, useState, WheelEventHandler } from 'react'
+import { MouseEventHandler, ReactEventHandler, useEffect, useRef, useState } from 'react'
 import {
 	TbDownload,
 	TbPhotoX,
@@ -12,7 +12,7 @@ import {
 	TbZoomOut
 } from 'react-icons/tb'
 
-import { useBoolean, useEvent, useLatestRef, useThrottle } from '@youknown/react-hook/src'
+import { useBoolean, useEvent, useLatestRef } from '@youknown/react-hook/src'
 import { cls, downloadFile } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
@@ -30,7 +30,9 @@ type Coordinate = {
 interface ImagePreviewProps {
 	src?: string
 	toolbarVisible?: boolean
-	scaleRange?: number[]
+	minZoom?: number
+	maxZoom?: number
+	zoomSpeed?: number
 	unmountOnExit?: boolean
 	downloadFileName?: string
 	open: boolean
@@ -46,7 +48,9 @@ const ImagePreview = (props: ImagePreviewProps) => {
 		src = '',
 		open = false,
 		toolbarVisible = true,
-		scaleRange = [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 5, 8],
+		minZoom = 1,
+		maxZoom = 8,
+		zoomSpeed = 1,
 		unmountOnExit = true,
 		downloadFileName = 'picture',
 		onClose,
@@ -59,11 +63,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 	const imgDetailRef = useRef<HTMLImageElement>(null)
 	const [detailError, setDetailError] = useState(false)
 
-	const scaleRangeRef = useLatestRef(scaleRange)
-	const originalScaleIndex = scaleRangeRef.current.indexOf(1)
-	const [scaleIndex, setScaleIndex] = useState(originalScaleIndex)
-	const scale = scaleRangeRef.current[scaleIndex]
-
+	const [zoom, setZoom] = useState(1)
 	const [rotate, setRotate] = useState(0)
 	const [offset, setOffset] = useState<Coordinate>(null)
 	const [ratioVisible, { setTrue: showRatio, setFalse: hideRatio }] = useBoolean(false)
@@ -102,27 +102,15 @@ const ImagePreview = (props: ImagePreviewProps) => {
 		document.addEventListener('mouseup', handleUp)
 	}
 
-	const updateScale = useEvent((mapState: (state: number) => number) => {
-		setScaleIndex(preScaleIndex => {
-			const nextScaleIndex = mapState(preScaleIndex)
-			if (nextScaleIndex >= 0 && nextScaleIndex < scaleRangeRef.current.length) {
-				return nextScaleIndex
-			}
-			return preScaleIndex
-		})
-	})
-
 	const handleReset = useEvent(() => {
 		if (!detailLoaded) return
 
-		updateScale(() => originalScaleIndex)
+		setZoom(1)
 		setRotate(0)
 		setOffset(null)
 	})
 
 	const handleShowRatio = () => {
-		if (!detailLoaded) return
-
 		showRatio()
 
 		const ONE_SECOND = 1000
@@ -132,17 +120,17 @@ const ImagePreview = (props: ImagePreviewProps) => {
 		}, ONE_SECOND)
 	}
 
-	const handleZoomIn = () => {
+	const updateZoom = (nextZoom: number) => {
 		if (!detailLoaded) return
-
-		updateScale(p => p + 1)
+		setZoom(Math.max(minZoom, Math.min(maxZoom, nextZoom)))
 		handleShowRatio()
 	}
-	const handleZoomOut = () => {
-		if (!detailLoaded) return
 
-		updateScale(p => p - 1)
-		handleShowRatio()
+	const handleZoomIn = () => {
+		updateZoom(zoom + (20 * zoomSpeed) / 200)
+	}
+	const handleZoomOut = () => {
+		updateZoom(zoom + (-20 * zoomSpeed) / 200)
 	}
 
 	const handleLeftRotate = () => {
@@ -165,14 +153,22 @@ const ImagePreview = (props: ImagePreviewProps) => {
 		}
 	}
 
-	const handleWheel: WheelEventHandler<HTMLElement> = useThrottle(event => {
+	const onWheel = useEvent((event: WheelEvent) => {
 		if (dragging) return
-		if (event.deltaY < 0) {
-			handleZoomOut()
-		} else {
-			handleZoomIn()
+		event.preventDefault()
+		updateZoom(zoom + (event.deltaY * zoomSpeed) / 200)
+	})
+
+	const overlayRef = useRef<HTMLDivElement>(null)
+	useEffect(() => {
+		const overlay = overlayRef.current
+		if (open && overlay) {
+			overlay.addEventListener('wheel', onWheel, { passive: false })
+			return () => {
+				overlay.removeEventListener('wheel', onWheel)
+			}
 		}
-	}, 100)
+	}, [onWheel, open])
 
 	// 无感知重置
 	const resetTimerRef = useRef(0)
@@ -188,7 +184,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 	}, [open, handleReset])
 
 	const prefixCls = `${UI_PREFIX}-image-preview`
-	const scalePercent = `${scale * 100}%`
+	const scalePercent = `${Math.round(zoom * 100)}%`
 
 	const toolbarList = [
 		{
@@ -262,7 +258,13 @@ const ImagePreview = (props: ImagePreviewProps) => {
 	)
 
 	return (
-		<Overlay unmountOnExit={unmountOnExit} open={open} onCancel={onClose} onWheel={handleWheel}>
+		<Overlay
+			ref={overlayRef}
+			className={`${prefixCls}-overlay`}
+			unmountOnExit={unmountOnExit}
+			open={open}
+			onCancel={onClose}
+		>
 			<div
 				className={`${prefixCls}`}
 				onClick={event => {
@@ -290,7 +292,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 						alt="Preview"
 						draggable={false}
 						style={{
-							transform: `scale(${scale}) rotate(${rotate}deg)`,
+							transform: `scale(${zoom}) rotate(${rotate}deg)`,
 							...(offset
 								? {
 										position: 'fixed',
