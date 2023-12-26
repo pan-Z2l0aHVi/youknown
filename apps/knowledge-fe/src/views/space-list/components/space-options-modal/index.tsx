@@ -27,7 +27,7 @@ export default function SpaceOptionsModal(props: SpaceOptionsModalProps) {
 					shadow
 					header={
 						<div className="flex justify-between p-[24px_24px_0]">
-							<span className="text-16px">{is_edit ? '管理空间' : '新建空间'}</span>
+							<span className="text-16px font-500">{is_edit ? '管理空间' : '新建空间'}</span>
 							<CloseIcon onClick={hide_modal} />
 						</div>
 					}

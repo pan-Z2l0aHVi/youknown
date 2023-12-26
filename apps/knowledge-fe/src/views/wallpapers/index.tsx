@@ -203,10 +203,7 @@ export default function Wallpapers() {
 	}
 
 	const wallpaper_list = (
-		<div
-			ref={wrapper_ref}
-			className={cls('grid gap-16px items-center justify-center', 'grid-cols-[repeat(auto-fill,320px)]')}
-		>
+		<div ref={wrapper_ref} className="m--8px text-center">
 			{wallpapers.map(wallpaper => (
 				<WallpaperCard
 					key={wallpaper.id}

@@ -146,7 +146,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 					shadow
 					header={
 						<div className="flex justify-between p-[24px_24px_0]">
-							<span className="text-16px">文档设置</span>
+							<span className="text-16px font-500">文档设置</span>
 							<CloseIcon onClick={hide_modal} />
 						</div>
 					}

@@ -21,7 +21,7 @@ export default function PreferencesModal() {
 					shadow
 					header={
 						<div className="flex justify-between p-[24px_24px_0]">
-							<span className="text-16px">偏好设置</span>
+							<span className="text-16px font-500">偏好设置</span>
 							<CloseIcon onClick={close_preferences_modal} />
 						</div>
 					}

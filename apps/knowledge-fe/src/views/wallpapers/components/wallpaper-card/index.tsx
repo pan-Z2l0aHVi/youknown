@@ -130,12 +130,24 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		)
 	}
 
+	const BASE_PIXEL = 320
+	let image_w: number
+	let image_h: number
+	const aspect_ratio = Number(wallpaper.ratio)
+	if (aspect_ratio > 1) {
+		image_w = BASE_PIXEL
+		image_h = BASE_PIXEL / aspect_ratio
+	} else {
+		image_w = BASE_PIXEL * aspect_ratio
+		image_h = BASE_PIXEL
+	}
+
 	return (
 		<>
 			<figure
 				className={cls(
-					'relative before:rd-radius-m',
-					'before:content-empty before:pointer-events-none before:absolute before:left-0 before:right-0 before:top-0 before:bottom-0',
+					'relative inline-block align-middle m-8px',
+					'before:content-empty before:rd-radius-m before:pointer-events-none before:absolute before:left-0 before:right-0 before:top-0 before:bottom-0',
 					{
 						'before:b-2 before:b-solid before:b-yellow': is_sketchy,
 						'before:b-2 before:b-solid before:b-red': is_nsfw
@@ -149,8 +161,8 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 				<Image
 					className={cls('rd-radius-m shadow-shadow-s select-none bg-bg-2 b-bd-line b-1')}
 					style={{
-						width: 320,
-						height: 320 * (1 / Number(wallpaper.ratio))
+						width: image_w,
+						height: image_h
 					}}
 					src={wallpaper.thumbs.original}
 					alt="Wallpaper thumb"
