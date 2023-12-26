@@ -7,7 +7,19 @@ import { useUIStore } from '@/stores'
 import { with_api } from '@/utils/request'
 import { validateMaxLength, validateRequired } from '@/utils/validators'
 import { useBoolean, useFetch, useUpdate } from '@youknown/react-hook/src'
-import { Button, Card, CloseIcon, Form, Input, Loading, Motion, Overlay, Radio, Space } from '@youknown/react-ui/src'
+import {
+	Button,
+	Card,
+	CloseIcon,
+	Form,
+	Input,
+	Loading,
+	Motion,
+	Overlay,
+	Radio,
+	Space,
+	Toast
+} from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 interface DocOptionsModalProps {
@@ -36,6 +48,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 		if (err) {
 			return
 		}
+		Toast.success({ content: '保存成功' })
 		on_updated?.(res)
 		hide_modal()
 	}

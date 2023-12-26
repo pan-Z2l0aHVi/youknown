@@ -13,6 +13,7 @@ import { with_api } from '@/utils/request'
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Image, Loading, Toast } from '@youknown/react-ui/src'
 import { QS } from '@youknown/utils/src'
+import { initHlsLangs } from '@/utils'
 
 export default function FeedDetail() {
 	const recording = useRecordStore(state => state.recording)
@@ -105,7 +106,9 @@ export default function FeedDetail() {
 	useEffect(() => {
 		const dom = rich_text_container_ref.current
 		if (dom && doc_content) {
-			hljs.highlightAll()
+			initHlsLangs().then(() => {
+				hljs.highlightAll()
+			})
 		}
 	}, [doc_content])
 

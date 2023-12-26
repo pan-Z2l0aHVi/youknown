@@ -7,6 +7,7 @@ import { get_local_settings, get_local_token } from '@/utils/local'
 import { report } from '@/utils/report'
 import { useAsyncEffect, useEvent, useMount } from '@youknown/react-hook/src'
 import { Toast } from '@youknown/react-ui/src'
+import { initHlsLangs } from '@/utils'
 
 export default function useInitApp() {
 	const set_hue = useUIStore(state => state.set_hue)
@@ -26,8 +27,7 @@ export default function useInitApp() {
 	})
 
 	useAsyncEffect(async () => {
-		const { loadLanguages } = await import('@youknown/react-rte/src')
-		loadLanguages()
+		initHlsLangs()
 	}, [])
 
 	useMount(() => {

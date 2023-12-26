@@ -54,3 +54,13 @@ export function parse_file_size_mb(file: File) {
 	const fileSizeInKB = parse_file_size_kb(file)
 	return fileSizeInKB / 1024
 }
+
+let langs_ready = false
+export async function initHlsLangs() {
+	if (langs_ready) {
+		return
+	}
+	const { loadLanguages } = await import('@youknown/react-rte/src')
+	await loadLanguages()
+	langs_ready = true
+}
