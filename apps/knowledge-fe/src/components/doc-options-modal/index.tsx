@@ -48,7 +48,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 		if (err) {
 			return
 		}
-		Toast.success({ content: '保存成功' })
+		Toast.success('保存成功')
 		on_updated?.(res)
 		hide_modal()
 	}

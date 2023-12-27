@@ -89,7 +89,7 @@ export default function DocCard(props: DocCardProps) {
 				}
 			})
 		)
-		Toast.success({ content: '已复制分享链接' })
+		Toast.success('已复制分享链接')
 	}
 
 	const ctx_menu = ContextMenu.useContextMenu()

@@ -39,10 +39,10 @@ export default function useInitApp() {
 
 	useMount(() => {
 		window.addEventListener('online', () => {
-			Toast.success({ content: '网络连接恢复' })
+			Toast.success('网络连接恢复')
 		})
 		window.addEventListener('offline', () => {
-			Toast.error({ content: '网络连接中断' })
+			Toast.error('网络连接中断')
 		})
 	})
 

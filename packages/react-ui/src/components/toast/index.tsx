@@ -2,7 +2,7 @@ import { ComponentProps, CSSProperties, MouseEvent, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { FaCircleCheck, FaCircleExclamation, FaCircleInfo, FaCircleXmark } from 'react-icons/fa6'
 
-import { uuid } from '@youknown/utils/src'
+import { is, uuid } from '@youknown/utils/src'
 
 import { render as renderReactRoot } from '../../utils/renderReactRoot'
 import Toast from './Toast'
@@ -68,28 +68,56 @@ const toast = (config: ToastConfig) => {
 	}
 }
 
-toast.info = (config: ToastConfig) => {
+toast.info = (arg: ToastConfig | string) => {
+	const icon = <FaCircleInfo color="#165dff" />
+	if (is.string(arg)) {
+		return toast({
+			icon,
+			content: arg
+		})
+	}
 	return toast({
-		icon: <FaCircleInfo color="#165dff" />,
-		...config
+		icon,
+		...arg
 	})
 }
-toast.success = (config: ToastConfig) => {
+toast.success = (arg: ToastConfig | string) => {
+	const icon = <FaCircleCheck color="#00b42a" />
+	if (is.string(arg)) {
+		return toast({
+			icon,
+			content: arg
+		})
+	}
 	return toast({
-		icon: <FaCircleCheck color="#00b42a" />,
-		...config
+		icon,
+		...arg
 	})
 }
-toast.warning = (config: ToastConfig) => {
+toast.warning = (arg: ToastConfig | string) => {
+	const icon = <FaCircleExclamation color="#ff7d00" />
+	if (is.string(arg)) {
+		return toast({
+			icon,
+			content: arg
+		})
+	}
 	return toast({
-		icon: <FaCircleExclamation color="#ff7d00" />,
-		...config
+		icon,
+		...arg
 	})
 }
-toast.error = (config: ToastConfig) => {
+toast.error = (arg: ToastConfig | string) => {
+	const icon = <FaCircleXmark color="#f53f3f" />
+	if (is.string(arg)) {
+		return toast({
+			icon,
+			content: arg
+		})
+	}
 	return toast({
-		icon: <FaCircleXmark color="#f53f3f" />,
-		...config
+		icon,
+		...arg
 	})
 }
 

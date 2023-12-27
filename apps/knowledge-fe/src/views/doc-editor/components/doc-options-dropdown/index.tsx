@@ -61,7 +61,7 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 				}
 			})
 		)
-		Toast.success({ content: '已复制分享链接' })
+		Toast.success('已复制分享链接')
 	}
 
 	return (

@@ -76,7 +76,7 @@ export default function FeedCard(props: FeedCardProps) {
 				onClick={go_feed_detail}
 				onContextMenu={ctx_menu.onContextMenu}
 			>
-				<Image className="w-136px h-100%" src={feed.cover} alt="Cover" />
+				<Image className="w-136px h-100%" loading="lazy" src={feed.cover} alt="Cover" />
 				<div className="flex-1 flex flex-col justify-between w-0 h-100% p-[16px]">
 					<div>
 						<div className="flex items-center">

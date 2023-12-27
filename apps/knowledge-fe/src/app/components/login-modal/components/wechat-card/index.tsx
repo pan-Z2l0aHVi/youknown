@@ -39,7 +39,7 @@ export default function WeChatCard() {
 					login()
 					set_profile({ ...rest })
 					close_login_modal()
-					Toast.success({ content: '登录成功' })
+					Toast.success('登录成功')
 				})
 				return
 			}

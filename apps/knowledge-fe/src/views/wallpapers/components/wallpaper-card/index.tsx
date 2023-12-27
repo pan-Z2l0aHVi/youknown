@@ -48,7 +48,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		if (err) {
 			return
 		}
-		Toast.success({ content: '收藏成功' })
+		Toast.success('收藏成功')
 		set_collected(true)
 	}
 	const remove_from_collection = async () => {
@@ -62,15 +62,13 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		if (err) {
 			return
 		}
-		Toast.success({ content: '取消收藏成功' })
+		Toast.success('取消收藏成功')
 		set_collected(false)
 		on_removed?.()
 	}
 
 	const toast_download_err = () => {
-		Toast.error({
-			content: '下载失败，请查看原图并右键保存'
-		})
+		Toast.error('下载失败，请查看原图并右键保存')
 	}
 	const handle_download = () => {
 		downloadFile(wallpaper.path, wallpaper.id).catch(() => {

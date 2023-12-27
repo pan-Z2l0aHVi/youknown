@@ -17,10 +17,10 @@ export default function GithubCard() {
 				login()
 				fetch_profile()
 				close_login_modal()
-				Toast.success({ content: '登录成功' })
+				Toast.success('登录成功')
 			})
 			.catch(() => {
-				Toast.error({ content: '登录失败' })
+				Toast.error('登录失败')
 			})
 	}
 

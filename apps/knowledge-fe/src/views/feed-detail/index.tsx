@@ -67,7 +67,7 @@ export default function FeedDetail() {
 		if (err) {
 			return
 		}
-		Toast.success({ content: '收藏成功' })
+		Toast.success('收藏成功')
 		set_detail(p => (p ? { ...p, collected: true } : p))
 	}
 	const handle_cancel_collect_feed = async () => {
@@ -83,7 +83,7 @@ export default function FeedDetail() {
 		if (err) {
 			return
 		}
-		Toast.success({ content: '取消收藏成功' })
+		Toast.success('取消收藏成功')
 		set_detail(p => (p ? { ...p, collected: false } : p))
 	}
 

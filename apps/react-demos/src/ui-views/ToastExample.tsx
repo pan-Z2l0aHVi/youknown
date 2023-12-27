@@ -33,36 +33,28 @@ export default () => {
 			<Space>
 				<Button
 					onClick={() => {
-						Toast.info({
-							content: 'Info'
-						})
+						Toast.info('Info')
 					}}
 				>
 					Info
 				</Button>
 				<Button
 					onClick={() => {
-						Toast.success({
-							content: 'Success'
-						})
+						Toast.success('Success')
 					}}
 				>
 					Success
 				</Button>
 				<Button
 					onClick={() => {
-						Toast.warning({
-							content: 'Warning'
-						})
+						Toast.warning('Warning')
 					}}
 				>
 					Warning
 				</Button>
 				<Button
 					onClick={() => {
-						Toast.error({
-							content: 'Error'
-						})
+						Toast.error('Error')
 					}}
 				>
 					Error

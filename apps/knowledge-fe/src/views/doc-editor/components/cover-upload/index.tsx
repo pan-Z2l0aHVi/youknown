@@ -51,13 +51,13 @@ export default function CoverUpload(props: CoverUploadProps) {
 								})
 							},
 							error(err) {
-								Toast.error({ content: '图片上传失败' })
+								Toast.error('图片上传失败')
 								stop_updating()
 								reject(err)
 							}
 						})
 					} catch (err) {
-						Toast.error({ content: '图片上传失败' })
+						Toast.error('图片上传失败')
 						stop_updating()
 						reject(err)
 					}

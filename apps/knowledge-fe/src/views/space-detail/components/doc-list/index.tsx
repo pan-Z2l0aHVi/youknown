@@ -104,7 +104,7 @@ export default function DocList(props: DocListProps) {
 		if (err) {
 			return
 		}
-		Toast.success({ content: '创建文档成功' })
+		Toast.success('创建文档成功')
 		navigate(
 			QS.stringify({
 				base: `editor`,

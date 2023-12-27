@@ -85,12 +85,12 @@ export default function Doc() {
 											})
 										},
 										error(err) {
-											Toast.error({ content: '上传图片失败' })
+											Toast.error('上传图片失败')
 											reject(err)
 										}
 									})
 								} catch (err) {
-									Toast.error({ content: '上传图片失败' })
+									Toast.error('上传图片失败')
 									reject(err)
 								}
 							}
@@ -157,9 +157,7 @@ export default function Doc() {
 		],
 		refreshDeps: [doc_id],
 		onError(err: NetFetchError) {
-			Toast.error({
-				content: err.cause.msg
-			})
+			Toast.error(err.cause.msg)
 		}
 	})
 
@@ -200,13 +198,13 @@ export default function Doc() {
 		set_doc_info(res)
 		editor.commands.setContent(res.content)
 		record_update_doc(res)
-		Toast.success({ content: '更新成功' })
+		Toast.success('更新成功')
 	}
 
 	const update_doc_title = async () => {
 		blur_title()
 		if (!title_val) {
-			Toast.warning({ content: '标题不能为空' })
+			Toast.warning('标题不能为空')
 			set_title_val(doc_title)
 			return
 		}
@@ -223,7 +221,7 @@ export default function Doc() {
 			return
 		}
 		set_doc_info(res)
-		Toast.success({ content: '标题更新成功' })
+		Toast.success('标题更新成功')
 	}
 
 	const recovery_doc = (doc_content: string) => {
@@ -246,27 +244,21 @@ export default function Doc() {
 			return
 		}
 		set_doc_info(res)
-		Toast.success({ content: is_public ? '发布成功' : '已取消发布' })
+		Toast.success(is_public ? '发布成功' : '已取消发布')
 	}
 
 	const on_export_pdf = () => {
 		export_pdf(editor.getHTML(), doc_info?.title + '.pdf')
 			.then(() => {
-				Toast.success({
-					content: '导出PDF完成'
-				})
+				Toast.success('导出PDF完成')
 			})
 			.catch(() => {
-				Toast.error({
-					content: '导出PDF失败'
-				})
+				Toast.error('导出PDF失败')
 			})
 	}
 	const on_export_html = () => {
 		export_html(editor.getHTML(), doc_info?.title + '.html')
-		Toast.success({
-			content: '导出HTML完成'
-		})
+		Toast.success('导出HTML完成')
 	}
 
 	const doc_tips = (

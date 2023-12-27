@@ -30,7 +30,7 @@ export default function UserCard(props: UserCardProps) {
 		if (err) {
 			return
 		}
-		Toast.success({ content: '取消关注成功' })
+		Toast.success('取消关注成功')
 		on_removed?.()
 	}
 

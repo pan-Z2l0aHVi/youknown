@@ -38,7 +38,7 @@ export const net = Net.create({
 		await next()
 
 		if (ctx.err) {
-			Toast.error({ content: '无法连接到服务器，请检查网络连接' })
+			Toast.error('无法连接到服务器，请检查网络连接')
 			return
 		}
 		switch (ctx.data?.code) {
@@ -49,18 +49,14 @@ export const net = Net.create({
 			case B_CODE.NOT_AUTH:
 				ctx.err = new NetFetchError(ctx.data)
 				useUserStore.getState().do_logout()
-				Toast.error({
-					content: '身份验证失效，请重新登录'
-				})
+				Toast.error('身份验证失效，请重新登录')
 				useModalStore.getState().open_login_modal()
 				break
 
 			default:
 				ctx.err = new NetFetchError(ctx.data)
 				if (!silent && ctx.data.msg) {
-					Toast.error({
-						content: ctx.data.msg
-					})
+					Toast.error(ctx.data.msg)
 				}
 				break
 		}

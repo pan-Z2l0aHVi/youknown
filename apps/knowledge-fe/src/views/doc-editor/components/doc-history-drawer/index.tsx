@@ -7,7 +7,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { get_doc_drafts } from '@/apis/doc'
 import { useUIStore } from '@/stores'
 import { useInfinity } from '@youknown/react-hook/src'
-import { Button, Drawer, Loading, Select } from '@youknown/react-ui/src'
+import { Button, Drawer, Select } from '@youknown/react-ui/src'
 import { cls, is } from '@youknown/utils/src'
 
 interface DocHistoryDrawerProps {
@@ -34,7 +34,6 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 	}
 	const {
 		noMore: no_more,
-		loading,
 		data: drafts,
 		page,
 		pageSize: page_size,
@@ -87,44 +86,42 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 			onCancel={on_close}
 			placement="right"
 		>
-			<Loading className="w-100%!" spinning={loading}>
-				<div className="sticky top-0 z-4 flex items-center justify-between p-[16px_24px] bg-bg-0 b-b-solid b-bd-line b-b-1">
-					<div className="flex items-center">
-						<span>当前版本</span>
-						<span className="mr-8px ml-8px color-text-3">与</span>
-						<Select
-							className="w-200px!"
-							noMore={no_more}
-							value={selection}
-							onChange={val => {
-								if (!is.array(val)) {
-									set_selection(val)
-								}
-							}}
-							menuList={options}
-							placeholder="请选择历史"
-							onLoad={load_more}
-						/>
-						<span className="ml-8px color-text-3">对比</span>
-					</div>
-
-					<Button
-						disabled={!selected_draft_content}
-						onClick={() => {
-							on_close()
-							on_recovery(selected_draft_content)
+			<div className="sticky top-0 z-4 flex items-center justify-between p-[16px_24px] bg-bg-0 b-b-solid b-bd-line b-b-1">
+				<div className="flex items-center">
+					<span>当前版本</span>
+					<span className="mr-8px ml-8px color-text-3">与</span>
+					<Select
+						className="w-200px!"
+						noMore={no_more}
+						value={selection}
+						onChange={val => {
+							if (!is.array(val)) {
+								set_selection(val)
+							}
 						}}
-					>
-						应用此版本
-					</Button>
+						menuList={options}
+						placeholder="请选择历史"
+						onLoad={load_more}
+					/>
+					<span className="ml-8px color-text-3">对比</span>
 				</div>
 
-				<div className="p-[0_16px_32px_16px]">
-					{selected_draft_content && (
-						<div className="rich-text-container" dangerouslySetInnerHTML={{ __html: diff_html }}></div>
-					)}
-				</div>
-			</Loading>
+				<Button
+					disabled={!selected_draft_content}
+					onClick={() => {
+						on_close()
+						on_recovery(selected_draft_content)
+					}}
+				>
+					应用此版本
+				</Button>
+			</div>
+
+			<div className="p-[0_16px_32px_16px]">
+				{selected_draft_content && (
+					<div className="rich-text-container" dangerouslySetInnerHTML={{ __html: diff_html }}></div>
+				)}
+			</div>
 		</Drawer>
 	)
 }

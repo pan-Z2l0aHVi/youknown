@@ -25,7 +25,7 @@ export default function SpaceList() {
 		if (err) {
 			return
 		}
-		Toast.success({ content: '保存成功' })
+		Toast.success('保存成功')
 		hide_options_modal()
 	}
 

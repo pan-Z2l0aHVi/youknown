@@ -51,12 +51,12 @@ export default function UserCenter() {
 								set_updating_avatar(url)
 							},
 							error(err) {
-								Toast.error({ content: '图片上传失败' })
+								Toast.error('图片上传失败')
 								reject(err)
 							}
 						})
 					} catch (err) {
-						Toast.error({ content: '图片上传失败' })
+						Toast.error('图片上传失败')
 						reject(err)
 					}
 				}
@@ -84,7 +84,7 @@ export default function UserCenter() {
 		if (err) {
 			return
 		}
-		Toast.success({ content: '个人资料已更新' })
+		Toast.success('个人资料已更新')
 		set_profile(new_profile)
 		stop_edit()
 	}
@@ -106,7 +106,7 @@ export default function UserCenter() {
 			return
 		}
 		set_follow_loading(false)
-		Toast.success({ content: '关注成功' })
+		Toast.success('关注成功')
 		set_user_info(p => (p ? { ...p, collected: true } : p))
 	}
 
@@ -127,7 +127,7 @@ export default function UserCenter() {
 		if (err) {
 			return
 		}
-		Toast.success({ content: '取消关注成功' })
+		Toast.success('取消关注成功')
 		set_user_info(p => (p ? { ...p, collected: false } : p))
 	}
 
