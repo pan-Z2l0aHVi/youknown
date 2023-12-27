@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { TbCloudCheck } from 'react-icons/tb'
+import { TbCloudCheck, TbWorld, TbWorldOff } from 'react-icons/tb'
 import { useSearchParams } from 'react-router-dom'
 
 import { Doc, get_doc_drafts, get_doc_info, update_doc, update_doc_draft } from '@/apis/doc'
@@ -32,7 +32,7 @@ import {
 	TextColor,
 	Underline
 } from '@youknown/react-rte/src'
-import { Button, Image as ImageUI, Input, Loading, Space, Toast } from '@youknown/react-ui/src'
+import { Button, Image as ImageUI, Input, Loading, Space, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import CoverUpload from './components/cover-upload'
@@ -48,6 +48,7 @@ export default function Doc() {
 	const [title_focus, { setTrue: focus_title, setFalse: blur_title }] = useBoolean(false)
 	const [title_val, set_title_val] = useState('')
 	const title_input_ref = useRef<HTMLInputElement>(null)
+	const [publishing, set_publishing] = useState(false)
 
 	const editor = RTE.use({
 		extensions: [
@@ -172,6 +173,9 @@ export default function Doc() {
 	if (!editor) return null
 	const text_len = editor.storage.characterCount.characters()
 
+	if (!doc_id) {
+		return null
+	}
 	const record_update_doc = (new_doc: Doc) => {
 		recording({
 			action: '更新',
@@ -230,8 +234,19 @@ export default function Doc() {
 		}
 	}
 
-	if (!doc_id) {
-		return null
+	const update_doc_public = async (is_public: boolean) => {
+		set_publishing(true)
+		const payload = {
+			doc_id,
+			public: is_public
+		}
+		const [err, res] = await with_api(update_doc)(payload)
+		set_publishing(false)
+		if (err) {
+			return
+		}
+		set_doc_info(res)
+		Toast.success({ content: is_public ? '发布成功' : '已取消发布' })
 	}
 
 	const on_export_pdf = () => {
@@ -268,32 +283,62 @@ export default function Doc() {
 		</div>
 	)
 
+	const is_doc_public = doc_info?.public ?? false
+	const public_icon = (
+		<Tooltip placement="bottom" title={is_doc_public ? '已发布，对所有人可见' : '仅自己可见'}>
+			<Button
+				className="mr-8px"
+				text
+				square
+				size="small"
+				loading={publishing}
+				onClick={() => update_doc_public(!is_doc_public)}
+			>
+				{is_doc_public ? (
+					<TbWorld className="color-text-2 text-16px" />
+				) : (
+					<TbWorldOff className="color-text-2 text-16px" />
+				)}
+			</Button>
+		</Tooltip>
+	)
+
+	const title_ele = (
+		<>
+			{title_focus ? (
+				<div className="flex-1">
+					<Input
+						ref={title_input_ref}
+						className="w-100%! max-w-400px"
+						maxLength={DOC_TITLE_MAX_LEN}
+						value={title_val}
+						onChange={set_title_val}
+						autoFocus
+						placeholder="请输入标题"
+						onBlur={update_doc_title}
+					/>
+				</div>
+			) : (
+				<div className="flex-1 w-0 truncate flex items-center h-24px">
+					<span
+						className="max-w-100% pl-8px pr-8px rd-radius-m color-text-2 [@media(hover:hover)]-hover-bg-hover cursor-default"
+						onClick={focus_title}
+					>
+						{doc_title}
+					</span>
+				</div>
+			)}
+		</>
+	)
+
 	return (
 		<>
 			<Header heading="文档" bordered="visible">
-				{title_focus ? (
-					<div className="flex-1 ml-24px mr-24px">
-						<Input
-							ref={title_input_ref}
-							className="w-100%! max-w-400px"
-							maxLength={DOC_TITLE_MAX_LEN}
-							value={title_val}
-							onChange={set_title_val}
-							autoFocus
-							placeholder="请输入标题"
-							onBlur={update_doc_title}
-						/>
-					</div>
-				) : (
-					<div className="flex-1 w-0 truncate ml-24px mr-24px">
-						<span
-							className="max-w-100% p-[4px_8px] rd-radius-m color-text-2 [@media(hover:hover)]-hover-bg-hover cursor-default"
-							onClick={focus_title}
-						>
-							{doc_title}
-						</span>
-					</div>
-				)}
+				<div className="flex-1 flex items-center ml-24px mr-24px">
+					{public_icon}
+					{title_ele}
+				</div>
+
 				<Space align="center">
 					{doc_tips}
 					<Button

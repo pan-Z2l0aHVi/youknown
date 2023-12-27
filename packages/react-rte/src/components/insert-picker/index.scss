@@ -1,10 +1,18 @@
 @use '../../styles/mixins.scss' as *;
 
 $prefix: '#{$ui-editor-prefix}-insert-picker';
-.#{$prefix}-label {
-	/* Empty block */
-}
+.#{$prefix} {
+	&-label {
+		/* Empty block */
+	}
 
-.#{$prefix}-dropdown {
-	min-width: 160px;
+	&-icon {
+		display: inline-block;
+		background-color: $color-primary;
+		border-radius: $round;
+	}
+
+	&-dropdown {
+		min-width: 160px;
+	}
 }

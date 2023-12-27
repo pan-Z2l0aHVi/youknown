@@ -1,7 +1,7 @@
 import './index.scss'
 
 import { createElement } from 'react'
-import { PiPlusCircleBold } from 'react-icons/pi'
+import { HiPlusSm } from 'react-icons/hi'
 
 import { useBoolean, useCreation } from '@youknown/react-hook/src'
 import { Divider, Dropdown } from '@youknown/react-ui/src'
@@ -79,7 +79,9 @@ export default function InsertPicker(props: InsertPickerProps) {
 				arrow
 				active={open}
 			>
-				<PiPlusCircleBold className={`${prefixCls}-icon`} />
+				<div className={`${prefixCls}-icon`}>
+					<HiPlusSm color="#fff" size={18} />
+				</div>
 			</CommandBtn>
 		</Dropdown>
 	)
