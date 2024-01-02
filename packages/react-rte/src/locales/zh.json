@@ -1,0 +1,64 @@
+{
+  "react_rte": {
+    "align": {
+      "left": "左对齐",
+      "right": "右对齐",
+      "center": "居中对齐",
+      "justify": "两端对齐",
+      "method": "对其方式"
+    },
+    "blockquote": "引用",
+    "bold": "粗体",
+    "bulletlist": "无序列表",
+    "clear_format": "清除格式",
+    "code": "代码",
+    "code_block": "代码块",
+    "divider": "分割线",
+    "heading": {
+      "1": "一级标题",
+      "2": "二级标题",
+      "3": "三级标题",
+      "4": "四级标题",
+      "text": "标题"
+    },
+    "image": {
+      "text": "图片"
+    },
+    "insert": "插入",
+    "italic": "斜体",
+    "link": {
+      "text": "链接",
+      "copy": "复制链接",
+      "copy_success": "复制链接成功",
+      "open": "打开链接",
+      "cancel": "取消链接",
+      "edit": "编辑链接"
+    },
+    "mark": "标记",
+    "no_bg": "无背景色",
+    "ok": "确认",
+    "orderlist": "有序列表",
+    "placeholder": {
+      "link": "输入链接"
+    },
+    "redo": "重做",
+    "restore": "恢复默认",
+    "strike": "删除线",
+    "table": {
+      "text": "表格",
+      "merge_cells": "合并单元格",
+      "split_cells": "拆分单元格",
+      "right_insert_col": "右侧插入列",
+      "left_insert_col": "左侧插入列",
+      "below_insert_row": "下方插入行",
+      "above_insert_row": "上方插入行",
+      "rm_col": "删除当前列",
+      "rm_row": "删除当前行",
+      "delete": "删除表格"
+    },
+    "text": "正文",
+    "text_color": "文字颜色",
+    "underline": "下划线",
+    "undo": "撤销"
+  }
+}

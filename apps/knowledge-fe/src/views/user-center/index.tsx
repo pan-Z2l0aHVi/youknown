@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { RiUserFollowLine, RiUserUnfollowLine } from 'react-icons/ri'
 import { TbUserCheck, TbUserEdit } from 'react-icons/tb'
-import { useSearchParams } from 'react-router-dom'
 
 import { follow_user, get_user_info, unfollow_user, update_profile } from '@/apis/user'
 import Header from '@/app/components/header'
@@ -14,7 +14,10 @@ import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import { AspectRatio, Button, Divider, Image, Input, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
+const { useSearchParams } = await import('react-router-dom')
+
 export default function UserCenter() {
+	const { t } = useTranslation()
 	const profile = useUserStore(state => state.profile)
 	const set_profile = useUserStore(state => state.set_profile)
 	const has_login = useUserStore(state => state.has_login)
@@ -36,7 +39,7 @@ export default function UserCenter() {
 		new Promise<string>((resolve, reject) => {
 			Image.crop({
 				file,
-				title: '设置头像',
+				title: t('heading.set_avatar'),
 				cropShape: 'round',
 				initialAspectRatio: 1,
 				aspectRatioFixed: true,
@@ -51,12 +54,12 @@ export default function UserCenter() {
 								set_updating_avatar(url)
 							},
 							error(err) {
-								Toast.error('图片上传失败')
+								Toast.error(t('upload.img.fail'))
 								reject(err)
 							}
 						})
 					} catch (err) {
-						Toast.error('图片上传失败')
+						Toast.error(t('upload.img.fail'))
 						reject(err)
 					}
 				}
@@ -84,7 +87,7 @@ export default function UserCenter() {
 		if (err) {
 			return
 		}
-		Toast.success('个人资料已更新')
+		Toast.success(t('profile.update'))
 		set_profile(new_profile)
 		stop_edit()
 	}
@@ -106,7 +109,7 @@ export default function UserCenter() {
 			return
 		}
 		set_follow_loading(false)
-		Toast.success('关注成功')
+		Toast.success(t('follow.ok.success'))
 		set_user_info(p => (p ? { ...p, collected: true } : p))
 	}
 
@@ -127,23 +130,23 @@ export default function UserCenter() {
 		if (err) {
 			return
 		}
-		Toast.success('取消关注成功')
+		Toast.success(t('follow.cancel.success'))
 		set_user_info(p => (p ? { ...p, collected: false } : p))
 	}
 
 	const header = (
-		<Header heading="个人主页">
+		<Header heading={t('page.title.personal')}>
 			{is_self &&
 				(is_edit ? (
 					<Space>
-						<Button onClick={stop_edit}>取消</Button>
+						<Button onClick={stop_edit}>{t('cancel.text')}</Button>
 						<Button primary prefixIcon={<TbUserCheck />} loading={saving} onClick={handle_save_profile}>
-							保存
+							{t('save.text')}
 						</Button>
 					</Space>
 				) : (
 					<Button prefixIcon={<TbUserEdit />} onClick={start_edit}>
-						编辑资料
+						{t('profile.edit')}
 					</Button>
 				))}
 		</Header>
@@ -174,7 +177,7 @@ export default function UserCenter() {
 					loading={unfollow_loading}
 					onClick={handle_unfollow_user}
 				>
-					取消关注
+					{t('follow.cancel.text')}
 				</Button>
 			) : (
 				<Button
@@ -184,7 +187,7 @@ export default function UserCenter() {
 					primary
 					onClick={handle_follow_user}
 				>
-					关注
+					{t('follow.text')}
 				</Button>
 			)}
 		</>
@@ -211,10 +214,11 @@ export default function UserCenter() {
 				{is_edit ? (
 					<Input className="mt-24px" value={nickname_val} onChange={set_nickname_val} />
 				) : (
-					<div className="text-22px line-height-32px font-600 mt-24px">{user_info?.nickname ?? '123123'}</div>
+					<div className="text-22px line-height-32px font-600 mt-24px">{user_info?.nickname ?? '--'}</div>
 				)}
 				<div className="text-12px color-text-3 mt-8px">
-					加入时间：{format_time(user_info?.creation_time ?? '')}
+					{t('time.join')}
+					{format_time(user_info?.creation_time ?? '')}
 				</div>
 				<Divider />
 			</div>

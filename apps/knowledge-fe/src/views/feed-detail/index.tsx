@@ -1,21 +1,24 @@
 import hljs from 'highlight.js/lib/core'
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { FiEdit3 } from 'react-icons/fi'
 import { LuHeart, LuHeartOff } from 'react-icons/lu'
-import { useSearchParams } from 'react-router-dom'
 
 import { Feed, get_feed_detail } from '@/apis/feed'
 import { cancel_collect_feed, collect_feed } from '@/apis/user'
 import Header from '@/app/components/header'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useModalStore, useRecordStore, useUserStore } from '@/stores'
+import { initHlsLangs } from '@/utils'
 import { with_api } from '@/utils/request'
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Image, Loading, Toast } from '@youknown/react-ui/src'
 import { QS } from '@youknown/utils/src'
-import { initHlsLangs } from '@/utils'
+
+const { useSearchParams } = await import('react-router-dom')
 
 export default function FeedDetail() {
+	const { t } = useTranslation()
 	const recording = useRecordStore(state => state.recording)
 	const profile = useUserStore(state => state.profile)
 	const has_login = useUserStore(state => state.has_login)
@@ -67,7 +70,7 @@ export default function FeedDetail() {
 		if (err) {
 			return
 		}
-		Toast.success('收藏成功')
+		Toast.success(t('collect.success'))
 		set_detail(p => (p ? { ...p, collected: true } : p))
 	}
 	const handle_cancel_collect_feed = async () => {
@@ -83,7 +86,7 @@ export default function FeedDetail() {
 		if (err) {
 			return
 		}
-		Toast.success('取消收藏成功')
+		Toast.success(t('collect.cancel.success'))
 		set_detail(p => (p ? { ...p, collected: false } : p))
 	}
 
@@ -117,7 +120,7 @@ export default function FeedDetail() {
 		<>
 			{is_owner ? (
 				<Button prefixIcon={<FiEdit3 />} onClick={go_doc_editor}>
-					编辑
+					{t('edit.text')}
 				</Button>
 			) : (
 				<>
@@ -127,11 +130,11 @@ export default function FeedDetail() {
 							loading={cancel_collect_loading}
 							onClick={handle_cancel_collect_feed}
 						>
-							<span className="color-danger">取消收藏</span>
+							<span className="color-danger">{t('collect.cancel.text')}</span>
 						</Button>
 					) : (
 						<Button prefixIcon={<LuHeart />} loading={collect_loading} onClick={handle_collect_feed}>
-							收藏
+							{t('collect.text')}
 						</Button>
 					)}
 				</>
@@ -141,7 +144,7 @@ export default function FeedDetail() {
 
 	return (
 		<>
-			<Header heading={detail?.title || '详情'}>{action_btn}</Header>
+			<Header heading={detail?.title || t('detail')}>{action_btn}</Header>
 
 			{loading ? (
 				<div className="flex justify-center items-center w-100% mt-40%">

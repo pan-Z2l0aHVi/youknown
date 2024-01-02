@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { RiWechatFill } from 'react-icons/ri'
 
 import { check_yd_login_status, get_yd_qrcode, login as login_api } from '@/apis/user'
@@ -9,7 +10,9 @@ import { useBoolean, useFetch, useHover, useUnmount } from '@youknown/react-hook
 import { Loading, Toast } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
+const POLLING_INTERVAL = 1500
 export default function WeChatCard() {
+	const { t } = useTranslation()
 	const close_login_modal = useModalStore(state => state.close_login_modal)
 	const login = useUserStore(state => state.login)
 	const has_user_login = useUserStore(state => state.has_login)
@@ -39,7 +42,7 @@ export default function WeChatCard() {
 					login()
 					set_profile({ ...rest })
 					close_login_modal()
-					Toast.success('登录成功')
+					Toast.success(t('login.success'))
 				})
 				return
 			}
@@ -48,7 +51,7 @@ export default function WeChatCard() {
 				if (!has_user_login) {
 					check_status()
 				}
-			}, 1500)
+			}, POLLING_INTERVAL)
 		}
 	})
 
@@ -81,7 +84,7 @@ export default function WeChatCard() {
 			) : (
 				<>
 					<RiWechatFill className="text-40px color-#55B837" />
-					<div className="color-text-2 mt-8px">微信登录</div>
+					<div className="color-text-2 mt-8px">{t('login.wechat')}</div>
 				</>
 			)}
 		</div>

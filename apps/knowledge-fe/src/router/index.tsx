@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+const { createBrowserRouter } = await import('react-router-dom')
 
 import App from '@/app'
 

@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa6'
 import { FiArrowRightCircle } from 'react-icons/fi'
 
@@ -16,7 +17,7 @@ interface FeedItemProps {
 export default function FeedItem(props: FeedItemProps) {
 	const { feed } = props
 	const { feed_id } = feed
-
+	const { t } = useTranslation()
 	const navigate = useTransitionNavigate()
 	const { praise_count, toggle_praise, praised } = useFeedPraise(feed)
 
@@ -96,7 +97,7 @@ export default function FeedItem(props: FeedItemProps) {
 			</div>
 
 			<div className="flex items-center pl-28px mb-16px">
-				<Tooltip title={praised ? '已点赞' : '点赞'} placement="bottom">
+				<Tooltip title={praised ? t('praise.ok') : t('praise.text')} placement="bottom">
 					<Button text circle onClick={toggle_praise}>
 						{praised ? (
 							<FaThumbsUp className="text-16px color-primary" />
@@ -113,7 +114,7 @@ export default function FeedItem(props: FeedItemProps) {
 						round
 						prefixIcon={<FiArrowRightCircle className="text-16px" />}
 					>
-						阅读全文
+						{t('view.full_text')}
 					</Button>
 				</TransitionLink>
 			</div>

@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
-import { matchRoutes, useLocation } from 'react-router-dom'
 
 import { routes } from '@/router/routes'
+
+const { matchRoutes, useLocation } = await import('react-router-dom')
 
 export default function useRouteMeta() {
 	const location = useLocation()

@@ -1,4 +1,4 @@
-import { Outlet, useParams } from 'react-router-dom'
+const { Outlet, useParams } = await import('react-router-dom')
 
 import SpaceList from '@/views/space-list'
 

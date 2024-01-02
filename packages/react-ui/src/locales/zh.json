@@ -1,0 +1,44 @@
+{
+  "react_ui": {
+    "tue": "二",
+    "close": "关闭",
+    "crop": {
+      "text": "重置"
+    },
+    "date": {
+      "today": "今天",
+      "year_month": "YYYY年 M月"
+    },
+    "download": {
+      "text": "下载"
+    },
+    "empty": {
+      "data": "暂无数据"
+    },
+    "fri": "五",
+    "mon": "一",
+    "narrower": "收窄",
+    "placeholder": {
+      "date": "请选择日期",
+      "select": "请选择"
+    },
+    "reset": {
+      "text": "重置"
+    },
+    "resize": "恢复初始尺寸",
+    "rotate_clockwise": "顺时针旋转",
+    "rotate_counterclockwise": "逆时针旋转",
+    "sat": "六",
+    "sun": "日",
+    "thu": "四",
+    "title": {
+      "crop": "裁剪图像"
+    },
+    "wed": "三",
+    "wider": "加宽",
+    "zoom": {
+      "in": "放大",
+      "out": "缩小"
+    }
+  }
+}

@@ -1,8 +1,10 @@
 import { useEffect, useTransition } from 'react'
-import { NavigateOptions, To, useNavigate } from 'react-router-dom'
 
 import { useUIStore } from '@/stores'
 import { useEvent, useUnmount } from '@youknown/react-hook/src'
+
+const { useNavigate } = await import('react-router-dom')
+import type { NavigateOptions, To } from 'react-router-dom'
 
 export default function useTransitionNavigate() {
 	const navigate = useNavigate()

@@ -11,6 +11,7 @@ import {
 	useRef,
 	useState
 } from 'react'
+import { useTranslation } from 'react-i18next'
 import { TbCheck, TbSelector } from 'react-icons/tb'
 
 import { useBoolean, useControllable, useEvent, useIntersection, useLatestRef } from '@youknown/react-hook/src'
@@ -45,12 +46,13 @@ interface SelectProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue
 }
 
 const Select = <T extends string | number>(props: SelectProps<T>) => {
+	const { t } = useTranslation()
 	const {
 		className,
 		multiple = false,
 		disabled = false,
 		filter = false,
-		placeholder = '请选择',
+		placeholder = t('react_ui.placeholder.select'),
 		allowClear = false,
 		noMore = true,
 		menuList = [],
@@ -213,7 +215,7 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 			}}
 		>
 			{is.array.empty(filteredOptions) ? (
-				<div className={`${prefixCls}-empty`}>暂无数据</div>
+				<div className={`${prefixCls}-empty`}>{t('react_ui.empty.data')}</div>
 			) : (
 				menuList.map((opt, index) => {
 					if (!checkOption(opt)) {

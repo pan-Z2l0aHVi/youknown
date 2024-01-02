@@ -1,4 +1,5 @@
 import { ForwardedRef, forwardRef } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { useUIStore } from '@/stores'
 import { cls } from '@youknown/utils/src'
@@ -7,7 +8,8 @@ interface MoreLoadingProps {
 	ending_text?: string
 }
 function NoMore(props: MoreLoadingProps, ref: ForwardedRef<HTMLDivElement>) {
-	const { ending_text = '没有更多内容了' } = props
+	const { t } = useTranslation()
+	const { ending_text = t('load.no_more') } = props
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	return (
 		<div

@@ -1,5 +1,6 @@
 import './index.scss'
 
+import { useTranslation } from 'react-i18next'
 import { TbTablePlus } from 'react-icons/tb'
 
 import { cls } from '@youknown/utils/src'
@@ -9,6 +10,7 @@ import CommandBtn from '../../../../../command-btn'
 
 export default function ColAfterAddBtn(props: ButtonProps) {
 	const { editor, tooltip = true } = props
+	const { t } = useTranslation()
 	const disabled = !editor.can().addColumnAfter()
 	if (disabled) {
 		return null
@@ -16,7 +18,7 @@ export default function ColAfterAddBtn(props: ButtonProps) {
 	const prefixCls = `${UI_EDITOR_PREFIX}-col-after-add-btn`
 	return (
 		<CommandBtn
-			tooltip="右侧插入行"
+			tooltip={t('react_rte.table.right_insert_col')}
 			tooltipDisabled={!tooltip}
 			className={cls(prefixCls)}
 			onCommand={() => {

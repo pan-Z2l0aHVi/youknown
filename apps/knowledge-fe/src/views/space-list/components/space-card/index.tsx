@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { BiBookmarkAlt } from 'react-icons/bi'
 import { FcFolder } from 'react-icons/fc'
 import { LuSettings2 } from 'react-icons/lu'
@@ -17,6 +18,7 @@ interface SpaceCardProps {
 }
 export default function SpaceCard(props: SpaceCardProps) {
 	const { info, on_edit } = props
+	const { t } = useTranslation()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const delete_spaces = useSpaceStore(state => state.delete_spaces)
 	const navigate = useTransitionNavigate()
@@ -39,15 +41,15 @@ export default function SpaceCard(props: SpaceCardProps) {
 	}
 	const show_delete_dialog = () => {
 		Dialog.confirm({
-			title: '删除空间',
-			content: `是否删除空间「${info.name}」`,
+			title: t('heading.delete_space'),
+			content: t('space.if_delete', { name: info.name }),
 			overlayClassName: cls(
 				'backdrop-blur-xl',
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
 			),
 			okDanger: true,
-			okText: '删除',
-			cancelText: '取消',
+			okText: t('delete.text'),
+			cancelText: t('cancel.text'),
 			async onOk() {
 				await delete_spaces(info.space_id)
 			}
@@ -59,22 +61,22 @@ export default function SpaceCard(props: SpaceCardProps) {
 	const get_dropdown_menu = (is_context_menu = false) => {
 		return (
 			<Dropdown.Menu
-				className="w-120px"
+				className="min-w-120px"
 				closeAfterItemClick
 				closeDropdown={is_context_menu ? ctx_menu.closeContextMenu : undefined}
 				onClick={e => e.stopPropagation()}
 			>
 				<Dropdown.Item prefix={<BiBookmarkAlt className="text-16px" />} onClick={handle_show_desc}>
-					查看简介
+					{t('view.introduction')}
 				</Dropdown.Item>
 				<Dropdown.Item prefix={<LuSettings2 className="text-16px" />} onClick={on_edit}>
-					管理空间
+					{t('space.manage')}
 				</Dropdown.Item>
 				<Dropdown.Item
 					prefix={<PiTrashSimpleBold className="color-danger text-16px" />}
 					onClick={show_delete_dialog}
 				>
-					<span className="color-danger">删除</span>
+					<span className="color-danger">{t('cancel.text')}</span>
 				</Dropdown.Item>
 			</Dropdown.Menu>
 		)

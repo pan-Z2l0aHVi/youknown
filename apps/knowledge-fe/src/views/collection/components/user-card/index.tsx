@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Profile, unfollow_user } from '@/apis/user'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
@@ -14,6 +15,7 @@ interface UserCardProps {
 }
 export default function UserCard(props: UserCardProps) {
 	const { className, user_info, on_removed } = props
+	const { t } = useTranslation()
 	const navigate = useTransitionNavigate()
 	const [unfollow_loading, set_unfollow_loading] = useState(false)
 
@@ -30,7 +32,7 @@ export default function UserCard(props: UserCardProps) {
 		if (err) {
 			return
 		}
-		Toast.success('取消关注成功')
+		Toast.success(t('follow.cancel.success'))
 		on_removed?.()
 	}
 
@@ -57,11 +59,11 @@ export default function UserCard(props: UserCardProps) {
 					handle_unfollow_user()
 				}}
 			>
-				<span className="text-12px">取消关注</span>
+				<span className="text-12px">{t('follow.cancel.text')}</span>
 			</Button>
 		) : (
 			<Button size="small" round>
-				<span className="text-12px">已关注</span>
+				<span className="text-12px">{t('follow.ok.text')}</span>
 			</Button>
 		)
 	)

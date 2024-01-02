@@ -1,0 +1,317 @@
+{
+  "and": "and",
+  "atleast": "At least",
+  "cancel": {
+    "text": "Cancel"
+  },
+  "clear": {
+    "text": "Clear",
+    "history": "Clear History"
+  },
+  "collect": {
+    "text": "Collect",
+    "success": "Collection successful",
+    "fail": "Collection failed",
+    "cancel": {
+      "text": "Uncollect",
+      "success": "Uncollection successful",
+      "fail": "Uncollection failed"
+    },
+    "feed": "Collected documents",
+    "wallpaper": "Collected wallpapers",
+    "empty": {
+      "feed": "No collected feeds",
+      "wallpaper": "No collected wallpapers"
+    },
+    "login_tip": "Log in to view your collections"
+  },
+  "compare": "Compare between",
+  "copy": {
+    "share_link": {
+      "success": "Share link copied"
+    }
+  },
+  "cover": {
+    "add": "Add Cover",
+    "change": "Change Cover",
+    "remove": "Remove Cover",
+    "none": "No cover"
+  },
+  "create": {
+    "text": "Create"
+  },
+  "delete": {
+    "text": "Delete",
+    "success": "Delete successful",
+    "fail": "Delete failed",
+    "batching": "Batch delete",
+    "from_history": "Delete from history"
+  },
+  "detail": "Details",
+  "doc": {
+    "public": "Published, visible to everyone",
+    "private": "Visible to yourself only",
+    "auto_save": "Auto-saved on",
+    "publish": {
+      "ok": "Published successfully",
+      "cancel": "Publication canceled"
+    },
+    "setting": "Document Settings",
+    "words_len": "Word Count",
+    "delete_tip": "Once you perform this operation, the data cannot be recovered. Are you sure you want to delete?",
+    "delete": {
+      "text": "Delete Document",
+      "success": "Document deleted successfully",
+      "fail": "Document deletion failed"
+    },
+    "create": {
+      "text": "Create Document",
+      "success": "Document created successfully",
+      "fail": "Document creation failed"
+    }
+  },
+  "download": {
+    "to": "Download as",
+    "fail_and_save": "Download failed, please view the original image and right-click to save",
+    "original_img": "Download Original Image"
+  },
+  "draft": {
+    "text": "Drafts"
+  },
+  "edit": {
+    "text": "Edit"
+  },
+  "export": {
+    "pdf": {
+      "success": "PDF exported successfully",
+      "fail": "PDF export failed"
+    },
+    "html": {
+      "success": "HTML exported successfully",
+      "fail": "HTML export failed"
+    }
+  },
+  "filter": {
+    "text": "Filter",
+    "tool": "Filter Tool"
+  },
+  "find": {
+    "empty": "No matching results",
+    "similar": "Find Similar"
+  },
+  "fold": "Collapse",
+  "follow": {
+    "text": "Follow",
+    "ok": {
+      "text": "Followed",
+      "success": "Followed successfully"
+    },
+    "cancel": {
+      "text": "Unfollow",
+      "success": "Unfollowed successfully"
+    },
+    "user": "Followed users",
+    "empty": {
+      "user": "No followed users"
+    }
+  },
+  "form": {
+    "cover": "Cover: ",
+    "title": "Title: ",
+    "feed_setting": "Feed Settings: ",
+    "public": "Not Public",
+    "private": "Public",
+    "creation_time": "Creation Date",
+    "update_time": "Update Date",
+    "edit_time": "Edit Date",
+    "order_by": "Sort By",
+    "order": "Order",
+    "keywords": "Keywords",
+    "new": "Newest first",
+    "old": "Oldest first",
+    "ai": "AI Works",
+    "no_ai": "Non-AI Works",
+    "normal": "Normal",
+    "anime": "Anime",
+    "people": "People",
+    "top_list": "Top List",
+    "views": "Views",
+    "relevance": "Relevance",
+    "date_added": "Date Added",
+    "random": "Random",
+    "desc": "Descending",
+    "asc": "Ascending"
+  },
+  "heading": {
+    "doc": "Document",
+    "doc_setting": "Document Settings",
+    "delete_doc": "Delete Document",
+    "cover": "Set Cover",
+    "batching_delete_doc": "Batch Delete Documents",
+    "knowledge_base": "My Knowledge Base",
+    "delete_space": "Delete Space",
+    "set_avatar": "Set Avatar",
+    "preference": "Preferences",
+    "user_login": "User Login",
+    "clear_history": "Clear history? Are you sure?"
+  },
+  "history": {
+    "clear_tip": "Once you perform this operation, all your history will be cleared from the current device."
+  },
+  "introduction": "Introduction",
+  "keyboard": {
+    "tip": "Support ↑↓ keys for selection, Enter key to open, double-click to open"
+  },
+  "latest": "Latest",
+  "limited": {
+    "portrait": "Portrait Only",
+    "landscape": "Landscape Only"
+  },
+  "load": {
+    "ing": "Loading...",
+    "no_more": "No more content"
+  },
+  "login": {
+    "shortcut": "L",
+    "text": "Log In",
+    "success": "Login successful",
+    "fail": "Login failed",
+    "auth": "Authorize",
+    "github": "Login with Github",
+    "wechat": "Login failed",
+    "no_auth": "Authentication expired, please log in again",
+    "immediately": "Log in immediately",
+    "go": "Go to login",
+    "exit": "Log out",
+    "ing": "Logging in..."
+  },
+  "mine": "My",
+  "network": {
+    "recovery": "Network connection recovered",
+    "abort": "Network connection aborted",
+    "error": "Unable to connect to the server, please check your network connection"
+  },
+  "page": {
+    "title": {
+      "browse": "Browse",
+      "library": "My Knowledge Base",
+      "wallpapers": "Wallpapers",
+      "history": "History",
+      "collection": "Collection",
+      "personal": "Personal Homepage"
+    }
+  },
+  "placeholder": {
+    "keywords": "Keywords",
+    "input": "Enter",
+    "title": "Enter a title",
+    "more": "Enter content / Invoke more",
+    "search": "Search",
+    "history": "Select from history",
+    "search_history": "Search history"
+  },
+  "praise": {
+    "text": "Like",
+    "ok": "Liked",
+    "cancel": "Unlike"
+  },
+  "profile": {
+    "update": "Profile updated",
+    "edit": "Edit Profile"
+  },
+  "reset": {
+    "text": "Reset",
+    "all": "Reset All"
+  },
+  "save": {
+    "text": "Save",
+    "success": "Save successful",
+    "fail": "Save failed"
+  },
+  "screen": {
+    "vertical": "Vertical",
+    "horizontal": "Horizontal"
+  },
+  "seen": "Viewed",
+  "select": {
+    "text": "Select",
+    "all": "Select All",
+    "cancel": "Cancel Selection",
+    "cancel_all": "Cancel All",
+    "choosing": "Selected: "
+  },
+  "setting": {
+    "text": "Settings",
+    "right_angle": "Right Angle",
+    "corners": "Rounded Corners",
+    "large_corners": "Large Rounded",
+    "ui_style": "UI Style",
+    "hue": "Accent Color",
+    "theme": "Theme",
+    "language": "Language",
+    "system": "System Default",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "share": {
+    "text": "Share"
+  },
+  "space": {
+    "name": "Space Name",
+    "create": "Create Space",
+    "empty_tip": "It's empty here, create your exclusive knowledge space now~",
+    "manage": "Manage Space",
+    "if_delete": "Delete space '{{name}}'?"
+  },
+  "time": {
+    "join": "Joined on: ",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "before_yesterday": "Day Before Yesterday",
+    "last_week": "Last Week",
+    "last_month": "Last Month",
+    "nearly_3_months": "Nearly 3 Months",
+    "nearly_half_a_year": "Nearly Half a Year",
+    "nearly_a_year": "Nearly a Year",
+    "tomorrow": "Tomorrow",
+    "year_date": "YYYY-MM-DD",
+    "month_date": "MM-DD"
+  },
+  "unfold": "Expand",
+  "unlimited": {
+    "resolution": "Unlimited Resolution",
+    "aspect_ratio": "Unlimited Aspect Ratio"
+  },
+  "unnamed": "Unnamed",
+  "update": {
+    "text": "Update",
+    "success": "Update successful",
+    "fail": "Update failed",
+    "title": {
+      "success": "Title updated successfully",
+      "fail": "Title update failed"
+    }
+  },
+  "upload": {
+    "img": {
+      "success": "Image uploaded successfully",
+      "fail": "Image upload failed"
+    }
+  },
+  "validate": {
+    "required": "Required",
+    "max_len": "Length cannot exceed {{max}} characters",
+    "letters_and_numbers": "Can only contain letters and numbers",
+    "phone": "Not a valid phone number",
+    "cover_required": "Cover is required when publishing publicly",
+    "title_required": "Title cannot be empty"
+  },
+  "version": {
+    "current": "current version",
+    "apply": "Apply this version"
+  },
+  "view": {
+    "introduction": "View Introduction",
+    "full_text": "Read Full"
+  }
+}

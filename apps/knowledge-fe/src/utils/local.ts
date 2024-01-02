@@ -1,10 +1,11 @@
+import { I18N_LANG, THEME } from '@/stores'
 import { storage } from '@youknown/utils/src'
 
-// Setting
 interface LocalSettings {
 	primary_color?: string
 	radius?: number[]
-	theme?: number
+	theme?: THEME
+	i18n_lang?: I18N_LANG
 }
 
 const SETTINGS_KEY = 'settings'

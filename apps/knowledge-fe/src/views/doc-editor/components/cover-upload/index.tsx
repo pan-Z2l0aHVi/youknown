@@ -1,4 +1,5 @@
 import { ComponentProps, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { PiTrashSimpleBold } from 'react-icons/pi'
 import { TbPhotoEdit, TbPhotoPlus } from 'react-icons/tb'
 
@@ -17,7 +18,7 @@ interface CoverUploadProps {
 }
 export default function CoverUpload(props: CoverUploadProps) {
 	const { cover = '', doc_id, on_updated } = props
-
+	const { t } = useTranslation()
 	const [file_list, set_file_list] = useState<UploadFiles>([])
 	const [updating, { setTrue: start_updating, setFalse: stop_updating }] = useBoolean(false)
 	const save_doc_cover = async (cover_url: string) => {
@@ -35,7 +36,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 		new Promise<string>(async (resolve, reject) => {
 			Image.crop({
 				file,
-				title: '设置封面',
+				title: t('heading.cover'),
 				initialAspectRatio: 16 / 9,
 				onCancel: reject,
 				async onCrop(result) {
@@ -51,13 +52,13 @@ export default function CoverUpload(props: CoverUploadProps) {
 								})
 							},
 							error(err) {
-								Toast.error('图片上传失败')
+								Toast.error(t('upload.img.fail'))
 								stop_updating()
 								reject(err)
 							}
 						})
 					} catch (err) {
-						Toast.error('图片上传失败')
+						Toast.error(t('upload.img.fail'))
 						stop_updating()
 						reject(err)
 					}
@@ -88,21 +89,21 @@ export default function CoverUpload(props: CoverUploadProps) {
 							onChange={set_file_list}
 						>
 							<Button
-								prefixIcon={<TbPhotoEdit />}
+								prefixIcon={<TbPhotoEdit className="text-16px" />}
 								onClick={() => {
 									upload_ref.current?.click()
 								}}
 							>
-								修改封面
+								{t('cover.change')}
 							</Button>
 						</Upload>
 						<Button
-							prefixIcon={<PiTrashSimpleBold className="color-danger" />}
+							prefixIcon={<PiTrashSimpleBold className="text-16px color-danger" />}
 							onClick={() => {
 								save_doc_cover('')
 							}}
 						>
-							<span className="color-danger">移除封面</span>
+							<span className="color-danger">{t('cover.remove')}</span>
 						</Button>
 					</Space>
 				</div>
@@ -110,7 +111,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 				<Upload accept={IMAGE_ACCEPT} headless action={upload_cover} value={file_list} onChange={set_file_list}>
 					<div className="flex items-center w-max p-[4px_12px] ml-16px bg-bg-2 rd-full color-text-2 [@media(hover:hover)]-hover-color-primary">
 						<TbPhotoPlus className="mr-8px text-16px" />
-						添加封面
+						{t('cover.add')}
 					</div>
 				</Upload>
 			)}

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { RiHistoryFill } from 'react-icons/ri'
 
 import { Feed } from '@/apis/feed'
@@ -9,6 +10,7 @@ interface OverviewProps {
 }
 export default function Overview(props: OverviewProps) {
 	const { selection } = props
+	const { t } = useTranslation()
 	return (
 		<>
 			{selection.cover ? (
@@ -20,7 +22,7 @@ export default function Overview(props: OverviewProps) {
 				/>
 			) : (
 				<div className="flex items-center justify-center w-144px h-144px rd-radius-m shadow-shadow-l b-1 b-solid b-bd-line bg-bg-2">
-					<span className="color-text-3 text-16px font-600">暂无封面</span>
+					<span className="color-text-3 text-16px font-600">{t('cover.none')}</span>
 				</div>
 			)}
 			<div className="w-100% mt-16px line-clamp-2 text-center text-16px font-600">{selection.title}</div>

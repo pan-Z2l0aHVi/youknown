@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 import { useUIStore } from '@/stores'
 import { Card, CloseIcon, Motion, Overlay } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
@@ -12,6 +14,7 @@ interface SpaceOptionsModalProps {
 }
 export default function SpaceOptionsModal(props: SpaceOptionsModalProps) {
 	const { open, hide_modal, space_id, on_save } = props
+	const { t } = useTranslation()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const is_edit = !!space_id
 
@@ -27,7 +30,9 @@ export default function SpaceOptionsModal(props: SpaceOptionsModalProps) {
 					shadow
 					header={
 						<div className="flex justify-between p-[24px_24px_0]">
-							<span className="text-16px font-500">{is_edit ? '管理空间' : '新建空间'}</span>
+							<span className="text-16px font-500">
+								{is_edit ? t('space.manage') : t('space.create')}
+							</span>
 							<CloseIcon onClick={hide_modal} />
 						</div>
 					}

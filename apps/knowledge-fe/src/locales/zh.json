@@ -1,0 +1,317 @@
+{
+  "and": "与",
+  "atleast": "至少",
+  "cancel": {
+    "text": "取消"
+  },
+  "clear": {
+    "text": "清除",
+    "history": "清除历史记录"
+  },
+  "collect": {
+    "text": "收藏",
+    "success": "收藏成功",
+    "fail": "收藏失败",
+    "cancel": {
+      "text": "取消收藏",
+      "success": "取消收藏成功",
+      "fail": "取消收藏失败"
+    },
+    "feed": "收藏的文档",
+    "wallpaper": "收藏的壁纸",
+    "empty": {
+      "feed": "没有收藏的动态",
+      "wallpaper": "没有收藏的壁纸"
+    },
+    "login_tip": "登录即可查看你的收藏"
+  },
+  "compare": "对比",
+  "copy": {
+    "share_link": {
+      "success": "已复制分享链接"
+    }
+  },
+  "cover": {
+    "add": "添加封面",
+    "change": "修改封面",
+    "remove": "移除封面",
+    "none": "暂无封面"
+  },
+  "create": {
+    "text": "创建"
+  },
+  "delete": {
+    "text": "删除",
+    "success": "删除成功",
+    "fail": "删除失败",
+    "batching": "批量删除",
+    "from_history": "从历史记录中删除"
+  },
+  "detail": "详情",
+  "doc": {
+    "public": "已发布，对所有人可见",
+    "private": "仅自己可见",
+    "auto_save": "自动保存于",
+    "publish": {
+      "ok": "发布成功",
+      "cancel": "已取消发布"
+    },
+    "setting": "文档设置",
+    "words_len": "正文字数",
+    "delete_tip": "一旦执行该操作数据将无法恢复，是否确认删除？",
+    "delete": {
+      "text": "删除文档",
+      "success": "删除文档成功",
+      "fail": "删除文档成功"
+    },
+    "create": {
+      "text": "创建文档",
+      "success": "创建文档成功",
+      "fail": "创建文档成功"
+    }
+  },
+  "download": {
+    "to": "下载为",
+    "fail_and_save": "下载失败，请查看原图并右键保存",
+    "original_img": "下载原图"
+  },
+  "draft": {
+    "text": "草稿箱"
+  },
+  "edit": {
+    "text": "编辑"
+  },
+  "export": {
+    "pdf": {
+      "success": "导出PDF成功",
+      "fail": "导出PDF失败"
+    },
+    "html": {
+      "success": "导出HTML成功",
+      "fail": "导出HTML失败"
+    }
+  },
+  "filter": {
+    "text": "筛选",
+    "tool": "筛选器"
+  },
+  "find": {
+    "empty": "未找到匹配的结果",
+    "similar": "查找相似"
+  },
+  "fold": "收起",
+  "follow": {
+    "text": "关注",
+    "ok": {
+      "text": "已关注",
+      "success": "关注成功"
+    },
+    "cancel": {
+      "text": "取消关注",
+      "success": "取消关注成功"
+    },
+    "user": "关注的用户",
+    "empty": {
+      "user": "没有关注的用户"
+    }
+  },
+  "form": {
+    "cover": "封面：",
+    "title": "标题：",
+    "feed_setting": "动态设置：",
+    "public": "不公开",
+    "private": "公开发布",
+    "creation_time": "创建日期",
+    "update_time": "更新日期",
+    "edit_time": "编辑日期",
+    "order_by": "排序方式",
+    "order": "顺序",
+    "keywords": "关键词",
+    "new": "最新的排在前",
+    "old": "最旧的的排在前",
+    "ai": "含AI作品",
+    "no_ai": "不含AI作品",
+    "normal": "寻常",
+    "anime": "二次元",
+    "people": "人物",
+    "top_list": "排行榜",
+    "views": "访问量",
+    "relevance": "相关程度",
+    "date_added": "最新",
+    "random": "随机",
+    "desc": "降序",
+    "asc": "升序"
+  },
+  "heading": {
+    "doc": "文档",
+    "doc_setting": "文档设置",
+    "delete_doc": "删除文档",
+    "cover": "设置封面",
+    "batching_delete_doc": "批量删除文档",
+    "knowledge_base": "我的知识库",
+    "delete_space": "删除空间",
+    "set_avatar": "设置头像",
+    "preference": "偏好设置",
+    "user_login": "用户登录",
+    "clear_history": "要清除历史记录吗？"
+  },
+  "history": {
+    "clear_tip": "一旦执行该操作，你的所有历史记录将从当前设备中清除。"
+  },
+  "introduction": "简介",
+  "keyboard": {
+    "tip": "支持 ↑↓ 键选择、Enter 键打开、双击打开"
+  },
+  "latest": "最新",
+  "limited": {
+    "portrait": "仅竖图",
+    "landscape": "仅横图"
+  },
+  "load": {
+    "ing": "加载中...",
+    "no_more": "没有更多内容了"
+  },
+  "login": {
+    "shortcut": "登录",
+    "text": "登录",
+    "success": "登录成功",
+    "fail": "登录失败",
+    "auth": "授权登录",
+    "github": "Github登录",
+    "wechat": "登录失败",
+    "no_auth": "身份验证失效，请重新登录",
+    "immediately": "立即登录",
+    "go": "去登录",
+    "exit": "退出登录",
+    "ing": "正在登录..."
+  },
+  "mine": "我的",
+  "network": {
+    "recovery": "网络连接恢复",
+    "abort": "网络连接中断",
+    "error": "无法连接到服务器，请检查网络连接"
+  },
+  "page": {
+    "title": {
+      "browse": "浏览",
+      "library": "我的知识库",
+      "wallpapers": "壁纸",
+      "history": "历史记录",
+      "collection": "收藏夹",
+      "personal": "个人主页"
+    }
+  },
+  "placeholder": {
+    "keywords": "关键词",
+    "input": "请输入",
+    "title": "请输入标题",
+    "more": "输入内容 / 唤起更多",
+    "search": "搜一搜",
+    "history": "请选择历史",
+    "search_history": "搜历史记录"
+  },
+  "praise": {
+    "text": "点赞",
+    "ok": "已点赞",
+    "cancel": "取消点赞"
+  },
+  "profile": {
+    "update": "个人资料已更新",
+    "edit": "编辑资料"
+  },
+  "reset": {
+    "text": "重置",
+    "all": "全部重置"
+  },
+  "save": {
+    "text": "保存",
+    "success": "保存成功",
+    "fail": "保存失败"
+  },
+  "screen": {
+    "vertical": "竖屏",
+    "horizontal": "横屏"
+  },
+  "seen": "看过",
+  "select": {
+    "text": "选择",
+    "all": "全选",
+    "cancel": "取消选择",
+    "cancel_all": "取消全选",
+    "choosing": "已选中："
+  },
+  "setting": {
+    "text": "设置",
+    "right_angle": "直角",
+    "corners": "圆角",
+    "large_corners": "大圆角",
+    "ui_style": "界面风格",
+    "hue": "强调色",
+    "theme": "主题",
+    "language": "语言",
+    "system": "系统默认",
+    "light": "浅色",
+    "dark": "深色"
+  },
+  "share": {
+    "text": "分享"
+  },
+  "space": {
+    "name": "空间名称",
+    "create": "新建空间",
+    "empty_tip": "空空如也，快来创建你的专属知识空间吧~",
+    "manage": "管理空间",
+    "if_delete": "是否删除空间「{{name}}」"
+  },
+  "time": {
+    "join": "加入时间：",
+    "today": "今天",
+    "yesterday": "昨天",
+    "before_yesterday": "前天",
+    "last_week": "上周",
+    "last_month": "上个月",
+    "nearly_3_months": "近三个月",
+    "nearly_half_a_year": "近半年",
+    "nearly_a_year": "近一年",
+    "tomorrow": "明天",
+    "year_date": "YYYY年MM月DD日",
+    "month_date": "MM月DD日"
+  },
+  "unfold": "展开",
+  "unlimited": {
+    "resolution": "分辨率不限",
+    "aspect_ratio": "宽高比不限"
+  },
+  "unnamed": "未命名",
+  "update": {
+    "text": "更新",
+    "success": "更新成功",
+    "fail": "更新失败",
+    "title": {
+      "success": "标题更新成功",
+      "fail": "标题更新失败"
+    }
+  },
+  "upload": {
+    "img": {
+      "success": "上传图片成功",
+      "fail": "上传图片失败"
+    }
+  },
+  "validate": {
+    "required": "必填项",
+    "max_len": "长度不能超过{{max}}字",
+    "letters_and_numbers": "只能包含字母和数字",
+    "phone": "不是有效的手机号码",
+    "cover_required": "公开发布时，封面必填",
+    "title_required": "标题不能为空"
+  },
+  "version": {
+    "current": "当前版本",
+    "apply": "应用此版本"
+  },
+  "view": {
+    "introduction": "查看简介",
+    "full_text": "阅读全文"
+  }
+}

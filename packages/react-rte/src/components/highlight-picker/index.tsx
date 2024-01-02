@@ -1,6 +1,7 @@
 import './index.scss'
 
 import { ComponentProps, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { BiSolidChevronDown } from 'react-icons/bi'
 import { RiMarkPenLine } from 'react-icons/ri'
 
@@ -14,6 +15,7 @@ import CommandBtn from '../command-btn'
 interface HighlightPickerProps extends ButtonProps, ComponentProps<typeof Popover> {}
 export default function HighlightPicker(props: HighlightPickerProps) {
 	const { editor, tooltip = true, trigger = 'click', ...rest } = omit(props, 'defaultOpen', 'open', 'onOpenChange')
+	const { t } = useTranslation()
 	const options = [
 		'#ffffff',
 		'#cccccc',
@@ -34,7 +36,6 @@ export default function HighlightPicker(props: HighlightPickerProps) {
 		'#245bdb',
 		'#6425d0'
 	]
-
 	const [inkColor, setInkColor] = useState('#faf594')
 	const [open, onOpenChange] = useControllable(props, {
 		defaultValue: false,
@@ -56,7 +57,7 @@ export default function HighlightPicker(props: HighlightPickerProps) {
 	const popContentEle = (
 		<div className={`${prefixCls}-popup`}>
 			<Button style={{ width: '100%' }} onClick={() => editor.chain().focus().unsetHighlight().run()}>
-				无背景色
+				{t('react_rte.no_bg')}
 			</Button>
 			<Divider />
 			<div className={`${prefixCls}-colors-wrapper`}>
@@ -77,7 +78,7 @@ export default function HighlightPicker(props: HighlightPickerProps) {
 	)
 
 	return (
-		<Tooltip disabled={!tooltip} placement="bottom" title="标记">
+		<Tooltip disabled={!tooltip} placement="bottom" title={t('react_rte.mark')}>
 			<div className={prefixCls}>
 				<CommandBtn
 					className={cls(`${prefixCls}-setter`)}

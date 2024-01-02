@@ -1,4 +1,5 @@
 import { useEffect, useState, useTransition } from 'react'
+import { useTranslation } from 'react-i18next'
 import { TbDotsVertical } from 'react-icons/tb'
 
 import TransitionLink from '@/components/transition-link'
@@ -16,6 +17,7 @@ const MIN_W = 160
 const MAX_W = 400
 
 export default function Sidebar() {
+	const { t } = useTranslation()
 	const local_expand = useCreation(() => storage.local.get<boolean>(EXPAND_KEY))
 	const local_width = useCreation(() => storage.local.get<number>(WIDTH_KEY))
 	const [expand, { setReverse: toggle_expand }] = useBoolean(local_expand ?? true)
@@ -115,7 +117,7 @@ export default function Sidebar() {
 			>
 				<My expand={expand} />
 
-				<Tooltip title={expand ? '收起' : '展开'} placement="right" spacing={20}>
+				<Tooltip title={expand ? t('fold') : t('unfold')} placement="right" spacing={20}>
 					<button
 						className="mt-16px border-0 bg-transparent w-44px h-32px flex items-center justify-center rd-radius-m
 					active-bg-secondary-active [@media(hover:hover)]-hover-not-active-bg-secondary-hover cursor-pointer text-16px color-text-1"

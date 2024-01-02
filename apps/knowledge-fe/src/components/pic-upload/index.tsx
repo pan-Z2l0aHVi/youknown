@@ -1,4 +1,5 @@
 import { ComponentProps, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { IMAGE_ACCEPT } from '@/consts'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
@@ -13,7 +14,7 @@ interface PicUploadProps {
 }
 export default function PicUpload(props: PicUploadProps) {
 	const { value = '', onChange, uploading, set_uploading } = props
-
+	const { t } = useTranslation()
 	const [progress, set_progress] = useState(0)
 	const [file_list, set_file_list] = useState<UploadFile>([])
 	const preview_url = file_list[file_list.length - 1]?.previewURL ?? ''
@@ -22,7 +23,7 @@ export default function PicUpload(props: PicUploadProps) {
 		new Promise<string>((resolve, reject) => {
 			Image.crop({
 				file,
-				title: '设置封面',
+				title: t('heading.cover'),
 				initialAspectRatio: 16 / 9,
 				onCancel: reject,
 				async onCrop(result) {

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { FcBusinessContact, FcDocument, FcPicture } from 'react-icons/fc'
 import { GoInbox } from 'react-icons/go'
 
@@ -28,6 +29,7 @@ function EmptyCollection(props: { text: string }) {
 }
 
 function FeedCollapsePanel() {
+	const { t } = useTranslation()
 	const { data: feed_list, mutate: set_feed_list, loading } = useFetch(get_collected_feed_list)
 	const empty_visible = !loading && feed_list?.length === 0
 	return (
@@ -47,12 +49,13 @@ function FeedCollapsePanel() {
 					}}
 				/>
 			))}
-			{empty_visible && <EmptyCollection text="没有收藏的动态" />}
+			{empty_visible && <EmptyCollection text={t('collect.empty.feed')} />}
 		</Loading>
 	)
 }
 
 function UserCollapsePanel() {
+	const { t } = useTranslation()
 	const { data: user_list, mutate: set_user_list, loading } = useFetch(get_followed_users)
 	const empty_visible = !loading && user_list?.length === 0
 	return (
@@ -72,18 +75,19 @@ function UserCollapsePanel() {
 					}}
 				/>
 			))}
-			{empty_visible && <EmptyCollection text="没有关注的用户" />}
+			{empty_visible && <EmptyCollection text={t('follow.empty.user')} />}
 		</Loading>
 	)
 }
 
 function WallpaperCollapsePanel() {
+	const { t } = useTranslation()
 	const { data: wallpaper_list, mutate: set_wallpaper_list, loading } = useFetch(get_collected_wallpaper_list)
 	const empty_visible = !loading && wallpaper_list?.length === 0
 	return (
 		<Loading
 			spinning={loading}
-			className={cls('w-100%! min-h-120px flex items-center flex-wrap p-[16px_0]', {
+			className={cls('w-100%! min-h-120px flex items-center flex-wrap p-[16px_0] m--8px', {
 				'justify-center': loading || empty_visible
 			})}
 		>
@@ -91,7 +95,6 @@ function WallpaperCollapsePanel() {
 				return (
 					<WallpaperCard
 						key={wallpaper.id}
-						className="mr-16px mb-16px"
 						wallpaper={wallpaper}
 						on_removed={() => {
 							set_wallpaper_list(p => p?.filter(item => item.id !== wallpaper.id))
@@ -99,12 +102,13 @@ function WallpaperCollapsePanel() {
 					/>
 				)
 			})}
-			{empty_visible && <EmptyCollection text="没有收藏的壁纸" />}
+			{empty_visible && <EmptyCollection text={t('collect.empty.wallpaper')} />}
 		</Loading>
 	)
 }
 
 export default function Collection() {
+	const { t } = useTranslation()
 	const has_login = useUserStore(state => state.has_login)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 
@@ -112,9 +116,9 @@ export default function Collection() {
 		<>
 			{!has_login && (
 				<div className="flex flex-col items-center mt-40px">
-					<span className="mb-24px color-text-2">登录即可查看你的收藏</span>
+					<span className="mb-24px color-text-2">{t('collect.login_tip')}</span>
 					<Button primary onClick={open_login_modal}>
-						立即登录
+						{t('login.immediately')}
 					</Button>
 				</div>
 			)}
@@ -129,9 +133,9 @@ export default function Collection() {
 						className="bg-bg-2 rd-radius-m"
 						itemKey={COLLECTION_TYPE.FEED}
 						title={
-							<div className="flex items-center h-32px">
+							<div className="flex items-center h-32px select-none">
 								<FcDocument className="text-20px ml-4px mr-8px" />
-								<span className="color-text-2 font-600">收藏的文档</span>
+								<span className="color-text-2 font-600">{t('collect.feed')}</span>
 							</div>
 						}
 						bordered={false}
@@ -142,9 +146,9 @@ export default function Collection() {
 						className="bg-bg-2 rd-radius-m"
 						itemKey={COLLECTION_TYPE.USER}
 						title={
-							<div className="flex items-center h-32px">
+							<div className="flex items-center h-32px select-none">
 								<FcBusinessContact className="text-20px ml-4px mr-8px" />
-								<span className="color-text-2 font-600">我关注的用户</span>
+								<span className="color-text-2 font-600">{t('follow.user')}</span>
 							</div>
 						}
 						bordered={false}
@@ -155,9 +159,9 @@ export default function Collection() {
 						className="bg-bg-2 rd-radius-m"
 						itemKey={COLLECTION_TYPE.WALLPAPER}
 						title={
-							<div className="flex items-center h-32px">
+							<div className="flex items-center h-32px select-none">
 								<FcPicture className="text-20px ml-4px mr-8px" />
-								<span className="color-text-2 font-600">收藏的壁纸</span>
+								<span className="color-text-2 font-600">{t('collect.wallpaper')}</span>
 							</div>
 						}
 						bordered={false}
@@ -171,7 +175,7 @@ export default function Collection() {
 
 	return (
 		<>
-			<Header heading="收藏夹"></Header>
+			<Header heading={t('page.title.collection')}></Header>
 
 			<div className="p-32px">
 				{login_guidance}

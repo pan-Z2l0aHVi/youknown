@@ -1,5 +1,6 @@
 import './index.scss'
 
+import { useTranslation } from 'react-i18next'
 import { IconType } from 'react-icons'
 import { PiTextHFourBold, PiTextHOneBold, PiTextHThreeBold, PiTextHTwoBold, PiTextTBold } from 'react-icons/pi'
 import { RiHeading } from 'react-icons/ri'
@@ -18,26 +19,27 @@ interface Option<T> {
 }
 export default function HeadingPicker(props: ButtonProps<HeadingOptions>) {
 	const { editor, extension } = props
+	const { t } = useTranslation()
 
 	const headingList: Option<1 | 2 | 3 | 4>[] = [
 		{
 			value: 1,
-			label: '一级标题',
+			label: t('react_rte.heading.1'),
 			icon: PiTextHOneBold
 		},
 		{
 			value: 2,
-			label: '二级标题',
+			label: t('react_rte.heading.2'),
 			icon: PiTextHTwoBold
 		},
 		{
 			value: 3,
-			label: '三级标题',
+			label: t('react_rte.heading.3'),
 			icon: PiTextHThreeBold
 		},
 		{
 			value: 4,
-			label: '四级标题',
+			label: t('react_rte.heading.4'),
 			icon: PiTextHFourBold
 		}
 	]
@@ -46,7 +48,7 @@ export default function HeadingPicker(props: ButtonProps<HeadingOptions>) {
 	const options: Option<0 | Level>[] = [
 		{
 			value: 0,
-			label: '正文',
+			label: t('react_rte.text'),
 			icon: PiTextTBold
 		},
 		...headingOptions
@@ -84,7 +86,7 @@ export default function HeadingPicker(props: ButtonProps<HeadingOptions>) {
 				}
 				suffix={<TbChevronRight className={`${prefixCls}-chevron-icon`} />}
 			>
-				标题
+				{t('react_rte.heading.text')}
 			</Dropdown.Item>
 		</Dropdown>
 	)

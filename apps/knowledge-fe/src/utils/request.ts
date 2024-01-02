@@ -1,8 +1,10 @@
 import { B_CODE } from '@/consts'
-import { useModalStore, useSpaceStore, useUserStore } from '@/stores'
+import { useModalStore, useUserStore } from '@/stores'
 import { get_local_token } from '@/utils/local'
 import { Toast } from '@youknown/react-ui/src'
 import { ArgumentType, headers2Obj, Net, PromiseFnResult } from '@youknown/utils/src'
+
+const { t } = await import('i18next')
 
 interface Cause {
 	code: number
@@ -38,7 +40,7 @@ export const net = Net.create({
 		await next()
 
 		if (ctx.err) {
-			Toast.error('无法连接到服务器，请检查网络连接')
+			Toast.error(t('network.error'))
 			return
 		}
 		switch (ctx.data?.code) {
@@ -49,7 +51,7 @@ export const net = Net.create({
 			case B_CODE.NOT_AUTH:
 				ctx.err = new NetFetchError(ctx.data)
 				useUserStore.getState().do_logout()
-				Toast.error('身份验证失效，请重新登录')
+				Toast.error(t('login.no_auth'))
 				useModalStore.getState().open_login_modal()
 				break
 

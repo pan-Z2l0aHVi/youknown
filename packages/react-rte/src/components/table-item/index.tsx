@@ -1,6 +1,7 @@
 import './index.scss'
 
 import { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { TbChevronRight, TbTablePlus } from 'react-icons/tb'
 
 import { Editor } from '@tiptap/react'
@@ -11,6 +12,7 @@ import { UI_EDITOR_PREFIX } from '../../common'
 
 export default function TableItem(props: { editor: Editor }) {
 	const { editor } = props
+	const { t } = useTranslation()
 	const [row, setRow] = useState(3)
 	const [col, setCol] = useState(3)
 
@@ -79,7 +81,7 @@ export default function TableItem(props: { editor: Editor }) {
 				}
 				suffix={<TbChevronRight className={`${prefixCls}-chevron-icon`} />}
 			>
-				表格
+				{t('react_rte.table.text')}
 			</Dropdown.Item>
 		</Dropdown>
 	)

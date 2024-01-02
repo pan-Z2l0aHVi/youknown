@@ -1,10 +1,11 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { TbArrowLeft } from 'react-icons/tb'
-import { useNavigate } from 'react-router-dom'
 
 import { useDebounce } from '@youknown/react-hook/src'
 import { Button } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+
+const { useNavigate } = await import('react-router-dom')
 
 interface HeaderProps {
 	children?: ReactNode

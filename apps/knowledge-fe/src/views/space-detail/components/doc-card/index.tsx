@@ -1,5 +1,6 @@
 import copy from 'copy-to-clipboard'
 import { useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { FiEdit3 } from 'react-icons/fi'
 import { GoCheck } from 'react-icons/go'
 import { LuSettings2 } from 'react-icons/lu'
@@ -28,6 +29,7 @@ interface DocCardProps {
 export default function DocCard(props: DocCardProps) {
 	const { choosing, selected, info, on_choose, on_deleted, on_updated } = props
 
+	const { t } = useTranslation()
 	const navigate = useTransitionNavigate()
 	const has_login = useUserStore(state => state.has_login)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
@@ -63,15 +65,15 @@ export default function DocCard(props: DocCardProps) {
 			return
 		}
 		Dialog.confirm({
-			title: '删除文档',
-			content: '一旦执行该操作数据将无法恢复，是否确认删除？',
+			title: t('heading.delete_doc'),
+			content: t('doc.delete_tip'),
 			overlayClassName: cls(
 				'backdrop-blur-xl',
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
 			),
 			okDanger: true,
-			okText: '删除',
-			cancelText: '取消',
+			okText: t('delete.text'),
+			cancelText: t('cancel.text'),
 			closeIcon: null,
 			unmountOnExit: true,
 			onOk: async () => {
@@ -89,7 +91,7 @@ export default function DocCard(props: DocCardProps) {
 				}
 			})
 		)
-		Toast.success('已复制分享链接')
+		Toast.success(t('copy.share_link.success'))
 	}
 
 	const ctx_menu = ContextMenu.useContextMenu()
@@ -97,26 +99,26 @@ export default function DocCard(props: DocCardProps) {
 	const get_dropdown_menu = (is_context_menu = false) => {
 		return (
 			<Dropdown.Menu
-				className="w-120px"
+				className="min-w-120px"
 				closeAfterItemClick
 				closeDropdown={is_context_menu ? ctx_menu.closeContextMenu : undefined}
 			>
 				<Dropdown.Item prefix={<FiEdit3 className="text-16px" />} onClick={select_doc}>
-					编辑
+					{t('edit.text')}
 				</Dropdown.Item>
 				{info.public && (
 					<Dropdown.Item prefix={<TbShare2 className="text-16px" />} onClick={copy_share_url}>
-						分享
+						{t('share.text')}
 					</Dropdown.Item>
 				)}
 				<Dropdown.Item prefix={<LuSettings2 className="text-16px" />} onClick={edit_doc_options}>
-					文档设置
+					{t('doc.setting')}
 				</Dropdown.Item>
 				<Dropdown.Item
 					prefix={<PiTrashSimpleBold className="color-danger text-16px" />}
 					onClick={handle_delete_doc}
 				>
-					<span className="color-danger">删除</span>
+					<span className="color-danger">{t('delete.text')}</span>
 				</Dropdown.Item>
 			</Dropdown.Menu>
 		)

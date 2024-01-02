@@ -12,7 +12,7 @@ $prefix: '#{$ui-editor-prefix}-heading-picker';
 }
 
 .#{$prefix}-dropdown {
-	width: 160px;
+	min-width: 160px;
 
 	.#{$prefix}-dropdown-item {
 		min-height: unset;

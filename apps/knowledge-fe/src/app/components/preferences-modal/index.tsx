@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 import { useModalStore, useUIStore } from '@/stores'
 import { Card, CloseIcon, Motion, Overlay } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
@@ -5,6 +7,7 @@ import { cls } from '@youknown/utils/src'
 import Preferences from './components/preferences'
 
 export default function PreferencesModal() {
+	const { t } = useTranslation()
 	const modal_open = useModalStore(state => state.preferences_modal_open)
 	const close_preferences_modal = useModalStore(state => state.close_preferences_modal)
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
@@ -21,7 +24,7 @@ export default function PreferencesModal() {
 					shadow
 					header={
 						<div className="flex justify-between p-[24px_24px_0]">
-							<span className="text-16px font-500">偏好设置</span>
+							<span className="text-16px font-500">{t('heading.preference')}</span>
 							<CloseIcon onClick={close_preferences_modal} />
 						</div>
 					}

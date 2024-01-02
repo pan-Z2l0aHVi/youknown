@@ -15,6 +15,7 @@ import {
 } from 'react'
 import Cropper from 'react-easy-crop'
 import { Area, Point } from 'react-easy-crop/types'
+import { useTranslation } from 'react-i18next'
 import {
 	TbCrop,
 	TbRefreshDot,
@@ -59,8 +60,9 @@ interface ImageCropperRef {
 	crop: () => Promise<void>
 }
 function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRef>) {
+	const { t } = useTranslation()
 	const {
-		title = '裁剪图像',
+		title = t('react_ui.title.crop'),
 		open,
 		onClose,
 		file,
@@ -132,10 +134,10 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 	const footer = (
 		<div className={`${prefixCls}-footer`}>
 			<Button prefixIcon={<TbRefreshDot size={18} />} onClick={handleReset}>
-				重置
+				{t('react_ui.reset.text')}
 			</Button>
 			<Button prefixIcon={<TbCrop size={18} />} primary loading={loading} onClick={handleCrop}>
-				裁剪
+				{t('react_ui.crop.text')}
 			</Button>
 		</div>
 	)
@@ -143,7 +145,7 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 	const operatorBar = (
 		<div className={`${prefixCls}-operator-bar`}>
 			<Space size="large" align="center">
-				<Tooltip title="逆时针旋转">
+				<Tooltip title={t('react_ui.rotate_counterclockwise')}>
 					<Button circle text disabled={rotation <= -180}>
 						<TbRotate size={18} onClick={() => setRotation(p => p - 1)} />
 					</Button>
@@ -155,7 +157,7 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 					value={rotation}
 					onChange={setRotation}
 				/>
-				<Tooltip title="顺时针旋转">
+				<Tooltip title={t('react_ui.rotate_clockwise')}>
 					<Button circle text disabled={rotation >= 180}>
 						<TbRotateClockwise size={18} onClick={() => setRotation(p => p + 1)} />
 					</Button>
@@ -163,7 +165,7 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 			</Space>
 
 			<Space size="large" align="center">
-				<Tooltip title="缩小">
+				<Tooltip title={t('react_ui.zoom.out')}>
 					<Button circle text disabled={zoom <= minZoom}>
 						<TbZoomOut size={18} onClick={() => setZoom(p => Math.max(minZoom, p - 0.1))} />
 					</Button>
@@ -175,7 +177,7 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 					value={zoom}
 					onChange={setZoom}
 				/>
-				<Tooltip title="放大">
+				<Tooltip title={t('react_ui.zoom.in')}>
 					<Button circle text disabled={zoom >= maxZoom}>
 						<TbZoomIn size={18} onClick={() => setZoom(p => Math.min(maxZoom, p + 0.1))} />
 					</Button>
@@ -184,7 +186,7 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 
 			{aspectRatioFixed || (
 				<Space size="large" align="center">
-					<Tooltip title="缩窄">
+					<Tooltip title={t('react_ui.narrower')}>
 						<Button circle text disabled={aspectRatio <= 0.25}>
 							<TbViewportNarrow size={18} onClick={() => setAspectRatio(p => p - 0.01)} />
 						</Button>
@@ -196,7 +198,7 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 						value={aspectRatio}
 						onChange={setAspectRatio}
 					/>
-					<Tooltip title="加宽">
+					<Tooltip title={t('react_ui.wider')}>
 						<Button circle text disabled={aspectRatio >= 4}>
 							<TbViewportWide size={18} onClick={() => setAspectRatio(p => p + 0.01)} />
 						</Button>

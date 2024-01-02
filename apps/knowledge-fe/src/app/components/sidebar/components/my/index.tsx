@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { LuSettings2 } from 'react-icons/lu'
 import { TbLogin, TbLogout, TbUser } from 'react-icons/tb'
 
@@ -11,6 +12,7 @@ interface PersonalProps {
 }
 
 export default function My({ expand }: PersonalProps) {
+	const { t } = useTranslation()
 	const has_login = useUserStore(state => state.has_login)
 	const profile = useUserStore(state => state.profile)
 	const do_logout = useUserStore(state => state.do_logout)
@@ -24,7 +26,7 @@ export default function My({ expand }: PersonalProps) {
 	return (
 		<>
 			<Tooltip
-				title={has_login ? profile?.nickname : '立即登录'}
+				title={has_login ? profile?.nickname : t('login.immediately')}
 				placement="right"
 				spacing={20}
 				disabled={expand}
@@ -33,16 +35,16 @@ export default function My({ expand }: PersonalProps) {
 					placement="top-start"
 					trigger="click"
 					content={
-						<Dropdown.Menu className="w-208px" closeAfterItemClick>
+						<Dropdown.Menu className="min-w-208px" closeAfterItemClick>
 							<Dropdown.Item
 								prefix={<LuSettings2 className="text-16px" />}
 								onClick={open_preferences_modal}
 							>
-								设置
+								{t('setting.text')}
 							</Dropdown.Item>
 							{has_login && (
 								<Dropdown.Item prefix={<TbUser className="text-16px" />} onClick={go_my_user_center}>
-									个人主页
+									{t('page.title.personal')}
 								</Dropdown.Item>
 							)}
 							<Divider size="small" />
@@ -54,14 +56,14 @@ export default function My({ expand }: PersonalProps) {
 										navigate('/')
 									}}
 								>
-									<span className="color-danger">退出登录</span>
+									<span className="color-danger">{t('login.exit')}</span>
 								</Dropdown.Item>
 							) : (
 								<Dropdown.Item
 									prefix={<TbLogin className="text-16px color-primary" />}
 									onClick={open_login_modal}
 								>
-									<span className="color-primary">去登录</span>
+									<span className="color-primary">{t('login.go')}</span>
 								</Dropdown.Item>
 							)}
 						</Dropdown.Menu>
@@ -77,12 +79,12 @@ export default function My({ expand }: PersonalProps) {
 							<Avatar round size={36} src={profile?.avatar} />
 						) : (
 							<div className="flex justify-center items-center w-36px min-w-36px h-36px rd-full bg-primary color-#fff text-13px font-500">
-								登录
+								{t('login.shortcut')}
 							</div>
 						)}
 						<Motion.Fade in={expand} mountOnEnter unmountOnExit>
 							<div className="flex-1 break-all ws-nowrap ml-8px">
-								{has_login ? profile?.nickname : '立即登录'}
+								{has_login ? profile?.nickname : t('login.immediately')}
 							</div>
 						</Motion.Fade>
 					</div>

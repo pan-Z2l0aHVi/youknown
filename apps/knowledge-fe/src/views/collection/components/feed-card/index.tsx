@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { LuHeartOff } from 'react-icons/lu'
 import { RiHistoryFill } from 'react-icons/ri'
 import { TbUser } from 'react-icons/tb'
@@ -19,6 +20,7 @@ interface FeedCardProps {
 }
 export default function FeedCard(props: FeedCardProps) {
 	const { className, feed, on_removed } = props
+	const { t } = useTranslation()
 	const navigate = useTransitionNavigate()
 	const [more_open, set_more_open] = useState(false)
 	const go_feed_detail = () => {
@@ -44,7 +46,7 @@ export default function FeedCard(props: FeedCardProps) {
 	const get_dropdown_menu = (is_context_menu = false) => {
 		return (
 			<Dropdown.Menu
-				className="w-120px"
+				className="min-w-120px"
 				closeAfterItemClick
 				closeDropdown={is_context_menu ? ctx_menu.closeContextMenu : undefined}
 				onClick={e => {
@@ -53,13 +55,13 @@ export default function FeedCard(props: FeedCardProps) {
 				}}
 			>
 				<Dropdown.Item prefix={<LuHeartOff className="color-danger text-16px" />}>
-					<span className="color-danger">取消收藏</span>
+					<span className="color-danger">{t('collect.cancel.text')}</span>
 				</Dropdown.Item>
 			</Dropdown.Menu>
 		)
 	}
 
-	const action_ele = (
+	const more = (
 		<Dropdown trigger="click" placement="bottom-start" content={get_dropdown_menu()} onOpenChange={set_more_open}>
 			<More className="" active={more_open} onClick={e => e.stopPropagation()} />
 		</Dropdown>
@@ -81,7 +83,7 @@ export default function FeedCard(props: FeedCardProps) {
 					<div>
 						<div className="flex items-center">
 							<div className="flex-1 line-clamp-1 text-16px font-700">{feed.title}</div>
-							{action_ele}
+							{more}
 						</div>
 						<div className="truncate color-text-2 mt-4px">{feed.summary}</div>
 					</div>

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import { login } from '@/apis/user'
 import { LOGIN_TYPE } from '@/consts'
@@ -8,7 +8,10 @@ import { set_local_token } from '@/utils/local'
 import { Loading } from '@youknown/react-ui/src'
 import { storage } from '@youknown/utils/src'
 
+const { useSearchParams } = await import('react-router-dom')
+
 export default function LoginSuccess() {
+	const { t } = useTranslation()
 	const [search_params, set_search_params] = useSearchParams()
 
 	useEffect(() => {
@@ -56,7 +59,7 @@ export default function LoginSuccess() {
 	return (
 		<div className="w-screen h-screen flex flex-col items-center justify-center">
 			<Loading spinning size="large" />
-			<h2 className="mt-24px">正在登录...</h2>
+			<h2 className="mt-24px">{t('login.ing')}</h2>
 		</div>
 	)
 }

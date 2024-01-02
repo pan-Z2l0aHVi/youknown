@@ -1,5 +1,6 @@
 import './index.scss'
 
+import { useTranslation } from 'react-i18next'
 import { TbTableOff } from 'react-icons/tb'
 
 import { cls } from '@youknown/utils/src'
@@ -9,6 +10,7 @@ import CommandBtn from '../../../../../command-btn'
 
 export default function CellMergeBtn(props: ButtonProps) {
 	const { editor, tooltip = true } = props
+	const { t } = useTranslation()
 	const disabled = !editor.can().deleteTable()
 	if (disabled) {
 		return null
@@ -16,7 +18,7 @@ export default function CellMergeBtn(props: ButtonProps) {
 	const prefixCls = `${UI_EDITOR_PREFIX}-table-delete-btn`
 	return (
 		<CommandBtn
-			tooltip="删除表格"
+			tooltip={t('react_rte.table.delete')}
 			tooltipDisabled={!tooltip}
 			className={cls(prefixCls)}
 			onCommand={() => {

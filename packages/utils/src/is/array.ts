@@ -10,7 +10,3 @@ export function isEmptyArray(arr: unknown): arr is [] {
 	if (!isArray(arr)) return false
 	return arr.length === 0
 }
-
-export function isEqualArray(a: any[], b: any[]): boolean {
-	return a.length === b.length && a.toString() === b.toString()
-}

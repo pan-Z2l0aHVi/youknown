@@ -1,9 +1,9 @@
 import copy from 'copy-to-clipboard'
+import { useTranslation } from 'react-i18next'
 import { LuLogOut, LuSettings2 } from 'react-icons/lu'
 import { MdOutlineIosShare } from 'react-icons/md'
 import { PiTrashSimpleBold } from 'react-icons/pi'
 import { TbChevronRight } from 'react-icons/tb'
-import { useNavigate, useParams } from 'react-router-dom'
 
 import { delete_doc, Doc } from '@/apis/doc'
 import DocOptionsModal from '@/components/doc-options-modal'
@@ -12,6 +12,8 @@ import { useUIStore } from '@/stores'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dialog, Divider, Dropdown, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
+
+const { useNavigate, useParams } = await import('react-router-dom')
 
 interface DocOptionsDropdownProps {
 	doc_id: string
@@ -23,6 +25,7 @@ interface DocOptionsDropdownProps {
 export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 	const { doc_id, is_public, on_updated, on_export_html, on_export_pdf } = props
 
+	const { t } = useTranslation()
 	const navigate = useNavigate()
 	const { space_id } = useParams()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
@@ -35,15 +38,15 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 
 	const show_doc_delete_dialog = () => {
 		Dialog.confirm({
-			title: '删除文档',
-			content: '一旦执行该操作数据将无法恢复，是否确认删除？',
+			title: t('heading.delete_doc'),
+			content: t('doc.delete_tip'),
 			overlayClassName: cls(
 				'backdrop-blur-xl',
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
 			),
 			okDanger: true,
-			okText: '删除',
-			cancelText: '取消',
+			okText: t('delete.text'),
+			cancelText: t('cancel.text'),
 			closeIcon: null,
 			onOk: async () => {
 				await delete_doc({ doc_ids: [doc_id] })
@@ -61,7 +64,7 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 				}
 			})
 		)
-		Toast.success('已复制分享链接')
+		Toast.success(t('copy.share_link.success'))
 	}
 
 	return (
@@ -70,9 +73,9 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 				trigger="click"
 				placement="bottom-end"
 				content={
-					<Dropdown.Menu className="w-160px" closeAfterItemClick>
+					<Dropdown.Menu className="min-w-160px" closeAfterItemClick>
 						<Dropdown.Item prefix={<LuSettings2 className="text-16px" />} onClick={show_doc_options_modal}>
-							文档设置
+							{t('doc.setting')}
 						</Dropdown.Item>
 						<Divider size="small" />
 						{is_public && (
@@ -80,7 +83,7 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 								prefix={<MdOutlineIosShare className="text-16px" />}
 								onClick={copy_share_url}
 							>
-								分享
+								{t('share.text')}
 							</Dropdown.Item>
 						)}
 						<Dropdown
@@ -99,7 +102,7 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 								prefix={<LuLogOut className="text-16px" />}
 								suffix={<TbChevronRight className="mr--4px text-16px" />}
 							>
-								下载为
+								{t('download.to')}
 							</Dropdown.Item>
 						</Dropdown>
 						<Divider size="small" />
@@ -107,7 +110,7 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 							prefix={<PiTrashSimpleBold className="text-16px color-danger" />}
 							onClick={show_doc_delete_dialog}
 						>
-							<span className="color-danger">删除</span>
+							<span className="color-danger">{t('delete.text')}</span>
 						</Dropdown.Item>
 					</Dropdown.Menu>
 				}

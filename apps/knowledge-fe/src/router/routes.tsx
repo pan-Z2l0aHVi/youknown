@@ -1,13 +1,15 @@
+const { t } = await import('i18next')
 import { createElement, lazy, ReactNode } from 'react'
 import { TbBook2, TbFolderHeart, TbHistory, TbLayout, TbPhotoSquareRounded } from 'react-icons/tb'
-import { Navigate } from 'react-router-dom'
+
+const { Navigate } = await import('react-router-dom')
 
 export interface RouteItem {
 	path: string
 	element?: ReactNode
 	children?: RouteItem[]
 	meta?: {
-		title?: string
+		title?: () => string
 		icon?: ReactNode
 	}
 }
@@ -16,7 +18,7 @@ export const routes: RouteItem[] = [
 	{
 		path: 'browse',
 		meta: {
-			title: '浏览',
+			title: () => t('page.title.browse'),
 			icon: <TbLayout />
 		},
 		children: [
@@ -33,7 +35,7 @@ export const routes: RouteItem[] = [
 	{
 		path: 'library',
 		meta: {
-			title: '我的知识库',
+			title: () => t('page.title.library'),
 			icon: <TbBook2 />
 		},
 		element: createElement(lazy(() => import('@/views/library'))),
@@ -57,7 +59,7 @@ export const routes: RouteItem[] = [
 		path: 'wallpapers',
 		element: createElement(lazy(() => import('@/views/wallpapers'))),
 		meta: {
-			title: '壁纸',
+			title: () => t('page.title.wallpapers'),
 			icon: <TbPhotoSquareRounded />
 		}
 	},
@@ -65,7 +67,7 @@ export const routes: RouteItem[] = [
 		path: 'collection',
 		element: createElement(lazy(() => import('@/views/collection'))),
 		meta: {
-			title: '收藏夹',
+			title: () => t('page.title.collection'),
 			icon: <TbFolderHeart />
 		}
 	},
@@ -73,7 +75,7 @@ export const routes: RouteItem[] = [
 		path: 'history',
 		element: createElement(lazy(() => import('@/views/history'))),
 		meta: {
-			title: '历史记录',
+			title: () => t('page.title.history'),
 			icon: <TbHistory />
 		}
 	},

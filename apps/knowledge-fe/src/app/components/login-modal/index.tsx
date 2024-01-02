@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 import { useModalStore, useUIStore } from '@/stores'
 import { Card, CloseIcon, Motion, Overlay } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
@@ -6,6 +8,7 @@ import GithubCard from './components/github-card'
 import WeChatCard from './components/wechat-card'
 
 export default function LoginModal() {
+	const { t } = useTranslation()
 	const modal_open = useModalStore(state => state.login_modal_open)
 	const close_login_modal = useModalStore(state => state.close_login_modal)
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
@@ -22,7 +25,7 @@ export default function LoginModal() {
 					shadow
 					header={
 						<div className="flex justify-between p-[24px_24px_8px_24px]">
-							<span className="text-16px font-500">用户登录</span>
+							<span className="text-16px font-500">{t('heading.user_login')}</span>
 							<CloseIcon onClick={close_login_modal} />
 						</div>
 					}
@@ -32,11 +35,6 @@ export default function LoginModal() {
 							<GithubCard />
 							<WeChatCard />
 						</div>
-
-						{/* <div className="color-text-3 text-12px mt-16px">
-							点击上方按钮，代表你同意
-							<a className="ml-2px color-primary underline cursor-pointer">服务条款</a>
-						</div> */}
 					</div>
 				</Card>
 			</Motion.Zoom>

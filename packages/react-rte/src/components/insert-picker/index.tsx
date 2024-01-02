@@ -1,6 +1,7 @@
 import './index.scss'
 
 import { createElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import { HiPlusSm } from 'react-icons/hi'
 
 import { useBoolean, useCreation } from '@youknown/react-hook/src'
@@ -24,6 +25,7 @@ interface InsertPickerProps extends ButtonProps {
 }
 export default function InsertPicker(props: InsertPickerProps) {
 	const { editor, tooltip = true, list } = props
+	const { t } = useTranslation()
 	const [open, { setBool: setOpen }] = useBoolean(false)
 
 	const optionList = useCreation(() => {
@@ -74,7 +76,7 @@ export default function InsertPicker(props: InsertPickerProps) {
 		>
 			<CommandBtn
 				className={cls(`${prefixCls}-label`)}
-				tooltip="插入"
+				tooltip={t('react_rte.insert')}
 				tooltipDisabled={!tooltip}
 				arrow
 				active={open}

@@ -3,6 +3,7 @@ import './html-diff.scss'
 import dayjs from 'dayjs'
 import diff from 'html-diff-ts'
 import { useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { get_doc_drafts } from '@/apis/doc'
 import { useUIStore } from '@/stores'
@@ -21,6 +22,7 @@ interface DocHistoryDrawerProps {
 export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 	const { open, on_close, doc_id, doc_content, on_recovery } = props
 
+	const { t } = useTranslation()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const [selection, set_selection] = useState<string>()
 
@@ -88,8 +90,9 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 		>
 			<div className="sticky top-0 z-4 flex items-center justify-between p-[16px_24px] bg-bg-0 b-b-solid b-bd-line b-b-1">
 				<div className="flex items-center">
-					<span>当前版本</span>
-					<span className="mr-8px ml-8px color-text-3">与</span>
+					<span className="mr-8px color-text-3">{t('compare')}</span>
+					<span>{t('version.current')}</span>
+					<span className="mr-8px ml-8px color-text-3">{t('and')}</span>
 					<Select
 						className="w-200px!"
 						noMore={no_more}
@@ -100,10 +103,9 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 							}
 						}}
 						menuList={options}
-						placeholder="请选择历史"
+						placeholder={t('placeholder.history')}
 						onLoad={load_more}
 					/>
-					<span className="ml-8px color-text-3">对比</span>
 				</div>
 
 				<Button
@@ -113,7 +115,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 						on_recovery(selected_draft_content)
 					}}
 				>
-					应用此版本
+					{t('version.apply')}
 				</Button>
 			</div>
 

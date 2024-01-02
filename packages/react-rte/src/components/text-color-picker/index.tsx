@@ -1,6 +1,7 @@
 import './index.scss'
 
 import { ComponentProps, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { BiFont, BiSolidChevronDown } from 'react-icons/bi'
 
 import { useControllable } from '@youknown/react-hook/src'
@@ -13,6 +14,7 @@ import CommandBtn from '../command-btn'
 interface TextColorPickerProps extends ButtonProps, ComponentProps<typeof Popover> {}
 export default function TextColorPicker(props: TextColorPickerProps) {
 	const { editor, tooltip = true, trigger = 'click', ...rest } = omit(props, 'defaultOpen', 'open', 'onOpenChange')
+	const { t } = useTranslation()
 	const DEFAULT_COLOR = 'var(--ui-text-1)'
 	const options = [
 		'#ffffff',
@@ -66,7 +68,7 @@ export default function TextColorPicker(props: TextColorPickerProps) {
 			// }}
 		>
 			<Button style={{ width: '100%' }} onClick={handleReset}>
-				恢复默认
+				{t('react_rte.restore')}
 			</Button>
 			<Divider />
 			<div className={`${prefixCls}-wrapper`}>
@@ -89,7 +91,7 @@ export default function TextColorPicker(props: TextColorPickerProps) {
 	)
 
 	return (
-		<Tooltip disabled={!tooltip} placement="bottom" title="文字颜色">
+		<Tooltip disabled={!tooltip} placement="bottom" title={t('react_rte.text_color')}>
 			<div className={prefixCls}>
 				<CommandBtn
 					className={cls(`${prefixCls}-setter`)}

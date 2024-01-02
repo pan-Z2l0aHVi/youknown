@@ -31,7 +31,7 @@ export default function Menu({ expand }: MenuProps) {
 				return {
 					path: space.space_id,
 					meta: {
-						title: space.name,
+						title: () => space.name,
 						icon: <TbNotes />
 					}
 				}
@@ -84,7 +84,7 @@ export default function Menu({ expand }: MenuProps) {
 					<>
 						<div className="leading-0 text-18px color-primary">{meta.icon}</div>
 						<Motion.Fade in={expand} mountOnEnter unmountOnExit>
-							<div className="ml-8px flex-1 break-all ws-nowrap truncate">{meta.title}</div>
+							<div className="ml-8px flex-1 break-all ws-nowrap truncate">{meta.title()}</div>
 						</Motion.Fade>
 						{has_sub_nav && (
 							<>
@@ -120,7 +120,7 @@ export default function Menu({ expand }: MenuProps) {
 
 				return (
 					<Fragment key={path}>
-						<Tooltip title={meta.title} placement="right" spacing={20} disabled={expand}>
+						<Tooltip title={meta.title()} placement="right" spacing={20} disabled={expand}>
 							<TransitionNavLink
 								to={`/${path}`}
 								end={open_map[path]}
@@ -158,7 +158,7 @@ export default function Menu({ expand }: MenuProps) {
 											return (
 												<Tooltip
 													key={child.path}
-													title={child.meta.title}
+													title={child.meta.title()}
 													placement="right"
 													spacing={20}
 													disabled={expand}
@@ -180,7 +180,7 @@ export default function Menu({ expand }: MenuProps) {
 														</div>
 														<Motion.Fade in={expand} mountOnEnter unmountOnExit>
 															<div className="flex-1 break-all ws-nowrap truncate ml-8px">
-																{child.meta.title}
+																{child.meta.title()}
 															</div>
 														</Motion.Fade>
 													</TransitionNavLink>

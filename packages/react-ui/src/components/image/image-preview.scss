@@ -45,7 +45,7 @@ $prefix: '#{$ui-prefix}-image-preview';
 			0 0,
 			20px 20px;
 		background-size: 40px 40px;
-		transition: transform $duration-f;
+		transition: transform 50ms;
 
 		&:active {
 			cursor: grabbing;

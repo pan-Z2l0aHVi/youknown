@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { RiHistoryFill } from 'react-icons/ri'
 
 import More from '@/components/more'
@@ -14,6 +15,8 @@ interface RecordItemProps {
 }
 export default function RecordItem(props: RecordItemProps) {
 	const { record } = props
+
+	const { t } = useTranslation()
 	const delete_record = useRecordStore(state => state.delete_record)
 	const [more_open, set_more_open] = useState(false)
 	const timing_desc = format_time(record.creation_time.getTime())
@@ -39,7 +42,7 @@ export default function RecordItem(props: RecordItemProps) {
 						delete_record(record.id)
 					}}
 				>
-					从历史记录中删除
+					{t('delete.from_history')}
 				</Dropdown.Item>
 			</Dropdown.Menu>
 		)

@@ -2,6 +2,7 @@ import './date-picker.scss'
 
 import dayjs, { Dayjs } from 'dayjs'
 import { ComponentPropsWithoutRef, ForwardedRef, forwardRef, ReactNode, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { IoMdCloseCircle } from 'react-icons/io'
 import { LuChevronLeft, LuChevronRight, LuChevronsLeft, LuChevronsRight } from 'react-icons/lu'
 import { TbCalendar } from 'react-icons/tb'
@@ -26,6 +27,7 @@ interface DatePickerProps extends Omit<ComponentPropsWithoutRef<typeof Button>, 
 }
 
 const DatePicker = (props: DatePickerProps, ref: ForwardedRef<HTMLButtonElement>) => {
+	const { t } = useTranslation()
 	const prefixCls = `${UI_PREFIX}-date-picker`
 	const {
 		className,
@@ -33,7 +35,7 @@ const DatePicker = (props: DatePickerProps, ref: ForwardedRef<HTMLButtonElement>
 		disabled,
 		icon = <TbCalendar className={`${prefixCls}-icon`} />,
 		allowClear = false,
-		placeholder = '请选择日期',
+		placeholder = t('react_ui.placeholder.date'),
 		onMouseEnter,
 		onMouseLeave,
 		...rest
@@ -80,7 +82,15 @@ const DatePicker = (props: DatePickerProps, ref: ForwardedRef<HTMLButtonElement>
 	const datesInMonth = Array.from({ length: daysInMonth }, (_, index) => firstDayOfMonth.add(index, 'day'))
 	const dateCells: (Dayjs | null)[] = [...placeholderDates, ...datesInMonth]
 
-	const WEEK_LIST = ['日', '一', '二', '三', '四', '五', '六']
+	const WEEK_LIST = [
+		t('react_ui.sun'),
+		t('react_ui.mon'),
+		t('react_ui.tue'),
+		t('react_ui.wed'),
+		t('react_ui.thu'),
+		t('react_ui.fri'),
+		t('react_ui.sat')
+	]
 	const hasSelection = dateSelection && dateSelection.isValid()
 
 	const calendar = (
@@ -92,7 +102,9 @@ const DatePicker = (props: DatePickerProps, ref: ForwardedRef<HTMLButtonElement>
 				<Button size="small" square onClick={goToPreMonth}>
 					<LuChevronLeft />
 				</Button>
-				<div className={`${prefixCls}-calendar-header-month`}>{currentMonth.format('YYYY年 M月')}</div>
+				<div className={`${prefixCls}-calendar-header-month`}>
+					{currentMonth.format(t('react_ui.date.year_month'))}
+				</div>
 				<Button size="small" square onClick={goToNextMonth}>
 					<LuChevronRight />
 				</Button>
@@ -112,7 +124,7 @@ const DatePicker = (props: DatePickerProps, ref: ForwardedRef<HTMLButtonElement>
 				{dateCells.map((date, index) =>
 					date ? (
 						<div
-							key={date.format('YYYY-MM-DD')}
+							key={date.format('YYYY/MM/DD')}
 							className={cls(`${prefixCls}-calendar-day`, {
 								[`${prefixCls}-calendar-day-today`]: date.isSame(dayjs(), 'day'),
 								[`${prefixCls}-calendar-day-selected`]:
@@ -131,7 +143,7 @@ const DatePicker = (props: DatePickerProps, ref: ForwardedRef<HTMLButtonElement>
 			<Divider size="small" />
 
 			<Button className={`${prefixCls}-calendar-footer`} size="small" text onClick={selectToday}>
-				今天
+				{t('react_ui.date.today')}
 			</Button>
 		</div>
 	)
@@ -177,7 +189,7 @@ const DatePicker = (props: DatePickerProps, ref: ForwardedRef<HTMLButtonElement>
 				}}
 				{...rest}
 			>
-				{hasSelection ? dateSelection.format('YYYY-MM-DD') : placeholder}
+				{hasSelection ? dateSelection.format('YYYY/MM/DD') : placeholder}
 			</Button>
 		</Popover>
 	)

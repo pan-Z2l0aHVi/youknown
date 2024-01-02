@@ -1,4 +1,4 @@
-import { isAllArray, isArray, isEmptyArray, isEqualArray } from './array'
+import { isAllArray, isArray, isEmptyArray } from './array'
 import { isAllBoolean, isBoolean } from './boolean'
 import { isAllFunction, isFunction } from './function'
 import { isAllNull, isNull } from './null'
@@ -17,10 +17,8 @@ object.plain = isPlainObject
 
 const array = isArray as typeof isArray & {
 	empty: typeof isEmptyArray
-	equal: typeof isEqualArray
 }
 array.empty = isEmptyArray
-array.equal = isEqualArray
 
 export default {
 	undefined: isUndefined,

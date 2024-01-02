@@ -1,7 +1,8 @@
 import { ComponentProps, forwardRef } from 'react'
-import { Link } from 'react-router-dom'
 
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
+
+const { Link } = await import('react-router-dom')
 
 const TransitionLink = forwardRef<HTMLAnchorElement, ComponentProps<typeof Link>>((props, ref) => {
 	const { onClick, to, replace, state, relative, preventScrollReset, style, ...rest } = props

@@ -1,0 +1,44 @@
+{
+  "react_ui": {
+    "tue": "Tue",
+    "close": "Close",
+    "crop": {
+      "text": "Reset"
+    },
+    "date": {
+      "today": "Today",
+      "year_month": "YYYY M"
+    },
+    "download": {
+      "text": "Download"
+    },
+    "empty": {
+      "data": "No data available"
+    },
+    "fri": "Fri",
+    "mon": "Mon",
+    "narrower": "Narrower",
+    "placeholder": {
+      "date": "Select date",
+      "select": "Select"
+    },
+    "reset": {
+      "text": "Reset"
+    },
+    "resize": "Restore to original size",
+    "rotate_clockwise": "Rotate clockwise",
+    "rotate_counterclockwise": "Rotate counterclockwise",
+    "sat": "Sat",
+    "sun": "Sun",
+    "thu": "Thu",
+    "title": {
+      "crop": "Crop Image"
+    },
+    "wed": "Wed",
+    "wider": "Wider",
+    "zoom": {
+      "in": "Zoom In",
+      "out": "Zoom Out"
+    }
+  }
+}

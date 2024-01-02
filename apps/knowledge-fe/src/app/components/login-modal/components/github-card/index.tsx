@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { GrGithub } from 'react-icons/gr'
 
 import { useModalStore, useUserStore } from '@/stores'
@@ -7,6 +8,7 @@ import { Button, Toast } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 export default function GithubCard() {
+	const { t } = useTranslation()
 	const close_login_modal = useModalStore(state => state.close_login_modal)
 	const login = useUserStore(state => state.login)
 	const fetch_profile = useUserStore(state => state.fetch_profile)
@@ -17,10 +19,10 @@ export default function GithubCard() {
 				login()
 				fetch_profile()
 				close_login_modal()
-				Toast.success('登录成功')
+				Toast.success(t('login.success'))
 			})
 			.catch(() => {
-				Toast.error('登录失败')
+				Toast.error(t('login.fail'))
 			})
 	}
 
@@ -34,11 +36,11 @@ export default function GithubCard() {
 			onClick={handle_github_login}
 		>
 			{hovering ? (
-				<Button primary>点击授权</Button>
+				<Button primary>{t('login.auth')}</Button>
 			) : (
 				<>
 					<GrGithub className="text-40px" />
-					<div className="color-text-2 mt-8px">Github登录</div>
+					<div className="color-text-2 mt-8px">{t('login.github')}</div>
 				</>
 			)}
 		</div>

@@ -1,5 +1,6 @@
 import './index.scss'
 
+import { useTranslation } from 'react-i18next'
 import { TbExternalLink } from 'react-icons/tb'
 
 import { cls } from '@youknown/utils/src'
@@ -9,10 +10,11 @@ import CommandBtn from '../../../../../command-btn'
 
 export default function LinkOpenBtn(props: ButtonProps) {
 	const { editor, tooltip = true } = props
+	const { t } = useTranslation()
 	const prefixCls = `${UI_EDITOR_PREFIX}-link-open-btn`
 	return (
 		<CommandBtn
-			tooltip="打开链接"
+			tooltip={t('react_rte.link.open')}
 			tooltipDisabled={!tooltip}
 			className={cls(prefixCls)}
 			disabled={!editor.isActive('link')}

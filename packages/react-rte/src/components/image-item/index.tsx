@@ -1,6 +1,7 @@
 import './index.scss'
 
 import { ChangeEvent, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { TbPhotoPlus } from 'react-icons/tb'
 
 import { Editor } from '@tiptap/react'
@@ -23,6 +24,7 @@ interface ImageItemProps {
 export default function ImageItem(props: ImageItemProps) {
 	const { editor, onCustomUpload } = props
 
+	const { t } = useTranslation()
 	const fileInputRef = useRef<HTMLInputElement>(null)
 
 	const handleFiles = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +60,7 @@ export default function ImageItem(props: ImageItemProps) {
 				fileInputRef.current?.click()
 			}}
 		>
-			图片
+			{t('react_rte.image.text')}
 			<input
 				type="file"
 				multiple

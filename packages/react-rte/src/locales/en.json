@@ -1,0 +1,64 @@
+{
+  "react_rte": {
+    "align": {
+      "left": "Left Align",
+      "right": "Right Align",
+      "center": "Center Align",
+      "justify": "Justify",
+      "method": "Alignment"
+    },
+    "blockquote": "Blockquote",
+    "bold": "Bold",
+    "bulletlist": "Bullet List",
+    "clear_format": "Clear Format",
+    "code": "Code",
+    "code_block": "Code Block",
+    "divider": "Divider",
+    "heading": {
+      "1": "Heading 1",
+      "2": "Heading 2",
+      "3": "Heading 3",
+      "4": "Heading 4",
+      "text": "Heading"
+    },
+    "image": {
+      "text": "Image"
+    },
+    "insert": "Insert",
+    "italic": "Italic",
+    "link": {
+      "text": "Link",
+      "copy": "Copy Link",
+      "copy_success": "Link Copied Successfully",
+      "open": "Open Link",
+      "cancel": "Cancel Link",
+      "edit": "Edit Link"
+    },
+    "mark": "Mark",
+    "no_bg": "No Background Color",
+    "ok": "OK",
+    "orderlist": "Ordered List",
+    "placeholder": {
+      "link": "Enter Link"
+    },
+    "redo": "Redo",
+    "restore": "Restore Default",
+    "strike": "Strikethrough",
+    "table": {
+      "text": "Table",
+      "merge_cells": "Merge Cells",
+      "split_cells": "Split Cells",
+      "right_insert_col": "Insert Column to the Right",
+      "left_insert_col": "Insert Column to the Left",
+      "below_insert_row": "Insert Row Below",
+      "above_insert_row": "Insert Row Above",
+      "rm_col": "Delete Current Column",
+      "rm_row": "Delete Current Row",
+      "delete": "Delete Table"
+    },
+    "text": "Text",
+    "text_color": "Text Color",
+    "underline": "Underline",
+    "undo": "Undo"
+  }
+}

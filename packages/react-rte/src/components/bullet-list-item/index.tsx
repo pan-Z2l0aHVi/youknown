@@ -1,5 +1,6 @@
 import './index.scss'
 
+import { useTranslation } from 'react-i18next'
 import { PiListDashesBold } from 'react-icons/pi'
 
 import { Editor } from '@tiptap/react'
@@ -10,6 +11,7 @@ import { UI_EDITOR_PREFIX } from '../../common'
 
 export default function BulletListItem(props: { editor: Editor }) {
 	const { editor } = props
+	const { t } = useTranslation()
 	const prefixCls = `${UI_EDITOR_PREFIX}-bullet-list-item`
 	return (
 		<Dropdown.Item
@@ -28,7 +30,7 @@ export default function BulletListItem(props: { editor: Editor }) {
 				editor.chain().focus().toggleBulletList().run()
 			}}
 		>
-			无序列表
+			{t('react_rte.bulletlist')}
 		</Dropdown.Item>
 	)
 }

@@ -1,4 +1,5 @@
 import { forwardRef, Ref, useImperativeHandle, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { RiFilter3Fill } from 'react-icons/ri'
 import { TbChevronDown, TbSearch } from 'react-icons/tb'
 
@@ -55,6 +56,8 @@ export interface ImperativeHandle {
 
 function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>) {
 	const { form, keywords, on_keywords_input, loading, on_search, on_reset } = props
+
+	const { t } = useTranslation()
 	const [filter_open, { setReverse: toggle_filter }] = useBoolean(true)
 	const keywords_input_ref = useRef<HTMLInputElement>(null)
 	useImperativeHandle(ref, () => ({
@@ -66,56 +69,56 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 	const { sorting } = form.getState()
 	const at_least_options = [
 		{
-			label: '分辨率不限',
+			label: t('unlimited.resolution'),
 			value: '0x0'
 		},
 		'-',
-		'竖屏',
+		t('screen.vertical'),
 		{
-			label: '至少 1080x2340',
+			label: `${t('atleast')} 1080x2340`,
 			value: '1080x2340'
 		},
 		{
-			label: '至少 1284x2778',
+			label: `${t('atleast')} 1284x2778`,
 			value: '1284x2778'
 		},
 		'21 x 9',
 		{
-			label: '至少 2560x1080',
+			label: `${t('atleast')} 2560x1080`,
 			value: '2560x1080'
 		},
 		{
-			label: '至少 3440x1440',
+			label: `${t('atleast')} 3440x1440`,
 			value: '3440x1440'
 		},
 		{
-			label: '至少 5120x2160',
+			label: `${t('atleast')} 5120x2160`,
 			value: '5120x2160'
 		},
 		'16 x 9',
 		{
-			label: '至少 1920x1080',
+			label: `${t('atleast')} 1920x1080`,
 			value: '1920x1080'
 		},
 		{
-			label: '至少 2560x1440',
+			label: `${t('atleast')} 2560x1440`,
 			value: '2560x1440'
 		},
 		{
-			label: '至少 3840x2160',
+			label: `${t('atleast')} 3840x2160`,
 			value: '3840x2160'
 		},
 		'16 x 10',
 		{
-			label: '至少 1920x1440',
+			label: `${t('atleast')} 1920x1440`,
 			value: '1920x1440'
 		},
 		{
-			label: '至少 2560x1920',
+			label: `${t('atleast')} 2560x1920`,
 			value: '2560x1920'
 		},
 		{
-			label: '至少 3840x2880',
+			label: `${t('atleast')} 3840x2880`,
 			value: '3840x2880'
 		}
 	]
@@ -144,7 +147,7 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 					<Input
 						ref={keywords_input_ref}
 						prefix={<TbSearch className="color-text-3" />}
-						placeholder="关键词"
+						placeholder={t('placeholder.keywords')}
 						allowClear
 						value={keywords}
 						onChange={on_keywords_input}
@@ -152,7 +155,7 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 					/>
 					<Button prefixIcon={<RiFilter3Fill className="text-16px" />} onClick={toggle_filter}>
 						<div className="flex items-center">
-							筛选器
+							{t('filter.tool')}
 							<TbChevronDown
 								className={cls('ml-16px transition-transform', filter_open && 'rotate-180deg')}
 							/>
@@ -168,11 +171,11 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 								className="w-240px!"
 								menuList={[
 									{
-										label: '含AI作品',
+										label: t('form.ai'),
 										value: SWITCH.OFF
 									},
 									{
-										label: '不含AI作品',
+										label: t('form.no_ai'),
 										value: SWITCH.ON
 									}
 								]}
@@ -185,15 +188,15 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 								multiple
 								menuList={[
 									{
-										label: '寻常',
+										label: t('form.normal'),
 										value: CATE.GENERAL
 									},
 									{
-										label: '二次元',
+										label: t('form.anime'),
 										value: CATE.ANIME
 									},
 									{
-										label: '人物',
+										label: t('form.people'),
 										value: CATE.PEOPLE
 									}
 								]}
@@ -211,33 +214,33 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 								className="w-240px!"
 								menuList={[
 									{
-										label: '宽高比不限',
+										label: t('unlimited.aspect_ratio'),
 										value: ''
 									},
 									'-',
 									{
-										label: '仅横图',
+										label: t('limited.landscape'),
 										value: 'landscape'
 									},
 									{
-										label: '仅竖图',
+										label: t('limited.portrait'),
 										value: 'portrait'
 									},
 									'-',
 									{
-										label: '21:9',
+										label: '21 : 9',
 										value: '21x9'
 									},
 									{
-										label: '16:9',
+										label: '16 : 9',
 										value: '16x9'
 									},
 									{
-										label: '4:3',
+										label: '4 : 3',
 										value: '4x3'
 									},
 									{
-										label: '9:19.5',
+										label: '9 : 19.5',
 										value: '9x19.5'
 									}
 								]}
@@ -255,23 +258,23 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 								className="w-240px!"
 								menuList={[
 									{
-										label: '排行榜',
+										label: t('form.top_list'),
 										value: 'toplist'
 									},
 									{
-										label: '访问量',
+										label: t('form.views'),
 										value: 'views'
 									},
 									{
-										label: '相关程度',
+										label: t('form.relevance'),
 										value: 'relevance'
 									},
 									{
-										label: '最新',
+										label: t('form.date_added'),
 										value: 'date_added'
 									},
 									{
-										label: '随机',
+										label: t('form.random'),
 										value: 'random'
 									}
 								]}
@@ -284,27 +287,27 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 									className="w-240px!"
 									menuList={[
 										{
-											label: '昨天',
+											label: t('time.yesterday'),
 											value: '1d'
 										},
 										{
-											label: '上周',
+											label: t('time.last_week'),
 											value: '1w'
 										},
 										{
-											label: '上个月',
+											label: t('time.last_month'),
 											value: '1M'
 										},
 										{
-											label: '近三个月',
+											label: t('time.nearly_3_months'),
 											value: '3M'
 										},
 										{
-											label: '近半年',
+											label: t('time.nearly_half_a_year'),
 											value: '6M'
 										},
 										{
-											label: '近一年',
+											label: t('time.nearly_a_year'),
 											value: '1y'
 										}
 									]}
@@ -316,11 +319,11 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 									className="w-240px!"
 									menuList={[
 										{
-											label: '降序',
+											label: t('form.desc'),
 											value: ORDER.DESC
 										},
 										{
-											label: '升序',
+											label: t('form.asc'),
 											value: ORDER.ASC
 										}
 									]}
@@ -337,10 +340,10 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 								macroDefer(on_reset)
 							}}
 						>
-							全部重置
+							{t('reset.all')}
 						</Button>
 						<Button primary prefixIcon={<TbSearch />} loading={loading} onClick={form.submit}>
-							筛选
+							{t('filter.text')}
 						</Button>
 					</Space>
 				</div>

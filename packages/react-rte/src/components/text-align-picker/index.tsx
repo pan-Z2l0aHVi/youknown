@@ -1,6 +1,7 @@
 import './index.scss'
 
 import { ReactElement, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { TbAlignCenter, TbAlignJustified, TbAlignLeft, TbAlignRight } from 'react-icons/tb'
 
 import { Popover, Tooltip } from '@youknown/react-ui/src'
@@ -11,6 +12,7 @@ import CommandBtn from '../command-btn'
 
 export default function TextAlignPicker(props: ButtonProps) {
 	const { editor, tooltip = true } = props
+	const { t } = useTranslation()
 	const [open, setOpen] = useState(false)
 	interface Option {
 		value: string
@@ -20,22 +22,22 @@ export default function TextAlignPicker(props: ButtonProps) {
 	const options: Option[] = [
 		{
 			value: 'left',
-			label: '左对齐',
+			label: t('react_rte.align.left'),
 			icon: <TbAlignLeft />
 		},
 		{
 			value: 'center',
-			label: '居中对齐',
+			label: t('react_rte.align.center'),
 			icon: <TbAlignCenter />
 		},
 		{
 			value: 'right',
-			label: '右对齐',
+			label: t('react_rte.align.right'),
 			icon: <TbAlignRight />
 		},
 		{
 			value: 'justify',
-			label: '两端对齐',
+			label: t('react_rte.align.justify'),
 			icon: <TbAlignJustified />
 		}
 	]
@@ -83,7 +85,7 @@ export default function TextAlignPicker(props: ButtonProps) {
 		>
 			<CommandBtn
 				className={cls(prefixCls)}
-				tooltip="对齐方式"
+				tooltip={t('react_rte.align.method')}
 				tooltipDisabled={!tooltip}
 				active={open}
 				disabled={textAlginDisabled}

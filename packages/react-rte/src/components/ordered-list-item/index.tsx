@@ -1,5 +1,6 @@
 import './index.scss'
 
+import { useTranslation } from 'react-i18next'
 import { TbListNumbers } from 'react-icons/tb'
 
 import { Editor } from '@tiptap/react'
@@ -10,6 +11,7 @@ import { UI_EDITOR_PREFIX } from '../../common'
 
 export default function OrderedListItem(props: { editor: Editor }) {
 	const { editor } = props
+	const { t } = useTranslation()
 	const prefixCls = `${UI_EDITOR_PREFIX}-ordered-list-item`
 	return (
 		<Dropdown.Item
@@ -28,7 +30,7 @@ export default function OrderedListItem(props: { editor: Editor }) {
 				editor.chain().focus().toggleOrderedList().run()
 			}}
 		>
-			有序列表
+			{t('react_rte.orderlist')}
 		</Dropdown.Item>
 	)
 }

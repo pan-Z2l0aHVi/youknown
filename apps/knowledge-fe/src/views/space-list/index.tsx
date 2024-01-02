@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { GoInbox } from 'react-icons/go'
 import { TbFolderPlus } from 'react-icons/tb'
 
@@ -12,6 +13,7 @@ import SpaceCard from './components/space-card'
 import SpaceOptionsModal from './components/space-options-modal'
 
 export default function SpaceList() {
+	const { t } = useTranslation()
 	const has_login = useUserStore(state => state.has_login)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const space_list = useSpaceStore(state => state.space_list)
@@ -25,7 +27,7 @@ export default function SpaceList() {
 		if (err) {
 			return
 		}
-		Toast.success('保存成功')
+		Toast.success(t('save.success'))
 		hide_options_modal()
 	}
 
@@ -52,7 +54,7 @@ export default function SpaceList() {
 
 	return (
 		<>
-			<Header heading="我的知识库">
+			<Header heading={t('page.title.library')}>
 				<Button
 					primary
 					prefixIcon={<TbFolderPlus className="text-16px" />}
@@ -65,7 +67,7 @@ export default function SpaceList() {
 						show_options_modal()
 					}}
 				>
-					新建空间
+					{t('space.create')}
 				</Button>
 			</Header>
 
@@ -76,7 +78,7 @@ export default function SpaceList() {
 			) : (
 				<div className="flex flex-col items-center color-text-3 mt-40px">
 					<GoInbox className="text-32px mb-16px" />
-					<div>空空如也，快来创建你的专属知识空间吧~</div>
+					<div>{t('space.empty_tip')}</div>
 				</div>
 			)}
 

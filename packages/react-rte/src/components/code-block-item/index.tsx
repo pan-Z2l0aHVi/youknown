@@ -1,5 +1,6 @@
 import './index.scss'
 
+import { useTranslation } from 'react-i18next'
 import { PiCodeBlockBold } from 'react-icons/pi'
 
 import { Editor } from '@tiptap/react'
@@ -10,6 +11,7 @@ import { UI_EDITOR_PREFIX } from '../../common'
 
 export default function CodeBlockItem(props: { editor: Editor }) {
 	const { editor } = props
+	const { t } = useTranslation()
 	const prefixCls = `${UI_EDITOR_PREFIX}-code-block-btn`
 	return (
 		<Dropdown.Item
@@ -28,7 +30,7 @@ export default function CodeBlockItem(props: { editor: Editor }) {
 				editor.chain().focus().toggleCodeBlock().run()
 			}}
 		>
-			代码块
+			{t('react_rte.code_block')}
 		</Dropdown.Item>
 	)
 }

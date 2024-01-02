@@ -1,6 +1,7 @@
 import './index.scss'
 
 import { ComponentProps, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { BiEditAlt } from 'react-icons/bi'
 import { TbLink } from 'react-icons/tb'
 
@@ -23,6 +24,7 @@ export default function LinkPicker(props: LinkPickerProps) {
 		...rest
 	} = omit(props, 'defaultOpen', 'open', 'onOpenChange')
 
+	const { t } = useTranslation()
 	const [href, setHref] = useState('')
 	const [open, onOpenChange] = useControllable(props, {
 		defaultValue: false,
@@ -44,7 +46,7 @@ export default function LinkPicker(props: LinkPickerProps) {
 				className={cls(`${prefixCls}-href-input`)}
 				bordered={false}
 				autoFocus
-				placeholder="输入链接"
+				placeholder={t('react_rte.placeholder.link')}
 				value={href}
 				onChange={setHref}
 				onEnter={saveLinkHref}
@@ -53,7 +55,7 @@ export default function LinkPicker(props: LinkPickerProps) {
 				}}
 			/>
 			<Button primary onClick={saveLinkHref}>
-				确认
+				{t('react_rte.ok')}
 			</Button>
 		</Space>
 	)
@@ -71,7 +73,7 @@ export default function LinkPicker(props: LinkPickerProps) {
 			<CommandBtn
 				className={cls(prefixCls)}
 				arrow
-				tooltip={isEdit ? '编辑链接' : '链接'}
+				tooltip={isEdit ? t('react_rte.link.edit') : t('react_rte.link.text')}
 				tooltipDisabled={!tooltip}
 				active={open}
 				disabled={disabled}

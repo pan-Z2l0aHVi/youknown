@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { FiDownloadCloud } from 'react-icons/fi'
 import { LuHeart, LuHeartOff } from 'react-icons/lu'
 import { RxDotsHorizontal } from 'react-icons/rx'
@@ -23,6 +24,7 @@ interface WallpaperCardProps {
 export default function WallpaperCard(props: WallpaperCardProps) {
 	const { className, wallpaper, on_removed, search_similar } = props
 
+	const { t } = useTranslation()
 	const has_login = useUserStore(state => state.has_login)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const [hovered, { setTrue: start_hover, setFalse: stop_hover }] = useBoolean(false)
@@ -48,7 +50,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		if (err) {
 			return
 		}
-		Toast.success('收藏成功')
+		Toast.success(t('collect.success'))
 		set_collected(true)
 	}
 	const remove_from_collection = async () => {
@@ -62,13 +64,13 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		if (err) {
 			return
 		}
-		Toast.success('取消收藏成功')
+		Toast.success(t('collect.cancel.success'))
 		set_collected(false)
 		on_removed?.()
 	}
 
 	const toast_download_err = () => {
-		Toast.error('下载失败，请查看原图并右键保存')
+		Toast.error(t('download.fail_and_save'))
 	}
 	const handle_download = () => {
 		downloadFile(wallpaper.path, wallpaper.id).catch(() => {
@@ -97,18 +99,18 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 	const get_dropdown_menu = (is_context_menu = false) => {
 		return (
 			<Dropdown.Menu
-				className="w-120px"
+				className="min-w-120px"
 				onClick={stop_hover}
 				closeAfterItemClick
 				closeDropdown={is_context_menu ? ctx_menu.closeContextMenu : undefined}
 			>
 				<Dropdown.Item prefix={<FiDownloadCloud className="text-16px" />} onClick={handle_download}>
-					<span>下载原图</span>
+					<span>{t('download.original_img')}</span>
 				</Dropdown.Item>
 
 				{is.function(search_similar) && (
 					<Dropdown.Item prefix={<TbPhotoSearch className="text-16px" />} onClick={search_similar}>
-						<span>查找相似</span>
+						<span>{t('find.similar')}</span>
 					</Dropdown.Item>
 				)}
 
@@ -117,11 +119,11 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 						prefix={<LuHeartOff className="text-16px color-danger" />}
 						onClick={remove_from_collection}
 					>
-						<span className="color-danger">取消收藏</span>
+						<span className="color-danger">{t('collect.cancel.text')}</span>
 					</Dropdown.Item>
 				) : (
 					<Dropdown.Item prefix={<LuHeart className="text-16px" />} onClick={add_to_collection}>
-						<span>收藏</span>
+						<span>{t('collect.text')}</span>
 					</Dropdown.Item>
 				)}
 			</Dropdown.Menu>
@@ -170,7 +172,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 				/>
 
 				{seen && (
-					<Tooltip placement="bottom" title="看过">
+					<Tooltip placement="bottom" title={t('seen')}>
 						<div
 							className={cls(
 								'absolute top-8px right-8px flex items-center justify-center',

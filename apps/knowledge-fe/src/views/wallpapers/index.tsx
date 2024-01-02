@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import { search_wallpapers, SearchWallpapersParams, Wallpaper } from '@/apis/wallpaper'
 import Header from '@/app/components/header'
@@ -7,7 +7,7 @@ import MoreLoading from '@/components/more-loading'
 import NoMore from '@/components/no-more'
 import { useCreation, useEvent, useInfinity, useMount, useUnmount, useUpdate } from '@youknown/react-hook/src'
 import { Form } from '@youknown/react-ui/src'
-import { checkPWA, cls, macroDefer, QS, storage } from '@youknown/utils/src'
+import { checkPWA, macroDefer, QS, storage } from '@youknown/utils/src'
 
 import WallpaperCard from './components/wallpaper-card'
 import WallpaperFilter, {
@@ -20,6 +20,8 @@ import WallpaperFilter, {
 	WallpaperQuery
 } from './components/wallpaper-filter'
 
+const { useSearchParams } = await import('react-router-dom')
+
 const FILTER_STATE_KEY = 'wallpaper_filter_state'
 const FILTER_KEYWORDS_KEY = 'wallpaper_filter_keywords'
 const WALLPAPERS_KEY = 'wallpapers'
@@ -27,6 +29,7 @@ const WALLPAPER_PAGE_KEY = 'wallpaper_page'
 const WALLPAPER_SCROLL_Y_KEY = 'wallpaper_scroll_y'
 
 export default function Wallpapers() {
+	const { t } = useTranslation()
 	const [search_params] = useSearchParams()
 	const update = useUpdate()
 	const loading_ref = useRef<HTMLDivElement>(null)
@@ -223,7 +226,7 @@ export default function Wallpapers() {
 
 	return (
 		<>
-			<Header heading="壁纸"></Header>
+			<Header heading={t('page.title.wallpapers')}></Header>
 
 			<div className="p-[16px_16px_0]">
 				<WallpaperFilter

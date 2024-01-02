@@ -1,5 +1,6 @@
 import './index.scss'
 
+import { useTranslation } from 'react-i18next'
 import { RiDoubleQuotesL } from 'react-icons/ri'
 
 import { Editor } from '@tiptap/react'
@@ -10,6 +11,7 @@ import { UI_EDITOR_PREFIX } from '../../common'
 
 export default function BlockquoteItem(props: { editor: Editor }) {
 	const { editor } = props
+	const { t } = useTranslation()
 	const prefixCls = `${UI_EDITOR_PREFIX}-blockquote-item`
 	return (
 		<Dropdown.Item
@@ -28,7 +30,7 @@ export default function BlockquoteItem(props: { editor: Editor }) {
 				editor.chain().focus().toggleBlockquote().run()
 			}}
 		>
-			引用
+			{t('react_rte.blockquote')}
 		</Dropdown.Item>
 	)
 }

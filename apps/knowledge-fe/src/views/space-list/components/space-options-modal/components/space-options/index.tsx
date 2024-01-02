@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { get_space_info } from '@/apis/space'
 import { validateMaxLength, validateRequired } from '@/utils/validators'
@@ -16,6 +17,7 @@ interface SpaceOptionsProps {
 export default function SpaceOptions(props: SpaceOptionsProps) {
 	const { hide_modal, space_id, on_save } = props
 	const is_edit = !!space_id
+	const { t } = useTranslation()
 	const [saving, set_saving] = useState(false)
 	const form = Form.useForm({
 		defaultState: {
@@ -41,17 +43,17 @@ export default function SpaceOptions(props: SpaceOptionsProps) {
 
 	return (
 		<Loading spinning={loading}>
-			<Form className="w-392px p-24px" form={form} labelWidth={80}>
+			<Form className="w-428px p-24px" form={form} labelWidth={104}>
 				<Form.Field
 					label="name"
-					labelText="空间名称"
+					labelText={t('space.name')}
 					validators={[validateRequired(), validateMaxLength(SPACE_NAME_MAX_LEN)]}
 				>
 					<Input className="w-100%!" />
 				</Form.Field>
 				<Form.Field
 					label="desc"
-					labelText="简介"
+					labelText={t('introduction')}
 					validators={[validateRequired(), validateMaxLength(SPACE_DESC_MAX_LEN)]}
 				>
 					<Input.Textarea className="w-100%!" autosize maxRows={4} />
@@ -59,10 +61,10 @@ export default function SpaceOptions(props: SpaceOptionsProps) {
 				<Form.Field className="mb-0!" labelText=" ">
 					<Space>
 						<Button className="min-w-80px" onClick={hide_modal}>
-							取消
+							{t('cancel.text')}
 						</Button>
 						<Button className="min-w-80px" type="submit" primary loading={saving}>
-							{is_edit ? '保存' : '创建'}
+							{is_edit ? t('save.text') : t('create.text')}
 						</Button>
 					</Space>
 				</Form.Field>

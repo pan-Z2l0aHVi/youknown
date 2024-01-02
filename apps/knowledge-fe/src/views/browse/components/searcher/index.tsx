@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useTransition } from 'react'
+import { useTranslation } from 'react-i18next'
 import { GoInbox } from 'react-icons/go'
 import { TbSearch } from 'react-icons/tb'
 
@@ -13,6 +14,7 @@ import Overview from './components/overview'
 import ResultList from './components/result-list'
 
 export default function Searcher() {
+	const { t } = useTranslation()
 	const [, start_transition] = useTransition()
 	const navigate = useTransitionNavigate()
 	const [keywords, set_keywords] = useState('')
@@ -83,7 +85,7 @@ export default function Searcher() {
 				autoFocus
 				bordered={false}
 				size="large"
-				placeholder="搜一搜"
+				placeholder={t('placeholder.search')}
 				prefix={<TbSearch className="color-text-3 text-18px mr-4px ml-4px" />}
 				allowClear
 				value={keywords}
@@ -94,7 +96,7 @@ export default function Searcher() {
 
 	const card_footer = (
 		<div className="pl-16px bg-bg-2 b-t-1 b-t-solid b-t-bd-line line-height-32px color-text-3 text-12px">
-			支持 ↑↓ 键选择、Enter 键打开、双击打开
+			{t('keyboard.tip')}
 		</div>
 	)
 	const has_result = result.length > 0
@@ -124,7 +126,7 @@ export default function Searcher() {
 				) : (
 					<div className="flex flex-col justify-center items-center h-120px color-text-3">
 						<GoInbox className="text-32px mb-8px" />
-						未找到匹配的结果
+						{t('find.empty')}
 					</div>
 				)}
 			</Loading>

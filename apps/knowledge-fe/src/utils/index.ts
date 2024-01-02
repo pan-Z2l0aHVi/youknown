@@ -4,6 +4,8 @@ import { is, QS, storage, uuid } from '@youknown/utils/src'
 
 import { open_login_window } from './correspond'
 
+const { t } = await import('i18next')
+
 export const go_github_login = async () => {
 	const state = uuid()
 	storage.session.set('state', state)
@@ -28,21 +30,21 @@ export const format_time = (timing: number | string): string => {
 		return timing
 	}
 	const now = dayjs()
-	const formatter = 'HH:mm' // 时间格式，可以根据需要修改
+	const formatter = 'HH:mm'
 
 	if (date.isSame(now, 'day')) {
-		return `今天 ${date.format(formatter)}`
+		return `${t('time.today')} ${date.format(formatter)}`
 	}
 	if (date.isSame(now.subtract(1, 'day'), 'day')) {
-		return `昨天 ${date.format(formatter)}`
+		return `${t('time.yesterday')} ${date.format(formatter)}`
 	}
 	if (date.isSame(now.subtract(2, 'day'), 'day')) {
-		return `前天 ${date.format(formatter)}`
+		return `${t('time.before_yesterday')} ${date.format(formatter)}`
 	}
 	if (date.diff(now, 'year') > 1) {
-		return date.format(`YYYY年MM月DD日 ${formatter}`)
+		return date.format(`${t('time.year_date')} ${formatter}`)
 	}
-	return date.format(`MM月DD日 ${formatter}`)
+	return date.format(`${t('time.month_date')} ${formatter}`)
 }
 
 export function parse_file_size_kb(file: File) {

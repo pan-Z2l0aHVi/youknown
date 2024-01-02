@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { TbChecks, TbPlus, TbTrashX, TbX } from 'react-icons/tb'
 
 import { create_doc, delete_doc, Doc, search_docs } from '@/apis/doc'
@@ -23,6 +24,8 @@ interface DocListProps {
 }
 export default function DocList(props: DocListProps) {
 	const { space_id, filter_open, close_filter, choosing, cancel_choosing } = props
+
+	const { t } = useTranslation()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const has_login = useUserStore(state => state.has_login)
@@ -98,13 +101,13 @@ export default function DocList(props: DocListProps) {
 		set_create_loading(true)
 		const [err, res] = await with_api(create_doc)({
 			space_id,
-			title: '未命名'
+			title: t('unnamed')
 		})
 		set_create_loading(false)
 		if (err) {
 			return
 		}
-		Toast.success('创建文档成功')
+		Toast.success(t('doc.create.success'))
 		navigate(
 			QS.stringify({
 				base: `editor`,
@@ -154,15 +157,15 @@ export default function DocList(props: DocListProps) {
 
 	const show_doc_delete_dialog = () => {
 		Dialog.confirm({
-			title: '批量删除文档',
-			content: '一旦执行该操作数据将无法恢复，是否确认删除？',
+			title: t('heading.batching_delete_doc'),
+			content: t('doc.delete_tip'),
 			overlayClassName: cls(
 				'backdrop-blur-xl',
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
 			),
 			okDanger: true,
-			okText: '删除',
-			cancelText: '取消',
+			okText: t('delete.text'),
+			cancelText: t('cancel.text'),
 			closeIcon: null,
 			unmountOnExit: true,
 			onOk: async () => {
@@ -192,22 +195,27 @@ export default function DocList(props: DocListProps) {
 		<Motion.Slide in={choosing} direction="up" mountOnEnter unmountOnExit>
 			<div className="z-2 fixed bottom-40px left-[calc(50%-120px)] p-8px bg-bg-1 b-1 b-solid b-bd-line rd-radius-l shadow-shadow-l">
 				<Space align="center">
-					<Tooltip disabled={!has_selection} spacing={12} placement="top" title="批量删除">
+					<Tooltip disabled={!has_selection} spacing={12} placement="top" title={t('delete.batching')}>
 						<Button circle text disabled={!has_selection} onClick={show_doc_delete_dialog}>
 							<TbTrashX className={cls('text-16px', has_selection && 'color-danger')} />
 						</Button>
 					</Tooltip>
 
 					<div className="pl-16px pr-16px b-l-1 b-r-1 b-l-solid b-r-solid b-bd-line select-none color-text-2">
-						已选中：<span className="inline-block min-w-32px color-text-1">{selection.length}</span>
+						{t('select.choosing')}
+						<span className="inline-block min-w-32px color-text-1">{selection.length}</span>
 					</div>
 
-					<Tooltip spacing={12} placement="top" title={is_all_selected ? '取消全选' : '全选'}>
+					<Tooltip
+						spacing={12}
+						placement="top"
+						title={is_all_selected ? t('select.cancel_all') : t('select.all')}
+					>
 						<Button circle text onClick={toggle_select_all}>
 							<TbChecks className={cls('text-16px', is_all_selected && 'color-primary')} />
 						</Button>
 					</Tooltip>
-					<Tooltip spacing={12} placement="top" title="取消选择">
+					<Tooltip spacing={12} placement="top" title={t('select.cancel')}>
 						<Button circle text onClick={cancel_choosing}>
 							<TbX className="text-16px" />
 						</Button>

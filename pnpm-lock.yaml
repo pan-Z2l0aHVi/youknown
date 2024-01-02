@@ -16,6 +16,15 @@ importers:
       highlight.js:
         specifier: ^11.9.0
         version: registry.npmmirror.com/highlight.js@11.9.0
+      i18next:
+        specifier: ^23.7.11
+        version: registry.npmmirror.com/i18next@23.7.11
+      i18next-browser-languagedetector:
+        specifier: ^7.2.0
+        version: registry.npmmirror.com/i18next-browser-languagedetector@7.2.0
+      i18next-resources-to-backend:
+        specifier: ^1.2.0
+        version: registry.npmmirror.com/i18next-resources-to-backend@1.2.0
       lodash-es:
         specifier: ^4.17.21
         version: registry.npmmirror.com/lodash-es@4.17.21
@@ -25,6 +34,9 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: registry.npmmirror.com/react-dom@18.2.0(react@18.2.0)
+      react-i18next:
+        specifier: ^14.0.0
+        version: registry.npmmirror.com/react-i18next@14.0.0(i18next@23.7.11)(react-dom@18.2.0)(react@18.2.0)
       react-icons:
         specifier: ^4.12.0
         version: registry.npmmirror.com/react-icons@4.12.0(react@18.2.0)
@@ -6941,7 +6953,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': registry.npmmirror.com/@vue/compiler-ssr@3.3.13
       '@vue/shared': registry.npmmirror.com/@vue/shared@3.3.13
-      vue: registry.npmmirror.com/vue@3.3.13
+      vue: registry.npmmirror.com/vue@3.3.13(typescript@5.2.2)
 
   registry.npmmirror.com/@vue/shared@3.3.13:
     resolution: {integrity: sha512-/zYUwiHD8j7gKx2argXEMCUXVST6q/21DFU0sTfNX0URJroCe3b1UF6vLJ3lQDfLNIiiRl2ONp7Nh5UVWS6QnA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vue/shared/-/shared-3.3.13.tgz}
@@ -9726,6 +9738,14 @@ packages:
     version: 2.0.2
     dev: true
 
+  registry.npmmirror.com/html-parse-stringify@3.0.1:
+    resolution: {integrity: sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/html-parse-stringify/-/html-parse-stringify-3.0.1.tgz}
+    name: html-parse-stringify
+    version: 3.0.1
+    dependencies:
+      void-elements: registry.npmmirror.com/void-elements@3.1.0
+    dev: false
+
   registry.npmmirror.com/html-react-parser@5.0.11(react@18.2.0):
     resolution: {integrity: sha512-TcLGDGMbVRbos09zwnom/QrLbd4PmNFhMEhlp2ZdHBboAuCuctRDqr8JU5aTyKzFKotdpSg8QkXVxVb5ZUU2Ag==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/html-react-parser/-/html-react-parser-5.0.11.tgz}
     id: registry.npmmirror.com/html-react-parser/5.0.11
@@ -9813,6 +9833,30 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
     dev: true
+
+  registry.npmmirror.com/i18next-browser-languagedetector@7.2.0:
+    resolution: {integrity: sha512-U00DbDtFIYD3wkWsr2aVGfXGAj2TgnELzOX9qv8bT0aJtvPV9CRO77h+vgmHFBMe7LAxdwvT/7VkCWGya6L3tA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/i18next-browser-languagedetector/-/i18next-browser-languagedetector-7.2.0.tgz}
+    name: i18next-browser-languagedetector
+    version: 7.2.0
+    dependencies:
+      '@babel/runtime': registry.npmmirror.com/@babel/runtime@7.23.6
+    dev: false
+
+  registry.npmmirror.com/i18next-resources-to-backend@1.2.0:
+    resolution: {integrity: sha512-8f1l03s+QxDmCfpSXCh9V+AFcxAwIp0UaroWuyOx+hmmv8484GcELHs+lnu54FrNij8cDBEXvEwhzZoXsKcVpg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/i18next-resources-to-backend/-/i18next-resources-to-backend-1.2.0.tgz}
+    name: i18next-resources-to-backend
+    version: 1.2.0
+    dependencies:
+      '@babel/runtime': registry.npmmirror.com/@babel/runtime@7.23.6
+    dev: false
+
+  registry.npmmirror.com/i18next@23.7.11:
+    resolution: {integrity: sha512-A/vOkw8vY99YHU9A1Td3I1dcTiYaPnwBWzrpVzfXUXSYgogK3cmBcmop/0cnXPc6QpUWIyqaugKNxRUEZVk9Nw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/i18next/-/i18next-23.7.11.tgz}
+    name: i18next
+    version: 23.7.11
+    dependencies:
+      '@babel/runtime': registry.npmmirror.com/@babel/runtime@7.23.6
+    dev: false
 
   registry.npmmirror.com/iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/iconv-lite/-/iconv-lite-0.4.24.tgz}
@@ -13106,6 +13150,29 @@ packages:
       tslib: registry.npmmirror.com/tslib@2.0.1
     dev: false
 
+  registry.npmmirror.com/react-i18next@14.0.0(i18next@23.7.11)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-OCrS8rHNAmnr8ggGRDxjakzihrMW7HCbsplduTm3EuuQ6fyvWGT41ksZpqbduYoqJurBmEsEVZ1pILSUWkHZng==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/react-i18next/-/react-i18next-14.0.0.tgz}
+    id: registry.npmmirror.com/react-i18next/14.0.0
+    name: react-i18next
+    version: 14.0.0
+    peerDependencies:
+      i18next: '>= 23.2.3'
+      react: '>= 16.8.0'
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@babel/runtime': registry.npmmirror.com/@babel/runtime@7.23.6
+      html-parse-stringify: registry.npmmirror.com/html-parse-stringify@3.0.1
+      i18next: registry.npmmirror.com/i18next@23.7.11
+      react: registry.npmmirror.com/react@18.2.0
+      react-dom: registry.npmmirror.com/react-dom@18.2.0(react@18.2.0)
+    dev: false
+
   registry.npmmirror.com/react-icons@4.12.0(react@18.2.0):
     resolution: {integrity: sha512-IBaDuHiShdZqmfc/TwHu6+d6k2ltNCf3AszxNmjJc1KUfXdEeRJOKyNvLmAHaarhzGmTSVygNdyu8/opXv2gaw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/react-icons/-/react-icons-4.12.0.tgz}
     id: registry.npmmirror.com/react-icons/4.12.0
@@ -15430,6 +15497,13 @@ packages:
       fsevents: registry.npmmirror.com/fsevents@2.3.3
     dev: true
 
+  registry.npmmirror.com/void-elements@3.1.0:
+    resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/void-elements/-/void-elements-3.1.0.tgz}
+    name: void-elements
+    version: 3.1.0
+    engines: {node: '>=0.10.0'}
+    dev: false
+
   registry.npmmirror.com/vue-eslint-parser@9.3.2(eslint@8.56.0):
     resolution: {integrity: sha512-q7tWyCVaV9f8iQyIA5Mkj/S6AoJ9KBN8IeUSf3XEmBrOtxOZnfTg5s4KClbZBCK3GtnT/+RyCLZyDHuZwTuBjg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue-eslint-parser/-/vue-eslint-parser-9.3.2.tgz}
     id: registry.npmmirror.com/vue-eslint-parser/9.3.2
@@ -15502,6 +15576,7 @@ packages:
       '@vue/runtime-dom': registry.npmmirror.com/@vue/runtime-dom@3.3.13
       '@vue/server-renderer': registry.npmmirror.com/@vue/server-renderer@3.3.13(vue@3.3.13)
       '@vue/shared': registry.npmmirror.com/@vue/shared@3.3.13
+    dev: false
 
   registry.npmmirror.com/vue@3.3.13(typescript@5.2.2):
     resolution: {integrity: sha512-LDnUpQvDgsfc0u/YgtAgTMXJlJQqjkxW1PVcOnJA5cshPleULDjHi7U45pl2VJYazSSvLH8UKcid/kzH8I0a0Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue/-/vue-3.3.13.tgz}

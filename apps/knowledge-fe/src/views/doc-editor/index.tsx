@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { TbCloudCheck, TbWorld, TbWorldOff } from 'react-icons/tb'
-import { useSearchParams } from 'react-router-dom'
 
 import { Doc, get_doc_drafts, get_doc_info, update_doc, update_doc_draft } from '@/apis/doc'
 import Header from '@/app/components/header'
@@ -39,7 +39,10 @@ import CoverUpload from './components/cover-upload'
 import DocHistoryDrawer from './components/doc-history-drawer'
 import DocOptionsDropdown from './components/doc-options-dropdown'
 
+const { useSearchParams } = await import('react-router-dom')
+
 export default function Doc() {
+	const { t } = useTranslation()
 	const [search_params] = useSearchParams()
 	const doc_id = search_params.get('doc_id') as string
 	const recording = useRecordStore(state => state.recording)
@@ -85,12 +88,12 @@ export default function Doc() {
 											})
 										},
 										error(err) {
-											Toast.error('上传图片失败')
+											Toast.error(t('upload.img.fail'))
 											reject(err)
 										}
 									})
 								} catch (err) {
-									Toast.error('上传图片失败')
+									Toast.error(t('upload.img.fail'))
 									reject(err)
 								}
 							}
@@ -101,9 +104,9 @@ export default function Doc() {
 		autofocus: 'end',
 		placeholder: ({ node }) => {
 			if (node.type.name === 'heading') {
-				return '请输入标题'
+				return t('placeholder.title')
 			}
-			return '输入内容 / 唤起更多'
+			return t('placeholder.more')
 		},
 		onUpdate({ editor }) {
 			debounced_update(editor)
@@ -198,13 +201,13 @@ export default function Doc() {
 		set_doc_info(res)
 		editor.commands.setContent(res.content)
 		record_update_doc(res)
-		Toast.success('更新成功')
+		Toast.success(t('update.success'))
 	}
 
 	const update_doc_title = async () => {
 		blur_title()
 		if (!title_val) {
-			Toast.warning('标题不能为空')
+			Toast.warning(t('validate.title_required'))
 			set_title_val(doc_title)
 			return
 		}
@@ -221,7 +224,7 @@ export default function Doc() {
 			return
 		}
 		set_doc_info(res)
-		Toast.success('标题更新成功')
+		Toast.success(t('update.title.success'))
 	}
 
 	const recovery_doc = (doc_content: string) => {
@@ -244,32 +247,34 @@ export default function Doc() {
 			return
 		}
 		set_doc_info(res)
-		Toast.success(is_public ? '发布成功' : '已取消发布')
+		Toast.success(is_public ? t('doc.publish.ok') : t('doc.publish.cancel'))
 	}
 
 	const on_export_pdf = () => {
 		export_pdf(editor.getHTML(), doc_info?.title + '.pdf')
 			.then(() => {
-				Toast.success('导出PDF完成')
+				Toast.success(t('export.pdf.success'))
 			})
 			.catch(() => {
-				Toast.error('导出PDF失败')
+				Toast.error(t('export.pdf.fail'))
 			})
 	}
 	const on_export_html = () => {
 		export_html(editor.getHTML(), doc_info?.title + '.html')
-		Toast.success('导出HTML完成')
+		Toast.success(t('export.html.success'))
 	}
 
 	const doc_tips = (
 		<div className="flex">
 			<div className="text-text-3 text-12px">
-				正文字数 <span className="inline-block">{text_len}</span>
+				{t('doc.words_len')} <span className="inline-block">{text_len}</span>
 			</div>
 			{draft && (
 				<>
 					<span className="text-text-3 text-12px ml-8px mr-8px">·</span>
-					<div className="text-text-3 text-12px">自动保存于 {format_time(draft.creation_time)}</div>
+					<div className="text-text-3 text-12px">
+						{t('doc.auto_save')} {format_time(draft.creation_time)}
+					</div>
 				</>
 			)}
 		</div>
@@ -277,7 +282,7 @@ export default function Doc() {
 
 	const is_doc_public = doc_info?.public ?? false
 	const public_icon = (
-		<Tooltip placement="bottom" title={is_doc_public ? '已发布，对所有人可见' : '仅自己可见'}>
+		<Tooltip placement="bottom" title={is_doc_public ? t('doc.public') : t('doc.private')}>
 			<Button
 				className="mr-8px"
 				text
@@ -287,9 +292,9 @@ export default function Doc() {
 				onClick={() => update_doc_public(!is_doc_public)}
 			>
 				{is_doc_public ? (
-					<TbWorld className="color-text-2 text-16px" />
+					<TbWorld className="color-primary text-16px" />
 				) : (
-					<TbWorldOff className="color-text-2 text-16px" />
+					<TbWorldOff className="color-text-3 text-16px" />
 				)}
 			</Button>
 		</Tooltip>
@@ -306,7 +311,7 @@ export default function Doc() {
 						value={title_val}
 						onChange={set_title_val}
 						autoFocus
-						placeholder="请输入标题"
+						placeholder={t('placeholder.title')}
 						onBlur={update_doc_title}
 					/>
 				</div>
@@ -325,7 +330,7 @@ export default function Doc() {
 
 	return (
 		<>
-			<Header heading="文档" bordered="visible">
+			<Header heading={t('heading.doc')} bordered="visible">
 				<div className="flex-1 flex items-center ml-24px mr-24px">
 					{public_icon}
 					{title_ele}
@@ -337,10 +342,10 @@ export default function Doc() {
 						onClick={show_history_drawer}
 						prefixIcon={<TbCloudCheck className="color-text-2" size={16} />}
 					>
-						草稿箱
+						{t('draft.text')}
 					</Button>
 					<Button disabled={editor.isEmpty} primary onClick={update_doc_content}>
-						更新
+						{t('update.text')}
 					</Button>
 					<DocOptionsDropdown
 						doc_id={doc_id}

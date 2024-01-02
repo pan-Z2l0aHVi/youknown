@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import computed from 'zustand-computed'
 import { devtools } from 'zustand/middleware'
 
+import { change_lang } from '@/utils/i18n'
 import { set_local_settings } from '@/utils/local'
 import { delay, setRootStyle } from '@youknown/utils/src'
 
@@ -10,12 +11,18 @@ export const enum THEME {
 	DARK = 2,
 	SYSTEM = 3
 }
+export const enum I18N_LANG {
+	SYSTEM = 'system',
+	ZH = 'zh',
+	EN = 'en'
+}
 interface UIState {
 	progress_percent: number
 	progress_visible: boolean
 	primary_color: string
 	radius: number[]
 	theme: THEME
+	i18n_lang: I18N_LANG
 	set_progress_percent: (percent: number) => void
 	show_progress: () => void
 	hide_progress: () => void
@@ -24,6 +31,7 @@ interface UIState {
 	set_hue: (hue: string) => Promise<void>
 	set_radius: (radius: number[]) => void
 	set_dark_theme: (theme: THEME) => void
+	set_i18n_lang: (lang: I18N_LANG) => void
 }
 
 const dark_mode = window.matchMedia('(prefers-color-scheme: dark)')
@@ -57,9 +65,10 @@ export const useUIStore = create<UIState>()(
 			(set, get) => ({
 				progress_percent: 0,
 				progress_visible: false,
-				primary_color: '',
-				radius: [],
-				theme: THEME.LIGHT,
+				primary_color: '#007aff',
+				radius: [4, 8, 12],
+				theme: THEME.SYSTEM,
+				i18n_lang: I18N_LANG.SYSTEM,
 
 				set_progress_percent: percent =>
 					set({
@@ -137,6 +146,17 @@ export const useUIStore = create<UIState>()(
 						root.classList.add('light-theme')
 						root.classList.remove('dark-theme')
 					}
+				},
+
+				set_i18n_lang: async lang => {
+					if (lang === I18N_LANG.SYSTEM) {
+						const system_lang = navigator.language.slice(0, 2)
+						change_lang(system_lang)
+					} else {
+						change_lang(lang)
+					}
+					set({ i18n_lang: lang })
+					set_local_settings({ i18n_lang: lang })
 				}
 			}),
 			computed_state

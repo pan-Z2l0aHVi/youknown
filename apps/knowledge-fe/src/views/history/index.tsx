@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState, useTransition } from 'react'
+import { useTranslation } from 'react-i18next'
 import { TbSearch } from 'react-icons/tb'
 
 import Header from '@/app/components/header'
@@ -10,6 +11,7 @@ import { cls } from '@youknown/utils/src'
 import RecordItem from './components/record-item'
 
 export default function History() {
+	const { t } = useTranslation()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 	const record_list = useRecordStore(state => state.record_list)
 	const clear_records = useRecordStore(state => state.clear_records)
@@ -57,8 +59,8 @@ export default function History() {
 
 	const handle_clear_history = () => {
 		Dialog.confirm({
-			title: '要清除历史记录吗？',
-			content: '一旦执行该操作，你的所有历史记录将从当前设备中清除。',
+			title: t('heading.clear_history'),
+			content: t('history.clear_tip'),
 			overlayClassName: cls(
 				'backdrop-blur-xl',
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
@@ -67,24 +69,24 @@ export default function History() {
 				clear_records()
 			},
 			okDanger: true,
-			okText: '清除',
-			cancelText: '取消',
+			okText: t('clear.text'),
+			cancelText: t('cancel.text'),
 			closeIcon: null
 		})
 	}
 
 	return (
 		<>
-			<Header heading="历史记录">
+			<Header heading={t('page.title.history')}>
 				<Space>
 					<Input
 						prefix={<TbSearch className="color-text-3" />}
 						allowClear
-						placeholder="搜历史记录"
+						placeholder={t('placeholder.search_history')}
 						value={search_input}
 						onChange={handle_search_input}
 					/>
-					<Button onClick={handle_clear_history}>清除历史记录</Button>
+					<Button onClick={handle_clear_history}>{t('clear.history')}</Button>
 				</Space>
 			</Header>
 

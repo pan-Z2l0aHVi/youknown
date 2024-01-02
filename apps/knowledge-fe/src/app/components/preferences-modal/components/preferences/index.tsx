@@ -1,22 +1,26 @@
-import { THEME, useUIStore } from '@/stores'
-import { Form, Select, Space } from '@youknown/react-ui/src'
-import { cls, is } from '@youknown/utils/src'
+import { isEqual } from 'lodash-es'
+import { useTranslation } from 'react-i18next'
 
+import { I18N_LANG, THEME, useUIStore } from '@/stores'
+import { Form, Select, Space } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
+
+const { t } = await import('i18next')
 const style_options: StyleItem[] = [
 	{
 		id: 1,
 		radius: [0, 0, 0],
-		desc: '直角'
+		desc: () => t('setting.right_angle')
 	},
 	{
 		id: 2,
 		radius: [2, 4, 6],
-		desc: '圆角'
+		desc: () => t('setting.corners')
 	},
 	{
 		id: 3,
 		radius: [4, 8, 12],
-		desc: '大圆角'
+		desc: () => t('setting.large_corners')
 	}
 ]
 const hue_options = ['#007aff', '#af52de', '#e55b9d', '#ff3b30', '#ff9500', '#ffcc00', '#34c759', '#8e8e93']
@@ -24,7 +28,7 @@ const hue_options = ['#007aff', '#af52de', '#e55b9d', '#ff3b30', '#ff9500', '#ff
 interface StyleItem {
 	id: 1 | 2 | 3
 	radius: [number, number, number]
-	desc: string
+	desc: () => string
 }
 interface RadiusStyleProps {
 	value?: StyleItem
@@ -55,7 +59,7 @@ function RadiusStyle(props: RadiusStyleProps) {
 									: 'b-1 b-solid b-bd-line'
 							)}
 						></div>
-						<div className="color-text-2 mt-4px">{style.desc}</div>
+						<div className="color-text-2 mt-4px text-center max-w-64px">{style.desc()}</div>
 					</div>
 				)
 			})}
@@ -96,18 +100,22 @@ function Hue(props: HueProps) {
 }
 
 export default function Preferences() {
+	const { t } = useTranslation()
 	const theme = useUIStore(state => state.theme)
 	const primary_color = useUIStore(state => state.primary_color)
 	const radius = useUIStore(state => state.radius)
+	const i18n_lang = useUIStore(state => state.i18n_lang)
 	const set_radius = useUIStore(state => state.set_radius)
 	const set_hue = useUIStore(state => state.set_hue)
 	const set_dark_theme = useUIStore(state => state.set_dark_theme)
+	const set_i18n_lang = useUIStore(state => state.set_i18n_lang)
 
 	const form = Form.useForm({
 		defaultState: {
-			style: style_options.find(opt => is.array.equal(opt.radius, radius)) as StyleItem,
+			style: style_options.find(opt => isEqual(opt.radius, radius)) as StyleItem,
 			hue: primary_color,
-			theme
+			theme,
+			lang: i18n_lang
 		},
 		onStateChange(org) {
 			const state = form.getState()
@@ -125,6 +133,10 @@ export default function Preferences() {
 					set_dark_theme(state.theme)
 					break
 
+				case 'lang':
+					set_i18n_lang(state.lang)
+					break
+
 				default:
 					break
 			}
@@ -133,26 +145,44 @@ export default function Preferences() {
 
 	return (
 		<Form className="w-480px h-480px max-w-[calc(100vw-32px)] p-24px" form={form} labelWidth={108}>
-			<Form.Field label="style" labelText="界面风格">
+			<Form.Field label="style" labelText={t('setting.ui_style')}>
 				<RadiusStyle />
 			</Form.Field>
-			<Form.Field label="hue" labelText="色调">
+			<Form.Field label="hue" labelText={t('setting.hue')}>
 				<Hue />
 			</Form.Field>
-			<Form.Field label="theme" labelText="主题">
+			<Form.Field label="theme" labelText={t('setting.theme')}>
 				<Select
 					menuList={[
 						{
-							label: '浅色',
+							label: t('setting.light'),
 							value: THEME.LIGHT
 						},
 						{
-							label: '深色',
+							label: t('setting.dark'),
 							value: THEME.DARK
 						},
 						{
-							label: '跟随系统',
+							label: t('setting.system'),
 							value: THEME.SYSTEM
+						}
+					]}
+				/>
+			</Form.Field>
+			<Form.Field label="lang" labelText={t('setting.language')}>
+				<Select
+					menuList={[
+						{
+							label: '简体中文',
+							value: I18N_LANG.ZH
+						},
+						{
+							label: 'English',
+							value: I18N_LANG.EN
+						},
+						{
+							label: t('setting.system'),
+							value: I18N_LANG.SYSTEM
 						}
 					]}
 				/>

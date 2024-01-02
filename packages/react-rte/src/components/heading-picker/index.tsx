@@ -1,6 +1,7 @@
 import './index.scss'
 
 import { createElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import { TbCheck } from 'react-icons/tb'
 
 import { HeadingOptions, Level } from '@tiptap/extension-heading'
@@ -19,19 +20,20 @@ interface Option {
 export default function HeadingPicker(props: ButtonProps<HeadingOptions>) {
 	const { editor, tooltip = true, extension } = props
 
+	const { t } = useTranslation()
 	const levels = extension?.options?.levels ?? []
 	const headingOptions = levels
 		.filter(level => level >= 1 && level <= 4)
 		.map(level => ({
 			value: level,
-			label: `标题 ${level}`,
+			label: `${t('react_rte.heading.text')} ${level}`,
 			tagName: `h${level}`
 		}))
 	const options: Option[] = [
 		...headingOptions,
 		{
 			value: 0,
-			label: '正文',
+			label: t('react_rte.text'),
 			tagName: 'span'
 		}
 	]
@@ -80,7 +82,13 @@ export default function HeadingPicker(props: ButtonProps<HeadingOptions>) {
 				</Dropdown.Menu>
 			}
 		>
-			<CommandBtn tooltip="标题" tooltipDisabled={!tooltip} className={cls(prefixCls)} active={open} arrow>
+			<CommandBtn
+				tooltip={t('react_rte.heading.text')}
+				tooltipDisabled={!tooltip}
+				className={cls(prefixCls)}
+				active={open}
+				arrow
+			>
 				<div className={`${prefixCls}-label`}>{selection.label}</div>
 			</CommandBtn>
 		</Dropdown>

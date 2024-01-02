@@ -1,6 +1,7 @@
 import './image-preview.scss'
 
 import { MouseEventHandler, ReactEventHandler, useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
 	TbDownload,
 	TbPhotoX,
@@ -60,6 +61,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 		onDownloadError
 	} = props
 
+	const { t } = useTranslation()
 	const imgDetailRef = useRef<HTMLImageElement>(null)
 	const [detailError, setDetailError] = useState(false)
 
@@ -189,43 +191,43 @@ const ImagePreview = (props: ImagePreviewProps) => {
 	const toolbarList = [
 		{
 			id: 'download',
-			title: '下载',
+			title: t('react_ui.download.text'),
 			icon: <TbDownload className={`${prefixCls}-icon`} />,
 			handler: handleDownload
 		},
 		{
 			id: 'left-rotate',
-			title: '逆时针旋转',
+			title: t('react_ui.rotate_counterclockwise'),
 			icon: <TbRotate className={`${prefixCls}-icon`} />,
 			handler: handleLeftRotate
 		},
 		{
 			id: 'right-rotate',
-			title: '顺时针旋转',
+			title: t('react_ui.rotate_clockwise'),
 			icon: <TbRotateClockwise className={`${prefixCls}-icon`} />,
 			handler: handleRightRotate
 		},
 		{
 			id: 'shrink',
-			title: '缩小',
+			title: t('react_ui.zoom.out'),
 			icon: <TbZoomOut className={`${prefixCls}-icon`} />,
 			handler: handleZoomOut
 		},
 		{
 			id: 'swell',
-			title: '放大',
+			title: t('react_ui.zoom.in'),
 			icon: <TbZoomIn className={`${prefixCls}-icon`} />,
 			handler: handleZoomIn
 		},
 		{
 			id: 'reset',
-			title: '恢复初始尺寸',
+			title: t('react_ui.resize'),
 			icon: <TbRelationOneToOne className={`${prefixCls}-icon`} />,
 			handler: handleReset
 		},
 		{
 			id: 'close',
-			title: '关闭',
+			title: t('react_ui.close'),
 			icon: <TbX className={`${prefixCls}-icon`} />,
 			handler: onClose
 		}
