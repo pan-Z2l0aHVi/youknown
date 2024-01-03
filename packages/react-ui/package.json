@@ -20,10 +20,10 @@
     "author": "Grey",
     "license": "MIT",
     "dependencies": {
-        "@emotion/react": "^11.11.1",
+        "@emotion/react": "^11.11.3",
         "@emotion/styled": "^11.11.0",
         "@floating-ui/react": "^0.26.4",
-        "@mui/material": "^5.15.1",
+        "@mui/material": "^5.15.2",
         "@youknown/react-hook": "workspace:*",
         "@youknown/utils": "workspace:*",
         "modern-css-reset": "^1.4.0",
