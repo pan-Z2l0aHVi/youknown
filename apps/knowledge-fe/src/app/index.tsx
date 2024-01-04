@@ -5,10 +5,10 @@ import useRouteScrollTop from '@/hooks/use-route-scroll-top'
 import { Loading } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
-import Banner from './components/banner'
-import FabBar from './components/fab-bar'
 import PageProgress from './components/page-progress'
-import Sidebar from './components/sidebar'
+import DesktopLayout from './components/desktop-layout'
+import MobileLayout from './components/mobile-layout'
+import { useUIStore } from '@/stores'
 
 const { Outlet, useMatch } = await import('react-router-dom')
 
@@ -16,20 +16,11 @@ const PreferencesModal = lazy(() => import('./components/preferences-modal'))
 const LoginModal = lazy(() => import('./components/login-modal'))
 
 export default function App() {
+	const is_mobile = useUIStore(state => state.is_mobile)
 	useRouteScrollTop()
 	useInitApp()
 	const login_success_match = useMatch('/login-success')
 	const with_layout = !login_success_match
-
-	const fallback_ele = with_layout ? (
-		<div className="flex-1 flex justify-center items-center">
-			<Loading spinning size="large" />
-		</div>
-	) : (
-		<div className="min-h-screen flex justify-center items-center">
-			<Loading spinning size="large" />
-		</div>
-	)
 
 	const global_els = (
 		<>
@@ -48,24 +39,19 @@ export default function App() {
 			{global_els}
 
 			{with_layout ? (
-				<div className="flex flex-col min-h-screen">
-					<Banner />
-					<div className="flex-1 flex">
-						{/* 外层 relative 撑起容器高度 */}
-						<div className="relative">
-							<Sidebar />
-						</div>
-
-						<Suspense fallback={fallback_ele}>
-							<div className={cls('flex-1 scrollbar-custom')}>
-								<Outlet />
-							</div>
-						</Suspense>
-					</div>
-					<FabBar />
-				</div>
+				is_mobile ? (
+					<MobileLayout />
+				) : (
+					<DesktopLayout />
+				)
 			) : (
-				<Suspense fallback={fallback_ele}>
+				<Suspense
+					fallback={
+						<div className="min-h-screen flex justify-center items-center">
+							<Loading spinning size="large" />
+						</div>
+					}
+				>
 					<div className={cls('min-h-screen scrollbar-custom')}>
 						<Outlet />
 					</div>

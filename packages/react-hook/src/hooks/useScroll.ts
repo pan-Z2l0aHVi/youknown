@@ -26,7 +26,9 @@ export function useScroll(
 			}
 			if (conditionFn(pos)) setPos(pos)
 		}
-		el.addEventListener('scroll', getScrollPos)
+		el.addEventListener('scroll', getScrollPos, {
+			passive: true
+		})
 		return () => {
 			el.removeEventListener('scroll', getScrollPos)
 		}

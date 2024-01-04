@@ -12,6 +12,7 @@ import { QS } from '@youknown/utils/src'
 
 import Overview from './components/overview'
 import ResultList from './components/result-list'
+import { CgSpinner } from 'react-icons/cg'
 
 export default function Searcher() {
 	const { t } = useTranslation()
@@ -86,7 +87,13 @@ export default function Searcher() {
 				bordered={false}
 				size="large"
 				placeholder={t('placeholder.search')}
-				prefix={<TbSearch className="color-text-3 text-18px mr-4px ml-4px" />}
+				prefix={
+					loading ? (
+						<Loading icon={<CgSpinner className="color-primary text-18px mr-4px ml-4px" />} spinning />
+					) : (
+						<TbSearch className="color-text-3 text-18px mr-4px ml-4px" />
+					)
+				}
 				allowClear
 				value={keywords}
 				onChange={set_keywords}
@@ -102,34 +109,32 @@ export default function Searcher() {
 	const has_result = result.length > 0
 	return (
 		<Card className="w-640px! mt-15vh overflow-hidden" shadow header={card_header} footer={card_footer}>
-			<Loading className="w-100%!" spinning={loading && page === 1}>
-				{has_keywords && has_result ? (
-					<div className="flex h-400px">
-						<div className="flex flex-col items-center w-160px p-t-12px pb-12px pl-16px">
-							{selection && <Overview selection={selection} />}
-						</div>
-						<div className="flex-1">
-							<ResultList
-								ref={list_ref}
-								keywords={keywords}
-								result={result}
-								selection={selection}
-								set_selection={set_selection}
-								go_detail={feed => {
-									if (!feed) return
-									go_feed_detail(feed.feed_id)
-								}}
-								footer={no_more || (has_keywords && <MoreLoading ref={loading_ref} />)}
-							/>
-						</div>
+			{has_keywords && has_result ? (
+				<div className="flex h-400px">
+					<div className="flex flex-col items-center w-160px p-t-12px pb-12px pl-16px">
+						{selection && <Overview selection={selection} />}
 					</div>
-				) : (
-					<div className="flex flex-col justify-center items-center h-120px color-text-3">
-						<GoInbox className="text-32px mb-8px" />
-						{t('find.empty')}
+					<div className="flex-1">
+						<ResultList
+							ref={list_ref}
+							keywords={keywords}
+							result={result}
+							selection={selection}
+							set_selection={set_selection}
+							go_detail={feed => {
+								if (!feed) return
+								go_feed_detail(feed.feed_id)
+							}}
+							footer={no_more || (has_keywords && <MoreLoading ref={loading_ref} />)}
+						/>
 					</div>
-				)}
-			</Loading>
+				</div>
+			) : (
+				<div className="flex flex-col justify-center items-center h-120px color-text-3">
+					<GoInbox className="text-32px mb-8px" />
+					{t('find.empty')}
+				</div>
+			)}
 		</Card>
 	)
 }

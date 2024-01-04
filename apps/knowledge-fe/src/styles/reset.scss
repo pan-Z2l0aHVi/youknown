@@ -1,5 +1,4 @@
 body {
-	min-width: 900px;
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	font-size: var(--ui-font-size-m);
 	color: var(--ui-text-1);
@@ -7,4 +6,8 @@ body {
 	-webkit-font-smoothing: auto;
 	-moz-osx-font-smoothing: auto;
 	-webkit-tap-highlight-color: transparent;
+
+	@media (width >= 640px) {
+		min-width: 900px;
+	}
 }

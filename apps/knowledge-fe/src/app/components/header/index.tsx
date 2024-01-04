@@ -4,18 +4,21 @@ import { TbArrowLeft } from 'react-icons/tb'
 import { useDebounce } from '@youknown/react-hook/src'
 import { Button } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+import { useUIStore } from '@/stores'
 
 const { useNavigate } = await import('react-router-dom')
 
 interface HeaderProps {
 	children?: ReactNode
 	heading: ReactNode
+	footer?: ReactNode
 	bordered?: 'auto' | 'visible' | 'hidden'
 }
 
 export default function Header(props: HeaderProps) {
-	const { children, heading, bordered = 'auto' } = props
+	const { children, heading, footer, bordered = 'auto' } = props
 
+	const is_mobile = useUIStore(state => state.is_mobile)
 	const navigate = useNavigate()
 	const [border_visible, set_border_visible] = useState(false)
 
@@ -36,36 +39,60 @@ export default function Header(props: HeaderProps) {
 	)
 	useEffect(() => {
 		if (bordered === 'auto') {
-			window.addEventListener('scroll', scroll_handler)
+			window.addEventListener('scroll', scroll_handler, {
+				passive: true
+			})
 			return () => {
 				window.removeEventListener('scroll', scroll_handler)
 			}
 		}
 	}, [bordered, scroll_handler])
 
+	const back_btn = (
+		<Button
+			className="sm:mr-16px"
+			square
+			text
+			onClick={() => {
+				navigate(-1)
+			}}
+		>
+			<TbArrowLeft className="text-18px color-primary" />
+		</Button>
+	)
+
 	return (
 		<header
 			className={cls(
-				'flex items-center justify-between h-56px pl-32px pr-32px bg-bg-0',
+				'sm:pl-32px sm:pr-32px <sm:pl-8px <sm:pr-8px',
 				'sticky top-0 z-20',
-				'b-b-1 b-b-solid',
+				'bg-bg-0 b-b-1 b-b-solid',
 				border_visible ? 'b-bd-line' : 'b-transparent'
 			)}
 		>
-			<div className="flex items-center">
-				<Button
-					className="mr-16px"
-					square
-					text
-					onClick={() => {
-						navigate(-1)
-					}}
-				>
-					<TbArrowLeft className="text-18px color-primary" />
-				</Button>
-				<h3 className="whitespace-nowrap">{heading}</h3>
-			</div>
-			{children}
+			{is_mobile ? (
+				<>
+					<div className="relative min-h-48px flex items-center justify-between">
+						{back_btn}
+						<h1 className="absolute left-50% translate-x--50% whitespace-nowrap font-600 text-16px">
+							{heading}
+						</h1>
+						{children}
+					</div>
+					{footer}
+				</>
+			) : (
+				<>
+					<div className="sm:min-h-56px flex items-center justify-between">
+						<div className="flex items-center">
+							{back_btn}
+							<h1 className="<whitespace-nowrap font-600 text-16px">{heading}</h1>
+						</div>
+						{children}
+					</div>
+					{footer}
+				</>
+			)}
 		</header>
 	)
 }

@@ -77,7 +77,9 @@ const Anchor = (props: AnchorProps, ref: ForwardedRef<HTMLUListElement>) => {
 	}, 50)
 
 	useEffect(() => {
-		container.addEventListener('scroll', onScroll)
+		container.addEventListener('scroll', onScroll, {
+			passive: true
+		})
 		return () => {
 			container.removeEventListener('scroll', onScroll)
 		}

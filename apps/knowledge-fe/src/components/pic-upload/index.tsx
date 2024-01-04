@@ -58,7 +58,7 @@ export default function PicUpload(props: PicUploadProps) {
 
 	return (
 		<Upload accept={IMAGE_ACCEPT} action={upload_cover} value={file_list} onChange={set_file_list}>
-			<div className="relative flex items-center justify-center w-200px h-120px">
+			<div className="relative flex items-center justify-center sm:w-200px sm:h-120px <sm:w-120px <sm:h-72px">
 				{uploading ? (
 					<>
 						{preview_url && <Image className="w-100% h-100% opacity-40" alt="Cover" src={preview_url} />}

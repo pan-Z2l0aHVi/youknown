@@ -4,7 +4,7 @@ import { devtools } from 'zustand/middleware'
 
 import { change_lang } from '@/utils/i18n'
 import { set_local_settings } from '@/utils/local'
-import { delay, setRootStyle } from '@youknown/utils/src'
+import { checkDarkMode, checkMobile, delay, onDarkModeChange, onMobileChange, setRootStyle } from '@youknown/utils/src'
 
 export const enum THEME {
 	LIGHT = 1,
@@ -17,12 +17,14 @@ export const enum I18N_LANG {
 	EN = 'en'
 }
 interface UIState {
+	is_mobile: boolean
 	progress_percent: number
 	progress_visible: boolean
 	primary_color: string
 	radius: number[]
 	theme: THEME
 	i18n_lang: I18N_LANG
+	set_is_mobile: (is_mobile: boolean) => void
 	set_progress_percent: (percent: number) => void
 	show_progress: () => void
 	hide_progress: () => void
@@ -34,19 +36,22 @@ interface UIState {
 	set_i18n_lang: (lang: I18N_LANG) => void
 }
 
-const dark_mode = window.matchMedia('(prefers-color-scheme: dark)')
-dark_mode.addEventListener('change', () => {
+onDarkModeChange(() => {
 	const { theme, set_dark_theme } = useUIStore.getState()
 	if (theme === THEME.SYSTEM) {
 		set_dark_theme(theme)
 	}
+})
+onMobileChange(() => {
+	const { set_is_mobile } = useUIStore.getState()
+	set_is_mobile(checkMobile())
 })
 
 const computed_state = (state: UIState) => {
 	const get_is_dark_theme = () => {
 		switch (state.theme) {
 			case THEME.SYSTEM:
-				return dark_mode.matches
+				return checkDarkMode()
 			case THEME.LIGHT:
 				return false
 			case THEME.DARK:
@@ -63,12 +68,18 @@ export const useUIStore = create<UIState>()(
 	devtools(
 		computed(
 			(set, get) => ({
+				is_mobile: checkMobile(),
 				progress_percent: 0,
 				progress_visible: false,
 				primary_color: '#007aff',
 				radius: [4, 8, 12],
 				theme: THEME.SYSTEM,
 				i18n_lang: I18N_LANG.SYSTEM,
+
+				set_is_mobile: (is_mobile: boolean) =>
+					set({
+						is_mobile
+					}),
 
 				set_progress_percent: percent =>
 					set({

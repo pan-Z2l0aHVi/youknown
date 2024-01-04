@@ -23,7 +23,7 @@ const Loading = (props: LoadingProps, propRef: ForwardedRef<HTMLDivElement>) => 
 		spinning = false,
 		bordered = false,
 		size = 'medium',
-		icon = <SpinSvg />,
+		icon,
 		description,
 		...rest
 	} = props
@@ -32,7 +32,8 @@ const Loading = (props: LoadingProps, propRef: ForwardedRef<HTMLDivElement>) => 
 	const prefixCls = `${UI_PREFIX}-loading`
 	const iconWrapCls = cls(`${prefixCls}-icon`, {
 		[`${prefixCls}-icon-${size}`]: size,
-		[`${prefixCls}-icon-bordered`]: bordered
+		[`${prefixCls}-icon-bordered`]: bordered,
+		[`${prefixCls}-icon-custom`]: icon
 	})
 
 	if (isWrap)
@@ -48,7 +49,7 @@ const Loading = (props: LoadingProps, propRef: ForwardedRef<HTMLDivElement>) => 
 
 				<Motion.Fade in={spinning}>
 					<div className={`${prefixCls}-layer`}>
-						<div className={iconWrapCls}>{icon}</div>
+						<div className={iconWrapCls}>{icon || <SpinSvg />}</div>
 						{description && <span className={`${prefixCls}-description`}>{description}</span>}
 					</div>
 				</Motion.Fade>
@@ -58,7 +59,7 @@ const Loading = (props: LoadingProps, propRef: ForwardedRef<HTMLDivElement>) => 
 	return (
 		<Motion.Zoom in={spinning} mountOnEnter unmountOnExit>
 			<div ref={propRef} className={cls(className, iconWrapCls)} {...rest}>
-				{icon}
+				{icon || <SpinSvg />}
 			</div>
 		</Motion.Zoom>
 	)

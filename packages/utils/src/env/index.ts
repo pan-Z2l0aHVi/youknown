@@ -1,14 +1,9 @@
-export function checkMobile(): boolean {
-	const ua = navigator.userAgent.toLocaleLowerCase()
-	return !!ua.match(/(android, iphone, ipod, ipad, symbianos, windows phone)/i)
-}
-
-export function checkAppleMobile(): boolean {
+export function checkIOS(): boolean {
 	const ua = navigator.userAgent
 	return !!ua.match(/(iPhone|iPad|iPod|iOS)/i)
 }
 
-export function checkAndroidMobile(): boolean {
+export function checkAndroid(): boolean {
 	const ua = navigator.userAgent
 	return !!ua.match(/(Android)/i)
 }
@@ -21,6 +16,30 @@ export function checkHoverSupported(): boolean {
 	return window.matchMedia('(hover: hover)').matches
 }
 
-export function checkTouchDevice(): boolean {
+export function checkTouchable(): boolean {
 	return 'ontouchstart' in window || !!navigator.maxTouchPoints
+}
+
+export function checkMobile(): boolean {
+	return window.matchMedia('(max-width: 640px)').matches
+}
+
+export function onMobileChange(callback: (event: MediaQueryListEvent) => void) {
+	const mediaQueryList = window.matchMedia('(max-width: 640px)')
+	mediaQueryList.addEventListener('change', callback)
+	return function off() {
+		mediaQueryList.removeEventListener('change', callback)
+	}
+}
+
+export function checkDarkMode(): boolean {
+	return window.matchMedia('(prefers-color-scheme: dark)').matches
+}
+
+export function onDarkModeChange(callback: (event: MediaQueryListEvent) => void) {
+	const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)')
+	mediaQueryList.addEventListener('change', callback)
+	return function off() {
+		mediaQueryList.removeEventListener('change', callback)
+	}
 }

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { get_space_info } from '@/apis/space'
-import { validateMaxLength, validateRequired } from '@/utils/validators'
+import { validate_max_length, validate_required } from '@/utils/validators'
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Form, Input, Loading, Space } from '@youknown/react-ui/src'
 
@@ -43,23 +43,23 @@ export default function SpaceOptions(props: SpaceOptionsProps) {
 
 	return (
 		<Loading spinning={loading}>
-			<Form className="w-428px p-24px" form={form} labelWidth={104}>
+			<Form className="w-428px max-w-[calc(100vw-32px)] sm:p-24px <sm:p-16px" form={form} labelWidth={104}>
 				<Form.Field
 					label="name"
 					labelText={t('space.name')}
-					validators={[validateRequired(), validateMaxLength(SPACE_NAME_MAX_LEN)]}
+					validators={[validate_required(), validate_max_length(SPACE_NAME_MAX_LEN)]}
 				>
 					<Input className="w-100%!" />
 				</Form.Field>
 				<Form.Field
 					label="desc"
 					labelText={t('introduction')}
-					validators={[validateRequired(), validateMaxLength(SPACE_DESC_MAX_LEN)]}
+					validators={[validate_required(), validate_max_length(SPACE_DESC_MAX_LEN)]}
 				>
 					<Input.Textarea className="w-100%!" autosize maxRows={4} />
 				</Form.Field>
-				<Form.Field className="mb-0!" labelText=" ">
-					<Space>
+				<Form.Field className="mb-0! <sm:relative" labelText=" ">
+					<Space className="<sm:absolute <sm:right-0">
 						<Button className="min-w-80px" onClick={hide_modal}>
 							{t('cancel.text')}
 						</Button>

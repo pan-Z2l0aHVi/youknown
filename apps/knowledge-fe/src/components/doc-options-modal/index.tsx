@@ -6,7 +6,7 @@ import PicUpload from '@/components/pic-upload'
 import { DOC_TITLE_MAX_LEN } from '@/consts'
 import { useUIStore } from '@/stores'
 import { with_api } from '@/utils/request'
-import { validateMaxLength, validateRequired } from '@/utils/validators'
+import { validate_max_length, validate_required } from '@/utils/validators'
 import { useBoolean, useFetch, useUpdate } from '@youknown/react-hook/src'
 import {
 	Button,
@@ -95,7 +95,11 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 	})
 
 	const form_ele = (
-		<Form className="" form={form} labelWidth={120}>
+		<Form
+			className="w-480px max-w-[calc(100vw-32px)] sm:p-[24px_24px_0_24px] <sm:p-[16px_16px_0_16px]"
+			form={form}
+			labelWidth={120}
+		>
 			<Form.Field
 				label="cover"
 				labelText={t('form.cover')}
@@ -112,9 +116,9 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 			<Form.Field
 				label="title"
 				labelText={t('form.title')}
-				validators={[validateRequired(), validateMaxLength(DOC_TITLE_MAX_LEN)]}
+				validators={[validate_required(), validate_max_length(DOC_TITLE_MAX_LEN)]}
 			>
-				<Input className="w-280px!" />
+				<Input className="sm:w-280px! <sm:w-100%!" />
 			</Form.Field>
 			<Form.Field label="is_publish" labelText={t('form.feed_setting')}>
 				<Radio.Group
@@ -130,8 +134,8 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 					]}
 				/>
 			</Form.Field>
-			<Form.Field labelText=" " className="mb-0! mt-16px">
-				<Space>
+			<Form.Field labelText=" " className="<sm:relative mb-0! mt-16px">
+				<Space className="<sm:absolute <sm:right-0">
 					<Button className="min-w-80px" onClick={hide_modal}>
 						{t('cancel.text')}
 					</Button>
@@ -160,19 +164,14 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 				<Card
 					shadow
 					header={
-						<div className="flex justify-between p-[24px_24px_0]">
+						<div className="flex justify-between sm:p-[24px_24px_0] <sm:p-[16px_16px_0]">
 							<span className="text-16px font-500">{t('heading.doc_setting')}</span>
 							<CloseIcon onClick={hide_modal} />
 						</div>
 					}
 					footer=" "
 				>
-					<Loading
-						className="w-480px! max-w-[calc(100vw-32px)] p-[24px_24px_0_24px]"
-						spinning={initial_loading}
-					>
-						{form_ele}
-					</Loading>
+					<Loading spinning={initial_loading}>{form_ele}</Loading>
 				</Card>
 			</Motion.Zoom>
 		</Overlay>

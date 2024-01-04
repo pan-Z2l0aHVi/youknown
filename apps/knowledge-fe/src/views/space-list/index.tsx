@@ -4,16 +4,18 @@ import { GoInbox } from 'react-icons/go'
 import { TbFolderPlus } from 'react-icons/tb'
 
 import Header from '@/app/components/header'
-import { useModalStore, useSpaceStore, useUserStore } from '@/stores'
+import { useModalStore, useSpaceStore, useUIStore, useUserStore } from '@/stores'
 import { with_api } from '@/utils/request'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Toast } from '@youknown/react-ui/src'
 
 import SpaceCard from './components/space-card'
 import SpaceOptionsModal from './components/space-options-modal'
+import { cls } from '@youknown/utils/src'
 
 export default function SpaceList() {
 	const { t } = useTranslation()
+	const is_mobile = useUIStore(state => state.is_mobile)
 	const has_login = useUserStore(state => state.has_login)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const space_list = useSpaceStore(state => state.space_list)
@@ -39,6 +41,15 @@ export default function SpaceList() {
 		hide_options_modal()
 	}
 
+	const handle_show_create_modal = () => {
+		if (!has_login) {
+			open_login_modal()
+			return
+		}
+		set_modal_space_id('')
+		show_options_modal()
+	}
+
 	const spaces_ele = space_list.map(space => {
 		return (
 			<SpaceCard
@@ -55,24 +66,28 @@ export default function SpaceList() {
 	return (
 		<>
 			<Header heading={t('page.title.library')}>
-				<Button
-					primary
-					prefixIcon={<TbFolderPlus className="text-16px" />}
-					onClick={() => {
-						if (!has_login) {
-							open_login_modal()
-							return
-						}
-						set_modal_space_id('')
-						show_options_modal()
-					}}
-				>
-					{t('space.create')}
-				</Button>
+				{is_mobile ? (
+					<Button square text onClick={handle_show_create_modal}>
+						<TbFolderPlus className="text-16px color-primary" />
+					</Button>
+				) : (
+					<Button
+						primary
+						prefixIcon={<TbFolderPlus className="text-16px" />}
+						onClick={handle_show_create_modal}
+					>
+						{t('space.create')}
+					</Button>
+				)}
 			</Header>
 
 			{space_list.length ? (
-				<div className="grid grid-cols-[repeat(auto-fill,400px)] gap-16px justify-center p-[16px_32px_32px_32px]">
+				<div
+					className={cls(
+						'grid gap-16px justify-center sm:p-[16px_32px_32px_32px] <sm:p-16px',
+						'sm:grid-cols-[repeat(auto-fill,400px)] <sm:grid-cols-[repeat(auto-fill,100%)]'
+					)}
+				>
 					{spaces_ele}
 				</div>
 			) : (

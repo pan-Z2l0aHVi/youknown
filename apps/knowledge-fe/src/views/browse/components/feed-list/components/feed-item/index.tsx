@@ -85,9 +85,12 @@ export default function FeedItem(props: FeedItemProps) {
 				</div>
 
 				{feed.cover && (
-					<TransitionLink className="ml-48px" to={doc_detail_url}>
+					<TransitionLink className="sm:ml-48px <sm:ml-8px" to={doc_detail_url}>
 						<Image
-							className="w-160px h-108px b-bd-line b-1 b-solid rd-radius-m"
+							className={cls(
+								'b-bd-line b-1 b-solid rd-radius-m',
+								'sm:w-160px sm:h-108px <sm:w-80px <sm:h-54px '
+							)}
 							src={feed.cover}
 							loading="lazy"
 							alt="Cover"

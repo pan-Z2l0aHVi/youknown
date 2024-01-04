@@ -8,12 +8,14 @@ import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import { Button, Space } from '@youknown/react-ui/src'
 
 import DocList from './components/doc-list'
+import { useUIStore } from '@/stores'
 
 const { useParams } = await import('react-router-dom')
 
 export default function SpaceDetail() {
 	const { t } = useTranslation()
 	const { space_id = '' } = useParams()
+	const is_mobile = useUIStore(state => state.is_mobile)
 	const [choosing, { setTrue: do_choosing, setFalse: cancel_choosing }] = useBoolean(false)
 	const [filter_open, { setTrue: open_filter, setFalse: close_filter }] = useBoolean(false)
 
@@ -30,30 +32,53 @@ export default function SpaceDetail() {
 		refreshDeps: [space_id]
 	})
 
-	const header = (
-		<Header heading={info?.name ?? ''}>
-			<Space>
-				{choosing ? (
-					<Button onClick={cancel_choosing} prefixIcon={<TbX className="text-16px color-primary" />}>
-						{t('cancel.text')}
-					</Button>
-				) : (
-					<>
-						<Button onClick={do_choosing} prefixIcon={<TbCheckbox className="text-16px color-primary" />}>
-							{t('select.text')}
+	const action_bar = (
+		<Space>
+			{choosing ? (
+				<>
+					{is_mobile ? (
+						<Button text square onClick={cancel_choosing}>
+							<TbX className="text-16px color-primary" />
 						</Button>
-						<Button prefixIcon={<TbFilter className="text-16px color-primary" />} onClick={open_filter}>
-							{t('filter.text')}
+					) : (
+						<Button onClick={cancel_choosing} prefixIcon={<TbX className="text-16px color-primary" />}>
+							{t('cancel.text')}
 						</Button>
-					</>
-				)}
-			</Space>
-		</Header>
+					)}
+				</>
+			) : (
+				<>
+					{is_mobile ? (
+						<>
+							<Button text square onClick={do_choosing}>
+								<TbCheckbox className="text-16px color-primary" />
+							</Button>
+							<Button text square onClick={open_filter}>
+								<TbFilter className="text-16px color-primary" />
+							</Button>
+						</>
+					) : (
+						<>
+							<Button
+								onClick={do_choosing}
+								prefixIcon={<TbCheckbox className="text-16px color-primary" />}
+							>
+								{t('select.text')}
+							</Button>
+							<Button prefixIcon={<TbFilter className="text-16px color-primary" />} onClick={open_filter}>
+								{t('filter.text')}
+							</Button>
+						</>
+					)}
+				</>
+			)}
+		</Space>
 	)
 
 	return (
 		<>
-			{header}
+			<Header heading={info?.name ?? ''}>{action_bar}</Header>
+
 			{space_id && (
 				<DocList
 					key={`doc_list/${space_id}`}

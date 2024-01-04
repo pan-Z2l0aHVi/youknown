@@ -179,7 +179,7 @@ export default function DocList(props: DocListProps) {
 
 	const filter_drawer = (
 		<Drawer
-			className="w-440px shadow-shadow-l"
+			className="w-440px max-w-100% shadow-shadow-l"
 			overlayClassName={cls(
 				'backdrop-blur-xl',
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
@@ -226,7 +226,12 @@ export default function DocList(props: DocListProps) {
 	)
 
 	const doc_card_list = (
-		<div className="grid grid-cols-[repeat(auto-fill,184px)] grid-gap-[32px_24px] justify-center">
+		<div
+			className={cls(
+				'grid grid-gap-[32px_24px] justify-center',
+				'sm:grid-cols-[repeat(auto-fill,184px)] <sm:grid-cols-[184px]'
+			)}
+		>
 			{choosing || (
 				<Loading className="w-100%!" spinning={create_loading} size="large">
 					<div
@@ -280,7 +285,7 @@ export default function DocList(props: DocListProps) {
 
 	return (
 		<>
-			<div className="p-32px">{doc_card_list}</div>
+			<div className="sm:p-32px <sm:p-16px">{doc_card_list}</div>
 			{has_login && <>{no_more ? <NoMore /> : <MoreLoading ref={loading_ref} />}</>}
 			{choosing_bar}
 			{filter_drawer}

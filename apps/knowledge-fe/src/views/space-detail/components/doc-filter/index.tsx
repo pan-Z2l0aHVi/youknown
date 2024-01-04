@@ -15,7 +15,7 @@ export default function DocFilter(props: DocFilterProps) {
 		<div className="p-[32px_24px_32px_16px]">
 			<Form form={form} labelWidth={120}>
 				<Form.Field label="keywords" labelText={t('form.keywords')}>
-					<Input placeholder={t('placeholder.input')} />
+					<Input className="<sm:w-100%!" placeholder={t('placeholder.input')} />
 				</Form.Field>
 				<Form.Field label="sort_by" labelText={t('form.order_by')}>
 					<Select

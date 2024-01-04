@@ -26,7 +26,9 @@ export default function BackTop(props: BackTopProps) {
 	}, 100)
 
 	useEffect(() => {
-		container.addEventListener('scroll', scroll_handler)
+		container.addEventListener('scroll', scroll_handler, {
+			passive: true
+		})
 		return () => {
 			container.removeEventListener('scroll', scroll_handler)
 		}

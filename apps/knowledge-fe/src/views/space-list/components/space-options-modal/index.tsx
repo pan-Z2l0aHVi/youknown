@@ -29,7 +29,7 @@ export default function SpaceOptionsModal(props: SpaceOptionsModalProps) {
 				<Card
 					shadow
 					header={
-						<div className="flex justify-between p-[24px_24px_0]">
+						<div className="flex justify-between sm:p-[24px_24px_0] <sm:p-[16px_16px_0]">
 							<span className="text-16px font-500">
 								{is_edit ? t('space.manage') : t('space.create')}
 							</span>
