@@ -1,6 +1,6 @@
-import { t } from 'i18next'
+const { t } = await import('i18next')
 import { LuSettings2 } from 'react-icons/lu'
-import { TbLogin, TbLogout } from 'react-icons/tb'
+import { TbChevronRight, TbLogin, TbLogout } from 'react-icons/tb'
 
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useModalStore, useUserStore } from '@/stores'
@@ -18,6 +18,7 @@ export default function MyOptions() {
 			<List.Item
 				className="active-bg-active"
 				prefix={<LuSettings2 className="text-16px" />}
+				suffix={<TbChevronRight className="color-text-2" />}
 				onClick={open_preferences_modal}
 			>
 				{t('setting.text')}
@@ -27,6 +28,7 @@ export default function MyOptions() {
 				<List.Item
 					className="active-bg-active"
 					prefix={<TbLogout className="text-16px color-danger" />}
+					suffix={<TbChevronRight className="color-text-2" />}
 					onClick={() => {
 						do_logout()
 						navigate('/')
@@ -38,6 +40,7 @@ export default function MyOptions() {
 				<List.Item
 					className="active-bg-active"
 					prefix={<TbLogin className="text-16px color-primary" />}
+					suffix={<TbChevronRight className="color-text-2" />}
 					onClick={open_login_modal}
 				>
 					<span className="color-primary">{t('login.go')}</span>

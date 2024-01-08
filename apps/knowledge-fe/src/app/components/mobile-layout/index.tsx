@@ -15,7 +15,7 @@ export default function MobileLayout() {
 				</div>
 			}
 		>
-			<div>
+			<div className="min-h-screen">
 				<Banner />
 				<Outlet />
 			</div>

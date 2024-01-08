@@ -1,4 +1,4 @@
-import { t } from 'i18next'
+const { t } = await import('i18next')
 import { TbFolderHeart, TbHistory } from 'react-icons/tb'
 
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
@@ -24,6 +24,7 @@ export default function Entires() {
 		<div className="flex items-center mt-24px mb-24px">
 			{entry_list.map(entry => (
 				<Button
+					key={entry.path}
 					className="w-72px! h-72px mr-16px"
 					square
 					text

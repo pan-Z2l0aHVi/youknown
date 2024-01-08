@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useRouteMeta from '@/hooks/use-route-meta'
-import { useRecordStore, useSpaceStore, useUIStore, useUserStore } from '@/stores'
+import { useModalStore, useRecordStore, useSpaceStore, useUIStore, useUserStore } from '@/stores'
 import { initHlsLangs } from '@/utils'
 import { get_local_settings, get_local_token } from '@/utils/local'
 import { report } from '@/utils/report'
@@ -26,6 +26,8 @@ export default function useInitApp() {
 	const fetch_space_list = useSpaceStore(state => state.fetch_space_list)
 	const clear_space_list = useSpaceStore(state => state.clear_space_list)
 	const init_records = useRecordStore(state => state.init_records)
+	const close_login_modal = useModalStore(state => state.close_login_modal)
+	const close_preferences_modal = useModalStore(state => state.close_preferences_modal)
 
 	const init_settings = useEvent(() => {
 		const local_settings = get_local_settings()
@@ -70,6 +72,14 @@ export default function useInitApp() {
 			payload: location
 		})
 	}, [location])
+
+	// 切页面时关闭全局弹窗
+	useEffect(() => {
+		if (location) {
+			close_preferences_modal()
+			close_login_modal()
+		}
+	}, [close_login_modal, close_preferences_modal, location])
 
 	useEffect(() => {
 		init_records()

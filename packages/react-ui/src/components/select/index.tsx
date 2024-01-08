@@ -2,6 +2,7 @@ import './select.scss'
 
 import {
 	CSSProperties,
+	ComponentProps,
 	HTMLAttributes,
 	KeyboardEvent,
 	MouseEventHandler,
@@ -34,6 +35,7 @@ interface Option<T> {
 interface SelectProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
 	multiple?: boolean
 	disabled?: boolean
+	placement?: ComponentProps<typeof Dropdown>['placement']
 	filter?: boolean
 	placeholder?: string
 	allowClear?: boolean
@@ -51,6 +53,7 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 		className,
 		multiple = false,
 		disabled = false,
+		placement,
 		filter = false,
 		placeholder = t('react_ui.placeholder.select'),
 		allowClear = false,
@@ -352,6 +355,7 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 			onClickOutside={handleClickOutside}
 			content={dropdownContentEle}
 			spacing={4}
+			placement={placement}
 		>
 			{/* 加一层wrapper，防止影响计算宽度 */}
 			<div style={{ width: 'max-content' }}>

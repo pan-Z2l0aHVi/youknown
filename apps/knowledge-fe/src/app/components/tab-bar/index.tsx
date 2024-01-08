@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 import { useUIStore } from '@/stores'
 import { cls } from '@youknown/utils/src'
-import { TbAlbum, TbHome2, TbInnerShadowBottom, TbPhotoSquareRounded } from 'react-icons/tb'
+import { TbAlbum, TbInnerShadowBottom, TbPhotoSquareRounded, TbSmartHome } from 'react-icons/tb'
 
 export default function TabBar() {
 	const { t } = useTranslation()
@@ -11,7 +11,7 @@ export default function TabBar() {
 
 	const tab_list = [
 		{
-			Icon: TbHome2,
+			Icon: TbSmartHome,
 			title: t('tab.browse'),
 			path: '/browse'
 		},
@@ -57,7 +57,7 @@ export default function TabBar() {
 							}
 						>
 							<tab.Icon className="text-24px" />
-							<div className="text-12px mt-4px">{tab.title}</div>
+							<div className="text-12px scale-80">{tab.title}</div>
 						</NavLink>
 					)
 				})}

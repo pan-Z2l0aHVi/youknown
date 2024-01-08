@@ -24,6 +24,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 
 	const { t } = useTranslation()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_mobile = useUIStore(state => state.is_mobile)
 	const [selection, set_selection] = useState<string>()
 
 	const drafts_fetcher = async () => {
@@ -79,7 +80,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 
 	return (
 		<Drawer
-			className="w-880px max-w-80% overflow-y-auto shadow-shadow-l"
+			className="sm:w-880px sm:max-w-80% <sm:w-100% overflow-y-auto shadow-shadow-l"
 			overlayClassName={cls(
 				'backdrop-blur-xl',
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
@@ -87,14 +88,20 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 			open={open}
 			onCancel={on_close}
 			placement="right"
+			closable
 		>
-			<div className="sticky top-0 z-4 flex items-center justify-between p-[16px_24px] bg-bg-0 b-b-solid b-bd-line b-b-1">
+			<div
+				className={cls(
+					'sticky top-0 z-4 flex items-center justify-between flex-wrap bg-bg-0 b-b-solid b-bd-line b-b-1',
+					'sm:p-[16px_24px] <sm:p-[48px_16px_16px]'
+				)}
+			>
 				<div className="flex items-center">
 					<span className="mr-8px color-text-3">{t('compare')}</span>
 					<span>{t('version.current')}</span>
 					<span className="mr-8px ml-8px color-text-3">{t('and')}</span>
 					<Select
-						className="w-200px!"
+						className="sm:w-200px!"
 						noMore={no_more}
 						value={selection}
 						onChange={val => {
@@ -105,6 +112,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 						menuList={options}
 						placeholder={t('placeholder.history')}
 						onLoad={load_more}
+						placement={is_mobile ? 'bottom-end' : 'bottom-start'}
 					/>
 				</div>
 

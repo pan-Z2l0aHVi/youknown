@@ -54,7 +54,8 @@ $prefix: '#{$ui-prefix}-drawer';
 	}
 
 	&-close-icon {
-		position: absolute;
+		position: fixed;
+		z-index: 100;
 		top: 16px;
 		right: 16px;
 	}
