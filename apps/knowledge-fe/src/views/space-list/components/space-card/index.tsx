@@ -76,7 +76,7 @@ export default function SpaceCard(props: SpaceCardProps) {
 					prefix={<PiTrashSimpleBold className="color-danger text-16px" />}
 					onClick={show_delete_dialog}
 				>
-					<span className="color-danger">{t('cancel.text')}</span>
+					<span className="color-danger">{t('delete.text')}</span>
 				</Dropdown.Item>
 			</Dropdown.Menu>
 		)

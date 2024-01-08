@@ -2,7 +2,7 @@ import './card.scss'
 
 import { ForwardedRef, forwardRef, HTMLAttributes, isValidElement, ReactNode } from 'react'
 
-import { cls } from '@youknown/utils/src'
+import { cls, is } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 
@@ -19,9 +19,12 @@ const Card = (props: CardProps, propRef: ForwardedRef<HTMLDivElement>) => {
 
 	const prefixCls = `${UI_PREFIX}-card`
 
-	const checkNeedWrap = (ele: ReactNode) => {
+	const checkNeedWrap = (ele: ReactNode): boolean => {
 		if (ele == null) {
 			return false
+		}
+		if (is.array(ele)) {
+			return ele.every(checkNeedWrap)
 		}
 		return !isValidElement(ele)
 	}

@@ -4,6 +4,7 @@
   "cancel": {
     "text": "Cancel"
   },
+  "cate": "Category",
   "clear": {
     "text": "Clear",
     "history": "Clear History"
@@ -51,7 +52,7 @@
   "doc": {
     "public": "Published, visible to everyone",
     "private": "Visible to yourself only",
-    "auto_save": "Auto-saved on",
+    "draft_auto_save": "Draft auto-saved on",
     "publish": {
       "ok": "Published successfully",
       "cancel": "Publication canceled"
@@ -93,7 +94,7 @@
   },
   "filter": {
     "text": "Filter",
-    "tool": "Filter Tool"
+    "tool": "Filter"
   },
   "find": {
     "empty": "No matching results",
@@ -131,7 +132,7 @@
     "old": "Oldest first",
     "ai": "AI Works",
     "no_ai": "Non-AI Works",
-    "normal": "Normal",
+    "general": "Normal",
     "anime": "Anime",
     "people": "People",
     "top_list": "Top List",
@@ -178,7 +179,7 @@
     "fail": "Login failed",
     "auth": "Authorize",
     "github": "Login with Github",
-    "wechat": "Login failed",
+    "wechat": "WeChat login",
     "no_auth": "Authentication expired, please log in again",
     "immediately": "Log in immediately",
     "go": "Go to login",
@@ -194,11 +195,11 @@
   "page": {
     "title": {
       "browse": "Browse",
-      "library": "My Knowledge Base",
+      "library": "My Library",
       "wallpapers": "Wallpapers",
       "history": "History",
       "collection": "Collection",
-      "personal": "Personal Homepage"
+      "personal": "Personal Page"
     }
   },
   "placeholder": {
@@ -256,6 +257,7 @@
   "share": {
     "text": "Share"
   },
+  "size": "Size",
   "space": {
     "name": "Space Name",
     "create": "Create Space",
@@ -263,6 +265,7 @@
     "manage": "Manage Space",
     "if_delete": "Delete space '{{name}}'?"
   },
+  "tag": "Tags",
   "time": {
     "join": "Joined on: ",
     "today": "Today",
@@ -311,7 +314,14 @@
     "apply": "Apply this version"
   },
   "view": {
+    "detail": "Detailed information",
     "introduction": "View Introduction",
     "full_text": "Read Full"
+  },
+  "tab": {
+    "browse": "Browse",
+    "library": "Library",
+    "wallpaper": "Wallpaper",
+    "mine": "Mine"
   }
 }

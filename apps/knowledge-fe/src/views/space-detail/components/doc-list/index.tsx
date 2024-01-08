@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { TbChecks, TbPlus, TbTrashX, TbX } from 'react-icons/tb'
 
 import { create_doc, delete_doc, Doc, search_docs } from '@/apis/doc'
+import TabBar from '@/app/components/tab-bar'
 import MoreLoading from '@/components/more-loading'
 import NoMore from '@/components/no-more'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
@@ -27,6 +28,7 @@ export default function DocList(props: DocListProps) {
 
 	const { t } = useTranslation()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_mobile = useUIStore(state => state.is_mobile)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const has_login = useUserStore(state => state.has_login)
 	const recording = useRecordStore(state => state.recording)
@@ -193,7 +195,12 @@ export default function DocList(props: DocListProps) {
 
 	const choosing_bar = (
 		<Motion.Slide in={choosing} direction="up" mountOnEnter unmountOnExit>
-			<div className="z-2 fixed bottom-40px left-[calc(50%-120px)] p-8px bg-bg-1 b-1 b-solid b-bd-line rd-radius-l shadow-shadow-l">
+			<div
+				className={cls(
+					'z-2 fixed sm:bottom-40px <sm:bottom-80px p-8px bg-bg-1 b-1 b-solid b-bd-line rd-radius-l shadow-shadow-l',
+					'sm:left-[calc(50%-120px)] <sm:left-[calc(50%-140px)]'
+				)}
+			>
 				<Space align="center">
 					<Tooltip disabled={!has_selection} spacing={12} placement="top" title={t('delete.batching')}>
 						<Button circle text disabled={!has_selection} onClick={show_doc_delete_dialog}>
@@ -203,7 +210,7 @@ export default function DocList(props: DocListProps) {
 
 					<div className="pl-16px pr-16px b-l-1 b-r-1 b-l-solid b-r-solid b-bd-line select-none color-text-2">
 						{t('select.choosing')}
-						<span className="inline-block min-w-32px color-text-1">{selection.length}</span>
+						<span className="inline-block min-w-32px font-600 color-primary">{selection.length}</span>
 					</div>
 
 					<Tooltip

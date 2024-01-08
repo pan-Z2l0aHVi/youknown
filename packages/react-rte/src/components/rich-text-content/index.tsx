@@ -1,5 +1,5 @@
 import './index.scss'
-import '@youknown/css/src/rte-desktop.scss'
+import '@youknown/css/src/rte.scss'
 
 import { ComponentProps } from 'react'
 
@@ -11,16 +11,16 @@ import { Bubble, BubbleListItem } from '../bubble'
 import { Floating, FloatingListItem } from '../floating'
 import ImageResizer from '../image-resizer'
 
-interface RichTextContentProps extends ComponentProps<typeof EditorContent> {
+interface RTEContentProps extends ComponentProps<typeof EditorContent> {
 	tooltip?: boolean
 	bubble?: boolean
 	floating?: boolean
 	bubbleList?: BubbleListItem[]
 	floatingList?: FloatingListItem[]
 }
-export function RichTextContent(props: RichTextContentProps) {
+export function RTEContent(props: RTEContentProps) {
 	const prefixCls = `${UI_EDITOR_PREFIX}-content`
-	const { editor, tooltip = true, bubble = true, floating = true, floatingList, bubbleList } = props
+	const { editor, tooltip = true, bubble = true, floating = true, floatingList, bubbleList, ...rest } = props
 	const hasImageExt = editor && editor.extensionManager.extensions.some(ext => ext.name === 'image')
 	return (
 		<div
@@ -32,8 +32,9 @@ export function RichTextContent(props: RichTextContentProps) {
 			{floating && <Floating editor={editor} tooltip={tooltip} list={floatingList} />}
 			{bubble && <Bubble editor={editor} tooltip={tooltip} list={bubbleList} />}
 			{hasImageExt && <ImageResizer editor={editor} />}
-			<EditorContent {...props} />
+			<EditorContent editor={editor} {...rest} />
 		</div>
 	)
 }
-RichTextContent.displayName = 'RichTextContent'
+RTEContent.displayName = 'RTEContent'
+export default RTEContent

@@ -1,6 +1,6 @@
 const { t } = await import('i18next')
 import { createElement, lazy, ReactNode } from 'react'
-import { TbBook2, TbFolderHeart, TbHistory, TbLayout, TbPhotoSquareRounded } from 'react-icons/tb'
+import { TbBook2, TbFolderHeart, TbHistory, TbIcons, TbPhotoSquareRounded } from 'react-icons/tb'
 
 const { Navigate } = await import('react-router-dom')
 
@@ -19,7 +19,7 @@ export const routes: RouteItem[] = [
 		path: 'browse',
 		meta: {
 			title: () => t('page.title.browse'),
-			icon: <TbLayout />
+			icon: <TbIcons />
 		},
 		children: [
 			{
@@ -81,7 +81,10 @@ export const routes: RouteItem[] = [
 	},
 	{
 		path: 'user-center',
-		element: createElement(lazy(() => import('@/views/user-center')))
+		element: createElement(lazy(() => import('@/views/user-center'))),
+		meta: {
+			title: () => t('page.title.personal')
+		}
 	},
 	{
 		path: 'login-success',

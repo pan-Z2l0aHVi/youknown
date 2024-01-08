@@ -10,6 +10,7 @@ $prefix: '#{$ui-prefix}-image-preview';
 
 	&-overlay {
 		overflow: hidden !important;
+		align-items: center;
 	}
 
 	&-loading-icon {
@@ -35,8 +36,7 @@ $prefix: '#{$ui-prefix}-image-preview';
 	&-pic {
 		cursor: grab;
 		user-select: none;
-		max-width: 90vw;
-		max-height: calc(100vh - 240px);
+		max-width: 100vw;
 		opacity: 0;
 		background-color: #fff;
 		background-image: linear-gradient(45deg, #ebebeb 25%, transparent 0, transparent 75%, #ebebeb 0),

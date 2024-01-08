@@ -1,6 +1,6 @@
 import './dialog.scss'
 
-import { ComponentProps, ForwardedRef, forwardRef, ReactNode } from 'react'
+import { ComponentProps, ForwardedRef, forwardRef, isValidElement, ReactNode } from 'react'
 
 import { cls, is } from '@youknown/utils/src'
 
@@ -49,6 +49,16 @@ const Dialog = (props: DialogProps, ref: ForwardedRef<HTMLDivElement>) => {
 		...rest
 	} = props
 
+	const closeIconEle = (
+		<>
+			{is.undefined(closeIcon) ? (
+				<CloseIcon className={`${prefixCls}-close-icon`} onClick={onCancel} />
+			) : (
+				closeIcon
+			)}
+		</>
+	)
+
 	return (
 		<Overlay
 			ref={ref}
@@ -86,12 +96,14 @@ const Dialog = (props: DialogProps, ref: ForwardedRef<HTMLDivElement>) => {
 						)
 					}
 				>
-					{is.undefined(closeIcon) ? (
-						<CloseIcon className={`${prefixCls}-close-icon`} onClick={onCancel} />
+					{isValidElement(children) ? (
+						<>
+							{closeIconEle}
+							{children}
+						</>
 					) : (
-						closeIcon
+						children
 					)}
-					{children}
 				</Card>
 			</Motion.Zoom>
 		</Overlay>

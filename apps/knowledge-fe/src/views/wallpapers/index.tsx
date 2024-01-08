@@ -3,8 +3,10 @@ import { useTranslation } from 'react-i18next'
 
 import { search_wallpapers, SearchWallpapersParams, Wallpaper } from '@/apis/wallpaper'
 import Header from '@/app/components/header'
+import TabBar from '@/app/components/tab-bar'
 import MoreLoading from '@/components/more-loading'
 import NoMore from '@/components/no-more'
+import { useUIStore } from '@/stores'
 import { useCreation, useEvent, useInfinity, useMount, useUnmount, useUpdate } from '@youknown/react-hook/src'
 import { Form } from '@youknown/react-ui/src'
 import { checkPWA, macroDefer, QS, storage } from '@youknown/utils/src'
@@ -31,6 +33,7 @@ const WALLPAPER_SCROLL_Y_KEY = 'wallpaper_scroll_y'
 export default function Wallpapers() {
 	const { t } = useTranslation()
 	const [search_params] = useSearchParams()
+	const is_mobile = useUIStore(state => state.is_mobile)
 	const update = useUpdate()
 	const loading_ref = useRef<HTMLDivElement>(null)
 	const wrapper_ref = useRef<HTMLDivElement>(null)
@@ -228,7 +231,7 @@ export default function Wallpapers() {
 		<>
 			<Header heading={t('page.title.wallpapers')}></Header>
 
-			<div className="p-[16px_16px_0]">
+			<div className="sm:p-[16px_16px_0] <sm:p-[16px_0_0]">
 				<WallpaperFilter
 					ref={keywords_filter_ref}
 					form={form}
@@ -245,11 +248,13 @@ export default function Wallpapers() {
 					on_reset={reload_wallpapers}
 				/>
 			</div>
-			<div className="p-[0_32px]">
+			<div className="sm:p-[0_32px] <sm:p-[0_16px]">
 				<div className="mt-32px min-h-20vh">{wallpaper_list}</div>
 
 				{no_more ? <NoMore /> : <MoreLoading ref={loading_ref} />}
 			</div>
+
+			{is_mobile && <TabBar />}
 		</>
 	)
 }

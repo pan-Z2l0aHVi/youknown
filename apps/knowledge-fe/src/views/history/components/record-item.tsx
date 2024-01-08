@@ -55,22 +55,22 @@ export default function RecordItem(props: RecordItemProps) {
 				className="group flex [@media(hover:hover)]-hover-bg-hover rd-radius-l p-[0_16px]"
 				onContextMenu={ctx_menu.onContextMenu}
 			>
-				<div className="flex items-center justify-end w-160px text-12px color-text-3 [@media(hover:hover)]-group-hover-text-text-2">
+				<div className="flex items-center justify-end sm:w-160px <sm:w-120px text-12px color-text-3 [@media(hover:hover)]-group-hover-text-text-2">
 					<RiHistoryFill className="mr-4px text-14px" />
 					{timing_desc}
 				</div>
-				<div className="group relative flex-1 flex items-center pl-32px ml-32px min-h-80px b-l-2 b-l-solid b-l-bd-line">
+				<div className="group relative flex-1 flex items-center sm:pl-32px sm:ml-32px <sm:pl-16px <sm:ml-16px min-h-80px b-l-2 b-l-solid b-l-bd-line">
 					<div
 						className={cls(
 							'absolute left--8px w-14px h-14px bg-primary rd-full b-4 b-solid b-[rgba(255,255,255,0.8)]'
 						)}
 					></div>
-					<div className="flex-1 flex items-center text-text-2 whitespace-nowrap [@media(hover:hover)]-group-hover-text-text-1 transition-colors">
+					<div className="flex-1 flex flex-wrap items-center text-text-2 whitespace-nowrap [@media(hover:hover)]-group-hover-text-text-1 transition-colors">
 						你<span className="color-orange">{record.action}</span>了
 						{record.target && (
 							<>
 								<TransitionLink
-									className="inline-block max-w-200px truncate color-purple! [@media(hover:hover)]-hover-underline!"
+									className="inline-block sm:max-w-200px <sm:max-w-80px truncate color-purple! [@media(hover:hover)]-hover-underline!"
 									to={target_user_center_url}
 								>
 									{record.target}
@@ -82,7 +82,7 @@ export default function RecordItem(props: RecordItemProps) {
 							<>
 								{record.obj_type}
 								<TransitionLink
-									className="inline-block max-w-200px truncate color-blue! [@media(hover:hover)]-hover-underline!"
+									className="inline-block sm:max-w-200px <sm:max-w-80px truncate color-blue! [@media(hover:hover)]-hover-underline!"
 									to={feed_url}
 								>
 									{record.obj}

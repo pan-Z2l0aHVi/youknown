@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { TbSearch } from 'react-icons/tb'
 
 import Header from '@/app/components/header'
+import TabBar from '@/app/components/tab-bar'
 import { useUIStore, useUserStore } from '@/stores'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Input, Overlay, Tabs } from '@youknown/react-ui/src'
@@ -70,6 +71,8 @@ export default function Browse() {
 			<div className="flex justify-center sm:p-32px <sm:p-16px">
 				<FeedList feed_tab={feed_tab} />
 			</div>
+
+			{is_mobile && <TabBar />}
 		</>
 	)
 }

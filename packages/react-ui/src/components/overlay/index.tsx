@@ -55,9 +55,7 @@ const Overlay = (props: OverlayProps, ref: ForwardedRef<HTMLDivElement>) => {
 		>
 			<FloatingOverlay
 				ref={ref}
-				className={cls(className, prefixCls, {
-					[`${prefixCls}-align-center`]: alignCenter
-				})}
+				className={cls(className, prefixCls)}
 				lockScroll={open}
 				onClick={event => {
 					if (event.target === event.currentTarget) {

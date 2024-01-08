@@ -4,11 +4,11 @@ import { TbCheckbox, TbFilter, TbX } from 'react-icons/tb'
 
 import { get_space_info } from '@/apis/space'
 import Header from '@/app/components/header'
+import { useUIStore } from '@/stores'
 import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import { Button, Space } from '@youknown/react-ui/src'
 
 import DocList from './components/doc-list'
-import { useUIStore } from '@/stores'
 
 const { useParams } = await import('react-router-dom')
 
@@ -38,7 +38,7 @@ export default function SpaceDetail() {
 				<>
 					{is_mobile ? (
 						<Button text square onClick={cancel_choosing}>
-							<TbX className="text-16px color-primary" />
+							<TbX className="text-18px color-primary" />
 						</Button>
 					) : (
 						<Button onClick={cancel_choosing} prefixIcon={<TbX className="text-16px color-primary" />}>
@@ -51,10 +51,10 @@ export default function SpaceDetail() {
 					{is_mobile ? (
 						<>
 							<Button text square onClick={do_choosing}>
-								<TbCheckbox className="text-16px color-primary" />
+								<TbCheckbox className="text-18px color-primary" />
 							</Button>
 							<Button text square onClick={open_filter}>
-								<TbFilter className="text-16px color-primary" />
+								<TbFilter className="text-18px color-primary" />
 							</Button>
 						</>
 					) : (

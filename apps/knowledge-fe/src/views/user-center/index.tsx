@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RiUserFollowLine, RiUserUnfollowLine } from 'react-icons/ri'
-import { TbUserCheck, TbUserEdit } from 'react-icons/tb'
+import { TbUserCheck, TbUserEdit, TbX } from 'react-icons/tb'
 
 import { follow_user, get_user_info, unfollow_user, update_profile } from '@/apis/user'
 import Header from '@/app/components/header'
+import TabBar from '@/app/components/tab-bar'
 import { IMAGE_ACCEPT } from '@/consts'
-import { useModalStore, useUserStore } from '@/stores'
+import { useModalStore, useUIStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { with_api } from '@/utils/request'
@@ -14,10 +15,14 @@ import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import { AspectRatio, Button, Divider, Image, Input, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
+import Entires from './components/entries'
+import MyOptions from './components/my-options'
+
 const { useSearchParams } = await import('react-router-dom')
 
 export default function UserCenter() {
 	const { t } = useTranslation()
+	const is_mobile = useUIStore(state => state.is_mobile)
 	const profile = useUserStore(state => state.profile)
 	const set_profile = useUserStore(state => state.set_profile)
 	const has_login = useUserStore(state => state.has_login)
@@ -30,7 +35,7 @@ export default function UserCenter() {
 		params: [{ user_id: target_user_id }]
 	})
 	const user_info = is_self ? { ...profile, collected: false } : target_user_info
-	const [is_edit, { setTrue: start_edit, setFalse: stop_edit }] = useBoolean(false)
+	const [is_editing, { setTrue: start_edit, setFalse: stop_edit }] = useBoolean(false)
 	const [updating_avatar, set_updating_avatar] = useState('')
 	const [follow_loading, set_follow_loading] = useState(false)
 	const [unfollow_loading, set_unfollow_loading] = useState(false)
@@ -70,11 +75,11 @@ export default function UserCenter() {
 
 	const { nickname = '', avatar = '' } = user_info ?? {}
 	useEffect(() => {
-		if (is_edit) {
+		if (is_editing) {
 			set_nickname_val(nickname ?? '')
 			set_updating_avatar(avatar ?? '')
 		}
-	}, [avatar, is_edit, nickname])
+	}, [avatar, is_editing, nickname])
 
 	const [saving, set_saving] = useState(false)
 	const handle_save_profile = async () => {
@@ -136,25 +141,52 @@ export default function UserCenter() {
 
 	const header = (
 		<Header heading={t('page.title.personal')}>
-			{is_self &&
-				(is_edit ? (
+			{has_login &&
+				is_self &&
+				(is_editing ? (
 					<Space>
-						<Button onClick={stop_edit}>{t('cancel.text')}</Button>
-						<Button primary prefixIcon={<TbUserCheck />} loading={saving} onClick={handle_save_profile}>
-							{t('save.text')}
-						</Button>
+						{is_mobile ? (
+							<>
+								<Button text square onClick={stop_edit}>
+									<TbX className="text-18px color-primary" />
+								</Button>
+								<Button text square loading={saving} onClick={handle_save_profile}>
+									<TbUserCheck className="text-18px color-primary" />
+								</Button>
+							</>
+						) : (
+							<>
+								<Button onClick={stop_edit}>{t('cancel.text')}</Button>
+								<Button
+									primary
+									prefixIcon={<TbUserCheck />}
+									loading={saving}
+									onClick={handle_save_profile}
+								>
+									{t('save.text')}
+								</Button>
+							</>
+						)}
 					</Space>
 				) : (
-					<Button prefixIcon={<TbUserEdit />} onClick={start_edit}>
-						{t('profile.edit')}
-					</Button>
+					<>
+						{is_mobile ? (
+							<Button text square onClick={start_edit}>
+								<TbUserEdit className="color-primary text-18px" />
+							</Button>
+						) : (
+							<Button prefixIcon={<TbUserEdit />} onClick={start_edit}>
+								{t('profile.edit')}
+							</Button>
+						)}
+					</>
 				))}
 		</Header>
 	)
 
 	const banner = (
 		<Loading className="w-100%!" spinning={!user_info}>
-			<AspectRatio ratio={0.2}>
+			<AspectRatio ratio={is_mobile ? 0.4 : 0.2}>
 				<div
 					className={cls(
 						'relative w-100% h-100%',
@@ -162,7 +194,11 @@ export default function UserCenter() {
 						'after:backdrop-blur-2xl'
 					)}
 				>
-					<Image className="w-100% h-100%" src={user_info?.avatar ?? ''} alt="Banner" />
+					{is_self && !has_login ? (
+						<div className="w-100% h-100% bg-bg-3"></div>
+					) : (
+						<Image className="w-100% h-100%" src={user_info?.avatar ?? ''} alt="Banner" />
+					)}
 				</div>
 			</AspectRatio>
 		</Loading>
@@ -172,7 +208,7 @@ export default function UserCenter() {
 		<>
 			{user_info.collected ? (
 				<Button
-					className="absolute! top--45px right-0"
+					className="z-22 absolute! top--45px right-32px"
 					prefixIcon={<RiUserUnfollowLine className="text-14px" />}
 					loading={unfollow_loading}
 					onClick={handle_unfollow_user}
@@ -181,7 +217,7 @@ export default function UserCenter() {
 				</Button>
 			) : (
 				<Button
-					className="absolute! top--45px right-0"
+					className="z-22 absolute! top--45px right-32px"
 					prefixIcon={<RiUserFollowLine className="text-14px" />}
 					loading={follow_loading}
 					primary
@@ -198,30 +234,60 @@ export default function UserCenter() {
 			{header}
 			{banner}
 
-			<div className="relative p-32px max-w-720px m-[0_auto]">
+			<div className="relative sm:p-32px <sm:p-[32px_16px] max-w-720px m-[0_auto]">
 				{follow_btn}
 
-				{is_edit ? (
-					<Upload className="absolute! top--45px" circle accept={IMAGE_ACCEPT} action={upload_avatar} />
+				{is_self && !has_login ? (
+					<div
+						className={cls(
+							'absolute top--45px w-90px h-90px flex justify-center items-center',
+							'rd-full bg-primary color-#fff text-16px font-500 shadow-shadow-l'
+						)}
+						onClick={open_login_modal}
+					>
+						{t('login.go')}
+					</div>
 				) : (
-					<Image
-						className="absolute top--45px w-90px h-90px rd-full bg-bg-2 shadow-shadow-l"
-						src={user_info?.avatar ?? ''}
-						canPreview
-						alt="Avatar"
-					/>
+					<>
+						{is_editing ? (
+							<Upload
+								className="absolute! top--45px"
+								circle
+								accept={IMAGE_ACCEPT}
+								action={upload_avatar}
+							/>
+						) : (
+							<Image
+								className="absolute top--45px w-90px h-90px rd-full bg-bg-2 shadow-shadow-l"
+								src={user_info?.avatar ?? ''}
+								canPreview
+								alt="Avatar"
+							/>
+						)}
+					</>
 				)}
-				{is_edit ? (
+
+				{is_editing ? (
 					<Input className="mt-24px" value={nickname_val} onChange={set_nickname_val} />
 				) : (
 					<div className="text-22px line-height-32px font-600 mt-24px">{user_info?.nickname ?? '--'}</div>
 				)}
+
 				<div className="text-12px color-text-3 mt-8px">
 					{t('time.join')}
-					{format_time(user_info?.creation_time ?? '')}
+					{format_time(user_info?.creation_time ?? '--')}
 				</div>
 				<Divider />
+
+				{is_mobile && is_self && (
+					<>
+						<Entires />
+						<MyOptions />
+					</>
+				)}
 			</div>
+
+			{is_mobile && <TabBar />}
 		</>
 	)
 }

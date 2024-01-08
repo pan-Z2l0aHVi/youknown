@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 import { useModalStore, useUIStore } from '@/stores'
-import { Card, CloseIcon, Motion, Overlay } from '@youknown/react-ui/src'
+import { CloseIcon, Dialog } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import Preferences from './components/preferences'
@@ -13,25 +13,25 @@ export default function PreferencesModal() {
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
 
 	return (
-		<Overlay
-			className={cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]')}
+		<Dialog
+			className="w-480px! max-w-[calc(100vw-32px)]"
+			overlayClassName={cls(
+				'backdrop-blur-xl',
+				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+			)}
 			open={modal_open}
 			onCancel={close_preferences_modal}
 			unmountOnExit
+			header={
+				<div className="flex justify-between sm:p-[24px_24px_0] <sm:p-[16px_16px_0]">
+					<span className="text-16px font-500">{t('heading.preference')}</span>
+					<CloseIcon onClick={close_preferences_modal} />
+				</div>
+			}
+			footer=" "
+			closeIcon={null}
 		>
-			<Motion.Zoom in={modal_open}>
-				<Card
-					shadow
-					header={
-						<div className="flex justify-between p-[24px_24px_0]">
-							<span className="text-16px font-500">{t('heading.preference')}</span>
-							<CloseIcon onClick={close_preferences_modal} />
-						</div>
-					}
-				>
-					<Preferences />
-				</Card>
-			</Motion.Zoom>
-		</Overlay>
+			<Preferences />
+		</Dialog>
 	)
 }

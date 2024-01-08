@@ -40,3 +40,5 @@ export function useRTE(options?: RTEOptions, deps?: DependencyList) {
 		deps
 	)
 }
+
+export default useRTE

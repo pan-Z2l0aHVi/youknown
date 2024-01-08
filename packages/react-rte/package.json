@@ -4,6 +4,7 @@
     "description": "",
     "type": "module",
     "main": "dist/main.es.js",
+    "module": "dist/main.es.js",
     "types": "types/index.d.ts",
     "files": [
         "src",
@@ -17,6 +18,13 @@
         "build": "rm -rf ./types && tsc && vite build",
         "watch": "concurrently --kill-others \"tsc -w\" \"vite build --watch\""
     },
+    "keywords": [
+        "editor",
+        "Rich Text Editor",
+        "react",
+        "rte",
+        "component"
+    ],
     "author": "Grey",
     "license": "MIT",
     "dependencies": {

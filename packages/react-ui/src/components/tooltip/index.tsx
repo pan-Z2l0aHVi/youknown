@@ -2,7 +2,7 @@ import './tooltip.scss'
 
 import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, isValidElement } from 'react'
 
-import { cls, pick, pickDataAttrs } from '@youknown/utils/src'
+import { checkHoverSupported, cls, pick, pickDataAttrs } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Trigger, { EventsByTriggerNeed } from '../trigger'
@@ -20,7 +20,7 @@ const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 		placement = 'top',
 		open,
 		defaultOpen,
-		trigger,
+		trigger = 'hover',
 		mouseEnterDelay,
 		mouseLeaveDelay,
 		spacing,
@@ -55,7 +55,7 @@ const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 			open={open}
 			defaultOpen={defaultOpen}
 			trigger={trigger}
-			disabled={disabled}
+			disabled={(trigger === 'hover' && !checkHoverSupported()) || disabled}
 			mouseEnterDelay={mouseEnterDelay}
 			mouseLeaveDelay={mouseLeaveDelay}
 			spacing={spacing}

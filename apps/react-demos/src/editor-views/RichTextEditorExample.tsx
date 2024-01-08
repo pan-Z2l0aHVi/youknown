@@ -14,19 +14,21 @@ import {
 	Link,
 	loadLanguages,
 	OrderedList,
-	RTE,
+	RTEContent,
+	RTEMenuBar,
 	Strike,
 	Table,
 	TextAlign,
 	TextColor,
-	Underline
+	Underline,
+	useRTE
 } from '@youknown/react-rte/src'
 import { Divider } from '@youknown/react-ui/src'
 import { delay } from '@youknown/utils/src'
 
 let index = -1
 export default () => {
-	const editor = RTE.use({
+	const editor = useRTE({
 		extensions: [
 			Heading,
 			Bold,
@@ -74,9 +76,9 @@ export default () => {
 
 	return (
 		<>
-			<RTE.Menu editor={editor} />
+			<RTEMenuBar editor={editor} />
 			<Divider size="small" />
-			<RTE.Content editor={editor} />
+			<RTEContent editor={editor} />
 		</>
 	)
 }

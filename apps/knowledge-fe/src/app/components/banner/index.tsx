@@ -24,7 +24,12 @@ export default function Banner() {
 	}
 
 	return (
-		<div className={cls('relative flex items-center h-40px', 'b-20 b-solid bg-primary b-[rgba(255,255,255,0.8)]')}>
+		<div
+			className={cls(
+				'relative flex items-center h-40px',
+				'b-20 <sm:b-l-4px <sm:b-r-4px b-solid bg-primary b-[rgba(255,255,255,0.8)]'
+			)}
+		>
 			<div className="absolute left-50% top-50% translate-x--50% translate-y--50% max-w-90% truncate color-primary">
 				{text}
 			</div>

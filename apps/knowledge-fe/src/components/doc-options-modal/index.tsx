@@ -8,19 +8,7 @@ import { useUIStore } from '@/stores'
 import { with_api } from '@/utils/request'
 import { validate_max_length, validate_required } from '@/utils/validators'
 import { useBoolean, useFetch, useUpdate } from '@youknown/react-hook/src'
-import {
-	Button,
-	Card,
-	CloseIcon,
-	Form,
-	Input,
-	Loading,
-	Motion,
-	Overlay,
-	Radio,
-	Space,
-	Toast
-} from '@youknown/react-ui/src'
+import { Button, CloseIcon, Dialog, Form, Input, Loading, Radio, Space, Toast } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 interface DocOptionsModalProps {
@@ -95,11 +83,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 	})
 
 	const form_ele = (
-		<Form
-			className="w-480px max-w-[calc(100vw-32px)] sm:p-[24px_24px_0_24px] <sm:p-[16px_16px_0_16px]"
-			form={form}
-			labelWidth={120}
-		>
+		<Form className="sm:p-[24px_24px_0_24px] <sm:p-[16px_16px_0_16px]" form={form} labelWidth={120}>
 			<Form.Field
 				label="cover"
 				labelText={t('form.cover')}
@@ -134,7 +118,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 					]}
 				/>
 			</Form.Field>
-			<Form.Field labelText=" " className="<sm:relative mb-0! mt-16px">
+			<Form.Field labelText=" " className="<sm:relative mb-0!">
 				<Space className="<sm:absolute <sm:right-0">
 					<Button className="min-w-80px" onClick={hide_modal}>
 						{t('cancel.text')}
@@ -154,26 +138,27 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 	)
 
 	return (
-		<Overlay
-			className={cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]')}
+		<Dialog
+			className="!w-480px"
+			overlayClassName={cls(
+				'backdrop-blur-xl',
+				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+			)}
 			open={open}
 			onCancel={hide_modal}
 			unmountOnExit
+			header={
+				<div className="flex justify-between sm:p-[24px_24px_0] <sm:p-[16px_16px_0]">
+					<span className="text-16px font-500">{t('heading.doc_setting')}</span>
+					<CloseIcon onClick={hide_modal} />
+				</div>
+			}
+			footer=" " // Occupy
+			closeIcon={null}
 		>
-			<Motion.Zoom in={open}>
-				<Card
-					shadow
-					header={
-						<div className="flex justify-between sm:p-[24px_24px_0] <sm:p-[16px_16px_0]">
-							<span className="text-16px font-500">{t('heading.doc_setting')}</span>
-							<CloseIcon onClick={hide_modal} />
-						</div>
-					}
-					footer=" "
-				>
-					<Loading spinning={initial_loading}>{form_ele}</Loading>
-				</Card>
-			</Motion.Zoom>
-		</Overlay>
+			<Loading className="w-100%!" spinning={initial_loading}>
+				{form_ele}
+			</Loading>
+		</Dialog>
 	)
 }

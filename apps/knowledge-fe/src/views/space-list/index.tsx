@@ -4,14 +4,15 @@ import { GoInbox } from 'react-icons/go'
 import { TbFolderPlus } from 'react-icons/tb'
 
 import Header from '@/app/components/header'
+import TabBar from '@/app/components/tab-bar'
 import { useModalStore, useSpaceStore, useUIStore, useUserStore } from '@/stores'
 import { with_api } from '@/utils/request'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Toast } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 
 import SpaceCard from './components/space-card'
 import SpaceOptionsModal from './components/space-options-modal'
-import { cls } from '@youknown/utils/src'
 
 export default function SpaceList() {
 	const { t } = useTranslation()
@@ -68,7 +69,7 @@ export default function SpaceList() {
 			<Header heading={t('page.title.library')}>
 				{is_mobile ? (
 					<Button square text onClick={handle_show_create_modal}>
-						<TbFolderPlus className="text-16px color-primary" />
+						<TbFolderPlus className="text-18px color-primary" />
 					</Button>
 				) : (
 					<Button
@@ -110,6 +111,8 @@ export default function SpaceList() {
 					}
 				}}
 			/>
+
+			{is_mobile && <TabBar />}
 		</>
 	)
 }

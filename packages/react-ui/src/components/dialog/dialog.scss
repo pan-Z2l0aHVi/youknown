@@ -5,6 +5,8 @@ $prefix: '#{$ui-prefix}-dialog';
 	@include basic;
 
 	position: relative;
+	margin: 16px;
+	margin-top: 15vh;
 
 	&-close-icon {
 		position: absolute;

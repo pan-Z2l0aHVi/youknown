@@ -25,13 +25,13 @@ type MenuListItem =
 	| 'highlight'
 	| 'color'
 	| 'textAlign'
-interface MenuBarProps {
+interface RTEMenuBarProps {
 	editor: Editor | null
 	tooltip?: boolean
 	list?: MenuListItem[]
 	insertList?: insertListItem[]
 }
-export function MenuBar(props: MenuBarProps) {
+export function RTEMenuBar(props: RTEMenuBarProps) {
 	const { editor, tooltip = true, list, insertList } = props
 
 	const btnList = useCreation(() => {
@@ -96,3 +96,5 @@ export function MenuBar(props: MenuBarProps) {
 		</Space>
 	)
 }
+RTEMenuBar.displayName = 'RTEMenuBar'
+export default RTEMenuBar

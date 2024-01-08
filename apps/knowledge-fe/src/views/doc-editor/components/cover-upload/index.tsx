@@ -9,6 +9,7 @@ import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { with_api } from '@/utils/request'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Image, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
+import { useUIStore } from '@/stores'
 
 type UploadFiles = ComponentProps<typeof Upload>['value']
 interface CoverUploadProps {
@@ -19,6 +20,7 @@ interface CoverUploadProps {
 export default function CoverUpload(props: CoverUploadProps) {
 	const { cover = '', doc_id, on_updated } = props
 	const { t } = useTranslation()
+	const is_mobile = useUIStore(state => state.is_mobile)
 	const [file_list, set_file_list] = useState<UploadFiles>([])
 	const [updating, { setTrue: start_updating, setFalse: stop_updating }] = useBoolean(false)
 	const save_doc_cover = async (cover_url: string) => {
@@ -79,7 +81,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 						canPreview
 						alt="Cover"
 					/>
-					<Space className="[@media(hover:hover)]-group-hover-display-flex! display-none! absolute right-16px bottom-16px">
+					<Space className="[@media(hover:hover)]-group-hover-display-flex! sm:display-none! absolute right-16px bottom-16px">
 						<Upload
 							accept={IMAGE_ACCEPT}
 							ref={upload_ref}
@@ -88,28 +90,52 @@ export default function CoverUpload(props: CoverUploadProps) {
 							value={file_list}
 							onChange={set_file_list}
 						>
+							{is_mobile ? (
+								<Button
+									square
+									onClick={() => {
+										upload_ref.current?.click()
+									}}
+								>
+									<TbPhotoEdit className="text-16px" />
+								</Button>
+							) : (
+								<Button
+									prefixIcon={<TbPhotoEdit className="text-16px" />}
+									onClick={() => {
+										upload_ref.current?.click()
+									}}
+								>
+									{t('cover.change')}
+								</Button>
+							)}
+						</Upload>
+
+						{is_mobile ? (
 							<Button
-								prefixIcon={<TbPhotoEdit className="text-16px" />}
+								danger
+								square
 								onClick={() => {
-									upload_ref.current?.click()
+									save_doc_cover('')
 								}}
 							>
-								{t('cover.change')}
+								<PiTrashSimpleBold className="text-16px" />
 							</Button>
-						</Upload>
-						<Button
-							prefixIcon={<PiTrashSimpleBold className="text-16px color-danger" />}
-							onClick={() => {
-								save_doc_cover('')
-							}}
-						>
-							<span className="color-danger">{t('cover.remove')}</span>
-						</Button>
+						) : (
+							<Button
+								prefixIcon={<PiTrashSimpleBold className="text-16px color-danger" />}
+								onClick={() => {
+									save_doc_cover('')
+								}}
+							>
+								<span className="color-danger">{t('cover.remove')}</span>
+							</Button>
+						)}
 					</Space>
 				</div>
 			) : (
 				<Upload accept={IMAGE_ACCEPT} headless action={upload_cover} value={file_list} onChange={set_file_list}>
-					<div className="flex items-center w-max p-[4px_12px] ml-16px bg-bg-2 rd-full color-text-2 [@media(hover:hover)]-hover-color-primary">
+					<div className="flex items-center w-max p-[4px_12px] sm:ml-16px bg-bg-2 rd-full color-text-2 [@media(hover:hover)]-hover-color-primary">
 						<TbPhotoPlus className="mr-8px text-16px" />
 						{t('cover.add')}
 					</div>

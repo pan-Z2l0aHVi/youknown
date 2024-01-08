@@ -42,21 +42,21 @@ export default function SpaceOptions(props: SpaceOptionsProps) {
 	})
 
 	return (
-		<Loading spinning={loading}>
-			<Form className="w-428px max-w-[calc(100vw-32px)] sm:p-24px <sm:p-16px" form={form} labelWidth={104}>
+		<Loading className="w-100%!" spinning={loading}>
+			<Form className="sm:p-[24px_24px_0_24px] <sm:p-[16px_16px_0_16px]" form={form} labelWidth={104}>
 				<Form.Field
 					label="name"
 					labelText={t('space.name')}
 					validators={[validate_required(), validate_max_length(SPACE_NAME_MAX_LEN)]}
 				>
-					<Input className="w-100%!" />
+					<Input className="w-100%!" placeholder={t('placeholder.input')} />
 				</Form.Field>
 				<Form.Field
 					label="desc"
 					labelText={t('introduction')}
 					validators={[validate_required(), validate_max_length(SPACE_DESC_MAX_LEN)]}
 				>
-					<Input.Textarea className="w-100%!" autosize maxRows={4} />
+					<Input.Textarea className="w-100%!" autosize maxRows={4} placeholder={t('placeholder.input')} />
 				</Form.Field>
 				<Form.Field className="mb-0! <sm:relative" labelText=" ">
 					<Space className="<sm:absolute <sm:right-0">

@@ -17,7 +17,7 @@ export default function FabBar() {
 		}
 	]
 	return (
-		<Space className="z-9 fixed right-48px bottom-32px" direction="vertical">
+		<Space className="z-9 fixed sm:bottom-32px sm:right-48px <sm:right-8px <sm:bottom-80px" direction="vertical">
 			<BackTop />
 
 			{fab_list.map(item => (

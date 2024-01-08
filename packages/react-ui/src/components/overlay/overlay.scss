@@ -8,8 +8,4 @@ $prefix: '#{$ui-prefix}-overlay';
 	display: flex;
 	justify-content: center;
 	background: rgba($color: #000, $alpha: 50%);
-
-	&.#{$prefix}-align-center {
-		align-items: center;
-	}
 }

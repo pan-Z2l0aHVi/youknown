@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useTransition } from 'react'
 import { useTranslation } from 'react-i18next'
+import { CgSpinner } from 'react-icons/cg'
 import { GoInbox } from 'react-icons/go'
 import { TbSearch } from 'react-icons/tb'
 
@@ -12,7 +13,6 @@ import { QS } from '@youknown/utils/src'
 
 import Overview from './components/overview'
 import ResultList from './components/result-list'
-import { CgSpinner } from 'react-icons/cg'
 
 export default function Searcher() {
 	const { t } = useTranslation()
@@ -102,13 +102,18 @@ export default function Searcher() {
 	)
 
 	const card_footer = (
-		<div className="pl-16px bg-bg-2 b-t-1 b-t-solid b-t-bd-line line-height-32px color-text-3 text-12px">
+		<div className="pt-4px pb-4px pl-16px bg-bg-2 b-t-1 b-t-solid b-t-bd-line line-height-24px color-text-3 text-12px">
 			{t('keyboard.tip')}
 		</div>
 	)
 	const has_result = result.length > 0
 	return (
-		<Card className="w-640px! mt-15vh overflow-hidden" shadow header={card_header} footer={card_footer}>
+		<Card
+			className="w-640px! max-w-[calc(100vw-32px)] mt-15vh overflow-hidden"
+			shadow
+			header={card_header}
+			footer={card_footer}
+		>
 			{has_keywords && has_result ? (
 				<div className="flex h-400px">
 					<div className="flex flex-col items-center w-160px p-t-12px pb-12px pl-16px">

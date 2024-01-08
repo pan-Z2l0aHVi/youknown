@@ -2,13 +2,14 @@ import { lazy, Suspense } from 'react'
 
 import useInitApp from '@/hooks/use-init-app'
 import useRouteScrollTop from '@/hooks/use-route-scroll-top'
+import { useUIStore } from '@/stores'
 import { Loading } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
-import PageProgress from './components/page-progress'
 import DesktopLayout from './components/desktop-layout'
+import FabBar from './components/fab-bar'
 import MobileLayout from './components/mobile-layout'
-import { useUIStore } from '@/stores'
+import PageProgress from './components/page-progress'
 
 const { Outlet, useMatch } = await import('react-router-dom')
 
@@ -39,11 +40,10 @@ export default function App() {
 			{global_els}
 
 			{with_layout ? (
-				is_mobile ? (
-					<MobileLayout />
-				) : (
-					<DesktopLayout />
-				)
+				<>
+					{is_mobile ? <MobileLayout /> : <DesktopLayout />}
+					<FabBar />
+				</>
 			) : (
 				<Suspense
 					fallback={

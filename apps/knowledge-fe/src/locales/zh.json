@@ -4,6 +4,7 @@
   "cancel": {
     "text": "取消"
   },
+  "cate": "类别",
   "clear": {
     "text": "清除",
     "history": "清除历史记录"
@@ -51,7 +52,7 @@
   "doc": {
     "public": "已发布，对所有人可见",
     "private": "仅自己可见",
-    "auto_save": "自动保存于",
+    "draft_auto_save": "草稿自动保存于",
     "publish": {
       "ok": "发布成功",
       "cancel": "已取消发布"
@@ -131,7 +132,7 @@
     "old": "最旧的的排在前",
     "ai": "含AI作品",
     "no_ai": "不含AI作品",
-    "normal": "寻常",
+    "general": "寻常",
     "anime": "二次元",
     "people": "人物",
     "top_list": "排行榜",
@@ -178,7 +179,7 @@
     "fail": "登录失败",
     "auth": "授权登录",
     "github": "Github登录",
-    "wechat": "登录失败",
+    "wechat": "微信登录",
     "no_auth": "身份验证失效，请重新登录",
     "immediately": "立即登录",
     "go": "去登录",
@@ -256,6 +257,7 @@
   "share": {
     "text": "分享"
   },
+  "size": "大小",
   "space": {
     "name": "空间名称",
     "create": "新建空间",
@@ -263,6 +265,7 @@
     "manage": "管理空间",
     "if_delete": "是否删除空间「{{name}}」"
   },
+  "tags": "标签",
   "time": {
     "join": "加入时间：",
     "today": "今天",
@@ -311,7 +314,14 @@
     "apply": "应用此版本"
   },
   "view": {
+    "detail": "详细信息",
     "introduction": "查看简介",
     "full_text": "阅读全文"
+  },
+  "tab": {
+    "browse": "浏览",
+    "library": "知识库",
+    "wallpaper": "壁纸",
+    "mine": "我"
   }
 }

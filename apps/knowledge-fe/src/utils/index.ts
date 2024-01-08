@@ -21,13 +21,9 @@ export const go_github_login = async () => {
 }
 
 export const format_time = (timing: number | string): string => {
-	let date: dayjs.Dayjs
-	if (is.number(timing)) {
-		date = dayjs(timing)
-	} else if (is.string(timing)) {
-		date = dayjs(timing)
-	} else {
-		return timing
+	const date = dayjs(timing)
+	if (!date.isValid()) {
+		return String(timing)
 	}
 	const now = dayjs()
 	const formatter = 'HH:mm'
@@ -47,13 +43,20 @@ export const format_time = (timing: number | string): string => {
 	return date.format(`${t('time.month_date')} ${formatter}`)
 }
 
-export function parse_file_size_kb(file: File) {
-	const fileSizeInBytes = file.size
+export function format_file_size(size: number) {
+	if (size > 1024 * 1024) {
+		return `${parse_file_size_mb(size).toFixed(1)} MB`
+	}
+	return `${parse_file_size_kb(size).toFixed(1)} KB`
+}
+
+export function parse_file_size_kb(size: number) {
+	const fileSizeInBytes = size
 	return fileSizeInBytes / 1024
 }
 
-export function parse_file_size_mb(file: File) {
-	const fileSizeInKB = parse_file_size_kb(file)
+export function parse_file_size_mb(size: number) {
+	const fileSizeInKB = parse_file_size_kb(size)
 	return fileSizeInKB / 1024
 }
 
@@ -62,7 +65,7 @@ export async function initHlsLangs() {
 	if (langs_ready) {
 		return
 	}
-	const { loadLanguages } = await import('@youknown/react-rte/src')
+	const { loadLanguages } = await import('@youknown/react-rte/src/utils/load-langs')
 	await loadLanguages()
 	langs_ready = true
 }

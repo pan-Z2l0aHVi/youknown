@@ -1,9 +1,11 @@
-import { cls } from '@youknown/utils/src'
 import { Suspense } from 'react'
-import Banner from '../banner'
-import FabBar from '../fab-bar'
-import Sidebar from '../sidebar'
+
 import { Loading } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
+
+import Banner from '../banner'
+import Sidebar from '../sidebar'
+
 const { Outlet } = await import('react-router-dom')
 
 export default function DesktopLayout() {
@@ -28,7 +30,6 @@ export default function DesktopLayout() {
 					</div>
 				</Suspense>
 			</div>
-			<FabBar />
 		</div>
 	)
 }

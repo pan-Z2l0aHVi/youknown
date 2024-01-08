@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TbCloudCheck, TbWorld, TbWorldOff } from 'react-icons/tb'
+import { TbChecklist, TbCloudCheck, TbWorld, TbWorldOff } from 'react-icons/tb'
 
 import { Doc, get_doc_drafts, get_doc_info, update_doc, update_doc_draft } from '@/apis/doc'
 import Header from '@/app/components/header'
 import { DOC_TITLE_MAX_LEN } from '@/consts'
-import { useRecordStore } from '@/stores'
+import { useRecordStore, useUIStore } from '@/stores'
 import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { export_html, export_pdf } from '@/utils/exports'
@@ -25,12 +25,14 @@ import {
 	Italic,
 	Link,
 	OrderedList,
-	RTE,
+	RTEContent,
+	RTEMenuBar,
 	Strike,
 	Table,
 	TextAlign,
 	TextColor,
-	Underline
+	Underline,
+	useRTE
 } from '@youknown/react-rte/src'
 import { Button, Image as ImageUI, Input, Loading, Space, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
@@ -46,6 +48,7 @@ export default function Doc() {
 	const [search_params] = useSearchParams()
 	const doc_id = search_params.get('doc_id') as string
 	const recording = useRecordStore(state => state.recording)
+	const is_mobile = useUIStore(state => state.is_mobile)
 
 	const [history_drawer_open, { setTrue: show_history_drawer, setFalse: hide_history_drawer }] = useBoolean(false)
 	const [title_focus, { setTrue: focus_title, setFalse: blur_title }] = useBoolean(false)
@@ -53,7 +56,7 @@ export default function Doc() {
 	const title_input_ref = useRef<HTMLInputElement>(null)
 	const [publishing, set_publishing] = useState(false)
 
-	const editor = RTE.use({
+	const editor = useRTE({
 		extensions: [
 			Heading,
 			Bold,
@@ -273,7 +276,7 @@ export default function Doc() {
 				<>
 					<span className="text-text-3 text-12px ml-8px mr-8px">·</span>
 					<div className="text-text-3 text-12px">
-						{t('doc.auto_save')} {format_time(draft.creation_time)}
+						{t('doc.draft_auto_save')} {format_time(draft.creation_time)}
 					</div>
 				</>
 			)}
@@ -331,22 +334,38 @@ export default function Doc() {
 	return (
 		<>
 			<Header heading={t('heading.doc')} bordered="visible">
-				<div className="flex-1 flex items-center ml-24px mr-24px">
-					{public_icon}
-					{title_ele}
-				</div>
+				{is_mobile || (
+					<div className="flex-1 flex items-center ml-24px mr-24px">
+						{public_icon}
+						{title_ele}
+					</div>
+				)}
 
 				<Space align="center">
-					{doc_tips}
-					<Button
-						onClick={show_history_drawer}
-						prefixIcon={<TbCloudCheck className="color-text-2" size={16} />}
-					>
-						{t('draft.text')}
-					</Button>
-					<Button disabled={editor.isEmpty} primary onClick={update_doc_content}>
-						{t('update.text')}
-					</Button>
+					{is_mobile ? (
+						<>
+							<Button square onClick={show_history_drawer}>
+								<TbCloudCheck className="color-text-2 text-16px" />
+							</Button>
+							<Button square disabled={editor.isEmpty} primary onClick={update_doc_content}>
+								<TbChecklist className="text-16px" />
+							</Button>
+						</>
+					) : (
+						<>
+							{doc_tips}
+							<Button
+								onClick={show_history_drawer}
+								prefixIcon={<TbCloudCheck className="color-text-2 text-16px" />}
+							>
+								{t('draft.text')}
+							</Button>
+							<Button disabled={editor.isEmpty} primary onClick={update_doc_content}>
+								{t('save.text')}
+							</Button>
+						</>
+					)}
+
 					<DocOptionsDropdown
 						doc_id={doc_id}
 						is_public={doc_info?.public ?? false}
@@ -365,19 +384,25 @@ export default function Doc() {
 				on_recovery={recovery_doc}
 			/>
 
-			<div
-				className={cls(
-					'z-10 sticky top-56px right-0',
-					'w-100% flex justify-center p-[12px_32px] bg-bg-0',
-					'after:content-empty after:absolute after:bottom-0 after:left-50% after:translate-x--50% after:w-100% after:h-1px after:bg-bd-line'
-				)}
-			>
-				<RTE.Menu editor={editor} />
-			</div>
+			{is_mobile || (
+				<div
+					className={cls(
+						'z-10 sticky top-56px right-0',
+						'w-100% flex justify-center p-[12px_32px] bg-bg-0',
+						'after:content-empty after:absolute after:bottom-0 after:left-50% after:translate-x--50% after:w-100% after:h-1px after:bg-bd-line'
+					)}
+				>
+					<RTEMenuBar editor={editor} />
+				</div>
+			)}
 
-			<Loading className="w-720px! pt-24px pb-24px m-[0_auto]" spinning={loading} size="large">
+			<Loading
+				className="w-720px! max-w-100% pt-24px pb-24px <sm:pl-16px <sm-pr-16px sm:m-[0_auto]"
+				spinning={loading}
+				size="large"
+			>
 				<CoverUpload doc_id={doc_id} cover={doc_info?.cover} on_updated={set_doc_info} />
-				<RTE.Content editor={editor} />
+				<RTEContent editor={editor} floating={!is_mobile} />
 			</Loading>
 		</>
 	)

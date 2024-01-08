@@ -143,8 +143,9 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 	return (
 		<>
 			<div className="flex flex-row-reverse ml-16px mr-16px">
-				<Space>
+				<Space className="<sm:flex-1">
 					<Input
+						className="<sm:w-100%!"
 						ref={keywords_input_ref}
 						prefix={<TbSearch className="color-text-3" />}
 						placeholder={t('placeholder.keywords')}
@@ -155,7 +156,7 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 					/>
 					<Button prefixIcon={<RiFilter3Fill className="text-16px" />} onClick={toggle_filter}>
 						<div className="flex items-center">
-							{t('filter.tool')}
+							<span className="whitespace-nowrap">{t('filter.tool')}</span>
 							<TbChevronDown
 								className={cls('ml-16px transition-transform', filter_open && 'rotate-180deg')}
 							/>
@@ -188,7 +189,7 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 								multiple
 								menuList={[
 									{
-										label: t('form.normal'),
+										label: t('form.general'),
 										value: CATE.GENERAL
 									},
 									{

@@ -1,24 +1,28 @@
+import '@youknown/css/src/rte.scss'
+
 import hljs from 'highlight.js/lib/core'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FiEdit3 } from 'react-icons/fi'
 import { LuHeart, LuHeartOff } from 'react-icons/lu'
+import parse from 'html-react-parser'
 
 import { Feed, get_feed_detail } from '@/apis/feed'
 import { cancel_collect_feed, collect_feed } from '@/apis/user'
 import Header from '@/app/components/header'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
-import { useModalStore, useRecordStore, useUserStore } from '@/stores'
+import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
 import { initHlsLangs } from '@/utils'
 import { with_api } from '@/utils/request'
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Image, Loading, Toast } from '@youknown/react-ui/src'
 import { QS } from '@youknown/utils/src'
+import { TbPencil } from 'react-icons/tb'
 
 const { useSearchParams } = await import('react-router-dom')
 
 export default function FeedDetail() {
 	const { t } = useTranslation()
+	const is_mobile = useUIStore(state => state.is_mobile)
 	const recording = useRecordStore(state => state.recording)
 	const profile = useUserStore(state => state.profile)
 	const has_login = useUserStore(state => state.has_login)
@@ -119,23 +123,56 @@ export default function FeedDetail() {
 	const action_btn = detail && (
 		<>
 			{is_owner ? (
-				<Button prefixIcon={<FiEdit3 />} onClick={go_doc_editor}>
-					{t('edit.text')}
-				</Button>
+				<>
+					{is_mobile ? (
+						<Button text square onClick={go_doc_editor}>
+							<TbPencil className="color-primary text-18px" />
+						</Button>
+					) : (
+						<Button prefixIcon={<TbPencil />} onClick={go_doc_editor}>
+							{t('edit.text')}
+						</Button>
+					)}
+				</>
 			) : (
 				<>
 					{detail.collected ? (
-						<Button
-							prefixIcon={<LuHeartOff className="color-danger" />}
-							loading={cancel_collect_loading}
-							onClick={handle_cancel_collect_feed}
-						>
-							<span className="color-danger">{t('collect.cancel.text')}</span>
-						</Button>
+						<>
+							{is_mobile ? (
+								<Button
+									text
+									square
+									loading={cancel_collect_loading}
+									onClick={handle_cancel_collect_feed}
+								>
+									<LuHeartOff className="color-danger text-18px" />
+								</Button>
+							) : (
+								<Button
+									prefixIcon={<LuHeartOff className="color-danger" />}
+									loading={cancel_collect_loading}
+									onClick={handle_cancel_collect_feed}
+								>
+									<span className="color-danger">{t('collect.cancel.text')}</span>
+								</Button>
+							)}
+						</>
 					) : (
-						<Button prefixIcon={<LuHeart />} loading={collect_loading} onClick={handle_collect_feed}>
-							{t('collect.text')}
-						</Button>
+						<>
+							{is_mobile ? (
+								<Button text square loading={collect_loading} onClick={handle_collect_feed}>
+									<LuHeart className="color-primary text-18px" />
+								</Button>
+							) : (
+								<Button
+									prefixIcon={<LuHeart />}
+									loading={collect_loading}
+									onClick={handle_collect_feed}
+								>
+									{t('collect.text')}
+								</Button>
+							)}
+						</>
 					)}
 				</>
 			)}
@@ -151,8 +188,8 @@ export default function FeedDetail() {
 					<Loading spinning size="large" />
 				</div>
 			) : (
-				<div className="flex p-24px">
-					<div className="w-720px m-auto">
+				<div className="flex sm:p-24px <sm:p-16px">
+					<div className="sm:w-720px sm:m-auto <sm:w-100%">
 						{detail?.cover && (
 							<Image
 								className="w-100% max-h-30vh min-h-40px  rd-radius-m"
@@ -161,11 +198,9 @@ export default function FeedDetail() {
 								alt="Cover"
 							/>
 						)}
-						<div
-							ref={rich_text_container_ref}
-							className="rich-text-container"
-							dangerouslySetInnerHTML={{ __html: doc_content }}
-						></div>
+						<div ref={rich_text_container_ref} className="rich-text-container">
+							{parse(doc_content)}
+						</div>
 					</div>
 				</div>
 			)}

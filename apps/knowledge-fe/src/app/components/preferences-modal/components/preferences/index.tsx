@@ -144,7 +144,7 @@ export default function Preferences() {
 	})
 
 	return (
-		<Form className="w-480px h-480px max-w-[calc(100vw-32px)] p-24px" form={form} labelWidth={108}>
+		<Form className="sm:p-[24px_24px_0_24px] <sm:p-[24px_16px_0_16px]" form={form} labelWidth={108}>
 			<Form.Field label="style" labelText={t('setting.ui_style')}>
 				<RadiusStyle />
 			</Form.Field>

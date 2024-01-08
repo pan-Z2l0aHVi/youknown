@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FiDownloadCloud } from 'react-icons/fi'
+import { FiDownloadCloud, FiInfo } from 'react-icons/fi'
 import { LuHeart, LuHeartOff } from 'react-icons/lu'
 import { RxDotsHorizontal } from 'react-icons/rx'
 import { TbEyeCheck, TbPhotoSearch } from 'react-icons/tb'
 
 import { cancel_collect_wallpaper, collect_wallpaper } from '@/apis/user'
-import { Wallpaper } from '@/apis/wallpaper'
-import { useModalStore, useUserStore } from '@/stores'
+import { get_wallpaper_info, Wallpaper, WallpaperTag } from '@/apis/wallpaper'
+import { useModalStore, useUIStore, useUserStore } from '@/stores'
+import { format_file_size } from '@/utils'
 import { find_wallpaper_seen, insert_wallpaper_seen } from '@/utils/idb'
 import { with_api } from '@/utils/request'
 import { useBoolean, useContextMenu, useFetch } from '@youknown/react-hook/src'
-import { ContextMenu, Dropdown, Image, Motion, Toast, Tooltip } from '@youknown/react-ui/src'
+import { ContextMenu, Dialog, Dropdown, Image, Motion, Tag, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls, downloadFile, is } from '@youknown/utils/src'
 
 interface WallpaperCardProps {
@@ -25,6 +26,8 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 	const { className, wallpaper, on_removed, search_similar } = props
 
 	const { t } = useTranslation()
+	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_mobile = useUIStore(state => state.is_mobile)
 	const has_login = useUserStore(state => state.has_login)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const [hovered, { setTrue: start_hover, setFalse: stop_hover }] = useBoolean(false)
@@ -96,6 +99,72 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 
 	const ctx_menu = useContextMenu()
 
+	const render_detail_content = (detail: Wallpaper) => {
+		const format_tag_color_cls = (tag: WallpaperTag) => {
+			return (
+				{
+					sfw: 'color-emerald!',
+					sketchy: 'color-yellow!',
+					nsfw: 'color-red!'
+				}[tag.purity] ?? ''
+			)
+		}
+		const format_cate = () => {
+			return {
+				general: t('form.general'),
+				anime: t('form.anime'),
+				people: t('form.people')
+			}[detail.category]
+		}
+		return (
+			<div className="p-24px">
+				<div className="text-center font-600 text-18px mb-8px">
+					{detail.dimension_x} x {detail.dimension_y}
+				</div>
+
+				<div className="flex flex-col items-center mb-8px text-12px">
+					<div className="flex items-center">
+						<div className="w-80px text-right color-text-3 mr-8px">{t('size')}</div>
+						<div className="w-80px text-left color-text-2">{format_file_size(detail.file_size)}</div>
+					</div>
+					<div className="flex items-center">
+						<div className="w-80px text-right color-text-3 mr-8px">{t('cate')}</div>
+						<div className="w-80px text-left color-text-2">{format_cate()}</div>
+					</div>
+				</div>
+
+				<div className="font-600 text-16px mb-8px">{t('tags')}</div>
+				<div className="flex flex-wrap m--4px">
+					{detail.tags?.map(tag => {
+						return (
+							<Tag key={tag.id} className={cls('m-4px', format_tag_color_cls(tag))}>
+								{tag.name}
+							</Tag>
+						)
+					})}
+				</div>
+			</div>
+		)
+	}
+
+	const { run: fetch_detail } = useFetch(get_wallpaper_info, {
+		params: [{ url: wallpaper.url }],
+		manual: true,
+		onSuccess(data) {
+			Dialog.confirm({
+				content: render_detail_content(data),
+				footer: null,
+				header: null,
+				closeIcon: null,
+				className: 'w-480px! max-w-[calc(100vw-32px)]',
+				overlayClassName: cls(
+					'backdrop-blur-xl',
+					is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+				)
+			})
+		}
+	})
+
 	const get_dropdown_menu = (is_context_menu = false) => {
 		return (
 			<Dropdown.Menu
@@ -104,15 +173,13 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 				closeAfterItemClick
 				closeDropdown={is_context_menu ? ctx_menu.closeContextMenu : undefined}
 			>
+				<Dropdown.Item prefix={<FiInfo className="text-16px" />} onClick={fetch_detail}>
+					<span>{t('view.detail')}</span>
+				</Dropdown.Item>
+
 				<Dropdown.Item prefix={<FiDownloadCloud className="text-16px" />} onClick={handle_download}>
 					<span>{t('download.original_img')}</span>
 				</Dropdown.Item>
-
-				{is.function(search_similar) && (
-					<Dropdown.Item prefix={<TbPhotoSearch className="text-16px" />} onClick={search_similar}>
-						<span>{t('find.similar')}</span>
-					</Dropdown.Item>
-				)}
 
 				{collected ? (
 					<Dropdown.Item
@@ -126,9 +193,68 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 						<span>{t('collect.text')}</span>
 					</Dropdown.Item>
 				)}
+
+				{is.function(search_similar) && (
+					<Dropdown.Item prefix={<TbPhotoSearch className="text-16px" />} onClick={search_similar}>
+						<span>{t('find.similar')}</span>
+					</Dropdown.Item>
+				)}
 			</Dropdown.Menu>
 		)
 	}
+
+	const seen_ele = (
+		<>
+			{seen && (
+				<Tooltip placement="bottom" title={t('seen')}>
+					<div
+						className={cls(
+							'absolute top-8px right-8px flex items-center justify-center',
+							'leading-none w-24px h-24px rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl'
+						)}
+					>
+						<TbEyeCheck className="text-16px color-#fff" />
+					</div>
+				</Tooltip>
+			)}
+		</>
+	)
+
+	const operator_bar = (
+		<>
+			{img_loaded && (
+				<>
+					<Motion.Fade in={is_mobile || (hovered && !more_open)}>
+						<div
+							className={cls(
+								'absolute bottom-8px left-8px',
+								'rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl',
+								'flex items-center h-24px leading-none pl-6px pr-6px text-12px color-#fff',
+								'pointer-events-none'
+							)}
+						>
+							{wallpaper.dimension_x} X {wallpaper.dimension_y}
+						</div>
+					</Motion.Fade>
+
+					<Dropdown trigger="click" spacing={4} content={get_dropdown_menu()} onOpenChange={set_more_open}>
+						<Motion.Fade in={is_mobile || hovered || more_open}>
+							<div
+								className={cls(
+									'absolute bottom-8px right-8px',
+									'rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl [@media(hover:hover)]-hover-bg-primary',
+									'flex items-center justify-center w-24px h-24px cursor-pointer select-none'
+								)}
+								onClick={start_hover}
+							>
+								<RxDotsHorizontal className="color-#fff text-16px" />
+							</div>
+						</Motion.Fade>
+					</Dropdown>
+				</>
+			)}
+		</>
+	)
 
 	const BASE_PIXEL = 320
 	let image_w: number
@@ -171,55 +297,8 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 					onClick={preview_picture}
 				/>
 
-				{seen && (
-					<Tooltip placement="bottom" title={t('seen')}>
-						<div
-							className={cls(
-								'absolute top-8px right-8px flex items-center justify-center',
-								'leading-none w-24px h-24px rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl'
-							)}
-						>
-							<TbEyeCheck className="text-16px color-#fff" />
-						</div>
-					</Tooltip>
-				)}
-
-				{img_loaded && (
-					<>
-						<Motion.Fade in={hovered && !more_open}>
-							<div
-								className={cls(
-									'absolute bottom-8px left-8px',
-									'rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl',
-									'flex items-center h-24px leading-none pl-6px pr-6px text-12px color-#fff',
-									'pointer-events-none'
-								)}
-							>
-								{wallpaper.dimension_x} X {wallpaper.dimension_y}
-							</div>
-						</Motion.Fade>
-
-						<Dropdown
-							trigger="click"
-							spacing={4}
-							content={get_dropdown_menu()}
-							onOpenChange={set_more_open}
-						>
-							<Motion.Fade in={hovered || more_open}>
-								<div
-									className={cls(
-										'absolute bottom-8px right-8px',
-										'rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl [@media(hover:hover)]-hover-bg-primary',
-										'flex items-center justify-center w-24px h-24px cursor-pointer select-none'
-									)}
-									onClick={start_hover}
-								>
-									<RxDotsHorizontal className="color-#fff text-16px" />
-								</div>
-							</Motion.Fade>
-						</Dropdown>
-					</>
-				)}
+				{seen_ele}
+				{operator_bar}
 			</figure>
 
 			<ContextMenu {...ctx_menu.contextMenuProps}>{get_dropdown_menu(true)}</ContextMenu>

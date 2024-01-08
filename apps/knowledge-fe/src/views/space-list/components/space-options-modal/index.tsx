@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 import { useUIStore } from '@/stores'
-import { Card, CloseIcon, Motion, Overlay } from '@youknown/react-ui/src'
+import { Card, CloseIcon, Dialog, Motion, Overlay } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import SpaceOptions from './components/space-options'
@@ -19,27 +19,25 @@ export default function SpaceOptionsModal(props: SpaceOptionsModalProps) {
 	const is_edit = !!space_id
 
 	return (
-		<Overlay
-			className={cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]')}
+		<Dialog
+			className="w-428px! max-w-[calc(100vw-32px)]"
+			overlayClassName={cls(
+				'backdrop-blur-xl',
+				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+			)}
 			open={open}
 			onCancel={hide_modal}
 			unmountOnExit
+			header={
+				<div className="flex justify-between sm:p-[24px_24px_0] <sm:p-[16px_16px_0]">
+					<span className="text-16px font-500">{is_edit ? t('space.manage') : t('space.create')}</span>
+					<CloseIcon onClick={hide_modal} />
+				</div>
+			}
+			footer=" "
+			closeIcon={null}
 		>
-			<Motion.Zoom in={open}>
-				<Card
-					shadow
-					header={
-						<div className="flex justify-between sm:p-[24px_24px_0] <sm:p-[16px_16px_0]">
-							<span className="text-16px font-500">
-								{is_edit ? t('space.manage') : t('space.create')}
-							</span>
-							<CloseIcon onClick={hide_modal} />
-						</div>
-					}
-				>
-					<SpaceOptions space_id={space_id} hide_modal={hide_modal} on_save={on_save} />
-				</Card>
-			</Motion.Zoom>
-		</Overlay>
+			<SpaceOptions space_id={space_id} hide_modal={hide_modal} on_save={on_save} />
+		</Dialog>
 	)
 }

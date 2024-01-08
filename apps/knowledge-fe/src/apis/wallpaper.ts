@@ -1,5 +1,14 @@
 import { net } from '@/utils/request'
 
+export interface WallpaperTag {
+	alias: string
+	category: string
+	category_id: number
+	created_at: string
+	id: number
+	name: string
+	purity: string
+}
 export interface Wallpaper {
 	id: string
 	url: string
@@ -21,7 +30,7 @@ export interface Wallpaper {
 		original: string
 		small: string
 	}
-	tags: null
+	tags?: WallpaperTag[]
 	collected: boolean
 }
 

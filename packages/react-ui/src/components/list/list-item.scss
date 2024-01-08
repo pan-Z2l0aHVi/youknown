@@ -9,10 +9,14 @@ $prefix: '#{$ui-prefix}-list-item';
 	justify-content: space-between;
 
 	&-mr {
+		display: flex;
+		align-items: center;
 		margin-right: 12px;
 	}
 
 	&-ml {
+		display: flex;
+		align-items: center;
 		margin-left: 12px;
 	}
 

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TbSearch } from 'react-icons/tb'
+import { TbSearch, TbTrash } from 'react-icons/tb'
 
 import Header from '@/app/components/header'
 import { useRecordStore, useUIStore } from '@/stores'
@@ -13,6 +13,7 @@ import RecordItem from './components/record-item'
 export default function History() {
 	const { t } = useTranslation()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_mobile = useUIStore(state => state.is_mobile)
 	const record_list = useRecordStore(state => state.record_list)
 	const clear_records = useRecordStore(state => state.clear_records)
 	const [search_input, set_search_input] = useState('')
@@ -77,20 +78,27 @@ export default function History() {
 
 	return (
 		<>
-			<Header heading={t('page.title.history')}>
+			<Header heading={is_mobile ? null : t('page.title.history')}>
 				<Space>
 					<Input
+						className="<sm:w-200px!"
 						prefix={<TbSearch className="color-text-3" />}
 						allowClear
 						placeholder={t('placeholder.search_history')}
 						value={search_input}
 						onChange={handle_search_input}
 					/>
-					<Button onClick={handle_clear_history}>{t('clear.history')}</Button>
+					{is_mobile ? (
+						<Button square onClick={handle_clear_history}>
+							<TbTrash />
+						</Button>
+					) : (
+						<Button onClick={handle_clear_history}>{t('clear.history')}</Button>
+					)}
 				</Space>
 			</Header>
 
-			<div className="flex justify-center p-[0_32px_32px_32px]">
+			<div className="flex justify-center sm:p-[0_32px_32px_32px] <sm:p-0">
 				<div className="flex-1 max-w-960px">
 					{records_result.map(record => (
 						<RecordItem key={record.id} record={record} />

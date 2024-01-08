@@ -4,7 +4,8 @@ import { GoInbox } from 'react-icons/go'
 
 import { get_collected_feed_list, get_collected_wallpaper_list, get_followed_users } from '@/apis/user'
 import Header from '@/app/components/header'
-import { useModalStore, useUserStore } from '@/stores'
+import TabBar from '@/app/components/tab-bar'
+import { useModalStore, useUIStore, useUserStore } from '@/stores'
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Collapse, Loading } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
@@ -177,7 +178,7 @@ export default function Collection() {
 		<>
 			<Header heading={t('page.title.collection')}></Header>
 
-			<div className="p-32px">
+			<div className="sm:p-32px <sm:p-16px">
 				{login_guidance}
 				{collection_list}
 			</div>

@@ -1,10 +1,11 @@
 import { ReactNode, useEffect, useState } from 'react'
+import { IoChevronBackSharp } from 'react-icons/io5'
 import { TbArrowLeft } from 'react-icons/tb'
 
+import { useUIStore } from '@/stores'
 import { useDebounce } from '@youknown/react-hook/src'
 import { Button } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
-import { useUIStore } from '@/stores'
+import { cls, is } from '@youknown/utils/src'
 
 const { useNavigate } = await import('react-router-dom')
 
@@ -57,7 +58,11 @@ export default function Header(props: HeaderProps) {
 				navigate(-1)
 			}}
 		>
-			<TbArrowLeft className="text-18px color-primary" />
+			{is_mobile ? (
+				<IoChevronBackSharp className="text-18px color-primary" />
+			) : (
+				<TbArrowLeft className="text-18px color-primary" />
+			)}
 		</Button>
 	)
 
@@ -74,9 +79,11 @@ export default function Header(props: HeaderProps) {
 				<>
 					<div className="relative min-h-48px flex items-center justify-between">
 						{back_btn}
-						<h1 className="absolute left-50% translate-x--50% whitespace-nowrap font-600 text-16px">
-							{heading}
-						</h1>
+						{is.null(heading) || (
+							<h1 className="absolute left-50% translate-x--50% whitespace-nowrap font-600 text-16px max-w-40vw truncate">
+								{heading}
+							</h1>
+						)}
 						{children}
 					</div>
 					{footer}
@@ -86,7 +93,7 @@ export default function Header(props: HeaderProps) {
 					<div className="sm:min-h-56px flex items-center justify-between">
 						<div className="flex items-center">
 							{back_btn}
-							<h1 className="<whitespace-nowrap font-600 text-16px">{heading}</h1>
+							{is.null(heading) || <h1 className="<whitespace-nowrap font-600 text-16px">{heading}</h1>}
 						</div>
 						{children}
 					</div>

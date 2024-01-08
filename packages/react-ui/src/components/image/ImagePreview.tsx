@@ -65,18 +65,20 @@ const ImagePreview = (props: ImagePreviewProps) => {
 	const imgDetailRef = useRef<HTMLImageElement>(null)
 	const [detailError, setDetailError] = useState(false)
 
+	const [width, setWidth] = useState(0)
+	const [height, setHeight] = useState(0)
 	const [zoom, setZoom] = useState(1)
 	const [rotate, setRotate] = useState(0)
 	const [offset, setOffset] = useState<Coordinate>(null)
 	const [ratioVisible, { setTrue: showRatio, setFalse: hideRatio }] = useBoolean(false)
 	const delayTimerRef = useRef(0)
 
-	const [detailLoaded, { setTrue: handleDetailLoaded }] = useBoolean(false)
+	const [detailLoaded, { setTrue: setDetailLoaded }] = useBoolean(false)
 	const [dragging, setDragging] = useState(false)
 	const draggingRef = useLatestRef(dragging)
 
 	const handleDetailError = () => {
-		handleDetailLoaded()
+		setDetailLoaded()
 		setDetailError(true)
 	}
 
@@ -294,6 +296,8 @@ const ImagePreview = (props: ImagePreviewProps) => {
 						alt="Preview"
 						draggable={false}
 						style={{
+							width,
+							height,
 							transform: `scale(${zoom}) rotate(${rotate}deg)`,
 							...(offset
 								? {
@@ -306,7 +310,15 @@ const ImagePreview = (props: ImagePreviewProps) => {
 						onMouseDown={handleDragDetailStart}
 						onLoad={event => {
 							onLoad?.(event)
-							handleDetailLoaded()
+							setDetailLoaded()
+							const { naturalWidth, naturalHeight } = event.currentTarget
+							if (naturalWidth > window.innerWidth) {
+								setWidth(window.innerWidth)
+								setHeight(window.innerWidth * (naturalHeight / naturalWidth))
+							} else {
+								setWidth(naturalWidth)
+								setHeight(naturalHeight)
+							}
 						}}
 						onError={event => {
 							onError?.(event)

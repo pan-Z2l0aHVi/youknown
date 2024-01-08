@@ -1,6 +1,6 @@
 /* stylelint-disable selector-class-pattern */
 @use '../../styles/mixins.scss' as *;
-@use '@youknown/css/src/rte-desktop.scss' as *;
+@use '@youknown/css/src/rte.scss' as *;
 
 .#{$ui-editor-prefix}-content {
 	/* stylelint-disable-next-line scss/at-extend-no-missing-placeholder */

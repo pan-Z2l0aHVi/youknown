@@ -94,9 +94,13 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 		...rest
 	} = omit(props, 'defaultOpen', 'open', 'onOpenChange')
 
-	const isHover = trigger === 'hover'
-	const isClick = trigger === 'click'
 	const isManual = trigger === 'manual'
+	let isClick = trigger === 'click'
+	let isHover = trigger === 'hover'
+	if (isHover && !checkHoverSupported()) {
+		isHover = false
+		isClick = true
+	}
 
 	const refRef = useRef<HTMLElement | null>(null)
 	const [open, setOpen] = useControllable(props, {
@@ -227,7 +231,7 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 			: child
 	)
 
-	return disabled || (isHover && !checkHoverSupported()) ? (
+	return disabled ? (
 		Children.map(children, child =>
 			isValidElement(child) ? cloneElement(child, { ref } as HTMLAttributes<HTMLElement>) : child
 		)

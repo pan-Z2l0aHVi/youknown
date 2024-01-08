@@ -1,6 +1,8 @@
-import { Loading } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
 import { Suspense } from 'react'
+
+import { Loading } from '@youknown/react-ui/src'
+
+import Banner from '../banner'
 
 const { Outlet } = await import('react-router-dom')
 
@@ -13,7 +15,8 @@ export default function MobileLayout() {
 				</div>
 			}
 		>
-			<div className={cls('min-h-screen')}>
+			<div>
+				<Banner />
 				<Outlet />
 			</div>
 		</Suspense>
