@@ -4,7 +4,7 @@ import hljs from 'highlight.js/lib/core'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuHeart, LuHeartOff } from 'react-icons/lu'
-import parse from 'html-react-parser'
+import parse, { Element } from 'html-react-parser'
 
 import { Feed, get_feed_detail } from '@/apis/feed'
 import { cancel_collect_feed, collect_feed } from '@/apis/user'
@@ -192,14 +192,21 @@ export default function FeedDetail() {
 					<div className="sm:w-720px sm:m-auto <sm:w-100%">
 						{detail?.cover && (
 							<Image
-								className="w-100% max-h-30vh min-h-40px  rd-radius-m"
+								className="w-100% max-h-30vh min-h-40px rd-radius-m mb-16px"
 								src={detail.cover}
 								canPreview
 								alt="Cover"
 							/>
 						)}
 						<div ref={rich_text_container_ref} className="rich-text-container">
-							{parse(doc_content)}
+							{parse(doc_content, {
+								replace(domNode) {
+									console.log('domNode: ', domNode)
+									if (domNode instanceof Element && domNode.name === 'img') {
+										return <Image src={domNode.attribs.src} canPreview />
+									}
+								}
+							})}
 						</div>
 					</div>
 				</div>

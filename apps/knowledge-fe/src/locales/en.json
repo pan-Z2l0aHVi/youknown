@@ -179,7 +179,7 @@
     "fail": "Login failed",
     "auth": "Authorize",
     "github": "Login with Github",
-    "wechat": "WeChat login",
+    "wechat": "Login with WeChat",
     "no_auth": "Authentication expired, please log in again",
     "immediately": "Log in immediately",
     "go": "Go to login",

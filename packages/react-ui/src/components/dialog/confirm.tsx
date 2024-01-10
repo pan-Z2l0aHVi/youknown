@@ -15,7 +15,6 @@ interface ConfirmConfig
 		| 'closeIcon'
 		| 'overlayClosable'
 		| 'unmountOnExit'
-		| 'alignCenter'
 		| 'className'
 		| 'overlayClassName'
 		| 'style'

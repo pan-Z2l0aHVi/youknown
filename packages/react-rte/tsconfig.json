@@ -4,7 +4,7 @@
 		"baseUrl": ".",
 		"jsx": "react-jsx",
 		"target": "ESNext",
-		"module": "ES2020",
+		"module": "ESNext",
 		"outDir": "./types",
 		"emitDeclarationOnly": true,
 		"paths": {

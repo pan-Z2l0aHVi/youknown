@@ -66,7 +66,6 @@ function ContextMenu(props: ContextMenuProps) {
 			afterClose={afterClose}
 			open={open}
 			onCancel={() => setOpen(false)}
-			alignCenter={false}
 			overlayClosable={overlayClosable}
 			escClosable={escClosable}
 			appendTo={appendTo}

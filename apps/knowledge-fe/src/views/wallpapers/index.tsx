@@ -153,10 +153,17 @@ export default function Wallpapers() {
 		}
 	})
 
-	const reload_wallpapers = () => {
+	const reload_wallpapers = useEvent(() => {
 		change_page(0)
 		macroDefer(reload)
-	}
+	})
+
+	useEffect(() => {
+		const search_param_keywords = search_params.get('keywords')
+		if (search_param_keywords) {
+			reload_wallpapers()
+		}
+	}, [reload_wallpapers, search_params])
 
 	// 从缓存中恢复之前的浏览状态
 	// 包括：页码、壁纸数据、滚动条位置

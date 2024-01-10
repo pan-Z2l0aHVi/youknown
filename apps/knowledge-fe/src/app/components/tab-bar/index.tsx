@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { NavLink } from 'react-router-dom'
+import TransitionNavLink from '@/components/transition-nav-link'
 
 import { useUIStore } from '@/stores'
 import { cls } from '@youknown/utils/src'
@@ -43,7 +43,7 @@ export default function TabBar() {
 			>
 				{tab_list.map(tab => {
 					return (
-						<NavLink
+						<TransitionNavLink
 							key={tab.path}
 							to={tab.path}
 							className={({ isActive }) =>
@@ -58,7 +58,7 @@ export default function TabBar() {
 						>
 							<tab.Icon className="text-24px" />
 							<div className="text-12px scale-80">{tab.title}</div>
-						</NavLink>
+						</TransitionNavLink>
 					)
 				})}
 			</div>

@@ -4,7 +4,7 @@
 		"baseUrl": ".",
 		"jsx": "react-jsx",
 		"target": "ESNext",
-		"module": "CommonJS",
+		"module": "ESNext",
 		"esModuleInterop": true,
 		"declaration": false,
 		"noEmit": true,

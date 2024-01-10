@@ -86,14 +86,10 @@ export default function Sidebar() {
 
 	return (
 		<aside
-			className={cls(
-				'z-12 sticky top-0 flex flex-col h-100% max-h-screen',
-				'b-r-1 b-r-solid b-r-bd-line bg-bg-2',
-				{
-					'transition-width-300': !dragging,
-					'w-68px': !expand
-				}
-			)}
+			className={cls('z-12 sticky top-0 flex flex-col h-screen', 'b-r-1 b-r-solid b-r-bd-line bg-bg-2', {
+				'transition-width-300': !dragging,
+				'w-68px': !expand
+			})}
 			style={sidebar_style}
 		>
 			<div

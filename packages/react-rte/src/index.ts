@@ -1,4 +1,4 @@
-export { Editor } from '@tiptap/core'
+export type { Editor } from '@tiptap/core'
 export { RTEMenuBar } from './components/menu-bar'
 export { RTEContent } from './components/rich-text-content'
 export { useRTE } from './hooks/useRTE'

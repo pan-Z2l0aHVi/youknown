@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import computed from 'zustand-computed'
 import { devtools } from 'zustand/middleware'
 
-import { change_lang } from '@/utils/i18n'
+import { change_i18n_lang } from '@/utils/i18n'
 import { set_local_settings } from '@/utils/local'
 import { checkDarkMode, checkMobile, delay, onDarkModeChange, onMobileChange, setRootStyle } from '@youknown/utils/src'
 
@@ -108,12 +108,16 @@ export const useUIStore = create<UIState>()(
 					}
 					set_progress_percent(0)
 					show_progress()
-					await delay(0) // Prevent batching update
+					// Prevent batching update
+					await delay(0)
+					set_progress_percent(20)
 					roll_step()
 				},
 
 				stop_progress: async () => {
 					const { set_progress_percent, hide_progress } = get()
+					// Prevent batching update
+					await delay(0)
 					set_progress_percent(100)
 					clearTimeout(timer)
 					timer = await delay(300)
@@ -162,9 +166,9 @@ export const useUIStore = create<UIState>()(
 				set_i18n_lang: async lang => {
 					if (lang === I18N_LANG.SYSTEM) {
 						const system_lang = navigator.language.slice(0, 2)
-						change_lang(system_lang)
+						change_i18n_lang(system_lang)
 					} else {
-						change_lang(lang)
+						change_i18n_lang(lang)
 					}
 					set({ i18n_lang: lang })
 					set_local_settings({ i18n_lang: lang })

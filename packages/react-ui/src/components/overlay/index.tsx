@@ -1,6 +1,6 @@
 import './overlay.scss'
 
-import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes, useRef } from 'react'
 import { createPortal } from 'react-dom'
 
 import { FloatingOverlay } from '@floating-ui/react'
@@ -16,7 +16,6 @@ interface OverlayProps extends HTMLAttributes<HTMLElement> {
 	overlayClosable?: boolean
 	escClosable?: boolean
 	unmountOnExit?: boolean
-	alignCenter?: boolean
 	appendTo?: HTMLElement | null
 	onCancel?: () => void
 	afterClose?: () => void
@@ -29,12 +28,12 @@ const Overlay = (props: OverlayProps, ref: ForwardedRef<HTMLDivElement>) => {
 		overlayClosable = true,
 		escClosable = true,
 		unmountOnExit,
-		alignCenter = true,
 		appendTo = document.body,
 		open = false,
 		onCancel,
 		afterClose,
 		onClick,
+		onMouseDown,
 		style,
 		...rest
 	} = props
@@ -42,6 +41,7 @@ const Overlay = (props: OverlayProps, ref: ForwardedRef<HTMLDivElement>) => {
 	useEscape(open && escClosable, onCancel)
 
 	const zIndex = useZIndex('popup', open)
+	const maskClickRef = useRef(false)
 
 	const prefixCls = `${UI_PREFIX}-overlay`
 	const ele = (
@@ -57,7 +57,13 @@ const Overlay = (props: OverlayProps, ref: ForwardedRef<HTMLDivElement>) => {
 				ref={ref}
 				className={cls(className, prefixCls)}
 				lockScroll={open}
+				onMouseDown={event => {
+					onMouseDown?.(event)
+					maskClickRef.current = event.target === event.currentTarget
+				}}
 				onClick={event => {
+					if (!maskClickRef.current) return
+					maskClickRef.current = false
 					if (event.target === event.currentTarget) {
 						onClick?.(event)
 						if (overlayClosable) {
