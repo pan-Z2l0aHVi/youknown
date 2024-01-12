@@ -12,7 +12,7 @@ $prefix: '#{$ui-prefix}-card';
 	border-radius: $radius-l;
 
 	&-bordered {
-		border: 1px solid $bd-line;
+		border: 1px solid $divider;
 	}
 
 	&-shadow {

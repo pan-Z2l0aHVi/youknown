@@ -86,7 +86,7 @@ export default function Sidebar() {
 
 	return (
 		<aside
-			className={cls('z-12 sticky top-0 flex flex-col h-screen', 'b-r-1 b-r-solid b-r-bd-line bg-bg-2', {
+			className={cls('z-12 sticky top-0 flex flex-col h-screen', 'b-r-1 b-r-solid b-r-divider bg-bg-2', {
 				'transition-width-300': !dragging,
 				'w-68px': !expand
 			})}
@@ -95,7 +95,7 @@ export default function Sidebar() {
 			<div
 				className={cls(
 					'sticky top-0 p-12px bg-bg2',
-					'after:content-empty after:absolute after:left-12px after:bottom-0 after:w-[calc(100%-24px)] after:h-1px after:bg-bd-line'
+					'after:content-empty after:absolute after:left-12px after:bottom-0 after:w-[calc(100%-24px)] after:h-1px after:bg-divider'
 				)}
 			>
 				<TransitionLink className="block w-max" to="/">
@@ -108,7 +108,7 @@ export default function Sidebar() {
 			<div
 				className={cls(
 					'sticky bottom-0 p-12px bg-bg-2',
-					'after:content-empty after:absolute after:left-12px after:top-0 after:w-[calc(100%-24px)] after:h-1px after:bg-bd-line'
+					'after:content-empty after:absolute after:left-12px after:top-0 after:w-[calc(100%-24px)] after:h-1px after:bg-divider'
 				)}
 			>
 				<My expand={expand} />

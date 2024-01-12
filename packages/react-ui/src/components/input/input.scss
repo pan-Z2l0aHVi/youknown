@@ -13,7 +13,7 @@ $prefix: '#{$ui-prefix}-input';
 	transition: all $duration-f ease-out;
 
 	&-bordered {
-		border: 1px solid $bd-line;
+		border: 1px solid $divider;
 		border-radius: $radius-m;
 	}
 

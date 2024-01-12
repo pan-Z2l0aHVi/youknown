@@ -6,7 +6,7 @@ $prefix: '#{$ui-prefix}-divider';
 
 	&-horizontal {
 		width: 100%;
-		border-bottom: 1px solid $bd-line;
+		border-bottom: 1px solid $divider;
 
 		&-small {
 			margin: 8px 0;
@@ -23,7 +23,7 @@ $prefix: '#{$ui-prefix}-divider';
 
 	&-vertical {
 		height: 100%;
-		border-right: 1px solid $bd-line;
+		border-right: 1px solid $divider;
 
 		&-small {
 			margin: 0 8px;

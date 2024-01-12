@@ -53,7 +53,8 @@ export default defineConfig(({ mode, command }) => {
 			}
 		},
 		build: {
-			target: 'es2015'
+			target: 'es2015',
+			reportCompressedSize: false
 		},
 		server: {
 			host: '0.0.0.0',

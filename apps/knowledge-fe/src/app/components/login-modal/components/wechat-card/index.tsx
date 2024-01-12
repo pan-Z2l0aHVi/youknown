@@ -62,7 +62,7 @@ export default function WeChatCard() {
 	const [ele] = useHover(hovering => (
 		<div
 			className={cls(
-				'flex flex-col items-center justify-center rd-radius-m bg-bg-0 b-1 b-solid b-bd-line',
+				'flex flex-col items-center justify-center rd-radius-m bg-bg-0 b-1 b-solid b-divider',
 				'cursor-pointer select-none [@media(hover:hover)]-hover-bg-hover active-bg-active'
 			)}
 			onClick={fetch_qrcode}

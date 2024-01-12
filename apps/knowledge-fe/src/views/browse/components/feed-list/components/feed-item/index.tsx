@@ -44,7 +44,7 @@ export default function FeedItem(props: FeedItemProps) {
 	}
 
 	return (
-		<div key={feed.feed_id} className="b-b-bd-line b-b b-b-solid mb-32px">
+		<div key={feed.feed_id} className="b-b-divider b-b b-b-solid mb-32px">
 			<div className="flex items-center mb-16px">
 				<Avatar
 					className=" cursor-pointer"
@@ -63,7 +63,7 @@ export default function FeedItem(props: FeedItemProps) {
 			</div>
 
 			<div className="flex-1 flex pl-36px mb-8px">
-				<div className="flex-1 min-h-108px">
+				<div className="flex-1 w-0 min-h-108px">
 					<TransitionLink to={doc_detail_url} className="group block w-[fit-content] mb-12px">
 						<div
 							className={cls(
@@ -88,7 +88,7 @@ export default function FeedItem(props: FeedItemProps) {
 					<TransitionLink className="sm:ml-48px <sm:ml-8px" to={doc_detail_url}>
 						<Image
 							className={cls(
-								'b-bd-line b-1 b-solid rd-radius-m',
+								'b-divider b-1 b-solid rd-radius-m',
 								'sm:w-160px sm:h-108px <sm:w-80px <sm:h-54px '
 							)}
 							src={feed.cover}
@@ -110,7 +110,7 @@ export default function FeedItem(props: FeedItemProps) {
 					</Button>
 				</Tooltip>
 				<span className={cls('min-w-24px', praised ? 'color-primary' : 'color-text-3')}>{praise_count}</span>
-				<TransitionLink className="ml-8px" to={doc_detail_url}>
+				<TransitionLink to={doc_detail_url}>
 					<Button
 						className="color-text-3!"
 						text

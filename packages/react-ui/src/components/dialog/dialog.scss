@@ -7,6 +7,7 @@ $prefix: '#{$ui-prefix}-dialog';
 	position: relative;
 	margin: 16px;
 	margin-top: 15vh;
+	border: 1px solid $pop-bd;
 
 	&-close-icon {
 		position: absolute;

@@ -7,7 +7,7 @@ $prefix: '#{$ui-prefix}-anchor';
 	margin: 0;
 	padding: 0 0 0 4px;
 	list-style: none;
-	border-left: 2px solid $bd-line;
+	border-left: 2px solid $divider;
 
 	&-item {
 		cursor: pointer;

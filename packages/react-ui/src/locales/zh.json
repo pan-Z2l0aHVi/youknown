@@ -2,9 +2,7 @@
   "react_ui": {
     "tue": "二",
     "close": "关闭",
-    "crop": {
-      "text": "重置"
-    },
+    "accomplish": "完成",
     "date": {
       "today": "今天",
       "year_month": "YYYY年 M月"

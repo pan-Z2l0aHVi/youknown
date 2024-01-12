@@ -5,15 +5,11 @@ $prefix: '#{$ui-prefix}-image-cropper';
 .#{$prefix} {
 	@include basic;
 
-	&-content {
-		position: relative;
-		height: 50vh;
-		margin-bottom: 24px;
-	}
-
 	&-card {
 		width: 640px;
 		max-width: calc(100vw - 32px);
+		margin-top: 15vh;
+		border: 1px solid $pop-bd;
 	}
 
 	&-header {
@@ -28,11 +24,20 @@ $prefix: '#{$ui-prefix}-image-cropper';
 		}
 	}
 
+	&-content {
+		position: relative;
+		height: 50vh;
+		padding: 16px 24px;
+	}
+
 	&-footer {
+		padding: 0 24px 24px;
+	}
+
+	&-footer-bottom {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: 0 24px 24px;
 	}
 
 	&-container {
@@ -45,7 +50,7 @@ $prefix: '#{$ui-prefix}-image-cropper';
 	}
 
 	&-operator-bar {
-		/* Empty block */
+		margin-bottom: 16px;
 	}
 
 	&-operator-row {

@@ -88,11 +88,11 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 			open={open}
 			onCancel={on_close}
 			placement="right"
-			closable
+			closable={is_mobile}
 		>
 			<div
 				className={cls(
-					'sticky top-0 z-4 flex items-center justify-between flex-wrap bg-bg-0 b-b-solid b-bd-line b-b-1',
+					'sticky top-0 z-4 flex items-center justify-between flex-wrap bg-bg-0 b-b-solid b-divider b-b-1',
 					'sm:p-[16px_24px] <sm:p-[48px_16px_16px]'
 				)}
 			>

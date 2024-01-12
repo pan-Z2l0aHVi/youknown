@@ -1,3 +1,12 @@
 {
-  "recommendations": ["Vue.volar", "Vue.vscode-typescript-vue-plugin"]
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "dbaeumer.vscode-eslint",
+    "Vue.volar",
+    "Vue.vscode-typescript-vue-plugin",
+    "mrmlnc.vscode-scss",
+    "antfu.unocss"
+  ]
 }

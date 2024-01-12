@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router-dom'
 
 import { login } from '@/apis/user'
 import { LOGIN_TYPE } from '@/consts'
@@ -7,8 +8,6 @@ import { send_to_opener_window_cancel, send_to_opener_window_ok } from '@/utils/
 import { set_local_token } from '@/utils/local'
 import { Loading } from '@youknown/react-ui/src'
 import { storage } from '@youknown/utils/src'
-
-const { useSearchParams } = await import('react-router-dom')
 
 export default function LoginSuccess() {
 	const { t } = useTranslation()

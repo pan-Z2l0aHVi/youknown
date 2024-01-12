@@ -2,7 +2,7 @@
 	--ui-bg-0: #fff;
 	--ui-bg-1: #fff;
 	--ui-bg-2: #f5f5f5;
-	--ui-bd-line: #ebebeb;
+	--ui-divider: #ebebeb;
 	--ui-radius-m: 4px;
 	--ui-color-1: #1b1b1b;
 	--ui-color-2: #4e4e4e;
@@ -98,7 +98,7 @@
 			min-width: 4em;
 			padding: 3px 5px;
 			vertical-align: top;
-			border: 1px solid var(--ui-bd-line);
+			border: 1px solid var(--ui-divider);
 
 			> * {
 				margin-bottom: 0;

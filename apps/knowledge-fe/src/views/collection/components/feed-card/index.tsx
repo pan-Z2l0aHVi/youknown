@@ -42,7 +42,9 @@ export default function FeedCard(props: FeedCardProps) {
 		on_removed?.()
 	}
 
-	const ctx_menu = ContextMenu.useContextMenu()
+	const [menu_open, set_menu_open] = useState(false)
+	const ctx_menu = ContextMenu.useContextMenu(menu_open, set_menu_open)
+
 	const get_dropdown_menu = (is_context_menu = false) => {
 		return (
 			<Dropdown.Menu
@@ -71,9 +73,13 @@ export default function FeedCard(props: FeedCardProps) {
 		<>
 			<div
 				className={cls(
-					'relative flex items-start w-440px h-120px b-solid b-1 b-bd-line rd-radius-m cursor-pointer overflow-hidden',
+					className,
+					'relative flex items-start w-440px h-120px bg-bg-1 b-solid b-1 b-divider rd-radius-m cursor-pointer overflow-hidden',
 					'[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]',
-					className
+					{
+						'b-primary shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]':
+							menu_open || more_open
+					}
 				)}
 				onClick={go_feed_detail}
 				onContextMenu={ctx_menu.onContextMenu}

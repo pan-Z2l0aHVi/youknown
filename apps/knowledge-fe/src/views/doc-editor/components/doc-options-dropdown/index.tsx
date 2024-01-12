@@ -4,6 +4,7 @@ import { LuLogOut, LuSettings2 } from 'react-icons/lu'
 import { MdOutlineIosShare } from 'react-icons/md'
 import { PiTrashSimpleBold } from 'react-icons/pi'
 import { TbChevronRight } from 'react-icons/tb'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { delete_doc, Doc } from '@/apis/doc'
 import DocOptionsModal from '@/components/doc-options-modal'
@@ -12,8 +13,6 @@ import { useUIStore } from '@/stores'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dialog, Divider, Dropdown, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
-
-const { useNavigate, useParams } = await import('react-router-dom')
 
 interface DocOptionsDropdownProps {
 	doc_id: string

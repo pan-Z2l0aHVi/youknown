@@ -14,7 +14,6 @@ import {
 	useState
 } from 'react'
 import Cropper from 'react-easy-crop'
-import { Area, Point } from 'react-easy-crop/types'
 import { useTranslation } from 'react-i18next'
 import {
 	TbCrop,
@@ -37,6 +36,7 @@ import Slider from '../slider'
 import Space from '../space'
 import Tooltip from '../tooltip'
 
+import type { Area, Point } from 'react-easy-crop'
 interface ImageCropperProps {
 	file: File
 	title?: ReactNode
@@ -116,7 +116,7 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 			onCrop?.(result)
 			onClose?.()
 		} catch (error) {
-			console.log('Crop error: ', error)
+			console.error('Crop error: ', error)
 		} finally {
 			setLoading(false)
 		}
@@ -130,17 +130,6 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 		cancel: handleCancel,
 		crop: handleCrop
 	}))
-
-	const footer = (
-		<div className={`${prefixCls}-footer`}>
-			<Button prefixIcon={<TbRefreshDot size={18} />} onClick={handleReset}>
-				{t('react_ui.reset.text')}
-			</Button>
-			<Button prefixIcon={<TbCrop size={18} />} primary loading={loading} onClick={handleCrop}>
-				{t('react_ui.crop.text')}
-			</Button>
-		</div>
-	)
 
 	const operatorBar = (
 		<div className={`${prefixCls}-operator-bar`}>
@@ -215,6 +204,20 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 		</div>
 	)
 
+	const footer = (
+		<div className={`${prefixCls}-footer`}>
+			{operatorBar}
+			<div className={`${prefixCls}-footer-bottom`}>
+				<Button prefixIcon={<TbRefreshDot size={18} />} onClick={handleReset}>
+					{t('react_ui.reset.text')}
+				</Button>
+				<Button prefixIcon={<TbCrop size={18} />} primary loading={loading} onClick={handleCrop}>
+					{t('react_ui.accomplish')}
+				</Button>
+			</div>
+		</div>
+	)
+
 	return (
 		<Overlay unmountOnExit open={open} onCancel={handleCancel}>
 			<Card className={`${prefixCls}-card`} shadow header={header} footer={footer}>
@@ -236,7 +239,6 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 						onCropComplete={onCropComplete}
 					/>
 				</div>
-				{operatorBar}
 			</Card>
 		</Overlay>
 	)

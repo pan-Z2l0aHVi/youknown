@@ -50,6 +50,7 @@ export default function UserCard(props: UserCardProps) {
 	const [follow_btn] = useHover(hovering =>
 		hovering ? (
 			<Button
+				className="w-80px!"
 				size="small"
 				round
 				danger
@@ -62,7 +63,7 @@ export default function UserCard(props: UserCardProps) {
 				<span className="text-12px">{t('follow.cancel.text')}</span>
 			</Button>
 		) : (
-			<Button size="small" round>
+			<Button className="w-80px!" size="small" round>
 				<span className="text-12px">{t('follow.ok.text')}</span>
 			</Button>
 		)
@@ -71,14 +72,14 @@ export default function UserCard(props: UserCardProps) {
 		<div
 			className={cls(
 				'relative w-144px',
-				'b-solid b-1 b-bd-line rd-radius-m cursor-pointer select-none overflow-hidden',
+				'bg-bg-1 b-solid b-1 b-divider rd-radius-m cursor-pointer select-none overflow-hidden',
 				'[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]',
 				className
 			)}
 			onClick={go_user_center}
 		>
 			<div className="relative flex flex-col items-center p-[16px_8px]">
-				<Avatar className="b-1 b-solid b-bd-line mb-4px" size="large" round src={user_info.avatar} />
+				<Avatar className="b-1 b-solid b-divider mb-4px" size="large" round src={user_info.avatar} />
 				<div className="color-text-1 font-600 truncate mb-12px">{user_info.nickname}</div>
 				{follow_btn}
 			</div>

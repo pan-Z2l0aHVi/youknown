@@ -1,5 +1,5 @@
 import copy from 'copy-to-clipboard'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FiEdit3 } from 'react-icons/fi'
 import { GoCheck } from 'react-icons/go'
@@ -94,7 +94,8 @@ export default function DocCard(props: DocCardProps) {
 		Toast.success(t('copy.share_link.success'))
 	}
 
-	const ctx_menu = ContextMenu.useContextMenu()
+	const [menu_open, set_menu_open] = useState(false)
+	const ctx_menu = ContextMenu.useContextMenu(menu_open, set_menu_open)
 
 	const get_dropdown_menu = (is_context_menu = false) => {
 		return (
@@ -134,7 +135,7 @@ export default function DocCard(props: DocCardProps) {
 			mountOnEnter
 			unmountOnExit
 		>
-			<div className="flex items-center justify-between p-12px bg-bg-1 b-t-bd-line b-t-1 b-t-solid cursor-default">
+			<div className="flex items-center justify-between p-12px bg-bg-1 b-t-divider b-t-1 b-t-solid cursor-default">
 				<div className="flex items-center color-text-3">
 					<RiHistoryFill className="mr-4px text-14px" />
 					<span className="text-12px">{format_time(info.update_time)}</span>
@@ -151,14 +152,21 @@ export default function DocCard(props: DocCardProps) {
 			<div
 				ref={container_ref}
 				className={cls(
-					'relative flex flex-col h-224px b-1 b-solid b-bd-line rd-radius-l',
+					'relative flex flex-col h-224px b-1 b-solid b-divider rd-radius-l',
 					'bg-bg-1 bg-cover bg-center cursor-pointer overflow-hidden select-none',
 					selected
 						? 'b-primary shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]'
-						: '[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]'
+						: '[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]',
+					{
+						'b-primary shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]':
+							menu_open || more_open
+					}
 				)}
 				style={{ backgroundImage: `url("${info.cover}")` }}
-				onContextMenu={ctx_menu.onContextMenu}
+				onContextMenu={event => {
+					if (choosing) return
+					ctx_menu.onContextMenu(event)
+				}}
 			>
 				{info.public && (
 					<div

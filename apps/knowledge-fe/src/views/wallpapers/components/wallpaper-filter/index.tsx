@@ -165,7 +165,7 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 				</Space>
 			</div>
 			<Motion.Collapse in={filter_open} mountOnEnter>
-				<div className="m-16px p-32px b-1 b-solid b-bd-line rd-radius-m bg-bg-2 shadow-shadow-l">
+				<div className="m-16px p-32px b-1 b-solid b-divider rd-radius-m bg-bg-2 shadow-shadow-l">
 					<Form form={form} layout="inline">
 						<Form.Field label="ai_art_filter">
 							<Select

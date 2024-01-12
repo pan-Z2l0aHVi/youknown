@@ -22,14 +22,14 @@ export default () => {
 					setOpen(false)
 				}}
 			>
-				<div className="w-300px">Content</div>
+				<div className="w-300px p-24px">Content</div>
 			</Dialog>
 			<Divider />
 			<Button
 				onClick={() => {
 					Dialog.confirm({
 						title: 'Dialog title',
-						content: <div className="w-320px">dialog content</div>,
+						content: <div className="w-320px p-24px">dialog content</div>,
 						onOk() {
 							console.log('onOk')
 						},

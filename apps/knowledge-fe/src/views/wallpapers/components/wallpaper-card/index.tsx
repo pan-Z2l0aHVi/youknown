@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { CgSpinner } from 'react-icons/cg'
 import { FiDownloadCloud, FiInfo } from 'react-icons/fi'
 import { LuHeart, LuHeartOff } from 'react-icons/lu'
 import { RxDotsHorizontal } from 'react-icons/rx'
@@ -12,7 +13,7 @@ import { format_file_size } from '@/utils'
 import { find_wallpaper_seen, insert_wallpaper_seen } from '@/utils/idb'
 import { with_api } from '@/utils/request'
 import { useBoolean, useContextMenu, useFetch } from '@youknown/react-hook/src'
-import { ContextMenu, Dialog, Dropdown, Image, Motion, Tag, Toast, Tooltip } from '@youknown/react-ui/src'
+import { ContextMenu, Dialog, Dropdown, Image, Loading, Motion, Tag, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls, downloadFile, is } from '@youknown/utils/src'
 
 interface WallpaperCardProps {
@@ -27,7 +28,6 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 
 	const { t } = useTranslation()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
-	const is_mobile = useUIStore(state => state.is_mobile)
 	const has_login = useUserStore(state => state.has_login)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const [hovered, { setTrue: start_hover, setFalse: stop_hover }] = useBoolean(false)
@@ -97,7 +97,8 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 	const is_sketchy = wallpaper.purity === 'sketchy'
 	const is_nsfw = wallpaper.purity === 'nsfw'
 
-	const ctx_menu = useContextMenu()
+	const [menu_open, set_menu_open] = useState(false)
+	const ctx_menu = useContextMenu(menu_open, set_menu_open)
 
 	const render_detail_content = (detail: Wallpaper) => {
 		const format_tag_color_cls = (tag: WallpaperTag) => {
@@ -147,7 +148,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		)
 	}
 
-	const { run: fetch_detail } = useFetch(get_wallpaper_info, {
+	const { run: fetch_detail, loading } = useFetch(get_wallpaper_info, {
 		params: [{ url: wallpaper.url }],
 		manual: true,
 		onSuccess(data) {
@@ -162,6 +163,8 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 					is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
 				)
 			})
+			Dropdown.close()
+			set_menu_open(false)
 		}
 	})
 
@@ -173,7 +176,17 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 				closeAfterItemClick
 				closeDropdown={is_context_menu ? ctx_menu.closeContextMenu : undefined}
 			>
-				<Dropdown.Item prefix={<FiInfo className="text-16px" />} onClick={fetch_detail}>
+				<Dropdown.Item
+					closeAfterItemClick={false}
+					prefix={
+						loading ? (
+							<Loading icon={<CgSpinner className="color-primary text-16px" />} spinning />
+						) : (
+							<FiInfo className="text-16px" />
+						)
+					}
+					onClick={fetch_detail}
+				>
 					<span>{t('view.detail')}</span>
 				</Dropdown.Item>
 
@@ -224,7 +237,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		<>
 			{img_loaded && (
 				<>
-					<Motion.Fade in={is_mobile || (hovered && !more_open)}>
+					<Motion.Fade in={hovered && !more_open}>
 						<div
 							className={cls(
 								'absolute bottom-8px left-8px',
@@ -238,7 +251,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 					</Motion.Fade>
 
 					<Dropdown trigger="click" spacing={4} content={get_dropdown_menu()} onOpenChange={set_more_open}>
-						<Motion.Fade in={is_mobile || hovered || more_open}>
+						<Motion.Fade in={hovered || more_open}>
 							<div
 								className={cls(
 									'absolute bottom-8px right-8px',
@@ -285,7 +298,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 				onContextMenu={ctx_menu.onContextMenu}
 			>
 				<Image
-					className={cls('rd-radius-m shadow-shadow-s select-none bg-bg-2 b-bd-line b-1')}
+					className={cls('rd-radius-m shadow-shadow-s select-none bg-bg-2 b-divider b-1')}
 					style={{
 						width: image_w,
 						height: image_h

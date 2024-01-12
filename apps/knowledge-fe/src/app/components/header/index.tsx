@@ -1,13 +1,12 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import { TbArrowLeft } from 'react-icons/tb'
+import { useNavigate } from 'react-router-dom'
 
 import { useUIStore } from '@/stores'
 import { useDebounce } from '@youknown/react-hook/src'
 import { Button } from '@youknown/react-ui/src'
 import { cls, is } from '@youknown/utils/src'
-
-const { useNavigate } = await import('react-router-dom')
 
 interface HeaderProps {
 	children?: ReactNode
@@ -72,7 +71,7 @@ export default function Header(props: HeaderProps) {
 				'sm:pl-32px sm:pr-32px <sm:pl-8px <sm:pr-8px',
 				'sticky top-0 z-20',
 				'bg-bg-0 b-b-1 b-b-solid',
-				border_visible ? 'b-bd-line' : 'b-transparent'
+				border_visible ? 'b-divider' : 'b-transparent'
 			)}
 		>
 			{is_mobile ? (

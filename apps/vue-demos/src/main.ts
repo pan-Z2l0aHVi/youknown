@@ -1,4 +1,3 @@
-import '@youknown/css/src/common-vars.scss'
 import 'virtual:uno.css'
 import 'vant/lib/index.css'
 import '@/assets/reset.scss'

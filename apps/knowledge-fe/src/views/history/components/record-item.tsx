@@ -33,7 +33,9 @@ export default function RecordItem(props: RecordItemProps) {
 		}
 	})
 
-	const ctx_menu = ContextMenu.useContextMenu()
+	const [menu_open, set_menu_open] = useState(false)
+	const ctx_menu = ContextMenu.useContextMenu(menu_open, set_menu_open)
+
 	const get_dropdown_menu = (is_context_menu = false) => {
 		return (
 			<Dropdown.Menu closeAfterItemClick closeDropdown={is_context_menu ? ctx_menu.closeContextMenu : undefined}>
@@ -52,14 +54,16 @@ export default function RecordItem(props: RecordItemProps) {
 		<>
 			<div
 				key={record.id}
-				className="group flex [@media(hover:hover)]-hover-bg-hover rd-radius-l p-[0_16px]"
+				className={cls('group flex [@media(hover:hover)]-hover-bg-hover rd-radius-l p-[0_16px]', {
+					'bg-hover': menu_open || more_open
+				})}
 				onContextMenu={ctx_menu.onContextMenu}
 			>
 				<div className="flex items-center justify-end sm:w-160px <sm:w-120px text-12px color-text-3 [@media(hover:hover)]-group-hover-text-text-2">
 					<RiHistoryFill className="mr-4px text-14px" />
 					{timing_desc}
 				</div>
-				<div className="group relative flex-1 flex items-center sm:pl-32px sm:ml-32px <sm:pl-16px <sm:ml-16px min-h-80px b-l-2 b-l-solid b-l-bd-line">
+				<div className="group relative flex-1 flex items-center sm:pl-32px sm:ml-32px <sm:pl-16px <sm:ml-16px min-h-80px b-l-2 b-l-solid b-l-divider">
 					<div
 						className={cls(
 							'absolute left--8px w-14px h-14px bg-primary rd-full b-4 b-solid b-[rgba(255,255,255,0.8)]'

@@ -13,15 +13,15 @@ $prefix: '#{$ui-editor-prefix}-table-item';
 		grid-template-columns: repeat(10, auto);
 		grid-template-rows: repeat(10, auto);
 		background-color: $bg-1;
-		border-top: 1px solid $bd-line;
-		border-left: 1px solid $bd-line;
+		border-top: 1px solid $divider;
+		border-left: 1px solid $divider;
 
 		.#{$prefix}-cell {
 			width: 18px;
 			height: 18px;
 			background-color: $bg-0;
-			border-right: 1px solid $bd-line;
-			border-bottom: 1px solid $bd-line;
+			border-right: 1px solid $divider;
+			border-bottom: 1px solid $divider;
 
 			&.active {
 				background: $color-hover;

@@ -2,9 +2,7 @@
   "react_ui": {
     "tue": "Tue",
     "close": "Close",
-    "crop": {
-      "text": "Reset"
-    },
+    "accomplish": "Accomplish",
     "date": {
       "today": "Today",
       "year_month": "YYYY M"

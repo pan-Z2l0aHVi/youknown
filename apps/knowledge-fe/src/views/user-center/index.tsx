@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RiUserFollowLine, RiUserUnfollowLine } from 'react-icons/ri'
 import { TbUserCheck, TbUserEdit, TbX } from 'react-icons/tb'
+import { useSearchParams } from 'react-router-dom'
 
 import { follow_user, get_user_info, unfollow_user, update_profile } from '@/apis/user'
 import Header from '@/app/components/header'
@@ -17,8 +18,6 @@ import { cls } from '@youknown/utils/src'
 
 import Entires from './components/entries'
 import MyOptions from './components/my-options'
-
-const { useSearchParams } = await import('react-router-dom')
 
 export default function UserCenter() {
 	const { t } = useTranslation()
@@ -194,9 +193,7 @@ export default function UserCenter() {
 						'after:backdrop-blur-2xl'
 					)}
 				>
-					{is_self && !has_login ? (
-						<div className="w-100% h-100% bg-bg-3"></div>
-					) : (
+					{(!is_self || (is_self && has_login)) && (
 						<Image className="w-100% h-100%" src={user_info?.avatar ?? ''} alt="Banner" />
 					)}
 				</div>
@@ -210,6 +207,7 @@ export default function UserCenter() {
 				<Button
 					className="z-22 absolute! top--45px right-32px"
 					prefixIcon={<RiUserUnfollowLine className="text-14px" />}
+					round={is_mobile}
 					loading={unfollow_loading}
 					onClick={handle_unfollow_user}
 				>
@@ -219,6 +217,7 @@ export default function UserCenter() {
 				<Button
 					className="z-22 absolute! top--45px right-32px"
 					prefixIcon={<RiUserFollowLine className="text-14px" />}
+					round={is_mobile}
 					loading={follow_loading}
 					primary
 					onClick={handle_follow_user}

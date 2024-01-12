@@ -58,7 +58,7 @@ const App = () => {
 					<div
 						className={cls(
 							'sticky top-0 max-h-100vh',
-							'w-240px h-100% p-[48px_8px_16px_8px] b-r-solid b-r-1px b-bd-line bg-bg2 overflow-y-auto'
+							'w-240px h-100% p-[48px_8px_16px_8px] b-r-solid b-r-1px b-divider bg-bg2 overflow-y-auto'
 						)}
 					>
 						{navEle}

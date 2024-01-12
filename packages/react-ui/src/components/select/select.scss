@@ -15,7 +15,7 @@ $prefix: '#{$ui-prefix}-select';
 	padding: 0;
 	padding-left: 12px;
 	background-color: $bg-1;
-	border: 1px solid $bd-line;
+	border: 1px solid $divider;
 	border-radius: $radius-m;
 	transition: all $duration-f ease-out;
 
@@ -89,9 +89,5 @@ $prefix: '#{$ui-prefix}-select';
 
 		height: 48px;
 		color: $text-3;
-	}
-
-	&-group-title.#{$ui-prefix}-dropdown-title {
-		padding-left: 32px;
 	}
 }

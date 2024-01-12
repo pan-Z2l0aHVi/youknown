@@ -1,13 +1,15 @@
 import { useTranslation } from 'react-i18next'
-import TransitionNavLink from '@/components/transition-nav-link'
+import { TbAlbum, TbInnerShadowBottom, TbPhotoSquareRounded, TbSmartHome } from 'react-icons/tb'
+import { useMatches } from 'react-router-dom'
 
+import TransitionNavLink from '@/components/transition-nav-link'
 import { useUIStore } from '@/stores'
 import { cls } from '@youknown/utils/src'
-import { TbAlbum, TbInnerShadowBottom, TbPhotoSquareRounded, TbSmartHome } from 'react-icons/tb'
 
 export default function TabBar() {
 	const { t } = useTranslation()
 	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const matches = useMatches()
 
 	const tab_list = [
 		{
@@ -42,21 +44,24 @@ export default function TabBar() {
 				)}
 			>
 				{tab_list.map(tab => {
+					const is_active = matches.some(match => match.pathname === tab.path)
 					return (
 						<TransitionNavLink
 							key={tab.path}
 							to={tab.path}
-							className={({ isActive }) =>
-								cls(
-									'flex flex-col items-center decoration-none select-none',
-									is_dark_theme ? 'color-#fff' : 'color-#555',
-									{
-										'color-primary': isActive
-									}
-								)
-							}
+							className={cls(
+								'flex flex-col items-center decoration-none select-none',
+								is_dark_theme ? 'color-#fff' : 'color-#555',
+								{
+									'color-primary': is_active
+								}
+							)}
 						>
-							<tab.Icon className="text-24px" />
+							<tab.Icon
+								className={cls(
+									is_active ? 'color-#fff bg-primary rd-full p-2px text-24px' : 'text-24px'
+								)}
+							/>
 							<div className="text-12px scale-80">{tab.title}</div>
 						</TransitionNavLink>
 					)

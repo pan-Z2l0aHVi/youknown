@@ -153,7 +153,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 					<CloseIcon onClick={hide_modal} />
 				</div>
 			}
-			footer=" " // Occupy
+			footer=" " // 底部占位，不让 Loading 覆盖
 			closeIcon={null}
 		>
 			<Loading className="w-100%!" spinning={initial_loading}>

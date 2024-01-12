@@ -22,7 +22,7 @@ $prefix: '#{$ui-prefix}-list-item';
 
 	&-bordered {
 		& + .#{$prefix} {
-			border-top: 1px solid $bd-line;
+			border-top: 1px solid $divider;
 		}
 	}
 

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router-dom'
 
 import { search_wallpapers, SearchWallpapersParams, Wallpaper } from '@/apis/wallpaper'
 import Header from '@/app/components/header'
@@ -21,8 +22,6 @@ import WallpaperFilter, {
 	SWITCH,
 	WallpaperQuery
 } from './components/wallpaper-filter'
-
-const { useSearchParams } = await import('react-router-dom')
 
 const FILTER_STATE_KEY = 'wallpaper_filter_state'
 const FILTER_KEYWORDS_KEY = 'wallpaper_filter_keywords'

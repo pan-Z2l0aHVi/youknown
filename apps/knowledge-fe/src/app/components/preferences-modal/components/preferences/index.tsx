@@ -50,13 +50,13 @@ function RadiusStyle(props: RadiusStyleProps) {
 							className={cls(
 								'relative w-64px h-64px rd-radius-m overflow-hidden bg-bg-3',
 								'before:absolute before:right--42% before:bottom--36% before:w-100% before:h-100% before:content-empty',
-								'before:b-t-1 before:b-l-1 before:b-bd-line before:b-solid before:shadow-shadow-m before:bg-bg-1',
+								'before:b-t-1 before:b-l-1 before:b-divider before:b-solid before:shadow-shadow-m before:bg-bg-1',
 								style.id === 1 && 'before:rd-3px',
 								style.id === 2 && 'before:rd-6px',
 								style.id === 3 && 'before:rd-9px',
 								value.id === style.id
 									? 'b-1 b-solid b-primary shadow-[0_0_0_1px_var(--ui-color-primary)]'
-									: 'b-1 b-solid b-bd-line'
+									: 'b-1 b-solid b-divider'
 							)}
 						></div>
 						<div className="color-text-2 mt-4px text-center max-w-64px">{style.desc()}</div>

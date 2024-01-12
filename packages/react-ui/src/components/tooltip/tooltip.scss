@@ -8,19 +8,21 @@ $prefix: '#{$ui-prefix}-tooltip';
 		width: max-content;
 		padding: 4px 6px;
 		font-size: $font-size-s;
+		border-style: solid;
+		border-width: 1px;
 		border-radius: $radius-m;
 		box-shadow: $shadow-m;
 
 		&-light {
 			color: #000;
 			background: #fff;
-			border: 1px solid #ddd;
+			border-color: transparent;
 		}
 
 		&-dark {
 			color: #fff;
 			background: #222;
-			border: 1px solid #444;
+			border-color: #444;
 		}
 	}
 }

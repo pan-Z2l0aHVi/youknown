@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
 
 interface ModalState {
 	preferences_modal_open: boolean
@@ -10,20 +9,15 @@ interface ModalState {
 	close_login_modal: () => void
 }
 
-export const useModalStore = create<ModalState>()(
-	devtools(
-		set => ({
-			preferences_modal_open: false,
-			login_modal_open: false,
+export const useModalStore = create<ModalState>()(set => ({
+	preferences_modal_open: false,
+	login_modal_open: false,
 
-			open_preferences_modal: () => set({ preferences_modal_open: true }),
+	open_preferences_modal: () => set({ preferences_modal_open: true }),
 
-			close_preferences_modal: () => set({ preferences_modal_open: false }),
+	close_preferences_modal: () => set({ preferences_modal_open: false }),
 
-			open_login_modal: () => set({ login_modal_open: true }),
+	open_login_modal: () => set({ login_modal_open: true }),
 
-			close_login_modal: () => set({ login_modal_open: false })
-		}),
-		{ store: 'modal' }
-	)
-)
+	close_login_modal: () => set({ login_modal_open: false })
+}))

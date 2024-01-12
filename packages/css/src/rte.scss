@@ -65,7 +65,7 @@
 
 	/* ----------------------- CODEBLOCK ------------------------- */
 	pre {
-		border: 1px solid var(--ui-bd-line);
+		border: 1px solid var(--ui-divider);
 		border-radius: var(--ui-radius-m);
 
 		code {
@@ -93,7 +93,7 @@
 			min-width: 4em;
 			padding: 3px 5px;
 			vertical-align: top;
-			border: 1px solid var(--ui-bd-line);
+			border: 1px solid var(--ui-divider);
 
 			> * {
 				margin-bottom: 0;

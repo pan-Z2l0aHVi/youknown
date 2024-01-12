@@ -5,6 +5,7 @@ import { TbPhotoEdit, TbPhotoPlus } from 'react-icons/tb'
 
 import { Doc, update_doc } from '@/apis/doc'
 import { IMAGE_ACCEPT } from '@/consts'
+import { useUIStore } from '@/stores'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { with_api } from '@/utils/request'
 import { useBoolean } from '@youknown/react-hook/src'
@@ -19,6 +20,7 @@ interface CoverUploadProps {
 export default function CoverUpload(props: CoverUploadProps) {
 	const { cover = '', doc_id, on_updated } = props
 	const { t } = useTranslation()
+	const is_mobile = useUIStore(state => state.is_mobile)
 	const [file_list, set_file_list] = useState<UploadFiles>([])
 	const [updating, { setTrue: start_updating, setFalse: stop_updating }] = useBoolean(false)
 	const save_doc_cover = async (cover_url: string) => {
@@ -89,6 +91,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 							onChange={set_file_list}
 						>
 							<Button
+								round={is_mobile}
 								prefixIcon={<TbPhotoEdit className="text-16px" />}
 								onClick={() => {
 									upload_ref.current?.click()
@@ -99,6 +102,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 						</Upload>
 
 						<Button
+							round={is_mobile}
 							prefixIcon={<PiTrashSimpleBold className="text-16px color-danger" />}
 							onClick={() => {
 								save_doc_cover('')

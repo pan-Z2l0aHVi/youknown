@@ -12,7 +12,7 @@ $prefix: '#{$ui-prefix}-button';
 	width: max-content;
 	padding: 4px 12px;
 	background-color: $bg-1;
-	border: 1px solid $bd-line;
+	border: 1px solid $divider;
 	border-radius: $radius-m;
 	outline: none;
 	transition: all $duration-f;

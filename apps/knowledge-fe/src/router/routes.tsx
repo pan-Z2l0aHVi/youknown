@@ -1,8 +1,7 @@
 const { t } = await import('i18next')
 import { createElement, lazy, ReactNode } from 'react'
 import { TbBook2, TbFolderHeart, TbHistory, TbIcons, TbPhotoSquareRounded } from 'react-icons/tb'
-
-const { Navigate } = await import('react-router-dom')
+import { Navigate } from 'react-router-dom'
 
 export interface RouteItem {
 	path: string

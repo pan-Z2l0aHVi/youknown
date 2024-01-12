@@ -1,20 +1,18 @@
 import resources_to_backend from 'i18next-resources-to-backend'
 import { initReactI18next } from 'react-i18next'
 
-export const change_i18n_lang = async (...args: Parameters<typeof import('i18next').changeLanguage>) => {
-	const { changeLanguage } = await import('i18next')
-	await changeLanguage(...args)
-}
+const { default: i18next, changeLanguage } = await import('i18next')
+
+export const change_i18n_lang = changeLanguage
 
 export const init_i18n = async () => {
-	const { default: i18next } = await import('i18next')
 	i18next.use(initReactI18next).use(
 		resources_to_backend(async (language: string) => {
 			if (language === 'dev') {
 				return
 			}
 			// Why not "locales/${language}.json"?
-			// Vite 拼接动态引入monorepo依赖会报错，暂时用不那么优雅的方式处理
+			// Vite Rollup dynamic-import-vars 引入依赖会报错，暂时用不那么优雅的方式处理
 			let deps_pkgs: Promise<unknown>[] = []
 			if (language === 'en') {
 				deps_pkgs = [

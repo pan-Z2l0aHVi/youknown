@@ -3,12 +3,24 @@
 $prefix: '#{$ui-editor-prefix}-bubble';
 .#{$prefix} {
 	padding: 6px;
-	background-color: $bg-0;
-	border: 1px solid $bd-line;
+	background-color: $bg-1;
+	border: 1px solid $pop-bd;
 	border-radius: $radius-l;
 	box-shadow: $shadow-m;
 
 	&-divider {
 		height: 20px;
+	}
+
+	// 因为要让 css 权重足够高覆盖样式，所以不能直接 &-xxx
+	.#{'#{$ui-editor-prefix}-text-color-picker'} {
+		.#{'#{$ui-editor-prefix}-text-color-picker-arrow-btn'} {
+			background-color: $bg-1;
+		}
+	}
+	.#{'#{$ui-editor-prefix}-highlight-picker'} {
+		.#{'#{$ui-editor-prefix}-highlight-picker-arrow-btn'} {
+			background-color: $bg-1;
+		}
 	}
 }

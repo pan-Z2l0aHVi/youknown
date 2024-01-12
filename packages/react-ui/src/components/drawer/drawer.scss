@@ -10,7 +10,8 @@ $prefix: '#{$ui-prefix}-drawer';
 
 	&-wrap {
 		position: fixed;
-		background: $bg-1;
+		background: $bg-0;
+		border: 1px solid $pop-bd;
 
 		&-left {
 			top: 0;

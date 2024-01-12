@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react'
+import { Outlet, useMatch } from 'react-router-dom'
 
 import useInitApp from '@/hooks/use-init-app'
 import useRouteScrollTop from '@/hooks/use-route-scroll-top'
@@ -10,8 +11,6 @@ import DesktopLayout from './components/desktop-layout'
 import FabBar from './components/fab-bar'
 import MobileLayout from './components/mobile-layout'
 import PageProgress from './components/page-progress'
-
-const { Outlet, useMatch } = await import('react-router-dom')
 
 const PreferencesModal = lazy(() => import('./components/preferences-modal'))
 const LoginModal = lazy(() => import('./components/login-modal'))

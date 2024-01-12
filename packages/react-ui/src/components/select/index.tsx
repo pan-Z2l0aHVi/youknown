@@ -1,8 +1,8 @@
 import './select.scss'
 
 import {
-	CSSProperties,
 	ComponentProps,
+	CSSProperties,
 	HTMLAttributes,
 	KeyboardEvent,
 	MouseEventHandler,

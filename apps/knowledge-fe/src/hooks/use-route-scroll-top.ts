@@ -1,6 +1,5 @@
 import { useLayoutEffect } from 'react'
-
-const { useLocation } = await import('react-router-dom')
+import { useLocation } from 'react-router-dom'
 
 export default function useRouteScrollTop() {
 	const { pathname } = useLocation()

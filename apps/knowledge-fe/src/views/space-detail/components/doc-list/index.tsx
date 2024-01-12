@@ -197,7 +197,7 @@ export default function DocList(props: DocListProps) {
 		<Motion.Slide in={choosing} direction="up" mountOnEnter unmountOnExit>
 			<div
 				className={cls(
-					'z-2 fixed sm:bottom-40px <sm:bottom-80px p-8px bg-bg-1 b-1 b-solid b-bd-line rd-radius-l shadow-shadow-l',
+					'z-2 fixed sm:bottom-40px <sm:bottom-80px p-8px bg-bg-1 b-1 b-solid b-divider rd-radius-l shadow-shadow-l',
 					'sm:left-[calc(50%-120px)] <sm:left-[calc(50%-140px)]'
 				)}
 			>
@@ -208,7 +208,7 @@ export default function DocList(props: DocListProps) {
 						</Button>
 					</Tooltip>
 
-					<div className="pl-16px pr-16px b-l-1 b-r-1 b-l-solid b-r-solid b-bd-line select-none color-text-2">
+					<div className="pl-16px pr-16px b-l-1 b-r-1 b-l-solid b-r-solid b-divider select-none color-text-2">
 						{t('select.choosing')}
 						<span className="inline-block min-w-32px font-600 color-primary">{selection.length}</span>
 					</div>
@@ -243,7 +243,7 @@ export default function DocList(props: DocListProps) {
 				<Loading className="w-100%!" spinning={create_loading} size="large">
 					<div
 						className={cls(
-							'flex justify-center items-center h-224px bg-bg-2 rd-radius-l b-1 b-dashed b-bd-line cursor-pointer',
+							'flex justify-center items-center h-224px bg-bg-2 rd-radius-l b-1 b-dashed b-divider cursor-pointer',
 							'group active-bg-active [@media(hover:hover)]-hover-not-active-bg-hover [@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-b-2px'
 						)}
 						onClick={create_new_doc}

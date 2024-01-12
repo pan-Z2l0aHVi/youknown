@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbChecklist, TbCloudCheck, TbWorld, TbWorldOff } from 'react-icons/tb'
+import { useSearchParams } from 'react-router-dom'
 
 import { Doc, get_doc_drafts, get_doc_info, update_doc, update_doc_draft } from '@/apis/doc'
 import Header from '@/app/components/header'
@@ -40,8 +41,6 @@ import { cls } from '@youknown/utils/src'
 import CoverUpload from './components/cover-upload'
 import DocHistoryDrawer from './components/doc-history-drawer'
 import DocOptionsDropdown from './components/doc-options-dropdown'
-
-const { useSearchParams } = await import('react-router-dom')
 
 export default function Doc() {
 	const { t } = useTranslation()
@@ -389,7 +388,7 @@ export default function Doc() {
 					className={cls(
 						'z-10 sticky top-56px right-0',
 						'w-100% flex justify-center p-[12px_32px] bg-bg-0',
-						'after:content-empty after:absolute after:bottom-0 after:left-50% after:translate-x--50% after:w-100% after:h-1px after:bg-bd-line'
+						'after:content-empty after:absolute after:bottom-0 after:left-50% after:translate-x--50% after:w-100% after:h-1px after:bg-divider'
 					)}
 				>
 					<RTEMenuBar editor={editor} />

@@ -60,7 +60,6 @@ export default function Browse() {
 					'backdrop-blur-xl',
 					is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
 				)}
-				alignCenter={false}
 				open={search_modal_open}
 				onCancel={hide_search_modal}
 				unmountOnExit

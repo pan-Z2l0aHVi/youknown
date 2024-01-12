@@ -88,7 +88,7 @@ function WallpaperCollapsePanel() {
 	return (
 		<Loading
 			spinning={loading}
-			className={cls('w-100%! min-h-120px flex items-center flex-wrap p-[16px_0] m--8px', {
+			className={cls('w-100%! min-h-120px flex items-center flex-wrap p-[16px_0] ml--8px mr--8px', {
 				'justify-center': loading || empty_visible
 			})}
 		>

@@ -80,7 +80,7 @@ export default function Searcher() {
 	})
 
 	const card_header = (
-		<div className="p-4px b-b-1 b-b-solid b-b-bd-line">
+		<div className="p-4px b-b-1 b-b-solid b-b-divider">
 			<Input
 				className="w-100%! text-16px!"
 				autoFocus
@@ -102,14 +102,14 @@ export default function Searcher() {
 	)
 
 	const card_footer = (
-		<div className="pt-4px pb-4px pl-16px bg-bg-2 b-t-1 b-t-solid b-t-bd-line line-height-24px color-text-3 text-12px">
+		<div className="pt-4px pb-4px pl-16px bg-bg-2 b-t-1 b-t-solid b-t-divider line-height-24px color-text-3 text-12px">
 			{t('keyboard.tip')}
 		</div>
 	)
 	const has_result = result.length > 0
 	return (
 		<Card
-			className="w-640px! max-w-[calc(100vw-32px)] mt-15vh overflow-hidden"
+			className="w-640px! max-w-[calc(100vw-32px)] mt-15vh overflow-hidden b-1 b-solid b-pop-bd"
 			shadow
 			header={card_header}
 			footer={card_footer}

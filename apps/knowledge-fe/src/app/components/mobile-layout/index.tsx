@@ -1,10 +1,9 @@
 import { Suspense } from 'react'
+import { Outlet } from 'react-router-dom'
 
 import { Loading } from '@youknown/react-ui/src'
 
 import Banner from '../banner'
-
-const { Outlet } = await import('react-router-dom')
 
 export default function MobileLayout() {
 	return (

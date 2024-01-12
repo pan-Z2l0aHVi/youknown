@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
 
 import { create_doc_space, delete_doc_space, DocSpace, get_spaces, update_doc_space } from '@/apis/space'
 
@@ -12,45 +11,40 @@ interface SpaceState {
 	delete_spaces: (...space_ids: string[]) => Promise<void>
 }
 
-export const useSpaceStore = create<SpaceState>()(
-	devtools(
-		(set, get) => ({
-			space_list: [],
+export const useSpaceStore = create<SpaceState>()((set, get) => ({
+	space_list: [],
 
-			clear_space_list: () => set({ space_list: [] }),
+	clear_space_list: () => set({ space_list: [] }),
 
-			fetch_space_list: async () => {
-				const res = await get_spaces()
-				set({ space_list: res.list })
-			},
+	fetch_space_list: async () => {
+		const res = await get_spaces()
+		set({ space_list: res.list })
+	},
 
-			create_space: async (name, desc) => {
-				const new_space = await create_doc_space({ name, desc })
-				set({
-					space_list: [new_space, ...get().space_list]
-				})
-			},
+	create_space: async (name, desc) => {
+		const new_space = await create_doc_space({ name, desc })
+		set({
+			space_list: [new_space, ...get().space_list]
+		})
+	},
 
-			update_space: async (space_id, name, desc) => {
-				const space = await update_doc_space({
-					space_id,
-					name,
-					desc
-				})
-				set({
-					space_list: get().space_list.map(item => (item.space_id === space.space_id ? space : item))
-				})
-			},
+	update_space: async (space_id, name, desc) => {
+		const space = await update_doc_space({
+			space_id,
+			name,
+			desc
+		})
+		set({
+			space_list: get().space_list.map(item => (item.space_id === space.space_id ? space : item))
+		})
+	},
 
-			delete_spaces: async (...space_ids) => {
-				await delete_doc_space({
-					space_ids
-				})
-				set({
-					space_list: get().space_list.filter(item => !space_ids.includes(item.space_id))
-				})
-			}
-		}),
-		{ store: 'space' }
-	)
-)
+	delete_spaces: async (...space_ids) => {
+		await delete_doc_space({
+			space_ids
+		})
+		set({
+			space_list: get().space_list.filter(item => !space_ids.includes(item.space_id))
+		})
+	}
+}))

@@ -28,10 +28,11 @@
     "dependencies": {
         "@emotion/react": "^11.11.3",
         "@emotion/styled": "^11.11.0",
-        "@floating-ui/react": "^0.26.4",
-        "@mui/material": "^5.15.2",
+        "@floating-ui/react": "^0.26.5",
+        "@mui/material": "^5.15.4",
         "@youknown/react-hook": "workspace:*",
         "@youknown/utils": "workspace:*",
+        "@youknown/css": "workspace:*",
         "modern-css-reset": "^1.4.0",
         "react-countup": "^6.5.0",
         "react-easy-crop": "^5.0.4",

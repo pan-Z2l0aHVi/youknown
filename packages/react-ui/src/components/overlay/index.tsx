@@ -15,6 +15,7 @@ interface OverlayProps extends HTMLAttributes<HTMLElement> {
 	open?: boolean
 	overlayClosable?: boolean
 	escClosable?: boolean
+	timeout?: number
 	unmountOnExit?: boolean
 	appendTo?: HTMLElement | null
 	onCancel?: () => void
@@ -27,6 +28,7 @@ const Overlay = (props: OverlayProps, ref: ForwardedRef<HTMLDivElement>) => {
 		className,
 		overlayClosable = true,
 		escClosable = true,
+		timeout,
 		unmountOnExit,
 		appendTo = document.body,
 		open = false,
@@ -47,6 +49,7 @@ const Overlay = (props: OverlayProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const ele = (
 		<Motion.Fade
 			in={open}
+			timeout={timeout}
 			mountOnEnter
 			unmountOnExit={unmountOnExit}
 			onExited={() => {

@@ -1,12 +1,11 @@
 import { Suspense } from 'react'
+import { Outlet } from 'react-router-dom'
 
 import { Loading } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import Banner from '../banner'
 import Sidebar from '../sidebar'
-
-const { Outlet } = await import('react-router-dom')
 
 export default function DesktopLayout() {
 	return (

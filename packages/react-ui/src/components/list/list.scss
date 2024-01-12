@@ -7,7 +7,7 @@ $prefix: '#{$ui-prefix}-list';
 	background: $bg-1;
 
 	&-bordered {
-		border: 1px solid $bd-line;
+		border: 1px solid $divider;
 		border-radius: $radius-l;
 	}
 }

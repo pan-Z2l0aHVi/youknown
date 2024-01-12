@@ -1,11 +1,13 @@
 @use 'sass:meta';
+@use '@youknown/css/src/theme-base' as *;
 
 .light-theme {
 	--ui-bg-0: #fff;
 	--ui-bg-1: #fff;
 	--ui-bg-2: #f4f4f4;
 	--ui-bg-3: #eee;
-	--ui-bd-line: #dee0e3;
+	--ui-divider: #dee0e3;
+	--ui-pop-bd: transparent;
 	--ui-scrollbar: 27, 27, 27;
 	--ui-text-1: #1f2329;
 	--ui-text-2: #666;
@@ -25,7 +27,8 @@
 	--ui-bg-1: #232429;
 	--ui-bg-2: #18181c;
 	--ui-bg-3: #303033;
-	--ui-bd-line: #424248;
+	--ui-divider: #424248;
+	--ui-pop-bd: #424248;
 	--ui-scrollbar: 200, 200, 200;
 	--ui-text-1: #fff;
 	--ui-text-2: #ccc;

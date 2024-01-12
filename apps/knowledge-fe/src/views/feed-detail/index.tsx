@@ -1,10 +1,12 @@
 import '@youknown/css/src/rte.scss'
 
 import hljs from 'highlight.js/lib/core'
+import parse, { Element } from 'html-react-parser'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuHeart, LuHeartOff } from 'react-icons/lu'
-import parse, { Element } from 'html-react-parser'
+import { TbPencil } from 'react-icons/tb'
+import { useSearchParams } from 'react-router-dom'
 
 import { Feed, get_feed_detail } from '@/apis/feed'
 import { cancel_collect_feed, collect_feed } from '@/apis/user'
@@ -16,9 +18,6 @@ import { with_api } from '@/utils/request'
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Image, Loading, Toast } from '@youknown/react-ui/src'
 import { QS } from '@youknown/utils/src'
-import { TbPencil } from 'react-icons/tb'
-
-const { useSearchParams } = await import('react-router-dom')
 
 export default function FeedDetail() {
 	const { t } = useTranslation()

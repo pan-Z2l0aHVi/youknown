@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
 
 import useRouteMeta from '@/hooks/use-route-meta'
 import { useModalStore, useRecordStore, useSpaceStore, useUIStore, useUserStore } from '@/stores'
@@ -8,8 +9,6 @@ import { get_local_settings, get_local_token } from '@/utils/local'
 import { report } from '@/utils/report'
 import { useAsyncEffect, useEvent, useMount } from '@youknown/react-hook/src'
 import { Toast } from '@youknown/react-ui/src'
-
-const { useLocation } = await import('react-router-dom')
 
 export default function useInitApp() {
 	const { t } = useTranslation()

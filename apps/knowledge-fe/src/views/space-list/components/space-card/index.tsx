@@ -56,7 +56,8 @@ export default function SpaceCard(props: SpaceCardProps) {
 		})
 	}
 
-	const ctx_menu = ContextMenu.useContextMenu()
+	const [menu_open, set_menu_open] = useState(false)
+	const ctx_menu = ContextMenu.useContextMenu(menu_open, set_menu_open)
 
 	const get_dropdown_menu = (is_context_menu = false) => {
 		return (
@@ -86,8 +87,12 @@ export default function SpaceCard(props: SpaceCardProps) {
 		<>
 			<div
 				className={cls(
-					'flex items-center p-16px b-solid b-1 b-bd-line rd-radius-m cursor-pointer',
-					'[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]'
+					'flex items-center p-16px b-solid b-1 b-divider rd-radius-m bg-bg-1 cursor-pointer',
+					'[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]',
+					{
+						'b-primary shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]':
+							menu_open || more_open
+					}
 				)}
 				onClick={go_space_docs}
 				onContextMenu={ctx_menu.onContextMenu}
