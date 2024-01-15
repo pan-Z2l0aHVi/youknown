@@ -1,9 +1,9 @@
-import { create } from 'zustand'
+import { create, StateCreator } from 'zustand'
 
 import { clear_records, delete_record, find_records, insert_record, RecordValue } from '@/utils/idb'
 import { uuid } from '@youknown/utils/src'
 
-interface RecordState {
+export interface RecordState {
 	record_list: RecordValue[]
 	recording: (record: Omit<RecordValue, 'creation_time' | 'id'>) => Promise<void>
 	init_records: () => Promise<void>
@@ -11,7 +11,7 @@ interface RecordState {
 	clear_records: () => Promise<void>
 }
 
-export const useRecordStore = create<RecordState>()(set => ({
+const record_state_creator: StateCreator<RecordState> = set => ({
 	record_list: [],
 
 	recording: async record => {
@@ -42,4 +42,6 @@ export const useRecordStore = create<RecordState>()(set => ({
 		await clear_records()
 		set({ record_list: [] })
 	}
-}))
+})
+
+export const useRecordStore = create<RecordState>()(record_state_creator)

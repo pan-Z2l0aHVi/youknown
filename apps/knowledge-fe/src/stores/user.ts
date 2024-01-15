@@ -1,10 +1,11 @@
-import { create } from 'zustand'
+import { create, StateCreator } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 import { get_profile, login as request_login, Profile } from '@/apis/user'
 import { remove_local_token, set_local_token } from '@/utils/local'
 import { with_api } from '@/utils/request'
 
-interface UserState {
+export interface UserState {
 	has_login: boolean
 	login: () => void
 	logout: () => void
@@ -16,7 +17,7 @@ interface UserState {
 	do_logout: () => void
 }
 
-export const useUserStore = create<UserState>()((set, get) => ({
+const user_state_creator: StateCreator<UserState> = (set, get) => ({
 	has_login: false,
 	profile: null,
 
@@ -59,4 +60,10 @@ export const useUserStore = create<UserState>()((set, get) => ({
 		logout()
 		remove_profile()
 	}
-}))
+})
+
+export const useUserStore = create<UserState>()(
+	persist(user_state_creator, {
+		name: 'user-store-persist'
+	})
+)

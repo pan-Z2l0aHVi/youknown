@@ -51,13 +51,13 @@ $prefix: '#{$ui-prefix}-progress';
 	&-small {
 		&.#{$prefix}-horizontal {
 			.#{$prefix}-inset {
-				height: 2px;
+				height: 4px;
 			}
 		}
 
 		&.#{$prefix}-vertical {
 			.#{$prefix}-inset {
-				width: 2px;
+				width: 4px;
 			}
 		}
 	}
@@ -79,13 +79,13 @@ $prefix: '#{$ui-prefix}-progress';
 	&-large {
 		&.#{$prefix}-horizontal {
 			.#{$prefix}-inset {
-				height: 10px;
+				height: 8px;
 			}
 		}
 
 		&.#{$prefix}-vertical {
 			.#{$prefix}-inset {
-				width: 10px;
+				width: 8px;
 			}
 		}
 	}

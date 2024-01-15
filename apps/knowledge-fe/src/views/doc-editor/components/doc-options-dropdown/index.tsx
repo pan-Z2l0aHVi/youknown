@@ -9,25 +9,27 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { delete_doc, Doc } from '@/apis/doc'
 import DocOptionsModal from '@/components/doc-options-modal'
 import More from '@/components/more'
-import { useUIStore } from '@/stores'
+import { is_dark_theme_getter, useUIStore } from '@/stores'
+import { format_time } from '@/utils'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dialog, Divider, Dropdown, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
 
 interface DocOptionsDropdownProps {
-	doc_id: string
-	is_public: boolean
+	doc_info: Doc
+	text_len: string
 	on_updated: (doc: Doc) => void
 	on_export_html: () => void
 	on_export_pdf: () => void
 }
 export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
-	const { doc_id, is_public, on_updated, on_export_html, on_export_pdf } = props
+	const { doc_info, text_len, on_updated, on_export_html, on_export_pdf } = props
+	const { doc_id } = doc_info
 
 	const { t } = useTranslation()
 	const navigate = useNavigate()
 	const { space_id } = useParams()
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const [doc_options_modal_open, { setTrue: show_doc_options_modal, setFalse: hide_doc_options_modal }] =
 		useBoolean(false)
 
@@ -66,18 +68,37 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 		Toast.success(t('copy.share_link.success'))
 	}
 
+	const doc_detail_ele = (
+		<>
+			<div className="flex items-center justify-between pl-16px pr-16px text-12px line-height-28px select-none">
+				<span className="color-text-2">{t('doc.words_len')}</span>
+				<span className="color-text-3 scale-90 origin-r">{text_len}</span>
+			</div>
+			<div className="flex items-center justify-between pl-16px pr-16px text-12px line-height-28px select-none">
+				<span className="color-text-2">{t('time.update')}</span>
+				<span className="color-text-3 scale-90 origin-r">{format_time(doc_info.update_time)}</span>
+			</div>
+			<div className="flex items-center justify-between pl-16px pr-16px text-12px line-height-28px select-none">
+				<span className="color-text-2">{t('time.create')}</span>
+				<span className="color-text-3 scale-90 origin-r">{format_time(doc_info.creation_time)}</span>
+			</div>
+		</>
+	)
+
 	return (
 		<>
 			<Dropdown
 				trigger="click"
 				placement="bottom-end"
 				content={
-					<Dropdown.Menu className="min-w-160px" closeAfterItemClick>
+					<Dropdown.Menu className="min-w-200px max-h-unset!" closeAfterItemClick>
+						{doc_detail_ele}
+						<Divider size="small" />
 						<Dropdown.Item prefix={<LuSettings2 className="text-16px" />} onClick={show_doc_options_modal}>
 							{t('doc.setting')}
 						</Dropdown.Item>
 						<Divider size="small" />
-						{is_public && (
+						{doc_info.public && (
 							<Dropdown.Item
 								prefix={<MdOutlineIosShare className="text-16px" />}
 								onClick={copy_share_url}

@@ -23,11 +23,10 @@
     "@youknown/utils": "workspace:*",
     "chroma-js": "^2.4.2",
     "html-diff-ts": "^1.4.2",
-    "html-react-parser": "^5.0.11",
+    "html-react-parser": "^5.1.0",
     "idb-keyval": "^6.2.1",
     "qiniu-js": "^3.4.2",
-    "zustand": "^4.4.7",
-    "zustand-computed": "^1.3.7"
+    "zustand": "^4.4.7"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": "eslint --cache --fix",
@@ -39,7 +38,7 @@
     "not dead"
   ],
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.485.0",
+    "@aws-sdk/client-s3": "^3.490.0",
     "@types/chroma-js": "^2.4.3",
     "@types/mime-types": "^2.1.4",
     "mime-types": "^2.1.35"

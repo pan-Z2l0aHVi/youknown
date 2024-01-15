@@ -12,7 +12,7 @@ import { delete_doc, Doc } from '@/apis/doc'
 import DocOptionsModal from '@/components/doc-options-modal'
 import More from '@/components/more'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
-import { useModalStore, useUIStore, useUserStore } from '@/stores'
+import { is_dark_theme_getter, useModalStore, useUIStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
 import { useBoolean } from '@youknown/react-hook/src'
 import { ContextMenu, Dialog, Dropdown, Motion, Toast } from '@youknown/react-ui/src'
@@ -33,7 +33,7 @@ export default function DocCard(props: DocCardProps) {
 	const navigate = useTransitionNavigate()
 	const has_login = useUserStore(state => state.has_login)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const [more_open, { setBool: set_more_open }] = useBoolean(false)
 	const [doc_options_modal_open, { setTrue: show_doc_options_modal, setFalse: hide_doc_options_modal }] =
 		useBoolean(false)
@@ -48,7 +48,10 @@ export default function DocCard(props: DocCardProps) {
 					query: {
 						doc_id: info.doc_id
 					}
-				})
+				}),
+				{
+					state: info
+				}
 			)
 		}
 	}

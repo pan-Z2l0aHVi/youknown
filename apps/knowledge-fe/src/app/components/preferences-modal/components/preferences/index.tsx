@@ -106,8 +106,8 @@ export default function Preferences() {
 	const radius = useUIStore(state => state.radius)
 	const i18n_lang = useUIStore(state => state.i18n_lang)
 	const set_radius = useUIStore(state => state.set_radius)
-	const set_hue = useUIStore(state => state.set_hue)
-	const set_dark_theme = useUIStore(state => state.set_dark_theme)
+	const set_primary_color = useUIStore(state => state.set_primary_color)
+	const set_theme = useUIStore(state => state.set_theme)
 	const set_i18n_lang = useUIStore(state => state.set_i18n_lang)
 
 	const form = Form.useForm({
@@ -126,11 +126,11 @@ export default function Preferences() {
 					break
 
 				case 'hue':
-					set_hue(state.hue)
+					set_primary_color(state.hue)
 					break
 
 				case 'theme':
-					set_dark_theme(state.theme)
+					set_theme(state.theme)
 					break
 
 				case 'lang':

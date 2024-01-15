@@ -1,4 +1,4 @@
-const { t } = await import('i18next')
+import { useTranslation } from 'react-i18next'
 import { LuSettings2 } from 'react-icons/lu'
 import { TbChevronRight, TbLogin, TbLogout } from 'react-icons/tb'
 
@@ -7,6 +7,7 @@ import { useModalStore, useUserStore } from '@/stores'
 import { List } from '@youknown/react-ui/src'
 
 export default function MyOptions() {
+	const { t } = useTranslation()
 	const has_login = useUserStore(state => state.has_login)
 	const do_logout = useUserStore(state => state.do_logout)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
@@ -14,7 +15,7 @@ export default function MyOptions() {
 	const navigate = useTransitionNavigate()
 
 	return (
-		<List className="overflow-hidden" bordered>
+		<List className="overflow-hidden">
 			<List.Item
 				className="active-bg-active"
 				prefix={<LuSettings2 className="text-16px" />}

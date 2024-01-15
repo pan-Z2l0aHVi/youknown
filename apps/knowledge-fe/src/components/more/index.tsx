@@ -14,9 +14,10 @@ const More = forwardRef<HTMLButtonElement, MoreProps>((props, ref) => {
 			type="button"
 			className={cls(
 				className,
-				'm-0 p-0 cursor-pointer',
-				'relative b-10 b-solid rd-full bg-primary b-[rgba(255,255,255,0.8)]',
+				'm-0 p-0 cursor-pointer custom-focus-outline',
+				'relative rd-full p-10px border-0 bg-bg-0',
 				'[@media(hover:hover)]-hover-brightness-95 active-brightness-90!',
+				'before:content-empty before:absolute before:left-0 before:top-0 before:w-100% before:h-100% before:bg-primary before:opacity-30 before:rd-inherit',
 				active && 'opacity-50'
 			)}
 			{...rest}

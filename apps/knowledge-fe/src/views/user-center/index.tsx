@@ -158,7 +158,7 @@ export default function UserCenter() {
 								<Button onClick={stop_edit}>{t('cancel.text')}</Button>
 								<Button
 									primary
-									prefixIcon={<TbUserCheck />}
+									prefixIcon={<TbUserCheck className="text-16px" />}
 									loading={saving}
 									onClick={handle_save_profile}
 								>
@@ -174,7 +174,10 @@ export default function UserCenter() {
 								<TbUserEdit className="color-primary text-18px" />
 							</Button>
 						) : (
-							<Button prefixIcon={<TbUserEdit />} onClick={start_edit}>
+							<Button
+								prefixIcon={<TbUserEdit className="text-16px color-primary" />}
+								onClick={start_edit}
+							>
 								{t('profile.edit')}
 							</Button>
 						)}

@@ -38,6 +38,8 @@ export const theme = {
 }
 
 export const shortcuts = {
-    'scrollbar-custom':
-					'scrollbar:w-4px scrollbar:h-4px scrollbar-thin scrollbar-thumb:rounded hover:scrollbar-thumb:bg-[rgba(var(--ui-scrollbar),0.4)]'
+	'custom-focus-outline':
+		'focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-color-focus focus-visible:outline-offset--2px',
+	'custom-scrollbar':
+		'scrollbar:w-8px scrollbar:h-8px scrollbar-thin scrollbar-thumb:rounded hover:scrollbar-thumb:bg-[rgba(var(--ui-scrollbar),0.4)]'
 }

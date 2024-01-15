@@ -9,14 +9,12 @@ import Trigger, { EventsByTriggerNeed } from '../trigger'
 
 interface TooltipProps extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'motion'> {
 	title?: string
-	light?: boolean
 }
 
 const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 	const {
 		children,
 		title = '',
-		light = false,
 		placement = 'top',
 		open,
 		defaultOpen,
@@ -35,9 +33,7 @@ const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 
 	const prefixCls = `${UI_PREFIX}-tooltip`
 
-	const popup = (
-		<div className={cls(`${prefixCls}-content`, `${prefixCls}-content-${light ? 'light' : 'dark'}`)}>{title}</div>
-	)
+	const popup = <div className={cls(`${prefixCls}-content`)}>{title}</div>
 	const triggerEle = Children.map(children, child =>
 		isValidElement(child)
 			? cloneElement(child, {

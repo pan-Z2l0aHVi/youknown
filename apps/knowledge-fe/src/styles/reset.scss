@@ -7,7 +7,25 @@ body {
 	-moz-osx-font-smoothing: auto;
 	-webkit-tap-highlight-color: transparent;
 
-	@media (width >= 640px) {
-		min-width: 900px;
+	// 完全重置默认样式 button -> div
+	button {
+		cursor: pointer;
+		user-select: text;
+		overflow: visible;
+
+		// 与 div 类似的样式
+		display: block;
+		box-sizing: border-box;
+		width: auto;
+		margin: 0;
+		padding: 0;
+		font: inherit;
+		color: inherit;
+		text-align: inherit;
+		text-decoration: none;
+		background: transparent;
+		border: none;
+		border-radius: 0;
+		outline: none;
 	}
 }

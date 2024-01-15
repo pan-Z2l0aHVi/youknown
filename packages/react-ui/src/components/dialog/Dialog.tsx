@@ -36,6 +36,10 @@ let point: Point | null = null
 document.addEventListener(
 	'click',
 	event => {
+		// 忽略手动触发的点击事件
+		if (!event.isTrusted) {
+			return
+		}
 		point = {
 			x: event.clientX,
 			y: event.clientY
@@ -79,7 +83,6 @@ const Dialog = (props: DialogProps, ref: ForwardedRef<HTMLDivElement>) => {
 		}
 		let transformOrigin = ''
 		if (pointRef.current) {
-			console.log('el: ', el)
 			const { x, y } = pointRef.current
 			// 为什么不用 el.getBoundingClientRect() 获取位置呢？
 			// 因为 zoom 的初始 transform 设置成了 scale(0) 导致取值不准
@@ -110,21 +113,17 @@ const Dialog = (props: DialogProps, ref: ForwardedRef<HTMLDivElement>) => {
 		</>
 	)
 
-	const footerEle = (
-		<>
-			{is.undefined(footer) ? (
-				<div className={`${prefixCls}-footer`}>
-					<Space>
-						{hasCancel && <Button onClick={onCancel}>{cancelText}</Button>}
-						<Button primary={!okDanger} danger={okDanger} loading={okLoading} onClick={onOk}>
-							{okText}
-						</Button>
-					</Space>
-				</div>
-			) : (
-				footer
-			)}
-		</>
+	const footerEle = is.undefined(footer) ? (
+		<div className={`${prefixCls}-footer`}>
+			<Space>
+				{hasCancel && <Button onClick={onCancel}>{cancelText}</Button>}
+				<Button primary={!okDanger} danger={okDanger} loading={okLoading} onClick={onOk}>
+					{okText}
+				</Button>
+			</Space>
+		</div>
+	) : (
+		footer
 	)
 
 	return (

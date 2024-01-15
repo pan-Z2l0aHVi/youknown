@@ -102,7 +102,7 @@ const ResultList = forwardRef<HTMLDivElement, ResultListProps>((props, prop_ref)
 						onClick={() => set_selection(item)}
 						onDoubleClick={() => go_detail(item)}
 					>
-						<div className="w-100% pl-8px">
+						<div className="flex-1 w-0 pl-8px">
 							<div className="line-clamp-1 font-600 color-text-2">{format_near_keywords(item)}</div>
 							<div className="line-clamp-2 color-text-3 text-12px">{item.title}</div>
 						</div>

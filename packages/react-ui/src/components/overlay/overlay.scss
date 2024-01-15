@@ -7,5 +7,5 @@ $prefix: '#{$ui-prefix}-overlay';
 	z-index: 1000;
 	display: flex;
 	justify-content: center;
-	background: rgba($color: #000, $alpha: 50%);
+	background: rgba($color: #000, $alpha: 0.5);
 }

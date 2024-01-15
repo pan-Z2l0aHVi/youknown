@@ -2,14 +2,16 @@ import { ComponentProps, forwardRef } from 'react'
 import { Link } from 'react-router-dom'
 
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
+import { cls } from '@youknown/utils/src'
 
 const TransitionLink = forwardRef<HTMLAnchorElement, ComponentProps<typeof Link>>((props, ref) => {
-	const { onClick, to, replace, state, relative, preventScrollReset, style, ...rest } = props
+	const { className, onClick, to, replace, state, relative, preventScrollReset, style, ...rest } = props
 	const navigate = useTransitionNavigate()
 
 	return (
 		<Link
 			ref={ref}
+			className={cls(className, 'custom-focus-outline')}
 			style={{ textDecoration: 'none', color: 'inherit', ...style }}
 			to={to}
 			replace={replace}

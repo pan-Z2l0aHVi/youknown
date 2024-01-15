@@ -55,6 +55,9 @@ export default function Header(props: HeaderProps) {
 			text
 			onClick={() => {
 				navigate(-1)
+				if (window.history.length <= 1) {
+					navigate('/', { replace: true })
+				}
 			}}
 		>
 			{is_mobile ? (

@@ -7,7 +7,7 @@ export default function PageProgress() {
 	return (
 		<Motion.Fade in={progress_visible} mountOnEnter unmountOnExit>
 			<div className="fixed top-0 left-0 z-25 w-screen">
-				<Progress format={null} size="small" percent={percent} trackColor="transparent" />
+				<Progress format={null} size="small" percent={percent} />
 			</div>
 		</Motion.Fade>
 	)

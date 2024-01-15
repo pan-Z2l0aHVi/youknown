@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-import { useModalStore, useUIStore } from '@/stores'
+import { is_dark_theme_getter, useModalStore, useUIStore } from '@/stores'
 import { CloseIcon, Dialog } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
@@ -10,7 +10,7 @@ export default function PreferencesModal() {
 	const { t } = useTranslation()
 	const modal_open = useModalStore(state => state.preferences_modal_open)
 	const close_preferences_modal = useModalStore(state => state.close_preferences_modal)
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_dark_theme = useUIStore(is_dark_theme_getter)
 
 	return (
 		<Dialog
@@ -28,7 +28,7 @@ export default function PreferencesModal() {
 					<CloseIcon onClick={close_preferences_modal} />
 				</div>
 			}
-			footer=" "
+			footer="" // 底部占位
 			closeIcon={null}
 		>
 			<Preferences />

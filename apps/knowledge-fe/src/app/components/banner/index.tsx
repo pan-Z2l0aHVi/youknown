@@ -26,15 +26,13 @@ export default function Banner() {
 	return (
 		<div
 			className={cls(
-				'relative flex items-center h-40px',
-				'b-20 <sm:b-l-4px <sm:b-r-4px b-solid bg-primary b-[rgba(255,255,255,0.8)]'
+				'relative flex justify-center items-center flex-wrap break-all p-[4px_40px] min-h-40px color-primary',
+				'before:content-empty before:absolute before:left-0 before-top-0 before:w-100% before:h-100% before:opacity-30 before:bg-primary'
 			)}
 		>
-			<div className="absolute left-50% top-50% translate-x--50% translate-y--50% max-w-90% truncate color-primary">
-				{text}
-			</div>
+			{text}
 			<div
-				className="absolute right-8px flex items-center justify-center w-24px h-24px cursor-pointer color-primary [@media(hover:hover)]-hover-color-primary-hover"
+				className="absolute right-8px flex items-center justify-center w-24px h-24px cursor-pointer [@media(hover:hover)]-hover-color-primary-hover"
 				onClick={() => {
 					storage.local.set(CLOSED_KEY, dayjs())
 					hide()

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-import { useUIStore } from '@/stores'
+import { is_dark_theme_getter, useUIStore } from '@/stores'
 import { Card, CloseIcon, Dialog, Motion, Overlay } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
@@ -15,7 +15,7 @@ interface SpaceOptionsModalProps {
 export default function SpaceOptionsModal(props: SpaceOptionsModalProps) {
 	const { open, hide_modal, space_id, on_save } = props
 	const { t } = useTranslation()
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const is_edit = !!space_id
 
 	return (
@@ -34,7 +34,7 @@ export default function SpaceOptionsModal(props: SpaceOptionsModalProps) {
 					<CloseIcon onClick={hide_modal} />
 				</div>
 			}
-			footer=" "
+			footer="" // 底部占位
 			closeIcon={null}
 		>
 			<SpaceOptions space_id={space_id} hide_modal={hide_modal} on_save={on_save} />

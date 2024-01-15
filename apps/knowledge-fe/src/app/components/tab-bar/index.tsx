@@ -1,14 +1,14 @@
 import { useTranslation } from 'react-i18next'
-import { TbAlbum, TbInnerShadowBottom, TbPhotoSquareRounded, TbSmartHome } from 'react-icons/tb'
+import { TbBook2, TbInnerShadowBottom, TbSmartHome, TbVersions } from 'react-icons/tb'
 import { useMatches } from 'react-router-dom'
 
 import TransitionNavLink from '@/components/transition-nav-link'
-import { useUIStore } from '@/stores'
+import { is_dark_theme_getter, useUIStore } from '@/stores'
 import { cls } from '@youknown/utils/src'
 
 export default function TabBar() {
 	const { t } = useTranslation()
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const matches = useMatches()
 
 	const tab_list = [
@@ -18,12 +18,12 @@ export default function TabBar() {
 			path: '/browse'
 		},
 		{
-			Icon: TbAlbum,
+			Icon: TbBook2,
 			title: t('tab.library'),
 			path: '/library'
 		},
 		{
-			Icon: TbPhotoSquareRounded,
+			Icon: TbVersions,
 			title: t('tab.wallpaper'),
 			path: '/wallpapers'
 		},
@@ -49,20 +49,23 @@ export default function TabBar() {
 						<TransitionNavLink
 							key={tab.path}
 							to={tab.path}
-							className={cls(
-								'flex flex-col items-center decoration-none select-none',
-								is_dark_theme ? 'color-#fff' : 'color-#555',
-								{
-									'color-primary': is_active
-								}
-							)}
+							className={cls('flex flex-col items-center decoration-none select-none')}
 						>
 							<tab.Icon
 								className={cls(
-									is_active ? 'color-#fff bg-primary rd-full p-2px text-24px' : 'text-24px'
+									is_active ? 'bg-primary rd-full p-4px text-26px' : 'text-26px',
+									is_dark_theme
+										? is_active
+											? 'color-#fff'
+											: 'color-#fff'
+										: is_active
+											? 'color-#fff'
+											: 'color-#414647'
 								)}
 							/>
-							<div className="text-12px scale-80">{tab.title}</div>
+							<div className={cls('text-12px scale-80', is_dark_theme ? 'color-#fff' : 'color-#414647')}>
+								{tab.title}
+							</div>
 						</TransitionNavLink>
 					)
 				})}

@@ -4,9 +4,10 @@ import dayjs from 'dayjs'
 import diff from 'html-diff-ts'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { TbCheck } from 'react-icons/tb'
 
 import { get_doc_drafts } from '@/apis/doc'
-import { useUIStore } from '@/stores'
+import { is_dark_theme_getter, useUIStore } from '@/stores'
 import { useInfinity } from '@youknown/react-hook/src'
 import { Button, Drawer, Select } from '@youknown/react-ui/src'
 import { cls, is } from '@youknown/utils/src'
@@ -23,7 +24,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 	const { open, on_close, doc_id, doc_content, on_recovery } = props
 
 	const { t } = useTranslation()
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const is_mobile = useUIStore(state => state.is_mobile)
 	const [selection, set_selection] = useState<string>()
 
@@ -80,7 +81,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 
 	return (
 		<Drawer
-			className="sm:w-880px sm:max-w-80% <sm:w-100% overflow-y-auto shadow-shadow-l"
+			className="sm:w-760px sm:max-w-100% <sm:w-100% overflow-y-auto shadow-shadow-l"
 			overlayClassName={cls(
 				'backdrop-blur-xl',
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
@@ -118,6 +119,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 
 				<Button
 					disabled={!selected_draft_content}
+					prefixIcon={<TbCheck className="text-16px color-primary" />}
 					onClick={() => {
 						on_close()
 						on_recovery(selected_draft_content)
@@ -127,7 +129,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 				</Button>
 			</div>
 
-			<div className="p-[0_16px_32px_16px]">
+			<div className="p-[16px_16px_32px_16px]">
 				{selected_draft_content && (
 					<div className="rich-text-container" dangerouslySetInnerHTML={{ __html: diff_html }}></div>
 				)}

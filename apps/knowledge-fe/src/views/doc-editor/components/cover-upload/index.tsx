@@ -92,7 +92,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 						>
 							<Button
 								round={is_mobile}
-								prefixIcon={<TbPhotoEdit className="text-16px" />}
+								prefixIcon={<TbPhotoEdit className="text-16px color-primary" />}
 								onClick={() => {
 									upload_ref.current?.click()
 								}}

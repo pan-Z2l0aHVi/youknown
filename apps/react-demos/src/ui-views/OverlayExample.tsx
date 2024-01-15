@@ -12,7 +12,7 @@ export default () => {
 			<Divider />
 			<Button onClick={show}>Show overlay</Button>
 			<Overlay open={open} onCancel={hide}>
-				<Card className="w-320px! h-200px!">Content</Card>
+				<Card className="w-320px! h-200px! mt-15vh">Content</Card>
 			</Overlay>
 			<Divider />
 		</div>

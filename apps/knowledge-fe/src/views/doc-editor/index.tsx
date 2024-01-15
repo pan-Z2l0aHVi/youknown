@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbChecklist, TbCloudCheck, TbWorld, TbWorldOff } from 'react-icons/tb'
-import { useSearchParams } from 'react-router-dom'
+import { useLocation, useParams, useSearchParams } from 'react-router-dom'
 
 import { Doc, get_doc_drafts, get_doc_info, update_doc, update_doc_draft } from '@/apis/doc'
 import Header from '@/app/components/header'
 import { DOC_TITLE_MAX_LEN } from '@/consts'
+import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useRecordStore, useUIStore } from '@/stores'
 import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
@@ -44,6 +45,8 @@ import DocOptionsDropdown from './components/doc-options-dropdown'
 
 export default function Doc() {
 	const { t } = useTranslation()
+	const navigate = useTransitionNavigate()
+	const { space_id } = useParams()
 	const [search_params] = useSearchParams()
 	const doc_id = search_params.get('doc_id') as string
 	const recording = useRecordStore(state => state.recording)
@@ -54,6 +57,7 @@ export default function Doc() {
 	const [title_val, set_title_val] = useState('')
 	const title_input_ref = useRef<HTMLInputElement>(null)
 	const [publishing, set_publishing] = useState(false)
+	const [saving, set_saving] = useState(false)
 
 	const editor = useRTE({
 		extensions: [
@@ -133,13 +137,20 @@ export default function Doc() {
 		update_draft(editor?.getHTML())
 	}, 1000)
 
-	const doc_ready = !!doc_id && !!editor
+	const { state: doc_state }: { state: Doc } = useLocation()
+	useEffect(() => {
+		if (editor && doc_state) {
+			editor.commands.setContent(doc_state.content)
+		}
+	}, [doc_state, editor])
 
+	const doc_ready = !!doc_id && !!editor
 	const {
 		data: doc_info,
 		loading,
 		mutate: set_doc_info
 	} = useFetch(get_doc_info, {
+		initialData: doc_state,
 		ready: doc_ready,
 		params: [
 			{
@@ -190,13 +201,15 @@ export default function Doc() {
 		})
 	}
 
-	const update_doc_content = async () => {
+	const save_doc = async () => {
+		set_saving(true)
 		const payload = {
 			doc_id,
 			content: editor.getHTML(),
 			summary: editor.getText()
 		}
 		const [err, res] = await with_api(update_doc)(payload)
+		set_saving(false)
 		if (err) {
 			return
 		}
@@ -204,6 +217,7 @@ export default function Doc() {
 		editor.commands.setContent(res.content)
 		record_update_doc(res)
 		Toast.success(t('update.success'))
+		navigate(`/library/${space_id}`)
 	}
 
 	const update_doc_title = async () => {
@@ -267,19 +281,13 @@ export default function Doc() {
 	}
 
 	const doc_tips = (
-		<div className="flex">
-			<div className="text-text-3 text-12px">
-				{t('doc.words_len')} <span className="inline-block">{text_len}</span>
-			</div>
+		<>
 			{draft && (
-				<>
-					<span className="text-text-3 text-12px ml-8px mr-8px">·</span>
-					<div className="text-text-3 text-12px">
-						{t('doc.draft_auto_save')} {format_time(draft.creation_time)}
-					</div>
-				</>
+				<div className="text-text-3 text-12px">
+					{t('doc.draft_auto_save')} {format_time(draft.creation_time)}
+				</div>
 			)}
-		</div>
+		</>
 	)
 
 	const is_doc_public = doc_info?.public ?? false
@@ -344,9 +352,9 @@ export default function Doc() {
 					{is_mobile ? (
 						<>
 							<Button square onClick={show_history_drawer}>
-								<TbCloudCheck className="color-text-2 text-16px" />
+								<TbCloudCheck className="color-primary text-16px" />
 							</Button>
-							<Button square disabled={editor.isEmpty} primary onClick={update_doc_content}>
+							<Button square disabled={editor.isEmpty} loading={saving} primary onClick={save_doc}>
 								<TbChecklist className="text-16px" />
 							</Button>
 						</>
@@ -355,23 +363,25 @@ export default function Doc() {
 							{doc_tips}
 							<Button
 								onClick={show_history_drawer}
-								prefixIcon={<TbCloudCheck className="color-text-2 text-16px" />}
+								prefixIcon={<TbCloudCheck className="color-primary text-16px" />}
 							>
 								{t('draft.text')}
 							</Button>
-							<Button disabled={editor.isEmpty} primary onClick={update_doc_content}>
+							<Button disabled={editor.isEmpty} loading={saving} primary onClick={save_doc}>
 								{t('save.text')}
 							</Button>
 						</>
 					)}
 
-					<DocOptionsDropdown
-						doc_id={doc_id}
-						is_public={doc_info?.public ?? false}
-						on_updated={set_doc_info}
-						on_export_pdf={on_export_pdf}
-						on_export_html={on_export_html}
-					/>
+					{doc_info && (
+						<DocOptionsDropdown
+							doc_info={doc_info}
+							text_len={text_len}
+							on_updated={set_doc_info}
+							on_export_pdf={on_export_pdf}
+							on_export_html={on_export_html}
+						/>
+					)}
 				</Space>
 			</Header>
 
@@ -397,7 +407,7 @@ export default function Doc() {
 
 			<Loading
 				className="w-720px! max-w-100% pt-24px pb-24px <sm:pl-16px <sm-pr-16px sm:m-[0_auto]"
-				spinning={loading}
+				spinning={!doc_state && loading}
 				size="large"
 			>
 				<CoverUpload doc_id={doc_id} cover={doc_info?.cover} on_updated={set_doc_info} />

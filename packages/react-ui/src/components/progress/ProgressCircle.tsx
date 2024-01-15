@@ -50,12 +50,7 @@ const ProgressCircle = (props: ProgressCircleProps, propRef: ForwardedRef<HTMLDi
 		>
 			{detailOpen || (
 				<div className={`${prefixCls}-detail`}>
-					<CountUp
-						className={`${prefixCls}-detail-num`}
-						start={preMoleculeRef.current}
-						end={molecule}
-						// duration={0.4}
-					>
+					<CountUp className={`${prefixCls}-detail-num`} start={preMoleculeRef.current} end={molecule}>
 						{format}
 					</CountUp>
 					{suffix && <span className={`${prefixCls}-detail-suffix`}>{suffix}</span>}

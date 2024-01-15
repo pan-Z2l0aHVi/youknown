@@ -19,7 +19,7 @@
 	background-color: var(--ui-bg-0);
 
 	::selection {
-		background: rgb(200 200 255 / 40%);
+		background: rgba(200, 200, 255, 0.4);
 	}
 
 	* {

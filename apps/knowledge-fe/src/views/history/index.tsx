@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState, useTransition } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbSearch, TbTrash } from 'react-icons/tb'
 
 import Header from '@/app/components/header'
-import { useRecordStore, useUIStore } from '@/stores'
+import { is_dark_theme_getter, useRecordStore, useUIStore } from '@/stores'
 import { useEvent } from '@youknown/react-hook/src'
 import { Button, Dialog, Input, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
@@ -12,7 +12,7 @@ import RecordItem from './components/record-item'
 
 export default function History() {
 	const { t } = useTranslation()
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const is_mobile = useUIStore(state => state.is_mobile)
 	const record_list = useRecordStore(state => state.record_list)
 	const clear_records = useRecordStore(state => state.clear_records)
@@ -20,13 +20,13 @@ export default function History() {
 	const [records_result, set_records_result] = useState<typeof record_list>([])
 	const [, start_transition] = useTransition()
 
-	const reset_records_result = useCallback(() => {
+	const reset_records_result = useEvent(() => {
 		start_transition(() => {
 			set_records_result(record_list)
 		})
-	}, [record_list])
+	})
 
-	const filter_records_result = useCallback(() => {
+	const filter_records_result = useEvent(() => {
 		const next_record_list = record_list.filter(record => {
 			if (record.target.includes(search_input)) {
 				return true
@@ -39,7 +39,7 @@ export default function History() {
 		start_transition(() => {
 			set_records_result(next_record_list)
 		})
-	}, [record_list, search_input])
+	})
 
 	const keywords = search_input.trim()
 	useEffect(() => {

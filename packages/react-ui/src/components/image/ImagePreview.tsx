@@ -1,6 +1,6 @@
 import './image-preview.scss'
 
-import { MouseEventHandler, ReactEventHandler, useEffect, useRef, useState } from 'react'
+import { MouseEventHandler, ReactEventHandler, TouchEventHandler, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
 	TbDownload,
@@ -14,7 +14,7 @@ import {
 } from 'react-icons/tb'
 
 import { useBoolean, useEvent, useLatestRef } from '@youknown/react-hook/src'
-import { cls, downloadFile } from '@youknown/utils/src'
+import { cls, downloadFile, setRootStyle } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Button from '../button'
@@ -82,7 +82,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 		setDetailError(true)
 	}
 
-	const handleDragDetailStart: MouseEventHandler<HTMLImageElement> = event => {
+	const handleMouseDragStart: MouseEventHandler<HTMLImageElement> = useEvent(event => {
 		setDragging(true)
 		let pos: Coordinate = null
 		if (imgDetailRef.current)
@@ -104,7 +104,87 @@ const ImagePreview = (props: ImagePreviewProps) => {
 		}
 		document.addEventListener('mousemove', handleMove)
 		document.addEventListener('mouseup', handleUp)
-	}
+	})
+
+	// 单指拖拽
+	const handleTouchDragStart: TouchEventHandler<HTMLElement> = useEvent(event => {
+		if (event.touches.length !== 1) return
+
+		const touch = event.touches[0]
+		setDragging(true)
+		let pos: Coordinate = null
+		if (imgDetailRef.current)
+			pos = {
+				x: touch.pageX - imgDetailRef.current.offsetLeft,
+				y: touch.pageY - imgDetailRef.current.offsetTop
+			}
+		const handleMove = (e: TouchEvent) => {
+			if (e.touches.length !== 1) return
+
+			const moveTouch = e.touches[0]
+			if (draggingRef.current && pos) {
+				setOffset({
+					x: moveTouch.pageX - pos.x,
+					y: moveTouch.pageY - pos.y
+				})
+			}
+		}
+		const handleStop = () => {
+			setDragging(false)
+			document.removeEventListener('touchmove', handleMove)
+			document.removeEventListener('touchend', handleStop)
+			document.removeEventListener('touchcancel', handleStop)
+		}
+		document.addEventListener('touchmove', handleMove)
+		document.addEventListener('touchend', handleStop)
+		document.addEventListener('touchcancel', handleStop)
+	})
+
+	// 双指缩放
+	const distanceRef = useRef(0)
+	const handleTwoFingersStart = useEvent(event => {
+		const touch1 = event.touches[0]
+		const touch2 = event.touches[1]
+
+		if (touch1 && touch2) {
+			event.preventDefault()
+			const distance = Math.hypot(touch1.clientX - touch2.clientX, touch1.clientY - touch2.clientY)
+			distanceRef.current = distance / zoom
+		}
+	})
+	const handleTwoFingersMove = useEvent(event => {
+		const touch1 = event.touches[0]
+		const touch2 = event.touches[1]
+
+		if (touch1 && touch2) {
+			event.preventDefault()
+			const distance = Math.hypot(touch1.clientX - touch2.clientX, touch1.clientY - touch2.clientY)
+			const scaleFactor = distance / distanceRef.current
+			setZoom(scaleFactor)
+		}
+	})
+	useEffect(() => {
+		if (open) {
+			document.addEventListener('touchstart', handleTwoFingersStart)
+			document.addEventListener('touchmove', handleTwoFingersMove, { passive: false })
+			return () => {
+				document.removeEventListener('touchstart', handleTwoFingersStart)
+				document.removeEventListener('touchmove', handleTwoFingersMove)
+			}
+		}
+	}, [handleTwoFingersStart, handleTwoFingersMove, open])
+	// 确保双指缩放正常，禁止移动端页面缩放
+	useEffect(() => {
+		if (open) {
+			setRootStyle({
+				'touch-action': 'none'
+			})
+		} else {
+			setRootStyle({
+				'touch-action': 'auto'
+			})
+		}
+	}, [open])
 
 	const handleReset = useEvent(() => {
 		if (!detailLoaded) return
@@ -114,7 +194,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 		setOffset(null)
 	})
 
-	const handleShowRatio = () => {
+	const handleShowRatio = useEvent(() => {
 		showRatio()
 
 		const ONE_SECOND = 1000
@@ -122,7 +202,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 		delayTimerRef.current = window.setTimeout(() => {
 			hideRatio()
 		}, ONE_SECOND)
-	}
+	})
 
 	const updateZoom = (nextZoom: number) => {
 		if (!detailLoaded) return
@@ -186,6 +266,31 @@ const ImagePreview = (props: ImagePreviewProps) => {
 			}, DELAY)
 		}
 	}, [open, handleReset])
+
+	const setImageRect: ReactEventHandler<HTMLImageElement> = useEvent(event => {
+		const { naturalWidth, naturalHeight } = event.currentTarget
+		const { innerWidth, innerHeight } = window
+		const naturalRatio = naturalWidth / naturalHeight
+		const innerRatio = innerWidth / innerHeight
+
+		if (innerRatio > naturalRatio) {
+			if (naturalHeight > innerHeight) {
+				setHeight(innerHeight)
+				setWidth(innerHeight * naturalRatio)
+			} else {
+				setWidth(naturalWidth)
+				setHeight(naturalHeight)
+			}
+		} else {
+			if (naturalWidth > innerWidth) {
+				setWidth(innerWidth)
+				setHeight(innerWidth / (naturalWidth / naturalHeight))
+			} else {
+				setWidth(naturalWidth)
+				setHeight(naturalHeight)
+			}
+		}
+	})
 
 	const prefixCls = `${UI_PREFIX}-image-preview`
 	const scalePercent = `${Math.round(zoom * 100)}%`
@@ -268,6 +373,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 			unmountOnExit={unmountOnExit}
 			open={open}
 			onCancel={onClose}
+			onTouchStart={handleTouchDragStart}
 		>
 			<div
 				className={`${prefixCls}`}
@@ -307,18 +413,11 @@ const ImagePreview = (props: ImagePreviewProps) => {
 									}
 								: {})
 						}}
-						onMouseDown={handleDragDetailStart}
+						onMouseDown={handleMouseDragStart}
 						onLoad={event => {
 							onLoad?.(event)
 							setDetailLoaded()
-							const { naturalWidth, naturalHeight } = event.currentTarget
-							if (naturalWidth > window.innerWidth) {
-								setWidth(window.innerWidth)
-								setHeight(window.innerWidth * (naturalHeight / naturalWidth))
-							} else {
-								setWidth(naturalWidth)
-								setHeight(naturalHeight)
-							}
+							setImageRect(event)
 						}}
 						onError={event => {
 							onError?.(event)

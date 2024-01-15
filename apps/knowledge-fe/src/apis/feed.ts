@@ -18,6 +18,7 @@ export interface Feed {
 	author_info: Profile
 	creation_time: string
 	update_time: string
+	collected: boolean
 }
 
 export interface GetFeedListParams {
@@ -40,7 +41,7 @@ export interface GetFeedDetailParams {
 	feed_id: string
 }
 export const get_feed_detail = (params: GetFeedDetailParams) =>
-	net.fetch<Feed & { collected: boolean }>('/proxy/feed/detail', {
+	net.fetch<Feed>('/proxy/feed/detail', {
 		params
 	})
 

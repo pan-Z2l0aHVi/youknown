@@ -8,7 +8,7 @@ import { TbEyeCheck, TbPhotoSearch } from 'react-icons/tb'
 
 import { cancel_collect_wallpaper, collect_wallpaper } from '@/apis/user'
 import { get_wallpaper_info, Wallpaper, WallpaperTag } from '@/apis/wallpaper'
-import { useModalStore, useUIStore, useUserStore } from '@/stores'
+import { is_dark_theme_getter, useModalStore, useUIStore, useUserStore } from '@/stores'
 import { format_file_size } from '@/utils'
 import { find_wallpaper_seen, insert_wallpaper_seen } from '@/utils/idb'
 import { with_api } from '@/utils/request'
@@ -27,7 +27,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 	const { className, wallpaper, on_removed, search_similar } = props
 
 	const { t } = useTranslation()
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const has_login = useUserStore(state => state.has_login)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const [hovered, { setTrue: start_hover, setFalse: stop_hover }] = useBoolean(false)
@@ -255,7 +255,8 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 							<div
 								className={cls(
 									'absolute bottom-8px right-8px',
-									'rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl [@media(hover:hover)]-hover-bg-primary',
+									'rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl',
+									'[@media(hover:hover)]-hover-bg-primary active-bg-primary',
 									'flex items-center justify-center w-24px h-24px cursor-pointer select-none'
 								)}
 								onClick={start_hover}

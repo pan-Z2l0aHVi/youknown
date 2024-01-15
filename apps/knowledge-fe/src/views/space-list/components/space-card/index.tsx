@@ -8,7 +8,7 @@ import { PiTrashSimpleBold } from 'react-icons/pi'
 import { DocSpace } from '@/apis/space'
 import More from '@/components/more'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
-import { useSpaceStore, useUIStore } from '@/stores'
+import { is_dark_theme_getter, useSpaceStore, useUIStore } from '@/stores'
 import { ContextMenu, Dialog, Dropdown } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
@@ -19,7 +19,7 @@ interface SpaceCardProps {
 export default function SpaceCard(props: SpaceCardProps) {
 	const { info, on_edit } = props
 	const { t } = useTranslation()
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const delete_spaces = useSpaceStore(state => state.delete_spaces)
 	const navigate = useTransitionNavigate()
 	const [more_open, set_more_open] = useState(false)

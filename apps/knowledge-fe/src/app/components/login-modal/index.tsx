@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-import { useModalStore, useUIStore } from '@/stores'
+import { is_dark_theme_getter, useModalStore, useUIStore } from '@/stores'
 import { CloseIcon, Dialog } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
@@ -11,7 +11,7 @@ export default function LoginModal() {
 	const { t } = useTranslation()
 	const modal_open = useModalStore(state => state.login_modal_open)
 	const close_login_modal = useModalStore(state => state.close_login_modal)
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_dark_theme = useUIStore(is_dark_theme_getter)
 
 	return (
 		<Dialog

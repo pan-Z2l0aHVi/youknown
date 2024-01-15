@@ -1,4 +1,4 @@
-import { TbPhotoOff, TbUser } from 'react-icons/tb'
+import { TbPhotoX, TbUser } from 'react-icons/tb'
 
 import { Avatar, Divider, Space } from '@youknown/react-ui/src'
 
@@ -26,7 +26,7 @@ export default () => {
 			<Divider />
 			<Avatar src={picSrc}>Text</Avatar>
 			<Divider />
-			<Avatar src="http://error.path.jpg" fallback={<TbPhotoOff size="20px" />} />
+			<Avatar src="http://error.path.jpg" fallback={<TbPhotoX size="20px" />} />
 			<Divider />
 			<Avatar badge="99+" src={picSrc} />
 			<Divider />

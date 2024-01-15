@@ -120,8 +120,8 @@
     "cover": "封面：",
     "title": "标题：",
     "feed_setting": "动态设置：",
-    "public": "不公开",
-    "private": "公开发布",
+    "public": "公开发布",
+    "private": "不公开",
     "creation_time": "创建日期",
     "update_time": "更新日期",
     "edit_time": "编辑日期",
@@ -251,8 +251,8 @@
     "theme": "主题",
     "language": "语言",
     "system": "系统默认",
-    "light": "浅色",
-    "dark": "深色"
+    "light": "亮色",
+    "dark": "暗色"
   },
   "share": {
     "text": "分享"
@@ -278,7 +278,9 @@
     "nearly_a_year": "近一年",
     "tomorrow": "明天",
     "year_date": "YYYY年MM月DD日",
-    "month_date": "MM月DD日"
+    "month_date": "MM月DD日",
+    "create": "创建时间",
+    "update": "更新时间"
   },
   "unfold": "展开",
   "unlimited": {
@@ -303,6 +305,7 @@
   },
   "validate": {
     "required": "必填项",
+    "array_required": "至少选择一项",
     "max_len": "长度不能超过{{max}}字",
     "letters_and_numbers": "只能包含字母和数字",
     "phone": "不是有效的手机号码",

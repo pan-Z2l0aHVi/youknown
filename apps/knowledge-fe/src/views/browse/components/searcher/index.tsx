@@ -7,17 +7,25 @@ import { TbSearch } from 'react-icons/tb'
 import { Feed, get_feed_list } from '@/apis/feed'
 import MoreLoading from '@/components/more-loading'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
+import { is_dark_theme_getter, useUIStore } from '@/stores'
 import { useEvent, useInfinity } from '@youknown/react-hook/src'
-import { Card, Input, Loading } from '@youknown/react-ui/src'
-import { QS } from '@youknown/utils/src'
+import { Dialog, Input, Loading } from '@youknown/react-ui/src'
+import { cls, QS } from '@youknown/utils/src'
 
 import Overview from './components/overview'
 import ResultList from './components/result-list'
 
-export default function Searcher() {
+interface SearcherProps {
+	open: boolean
+	on_close: (open: boolean) => void
+}
+export default function Searcher(props: SearcherProps) {
+	const { open = false, on_close } = props
+
 	const { t } = useTranslation()
 	const [, start_transition] = useTransition()
 	const navigate = useTransitionNavigate()
+	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const [keywords, set_keywords] = useState('')
 	const has_keywords = !!keywords.trim()
 	const [selection, set_selection] = useState<Feed | null>(null)
@@ -57,6 +65,13 @@ export default function Searcher() {
 			}
 		}
 	})
+
+	useEffect(() => {
+		if (open) {
+			set_keywords('')
+			reset()
+		}
+	}, [open, reset])
 
 	useEffect(() => {
 		if (keywords.trim()) {
@@ -107,13 +122,8 @@ export default function Searcher() {
 		</div>
 	)
 	const has_result = result.length > 0
-	return (
-		<Card
-			className="w-640px! max-w-[calc(100vw-32px)] mt-15vh overflow-hidden b-1 b-solid b-pop-bd"
-			shadow
-			header={card_header}
-			footer={card_footer}
-		>
+	const card_content = (
+		<>
 			{has_keywords && has_result ? (
 				<div className="flex h-400px">
 					<div className="flex flex-col items-center w-160px p-t-12px pb-12px pl-16px">
@@ -140,6 +150,24 @@ export default function Searcher() {
 					{t('find.empty')}
 				</div>
 			)}
-		</Card>
+		</>
+	)
+
+	return (
+		<Dialog
+			className="w-640px! max-w-[calc(100vw-32px)] overflow-hidden"
+			overlayClassName={cls(
+				'backdrop-blur-xl',
+				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+			)}
+			open={open}
+			onCancel={() => on_close(false)}
+			unmountOnExit
+			closeIcon={null}
+			header={card_header}
+			footer={card_footer}
+		>
+			{card_content}
+		</Dialog>
 	)
 }

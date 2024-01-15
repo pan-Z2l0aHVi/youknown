@@ -1,8 +1,8 @@
-import { create } from 'zustand'
+import { create, StateCreator } from 'zustand'
 
 import { create_doc_space, delete_doc_space, DocSpace, get_spaces, update_doc_space } from '@/apis/space'
 
-interface SpaceState {
+export interface SpaceState {
 	space_list: DocSpace[]
 	fetch_space_list: () => Promise<void>
 	clear_space_list: () => void
@@ -11,7 +11,7 @@ interface SpaceState {
 	delete_spaces: (...space_ids: string[]) => Promise<void>
 }
 
-export const useSpaceStore = create<SpaceState>()((set, get) => ({
+const space_state_creator: StateCreator<SpaceState> = (set, get) => ({
 	space_list: [],
 
 	clear_space_list: () => set({ space_list: [] }),
@@ -47,4 +47,6 @@ export const useSpaceStore = create<SpaceState>()((set, get) => ({
 			space_list: get().space_list.filter(item => !space_ids.includes(item.space_id))
 		})
 	}
-}))
+})
+
+export const useSpaceStore = create<SpaceState>()(space_state_creator)

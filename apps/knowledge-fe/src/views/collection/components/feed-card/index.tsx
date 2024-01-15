@@ -74,7 +74,7 @@ export default function FeedCard(props: FeedCardProps) {
 			<div
 				className={cls(
 					className,
-					'relative flex items-start w-440px h-120px bg-bg-1 b-solid b-1 b-divider rd-radius-m cursor-pointer overflow-hidden',
+					'relative flex items-start w-424px h-120px bg-bg-1 b-solid b-1 b-divider rd-radius-m cursor-pointer overflow-hidden',
 					'[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]',
 					{
 						'b-primary shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]':
@@ -84,7 +84,7 @@ export default function FeedCard(props: FeedCardProps) {
 				onClick={go_feed_detail}
 				onContextMenu={ctx_menu.onContextMenu}
 			>
-				<Image className="w-136px h-100%" loading="lazy" src={feed.cover} alt="Cover" />
+				<Image className="w-160px h-100%" loading="lazy" src={feed.cover} alt="Cover" />
 				<div className="flex-1 flex flex-col justify-between w-0 h-100% p-[16px]">
 					<div>
 						<div className="flex items-center">
@@ -95,9 +95,9 @@ export default function FeedCard(props: FeedCardProps) {
 					</div>
 					<div className="p-[4px_8px] line-clamp-1 text-12px color-text-3 whitespace-nowrap bg-bg-2 rd-radius-m">
 						<div className="flex items-center w-max max-w-100%">
-							<TbUser className="mr-4px" />
+							<TbUser className="mr-2px" />
 							<div className="flex-1 truncate">{feed.author_info.nickname}</div>
-							<RiHistoryFill className="ml-8px mr-4px" />
+							<RiHistoryFill className="ml-8px mr-2px" />
 							{format_time(feed.update_time)}
 						</div>
 					</div>

@@ -51,7 +51,7 @@ export default function App() {
 						</div>
 					}
 				>
-					<div className={cls('min-h-screen scrollbar-custom')}>
+					<div className={cls('min-h-screen')}>
 						<Outlet />
 					</div>
 				</Suspense>

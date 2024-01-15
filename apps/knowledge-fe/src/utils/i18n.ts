@@ -5,7 +5,7 @@ const { default: i18next, changeLanguage } = await import('i18next')
 
 export const change_i18n_lang = changeLanguage
 
-export const init_i18n = async () => {
+const init_i18n = async () => {
 	i18next.use(initReactI18next).use(
 		resources_to_backend(async (language: string) => {
 			if (language === 'dev') {
@@ -44,3 +44,4 @@ export const init_i18n = async () => {
 		debug: import.meta.env.MODE === 'development'
 	})
 }
+init_i18n()

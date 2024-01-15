@@ -144,7 +144,7 @@ export default function Wallpapers() {
 		initialData: wallpapers_cache,
 		initialPage: wallpaper_page_cache,
 		initialPageSize: 48,
-		ready: !!params,
+		manual: true,
 		target: loading_ref,
 		observerInit: {
 			root: null,
@@ -152,17 +152,18 @@ export default function Wallpapers() {
 		}
 	})
 
-	const reload_wallpapers = useEvent(() => {
-		change_page(0)
-		macroDefer(reload)
+	const reload_wallpapers = useEvent(async () => {
+		const explains_map = await form.validate()
+		const is_valid = !Object.values(explains_map).flat().length
+		if (is_valid) {
+			change_page(0)
+			macroDefer(reload)
+		}
 	})
 
 	useEffect(() => {
-		const search_param_keywords = search_params.get('keywords')
-		if (search_param_keywords) {
-			reload_wallpapers()
-		}
-	}, [reload_wallpapers, search_params])
+		reload_wallpapers()
+	}, [reload_wallpapers])
 
 	// 从缓存中恢复之前的浏览状态
 	// 包括：页码、壁纸数据、滚动条位置

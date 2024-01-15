@@ -4,7 +4,7 @@ import { TbNotes } from 'react-icons/tb'
 
 import TransitionNavLink from '@/components/transition-nav-link'
 import { RouteItem, routes } from '@/router/routes'
-import { useSpaceStore, useUIStore } from '@/stores'
+import { is_dark_theme_getter, useSpaceStore, useUIStore } from '@/stores'
 import { Motion, Tooltip } from '@youknown/react-ui/src'
 import { cls, DeepRequired, pick } from '@youknown/utils/src'
 
@@ -16,7 +16,7 @@ interface MenuProps {
 	expand: boolean
 }
 export default function Menu({ expand }: MenuProps) {
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const space_list = useSpaceStore(state => state.space_list)
 
 	const get_nav = (path: string) => {

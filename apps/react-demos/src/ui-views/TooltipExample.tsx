@@ -75,7 +75,7 @@ export default () => {
 				<Tooltip title="Dark tooltip">
 					<Button>Dark</Button>
 				</Tooltip>
-				<Tooltip light title="Light tooltip">
+				<Tooltip title="Light tooltip">
 					<Button>Light</Button>
 				</Tooltip>
 			</Space>

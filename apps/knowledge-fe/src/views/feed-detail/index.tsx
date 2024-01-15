@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuHeart, LuHeartOff } from 'react-icons/lu'
 import { TbPencil } from 'react-icons/tb'
-import { useSearchParams } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 
 import { Feed, get_feed_detail } from '@/apis/feed'
 import { cancel_collect_feed, collect_feed } from '@/apis/user'
@@ -29,6 +29,7 @@ export default function FeedDetail() {
 	const navigate = useTransitionNavigate()
 	const [search_params] = useSearchParams()
 	const feed_id = search_params.get('feed_id') ?? ''
+	const { state: feed_state }: { state: Feed } = useLocation()
 
 	const record_read_feed = (feed_info: Feed) => {
 		recording({
@@ -46,6 +47,7 @@ export default function FeedDetail() {
 		loading,
 		mutate: set_detail
 	} = useFetch(get_feed_detail, {
+		initialData: feed_state,
 		params: [
 			{
 				feed_id
@@ -128,7 +130,7 @@ export default function FeedDetail() {
 							<TbPencil className="color-primary text-18px" />
 						</Button>
 					) : (
-						<Button prefixIcon={<TbPencil />} onClick={go_doc_editor}>
+						<Button prefixIcon={<TbPencil className="color-primary text-16px" />} onClick={go_doc_editor}>
 							{t('edit.text')}
 						</Button>
 					)}
@@ -164,7 +166,7 @@ export default function FeedDetail() {
 								</Button>
 							) : (
 								<Button
-									prefixIcon={<LuHeart />}
+									prefixIcon={<LuHeart className="color-primary" />}
 									loading={collect_loading}
 									onClick={handle_collect_feed}
 								>
@@ -182,7 +184,7 @@ export default function FeedDetail() {
 		<>
 			<Header heading={detail?.title || t('detail')}>{action_btn}</Header>
 
-			{loading ? (
+			{!feed_state && loading ? (
 				<div className="flex justify-center items-center w-100% mt-40%">
 					<Loading spinning size="large" />
 				</div>
@@ -200,7 +202,7 @@ export default function FeedDetail() {
 						<div ref={rich_text_container_ref} className="rich-text-container">
 							{parse(doc_content, {
 								replace(domNode) {
-									console.log('domNode: ', domNode)
+									// console.log('domNode: ', domNode)
 									if (domNode instanceof Element && domNode.name === 'img') {
 										return <Image src={domNode.attribs.src} canPreview />
 									}

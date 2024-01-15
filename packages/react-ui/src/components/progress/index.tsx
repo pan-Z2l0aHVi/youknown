@@ -71,11 +71,7 @@ const Progress = (props: ProgressProps, propRef: ForwardedRef<HTMLDivElement>) =
 			</div>
 			{is.null(format) || (
 				<span className={`${prefixCls}-text`}>
-					<CountUp
-						start={prePercentRef.current}
-						end={percent}
-						// duration={0.2}
-					>
+					<CountUp start={prePercentRef.current} end={percent}>
 						{format}
 					</CountUp>
 					{suffix}

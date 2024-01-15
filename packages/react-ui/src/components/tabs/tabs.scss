@@ -35,6 +35,7 @@ $prefix: '#{$ui-prefix}-tabs';
 
 		&-line {
 			min-height: 32px;
+			font-weight: 500;
 			color: $text-2;
 			border-bottom: 2px solid transparent;
 
@@ -137,7 +138,7 @@ $prefix: '#{$ui-prefix}-tabs';
 					z-index: 1;
 					color: $text-1;
 					background-color: $bg-0;
-					box-shadow: 0 1px 4px rgba($color: #000, $alpha: 10%);
+					box-shadow: 0 1px 4px rgba($color: #000, $alpha: 0.1);
 				}
 
 				.#{$prefix}-tab-item-close-icon {

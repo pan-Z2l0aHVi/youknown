@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface ModalState {
+export interface ModalState {
 	preferences_modal_open: boolean
 	login_modal_open: boolean
 	open_preferences_modal: () => void

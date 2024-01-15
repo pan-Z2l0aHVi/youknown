@@ -9,7 +9,7 @@ import Sidebar from '../sidebar'
 
 export default function DesktopLayout() {
 	return (
-		<div className="flex flex-col min-h-screen">
+		<div className="flex flex-col w-fit min-w-screen min-h-screen">
 			<Banner />
 			<div className="flex-1 flex">
 				{/* 外层 relative 撑起容器高度 */}
@@ -24,7 +24,7 @@ export default function DesktopLayout() {
 						</div>
 					}
 				>
-					<div className={cls('flex-1 scrollbar-custom')}>
+					<div className={cls('flex-1')}>
 						<Outlet />
 					</div>
 				</Suspense>

@@ -7,7 +7,7 @@ import TabBar from '@/app/components/tab-bar'
 import MoreLoading from '@/components/more-loading'
 import NoMore from '@/components/no-more'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
-import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
+import { is_dark_theme_getter, useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
 import { with_api } from '@/utils/request'
 import { useInfinity } from '@youknown/react-hook/src'
 import { Button, Dialog, Drawer, Form, Loading, Motion, Space, Toast, Tooltip } from '@youknown/react-ui/src'
@@ -27,7 +27,7 @@ export default function DocList(props: DocListProps) {
 	const { space_id, filter_open, close_filter, choosing, cancel_choosing } = props
 
 	const { t } = useTranslation()
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const is_mobile = useUIStore(state => state.is_mobile)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const has_login = useUserStore(state => state.has_login)

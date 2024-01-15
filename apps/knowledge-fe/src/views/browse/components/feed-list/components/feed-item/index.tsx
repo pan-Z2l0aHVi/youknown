@@ -63,8 +63,8 @@ export default function FeedItem(props: FeedItemProps) {
 			</div>
 
 			<div className="flex-1 flex pl-36px mb-8px">
-				<div className="flex-1 w-0 min-h-108px">
-					<TransitionLink to={doc_detail_url} className="group block w-[fit-content] mb-12px">
+				<div className="flex-1 w-0">
+					<TransitionLink to={doc_detail_url} state={feed} className="group block w-[fit-content] mb-12px">
 						<div
 							className={cls(
 								'inline text-16px font-600 cursor-pointer',
@@ -77,19 +77,19 @@ export default function FeedItem(props: FeedItemProps) {
 						</div>
 					</TransitionLink>
 
-					<TransitionLink to={doc_detail_url}>
-						<div className="line-clamp-3 color-text-2 [@media(hover:hover)]-hover-color-text-3 transition-colors">
+					<TransitionLink to={doc_detail_url} state={feed}>
+						<div className="sm:line-clamp-3 <sm:line-clamp-2 color-text-2 [@media(hover:hover)]-hover-color-text-3 transition-colors">
 							{feed.summary}
 						</div>
 					</TransitionLink>
 				</div>
 
 				{feed.cover && (
-					<TransitionLink className="sm:ml-48px <sm:ml-8px" to={doc_detail_url}>
+					<TransitionLink className="sm:ml-48px <sm:ml-8px" to={doc_detail_url} state={feed}>
 						<Image
 							className={cls(
 								'b-divider b-1 b-solid rd-radius-m',
-								'sm:w-160px sm:h-108px <sm:w-80px <sm:h-54px '
+								'sm:w-160px sm:h-108px <sm:w-80px <sm:h-60px '
 							)}
 							src={feed.cover}
 							loading="lazy"
@@ -110,7 +110,7 @@ export default function FeedItem(props: FeedItemProps) {
 					</Button>
 				</Tooltip>
 				<span className={cls('min-w-24px', praised ? 'color-primary' : 'color-text-3')}>{praise_count}</span>
-				<TransitionLink to={doc_detail_url}>
+				<TransitionLink to={doc_detail_url} state={feed}>
 					<Button
 						className="color-text-3!"
 						text

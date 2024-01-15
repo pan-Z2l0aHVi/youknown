@@ -19,7 +19,7 @@ $prefix: '#{$ui-prefix}-switch';
 		left: 2px;
 		background-color: #fff;
 		border-radius: $round;
-		box-shadow: 0 1px 4px rgba($color: #000, $alpha: 20%);
+		box-shadow: 0 1px 4px rgba($color: #000, $alpha: 0.2);
 		transition: all $duration-n;
 	}
 

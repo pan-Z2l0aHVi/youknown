@@ -10,7 +10,7 @@
 	--ui-pop-bd: transparent;
 	--ui-scrollbar: 27, 27, 27;
 	--ui-text-1: #1f2329;
-	--ui-text-2: #666;
+	--ui-text-2: #646a73;
 	--ui-text-3: #999;
 	--ui-color-hover: #f5f5f4;
 	--ui-color-active: #e7e5e4;
@@ -22,9 +22,9 @@
 }
 
 .dark-theme {
-	--ui-bg-0: #101014;
-	--ui-bg-1: #232429;
-	--ui-bg-2: #18181c;
+	--ui-bg-0: #1e1e1e;
+	--ui-bg-1: #2b2b2b;
+	--ui-bg-2: #292929;
 	--ui-bg-3: #303033;
 	--ui-divider: #424248;
 	--ui-pop-bd: #424248;
@@ -34,8 +34,8 @@
 	--ui-text-3: #999;
 	--ui-color-hover: #323232;
 	--ui-color-active: #424547;
-	--ui-color-secondary-hover: #3d3d3e;
-	--ui-color-secondary-active: #444;
+	--ui-color-secondary-hover: #3f3f3f;
+	--ui-color-secondary-active: #494949;
 	--ui-color-focus: #fff;
 
 	@include meta.load-css('highlight.js/styles/github-dark.min.css');

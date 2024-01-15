@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Doc, get_doc_info, update_doc } from '@/apis/doc'
 import PicUpload from '@/components/pic-upload'
 import { DOC_TITLE_MAX_LEN } from '@/consts'
-import { useUIStore } from '@/stores'
+import { is_dark_theme_getter, useUIStore } from '@/stores'
 import { with_api } from '@/utils/request'
 import { validate_max_length, validate_required } from '@/utils/validators'
 import { useBoolean, useFetch, useUpdate } from '@youknown/react-hook/src'
@@ -21,7 +21,7 @@ interface DocOptionsModalProps {
 export default function DocOptionsModal(props: DocOptionsModalProps) {
 	const { open, hide_modal, doc_id, on_updated } = props
 	const { t } = useTranslation()
-	const is_dark_theme = useUIStore(state => state.is_dark_theme)
+	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const [cover_uploading, set_cover_uploading] = useState(false)
 	const [save_loading, { setTrue: show_save_loading, setFalse: hide_save_loading }] = useBoolean(false)
 
@@ -153,7 +153,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 					<CloseIcon onClick={hide_modal} />
 				</div>
 			}
-			footer=" " // 底部占位，不让 Loading 覆盖
+			footer="" // 底部占位，不让 Loading 覆盖
 			closeIcon={null}
 		>
 			<Loading className="w-100%!" spinning={initial_loading}>

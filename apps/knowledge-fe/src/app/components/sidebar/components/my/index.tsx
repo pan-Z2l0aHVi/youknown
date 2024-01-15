@@ -69,9 +69,9 @@ export default function My({ expand }: PersonalProps) {
 						</Dropdown.Menu>
 					}
 				>
-					<div
+					<button
 						className={cls(
-							'border-0 bg-transparent w-100% h-44px flex items-center p-4px rd-radius-m cursor-pointer select-none',
+							'border-0 bg-transparent w-100% h-44px flex items-center p-4px rd-radius-m cursor-pointer select-none custom-focus-outline',
 							'active-bg-secondary-active [@media(hover:hover)]-hover-not-active-bg-secondary-hover'
 						)}
 					>
@@ -87,7 +87,7 @@ export default function My({ expand }: PersonalProps) {
 								{has_login ? profile?.nickname : t('login.immediately')}
 							</div>
 						</Motion.Fade>
-					</div>
+					</button>
 				</Dropdown>
 			</Tooltip>
 		</>

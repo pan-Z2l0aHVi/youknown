@@ -48,7 +48,7 @@ const App = () => {
 	)
 
 	return (
-		<main className="flex bg-bg-0 color-text-1">
+		<main className="min-h-screen flex bg-bg-0 color-text-1">
 			<Button className="z-1 fixed left-8px top-8px" square onClick={toggleSidebar}>
 				<TbMenu2 />
 			</Button>
@@ -67,7 +67,7 @@ const App = () => {
 			)}
 			<div className="flex-1">
 				<div className="p-[8px_64px]">
-					<Tooltip placement="bottom" title={`切换${isDark ? '浅色' : '深色'}模式`}>
+					<Tooltip placement="bottom" title={`切换${isDark ? '亮色' : '暗色'}模式`}>
 						<Button square onClick={toggleDark}>
 							<CgDarkMode />
 						</Button>

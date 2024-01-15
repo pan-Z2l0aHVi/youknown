@@ -2,18 +2,19 @@ import { Card, Divider, Loading } from '@youknown/react-ui/src'
 
 export default () => {
 	return (
-		<div>
+		<>
 			<h1>Card</h1>
 			<Divider />
-			<Card header="Basic card" footer="Footer">
+			<Card bordered header="Basic card" footer="Footer">
 				Content
 			</Card>
 			<Divider />
-			<Card header="Header" cover={<img src="https://iph.href.lu/200x160" />}>
+			<Card bordered header="Header" cover={<img src="https://iph.href.lu/200x160" />}>
 				Content
 			</Card>
 			<Divider />
 			<Card
+				bordered
 				header={
 					<div className="color-purple p-24px">
 						<strong>Custom header</strong>
@@ -28,7 +29,7 @@ export default () => {
 				Content
 			</Card>
 			<Divider />
-			<Card bordered={false} header="No border" footer="Footer">
+			<Card header="No border" footer="Footer">
 				Content
 			</Card>
 			<Divider />
@@ -37,8 +38,11 @@ export default () => {
 			</Card>
 			<Divider />
 			<Loading spinning>
-				<Card header="Loading card">Content</Card>
+				<Card shadow header="Loading card">
+					Content
+				</Card>
 			</Loading>
-		</div>
+			<Divider />
+		</>
 	)
 }

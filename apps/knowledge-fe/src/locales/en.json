@@ -58,7 +58,7 @@
       "cancel": "Publication canceled"
     },
     "setting": "Document Settings",
-    "words_len": "Word Count",
+    "words_len": "Word count",
     "delete_tip": "Once you perform this operation, the data cannot be recovered. Are you sure you want to delete?",
     "delete": {
       "text": "Delete Document",
@@ -120,8 +120,8 @@
     "cover": "Cover: ",
     "title": "Title: ",
     "feed_setting": "Feed Settings: ",
-    "public": "Not Public",
-    "private": "Public",
+    "public": "Public",
+    "private": "Private",
     "creation_time": "Creation Date",
     "update_time": "Update Date",
     "edit_time": "Edit Date",
@@ -278,7 +278,9 @@
     "nearly_a_year": "Nearly a Year",
     "tomorrow": "Tomorrow",
     "year_date": "YYYY-MM-DD",
-    "month_date": "MM-DD"
+    "month_date": "MM-DD",
+    "create": "Creation time",
+    "update": "Update time"
   },
   "unfold": "Expand",
   "unlimited": {
@@ -303,6 +305,7 @@
   },
   "validate": {
     "required": "Required",
+    "array_required": "Choose at least one",
     "max_len": "Length cannot exceed {{max}} characters",
     "letters_and_numbers": "Can only contain letters and numbers",
     "phone": "Not a valid phone number",
