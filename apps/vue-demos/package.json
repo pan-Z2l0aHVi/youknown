@@ -6,7 +6,7 @@
   "author": "Grey",
   "license": "MIT",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.12.0"
   },
   "scripts": {
     "dev": "vite",
