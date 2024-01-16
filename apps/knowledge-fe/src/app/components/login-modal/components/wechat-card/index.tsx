@@ -20,7 +20,7 @@ export default function WeChatCard() {
 	const [loading, { setTrue: start_loading, setFalse: stop_loading }] = useBoolean(false)
 	const timer = useRef(0)
 	const { data: yd_res, run: fetch_qrcode } = useFetch(get_yd_qrcode, {
-		onBefore() {
+		async onBefore() {
 			start_loading()
 		}
 	})

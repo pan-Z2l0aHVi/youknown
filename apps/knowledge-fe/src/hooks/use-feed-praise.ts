@@ -14,9 +14,10 @@ export default function useFeedPraise(feed: Feed) {
 	const [praised, set_praised] = useState(false)
 	useEffect(() => {
 		if (profile) {
-			if (likes.some(like => like.user_id === profile.user_id)) {
-				set_praised(true)
-			}
+			const is_liked = likes.some(like => like.user_id === profile.user_id)
+			set_praised(is_liked)
+		} else {
+			set_praised(false)
 		}
 	}, [likes, profile])
 	const [praise_count, set_praise_count] = useState(likes_count)
@@ -42,7 +43,7 @@ export default function useFeedPraise(feed: Feed) {
 				feed_id
 			}
 		],
-		onBefore([{ event }]) {
+		async onBefore([{ event }]) {
 			if (event === 'like') {
 				set_praised(true)
 				set_praise_count(p => p + 1)

@@ -1,20 +1,21 @@
 import './avatar-group.scss'
 
-import { Children, cloneElement, ComponentProps, FC, HTMLAttributes, isValidElement } from 'react'
+import { FC, HTMLAttributes } from 'react'
 
 import { cls } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
-import Avatar from './'
+import { AvatarCtx } from './avatarCtx'
 
 interface AvatarGroupProps extends HTMLAttributes<HTMLElement> {
-	size?: 'small' | 'medium' | 'large'
+	size?: 'small' | 'medium' | 'large' | number
 	round?: boolean
 	overlapFrom?: 'left' | 'right'
 }
 
 const AvatarGroup: FC<AvatarGroupProps> = props => {
-	const { children, className, size = 'medium', round = true, overlapFrom = 'left', ...rest } = props
+	const { children, className, size, round = true, overlapFrom = 'left', ...rest } = props
+	// TODO: 左右层级
 	let sign = 0
 	if (overlapFrom === 'left') {
 		sign = 1
@@ -23,19 +24,11 @@ const AvatarGroup: FC<AvatarGroupProps> = props => {
 	}
 	const prefixCls = `${UI_PREFIX}-avatar-group`
 	return (
-		<div className={cls(className, prefixCls, `${prefixCls}-overlap-${overlapFrom}`)} {...rest}>
-			{Children.map(children, (child, index) =>
-				isValidElement<ComponentProps<typeof Avatar>>(child)
-					? cloneElement(child, {
-							size,
-							round,
-							style: {
-								zIndex: 99 - sign * index
-							}
-						})
-					: child
-			)}
-		</div>
+		<AvatarCtx.Provider value={{ size, round }}>
+			<div className={cls(className, prefixCls, `${prefixCls}-overlap-${overlapFrom}`)} {...rest}>
+				{children}
+			</div>
+		</AvatarCtx.Provider>
 	)
 }
 AvatarGroup.displayName = 'AvatarGroup'

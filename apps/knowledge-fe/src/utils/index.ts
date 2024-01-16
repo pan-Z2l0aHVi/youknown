@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 
-import { is, QS, storage, uuid } from '@youknown/utils/src'
+import { QS, storage, uuid } from '@youknown/utils/src'
 
 import { open_login_window } from './correspond'
 
@@ -37,10 +37,10 @@ export const format_time = (timing: number | string): string => {
 	if (date.isSame(now.subtract(2, 'day'), 'day')) {
 		return `${t('time.before_yesterday')} ${date.format(formatter)}`
 	}
-	if (date.diff(now, 'year') > 1) {
-		return date.format(`${t('time.year_date')} ${formatter}`)
+	if (date.isSame(now, 'year')) {
+		return date.format(`${t('time.month_date')} ${formatter}`)
 	}
-	return date.format(`${t('time.month_date')} ${formatter}`)
+	return date.format(`${t('time.year_date')} ${formatter}`)
 }
 
 export function format_file_size(size: number) {

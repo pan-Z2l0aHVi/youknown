@@ -26,8 +26,6 @@ export default () => {
 			<Divider />
 			<Avatar src={picSrc}>Text</Avatar>
 			<Divider />
-			<Avatar src="http://error.path.jpg" fallback={<TbPhotoX size="20px" />} />
-			<Divider />
 			<Avatar badge="99+" src={picSrc} />
 			<Divider />
 			<Avatar.Group size="small">

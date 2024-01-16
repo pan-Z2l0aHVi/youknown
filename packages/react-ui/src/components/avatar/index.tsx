@@ -1,53 +1,40 @@
 import './avatar.scss'
 
-import { ForwardedRef, forwardRef, HTMLAttributes, ReactEventHandler, ReactNode, SyntheticEvent, useState } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode, useContext } from 'react'
 
 import { cls, is } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import AvatarGroup from './avatarGroup'
+import { AvatarCtx } from './avatarCtx'
+import Image from '../image/Image'
 
 interface AvatarProps extends HTMLAttributes<HTMLElement> {
 	size?: 'small' | 'medium' | 'large' | number
 	round?: boolean
 	color?: string
 	src?: string
-	fallback?: ReactNode
 	badge?: ReactNode
-	onError?: ReactEventHandler<HTMLImageElement>
 }
 
 const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLDivElement>) => {
+	const avatarCtx = useContext(AvatarCtx)
+
 	const {
 		children,
 		className,
-		size = 'medium',
-		src,
-		round = false,
+		src = '',
+		size = avatarCtx.size ?? 'medium',
+		round = avatarCtx.round ?? false,
 		color = 'var(--ui-bg-3)',
-		fallback,
 		badge,
 		style,
-		onError,
 		...rest
 	} = props
 
 	const prefixCls = `${UI_PREFIX}-avatar`
 
-	const [error, setError] = useState<SyntheticEvent<HTMLImageElement, Event>>()
-	const imgEle = error ? (
-		fallback
-	) : (
-		<img
-			className={`${prefixCls}-img`}
-			src={src}
-			onError={err => {
-				onError?.(err)
-				setError(err)
-			}}
-			alt="Avatar"
-		/>
-	)
+	const imgEle = <Image className={`${prefixCls}-img`} src={src} alt="Avatar" />
 
 	const avatarStyle = is.number(size)
 		? {

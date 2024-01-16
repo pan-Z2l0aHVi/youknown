@@ -3,7 +3,15 @@ import { create, StateCreator } from 'zustand'
 import { persist, subscribeWithSelector } from 'zustand/middleware'
 
 import { change_i18n_lang } from '@/utils/i18n'
-import { checkDarkMode, checkMobile, delay, onDarkModeChange, onMobileChange, setRootStyle } from '@youknown/utils/src'
+import {
+	checkDarkMode,
+	checkMobile,
+	delay,
+	omit,
+	onDarkModeChange,
+	onMobileChange,
+	setRootStyle
+} from '@youknown/utils/src'
 
 export const enum THEME {
 	LIGHT = 1,
@@ -153,6 +161,13 @@ export const useUIStore = create<UIState>()(
 	subscribeWithSelector(
 		persist(ui_state_creator, {
 			name: 'ui-store-persist',
+			serialize(storage_val) {
+				const { state, version } = storage_val
+				return JSON.stringify({
+					version,
+					state: omit(state, 'is_mobile')
+				})
+			},
 			onRehydrateStorage() {
 				return state => {
 					if (!state) {
@@ -176,8 +191,7 @@ onDarkModeChange(() => {
 	}
 })
 onMobileChange(() => {
-	const { set_is_mobile } = useUIStore.getState()
-	set_is_mobile(checkMobile())
+	useUIStore.setState({ is_mobile: checkMobile() })
 })
 
 useUIStore.subscribe(state => state.primary_color, primary_color_effect)

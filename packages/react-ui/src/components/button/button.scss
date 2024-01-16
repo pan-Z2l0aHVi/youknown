@@ -30,6 +30,7 @@ $prefix: '#{$ui-prefix}-button';
 		&.#{$prefix}-circle,
 		&.#{$prefix}-square {
 			width: 24px;
+			min-width: 24px;
 		}
 	}
 
@@ -38,6 +39,7 @@ $prefix: '#{$ui-prefix}-button';
 		&.#{$prefix}-circle,
 		&.#{$prefix}-square {
 			width: 32px;
+			min-width: 32px;
 		}
 	}
 
@@ -46,6 +48,7 @@ $prefix: '#{$ui-prefix}-button';
 		&.#{$prefix}-circle,
 		&.#{$prefix}-square {
 			width: 40px;
+			min-width: 40px;
 		}
 	}
 
@@ -120,14 +123,11 @@ $prefix: '#{$ui-prefix}-button';
 	}
 
 	&-circle {
-		width: 32px;
-		min-width: 32px;
 		padding: 0;
 		border-radius: $round;
 	}
 
 	&-square {
-		width: 32px;
 		padding: 0;
 		border-radius: $radius-m;
 	}

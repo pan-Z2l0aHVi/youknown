@@ -10,7 +10,7 @@ export interface FetchOptions<T, S> {
 	loadingDelay?: number
 	refreshDeps?: DependencyList
 	params?: S
-	onBefore?(params: S): void
+	onBefore?(params: S): Promise<void | boolean>
 	onSuccess?(data: T, params: S): void
 	onError?(error: Error, params: S): void
 	onFinally?(params: S): void
@@ -35,14 +35,17 @@ export function useFetch<T, S extends any[]>(fetcher: (...args: S) => Promise<T>
 	const [loading, setLoading] = useState(false)
 	const fetchCount = useRef(0)
 
-	const run = useEvent(() => {
+	const run = useEvent(async () => {
+		const currentParams = params as S
+		const isBreak = (await onBefore?.(currentParams)) ?? false
+		if (isBreak) {
+			return
+		}
 		fetchCount.current++
 		const currentCount = fetchCount.current
 		const loadingTimer = setTimeout(() => {
 			setLoading(true)
 		}, loadingDelay)
-		const currentParams = params as S
-		onBefore?.(currentParams)
 
 		return fetcher(...currentParams)
 			.then(res => {

@@ -46,7 +46,7 @@ export default function Wallpapers() {
 	const [params, set_params] = useState<WallpaperQuery>()
 
 	const form = Form.useForm<filterState>({
-		defaultState: session_filter_state ?? {
+		defaultState: {
 			ai_art_filter: SWITCH.OFF,
 			categories: [CATE.GENERAL, CATE.ANIME, CATE.PEOPLE],
 			purity: [PURITY.SFW],
@@ -77,6 +77,11 @@ export default function Wallpapers() {
 			}
 		}
 	})
+	useEffect(() => {
+		if (session_filter_state) {
+			form.setState(session_filter_state)
+		}
+	}, [form, session_filter_state])
 
 	const update_params = useEvent(() => {
 		const state = form.getState()
@@ -115,6 +120,11 @@ export default function Wallpapers() {
 	const wallpapers_cache = useCreation(() => storage.session.get<Wallpaper[]>(WALLPAPERS_KEY) ?? [])
 	const wallpaper_page_cache = useCreation(() => storage.session.get<number>(WALLPAPER_PAGE_KEY) ?? 1)
 
+	const check_form_valid = async () => {
+		const explains_map = await form.validate()
+		return !Object.values(explains_map).flat().length
+	}
+
 	const wallpaper_fetcher = async () => {
 		const { keywords, ai_art_filter, atleast, ratios, sorting, topRange, order, categories, purity } = params!
 		const search_params: SearchWallpapersParams = {
@@ -144,17 +154,20 @@ export default function Wallpapers() {
 		initialData: wallpapers_cache,
 		initialPage: wallpaper_page_cache,
 		initialPageSize: 48,
-		manual: true,
+		ready: !!params,
 		target: loading_ref,
 		observerInit: {
 			root: null,
 			rootMargin: '0px 0px 280px 0px'
+		},
+		async onBefore() {
+			const is_valid = await check_form_valid()
+			return !is_valid
 		}
 	})
 
 	const reload_wallpapers = useEvent(async () => {
-		const explains_map = await form.validate()
-		const is_valid = !Object.values(explains_map).flat().length
+		const is_valid = await check_form_valid()
 		if (is_valid) {
 			change_page(0)
 			macroDefer(reload)
