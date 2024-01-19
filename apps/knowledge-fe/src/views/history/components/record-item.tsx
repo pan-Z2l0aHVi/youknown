@@ -54,7 +54,7 @@ export default function RecordItem(props: RecordItemProps) {
 		<>
 			<div
 				key={record.id}
-				className={cls('group flex [@media(hover:hover)]-hover-bg-hover rd-radius-l p-[0_16px]', {
+				className={cls('group flex [@media(hover:hover)]-hover-bg-hover sm:rd-radius-l p-[0_16px]', {
 					'bg-hover': menu_open || more_open
 				})}
 				onContextMenu={ctx_menu.onContextMenu}

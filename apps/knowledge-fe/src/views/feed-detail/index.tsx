@@ -8,7 +8,7 @@ import { LuHeart, LuHeartOff } from 'react-icons/lu'
 import { TbPencil } from 'react-icons/tb'
 import { useLocation, useSearchParams } from 'react-router-dom'
 
-import { Feed, get_feed_detail } from '@/apis/feed'
+import { Feed, get_feed_info } from '@/apis/feed'
 import { cancel_collect_feed, collect_feed } from '@/apis/user'
 import Header from '@/app/components/header'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
@@ -18,6 +18,7 @@ import { with_api } from '@/utils/request'
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Image, Loading, Toast } from '@youknown/react-ui/src'
 import { QS } from '@youknown/utils/src'
+import PraiseDetail from './components/praise-detail'
 
 export default function FeedDetail() {
 	const { t } = useTranslation()
@@ -34,11 +35,11 @@ export default function FeedDetail() {
 	const record_read_feed = (feed_info: Feed) => {
 		recording({
 			action: '阅读',
-			target: feed_info.author_info.nickname,
-			target_id: feed_info.author_id,
+			target: feed_info.creator.nickname,
+			target_id: feed_info.creator_id,
 			obj_type: '公开文档',
-			obj: feed_info.title,
-			obj_id: feed_info.feed_id
+			obj: feed_info.subject.title,
+			obj_id: feed_info.id
 		})
 	}
 
@@ -46,7 +47,7 @@ export default function FeedDetail() {
 		data: detail,
 		loading,
 		mutate: set_detail
-	} = useFetch(get_feed_detail, {
+	} = useFetch(get_feed_info, {
 		initialData: feed_state,
 		params: [
 			{
@@ -99,17 +100,18 @@ export default function FeedDetail() {
 		if (!detail) {
 			return
 		}
-		navigate(
-			QS.stringify({
-				base: `/library/${detail.space_id}/editor`,
-				query: {
-					doc_id: detail.feed_id
-				}
-			})
-		)
+		const doc_editor_url = QS.stringify({
+			base: `/library/${detail.subject.space_id}/editor`,
+			query: {
+				doc_id: detail.subject.doc_id
+			}
+		})
+		navigate(doc_editor_url, {
+			state: detail.subject
+		})
 	}
 
-	const doc_content = detail?.content ?? ''
+	const doc_content = detail?.subject.content ?? ''
 	const rich_text_container_ref = useRef<HTMLDivElement>(null)
 	useEffect(() => {
 		const dom = rich_text_container_ref.current
@@ -120,7 +122,7 @@ export default function FeedDetail() {
 		}
 	}, [doc_content])
 
-	const is_owner = detail?.author_id === profile?.user_id
+	const is_owner = detail?.creator_id === profile?.user_id
 	const action_btn = detail && (
 		<>
 			{is_owner ? (
@@ -182,7 +184,7 @@ export default function FeedDetail() {
 
 	return (
 		<>
-			<Header heading={detail?.title || t('detail')}>{action_btn}</Header>
+			<Header heading={detail?.subject.title || t('detail')}>{action_btn}</Header>
 
 			{!feed_state && loading ? (
 				<div className="flex justify-center items-center w-100% mt-40%">
@@ -191,10 +193,10 @@ export default function FeedDetail() {
 			) : (
 				<div className="flex sm:p-24px <sm:p-16px">
 					<div className="sm:w-720px sm:m-auto <sm:w-100%">
-						{detail?.cover && (
+						{detail?.subject.cover && (
 							<Image
 								className="w-100% max-h-30vh min-h-40px rd-radius-m mb-16px"
-								src={detail.cover}
+								src={detail.subject.cover}
 								canPreview
 								alt="Cover"
 							/>
@@ -212,6 +214,8 @@ export default function FeedDetail() {
 					</div>
 				</div>
 			)}
+
+			{detail && <PraiseDetail feed={detail} />}
 		</>
 	)
 }

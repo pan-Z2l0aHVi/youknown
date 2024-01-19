@@ -13,10 +13,10 @@ export default function Overview(props: OverviewProps) {
 	const { t } = useTranslation()
 	return (
 		<>
-			{selection.cover ? (
+			{selection.subject.cover ? (
 				<Image
 					className="min-w-144px w-144px h-144px rd-radius-m shadow-shadow-l b-1 b-solid b-divider"
-					src={selection.cover}
+					src={selection.subject.cover}
 					canPreview
 					alt="Cover"
 				/>
@@ -25,10 +25,10 @@ export default function Overview(props: OverviewProps) {
 					<span className="color-text-3 text-16px font-600">{t('cover.none')}</span>
 				</div>
 			)}
-			<div className="w-100% mt-16px line-clamp-2 text-center text-16px font-600">{selection.title}</div>
+			<div className="w-100% mt-16px line-clamp-2 text-center text-16px font-600">{selection.subject.title}</div>
 			<div className="flex items-center justify-center w-100% mt-16px">
-				<Avatar size="small" round src={selection.author_info.avatar} />
-				<span className="ml-8px truncate color-text-2">{selection.author_info.nickname}</span>
+				<Avatar size="small" round src={selection.creator.avatar} />
+				<span className="ml-8px truncate color-text-2">{selection.creator.nickname}</span>
 			</div>
 			<div className="flex items-center mt-16px text-center color-text-3 text-12px">
 				<RiHistoryFill className="mr-4px text-14px" />

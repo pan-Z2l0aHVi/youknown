@@ -8,6 +8,7 @@ export interface Doc {
 	summary: string
 	title: string
 	cover: string
+	space_id: string
 	author_id: string
 	author_info: Profile
 	public: boolean

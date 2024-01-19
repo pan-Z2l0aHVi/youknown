@@ -214,7 +214,8 @@
   "praise": {
     "text": "点赞",
     "ok": "已点赞",
-    "cancel": "取消点赞"
+    "cancel": "取消点赞",
+    "people_num": "人点赞"
   },
   "profile": {
     "update": "个人资料已更新",

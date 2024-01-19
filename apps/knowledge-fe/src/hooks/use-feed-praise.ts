@@ -5,7 +5,7 @@ import { useModalStore, useRecordStore, useUserStore } from '@/stores'
 import { useFetch } from '@youknown/react-hook/src'
 
 export default function useFeedPraise(feed: Feed) {
-	const { feed_id, likes, likes_count } = feed
+	const { id, likes } = feed
 	const has_login = useUserStore(state => state.has_login)
 	const profile = useUserStore(state => state.profile)
 	const recording = useRecordStore(state => state.recording)
@@ -20,36 +20,60 @@ export default function useFeedPraise(feed: Feed) {
 			set_praised(false)
 		}
 	}, [likes, profile])
-	const [praise_count, set_praise_count] = useState(likes_count)
+
+	const [praise_list, set_praise_list] = useState(likes)
 	useEffect(() => {
-		set_praise_count(likes_count)
-	}, [likes_count])
+		set_praise_list(likes)
+	}, [likes])
 
 	const record_praise_feed = (action: string) => {
 		recording({
 			action,
-			target: feed.author_info.nickname,
-			target_id: feed.author_id,
+			target: feed.creator.nickname,
+			target_id: feed.creator_id,
 			obj_type: '公开文档',
-			obj: feed.title,
-			obj_id: feed_id
+			obj: feed.subject.title,
+			obj_id: id
 		})
 	}
+
+	const increase_praise = () => {
+		if (!profile) {
+			return
+		}
+		set_praised(true)
+		set_praise_list(p => [
+			{
+				user_id: profile.user_id,
+				nickname: profile.nickname,
+				avatar: profile.avatar,
+				creation_time: new Date().toISOString()
+			},
+			...p
+		])
+	}
+
+	const reduce_praise = () => {
+		if (!profile) {
+			return
+		}
+		set_praised(false)
+		set_praise_list(p => p.filter(item => item.user_id !== profile.user_id))
+	}
+
 	const { run: do_praise } = useFetch(praise_feed, {
 		manual: true,
 		params: [
 			{
 				event: praised ? 'unlike' : 'like',
-				feed_id
+				feed_id: id
 			}
 		],
 		async onBefore([{ event }]) {
 			if (event === 'like') {
-				set_praised(true)
-				set_praise_count(p => p + 1)
+				increase_praise()
 			} else if (event === 'unlike') {
-				set_praised(false)
-				set_praise_count(p => p - 1)
+				reduce_praise()
 			}
 		},
 		onSuccess(_, [{ event }]) {
@@ -62,11 +86,9 @@ export default function useFeedPraise(feed: Feed) {
 		onError(error, [{ event }]) {
 			console.error('error: ', error)
 			if (event === 'like') {
-				set_praised(false)
-				set_praise_count(p => p - 1)
+				reduce_praise()
 			} else if (event === 'unlike') {
-				set_praised(true)
-				set_praise_count(p => p + 1)
+				increase_praise()
 			}
 		}
 	})
@@ -79,5 +101,10 @@ export default function useFeedPraise(feed: Feed) {
 		do_praise()
 	}
 
-	return { praise_count, praised, toggle_praise }
+	return {
+		praise_list,
+		praise_count: praise_list.length,
+		praised,
+		toggle_praise
+	}
 }

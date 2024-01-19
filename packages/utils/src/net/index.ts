@@ -10,7 +10,6 @@ export interface Configure extends RequestInit {
 	payload?: any
 	timeout?: number
 	responseType?: 'json' | 'text' | 'blob' | 'formData' | 'arrayBuffer'
-	custom?: Record<string, any>
 	[key: string]: any
 }
 export interface Request {

@@ -58,7 +58,7 @@ export default function FeedList(props: FeedProps) {
 	return (
 		<div className="flex-1 max-w-960px">
 			{feed_list?.map(feed => {
-				return <FeedItem key={feed.feed_id} feed={feed} />
+				return <FeedItem key={feed.id} feed={feed} />
 			})}
 			{no_more ? <NoMore /> : <MoreLoading ref={loading_ref} />}
 		</div>

@@ -16,7 +16,8 @@ interface FeedItemProps {
 }
 export default function FeedItem(props: FeedItemProps) {
 	const { feed } = props
-	const { feed_id } = feed
+	const { id, subject } = feed
+	const { title, cover, summary } = subject
 	const { t } = useTranslation()
 	const navigate = useTransitionNavigate()
 	const { praise_count, toggle_praise, praised } = useFeedPraise(feed)
@@ -26,10 +27,10 @@ export default function FeedItem(props: FeedItemProps) {
 			QS.stringify({
 				base: '/browse/feed-detail',
 				query: {
-					feed_id
+					feed_id: id
 				}
 			}),
-		[feed_id]
+		[id]
 	)
 
 	const go_user_center = () => {
@@ -37,26 +38,26 @@ export default function FeedItem(props: FeedItemProps) {
 			QS.stringify({
 				base: '/user-center',
 				query: {
-					target_user_id: feed.author_id
+					target_user_id: feed.creator_id
 				}
 			})
 		)
 	}
 
 	return (
-		<div key={feed.feed_id} className="b-b-divider b-b b-b-solid mb-32px">
+		<div key={feed.id} className="b-b-divider b-b b-b-solid mb-32px">
 			<div className="flex items-center mb-16px">
 				<Avatar
 					className=" cursor-pointer"
 					size="small"
 					round
-					src={feed.author_info.avatar}
+					src={feed.creator.avatar}
 					onClick={go_user_center}
 				/>
 
 				<div className="flex items-center">
 					<div className="ml-12px color-text-2 cursor-pointer" onClick={go_user_center}>
-						{feed.author_info.nickname}
+						{feed.creator.nickname}
 					</div>
 					<div className="ml-8px color-text-3 text-12px">{format_time(feed.update_time)}</div>
 				</div>
@@ -73,25 +74,25 @@ export default function FeedItem(props: FeedItemProps) {
 								'[@media(hover:hover)]-group-hover-bg-left-bottom [@media(hover:hover)]-group-hover-bg-[length:100%_2px]'
 							)}
 						>
-							{feed.title}
+							{title}
 						</div>
 					</TransitionLink>
 
 					<TransitionLink to={doc_detail_url} state={feed}>
 						<div className="sm:line-clamp-3 <sm:line-clamp-2 color-text-2 [@media(hover:hover)]-hover-color-text-3 transition-colors">
-							{feed.summary}
+							{summary}
 						</div>
 					</TransitionLink>
 				</div>
 
-				{feed.cover && (
+				{cover && (
 					<TransitionLink className="sm:ml-48px <sm:ml-8px" to={doc_detail_url} state={feed}>
 						<Image
 							className={cls(
 								'b-divider b-1 b-solid rd-radius-m',
 								'sm:w-160px sm:h-108px <sm:w-80px <sm:h-60px '
 							)}
-							src={feed.cover}
+							src={cover}
 							loading="lazy"
 							alt="Cover"
 						/>

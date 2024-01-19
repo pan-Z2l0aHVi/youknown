@@ -4,8 +4,7 @@ import { GoInbox } from 'react-icons/go'
 
 import { get_collected_feed_list, get_collected_wallpaper_list, get_followed_users } from '@/apis/user'
 import Header from '@/app/components/header'
-import TabBar from '@/app/components/tab-bar'
-import { useModalStore, useUIStore, useUserStore } from '@/stores'
+import { useModalStore, useUserStore } from '@/stores'
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Collapse, Loading } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
@@ -42,11 +41,11 @@ function FeedCollapsePanel() {
 		>
 			{feed_list?.map(feed => (
 				<FeedCard
-					key={feed.feed_id}
+					key={feed.id}
 					className="mr-16px mb-16px"
 					feed={feed}
 					on_removed={() => {
-						set_feed_list(p => p?.filter(item => item.feed_id !== feed.feed_id))
+						set_feed_list(p => p?.filter(item => item.id !== feed.id))
 					}}
 				/>
 			))}

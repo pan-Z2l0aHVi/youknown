@@ -27,14 +27,14 @@ export default function FeedCard(props: FeedCardProps) {
 		navigate(
 			QS.stringify({
 				base: '/browse/feed-detail',
-				query: { feed_id: feed.feed_id }
+				query: { feed_id: feed.id }
 			})
 		)
 	}
 
 	const handle_cancel_collect_feed = async () => {
 		const [err] = await with_api(cancel_collect_feed)({
-			feed_id: feed.feed_id
+			feed_id: feed.id
 		})
 		if (err) {
 			return
@@ -84,19 +84,19 @@ export default function FeedCard(props: FeedCardProps) {
 				onClick={go_feed_detail}
 				onContextMenu={ctx_menu.onContextMenu}
 			>
-				<Image className="w-160px h-100%" loading="lazy" src={feed.cover} alt="Cover" />
+				<Image className="w-160px h-100%" loading="lazy" src={feed.subject.cover} alt="Cover" />
 				<div className="flex-1 flex flex-col justify-between w-0 h-100% p-[16px]">
 					<div>
 						<div className="flex items-center">
-							<div className="flex-1 line-clamp-1 text-16px font-700">{feed.title}</div>
+							<div className="flex-1 line-clamp-1 text-16px font-700">{feed.subject.title}</div>
 							{more}
 						</div>
-						<div className="truncate color-text-2 mt-4px">{feed.summary}</div>
+						<div className="truncate color-text-2 mt-4px">{feed.subject.summary}</div>
 					</div>
 					<div className="p-[4px_8px] line-clamp-1 text-12px color-text-3 whitespace-nowrap bg-bg-2 rd-radius-m">
 						<div className="flex items-center w-max max-w-100%">
 							<TbUser className="mr-2px" />
-							<div className="flex-1 truncate">{feed.author_info.nickname}</div>
+							<div className="flex-1 truncate">{feed.creator.nickname}</div>
 							<RiHistoryFill className="ml-8px mr-2px" />
 							{format_time(feed.update_time)}
 						</div>

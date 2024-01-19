@@ -214,7 +214,8 @@
   "praise": {
     "text": "Like",
     "ok": "Liked",
-    "cancel": "Unlike"
+    "cancel": "Unlike",
+    "people_num": "people like it"
   },
   "profile": {
     "update": "Profile updated",
