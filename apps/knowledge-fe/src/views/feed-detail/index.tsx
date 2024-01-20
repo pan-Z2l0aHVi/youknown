@@ -13,12 +13,13 @@ import { cancel_collect_feed, collect_feed } from '@/apis/user'
 import Header from '@/app/components/header'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
-import { initHlsLangs } from '@/utils'
+import { format_time, initHlsLangs } from '@/utils'
 import { with_api } from '@/utils/request'
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Image, Loading, Toast } from '@youknown/react-ui/src'
 import { QS } from '@youknown/utils/src'
-import PraiseDetail from './components/praise-detail'
+
+import LikeDetail from './components/like-detail'
 
 export default function FeedDetail() {
 	const { t } = useTranslation()
@@ -215,7 +216,16 @@ export default function FeedDetail() {
 				</div>
 			)}
 
-			{detail && <PraiseDetail feed={detail} />}
+			{detail && <LikeDetail feed={detail} />}
+
+			{detail && (
+				<div className="flex flex-wrap items-center justify-center whitespace-pre-wrap color-text-3 mt-32px">
+					<span>{t('author')}</span>
+					<span className="max-w-120px truncate mr-24px color-text-2">{detail.creator.nickname}</span>
+					<span>{t('last_update_at')}</span>
+					<span className="color-text-2">{format_time(detail.update_time)}</span>
+				</div>
+			)}
 		</>
 	)
 }

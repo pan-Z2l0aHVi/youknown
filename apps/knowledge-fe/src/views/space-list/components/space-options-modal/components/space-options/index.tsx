@@ -6,7 +6,7 @@ import { validate_max_length, validate_required } from '@/utils/validators'
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Form, Input, Loading, Space } from '@youknown/react-ui/src'
 
-const SPACE_NAME_MAX_LEN = 15
+const SPACE_NAME_MAX_LEN = 20
 const SPACE_DESC_MAX_LEN = 120
 
 interface SpaceOptionsProps {

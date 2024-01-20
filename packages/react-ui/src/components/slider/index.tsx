@@ -11,7 +11,7 @@ import {
 	useState
 } from 'react'
 
-import { useBoolean, useComposeRef, useControllable, useEvent, useLatestRef, useMount } from '@youknown/react-hook/src'
+import { useBoolean, useComposeRef, useControllable, useEvent, useLatestRef } from '@youknown/react-hook/src'
 import { cls, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
@@ -57,23 +57,65 @@ const Slider = (props: SliderProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const trackRef = useRef<HTMLDivElement>(null)
 	const ref = useComposeRef(trackRef, propRef)
 
-	const onDragEvents = () => {
-		document.addEventListener('mousemove', handleMousemove)
-		document.addEventListener('mouseup', handleMouseup, { once: true })
-	}
-
-	const offDragEvents = () => {
-		document.removeEventListener('mousemove', handleMousemove)
-		document.removeEventListener('mouseup', handleMouseup)
-	}
-
-	const handleMousedown = () => {
+	const handleMousedown = useEvent(() => {
 		if (disabled) {
 			return
 		}
+		const handleMousemove = (event: MouseEvent) => {
+			if (!draggingRef.current) return
+			if (vertical) {
+				updateBottomByClientY(event.clientY)
+			} else {
+				updateLeftByClientX(event.clientX)
+			}
+		}
+		const onMouseEvents = () => {
+			document.addEventListener('mousemove', handleMousemove)
+			document.addEventListener('mouseup', handleMouseup, { once: true })
+		}
+		const offMouseEvents = () => {
+			document.removeEventListener('mousemove', handleMousemove)
+			document.removeEventListener('mouseup', handleMouseup)
+		}
+		const handleMouseup = () => {
+			stop_drag()
+			offMouseEvents()
+		}
 		start_drag()
-		onDragEvents()
-	}
+		onMouseEvents()
+	})
+
+	const handleTouchStart = useEvent((event: React.TouchEvent) => {
+		if (disabled) return
+		if (event.touches.length !== 1) return
+
+		const handleTouchmove = (event: TouchEvent) => {
+			if (!draggingRef.current) return
+			if (event.touches.length !== 1) return
+			const [touch] = event.touches
+			if (vertical) {
+				updateBottomByClientY(touch.clientY)
+			} else {
+				updateLeftByClientX(touch.clientX)
+			}
+		}
+		const onTouchEvents = () => {
+			document.addEventListener('touchmove', handleTouchmove)
+			document.addEventListener('touchend', handleTouchStop, { once: true })
+			document.addEventListener('touchcancel', handleTouchStop, { once: true })
+		}
+		const offTouchEvents = () => {
+			document.removeEventListener('touchmove', handleTouchmove)
+			document.removeEventListener('touchend', handleTouchStop)
+			document.removeEventListener('touchcancel', handleTouchStop)
+		}
+		const handleTouchStop = () => {
+			stop_drag()
+			offTouchEvents()
+		}
+		start_drag()
+		onTouchEvents()
+	})
 
 	const updateLeft = useEvent((percent: number) => {
 		if (percent < 0) {
@@ -123,21 +165,6 @@ const Slider = (props: SliderProps, propRef: ForwardedRef<HTMLDivElement>) => {
 		const offsetY = clientY - y
 
 		updateBottom(1 - offsetY / height)
-	}
-
-	const handleMousemove = (event: MouseEvent) => {
-		if (!draggingRef.current) return
-
-		if (vertical) {
-			updateBottomByClientY(event.clientY)
-		} else {
-			updateLeftByClientX(event.clientX)
-		}
-	}
-
-	const handleMouseup = () => {
-		stop_drag()
-		offDragEvents()
 	}
 
 	const handleClick: MouseEventHandler<HTMLDivElement> = event => {
@@ -209,6 +236,7 @@ const Slider = (props: SliderProps, propRef: ForwardedRef<HTMLDivElement>) => {
 					className={cls(`${prefixCls}-handle`)}
 					style={handleStyle}
 					onMouseDown={handleMousedown}
+					onTouchStart={handleTouchStart}
 					onKeyDown={handleKeydown}
 				></button>
 			</Tooltip>

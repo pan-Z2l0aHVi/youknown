@@ -49,12 +49,12 @@ export const get_feed_info = (params: GetFeedInfoParams) =>
 		params
 	})
 
-export interface PraiseFeedPayload {
+export interface LikeFeedPayload {
 	event: 'like' | 'unlike'
 	feed_id: string
 }
-export const praise_feed = (payload: PraiseFeedPayload) =>
-	net.fetch('/proxy/feed/praise', {
+export const like_feed = (payload: LikeFeedPayload) =>
+	net.fetch('/proxy/feed/like', {
 		method: 'post',
 		payload
 	})

@@ -20,6 +20,7 @@ $prefix: '#{$ui-prefix}-tabs';
 		display: flex;
 		align-items: center;
 		padding: 4px 0;
+		white-space: nowrap;
 
 		&-close-icon {
 			margin-left: 4px;

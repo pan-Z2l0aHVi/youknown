@@ -211,11 +211,11 @@
     "history": "Select from history",
     "search_history": "Search history"
   },
-  "praise": {
+  "like": {
     "text": "Like",
     "ok": "Liked",
     "cancel": "Unlike",
-    "people_num": "people like it"
+    "people_num": "People like it"
   },
   "profile": {
     "update": "Profile updated",
@@ -327,5 +327,7 @@
     "library": "Library",
     "wallpaper": "Wallpaper",
     "mine": "Mine"
-  }
+  },
+  "author": "Author: ",
+  "last_update_at": "Last updated at: "
 }

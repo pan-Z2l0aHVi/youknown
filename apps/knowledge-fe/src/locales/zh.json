@@ -211,7 +211,7 @@
     "history": "请选择历史",
     "search_history": "搜历史记录"
   },
-  "praise": {
+  "like": {
     "text": "点赞",
     "ok": "已点赞",
     "cancel": "取消点赞",
@@ -327,5 +327,7 @@
     "library": "知识库",
     "wallpaper": "壁纸",
     "mine": "我"
-  }
+  },
+  "author": "作者：",
+  "last_update_at": "最后更新于："
 }

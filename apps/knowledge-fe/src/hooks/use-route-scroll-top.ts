@@ -1,9 +1,14 @@
 import { useLayoutEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
+const EXCLUDE = ['/wallpapers']
+
 export default function useRouteScrollTop() {
 	const { pathname } = useLocation()
 	useLayoutEffect(() => {
+		if (EXCLUDE.includes(pathname)) {
+			return
+		}
 		window.scrollTo({
 			top: 0,
 			left: 0,

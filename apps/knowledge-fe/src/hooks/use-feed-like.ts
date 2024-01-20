@@ -1,32 +1,32 @@
 import { useEffect, useState } from 'react'
 
-import { Feed, praise_feed } from '@/apis/feed'
+import { Feed, like_feed } from '@/apis/feed'
 import { useModalStore, useRecordStore, useUserStore } from '@/stores'
 import { useFetch } from '@youknown/react-hook/src'
 
-export default function useFeedPraise(feed: Feed) {
+export default function useFeedLike(feed: Feed) {
 	const { id, likes } = feed
 	const has_login = useUserStore(state => state.has_login)
 	const profile = useUserStore(state => state.profile)
 	const recording = useRecordStore(state => state.recording)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 
-	const [praised, set_praised] = useState(false)
+	const [liked, set_liked] = useState(false)
 	useEffect(() => {
 		if (profile) {
 			const is_liked = likes.some(like => like.user_id === profile.user_id)
-			set_praised(is_liked)
+			set_liked(is_liked)
 		} else {
-			set_praised(false)
+			set_liked(false)
 		}
 	}, [likes, profile])
 
-	const [praise_list, set_praise_list] = useState(likes)
+	const [like_list, set_like_list] = useState(likes)
 	useEffect(() => {
-		set_praise_list(likes)
+		set_like_list(likes)
 	}, [likes])
 
-	const record_praise_feed = (action: string) => {
+	const record_like_feed = (action: string) => {
 		recording({
 			action,
 			target: feed.creator.nickname,
@@ -37,12 +37,12 @@ export default function useFeedPraise(feed: Feed) {
 		})
 	}
 
-	const increase_praise = () => {
+	const increase_likes = () => {
 		if (!profile) {
 			return
 		}
-		set_praised(true)
-		set_praise_list(p => [
+		set_liked(true)
+		set_like_list(p => [
 			{
 				user_id: profile.user_id,
 				nickname: profile.nickname,
@@ -53,58 +53,58 @@ export default function useFeedPraise(feed: Feed) {
 		])
 	}
 
-	const reduce_praise = () => {
+	const reduce_likes = () => {
 		if (!profile) {
 			return
 		}
-		set_praised(false)
-		set_praise_list(p => p.filter(item => item.user_id !== profile.user_id))
+		set_liked(false)
+		set_like_list(p => p.filter(item => item.user_id !== profile.user_id))
 	}
 
-	const { run: do_praise } = useFetch(praise_feed, {
+	const { run: do_like_or_dislike } = useFetch(like_feed, {
 		manual: true,
 		params: [
 			{
-				event: praised ? 'unlike' : 'like',
+				event: liked ? 'unlike' : 'like',
 				feed_id: id
 			}
 		],
 		async onBefore([{ event }]) {
 			if (event === 'like') {
-				increase_praise()
+				increase_likes()
 			} else if (event === 'unlike') {
-				reduce_praise()
+				reduce_likes()
 			}
 		},
 		onSuccess(_, [{ event }]) {
 			if (event === 'like') {
-				record_praise_feed('点赞')
+				record_like_feed('点赞')
 			} else if (event === 'unlike') {
-				record_praise_feed('取消点赞')
+				record_like_feed('取消点赞')
 			}
 		},
 		onError(error, [{ event }]) {
 			console.error('error: ', error)
 			if (event === 'like') {
-				reduce_praise()
+				reduce_likes()
 			} else if (event === 'unlike') {
-				increase_praise()
+				increase_likes()
 			}
 		}
 	})
 
-	const toggle_praise = () => {
+	const toggle_like = () => {
 		if (!has_login) {
 			open_login_modal()
 			return
 		}
-		do_praise()
+		do_like_or_dislike()
 	}
 
 	return {
-		praise_list,
-		praise_count: praise_list.length,
-		praised,
-		toggle_praise
+		like_list,
+		like_count: like_list.length,
+		liked,
+		toggle_like
 	}
 }

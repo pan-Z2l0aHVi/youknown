@@ -1,6 +1,6 @@
 const { t } = await import('i18next')
 import { createElement, lazy, ReactNode } from 'react'
-import { TbBook2, TbFolderHeart, TbHistory, TbIcons, TbVersions } from 'react-icons/tb'
+import { TbBook2, TbFolderHeart, TbHistory, TbSmartHome, TbVersions } from 'react-icons/tb'
 import { Navigate } from 'react-router-dom'
 
 export interface RouteItem {
@@ -18,7 +18,7 @@ export const routes: RouteItem[] = [
 		path: 'browse',
 		meta: {
 			title: () => t('page.title.browse'),
-			icon: <TbIcons />
+			icon: <TbSmartHome />
 		},
 		children: [
 			{

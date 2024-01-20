@@ -1,5 +1,5 @@
 import copy from 'copy-to-clipboard'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FiEdit3 } from 'react-icons/fi'
 import { GoCheck } from 'react-icons/go'
@@ -15,7 +15,7 @@ import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { is_dark_theme_getter, useModalStore, useUIStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
 import { useBoolean } from '@youknown/react-hook/src'
-import { ContextMenu, Dialog, Dropdown, Motion, Toast } from '@youknown/react-ui/src'
+import { ContextMenu, Dialog, Dropdown, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
 
 interface DocCardProps {
@@ -128,35 +128,26 @@ export default function DocCard(props: DocCardProps) {
 		)
 	}
 
-	const container_ref = useRef(null)
 	const footer = (
-		<Motion.Slide
-			in={!choosing}
-			appear={false}
-			container={container_ref.current}
-			direction="up"
-			mountOnEnter
-			unmountOnExit
-		>
-			<div className="flex items-center justify-between p-12px bg-bg-1 b-t-divider b-t-1 b-t-solid cursor-default">
-				<div className="flex items-center color-text-3">
-					<RiHistoryFill className="mr-4px text-14px" />
-					<span className="text-12px">{format_time(info.update_time)}</span>
-				</div>
+		<div className="flex items-center justify-between min-h-46px p-12px bg-bg-1 b-t-divider b-t-1 b-t-solid cursor-default">
+			<div className="flex items-center color-text-3">
+				<RiHistoryFill className="mr-4px text-14px" />
+				<span className="text-12px">{format_time(info.update_time)}</span>
+			</div>
 
+			{!choosing && (
 				<Dropdown trigger="click" content={get_dropdown_menu()} onOpenChange={set_more_open}>
 					<More active={more_open} />
 				</Dropdown>
-			</div>
-		</Motion.Slide>
+			)}
+		</div>
 	)
 	return (
 		<>
 			<div
-				ref={container_ref}
 				className={cls(
 					'relative flex flex-col h-224px b-1 b-solid b-divider rd-radius-l',
-					'bg-bg-1 bg-cover bg-center cursor-pointer overflow-hidden select-none',
+					'cursor-pointer overflow-hidden select-none',
 					selected
 						? 'b-primary shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]'
 						: '[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]',
@@ -165,7 +156,6 @@ export default function DocCard(props: DocCardProps) {
 							menu_open || more_open
 					}
 				)}
-				style={{ backgroundImage: `url("${info.cover}")` }}
 				onContextMenu={event => {
 					if (choosing) return
 					ctx_menu.onContextMenu(event)
@@ -173,7 +163,7 @@ export default function DocCard(props: DocCardProps) {
 			>
 				{info.public && (
 					<div
-						className="absolute top-0 left-16px w-20px h-24px bg-primary text-center"
+						className="absolute top-0 left-12px w-20px h-24px bg-primary text-center"
 						style={{ clipPath: 'polygon(0% 0%, 100% 0, 100% 100%, 50% 75%, 0% 100%)' }}
 					>
 						<TbWorld className="color-#fff text-16px mt-1px" />
@@ -190,14 +180,15 @@ export default function DocCard(props: DocCardProps) {
 					</div>
 				)}
 
-				<div className="flex-1 pt-32px" onClick={select_doc}>
-					<div
-						className={cls(
-							'p-[0_8px_0_12px] text-16px font-600 select-none',
-							is_dark_theme ? 'text-shadow-[0px_0px_4px_#000]' : 'text-shadow-[0px_0px_4px_#fff]'
-						)}
-					>
-						{info.title}
+				<div
+					className="flex-1 flex flex-col justify-end bg-cover bg-center"
+					style={{ backgroundImage: `url("${info.cover}")` }}
+					onClick={select_doc}
+				>
+					<div className="flex items-end p-[16px_8px_8px_12px] bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.8)]">
+						<span className="font-600 color-#fff text-shadow-[0px_0px_4px_#000] select-none">
+							{info.title}
+						</span>
 					</div>
 				</div>
 

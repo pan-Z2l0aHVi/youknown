@@ -35,7 +35,7 @@ function FeedCollapsePanel() {
 	return (
 		<Loading
 			spinning={loading}
-			className={cls('w-100%! min-h-120px flex items-center flex-wrap p-[16px_0]', {
+			className={cls('w-100%! min-h-178px flex items-center flex-wrap p-[16px_0]', {
 				'justify-center': loading || empty_visible
 			})}
 		>
@@ -61,7 +61,7 @@ function UserCollapsePanel() {
 	return (
 		<Loading
 			spinning={loading}
-			className={cls('w-100%! min-h-120px flex items-center flex-wrap p-[16px_0]', {
+			className={cls('w-100%! min-h-204px flex items-center flex-wrap p-[16px_0]', {
 				'justify-center': loading || empty_visible
 			})}
 		>
@@ -87,7 +87,7 @@ function WallpaperCollapsePanel() {
 	return (
 		<Loading
 			spinning={loading}
-			className={cls('w-100%! min-h-120px flex items-center flex-wrap p-[16px_0] ml--8px mr--8px', {
+			className={cls('w-100%! min-h-228px flex items-center flex-wrap p-[16px_0] ml--8px mr--8px', {
 				'justify-center': loading || empty_visible
 			})}
 		>

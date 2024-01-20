@@ -5,7 +5,7 @@ import { FiArrowRightCircle } from 'react-icons/fi'
 
 import { Feed } from '@/apis/feed'
 import TransitionLink from '@/components/transition-link'
-import useFeedPraise from '@/hooks/use-feed-praise'
+import useFeedLike from '@/hooks/use-feed-like'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
 import { format_time } from '@/utils'
 import { Avatar, Button, Image, Tooltip } from '@youknown/react-ui/src'
@@ -20,7 +20,7 @@ export default function FeedItem(props: FeedItemProps) {
 	const { title, cover, summary } = subject
 	const { t } = useTranslation()
 	const navigate = useTransitionNavigate()
-	const { praise_count, toggle_praise, praised } = useFeedPraise(feed)
+	const { like_count, toggle_like, liked } = useFeedLike(feed)
 
 	const doc_detail_url = useMemo(
 		() =>
@@ -101,16 +101,16 @@ export default function FeedItem(props: FeedItemProps) {
 			</div>
 
 			<div className="flex items-center pl-28px mb-16px">
-				<Tooltip title={praised ? t('praise.ok') : t('praise.text')} placement="bottom">
-					<Button text circle onClick={toggle_praise}>
-						{praised ? (
+				<Tooltip title={liked ? t('like.ok') : t('like.text')} placement="bottom">
+					<Button text circle onClick={toggle_like}>
+						{liked ? (
 							<FaThumbsUp className="text-16px color-primary" />
 						) : (
 							<FaRegThumbsUp className="text-16px color-primary" />
 						)}
 					</Button>
 				</Tooltip>
-				<span className={cls('min-w-24px', praised ? 'color-primary' : 'color-text-3')}>{praise_count}</span>
+				<span className={cls('min-w-24px', liked ? 'color-primary' : 'color-text-3')}>{like_count}</span>
 				<TransitionLink to={doc_detail_url} state={feed}>
 					<Button
 						className="color-text-3!"

@@ -5,9 +5,9 @@ import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode, useContext } from 
 import { cls, is } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
-import AvatarGroup from './avatarGroup'
-import { AvatarCtx } from './avatarCtx'
 import Image from '../image/Image'
+import { AvatarCtx } from './avatarCtx'
+import AvatarGroup from './avatarGroup'
 
 interface AvatarProps extends HTMLAttributes<HTMLElement> {
 	size?: 'small' | 'medium' | 'large' | number
