@@ -29,7 +29,7 @@ export interface GetFeedListParams {
 	page: number
 	page_size: number
 	keywords?: string
-	sort_by?: 'creation_time' | 'update_time'
+	sort_by?: 'update_time'
 	sort_type?: 'desc' | 'asc'
 	author_id?: string
 }

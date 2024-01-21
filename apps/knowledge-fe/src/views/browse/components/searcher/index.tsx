@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useTransition } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CgSpinner } from 'react-icons/cg'
 import { GoInbox } from 'react-icons/go'
@@ -23,7 +23,6 @@ export default function Searcher(props: SearcherProps) {
 	const { open = false, on_close } = props
 
 	const { t } = useTranslation()
-	const [, start_transition] = useTransition()
 	const navigate = useTransitionNavigate()
 	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const [keywords, set_keywords] = useState('')
@@ -52,9 +51,8 @@ export default function Searcher(props: SearcherProps) {
 		reset,
 		mutate: set_result
 	} = useInfinity(fetcher, {
-		loadingDelay: 200,
 		initialPageSize: 10,
-		ready: has_keywords,
+		manual: true,
 		target: loading_ref,
 		observerInit: {
 			root: list_ref.current
@@ -75,9 +73,7 @@ export default function Searcher(props: SearcherProps) {
 
 	useEffect(() => {
 		if (keywords.trim()) {
-			start_transition(() => {
-				reload()
-			})
+			reload()
 		} else {
 			set_selection(null)
 			reset()
