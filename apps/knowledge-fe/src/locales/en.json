@@ -329,5 +329,8 @@
     "mine": "Mine"
   },
   "author": "Author: ",
-  "last_update_at": "Last updated at: "
+  "last_update_at": "Last updated at: ",
+  "route_error": "The page is wrong!",
+  "reload&retry": "Reload and retry",
+  "return_homepage": "Back to homepage"
 }

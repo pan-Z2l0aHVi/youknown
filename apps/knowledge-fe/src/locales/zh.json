@@ -251,7 +251,7 @@
     "hue": "强调色",
     "theme": "主题",
     "language": "语言",
-    "system": "系统默认",
+    "system": "跟随系统",
     "light": "亮色",
     "dark": "暗色"
   },
@@ -329,5 +329,8 @@
     "mine": "我"
   },
   "author": "作者：",
-  "last_update_at": "最后更新于："
+  "last_update_at": "最后更新于：",
+  "route_error": "页面出错啦！",
+  "reload&retry": "刷新重试",
+  "return_homepage": "回到首页"
 }
