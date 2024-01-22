@@ -13,13 +13,14 @@ import { cls } from '@youknown/utils/src'
 
 interface DocOptionsModalProps {
 	open: boolean
-	doc_id: string
+	doc_info: Doc
 	hide_modal: () => void
 	on_updated?: (doc: Doc) => void
 }
 
 export default function DocOptionsModal(props: DocOptionsModalProps) {
-	const { open, hide_modal, doc_id, on_updated } = props
+	const { open, hide_modal, doc_info, on_updated } = props
+	const { doc_id } = doc_info
 	const { t } = useTranslation()
 	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const [cover_uploading, set_cover_uploading] = useState(false)
@@ -65,8 +66,26 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
 					break
 			}
 		},
-		onFulfilled() {
-			save_doc()
+		onFulfilled({ is_publish }) {
+			if (doc_info.public && !is_publish) {
+				Dialog.confirm({
+					title: t('heading.delete_feed'),
+					content: t('feed.delete_tip'),
+					overlayClassName: cls(
+						'backdrop-blur-xl',
+						is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+					),
+					okDanger: true,
+					okText: t('confirm'),
+					cancelText: t('cancel.text'),
+					closeIcon: null,
+					onOk: () => {
+						save_doc()
+					}
+				})
+			} else {
+				save_doc()
+			}
 		}
 	})
 

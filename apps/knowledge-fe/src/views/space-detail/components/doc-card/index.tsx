@@ -185,8 +185,17 @@ export default function DocCard(props: DocCardProps) {
 					style={{ backgroundImage: `url("${info.cover}")` }}
 					onClick={select_doc}
 				>
-					<div className="flex items-end p-[16px_8px_8px_12px] bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.8)]">
-						<span className="font-600 color-#fff text-shadow-[0px_0px_4px_#000] select-none">
+					<div
+						className={cls('flex items-end p-[16px_8px_8px_12px]', {
+							'bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.8)]': info.cover
+						})}
+					>
+						<span
+							className={cls(
+								'font-600 select-none',
+								info.cover ? 'color-#fff text-shadow-[0px_0px_4px_#000]' : 'color-text-1'
+							)}
+						>
 							{info.title}
 						</span>
 					</div>
@@ -200,7 +209,7 @@ export default function DocCard(props: DocCardProps) {
 			<DocOptionsModal
 				open={doc_options_modal_open}
 				hide_modal={hide_doc_options_modal}
-				doc_id={info.doc_id}
+				doc_info={info}
 				on_updated={on_updated}
 			/>
 		</>

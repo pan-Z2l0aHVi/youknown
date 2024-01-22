@@ -154,7 +154,8 @@
     "set_avatar": "Set avatar",
     "preference": "Preferences",
     "user_login": "User login",
-    "clear_history": "Clear history? Are you sure?"
+    "clear_history": "Clear history? Are you sure?",
+    "delete_feed": "Delete the feed"
   },
   "history": {
     "clear_tip": "Once you perform this operation, all your history will be cleared from the current device."
@@ -332,5 +333,9 @@
   "last_update_at": "Last updated at: ",
   "route_error": "The page is wrong!",
   "reload&retry": "Reload and retry",
-  "return_homepage": "Back to homepage"
+  "return_homepage": "Back to homepage",
+  "confirm": "Confirm",
+  "feed": {
+    "delete_tip": "Once modified to be non-public, the published feed will be completely deleted."
+  }
 }

@@ -7,7 +7,7 @@ import { Doc, get_doc_drafts, get_doc_info, update_doc, update_doc_draft } from 
 import Header from '@/app/components/header'
 import { DOC_TITLE_MAX_LEN } from '@/consts'
 import useTransitionNavigate from '@/hooks/use-transition-navigate'
-import { useRecordStore, useUIStore } from '@/stores'
+import { is_dark_theme_getter, useRecordStore, useUIStore } from '@/stores'
 import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { export_html, export_pdf } from '@/utils/exports'
@@ -36,7 +36,7 @@ import {
 	Underline,
 	useRTE
 } from '@youknown/react-rte/src'
-import { Button, Image as ImageUI, Input, Loading, Space, Toast, Tooltip } from '@youknown/react-ui/src'
+import { Button, Dialog, Image as ImageUI, Input, Loading, Space, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import CoverUpload from './components/cover-upload'
@@ -51,6 +51,7 @@ export default function Doc() {
 	const doc_id = search_params.get('doc_id') as string
 	const recording = useRecordStore(state => state.recording)
 	const is_mobile = useUIStore(state => state.is_mobile)
+	const is_dark_theme = useUIStore(is_dark_theme_getter)
 
 	const [history_drawer_open, { setTrue: show_history_drawer, setFalse: hide_history_drawer }] = useBoolean(false)
 	const [title_focus, { setTrue: focus_title, setFalse: blur_title }] = useBoolean(false)
@@ -299,7 +300,28 @@ export default function Doc() {
 				square
 				size="small"
 				loading={publishing}
-				onClick={() => update_doc_public(!is_doc_public)}
+				onClick={() => {
+					const next_doc_public = !is_doc_public
+					if (!next_doc_public) {
+						Dialog.confirm({
+							title: t('heading.delete_feed'),
+							content: t('feed.delete_tip'),
+							overlayClassName: cls(
+								'backdrop-blur-xl',
+								is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+							),
+							okDanger: true,
+							okText: t('confirm'),
+							cancelText: t('cancel.text'),
+							closeIcon: null,
+							onOk: () => {
+								update_doc_public(next_doc_public)
+							}
+						})
+					} else {
+						update_doc_public(next_doc_public)
+					}
+				}}
 			>
 				{is_doc_public ? (
 					<TbWorld className="color-primary text-16px" />

@@ -141,7 +141,7 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 			<DocOptionsModal
 				open={doc_options_modal_open}
 				hide_modal={hide_doc_options_modal}
-				doc_id={doc_id}
+				doc_info={doc_info}
 				on_updated={on_updated}
 			/>
 		</>

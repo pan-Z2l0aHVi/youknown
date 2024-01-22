@@ -154,7 +154,8 @@
     "set_avatar": "设置头像",
     "preference": "偏好设置",
     "user_login": "用户登录",
-    "clear_history": "要清除历史记录吗？"
+    "clear_history": "要清除历史记录吗？",
+    "delete_feed": "删除动态"
   },
   "history": {
     "clear_tip": "一旦执行该操作，你的所有历史记录将从当前设备中清除。"
@@ -332,5 +333,9 @@
   "last_update_at": "最后更新于：",
   "route_error": "页面出错啦！",
   "reload&retry": "刷新重试",
-  "return_homepage": "回到首页"
+  "return_homepage": "回到首页",
+  "confirm": "确认",
+  "feed": {
+    "delete_tip": "一旦修改为不公开，已发布的动态数据将被彻底删除"
+  }
 }
