@@ -283,7 +283,7 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 							/>
 						</Form.Field>
 
-						{sorting === 'toplist' ? (
+						{sorting === 'toplist' && (
 							<Form.Field label="topRange">
 								<Select
 									className="w-240px!"
@@ -315,23 +315,23 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 									]}
 								/>
 							</Form.Field>
-						) : (
-							<Form.Field label="order">
-								<Select
-									className="w-240px!"
-									menuList={[
-										{
-											label: t('form.desc'),
-											value: ORDER.DESC
-										},
-										{
-											label: t('form.asc'),
-											value: ORDER.ASC
-										}
-									]}
-								/>
-							</Form.Field>
 						)}
+
+						<Form.Field label="order">
+							<Select
+								className="w-240px!"
+								menuList={[
+									{
+										label: t('form.desc'),
+										value: ORDER.DESC
+									},
+									{
+										label: t('form.asc'),
+										value: ORDER.ASC
+									}
+								]}
+							/>
+						</Form.Field>
 					</Form>
 
 					<Space size="large">

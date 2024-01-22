@@ -7,7 +7,7 @@
   "cate": "Category",
   "clear": {
     "text": "Clear",
-    "history": "Clear History"
+    "history": "Clear history"
   },
   "collect": {
     "text": "Collect",
@@ -33,9 +33,9 @@
     }
   },
   "cover": {
-    "add": "Add Cover",
-    "change": "Change Cover",
-    "remove": "Remove Cover",
+    "add": "Add cover",
+    "change": "Change cover",
+    "remove": "Remove cover",
     "none": "No cover"
   },
   "create": {
@@ -57,16 +57,16 @@
       "ok": "Published successfully",
       "cancel": "Publication canceled"
     },
-    "setting": "Document Settings",
+    "setting": "Document settings",
     "words_len": "Word count",
     "delete_tip": "Once you perform this operation, the data cannot be recovered. Are you sure you want to delete?",
     "delete": {
-      "text": "Delete Document",
+      "text": "Delete document",
       "success": "Document deleted successfully",
       "fail": "Document deletion failed"
     },
     "create": {
-      "text": "Create Document",
+      "text": "Create document",
       "success": "Document created successfully",
       "fail": "Document creation failed"
     }
@@ -74,7 +74,7 @@
   "download": {
     "to": "Download as",
     "fail_and_save": "Download failed, please view the original image and right-click to save",
-    "original_img": "Download Original Image"
+    "original_img": "Download original image"
   },
   "draft": {
     "text": "Drafts"
@@ -98,7 +98,7 @@
   },
   "find": {
     "empty": "No matching results",
-    "similar": "Find Similar"
+    "similar": "Find similar"
   },
   "fold": "Collapse",
   "follow": {
@@ -119,41 +119,41 @@
   "form": {
     "cover": "Cover: ",
     "title": "Title: ",
-    "feed_setting": "Feed Settings: ",
+    "feed_setting": "Feed settings: ",
     "public": "Public",
     "private": "Private",
-    "creation_time": "Creation Date",
-    "update_time": "Update Date",
-    "edit_time": "Edit Date",
-    "order_by": "Sort By",
+    "creation_time": "Creation date",
+    "update_time": "Update date",
+    "edit_time": "Edit date",
+    "order_by": "Sort by",
     "order": "Order",
     "keywords": "Keywords",
     "new": "Newest first",
     "old": "Oldest first",
-    "ai": "Include AI Works",
-    "no_ai": "Exclude AI Works",
+    "ai": "Include AI works",
+    "no_ai": "Exclude AI works",
     "general": "Normal",
     "anime": "Anime",
     "people": "People",
-    "top_list": "Top List",
+    "top_list": "Top list",
     "views": "Views",
     "relevance": "Relevance",
-    "date_added": "Date Added",
+    "date_added": "Date added",
     "random": "Random",
     "desc": "Descending",
     "asc": "Ascending"
   },
   "heading": {
     "doc": "Document",
-    "doc_setting": "Document Settings",
-    "delete_doc": "Delete Document",
-    "cover": "Set Cover",
-    "batching_delete_doc": "Batch Delete Documents",
-    "knowledge_base": "My Knowledge Base",
-    "delete_space": "Delete Space",
-    "set_avatar": "Set Avatar",
+    "doc_setting": "Document settings",
+    "delete_doc": "Delete document",
+    "cover": "Set cover",
+    "batching_delete_doc": "Batch delete documents",
+    "knowledge_base": "My knowledge base",
+    "delete_space": "Delete space",
+    "set_avatar": "Set avatar",
     "preference": "Preferences",
-    "user_login": "User Login",
+    "user_login": "User login",
     "clear_history": "Clear history? Are you sure?"
   },
   "history": {
@@ -165,8 +165,8 @@
   },
   "latest": "Latest",
   "limited": {
-    "portrait": "Portrait Only",
-    "landscape": "Landscape Only"
+    "portrait": "Portrait only",
+    "landscape": "Landscape only"
   },
   "load": {
     "ing": "Loading...",
@@ -174,7 +174,7 @@
   },
   "login": {
     "shortcut": "L",
-    "text": "Log In",
+    "text": "Log in",
     "success": "Login successful",
     "fail": "Login failed",
     "auth": "Authorize",
@@ -195,11 +195,11 @@
   "page": {
     "title": {
       "browse": "Browse",
-      "library": "My Library",
+      "library": "My library",
       "wallpapers": "Wallpapers",
       "history": "History",
       "collection": "Collection",
-      "personal": "Personal Page"
+      "personal": "Personal page"
     }
   },
   "placeholder": {
@@ -219,11 +219,11 @@
   },
   "profile": {
     "update": "Profile updated",
-    "edit": "Edit Profile"
+    "edit": "Edit profile"
   },
   "reset": {
     "text": "Reset",
-    "all": "Reset All"
+    "all": "Reset all"
   },
   "save": {
     "text": "Save",
@@ -237,21 +237,21 @@
   "seen": "Viewed",
   "select": {
     "text": "Select",
-    "all": "Select All",
-    "cancel": "Cancel Selection",
-    "cancel_all": "Cancel All",
+    "all": "Select all",
+    "cancel": "Cancel selection",
+    "cancel_all": "Cancel all",
     "choosing": "Selected: "
   },
   "setting": {
     "text": "Settings",
-    "right_angle": "Right Angle",
-    "corners": "Rounded Corners",
-    "large_corners": "Large Rounded",
-    "ui_style": "UI Style",
-    "hue": "Accent Color",
+    "right_angle": "Right angle",
+    "corners": "Rounded corners",
+    "large_corners": "Large rounded",
+    "ui_style": "UI style",
+    "hue": "Accent color",
     "theme": "Theme",
     "language": "Language",
-    "system": "System Default",
+    "system": "System default",
     "light": "Light",
     "dark": "Dark"
   },
@@ -260,10 +260,10 @@
   },
   "size": "Size",
   "space": {
-    "name": "Space Name",
-    "create": "Create Space",
+    "name": "Space name",
+    "create": "Create space",
     "empty_tip": "It's empty here, create your exclusive knowledge space now~",
-    "manage": "Manage Space",
+    "manage": "Manage space",
     "if_delete": "Delete space '{{name}}'?"
   },
   "tag": "Tags",
@@ -271,12 +271,12 @@
     "join": "Joined on: ",
     "today": "Today",
     "yesterday": "Yesterday",
-    "before_yesterday": "Day Before Yesterday",
-    "last_week": "Last Week",
-    "last_month": "Last Month",
-    "nearly_3_months": "Nearly 3 Months",
-    "nearly_half_a_year": "Nearly Half a Year",
-    "nearly_a_year": "Nearly a Year",
+    "before_yesterday": "Day before yesterday",
+    "last_week": "Last week",
+    "last_month": "Last month",
+    "nearly_3_months": "Nearly 3 months",
+    "nearly_half_a_year": "Nearly half a year",
+    "nearly_a_year": "Nearly a year",
     "tomorrow": "Tomorrow",
     "year_date": "YYYY-MM-DD",
     "month_date": "MM-DD",
@@ -285,8 +285,8 @@
   },
   "unfold": "Expand",
   "unlimited": {
-    "resolution": "Unlimited Resolution",
-    "aspect_ratio": "Unlimited Aspect Ratio"
+    "resolution": "Unlimited resolution",
+    "aspect_ratio": "Unlimited aspect ratio"
   },
   "unnamed": "Unnamed",
   "update": {
@@ -319,8 +319,8 @@
   },
   "view": {
     "detail": "Detailed information",
-    "introduction": "View Introduction",
-    "full_text": "Read Full"
+    "introduction": "View introduction",
+    "full_text": "Read full"
   },
   "tab": {
     "browse": "Browse",
