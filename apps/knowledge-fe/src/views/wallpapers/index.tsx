@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
@@ -9,8 +9,8 @@ import MoreLoading from '@/components/more-loading'
 import NoMore from '@/components/no-more'
 import { useUIStore } from '@/stores'
 import { useCreation, useEvent, useInfinity, useMount, useUnmount, useUpdate } from '@youknown/react-hook/src'
-import { Form } from '@youknown/react-ui/src'
-import { checkPWA, macroDefer, QS, storage } from '@youknown/utils/src'
+import { Divider, Form } from '@youknown/react-ui/src'
+import { macroDefer, storage } from '@youknown/utils/src'
 
 import WallpaperCard from './components/wallpaper-card'
 import WallpaperFilter, {
@@ -28,6 +28,7 @@ const FILTER_KEYWORDS_KEY = 'wallpaper_filter_keywords'
 const WALLPAPERS_KEY = 'wallpapers'
 const WALLPAPER_PAGE_KEY = 'wallpaper_page'
 const WALLPAPER_SCROLL_Y_KEY = 'wallpaper_scroll_y'
+const PAGE_SIZE = 48
 
 export default function Wallpapers() {
 	const { t } = useTranslation()
@@ -52,7 +53,7 @@ export default function Wallpapers() {
 			purity: [PURITY.SFW],
 			atleast: '0x0',
 			ratios: '',
-			sorting: 'toplist',
+			sorting: 'views',
 			topRange: '1M',
 			order: ORDER.DESC
 		},
@@ -153,7 +154,7 @@ export default function Wallpapers() {
 	} = useInfinity(wallpaper_fetcher, {
 		initialData: wallpapers_cache,
 		initialPage: wallpaper_page_cache,
-		initialPageSize: 48,
+		initialPageSize: PAGE_SIZE,
 		ready: !!params,
 		target: loading_ref,
 		observerInit: {
@@ -191,6 +192,9 @@ export default function Wallpapers() {
 		}
 	}
 	useMount(() => {
+		if (search_params.get('keywords')) {
+			return
+		}
 		restore_scroll_y()
 	})
 	useUnmount(() => {
@@ -203,46 +207,13 @@ export default function Wallpapers() {
 		storage.session.set(WALLPAPERS_KEY, wallpapers)
 	}, [wallpapers])
 
-	const search_in_current_page = (similar_keywords: string) => {
-		set_keywords(similar_keywords)
-		window.scrollTo({
-			top: 0,
-			behavior: 'instant'
-		})
-		keywords_filter_ref.current?.focus_keywords_input()
-		macroDefer(() => {
-			update_params()
-			reload_wallpapers()
-		})
-	}
-
-	const search_open_new_page = (similar_keywords: string) => {
-		window.open(
-			QS.stringify({
-				base: '/wallpapers',
-				query: {
-					keywords: similar_keywords
-				}
-			}),
-			'_blank'
-		)
-	}
-
 	const wallpaper_list = (
 		<div ref={wrapper_ref} className="m--8px text-center">
-			{wallpapers.map(wallpaper => (
-				<WallpaperCard
-					key={wallpaper.id}
-					wallpaper={wallpaper}
-					search_similar={() => {
-						const similar_keywords = `like:${wallpaper.id}`
-						if (checkPWA()) {
-							search_in_current_page(similar_keywords)
-						} else {
-							search_open_new_page(similar_keywords)
-						}
-					}}
-				/>
+			{wallpapers.map((wallpaper, index) => (
+				<Fragment key={wallpaper.id}>
+					<WallpaperCard wallpaper={wallpaper} />
+					{(index + 1) % PAGE_SIZE === 0 && <Divider />}
+				</Fragment>
 			))}
 		</div>
 	)

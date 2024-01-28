@@ -11,7 +11,7 @@ import { TbShare2, TbWorld } from 'react-icons/tb'
 import { delete_doc, Doc } from '@/apis/doc'
 import DocOptionsModal from '@/components/doc-options-modal'
 import More from '@/components/more'
-import useTransitionNavigate from '@/hooks/use-transition-navigate'
+import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { is_dark_theme_getter, useModalStore, useUIStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
 import { useBoolean } from '@youknown/react-hook/src'
@@ -79,7 +79,7 @@ export default function DocCard(props: DocCardProps) {
 			cancelText: t('cancel.text'),
 			closeIcon: null,
 			unmountOnExit: true,
-			onOk: async () => {
+			async onOk() {
 				await delete_doc({ doc_ids: [info.doc_id] })
 				on_deleted()
 			}
@@ -186,8 +186,8 @@ export default function DocCard(props: DocCardProps) {
 					onClick={select_doc}
 				>
 					<div
-						className={cls('flex items-end p-[16px_8px_8px_12px]', {
-							'bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.8)]': info.cover
+						className={cls('flex items-end min-h-60% max-h-100% p-[0_8px_8px_12px]', {
+							'bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.5)]': info.cover
 						})}
 					>
 						<span

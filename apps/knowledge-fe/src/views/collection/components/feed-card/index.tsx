@@ -7,7 +7,7 @@ import { TbUser } from 'react-icons/tb'
 import { Feed } from '@/apis/feed'
 import { cancel_collect_feed } from '@/apis/user'
 import More from '@/components/more'
-import useTransitionNavigate from '@/hooks/use-transition-navigate'
+import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { format_time } from '@/utils'
 import { with_api } from '@/utils/request'
 import { ContextMenu, Dropdown, Image } from '@youknown/react-ui/src'
@@ -74,7 +74,7 @@ export default function FeedCard(props: FeedCardProps) {
 			<div
 				className={cls(
 					className,
-					'relative flex items-start w-424px h-120px bg-bg-1 b-solid b-1 b-divider rd-radius-m cursor-pointer overflow-hidden',
+					'relative flex items-start sm:w-424px <sm:w-100% h-120px bg-bg-1 b-solid b-1 b-divider rd-radius-m cursor-pointer overflow-hidden',
 					'[@media(hover:hover)]-hover-b-primary [@media(hover:hover)]-hover-shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]',
 					{
 						'b-primary shadow-[var(--ui-shadow-m),0_0_0_1px_var(--ui-color-primary)]':

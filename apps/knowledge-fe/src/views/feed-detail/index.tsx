@@ -11,15 +11,17 @@ import { useLocation, useSearchParams } from 'react-router-dom'
 import { Feed, get_feed_info } from '@/apis/feed'
 import { cancel_collect_feed, collect_feed } from '@/apis/user'
 import Header from '@/app/components/header'
-import useTransitionNavigate from '@/hooks/use-transition-navigate'
+import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
-import { format_time, initHlsLangs } from '@/utils'
+import { initHlsLangs } from '@/utils'
 import { with_api } from '@/utils/request'
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Image, Loading, Toast } from '@youknown/react-ui/src'
 import { QS } from '@youknown/utils/src'
 
-import LikeDetail from './components/like-detail'
+import CommentArea from './components/comment-area'
+import LikeArea from './components/like-area'
+import DescArea from './components/desc-area'
 
 export default function FeedDetail() {
 	const { t } = useTranslation()
@@ -202,7 +204,7 @@ export default function FeedDetail() {
 								alt="Cover"
 							/>
 						)}
-						<div ref={rich_text_container_ref} className="rich-text-container">
+						<div ref={rich_text_container_ref} className="rich-text-container text-16px">
 							{parse(doc_content, {
 								replace(domNode) {
 									// console.log('domNode: ', domNode)
@@ -216,15 +218,12 @@ export default function FeedDetail() {
 				</div>
 			)}
 
-			{detail && <LikeDetail feed={detail} />}
-
 			{detail && (
-				<div className="flex flex-wrap items-center justify-center whitespace-pre-wrap color-text-3 mt-32px">
-					<span>{t('author')}</span>
-					<span className="max-w-120px truncate mr-24px color-text-2">{detail.creator.nickname}</span>
-					<span>{t('last_update_at')}</span>
-					<span className="color-text-2">{format_time(detail.update_time)}</span>
-				</div>
+				<>
+					<DescArea feed={detail} />
+					<LikeArea feed={detail} />
+					<CommentArea feed={detail} />
+				</>
 			)}
 		</>
 	)

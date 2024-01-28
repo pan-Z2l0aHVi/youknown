@@ -1,9 +1,8 @@
 import './index.scss'
 
-import { cloneElement, createElement } from 'react'
+import { cloneElement, createElement, useMemo } from 'react'
 
 import { Editor } from '@tiptap/react'
-import { useCreation } from '@youknown/react-hook/src'
 import { Divider, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
@@ -34,7 +33,7 @@ interface RTEMenuBarProps {
 export function RTEMenuBar(props: RTEMenuBarProps) {
 	const { editor, tooltip = true, list, insertList } = props
 
-	const btnList = useCreation(() => {
+	const btnList = useMemo(() => {
 		const defaultList = [
 			'|',
 			'heading',
@@ -51,14 +50,14 @@ export function RTEMenuBar(props: RTEMenuBarProps) {
 			'textAlign'
 		]
 		return list ?? defaultList
-	})
+	}, [list])
 
 	if (!editor) {
 		return null
 	}
 
 	const prefixCls = `${UI_EDITOR_PREFIX}-menu-bar`
-	const verticalDivider = <Divider className={`${prefixCls}-divider`} direction="vertical" />
+	const verticalDivider = <Divider className={`${prefixCls}-divider`} direction="vertical" style={{ height: 20 }} />
 
 	const extensions = editor.extensionManager.extensions.filter(ext => ext.options.menu)
 	const ele = btnList.map((btn, index) => {

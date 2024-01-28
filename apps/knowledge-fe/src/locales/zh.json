@@ -30,6 +30,10 @@
   "copy": {
     "share_link": {
       "success": "已复制分享链接"
+    },
+    "original_img": {
+      "text": "复制原图链接",
+      "success": "已复制原图链接"
     }
   },
   "cover": {
@@ -73,7 +77,7 @@
   },
   "download": {
     "to": "下载为",
-    "fail_and_save": "下载失败，请查看原图并右键保存",
+    "fail_and_copy": "下载失败，请复制原图链接然后在浏览器中打开",
     "original_img": "下载原图"
   },
   "draft": {
@@ -137,11 +141,13 @@
     "people": "人物",
     "top_list": "排行榜",
     "views": "访问量",
-    "relevance": "相关程度",
+    "relevance": "相关性",
     "date_added": "最新",
     "random": "随机",
     "desc": "降序",
-    "asc": "升序"
+    "asc": "升序",
+    "hot": "热门",
+    "favorites": "收藏次数"
   },
   "heading": {
     "doc": "文档",
@@ -154,8 +160,9 @@
     "set_avatar": "设置头像",
     "preference": "偏好设置",
     "user_login": "用户登录",
-    "clear_history": "要清除历史记录吗？",
-    "delete_feed": "删除动态"
+    "clear_history": "确认清除历史记录吗？",
+    "delete_feed": "删除动态",
+    "delete_comment": "删除评论"
   },
   "history": {
     "clear_tip": "一旦执行该操作，你的所有历史记录将从当前设备中清除。"
@@ -206,6 +213,7 @@
   "placeholder": {
     "keywords": "关键词",
     "input": "请输入",
+    "comment": "请输入评论",
     "title": "请输入标题",
     "more": "输入内容 / 唤起更多",
     "search": "搜一搜",
@@ -282,7 +290,10 @@
     "year_date": "YYYY年MM月DD日",
     "month_date": "MM月DD日",
     "create": "创建时间",
-    "update": "更新时间"
+    "update": "更新时间",
+    "just": "刚刚",
+    "minutes_ago": "{{count}}分钟前",
+    "hours_ago": "{{count}}小时前"
   },
   "unfold": "展开",
   "unlimited": {
@@ -337,5 +348,23 @@
   "confirm": "确认",
   "feed": {
     "delete_tip": "一旦修改为不公开，已发布的动态数据将被彻底删除"
+  },
+  "reply": {
+    "text": "回复",
+    "success": "回复评论成功"
+  },
+  "comment": {
+    "count": "条评论",
+    "text": "评论",
+    "send": "发表",
+    "success": "评论成功",
+    "edit": {
+      "success": "编辑评论成功"
+    },
+    "then_join": "后参与评论",
+    "delete": {
+      "success": "评论删除成功",
+      "tip": "确认删除该条评论么？"
+    }
   }
 }

@@ -6,7 +6,7 @@ import { TbSearch } from 'react-icons/tb'
 
 import { Feed, get_feed_list } from '@/apis/feed'
 import MoreLoading from '@/components/more-loading'
-import useTransitionNavigate from '@/hooks/use-transition-navigate'
+import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { is_dark_theme_getter, useUIStore } from '@/stores'
 import { useEvent, useInfinity } from '@youknown/react-hook/src'
 import { Dialog, Input, Loading } from '@youknown/react-ui/src'

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 
 const EXCLUDE = ['/wallpapers']
 
-export default function useRouteScrollTop() {
+export function useRouteScrollTop() {
 	const { pathname } = useLocation()
 	useLayoutEffect(() => {
 		if (EXCLUDE.includes(pathname)) {

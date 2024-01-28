@@ -5,8 +5,8 @@ import { FiArrowRightCircle } from 'react-icons/fi'
 
 import { Feed } from '@/apis/feed'
 import TransitionLink from '@/components/transition-link'
-import useFeedLike from '@/hooks/use-feed-like'
-import useTransitionNavigate from '@/hooks/use-transition-navigate'
+import { useFeedLike } from '@/hooks/use-feed-like'
+import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { format_time } from '@/utils'
 import { Avatar, Button, Image, Tooltip } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
@@ -56,7 +56,13 @@ export default function FeedItem(props: FeedItemProps) {
 				/>
 
 				<div className="flex items-center">
-					<div className="ml-12px color-text-2 cursor-pointer" onClick={go_user_center}>
+					<div
+						className={cls(
+							'ml-12px color-text-2 max-w-160px',
+							'truncate rd-radius-s cursor-pointer [@media(hover:hover)]-hover-bg-hover'
+						)}
+						onClick={go_user_center}
+					>
 						{feed.creator.nickname}
 					</div>
 					<div className="ml-8px color-text-3 text-12px">{format_time(feed.update_time)}</div>

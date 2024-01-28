@@ -16,6 +16,7 @@ interface ResultListProps {
 }
 const ResultList = forwardRef<HTMLDivElement, ResultListProps>((props, prop_ref) => {
 	const { keywords, result, selection, set_selection, go_detail, footer } = props
+	const len = result.length
 	const select_feed_id = selection?.id ?? ''
 	const item_ref_map = useRef<Record<string, HTMLDivElement | null>>({})
 	const list_ref = useRef<HTMLDivElement>(null)
@@ -36,13 +37,15 @@ const ResultList = forwardRef<HTMLDivElement, ResultListProps>((props, prop_ref)
 				}
 				break
 			case 'ArrowUp': {
-				const next_selection = result[Math.max(selection_index - 1, 0)]
+				const next_index = selection_index <= 0 ? len - 1 : selection_index - 1
+				const next_selection = result[next_index]
 				set_selection(next_selection)
 				into_view(item_ref_map.current[next_selection.id])
 				break
 			}
 			case 'ArrowDown': {
-				const next_selection = result[Math.min(selection_index + 1, result.length - 1)]
+				const next_index = selection_index >= len - 1 ? 0 : selection_index + 1
+				const next_selection = result[next_index]
 				set_selection(next_selection)
 				into_view(item_ref_map.current[next_selection.id])
 				break

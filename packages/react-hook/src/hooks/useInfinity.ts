@@ -18,6 +18,7 @@ export function useInfinity<T extends any[], S extends any[]>(
 	fetcher: (...args: S) => Promise<T>,
 	opts: InfinityOptions<T, S> = {}
 ) {
+	const initialData = useCreation(() => opts.initialData ?? [])
 	const initialPage = useCreation(() => opts.initialPage ?? 1)
 	const initialPageSize = useCreation(() => opts.initialPageSize ?? 10)
 	const [page, setPage] = useState(initialPage)
@@ -46,6 +47,7 @@ export function useInfinity<T extends any[], S extends any[]>(
 			} else {
 				setPage(p => p + 1)
 			}
+			// 拉取数据未填满屏幕时，继续拉取下一页
 			if (!noMoreData && opts.target) {
 				macroDefer(() => {
 					const targetEle = opts.target?.current
@@ -61,7 +63,7 @@ export function useInfinity<T extends any[], S extends any[]>(
 			}
 		}
 	})
-	const [data, setData] = useState(fetchResult.data ?? [])
+	const [data, setData] = useState(fetchResult.data ?? initialData)
 	const { run, ...rest } = omit(fetchResult, 'data', 'mutate')
 	const loadMore = useEvent(run)
 	const changePage = useEvent((arg: SetStateAction<number>) => {

@@ -10,7 +10,7 @@ export interface Doc {
 	cover: string
 	space_id: string
 	author_id: string
-	author_info: Profile
+	author: Profile
 	public: boolean
 	creation_time: string
 	update_time: string
@@ -97,8 +97,8 @@ export interface UpdateDocDraftPayload {
 	doc_id: string
 	content: string
 }
-export const update_doc_draft = (payload: UpdateDocDraftPayload) =>
-	net.fetch<Draft>('/proxy/doc/update_draft', {
+export const update_doc_drafts = (payload: UpdateDocDraftPayload) =>
+	net.fetch<Draft>('/proxy/doc/update_drafts', {
 		method: 'put',
 		payload
 	})

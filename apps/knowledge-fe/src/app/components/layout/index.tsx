@@ -5,9 +5,10 @@ import { Loading } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import Banner from '../banner'
+import KeepAliveOutlet from '../keep-alive-outlet'
 import Sidebar from '../sidebar'
 
-export default function DesktopLayout() {
+export function DesktopLayout() {
 	return (
 		<div className="flex flex-col min-h-screen">
 			<Banner />
@@ -25,10 +26,43 @@ export default function DesktopLayout() {
 					}
 				>
 					<div className={cls('flex-1')}>
-						<Outlet />
+						<KeepAliveOutlet />
 					</div>
 				</Suspense>
 			</div>
 		</div>
+	)
+}
+
+export function MobileLayout() {
+	return (
+		<Suspense
+			fallback={
+				<div className="min-h-screen flex justify-center items-center">
+					<Loading spinning size="large" />
+				</div>
+			}
+		>
+			<div className="min-h-screen">
+				<Banner />
+				<KeepAliveOutlet />
+			</div>
+		</Suspense>
+	)
+}
+
+export function NoLayout() {
+	return (
+		<Suspense
+			fallback={
+				<div className="min-h-screen flex justify-center items-center">
+					<Loading spinning size="large" />
+				</div>
+			}
+		>
+			<div className={cls('min-h-screen')}>
+				<Outlet />
+			</div>
+		</Suspense>
 	)
 }

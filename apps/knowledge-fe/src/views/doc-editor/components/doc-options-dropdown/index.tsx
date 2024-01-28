@@ -49,7 +49,7 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 			okText: t('delete.text'),
 			cancelText: t('cancel.text'),
 			closeIcon: null,
-			onOk: async () => {
+			async onOk() {
 				await delete_doc({ doc_ids: [doc_id] })
 				go_doc_list()
 			}

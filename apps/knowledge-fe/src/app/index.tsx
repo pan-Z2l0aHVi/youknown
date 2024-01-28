@@ -1,15 +1,12 @@
 import { lazy, Suspense } from 'react'
-import { Outlet, useMatch } from 'react-router-dom'
+import { useMatch } from 'react-router-dom'
 
-import useInitApp from '@/hooks/use-init-app'
-import useRouteScrollTop from '@/hooks/use-route-scroll-top'
+import { useInitApp } from '@/hooks/use-init-app'
+import { useRouteScrollTop } from '@/hooks/use-route-scroll-top'
 import { useUIStore } from '@/stores'
-import { Loading } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
 
-import DesktopLayout from './components/desktop-layout'
 import FabBar from './components/fab-bar'
-import MobileLayout from './components/mobile-layout'
+import { DesktopLayout, MobileLayout, NoLayout } from './components/layout'
 import PageProgress from './components/page-progress'
 
 const PreferencesModal = lazy(() => import('./components/preferences-modal'))
@@ -44,17 +41,7 @@ export default function App() {
 					<FabBar />
 				</>
 			) : (
-				<Suspense
-					fallback={
-						<div className="min-h-screen flex justify-center items-center">
-							<Loading spinning size="large" />
-						</div>
-					}
-				>
-					<div className={cls('min-h-screen')}>
-						<Outlet />
-					</div>
-				</Suspense>
+				<NoLayout />
 			)}
 		</>
 	)

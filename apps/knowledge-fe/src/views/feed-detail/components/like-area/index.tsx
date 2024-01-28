@@ -3,16 +3,16 @@ import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa6'
 import { TbDots } from 'react-icons/tb'
 
 import { Feed } from '@/apis/feed'
-import useFeedLike from '@/hooks/use-feed-like'
+import { useFeedLike } from '@/hooks/use-feed-like'
 import { is_dark_theme_getter, useUIStore } from '@/stores'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Avatar, Button, Dialog, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
-interface LikeDetailProps {
+interface LikeAreaProps {
 	feed: Feed
 }
-export default function LikeDetail(props: LikeDetailProps) {
+export default function LikeArea(props: LikeAreaProps) {
 	const { feed } = props
 
 	const { t } = useTranslation()
@@ -33,7 +33,7 @@ export default function LikeDetail(props: LikeDetailProps) {
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
 			)}
 		>
-			<div className="flex flex-wrap p-16px">
+			<div className="flex flex-wrap p-16px select-none">
 				{like_list.map(user => (
 					<Tooltip
 						key={user.user_id}

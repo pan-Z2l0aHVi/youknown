@@ -19,17 +19,13 @@ export interface LoginPayload {
 	code: string
 }
 export const login = (payload: LoginPayload) =>
-	net.fetch<
-		Profile & {
-			token: string
-		}
-	>('/proxy/user/sign_in', {
+	net.fetch<Profile & { token: string }>('/proxy/user/sign_in', {
 		method: 'post',
 		payload
 	})
 
 export interface GetUserInfo {
-	user_id?: string
+	user_id: string
 }
 export const get_user_info = (params?: GetUserInfo) =>
 	net.fetch<

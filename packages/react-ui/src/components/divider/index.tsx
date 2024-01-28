@@ -12,12 +12,13 @@ interface DividerProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Divider = (props: DividerProps, propRef: ForwardedRef<HTMLDivElement>) => {
-	const { children, className, size = 'medium', direction = 'horizontal' } = props
+	const { children, className, size = 'medium', direction = 'horizontal', ...rest } = props
 	const prefixCls = `${UI_PREFIX}-divider`
 	return (
 		<div
 			ref={propRef}
 			className={cls(className, prefixCls, `${prefixCls}-${direction}`, `${prefixCls}-${direction}-${size}`)}
+			{...rest}
 		>
 			{children}
 		</div>

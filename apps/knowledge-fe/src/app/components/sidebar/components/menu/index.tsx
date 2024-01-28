@@ -1,4 +1,4 @@
-import { Fragment, MouseEvent, useCallback, useMemo, useState } from 'react'
+import { Fragment, MouseEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import { BiChevronDown } from 'react-icons/bi'
 import { TbNotes } from 'react-icons/tb'
 
@@ -6,7 +6,10 @@ import TransitionNavLink from '@/components/transition-nav-link'
 import { RouteItem, routes } from '@/router/routes'
 import { is_dark_theme_getter, useSpaceStore, useUIStore } from '@/stores'
 import { Motion, Tooltip } from '@youknown/react-ui/src'
-import { cls, DeepRequired, pick } from '@youknown/utils/src'
+import { cls, DeepRequired, pick, storage } from '@youknown/utils/src'
+import { useCreation } from '@youknown/react-hook/src'
+
+const OPEN_MAP_KEY = 'sub-menu-open-map'
 
 type MenuRouteItem = Omit<RouteItem, 'children'> & {
 	meta: DeepRequired<RouteItem>['meta']
@@ -51,7 +54,11 @@ export default function Menu({ expand }: MenuProps) {
 		[get_library_nav]
 	)
 
-	const [open_map, set_open_map] = useState<Record<string, boolean>>({})
+	const local_open_map = useCreation(() => storage.local.get<Record<string, boolean>>(OPEN_MAP_KEY))
+	const [open_map, set_open_map] = useState<Record<string, boolean>>(local_open_map ?? {})
+	useEffect(() => {
+		storage.local.set(OPEN_MAP_KEY, open_map)
+	}, [open_map])
 
 	const set_open = (name: string, open: boolean) => {
 		set_open_map(p => ({

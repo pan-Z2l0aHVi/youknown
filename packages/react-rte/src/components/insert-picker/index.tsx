@@ -1,10 +1,10 @@
 import './index.scss'
 
-import { createElement } from 'react'
+import { createElement, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { HiPlusSm } from 'react-icons/hi'
 
-import { useBoolean, useCreation } from '@youknown/react-hook/src'
+import { useBoolean } from '@youknown/react-hook/src'
 import { Divider, Dropdown } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
@@ -28,7 +28,7 @@ export default function InsertPicker(props: InsertPickerProps) {
 	const { t } = useTranslation()
 	const [open, { setBool: setOpen }] = useBoolean(false)
 
-	const optionList = useCreation(() => {
+	const optionList = useMemo(() => {
 		const defaultList = [
 			'image',
 			'table',
@@ -41,7 +41,7 @@ export default function InsertPicker(props: InsertPickerProps) {
 			'orderedList'
 		]
 		return list ?? defaultList
-	})
+	}, [list])
 
 	const extensions = editor.extensionManager.extensions.filter(ext => ext.options.insert)
 	const ele = optionList.map((opt, index) => {

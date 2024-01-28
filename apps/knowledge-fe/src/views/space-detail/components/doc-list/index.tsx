@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { TbChecks, TbPlus, TbTrashX, TbX } from 'react-icons/tb'
 
 import { create_doc, delete_doc, Doc, search_docs } from '@/apis/doc'
-import TabBar from '@/app/components/tab-bar'
 import MoreLoading from '@/components/more-loading'
 import NoMore from '@/components/no-more'
-import useTransitionNavigate from '@/hooks/use-transition-navigate'
+import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { is_dark_theme_getter, useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
 import { with_api } from '@/utils/request'
 import { useInfinity } from '@youknown/react-hook/src'
@@ -28,7 +27,6 @@ export default function DocList(props: DocListProps) {
 
 	const { t } = useTranslation()
 	const is_dark_theme = useUIStore(is_dark_theme_getter)
-	const is_mobile = useUIStore(state => state.is_mobile)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
 	const has_login = useUserStore(state => state.has_login)
 	const recording = useRecordStore(state => state.recording)
@@ -170,7 +168,7 @@ export default function DocList(props: DocListProps) {
 			cancelText: t('cancel.text'),
 			closeIcon: null,
 			unmountOnExit: true,
-			onOk: async () => {
+			async onOk() {
 				await delete_doc({ doc_ids: selected_ids })
 				set_doc_list(p => p.filter(item => !selected_ids.includes(item.doc_id)))
 				cancel_choosing()

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Profile, unfollow_user } from '@/apis/user'
-import useTransitionNavigate from '@/hooks/use-transition-navigate'
+import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { with_api } from '@/utils/request'
 import { useHover } from '@youknown/react-hook/src'
 import { Avatar, Button, Toast } from '@youknown/react-ui/src'
@@ -50,8 +50,7 @@ export default function UserCard(props: UserCardProps) {
 	const [follow_btn] = useHover(hovering =>
 		hovering ? (
 			<Button
-				className="w-80px!"
-				size="small"
+				className="min-w-80px"
 				round
 				danger
 				loading={unfollow_loading}
@@ -63,7 +62,7 @@ export default function UserCard(props: UserCardProps) {
 				<span className="text-12px">{t('follow.cancel.text')}</span>
 			</Button>
 		) : (
-			<Button className="w-80px!" size="small" round>
+			<Button className="min-w-80px" round>
 				<span className="text-12px">{t('follow.ok.text')}</span>
 			</Button>
 		)

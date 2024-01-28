@@ -272,7 +272,9 @@ export default function UserCenter() {
 				{is_editing ? (
 					<Input className="mt-24px" value={nickname_val} onChange={set_nickname_val} />
 				) : (
-					<div className="text-22px line-height-32px font-600 mt-24px">{user_info?.nickname ?? '--'}</div>
+					<div className="text-22px line-height-32px font-600 mt-24px break-all line-clamp-2">
+						{user_info?.nickname ?? '--'}
+					</div>
 				)}
 
 				<div className="text-12px color-text-3 mt-8px">

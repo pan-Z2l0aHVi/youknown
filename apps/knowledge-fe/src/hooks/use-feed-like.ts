@@ -4,7 +4,7 @@ import { Feed, like_feed } from '@/apis/feed'
 import { useModalStore, useRecordStore, useUserStore } from '@/stores'
 import { useFetch } from '@youknown/react-hook/src'
 
-export default function useFeedLike(feed: Feed) {
+export function useFeedLike(feed: Feed) {
 	const { id, likes } = feed
 	const has_login = useUserStore(state => state.has_login)
 	const profile = useUserStore(state => state.profile)

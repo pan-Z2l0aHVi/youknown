@@ -12,7 +12,7 @@ export default function FabBar() {
 			tooltip_disabled: true,
 			icon: <GrGithub className="text-20px" />,
 			handler: () => {
-				window.open('https://github.com/pb0710/youknown')
+				window.open('https://github.com/pan-Z2l0aHVi/knowledge-fe/tree/master/apps/knowledge-fe')
 			}
 		}
 	]

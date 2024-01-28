@@ -1,10 +1,9 @@
 import './index.scss'
 
-import { cloneElement, createElement, useState } from 'react'
+import { cloneElement, createElement, useMemo, useState } from 'react'
 import { TbPlus } from 'react-icons/tb'
 
 import { Editor, FloatingMenu } from '@tiptap/react'
-import { useCreation } from '@youknown/react-hook/src'
 import { Button, Divider, Dropdown } from '@youknown/react-ui/src'
 
 import { UI_EDITOR_PREFIX } from '../../common'
@@ -27,7 +26,7 @@ interface FloatingProps {
 export function Floating(props: FloatingProps) {
 	const { editor, tooltip = true, list } = props
 
-	const btnList = useCreation(() => {
+	const btnList = useMemo(() => {
 		const defaultList = [
 			'image',
 			'table',
@@ -41,7 +40,7 @@ export function Floating(props: FloatingProps) {
 			'orderedList'
 		]
 		return list ?? defaultList
-	})
+	}, [list])
 	const [open, setOpen] = useState(false)
 
 	if (!editor) {

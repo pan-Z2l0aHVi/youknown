@@ -6,9 +6,12 @@ $prefix: '#{$ui-prefix}-tooltip';
 		@include basic;
 
 		width: max-content;
+		max-width: 240px;
 		padding: 4px 6px;
 		font-size: $font-size-s;
 		color: #fff;
+		word-wrap: break-word;
+		white-space: pre-wrap;
 		background: #303033;
 		border: 1px solid $pop-bd;
 		border-radius: $radius-m;

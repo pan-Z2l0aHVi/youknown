@@ -1,4 +1,4 @@
-import { useEffect, useState, useTransition } from 'react'
+import { useDeferredValue, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbSearch, TbTrash } from 'react-icons/tb'
 
@@ -8,7 +8,7 @@ import { useEvent } from '@youknown/react-hook/src'
 import { Button, Dialog, Input, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
-import RecordItem from './components/record-item'
+import RecordList from './components/record-list'
 
 export default function History() {
 	const { t } = useTranslation()
@@ -16,42 +16,27 @@ export default function History() {
 	const is_mobile = useUIStore(state => state.is_mobile)
 	const record_list = useRecordStore(state => state.record_list)
 	const clear_records = useRecordStore(state => state.clear_records)
-	const [search_input, set_search_input] = useState('')
-	const [records_result, set_records_result] = useState<typeof record_list>([])
-	const [, start_transition] = useTransition()
+	const [keywords, set_keywords] = useState('')
+	const deferred_keywords = useDeferredValue(keywords)
 
-	const reset_records_result = useEvent(() => {
-		start_transition(() => {
-			set_records_result(record_list)
-		})
-	})
+	const record_result = useMemo(
+		() =>
+			deferred_keywords
+				? record_list.filter(record => {
+						if (record.target.includes(deferred_keywords)) {
+							return true
+						}
+						if (record.obj.includes(deferred_keywords)) {
+							return true
+						}
+						return false
+					})
+				: record_list,
+		[record_list, deferred_keywords]
+	)
 
-	const filter_records_result = useEvent(() => {
-		const next_record_list = record_list.filter(record => {
-			if (record.target.includes(search_input)) {
-				return true
-			}
-			if (record.obj.includes(search_input)) {
-				return true
-			}
-			return false
-		})
-		start_transition(() => {
-			set_records_result(next_record_list)
-		})
-	})
-
-	const keywords = search_input.trim()
-	useEffect(() => {
-		if (keywords) {
-			filter_records_result()
-		} else {
-			reset_records_result()
-		}
-	}, [filter_records_result, reset_records_result, keywords])
-
-	const handle_search_input = useEvent((keywords: string) => {
-		set_search_input(keywords)
+	const handle_search_input = useEvent((value: string) => {
+		set_keywords(value)
 		window.scrollTo({
 			top: 0,
 			behavior: 'instant'
@@ -85,7 +70,7 @@ export default function History() {
 						prefix={<TbSearch className="color-text-3" />}
 						allowClear
 						placeholder={t('placeholder.search_history')}
-						value={search_input}
+						value={keywords}
 						onChange={handle_search_input}
 					/>
 					{is_mobile ? (
@@ -99,11 +84,7 @@ export default function History() {
 			</Header>
 
 			<div className="flex justify-center sm:p-[0_32px_32px_32px] <sm:p-0">
-				<div className="flex-1 max-w-960px">
-					{records_result.map(record => (
-						<RecordItem key={record.id} record={record} />
-					))}
-				</div>
+				<RecordList list={record_result} />
 			</div>
 		</>
 	)

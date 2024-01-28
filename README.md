@@ -2,6 +2,6 @@
 
 线上地址 https://youknown.cc
 
-前端repo https://github.com/pan-Z2l0aHVi/knowledge-fe
+前端repo https://github.com/pan-Z2l0aHVi/knowledge-fe/tree/master/apps/knowledge-fe
 
 后端repo https://github.com/pan-Z2l0aHVi/knowledge-service

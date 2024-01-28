@@ -28,6 +28,17 @@ export const format_time = (timing: number | string): string => {
 	const now = dayjs()
 	const formatter = 'HH:mm'
 
+	const minutes_ago = now.diff(date, 'minute')
+	if (minutes_ago < 1) {
+		return `${t('time.just')}`
+	}
+	if (minutes_ago < 60) {
+		return `${t('time.minutes_ago', { count: minutes_ago })}`
+	}
+	const hours_ago = now.diff(date, 'hour')
+	if (hours_ago < 6) {
+		return `${t('time.hours_ago', { count: hours_ago })}`
+	}
 	if (date.isSame(now, 'day')) {
 		return `${t('time.today')} ${date.format(formatter)}`
 	}

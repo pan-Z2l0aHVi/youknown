@@ -1,9 +1,8 @@
 import './index.scss'
 
-import { cloneElement, createElement, useState } from 'react'
+import { cloneElement, createElement, useMemo, useState } from 'react'
 
 import { BubbleMenu, Editor } from '@tiptap/react'
-import { useCreation } from '@youknown/react-hook/src'
 import { Divider, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
@@ -29,10 +28,10 @@ interface BubbleProps {
 export function Bubble(props: BubbleProps) {
 	const { editor, tooltip = true, list } = props
 
-	const btnList = useCreation(() => {
+	const btnList = useMemo(() => {
 		const defaultList = ['bold', 'italic', 'underline', 'strike', 'code', 'link', '|', 'highlight', 'color']
 		return list ?? defaultList
-	})
+	}, [list])
 	const [linkPickerOpen, setLinkPickerOpen] = useState(false)
 	const [highlightPickerOpen, setHighlightPickerOpen] = useState(false)
 	const [colorPickerOpen, setColorPickerOpen] = useState(false)

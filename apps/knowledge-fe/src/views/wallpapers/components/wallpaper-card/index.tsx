@@ -1,8 +1,10 @@
+import copy from 'copy-to-clipboard'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CgSpinner } from 'react-icons/cg'
 import { FiDownloadCloud, FiInfo } from 'react-icons/fi'
 import { LuHeart, LuHeartOff } from 'react-icons/lu'
+import { MdContentCopy } from 'react-icons/md'
 import { RxDotsHorizontal } from 'react-icons/rx'
 import { TbEyeCheck, TbPhotoSearch } from 'react-icons/tb'
 
@@ -14,17 +16,16 @@ import { find_wallpaper_seen, insert_wallpaper_seen } from '@/utils/idb'
 import { with_api } from '@/utils/request'
 import { useBoolean, useContextMenu, useFetch } from '@youknown/react-hook/src'
 import { ContextMenu, Dialog, Dropdown, Image, Loading, Motion, Tag, Toast, Tooltip } from '@youknown/react-ui/src'
-import { cls, downloadFile, is } from '@youknown/utils/src'
+import { QS, cls, downloadFile } from '@youknown/utils/src'
 
 interface WallpaperCardProps {
 	className?: string
 	wallpaper: Wallpaper
 	on_removed?: () => void
-	search_similar?: () => void
 }
 
 export default function WallpaperCard(props: WallpaperCardProps) {
-	const { className, wallpaper, on_removed, search_similar } = props
+	const { className, wallpaper, on_removed } = props
 
 	const { t } = useTranslation()
 	const is_dark_theme = useUIStore(is_dark_theme_getter)
@@ -73,7 +74,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 	}
 
 	const toast_download_err = () => {
-		Toast.error(t('download.fail_and_save'))
+		Toast.error(t('download.fail_and_copy'))
 	}
 	const handle_download = () => {
 		downloadFile(wallpaper.path, wallpaper.id).catch(() => {
@@ -156,7 +157,6 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 				content: render_detail_content(data),
 				footer: null,
 				header: null,
-				closeIcon: null,
 				className: 'w-480px! max-w-[calc(100vw-32px)]',
 				overlayClassName: cls(
 					'backdrop-blur-xl',
@@ -167,6 +167,19 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 			set_menu_open(false)
 		}
 	})
+
+	const search_similar = () => {
+		const similar_keywords = `like:${wallpaper.id}`
+		window.open(
+			QS.stringify({
+				base: '/wallpapers',
+				query: {
+					keywords: similar_keywords
+				}
+			}),
+			'_blank'
+		)
+	}
 
 	const get_dropdown_menu = (is_context_menu = false) => {
 		return (
@@ -187,11 +200,25 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 					}
 					onClick={fetch_detail}
 				>
-					<span>{t('view.detail')}</span>
+					{t('view.detail')}
 				</Dropdown.Item>
 
 				<Dropdown.Item prefix={<FiDownloadCloud className="text-16px" />} onClick={handle_download}>
-					<span>{t('download.original_img')}</span>
+					{t('download.original_img')}
+				</Dropdown.Item>
+
+				<Dropdown.Item
+					prefix={<MdContentCopy className="text-16px" />}
+					onClick={() => {
+						copy(wallpaper.path)
+						Toast.success(t('copy.original_img.success'))
+					}}
+				>
+					{t('copy.original_img.text')}
+				</Dropdown.Item>
+
+				<Dropdown.Item prefix={<TbPhotoSearch className="text-16px" />} onClick={search_similar}>
+					{t('find.similar')}
 				</Dropdown.Item>
 
 				{collected ? (
@@ -203,13 +230,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 					</Dropdown.Item>
 				) : (
 					<Dropdown.Item prefix={<LuHeart className="text-16px" />} onClick={add_to_collection}>
-						<span>{t('collect.text')}</span>
-					</Dropdown.Item>
-				)}
-
-				{is.function(search_similar) && (
-					<Dropdown.Item prefix={<TbPhotoSearch className="text-16px" />} onClick={search_similar}>
-						<span>{t('find.similar')}</span>
+						{t('collect.text')}
 					</Dropdown.Item>
 				)}
 			</Dropdown.Menu>

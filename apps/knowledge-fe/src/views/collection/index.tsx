@@ -42,7 +42,7 @@ function FeedCollapsePanel() {
 			{feed_list?.map(feed => (
 				<FeedCard
 					key={feed.id}
-					className="mr-16px mb-16px"
+					className="sm:mr-16px mb-16px"
 					feed={feed}
 					on_removed={() => {
 						set_feed_list(p => p?.filter(item => item.id !== feed.id))
@@ -61,7 +61,7 @@ function UserCollapsePanel() {
 	return (
 		<Loading
 			spinning={loading}
-			className={cls('w-100%! min-h-204px flex items-center flex-wrap p-[16px_0]', {
+			className={cls('w-100%! min-h-208px flex items-center flex-wrap p-[16px_0]', {
 				'justify-center': loading || empty_visible
 			})}
 		>

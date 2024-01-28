@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { TbFolderHeart, TbHistory } from 'react-icons/tb'
 
-import useTransitionNavigate from '@/hooks/use-transition-navigate'
+import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { Button } from '@youknown/react-ui/src'
 
 export default function Entires() {

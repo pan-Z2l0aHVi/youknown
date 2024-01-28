@@ -1,17 +1,9 @@
 import { cloneDeep } from 'lodash-es'
 import { create, StateCreator } from 'zustand'
-import { persist, subscribeWithSelector } from 'zustand/middleware'
+import { createJSONStorage, persist, subscribeWithSelector } from 'zustand/middleware'
 
 import { change_i18n_lang } from '@/utils/i18n'
-import {
-	checkDarkMode,
-	checkMobile,
-	delay,
-	omit,
-	onDarkModeChange,
-	onMobileChange,
-	setRootStyle
-} from '@youknown/utils/src'
+import { checkDarkMode, checkMobile, delay, onDarkModeChange, onMobileChange, setRootStyle } from '@youknown/utils/src'
 
 export const enum THEME {
 	LIGHT = 1,
@@ -161,13 +153,14 @@ export const useUIStore = create<UIState>()(
 	subscribeWithSelector(
 		persist(ui_state_creator, {
 			name: 'ui-store-persist',
-			serialize(storage_val) {
-				const { state, version } = storage_val
-				return JSON.stringify({
-					version,
-					state: omit(state, 'is_mobile')
-				})
-			},
+			storage: createJSONStorage(() => localStorage, {
+				reviver(key, val) {
+					if (key === 'is_mobile') {
+						return checkMobile()
+					}
+					return val
+				}
+			}),
 			onRehydrateStorage() {
 				return state => {
 					if (!state) {

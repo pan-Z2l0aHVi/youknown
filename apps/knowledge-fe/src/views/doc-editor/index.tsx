@@ -3,39 +3,36 @@ import { useTranslation } from 'react-i18next'
 import { TbChecklist, TbCloudCheck, TbWorld, TbWorldOff } from 'react-icons/tb'
 import { useLocation, useParams, useSearchParams } from 'react-router-dom'
 
-import { Doc, get_doc_drafts, get_doc_info, update_doc, update_doc_draft } from '@/apis/doc'
+import { Doc, get_doc_drafts, get_doc_info, update_doc, update_doc_drafts } from '@/apis/doc'
 import Header from '@/app/components/header'
 import { DOC_TITLE_MAX_LEN } from '@/consts'
-import useTransitionNavigate from '@/hooks/use-transition-navigate'
+import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { is_dark_theme_getter, useRecordStore, useUIStore } from '@/stores'
 import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { export_html, export_pdf } from '@/utils/exports'
 import { NetFetchError, with_api } from '@/utils/request'
 import { useBoolean, useDebounce, useFetch } from '@youknown/react-hook/src'
-import {
-	Blockquote,
-	Bold,
-	BulletList,
-	Code,
-	CodeBlock,
-	Editor,
-	Heading,
-	Highlight,
-	HorizontalRule,
-	Image,
-	Italic,
-	Link,
-	OrderedList,
-	RTEContent,
-	RTEMenuBar,
-	Strike,
-	Table,
-	TextAlign,
-	TextColor,
-	Underline,
-	useRTE
-} from '@youknown/react-rte/src'
+import { RTEMenuBar } from '@youknown/react-rte/src/components/menu-bar'
+import { RTEContent } from '@youknown/react-rte/src/components/rich-text-content'
+import Blockquote from '@youknown/react-rte/src/extensions/blockquote'
+import Bold from '@youknown/react-rte/src/extensions/bold'
+import BulletList from '@youknown/react-rte/src/extensions/bullet-list'
+import Code from '@youknown/react-rte/src/extensions/code'
+import CodeBlock from '@youknown/react-rte/src/extensions/code-block'
+import Heading from '@youknown/react-rte/src/extensions/heading'
+import Highlight from '@youknown/react-rte/src/extensions/highlight'
+import HorizontalRule from '@youknown/react-rte/src/extensions/horizontal-rule'
+import Image from '@youknown/react-rte/src/extensions/image'
+import Italic from '@youknown/react-rte/src/extensions/italic'
+import Link from '@youknown/react-rte/src/extensions/link'
+import OrderedList from '@youknown/react-rte/src/extensions/ordered-list'
+import Strike from '@youknown/react-rte/src/extensions/strike'
+import Table from '@youknown/react-rte/src/extensions/table'
+import TextAlign from '@youknown/react-rte/src/extensions/text-align'
+import TextColor from '@youknown/react-rte/src/extensions/text-color'
+import Underline from '@youknown/react-rte/src/extensions/underline'
+import { useRTE } from '@youknown/react-rte/src/hooks/useRTE'
 import { Button, Dialog, Image as ImageUI, Input, Loading, Space, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
@@ -43,6 +40,7 @@ import CoverUpload from './components/cover-upload'
 import DocHistoryDrawer from './components/doc-history-drawer'
 import DocOptionsDropdown from './components/doc-options-dropdown'
 
+import type { Editor } from '@youknown/react-rte/src'
 export default function Doc() {
 	const { t } = useTranslation()
 	const navigate = useTransitionNavigate()
@@ -120,8 +118,8 @@ export default function Doc() {
 		}
 	})
 
-	const update_draft = async (content: string) => {
-		const [err, res] = await with_api(update_doc_draft)({
+	const update_drafts = async (content: string) => {
+		const [err, res] = await with_api(update_doc_drafts)({
 			doc_id,
 			content
 		})
@@ -135,7 +133,7 @@ export default function Doc() {
 	}
 
 	const debounced_update = useDebounce(async (editor: Editor) => {
-		update_draft(editor?.getHTML())
+		update_drafts(editor?.getHTML())
 	}, 1000)
 
 	const { state: doc_state }: { state: Doc } = useLocation()
@@ -248,7 +246,7 @@ export default function Doc() {
 		editor.commands.setContent(doc_content)
 		// 应用的内容与最新草稿不相同才更新草稿
 		if (doc_content != draft.content) {
-			update_draft(doc_content)
+			update_drafts(doc_content)
 		}
 	}
 

@@ -389,9 +389,9 @@ const ImagePreview = (props: ImagePreviewProps) => {
 				</div>
 
 				{detailError ? (
-					<div className={`${prefixCls}-fallback`}>
+					<a className={`${prefixCls}-fallback`} target="_blank" href={src}>
 						<TbPhotoX />
-					</div>
+					</a>
 				) : (
 					<img
 						ref={imgDetailRef}
