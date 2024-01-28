@@ -5,9 +5,9 @@ import { TbNotes } from 'react-icons/tb'
 import TransitionNavLink from '@/components/transition-nav-link'
 import { RouteItem, routes } from '@/router/routes'
 import { is_dark_theme_getter, useSpaceStore, useUIStore } from '@/stores'
+import { useCreation } from '@youknown/react-hook/src'
 import { Motion, Tooltip } from '@youknown/react-ui/src'
 import { cls, DeepRequired, pick, storage } from '@youknown/utils/src'
-import { useCreation } from '@youknown/react-hook/src'
 
 const OPEN_MAP_KEY = 'sub-menu-open-map'
 

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
@@ -99,8 +99,11 @@ export default function CommentEditor(props: CommentEditorProps) {
 		on_send(value)
 		on_change('')
 		editor?.commands.clearContent()
-		editor?.setEditable(false)
 	}
+
+	useEffect(() => {
+		editor?.setEditable(!send_loading)
+	}, [editor, send_loading])
 
 	if (!editor) return null
 

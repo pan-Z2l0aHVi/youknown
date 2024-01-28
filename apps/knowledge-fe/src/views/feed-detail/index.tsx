@@ -20,8 +20,8 @@ import { Button, Image, Loading, Toast } from '@youknown/react-ui/src'
 import { QS } from '@youknown/utils/src'
 
 import CommentArea from './components/comment-area'
-import LikeArea from './components/like-area'
 import DescArea from './components/desc-area'
+import LikeArea from './components/like-area'
 
 export default function FeedDetail() {
 	const { t } = useTranslation()
