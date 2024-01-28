@@ -90,6 +90,7 @@ export default function CommentEditor(props: CommentEditorProps) {
 		],
 		autofocus: auto_focus ? 'end' : false,
 		placeholder: () => placeholder,
+		content: value,
 		onUpdate({ editor }) {
 			on_change(editor.getHTML())
 		}
@@ -122,7 +123,12 @@ export default function CommentEditor(props: CommentEditorProps) {
 								/>
 							</div>
 						)}
-						<RTEContent className="text-14px" editor={editor} bubble={!is_mobile} floating={false} />
+						<RTEContent
+							className="comment-rich-text-reset text-14px"
+							editor={editor}
+							bubble={!is_mobile}
+							floating={false}
+						/>
 						<div className="flex justify-end pb-12px pr-12px">
 							<Space>
 								{on_cancel && (

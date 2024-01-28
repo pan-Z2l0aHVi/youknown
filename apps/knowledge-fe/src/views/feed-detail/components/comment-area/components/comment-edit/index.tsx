@@ -7,6 +7,7 @@ import { Toast } from '@youknown/react-ui/src'
 
 import { CommentContext } from '../../comment-context'
 import CommentEditor from '../comment-editor'
+import { useCreation } from '@youknown/react-hook/src'
 
 interface CommentEditProps {
 	feed: Feed
@@ -23,7 +24,14 @@ export default function CommentEdit(props: CommentEditProps) {
 	const ctx = useContext(CommentContext)
 	const { t } = useTranslation()
 	const [send_loading, set_send_loading] = useState(false)
-	const [comment_text, set_comment_text] = useState(sub_comment_info?.content ?? '')
+	const default_comment_text = useCreation(() => {
+		if (is_sub_comment) {
+			return sub_comment_info?.content ?? ''
+		}
+		return comment_info?.content ?? ''
+	})
+	const [comment_text, set_comment_text] = useState(default_comment_text)
+
 	const placeholder = is_sub_comment
 		? `${t('reply.text')} ${sub_comment_info.commentator.nickname}`
 		: t('placeholder.input')

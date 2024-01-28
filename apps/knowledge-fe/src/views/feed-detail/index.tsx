@@ -1,7 +1,6 @@
 import '@youknown/css/src/rte.scss'
 
 import hljs from 'highlight.js/lib/core'
-import parse, { Element } from 'html-react-parser'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuHeart, LuHeartOff } from 'react-icons/lu'
@@ -11,6 +10,7 @@ import { useLocation, useSearchParams } from 'react-router-dom'
 import { Feed, get_feed_info } from '@/apis/feed'
 import { cancel_collect_feed, collect_feed } from '@/apis/user'
 import Header from '@/app/components/header'
+import RichTextArea from '@/components/rich-text-area'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
 import { initHlsLangs } from '@/utils'
@@ -204,16 +204,7 @@ export default function FeedDetail() {
 								alt="Cover"
 							/>
 						)}
-						<div ref={rich_text_container_ref} className="rich-text-container text-16px">
-							{parse(doc_content, {
-								replace(domNode) {
-									// console.log('domNode: ', domNode)
-									if (domNode instanceof Element && domNode.name === 'img') {
-										return <Image src={domNode.attribs.src} canPreview />
-									}
-								}
-							})}
-						</div>
+						<RichTextArea ref={rich_text_container_ref} className="text-16px" html={doc_content} />
 					</div>
 				</div>
 			)}

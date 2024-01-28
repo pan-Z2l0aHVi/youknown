@@ -1,5 +1,5 @@
 import copy from 'copy-to-clipboard'
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CgSpinner } from 'react-icons/cg'
 import { FiDownloadCloud, FiInfo } from 'react-icons/fi'
@@ -11,7 +11,7 @@ import { TbEyeCheck, TbPhotoSearch } from 'react-icons/tb'
 import { cancel_collect_wallpaper, collect_wallpaper } from '@/apis/user'
 import { get_wallpaper_info, Wallpaper, WallpaperTag } from '@/apis/wallpaper'
 import { is_dark_theme_getter, useModalStore, useUIStore, useUserStore } from '@/stores'
-import { format_file_size } from '@/utils'
+import { format_file_size, format_time } from '@/utils'
 import { find_wallpaper_seen, insert_wallpaper_seen } from '@/utils/idb'
 import { with_api } from '@/utils/request'
 import { useBoolean, useContextMenu, useFetch } from '@youknown/react-hook/src'
@@ -118,21 +118,43 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 				people: t('form.people')
 			}[detail.category]
 		}
+
+		const info_list = [
+			{
+				label: t('created_at'),
+				value: format_time(detail.created_at)
+			},
+			{
+				label: t('size'),
+				value: format_file_size(detail.file_size)
+			},
+			{
+				label: t('cate'),
+				value: format_cate()
+			},
+			{
+				label: t('form.views'),
+				value: detail.views
+			},
+			{
+				label: t('form.favorites'),
+				value: detail.favorites
+			}
+		]
+
 		return (
 			<div className="p-24px">
-				<div className="text-center font-600 text-18px mb-8px">
+				<div className="text-center font-600 text-18px mb-16px">
 					{detail.dimension_x} x {detail.dimension_y}
 				</div>
 
-				<div className="flex flex-col items-center mb-8px text-12px">
-					<div className="flex items-center">
-						<div className="w-80px text-right color-text-3 mr-8px">{t('size')}</div>
-						<div className="w-80px text-left color-text-2">{format_file_size(detail.file_size)}</div>
-					</div>
-					<div className="flex items-center">
-						<div className="w-80px text-right color-text-3 mr-8px">{t('cate')}</div>
-						<div className="w-80px text-left color-text-2">{format_cate()}</div>
-					</div>
+				<div className="grid grid-cols-2 items-center gap-x-12px gap-y-4px text-12px mb-8px">
+					{info_list.map(item => (
+						<Fragment key={item.label}>
+							<div className="w2-50% text-right color-text-3">{item.label}</div>
+							<div className="w2-50% text-left color-text-2">{item.value}</div>
+						</Fragment>
+					))}
 				</div>
 
 				<div className="font-600 text-16px mb-8px">{t('tags')}</div>

@@ -1,15 +1,15 @@
-import parse, { Element } from 'html-react-parser'
 import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PiChatTeardropTextBold, PiPencilSimpleBold, PiTrashSimpleBold } from 'react-icons/pi'
 
 import { Comment, comment_delete, Feed } from '@/apis/feed'
+import RichTextArea from '@/components/rich-text-area'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { is_dark_theme_getter, useUIStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
 import { with_api } from '@/utils/request'
 import { useBoolean } from '@youknown/react-hook/src'
-import { Avatar, Button, Dialog, Image, Space, Toast, Tooltip } from '@youknown/react-ui/src'
+import { Avatar, Button, Dialog, Space, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils'
 import { QS } from '@youknown/utils/src'
 
@@ -138,15 +138,7 @@ export default function CommentItem(props: CommentItemProps) {
 				{edit_visible ? (
 					<CommentEdit feed={feed} comment_info={comment} on_close={hide_edit} />
 				) : (
-					<div className="rich-text-container mb-8px">
-						{parse(content, {
-							replace(domNode) {
-								if (domNode instanceof Element && domNode.name === 'img') {
-									return <Image src={domNode.attribs.src} canPreview />
-								}
-							}
-						})}
-					</div>
+					<RichTextArea className="comment-rich-text-reset mb-8px" html={content} />
 				)}
 
 				{operate_bar}

@@ -18,6 +18,7 @@ export interface Wallpaper {
 	category: string
 	dimension_x: number
 	dimension_y: number
+	favorites: number
 	ratio: string
 	resolution: string
 	file_size: number
