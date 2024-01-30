@@ -136,7 +136,13 @@ export default function CommentEditor(props: CommentEditorProps) {
 										<span className="color-text-2">{t('cancel.text')}</span>
 									</Button>
 								)}
-								<Button primary round loading={send_loading} onClick={handle_send}>
+								<Button
+									primary
+									round
+									disabled={editor.isEmpty}
+									loading={send_loading}
+									onClick={handle_send}
+								>
 									{btnText}
 								</Button>
 							</Space>

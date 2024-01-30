@@ -47,7 +47,7 @@ export default function CommentArea(props: CommentAreaProps) {
 		set_comments(p => [new_comment, ...p])
 	})
 
-	const on_reply_comment = useEvent(async (comment_id: string, sub_comment: SubComment) => {
+	const on_comment_reply = useEvent(async (comment_id: string, sub_comment: SubComment) => {
 		set_comment_total(p => p + 1)
 		set_comments(p =>
 			p.map(comment => {
@@ -108,24 +108,24 @@ export default function CommentArea(props: CommentAreaProps) {
 		<CommentContext.Provider
 			value={{
 				on_comment_created,
-				on_comment_reply: on_reply_comment,
+				on_comment_reply,
 				on_comment_deleted,
 				on_sub_comment_deleted,
 				on_comment_updated,
 				on_sub_comment_updated
 			}}
 		>
-			<div className="w-720px max-w-100% p-[24px_16px] m-[0_auto] mb-40px">
-				<div className="font-700 text-16px mb-24px">
+			<div className="w-720px max-w-100% p-[24px_16px] m-[0_auto]">
+				<div className="font-700 text-18px mb-32px">
 					{comment_total} {t('comment.count')}
 				</div>
-				<div>
+				<CommentCreate feed={feed} />
+				<div className="mt-32px">
 					{comments.map(comment => (
 						<CommentItem key={comment.id} feed={feed} comment={comment} />
 					))}
 				</div>
 				{no_more ? <NoMore /> : <MoreLoading ref={loading_ref} />}
-				<CommentCreate feed={feed} />
 			</div>
 		</CommentContext.Provider>
 	)

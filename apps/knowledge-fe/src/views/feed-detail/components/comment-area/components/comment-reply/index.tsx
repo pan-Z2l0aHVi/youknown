@@ -29,7 +29,8 @@ export default function CommentReply(props: CommentReplyProps) {
 	const reply_comment = async () => {
 		const [err, new_sub_comment] = await with_api(comment_reply)({
 			feed_id,
-			comment_id: is_sub_comment ? sub_comment_info.id : comment_info.id,
+			comment_id: comment_info.id,
+			reply_user_id: is_sub_comment ? sub_comment_info.user_id : comment_info.user_id,
 			content: comment_text
 		})
 		if (err) {

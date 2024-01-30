@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { PiChatTeardropTextBold, PiPencilSimpleBold, PiTrashSimpleBold } from 'react-icons/pi'
+import { BiMessageRoundedDetail, BiPencil } from 'react-icons/bi'
+import { TbTrash } from 'react-icons/tb'
 
 import { Comment, comment_delete, Feed } from '@/apis/feed'
 import RichTextArea from '@/components/rich-text-area'
@@ -87,7 +88,7 @@ export default function CommentItem(props: CommentItemProps) {
 			<Space>
 				<Tooltip title={t('reply.text')}>
 					<Button size="small" square text onClick={toggle_reply}>
-						<PiChatTeardropTextBold
+						<BiMessageRoundedDetail
 							className={cls('text-16px', reply_visible ? 'color-primary' : 'color-text-3')}
 						/>
 					</Button>
@@ -96,14 +97,14 @@ export default function CommentItem(props: CommentItemProps) {
 					<>
 						<Tooltip title={t('edit.text')}>
 							<Button size="small" square text onClick={toggle_edit}>
-								<PiPencilSimpleBold
+								<BiPencil
 									className={cls('text-16px', edit_visible ? 'color-primary' : 'color-text-3')}
 								/>
 							</Button>
 						</Tooltip>
 						<Tooltip title={t('delete.text')}>
 							<Button size="small" square text loading={del_loading} onClick={handle_delete_comment}>
-								<PiTrashSimpleBold className="text-16px color-text-3" />
+								<TbTrash className="text-16px color-text-3" />
 							</Button>
 						</Tooltip>
 					</>

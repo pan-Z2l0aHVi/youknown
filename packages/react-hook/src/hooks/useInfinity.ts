@@ -18,7 +18,6 @@ export function useInfinity<T extends any[], S extends any[]>(
 	fetcher: (...args: S) => Promise<T>,
 	opts: InfinityOptions<T, S> = {}
 ) {
-	const initialData = useCreation(() => opts.initialData ?? [])
 	const initialPage = useCreation(() => opts.initialPage ?? 1)
 	const initialPageSize = useCreation(() => opts.initialPageSize ?? 10)
 	const [page, setPage] = useState(initialPage)
@@ -63,7 +62,7 @@ export function useInfinity<T extends any[], S extends any[]>(
 			}
 		}
 	})
-	const [data, setData] = useState(fetchResult.data ?? initialData)
+	const [data, setData] = useState(fetchResult.data ?? [])
 	const { run, ...rest } = omit(fetchResult, 'data', 'mutate')
 	const loadMore = useEvent(run)
 	const changePage = useEvent((arg: SetStateAction<number>) => {

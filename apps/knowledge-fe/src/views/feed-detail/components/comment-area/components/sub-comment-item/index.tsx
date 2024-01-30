@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { PiChatTeardropTextBold, PiPencilSimpleBold, PiTrashSimpleBold } from 'react-icons/pi'
+import { BiMessageRoundedDetail, BiPencil } from 'react-icons/bi'
+import { TbTrash } from 'react-icons/tb'
 
 import { Comment, comment_delete, Feed, SubComment } from '@/apis/feed'
 import RichTextArea from '@/components/rich-text-area'
@@ -23,7 +24,7 @@ interface SubCommentItemProps {
 }
 export default function SubCommentItem(props: SubCommentItemProps) {
 	const { feed, main_comment, comment } = props
-	const { feed_id, commentator, update_time, content } = comment
+	const { feed_id, commentator, reply_commentator, update_time, content } = comment
 	const navigate = useTransitionNavigate()
 	const { t } = useTranslation()
 	const ctx = useContext(CommentContext)
@@ -87,7 +88,7 @@ export default function SubCommentItem(props: SubCommentItemProps) {
 			<Space>
 				<Tooltip title={t('reply.text')}>
 					<Button size="small" square text onClick={toggle_reply}>
-						<PiChatTeardropTextBold
+						<BiMessageRoundedDetail
 							className={cls('text-16px', reply_visible ? 'color-primary' : 'color-text-3')}
 						/>
 					</Button>
@@ -96,14 +97,14 @@ export default function SubCommentItem(props: SubCommentItemProps) {
 					<>
 						<Tooltip title={t('edit.text')}>
 							<Button size="small" square text onClick={toggle_edit}>
-								<PiPencilSimpleBold
+								<BiPencil
 									className={cls('text-16px', edit_visible ? 'color-primary' : 'color-text-3')}
 								/>
 							</Button>
 						</Tooltip>
 						<Tooltip title={t('delete.text')}>
 							<Button size="small" square text onClick={handle_delete_comment}>
-								<PiTrashSimpleBold className="text-16px color-text-3" />
+								<TbTrash className="text-16px color-text-3" />
 							</Button>
 						</Tooltip>
 					</>
@@ -128,9 +129,9 @@ export default function SubCommentItem(props: SubCommentItemProps) {
 						<span className="color-text-3 ml-8px mr-8px">{t('reply.text')}</span>
 						<span
 							className="truncate rd-radius-s cursor-pointer [@media(hover:hover)]-hover-bg-hover"
-							onClick={() => go_user_center(main_comment.commentator.id)}
+							onClick={() => go_user_center(reply_commentator.id)}
 						>
-							{main_comment.commentator.nickname}
+							{reply_commentator.nickname}
 						</span>
 					</div>
 				</div>

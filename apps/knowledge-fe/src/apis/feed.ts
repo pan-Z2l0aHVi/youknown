@@ -71,8 +71,9 @@ export interface SubComment {
 	content: string
 	creation_time: string
 	update_time: string
-	reply_comment_id: string
+	reply_user_id: string
 	commentator: Commentator
+	reply_commentator: Commentator
 }
 export interface Comment {
 	id: string
@@ -111,6 +112,7 @@ export const comment = (payload: CommentPayload) =>
 export interface CommentReplyPayload {
 	feed_id: string
 	comment_id: string
+	reply_user_id: string
 	content: string
 }
 export const comment_reply = (payload: CommentReplyPayload) =>

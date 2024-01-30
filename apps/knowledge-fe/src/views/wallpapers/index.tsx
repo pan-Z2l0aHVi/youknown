@@ -175,10 +175,6 @@ export default function Wallpapers() {
 		}
 	})
 
-	useEffect(() => {
-		reload_wallpapers()
-	}, [reload_wallpapers])
-
 	// 从缓存中恢复之前的浏览状态
 	// 包括：页码、壁纸数据、滚动条位置
 	const restore_scroll_y = () => {
@@ -200,12 +196,18 @@ export default function Wallpapers() {
 	useUnmount(() => {
 		storage.session.set(WALLPAPER_SCROLL_Y_KEY, window.scrollY)
 	})
-	useEffect(() => {
-		storage.session.set(WALLPAPER_PAGE_KEY, page)
-	}, [page])
-	useEffect(() => {
-		storage.session.set(WALLPAPERS_KEY, wallpapers)
-	}, [wallpapers])
+	useEffect(
+		() => () => {
+			storage.session.set(WALLPAPER_PAGE_KEY, page)
+		},
+		[page]
+	)
+	useEffect(
+		() => () => {
+			storage.session.set(WALLPAPERS_KEY, wallpapers)
+		},
+		[wallpapers]
+	)
 
 	const wallpaper_list = (
 		<div ref={wrapper_ref} className="m--8px text-center">

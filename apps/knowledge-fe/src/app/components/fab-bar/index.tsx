@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { GrGithub } from 'react-icons/gr'
-import { PiChatTeardropTextBold } from 'react-icons/pi'
+import { TbMessagePlus } from 'react-icons/tb'
 import { useLocation } from 'react-router-dom'
 
 import { Button, Space, Tooltip } from '@youknown/react-ui/src'
@@ -26,7 +26,7 @@ export default function FabBar() {
 			id: 2,
 			title: t('comment.text'),
 			tooltip_disabled: true,
-			icon: <PiChatTeardropTextBold className="text-20px" />,
+			icon: <TbMessagePlus className="text-20px" />,
 			handler: () => {
 				window.scrollTo({
 					top: document.documentElement.scrollHeight,
