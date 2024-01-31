@@ -61,13 +61,14 @@ const ui_state_creator: StateCreator<UIState> = (set, get) => ({
 
 	start_progress: async () => {
 		const { show_progress, set_progress_percent } = get()
+		const roll_step_percent = () => Math.round(Math.random() * 20)
 		const roll_delay = () => {
 			const duration = Math.random() * 1500 + 500
 			return delay(duration)
 		}
 		const roll_step = async () => {
 			const { progress_percent, progress_visible } = get()
-			const next_per = Math.min(progress_percent + Math.round(Math.random() * 20))
+			const next_per = Math.min(progress_percent + roll_step_percent())
 			if (next_per > 95 || !progress_visible) {
 				return
 			}
@@ -79,7 +80,7 @@ const ui_state_creator: StateCreator<UIState> = (set, get) => ({
 		show_progress()
 		// 防止 batching update
 		await delay(0)
-		set_progress_percent(20)
+		set_progress_percent(roll_step_percent())
 		roll_step()
 	},
 

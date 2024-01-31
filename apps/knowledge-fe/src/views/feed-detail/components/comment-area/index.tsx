@@ -39,7 +39,10 @@ export default function CommentArea(props: CommentAreaProps) {
 		mutate: set_comments
 	} = useInfinity(fetcher, {
 		initialPageSize: 5,
-		target: loading_ref
+		target: loading_ref,
+		observerInit: {
+			rootMargin: '0px 0px 80px 0px'
+		}
 	})
 
 	const on_comment_created = useEvent((new_comment: Comment) => {
@@ -115,7 +118,7 @@ export default function CommentArea(props: CommentAreaProps) {
 				on_sub_comment_updated
 			}}
 		>
-			<div className="w-720px max-w-100% p-[24px_16px] m-[0_auto]">
+			<div id="feed-comment-area" className="w-720px max-w-100% p-[24px_16px] m-[0_auto]">
 				<div className="font-700 text-18px mb-32px">
 					{comment_total} {t('comment.count')}
 				</div>

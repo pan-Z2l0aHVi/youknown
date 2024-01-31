@@ -28,10 +28,12 @@ export default function FabBar() {
 			tooltip_disabled: true,
 			icon: <TbMessagePlus className="text-20px" />,
 			handler: () => {
-				window.scrollTo({
-					top: document.documentElement.scrollHeight,
+				const container = document.getElementById('feed-comment-area')
+				container?.scrollIntoView({
 					behavior: 'instant'
 				})
+				const comment_input = document.querySelector<HTMLInputElement>('#feed-comment-area .tiptap.ProseMirror')
+				comment_input?.focus()
 			}
 		})
 	}
