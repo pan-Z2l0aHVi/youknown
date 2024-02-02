@@ -1,4 +1,5 @@
 import copy from 'copy-to-clipboard'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuLogOut, LuSettings2 } from 'react-icons/lu'
 import { MdOutlineIosShare } from 'react-icons/md'
@@ -11,6 +12,7 @@ import DocOptionsModal from '@/components/doc-options-modal'
 import More from '@/components/more'
 import { is_dark_theme_getter, useUIStore } from '@/stores'
 import { format_time } from '@/utils'
+import { with_api } from '@/utils/request'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dialog, Divider, Dropdown, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
@@ -32,9 +34,22 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const [doc_options_modal_open, { setTrue: show_doc_options_modal, setFalse: hide_doc_options_modal }] =
 		useBoolean(false)
+	const [deleting, set_deleting] = useState(false)
 
 	const go_doc_list = () => {
 		navigate(`/library/${space_id}`)
+	}
+
+	const remove_doc = async () => {
+		if (deleting) return
+		set_deleting(true)
+		const [err] = await with_api(delete_doc)({ doc_ids: [doc_id] })
+		set_deleting(false)
+		if (err) {
+			return
+		}
+		Toast.success(t('doc.delete.success'))
+		go_doc_list()
 	}
 
 	const show_doc_delete_dialog = () => {
@@ -49,10 +64,8 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 			okText: t('delete.text'),
 			cancelText: t('cancel.text'),
 			closeIcon: null,
-			async onOk() {
-				await delete_doc({ doc_ids: [doc_id] })
-				go_doc_list()
-			}
+			okLoading: deleting,
+			onOk: remove_doc
 		})
 	}
 

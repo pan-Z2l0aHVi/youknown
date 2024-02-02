@@ -81,12 +81,13 @@ export default function Searcher(props: SearcherProps) {
 		}
 	}, [keywords, reload, reset, set_result])
 
-	const go_feed_detail = useEvent((feed_id: string) => {
+	const go_feed_detail = useEvent((feed: Feed) => {
 		navigate(
 			QS.stringify({
 				base: '/browse/feed-detail',
-				query: { feed_id }
-			})
+				query: { feed_id: feed.id }
+			}),
+			{ state: feed }
 		)
 	})
 
@@ -134,7 +135,7 @@ export default function Searcher(props: SearcherProps) {
 							set_selection={set_selection}
 							go_detail={feed => {
 								if (!feed) return
-								go_feed_detail(feed.id)
+								go_feed_detail(feed)
 							}}
 							footer={no_more || (has_keywords && <MoreLoading ref={loading_ref} />)}
 						/>

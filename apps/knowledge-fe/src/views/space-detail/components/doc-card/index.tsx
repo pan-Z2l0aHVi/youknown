@@ -14,6 +14,7 @@ import More from '@/components/more'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { is_dark_theme_getter, useModalStore, useUIStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
+import { with_api } from '@/utils/request'
 import { useBoolean } from '@youknown/react-hook/src'
 import { ContextMenu, Dialog, Dropdown, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
@@ -37,6 +38,7 @@ export default function DocCard(props: DocCardProps) {
 	const [more_open, { setBool: set_more_open }] = useBoolean(false)
 	const [doc_options_modal_open, { setTrue: show_doc_options_modal, setFalse: hide_doc_options_modal }] =
 		useBoolean(false)
+	const [deleting, set_deleting] = useState(false)
 
 	const select_doc = () => {
 		if (choosing) {
@@ -62,6 +64,19 @@ export default function DocCard(props: DocCardProps) {
 		}
 		show_doc_options_modal()
 	}
+
+	const remove_doc = async () => {
+		if (deleting) return
+		set_deleting(true)
+		const [err] = await with_api(delete_doc)({ doc_ids: [info.doc_id] })
+		set_deleting(false)
+		if (err) {
+			return
+		}
+		Toast.success(t('doc.delete.success'))
+		on_deleted()
+	}
+
 	const handle_delete_doc = () => {
 		if (!has_login) {
 			open_login_modal()
@@ -79,10 +94,8 @@ export default function DocCard(props: DocCardProps) {
 			cancelText: t('cancel.text'),
 			closeIcon: null,
 			unmountOnExit: true,
-			async onOk() {
-				await delete_doc({ doc_ids: [info.doc_id] })
-				on_deleted()
-			}
+			okLoading: deleting,
+			onOk: remove_doc
 		})
 	}
 	const copy_share_url = () => {
@@ -164,9 +177,9 @@ export default function DocCard(props: DocCardProps) {
 				{info.public && (
 					<div
 						className="absolute top-0 left-12px w-20px h-24px bg-primary text-center"
-						style={{ clipPath: 'polygon(0% 0%, 100% 0, 100% 100%, 50% 75%, 0% 100%)' }}
+						style={{ clipPath: 'polygon(0% 0%, 100% 0, 100% 75%, 50% 100%, 0% 75%)' }}
 					>
-						<TbWorld className="color-#fff text-16px mt-1px" />
+						<TbWorld className="color-#fff text-16px mt-2px" />
 					</div>
 				)}
 				{choosing && selected && (

@@ -32,6 +32,7 @@ export default function DocList(props: DocListProps) {
 	const recording = useRecordStore(state => state.recording)
 	const navigate = useTransitionNavigate()
 	const loading_ref = useRef(null)
+	const [deleting, set_deleting] = useState(false)
 
 	const form = Form.useForm({
 		defaultState: {
@@ -99,7 +100,7 @@ export default function DocList(props: DocListProps) {
 			return
 		}
 		set_create_loading(true)
-		const [err, res] = await with_api(create_doc)({
+		const [err, new_doc] = await with_api(create_doc)({
 			space_id,
 			title: t('unnamed')
 		})
@@ -112,9 +113,10 @@ export default function DocList(props: DocListProps) {
 			QS.stringify({
 				base: `editor`,
 				query: {
-					doc_id: res.doc_id
+					doc_id: new_doc.doc_id
 				}
-			})
+			}),
+			{ state: new_doc }
 		)
 	}
 
@@ -155,6 +157,20 @@ export default function DocList(props: DocListProps) {
 		})
 	}
 
+	const remove_doc = async () => {
+		if (deleting) return
+		set_deleting(true)
+		const [err] = await with_api(delete_doc)({ doc_ids: selected_ids })
+		set_deleting(false)
+		if (err) {
+			return
+		}
+		Toast.success(t('doc.delete.success'))
+		set_doc_list(p => p.filter(item => !selected_ids.includes(item.doc_id)))
+		cancel_choosing()
+		record_batching_delete_doc()
+	}
+
 	const show_doc_delete_dialog = () => {
 		Dialog.confirm({
 			title: t('heading.batching_delete_doc'),
@@ -168,12 +184,8 @@ export default function DocList(props: DocListProps) {
 			cancelText: t('cancel.text'),
 			closeIcon: null,
 			unmountOnExit: true,
-			async onOk() {
-				await delete_doc({ doc_ids: selected_ids })
-				set_doc_list(p => p.filter(item => !selected_ids.includes(item.doc_id)))
-				cancel_choosing()
-				record_batching_delete_doc()
-			}
+			okLoading: deleting,
+			onOk: remove_doc
 		})
 	}
 

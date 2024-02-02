@@ -10,22 +10,16 @@ import { AvatarCtx } from './avatarCtx'
 interface AvatarGroupProps extends HTMLAttributes<HTMLElement> {
 	size?: 'small' | 'medium' | 'large' | number
 	round?: boolean
-	overlapFrom?: 'left' | 'right'
+	bordered?: boolean
 }
 
 const AvatarGroup: FC<AvatarGroupProps> = props => {
-	const { children, className, size, round = true, overlapFrom = 'left', ...rest } = props
-	// TODO: 左右层级
-	let sign = 0
-	if (overlapFrom === 'left') {
-		sign = 1
-	} else if (overlapFrom === 'right') {
-		sign = -1
-	}
+	const { children, className, size, round = true, bordered = false, ...rest } = props
+
 	const prefixCls = `${UI_PREFIX}-avatar-group`
 	return (
-		<AvatarCtx.Provider value={{ size, round }}>
-			<div className={cls(className, prefixCls, `${prefixCls}-overlap-${overlapFrom}`)} {...rest}>
+		<AvatarCtx.Provider value={{ size, round, bordered }}>
+			<div className={cls(className, prefixCls)} {...rest}>
 				{children}
 			</div>
 		</AvatarCtx.Provider>

@@ -28,7 +28,8 @@ export default function FeedCard(props: FeedCardProps) {
 			QS.stringify({
 				base: '/browse/feed-detail',
 				query: { feed_id: feed.id }
-			})
+			}),
+			{ state: feed }
 		)
 	}
 

@@ -12,18 +12,4 @@ $prefix: '#{$ui-prefix}-avatar-group';
 	> .#{'#{$ui-prefix}-avatar'} {
 		border: 2px solid $bg-0;
 	}
-
-	&-overlap {
-		&-left {
-			> .#{'#{$ui-prefix}-avatar'}:not(:first-child) {
-				margin-left: -5%;
-			}
-		}
-
-		&-right {
-			> .#{'#{$ui-prefix}-avatar'}:not(:first-child) {
-				margin-left: -5%;
-			}
-		}
-	}
 }

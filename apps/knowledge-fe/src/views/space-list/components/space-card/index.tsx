@@ -9,7 +9,8 @@ import { DocSpace } from '@/apis/space'
 import More from '@/components/more'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { is_dark_theme_getter, useSpaceStore, useUIStore } from '@/stores'
-import { ContextMenu, Dialog, Dropdown } from '@youknown/react-ui/src'
+import { with_api } from '@/utils/request'
+import { ContextMenu, Dialog, Dropdown, Toast } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 interface SpaceCardProps {
@@ -23,6 +24,7 @@ export default function SpaceCard(props: SpaceCardProps) {
 	const delete_spaces = useSpaceStore(state => state.delete_spaces)
 	const navigate = useTransitionNavigate()
 	const [more_open, set_more_open] = useState(false)
+	const [deleting, set_deleting] = useState(false)
 
 	const go_space_docs = () => {
 		navigate(`${info.space_id}`)
@@ -39,6 +41,18 @@ export default function SpaceCard(props: SpaceCardProps) {
 			)
 		})
 	}
+
+	const remove_spaces = async () => {
+		if (deleting) return
+		set_deleting(true)
+		const [err] = await with_api(delete_spaces)(info.space_id)
+		set_deleting(false)
+		if (err) {
+			return
+		}
+		Toast.success(t('delete.success'))
+	}
+
 	const show_delete_dialog = () => {
 		Dialog.confirm({
 			title: t('heading.delete_space'),
@@ -50,9 +64,8 @@ export default function SpaceCard(props: SpaceCardProps) {
 			okDanger: true,
 			okText: t('delete.text'),
 			cancelText: t('cancel.text'),
-			async onOk() {
-				await delete_spaces(info.space_id)
-			}
+			okLoading: deleting,
+			onOk: remove_spaces
 		})
 	}
 

@@ -35,6 +35,10 @@ $prefix: '#{$ui-prefix}-avatar';
 		border-radius: $round;
 	}
 
+	&-bordered {
+		border: 2px solid $bg-1;
+	}
+
 	&-small {
 		width: 24px;
 		min-width: 24px;

@@ -12,9 +12,11 @@ import AvatarGroup from './avatarGroup'
 interface AvatarProps extends HTMLAttributes<HTMLElement> {
 	size?: 'small' | 'medium' | 'large' | number
 	round?: boolean
+	bordered?: boolean
 	color?: string
 	src?: string
 	badge?: ReactNode
+	canPreview?: boolean
 }
 
 const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLDivElement>) => {
@@ -26,15 +28,17 @@ const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLDivElement>) => {
 		src = '',
 		size = avatarCtx.size ?? 'medium',
 		round = avatarCtx.round ?? false,
+		bordered = avatarCtx.bordered ?? false,
 		color = 'var(--ui-bg-3)',
 		badge,
+		canPreview,
 		style,
 		...rest
 	} = props
 
 	const prefixCls = `${UI_PREFIX}-avatar`
 
-	const imgEle = <Image className={`${prefixCls}-img`} src={src} alt="Avatar" />
+	const imgEle = <Image className={`${prefixCls}-img`} src={src} alt="Avatar" canPreview={canPreview} />
 
 	const avatarStyle = is.number(size)
 		? {
@@ -54,7 +58,8 @@ const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLDivElement>) => {
 		<div
 			ref={ref}
 			className={cls(className, prefixCls, is.string(size) && `${prefixCls}-${size}`, {
-				[`${prefixCls}-round`]: round
+				[`${prefixCls}-round`]: round,
+				[`${prefixCls}-bordered`]: bordered
 			})}
 			style={avatarStyle}
 			{...rest}

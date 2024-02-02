@@ -13,7 +13,18 @@ import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { with_api } from '@/utils/request'
 import { useBoolean, useFetch } from '@youknown/react-hook/src'
-import { AspectRatio, Button, Divider, Image, Input, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
+import {
+	AspectRatio,
+	Avatar,
+	Button,
+	Divider,
+	Image,
+	Input,
+	Loading,
+	Space,
+	Toast,
+	Upload
+} from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import Entires from './components/entries'
@@ -259,11 +270,12 @@ export default function UserCenter() {
 								action={upload_avatar}
 							/>
 						) : (
-							<Image
-								className="absolute top--45px w-90px h-90px rd-full bg-bg-2 shadow-shadow-l"
-								src={user_info?.avatar ?? ''}
+							<Avatar
+								className="absolute! top--45px shadow-shadow-l"
+								size={90}
+								round
 								canPreview
-								alt="Avatar"
+								src={user_info?.avatar}
 							/>
 						)}
 					</>

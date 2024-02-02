@@ -274,8 +274,21 @@ export default function Doc() {
 				Toast.error(t('export.pdf.fail'))
 			})
 	}
+
 	const on_export_html = () => {
-		export_html(editor.getHTML(), doc_info?.title + '.html')
+		const html_content = document.documentElement.outerHTML
+		const html = html_content.replace(
+			/<body.*?>[\s\S]*?<\/body>/i,
+			`<body>
+				<article
+					class="rich-text-container"
+					style="max-width:720px;padding:16px;margin:0 auto;"
+				>${editor.getHTML()}
+				</article>
+			</body>`
+		)
+		const filename = doc_info?.title + '.html'
+		export_html(html, filename)
 		Toast.success(t('export.html.success'))
 	}
 

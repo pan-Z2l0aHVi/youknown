@@ -52,7 +52,7 @@ export default () => {
 				<Avatar round src={picSrc} />
 			</Avatar.Group>
 			<Divider />
-			<Avatar.Group overlapFrom="right" size="small">
+			<Avatar.Group size="small">
 				<Avatar round src={picSrc} />
 				<Avatar round src={picSrc} />
 				<Avatar round src={picSrc} />
@@ -60,7 +60,7 @@ export default () => {
 				<Avatar round src={picSrc} />
 			</Avatar.Group>
 			<Divider />
-			<Avatar.Group overlapFrom="right" size="medium">
+			<Avatar.Group size="medium">
 				<Avatar round src={picSrc} />
 				<Avatar round src={picSrc} />
 				<Avatar round src={picSrc} />
@@ -68,7 +68,7 @@ export default () => {
 				<Avatar round src={picSrc} />
 			</Avatar.Group>
 			<Divider />
-			<Avatar.Group overlapFrom="right" size="large">
+			<Avatar.Group size="large">
 				<Avatar round src={picSrc} />
 				<Avatar round src={picSrc} />
 				<Avatar round src={picSrc} />
