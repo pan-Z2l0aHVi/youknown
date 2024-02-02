@@ -367,5 +367,16 @@
       "tip": "确认删除该条评论么？"
     }
   },
-  "created_at": "创建于"
+  "created_at": "创建于",
+  "record": {
+    "public_doc": "公开文档",
+    "like": "点赞",
+    "unlike": "取消点赞",
+    "update": "更新",
+    "doc": "文档",
+    "read": "阅读",
+    "batching_delete": "批量删除",
+    "delete": "删除",
+    "update_and_delete": "更新并发布"
+  }
 }

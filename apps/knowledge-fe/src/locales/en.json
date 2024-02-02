@@ -367,5 +367,16 @@
       "tip": "Are you sure want to delete the comment?"
     }
   },
-  "created_at": "Created in"
+  "created_at": "Created in",
+  "record": {
+    "public_doc": "public document",
+    "like": "like",
+    "unlike": "unlike",
+    "update": "update",
+    "doc": "document",
+    "read": "read",
+    "batching_delete": "deleted documents in batches",
+    "delete": "delete",
+    "update_and_delete": "update and publish"
+  }
 }

@@ -125,10 +125,10 @@ export default function DocList(props: DocListProps) {
 	const record_batching_delete_doc = () => {
 		selection.forEach(item => {
 			recording({
-				action: '批量删除',
+				action: 'record.batching_delete',
 				target: '',
 				target_id: '',
-				obj_type: '文档',
+				obj_type: 'record.doc',
 				obj: item.title,
 				obj_id: item.doc_id
 			})
@@ -137,10 +137,10 @@ export default function DocList(props: DocListProps) {
 
 	const record_delete_doc = (doc_info: Doc) => {
 		recording({
-			action: '删除',
+			action: 'record.delete',
 			target: '',
 			target_id: '',
-			obj_type: '文档',
+			obj_type: 'record.doc',
 			obj: doc_info.title,
 			obj_id: doc_info.doc_id
 		})
@@ -148,10 +148,10 @@ export default function DocList(props: DocListProps) {
 
 	const record_update_doc = (doc_info: Doc) => {
 		recording({
-			action: doc_info.public ? '更新并发布' : '更新',
+			action: doc_info.public ? 'record.update_and_delete' : 'record.update',
 			target: '',
 			target_id: '',
-			obj_type: '文档',
+			obj_type: 'record.doc',
 			obj: doc_info.title,
 			obj_id: doc_info.doc_id
 		})

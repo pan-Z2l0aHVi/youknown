@@ -31,7 +31,7 @@ export function useFeedLike(feed: Feed) {
 			action,
 			target: feed.creator.nickname,
 			target_id: feed.creator_id,
-			obj_type: '公开文档',
+			obj_type: 'record.public_doc',
 			obj: feed.subject.title,
 			obj_id: id
 		})
@@ -78,9 +78,9 @@ export function useFeedLike(feed: Feed) {
 		},
 		onSuccess(_, [{ event }]) {
 			if (event === 'like') {
-				record_like_feed('点赞')
+				record_like_feed('record.like')
 			} else if (event === 'unlike') {
-				record_like_feed('取消点赞')
+				record_like_feed('record.unlike')
 			}
 		},
 		onError(error, [{ event }]) {

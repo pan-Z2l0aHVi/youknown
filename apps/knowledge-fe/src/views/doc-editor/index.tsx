@@ -191,10 +191,10 @@ export default function Doc() {
 	}
 	const record_update_doc = (new_doc: Doc) => {
 		recording({
-			action: '更新',
+			action: 'record.update',
 			target: '',
 			target_id: '',
-			obj_type: '文档',
+			obj_type: 'record.doc',
 			obj: new_doc.title,
 			obj_id: new_doc.doc_id
 		})

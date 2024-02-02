@@ -70,7 +70,7 @@ export default function RecordItem(props: RecordItemProps) {
 						)}
 					></div>
 					<div className="flex-1 flex flex-wrap items-center text-text-2 whitespace-nowrap [@media(hover:hover)]-group-hover-text-text-1 transition-colors">
-						你<span className="color-orange">{record.action}</span>了
+						你<span className="color-orange">{t(record.action)}</span>了
 						{record.target && (
 							<>
 								<TransitionLink
@@ -84,7 +84,7 @@ export default function RecordItem(props: RecordItemProps) {
 						)}
 						{record.obj && (
 							<>
-								{record.obj_type}
+								{t(record.obj_type)}
 								<TransitionLink
 									className="inline-block sm:max-w-200px <sm:max-w-80px truncate color-blue! [@media(hover:hover)]-hover-underline!"
 									to={feed_url}

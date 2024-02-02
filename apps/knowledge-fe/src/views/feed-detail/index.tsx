@@ -37,10 +37,10 @@ export default function FeedDetail() {
 
 	const record_read_feed = (feed_info: Feed) => {
 		recording({
-			action: '阅读',
+			action: 'record.read',
 			target: feed_info.creator.nickname,
 			target_id: feed_info.creator_id,
-			obj_type: '公开文档',
+			obj_type: 'record.public_doc',
 			obj: feed_info.subject.title,
 			obj_id: feed_info.id
 		})
