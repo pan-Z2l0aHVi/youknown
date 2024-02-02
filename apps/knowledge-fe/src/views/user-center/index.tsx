@@ -274,6 +274,7 @@ export default function UserCenter() {
 								className="absolute! top--45px shadow-shadow-l"
 								size={90}
 								round
+								bordered
 								canPreview
 								src={user_info?.avatar}
 							/>

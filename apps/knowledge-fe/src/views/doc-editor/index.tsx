@@ -10,7 +10,7 @@ import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { is_dark_theme_getter, useRecordStore, useUIStore } from '@/stores'
 import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
-import { export_html, export_pdf } from '@/utils/exports'
+import { download_html } from '@/utils/exports'
 import { NetFetchError, with_api } from '@/utils/request'
 import { useBoolean, useDebounce, useFetch } from '@youknown/react-hook/src'
 import { RTEMenuBar } from '@youknown/react-rte/src/components/menu-bar'
@@ -265,31 +265,47 @@ export default function Doc() {
 		Toast.success(is_public ? t('doc.publish.ok') : t('doc.publish.cancel'))
 	}
 
-	const on_export_pdf = () => {
-		export_pdf(editor.getHTML(), doc_info?.title + '.pdf')
-			.then(() => {
-				Toast.success(t('export.pdf.success'))
-			})
-			.catch(() => {
-				Toast.error(t('export.pdf.fail'))
-			})
-	}
-
-	const on_export_html = () => {
+	const get_doc_html_str = () => {
 		const html_content = document.documentElement.outerHTML
 		const html = html_content.replace(
 			/<body.*?>[\s\S]*?<\/body>/i,
 			`<body>
-				<article
-					class="rich-text-container"
-					style="max-width:720px;padding:16px;margin:0 auto;"
-				>${editor.getHTML()}
+				<article class="rich-text-container max-w-720px p-[8px_8px_8px_16px] m-[0_auto]">
+					<h1 class="text-center">${doc_title}</h1>
+					<img class="w-100% max-h-30vh min-h-40px object-cover rd-radius-m mb-40px" src=${doc_info?.cover}>
+					${editor.getHTML()}
 				</article>
-			</body>`
+			</body>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+			<script>
+				hljs.highlightAll();
+				const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+				window.addEventListener("afterprint", function() {
+					if (isSafari) {
+						window.alert("Accomplish.");
+					}
+					window.close();
+				})
+				window.print();
+			</script>
+			`
 		)
+		return html
+	}
+
+	const on_export_html = () => {
+		const html = get_doc_html_str()
 		const filename = doc_info?.title + '.html'
-		export_html(html, filename)
+		download_html(html, filename)
 		Toast.success(t('export.html.success'))
+	}
+
+	const on_export_pdf = () => {
+		const html = get_doc_html_str()
+		const new_window = window.open('', '_blank') as Window
+		new_window?.focus()
+		new_window.document.write(html)
 	}
 
 	const doc_tips = (
@@ -439,7 +455,7 @@ export default function Doc() {
 			)}
 
 			<Loading
-				className="w-720px! max-w-100% pt-24px pb-24px <sm:pl-16px <sm-pr-16px sm:m-[0_auto]"
+				className="can-print w-720px! max-w-100% pt-24px pb-24px <sm:pl-16px <sm-pr-16px sm:m-[0_auto]"
 				spinning={!doc_state && loading}
 				size="large"
 			>
