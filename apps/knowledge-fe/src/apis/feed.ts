@@ -49,6 +49,19 @@ export const get_feed_info = (params: GetFeedInfoParams) =>
 		params
 	})
 
+export interface GetRelatedFeedsParams {
+	space_id: string
+	page: number
+	page_size: number
+}
+export const get_related_feeds = (params: GetRelatedFeedsParams) =>
+	net.fetch<{
+		total: number
+		list: Feed[]
+	}>('/proxy/feed/related_feeds', {
+		params
+	})
+
 export interface LikeFeedPayload {
 	event: 'like' | 'unlike'
 	feed_id: string

@@ -279,6 +279,9 @@ export default function Doc() {
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 			<script>
+				const root = document.querySelector(':root')
+				root.classList.add('light-theme')
+				root.classList.remove('dark-theme')
 				hljs.highlightAll();
 				const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 				window.addEventListener("afterprint", function() {

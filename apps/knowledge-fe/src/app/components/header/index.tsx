@@ -1,12 +1,12 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import { TbArrowLeft } from 'react-icons/tb'
-import { useNavigate } from 'react-router-dom'
 
 import { useUIStore } from '@/stores'
 import { useDebounce } from '@youknown/react-hook/src'
 import { Button } from '@youknown/react-ui/src'
 import { cls, is } from '@youknown/utils/src'
+import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 
 interface HeaderProps {
 	children?: ReactNode
@@ -19,7 +19,7 @@ export default function Header(props: HeaderProps) {
 	const { children, heading, footer, bordered = 'auto' } = props
 
 	const is_mobile = useUIStore(state => state.is_mobile)
-	const navigate = useNavigate()
+	const navigate = useTransitionNavigate()
 	const [border_visible, set_border_visible] = useState(false)
 
 	useEffect(() => {

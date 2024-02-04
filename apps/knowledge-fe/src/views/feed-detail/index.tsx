@@ -22,6 +22,7 @@ import { QS } from '@youknown/utils/src'
 import CommentArea from './components/comment-area'
 import DescArea from './components/desc-area'
 import LikeArea from './components/like-area'
+import RelatedArea from './components/related-area'
 
 export default function FeedDetail() {
 	const { t } = useTranslation()
@@ -211,6 +212,7 @@ export default function FeedDetail() {
 
 			{detail && (
 				<>
+					<RelatedArea feed={detail} />
 					<DescArea feed={detail} />
 					<LikeArea feed={detail} />
 					<CommentArea feed={detail} />

@@ -7,7 +7,7 @@ import { is } from '@youknown/utils/src'
 
 import { check_keep_alive, outlet_cache } from './use-route-keep-alive'
 
-import type { NavigateOptions, To } from 'react-router-dom'
+import type { NavigateFunction, NavigateOptions, To } from 'react-router-dom'
 export function useTransitionNavigate() {
 	const navigate = useNavigate()
 	const [is_pending, start_transition] = useTransition()
@@ -36,5 +36,5 @@ export function useTransitionNavigate() {
 				navigate(to, options)
 			})
 		}
-	})
+	}) as NavigateFunction
 }

@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 
 import { Feed } from '@/apis/feed'
 import { format_time } from '@/utils'
 import { Avatar } from '@youknown/react-ui/src'
 import { QS } from '@youknown/utils/src'
+import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 
 interface DescAreaProps {
 	feed: Feed
@@ -13,7 +13,7 @@ export default function DescArea(props: DescAreaProps) {
 	const { feed } = props
 
 	const { t } = useTranslation()
-	const navigate = useNavigate()
+	const navigate = useTransitionNavigate()
 
 	const go_user_center = () => {
 		navigate(
