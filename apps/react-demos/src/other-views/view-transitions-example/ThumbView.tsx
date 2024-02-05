@@ -1,0 +1,65 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { Image, List } from '@youknown/react-ui/src'
+import { useNavigate } from 'react-router-dom'
+import { list } from './data'
+import { useState } from 'react'
+import { getParamID, preLocation } from '.'
+import { cls } from '@youknown/utils/src'
+import { useCreation, useStartViewTransition } from '@youknown/react-hook/src'
+
+export default () => {
+	const navigate = useNavigate()
+	const goDetail = (id: string) => {
+		navigate(`/component/view_transitions/detail/${id}`)
+	}
+
+	const isBack = preLocation?.pathname.startsWith('/component/view_transitions/detail')
+	const defaultDetailID = useCreation(() => {
+		if (isBack) {
+			return getParamID()
+		}
+		return ''
+	})
+	const [detailID, setDetailID] = useState(defaultDetailID)
+	const startViewTransition = useStartViewTransition()
+
+	return (
+		<>
+			<h2>Thumb View</h2>
+
+			<List className="gallery">
+				{list.map(item => (
+					<List.Item
+						key={item.id}
+						className="cursor-pointer"
+						suffix={
+							<Image
+								className={cls('w-80px h-60px', {
+									'feed-cover-transition': detailID === item.id
+								})}
+								src={item.cover}
+							/>
+						}
+						onClick={() => {
+							setDetailID(item.id)
+							const transition = startViewTransition(() => {
+								goDetail(item.id)
+							})
+							transition.finished.finally(() => {
+								setDetailID('')
+							})
+						}}
+					>
+						<div
+							className={cls({
+								'feed-title-transition': detailID === item.id
+							})}
+						>
+							{item.title}
+						</div>
+					</List.Item>
+				))}
+			</List>
+		</>
+	)
+}

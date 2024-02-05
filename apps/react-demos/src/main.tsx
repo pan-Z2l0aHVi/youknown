@@ -4,12 +4,7 @@ import '@/styles/theme.scss'
 import '@/utils/i18n'
 
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom'
+import router from '@/router'
 
-import App from '@/app'
-
-createRoot(document.getElementById('app') as HTMLElement).render(
-	<BrowserRouter>
-		<App />
-	</BrowserRouter>
-)
+createRoot(document.getElementById('app') as HTMLElement).render(<RouterProvider router={router} />)

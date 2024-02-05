@@ -54,6 +54,9 @@ importers:
         specifier: ^4.2.5
         version: 4.2.5(vue@3.4.15)
     devDependencies:
+      '@types/dom-view-transitions':
+        specifier: ^1.0.4
+        version: 1.0.4
       '@types/jest':
         specifier: ^29.5.11
         version: 29.5.11
@@ -5019,6 +5022,10 @@ packages:
 
   /@types/crypto-js@4.2.1:
     resolution: {integrity: sha512-FSPGd9+OcSok3RsM0UZ/9fcvMOXJ1ENE/ZbLfOPlBWj7BgXtEAM8VYfTtT760GiLbQIMoVozwVuisjvsVwqYWw==}
+    dev: true
+
+  /@types/dom-view-transitions@1.0.4:
+    resolution: {integrity: sha512-oDuagM6G+xPLrLU4KeCKlr1oalMF5mJqV5pDPMDVIEaa8AkUW00i6u+5P02XCjdEEUQJC9dpnxqSLsZeAciSLQ==}
     dev: true
 
   /@types/eslint@8.56.2:

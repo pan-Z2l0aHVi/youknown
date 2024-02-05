@@ -1,15 +1,14 @@
 import { Suspense, useEffect } from 'react'
 import { CgDarkMode } from 'react-icons/cg'
 import { TbMenu2 } from 'react-icons/tb'
-import { NavLink, useRoutes } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 
-import router, { componentRoutes } from '@/router/routes'
+import { componentRoutes } from '@/router'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Loading, Space, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 const App = () => {
-	const contentEle = useRoutes(router)
 	const [isDark, { setReverse: toggleDark }] = useBoolean(false)
 	const [sidebarVisible, { setReverse: toggleSidebar }] = useBoolean(false)
 
@@ -74,7 +73,9 @@ const App = () => {
 					</Tooltip>
 				</div>
 				<div className="p-[0_64px]">
-					<Suspense fallback={<Loading spinning />}>{contentEle}</Suspense>
+					<Suspense fallback={<Loading spinning />}>
+						<Outlet />
+					</Suspense>
 				</div>
 			</div>
 		</main>

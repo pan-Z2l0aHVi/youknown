@@ -1,7 +1,18 @@
-import { createElement, lazy } from 'react'
-import { Navigate } from 'react-router-dom'
+import { ReactNode, createElement, lazy } from 'react'
+import { Navigate, createBrowserRouter } from 'react-router-dom'
 
-export const componentRoutes = [
+import ThumbView from '@/other-views/view-transitions-example/ThumbView'
+import DetailView from '@/other-views/view-transitions-example/DetailView'
+import App from '@/app'
+
+export interface RouteItem {
+	name?: string
+	path: string
+	element?: ReactNode
+	children?: RouteItem[]
+}
+
+export const componentRoutes: RouteItem[] = [
 	{
 		name: 'Anchor',
 		path: 'anchor',
@@ -181,6 +192,25 @@ export const componentRoutes = [
 		name: 'ImageCompress',
 		path: 'image_compress',
 		element: createElement(lazy(() => import('@/other-views/ImageCompressExample')))
+	},
+	{
+		name: 'ViewTransitions',
+		path: 'view_transitions',
+		element: createElement(lazy(() => import('@/other-views/view-transitions-example'))),
+		children: [
+			{
+				path: '',
+				element: <Navigate to="thumb" replace />
+			},
+			{
+				path: 'thumb',
+				element: <ThumbView />
+			},
+			{
+				path: 'detail/:id',
+				element: <DetailView />
+			}
+		]
 	}
 ]
 
@@ -195,4 +225,12 @@ const routes = [
 	}
 ]
 
-export default routes
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <App />,
+		children: routes
+	}
+])
+
+export default router
