@@ -28,14 +28,14 @@
     "dependencies": {
         "@emotion/react": "^11.11.3",
         "@emotion/styled": "^11.11.0",
-        "@floating-ui/react": "^0.26.5",
-        "@mui/material": "^5.15.4",
+        "@floating-ui/react": "^0.26.9",
+        "@mui/material": "^5.15.7",
+        "@youknown/css": "workspace:*",
         "@youknown/react-hook": "workspace:*",
         "@youknown/utils": "workspace:*",
-        "@youknown/css": "workspace:*",
         "modern-css-reset": "^1.4.0",
         "react-countup": "^6.5.0",
-        "react-easy-crop": "^5.0.4",
+        "react-easy-crop": "^5.0.5",
         "react-textarea-autosize": "^8.5.3",
         "react-transition-group": "^4.4.5"
     },

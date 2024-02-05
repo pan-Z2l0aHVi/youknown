@@ -2,11 +2,11 @@ import { ReactNode, useEffect, useState } from 'react'
 import { IoChevronBackSharp } from 'react-icons/io5'
 import { TbArrowLeft } from 'react-icons/tb'
 
+import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { useUIStore } from '@/stores'
 import { useDebounce } from '@youknown/react-hook/src'
 import { Button } from '@youknown/react-ui/src'
 import { cls, is } from '@youknown/utils/src'
-import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 
 interface HeaderProps {
 	children?: ReactNode

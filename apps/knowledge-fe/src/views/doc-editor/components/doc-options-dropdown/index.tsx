@@ -10,13 +10,13 @@ import { useParams } from 'react-router-dom'
 import { delete_doc, Doc } from '@/apis/doc'
 import DocOptionsModal from '@/components/doc-options-modal'
 import More from '@/components/more'
+import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { is_dark_theme_getter, useUIStore } from '@/stores'
 import { format_time } from '@/utils'
 import { with_api } from '@/utils/request'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dialog, Divider, Dropdown, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
-import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 
 interface DocOptionsDropdownProps {
 	doc_info: Doc

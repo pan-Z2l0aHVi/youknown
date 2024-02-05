@@ -1,9 +1,9 @@
-import { ReactNode, createElement, lazy } from 'react'
-import { Navigate, createBrowserRouter } from 'react-router-dom'
+import { createElement, lazy, ReactNode } from 'react'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 
-import ThumbView from '@/other-views/view-transitions-example/ThumbView'
-import DetailView from '@/other-views/view-transitions-example/DetailView'
 import App from '@/app'
+import DetailView from '@/other-views/view-transitions-example/DetailView'
+import ThumbView from '@/other-views/view-transitions-example/ThumbView'
 
 export interface RouteItem {
 	name?: string

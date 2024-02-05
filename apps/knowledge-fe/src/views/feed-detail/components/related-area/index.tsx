@@ -1,10 +1,11 @@
+import { useRef, useState } from 'react'
+
 import { Feed, get_related_feeds } from '@/apis/feed'
-import { QS } from '@youknown/utils/src'
+import MoreLoading from '@/components/more-loading'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { useInfinity } from '@youknown/react-hook/src'
-import { useRef, useState } from 'react'
-import MoreLoading from '@/components/more-loading'
 import { Image } from '@youknown/react-ui/src'
+import { QS } from '@youknown/utils/src'
 
 interface RelatedAreaProps {
 	feed: Feed

@@ -1,11 +1,13 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+import { useCreation, useStartViewTransition } from '@youknown/react-hook/src'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Image, List } from '@youknown/react-ui/src'
-import { useNavigate } from 'react-router-dom'
-import { list } from './data'
-import { useState } from 'react'
-import { getParamID, preLocation } from '.'
 import { cls } from '@youknown/utils/src'
-import { useCreation, useStartViewTransition } from '@youknown/react-hook/src'
+
+import { getParamID, preLocation } from './'
+import { list } from './data'
 
 export default () => {
 	const navigate = useNavigate()

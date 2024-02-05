@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next'
 
 import { Feed } from '@/apis/feed'
+import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { format_time } from '@/utils'
 import { Avatar } from '@youknown/react-ui/src'
 import { QS } from '@youknown/utils/src'
-import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 
 interface DescAreaProps {
 	feed: Feed
