@@ -1,5 +1,5 @@
 import { B_CODE } from '@/consts'
-import { useModalStore, useUserStore } from '@/stores'
+import { useModalStore, useSpaceStore, useUserStore } from '@/stores'
 import { get_local_token } from '@/utils/local'
 import { Toast } from '@youknown/react-ui/src'
 import { ArgumentType, headers2Obj, Net, PromiseFnResult } from '@youknown/utils/src'
@@ -53,6 +53,7 @@ export const net = Net.create({
 				useUserStore.getState().do_logout()
 				Toast.error(t('login.no_auth'))
 				useModalStore.getState().open_login_modal()
+				useSpaceStore.getState().clear_space_list()
 				break
 
 			default:

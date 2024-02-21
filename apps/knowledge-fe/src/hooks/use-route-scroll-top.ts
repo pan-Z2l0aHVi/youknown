@@ -1,12 +1,18 @@
 import { useLayoutEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
-const EXCLUDE = ['/wallpapers']
+import { useRouteKeepAlive } from './use-route-keep-alive'
+
+const block_list = ['/wallpapers']
 
 export function useRouteScrollTop() {
-	const { pathname } = useLocation()
+	const is_keep_alive = useRouteKeepAlive()
+	const location = useLocation()
 	useLayoutEffect(() => {
-		if (EXCLUDE.includes(pathname)) {
+		if (is_keep_alive) {
+			return
+		}
+		if (block_list.includes(location.pathname)) {
 			return
 		}
 		window.scrollTo({
@@ -14,5 +20,5 @@ export function useRouteScrollTop() {
 			left: 0,
 			behavior: 'instant'
 		})
-	}, [pathname])
+	}, [is_keep_alive, location])
 }

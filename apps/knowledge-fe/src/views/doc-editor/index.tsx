@@ -33,7 +33,17 @@ import TextAlign from '@youknown/react-rte/src/extensions/text-align'
 import TextColor from '@youknown/react-rte/src/extensions/text-color'
 import Underline from '@youknown/react-rte/src/extensions/underline'
 import { useRTE } from '@youknown/react-rte/src/hooks/useRTE'
-import { Button, Dialog, Image as ImageUI, Input, Loading, Space, Toast, Tooltip } from '@youknown/react-ui/src'
+import {
+	Button,
+	Dialog,
+	Image as ImageUI,
+	Input,
+	KeyboardToolbar,
+	Loading,
+	Space,
+	Toast,
+	Tooltip
+} from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import CoverUpload from './components/cover-upload'
@@ -390,52 +400,56 @@ export default function Doc() {
 		</>
 	)
 
-	return (
-		<>
-			<Header heading={t('heading.doc')} bordered="visible">
-				{is_mobile || (
-					<div className="flex-1 flex items-center ml-24px mr-24px">
-						{public_icon}
-						{title_ele}
-					</div>
+	const header = (
+		<Header heading={t('heading.doc')} bordered="visible">
+			{is_mobile || (
+				<div className="flex-1 flex items-center ml-24px mr-24px">
+					{public_icon}
+					{title_ele}
+				</div>
+			)}
+
+			<Space align="center">
+				{is_mobile ? (
+					<>
+						<Button square onClick={show_history_drawer}>
+							<TbCloudCheck className="color-primary text-16px" />
+						</Button>
+						<Button square disabled={editor.isEmpty} loading={saving} primary onClick={save_doc}>
+							<TbChecklist className="text-16px" />
+						</Button>
+					</>
+				) : (
+					<>
+						{doc_tips}
+						<Button
+							onClick={show_history_drawer}
+							prefixIcon={<TbCloudCheck className="color-primary text-16px" />}
+						>
+							{t('draft.text')}
+						</Button>
+						<Button disabled={editor.isEmpty} loading={saving} primary onClick={save_doc}>
+							{t('save.text')}
+						</Button>
+					</>
 				)}
 
-				<Space align="center">
-					{is_mobile ? (
-						<>
-							<Button square onClick={show_history_drawer}>
-								<TbCloudCheck className="color-primary text-16px" />
-							</Button>
-							<Button square disabled={editor.isEmpty} loading={saving} primary onClick={save_doc}>
-								<TbChecklist className="text-16px" />
-							</Button>
-						</>
-					) : (
-						<>
-							{doc_tips}
-							<Button
-								onClick={show_history_drawer}
-								prefixIcon={<TbCloudCheck className="color-primary text-16px" />}
-							>
-								{t('draft.text')}
-							</Button>
-							<Button disabled={editor.isEmpty} loading={saving} primary onClick={save_doc}>
-								{t('save.text')}
-							</Button>
-						</>
-					)}
+				{doc_info && (
+					<DocOptionsDropdown
+						doc_info={doc_info}
+						text_len={text_len}
+						on_updated={set_doc_info}
+						on_export_pdf={on_export_pdf}
+						on_export_html={on_export_html}
+					/>
+				)}
+			</Space>
+		</Header>
+	)
 
-					{doc_info && (
-						<DocOptionsDropdown
-							doc_info={doc_info}
-							text_len={text_len}
-							on_updated={set_doc_info}
-							on_export_pdf={on_export_pdf}
-							on_export_html={on_export_html}
-						/>
-					)}
-				</Space>
-			</Header>
+	return (
+		<>
+			{header}
 
 			<DocHistoryDrawer
 				open={history_drawer_open}
@@ -445,7 +459,11 @@ export default function Doc() {
 				on_recovery={recovery_doc}
 			/>
 
-			{is_mobile || (
+			{is_mobile ? (
+				<KeyboardToolbar>
+					<RTEMenuBar editor={editor} />
+				</KeyboardToolbar>
+			) : (
 				<div
 					className={cls(
 						'z-10 sticky top-56px right-0',

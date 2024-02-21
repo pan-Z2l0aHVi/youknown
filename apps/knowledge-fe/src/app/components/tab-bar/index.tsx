@@ -35,10 +35,10 @@ export default function TabBar() {
 	]
 	return (
 		<>
-			<div className="h-56px"></div>
+			<div className="h-48px"></div>
 			<div
 				className={cls(
-					'z-20 fixed bottom-0 w-100% h-56px flex items-center justify-around',
+					'z-20 fixed bottom-0 w-100% h-48px flex items-center justify-around',
 					is_dark_theme ? 'bg-[rgba(40,40,40,0.7)]' : '!bg-[rgba(240,240,240,0.7)]',
 					'backdrop-blur-lg'
 				)}
@@ -53,7 +53,7 @@ export default function TabBar() {
 						>
 							<tab.Icon
 								className={cls(
-									is_active ? 'bg-primary rd-full p-4px text-26px' : 'text-26px',
+									is_active ? 'box-content bg-primary rd-full p-4px text-24px mt--8px' : 'text-24px',
 									is_dark_theme
 										? is_active
 											? 'color-#fff'
@@ -63,7 +63,12 @@ export default function TabBar() {
 											: 'color-#414647'
 								)}
 							/>
-							<div className={cls('text-12px scale-80', is_dark_theme ? 'color-#fff' : 'color-#414647')}>
+							<div
+								className={cls(
+									'min-w-80px text-center text-12px scale-80',
+									is_dark_theme ? 'color-#fff' : 'color-#414647'
+								)}
+							>
 								{tab.title}
 							</div>
 						</TransitionNavLink>

@@ -4,7 +4,7 @@ import { Button, Collapse, Divider } from '@youknown/react-ui/src'
 
 export default () => {
 	const [controlledActives, setControlledActives] = useState<(string | number)[]>([1])
-	const [customHeaderExpend, setCustomHeaderExpend] = useState<boolean>(false)
+	const [customHeaderExpand, setCustomHeaderExpand] = useState<boolean>(false)
 	return (
 		<div>
 			<h1>Collapse</h1>
@@ -68,13 +68,13 @@ export default () => {
 				custom={
 					<Button
 						onClick={() => {
-							setCustomHeaderExpend(p => !p)
+							setCustomHeaderExpand(p => !p)
 						}}
 					>
 						Toggle collapse
 					</Button>
 				}
-				expend={customHeaderExpend}
+				expand={customHeaderExpand}
 			>
 				<div className="p-8px color-#999">
 					<p>

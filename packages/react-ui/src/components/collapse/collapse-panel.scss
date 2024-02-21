@@ -4,8 +4,6 @@ $prefix: '#{$ui-prefix}-collapse-panel';
 .#{$prefix} {
 	@include basic;
 
-	padding: 4px;
-
 	&-header {
 		cursor: pointer;
 		display: flex;
@@ -42,5 +40,9 @@ $prefix: '#{$ui-prefix}-collapse-panel';
 
 	&-bordered {
 		border-bottom: 1px solid $divider;
+	}
+
+	&-default {
+		padding: 4px;
 	}
 }

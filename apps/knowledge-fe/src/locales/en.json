@@ -378,5 +378,14 @@
     "batching_delete": "deleted documents in batches",
     "delete": "delete",
     "update_and_delete": "update and publish"
+  },
+  "related": {
+    "feed_count": "Related content"
+  },
+  "code": {
+    "copy": {
+      "text": "Copy the code",
+      "success": "The code copied"
+    }
   }
 }

@@ -1,0 +1,10 @@
+@use '../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-prefix}-keyboard-toolbar';
+.#{$prefix} {
+	@include basic;
+
+	&-placeholder {
+		// BLOCK
+	}
+}

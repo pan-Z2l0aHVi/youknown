@@ -1,7 +1,4 @@
-import '@youknown/css/src/rte.scss'
-
-import hljs from 'highlight.js/lib/core'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuHeart, LuHeartOff } from 'react-icons/lu'
 import { TbPencil } from 'react-icons/tb'
@@ -13,7 +10,6 @@ import Header from '@/app/components/header'
 import RichTextArea from '@/components/rich-text-area'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
-import { initHlsLangs } from '@/utils'
 import { with_api } from '@/utils/request'
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Image, Loading, Toast } from '@youknown/react-ui/src'
@@ -62,6 +58,11 @@ export default function FeedDetail() {
 		refreshDeps: [feed_id],
 		onSuccess(data) {
 			record_read_feed(data)
+			window.scrollTo({
+				top: 0,
+				left: 0,
+				behavior: 'instant'
+			})
 		}
 	})
 
@@ -117,14 +118,6 @@ export default function FeedDetail() {
 
 	const doc_content = detail?.subject.content ?? ''
 	const rich_text_container_ref = useRef<HTMLDivElement>(null)
-	useEffect(() => {
-		const dom = rich_text_container_ref.current
-		if (dom && doc_content) {
-			initHlsLangs().then(() => {
-				hljs.highlightAll()
-			})
-		}
-	}, [doc_content])
 
 	const is_owner = detail?.creator_id === profile?.user_id
 	const action_btn = detail && (
@@ -212,9 +205,9 @@ export default function FeedDetail() {
 
 			{detail && (
 				<>
-					<RelatedArea feed={detail} />
 					<DescArea feed={detail} />
 					<LikeArea feed={detail} />
+					<RelatedArea feed={detail} />
 					<CommentArea feed={detail} />
 				</>
 			)}

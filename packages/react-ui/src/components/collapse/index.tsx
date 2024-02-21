@@ -34,10 +34,10 @@ const Collapse = <T extends string | number>(props: CollapseProps<T>, propRef: F
 				if (is.undefined(itemKey)) return child
 
 				return cloneElement<ComponentProps<typeof CollapsePanel>>(child, {
-					expend: actives.includes(itemKey),
-					onChange(expend) {
+					expand: actives.includes(itemKey),
+					onChange(expand) {
 						let nextActives = actives
-						if (expend) {
+						if (expand) {
 							nextActives = accordion ? [itemKey] : [...actives, itemKey]
 						} else {
 							nextActives = actives.filter(active => active !== itemKey)

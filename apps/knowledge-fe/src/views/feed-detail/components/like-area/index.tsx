@@ -5,7 +5,7 @@ import { TbDots } from 'react-icons/tb'
 import { Feed } from '@/apis/feed'
 import { useFeedLike } from '@/hooks/use-feed-like'
 import { is_dark_theme_getter, useUIStore } from '@/stores'
-import { useBoolean } from '@youknown/react-hook/src'
+import { useBoolean, useHover } from '@youknown/react-hook/src'
 import { Avatar, Button, Dialog, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
@@ -48,16 +48,19 @@ export default function LikeArea(props: LikeAreaProps) {
 		</Dialog>
 	)
 
+	const [like_action_btn] = useHover(hovered => {
+		const icon_cls = hovered ? 'text-20px' : 'text-20px color-primary'
+		return (
+			<Button className="b-primary! b-2!" size="large" circle primary={hovered} onClick={toggle_like}>
+				{liked ? <FaThumbsUp className={icon_cls} /> : <FaRegThumbsUp className={icon_cls} />}
+			</Button>
+		)
+	})
+
 	return (
 		<>
-			<div className="group flex flex-col items-center w-max p-8px m-[0_auto] select-none">
-				<Button className="sm:group-hover-animate-shake-y b-primary!" size="large" circle onClick={toggle_like}>
-					{liked ? (
-						<FaThumbsUp className="text-20px color-primary" />
-					) : (
-						<FaRegThumbsUp className="text-20px color-primary" />
-					)}
-				</Button>
+			<div className="flex flex-col items-center w-max p-8px m-[0_auto] select-none">
+				{like_action_btn}
 				<div className="color-text-3 mt-8px">{`${like_count} ${t('like.people_num')}`}</div>
 			</div>
 

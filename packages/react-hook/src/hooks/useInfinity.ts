@@ -1,6 +1,7 @@
 import { MutableRefObject, SetStateAction, useState } from 'react'
+import { flushSync } from 'react-dom'
 
-import { checkElementInContainer, is, macroDefer, omit } from '@youknown/utils/src'
+import { checkElementInContainer, is, omit } from '@youknown/utils/src'
 
 import { useCreation } from './useCreation'
 import { useEvent } from './useEvent'
@@ -35,30 +36,30 @@ export function useInfinity<T extends any[], S extends any[]>(
 		ready,
 		onSuccess(data, params) {
 			fetchOpts.onSuccess?.(data, params)
-			if (page <= 1) {
-				setData(data)
-			} else if (!noMore) {
-				setData(p => [...p, ...data] as T)
-			}
 			const noMoreData = data.length < pageSize
-			if (data.length < pageSize) {
-				setNoMore(true)
-			} else {
-				setPage(p => p + 1)
-			}
+			flushSync(() => {
+				if (page <= 1) {
+					setData(data)
+				} else if (!noMore) {
+					setData(p => [...p, ...data] as T)
+				}
+				if (data.length < pageSize) {
+					setNoMore(true)
+				} else {
+					setPage(p => p + 1)
+				}
+			})
 			// 拉取数据未填满屏幕时，继续拉取下一页
 			if (!noMoreData && opts.target) {
-				macroDefer(() => {
-					const targetEle = opts.target?.current
-					const container = (opts.observerInit?.root as HTMLElement) ?? null
-					const rootMargin = opts.observerInit?.rootMargin
-					if (targetEle) {
-						const notEnough = checkElementInContainer(targetEle, container, rootMargin)
-						if (notEnough) {
-							loadMore()
-						}
+				const targetEle = opts.target?.current
+				const container = (opts.observerInit?.root as HTMLElement) ?? null
+				const rootMargin = opts.observerInit?.rootMargin
+				if (targetEle) {
+					const notEnough = checkElementInContainer(targetEle, container, rootMargin)
+					if (notEnough) {
+						loadMore()
 					}
-				})
+				}
 			}
 		}
 	})
@@ -88,14 +89,18 @@ export function useInfinity<T extends any[], S extends any[]>(
 	const reload = useEvent(() => {
 		return new Promise((resolve, reject) => {
 			reset()
-			setData(p => {
-				return (p?.slice(0, initialPageSize) ?? []) as T
-			})
-			const root = opts.observerInit?.root
-			if (root instanceof HTMLElement) {
-				root.scrollTo(0, 0)
-			}
-			macroDefer(() => {
+			// Warning: flushSync was called from inside a lifecycle method.
+			// React cannot flush when React is already rendering. Consider moving this call to a scheduler task or micro task.
+			Promise.resolve().then(() => {
+				flushSync(() => {
+					setData(p => {
+						return (p?.slice(0, initialPageSize) ?? []) as T
+					})
+				})
+				const root = opts.observerInit?.root
+				if (root instanceof HTMLElement) {
+					root.scrollTo(0, 0)
+				}
 				loadMore().then(resolve).catch(reject)
 			})
 		})

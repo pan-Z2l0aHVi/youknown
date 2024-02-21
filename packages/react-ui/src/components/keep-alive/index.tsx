@@ -1,4 +1,4 @@
-import { ReactNode, Suspense, useEffect, useRef } from 'react'
+import { FC, ReactNode, Suspense, useEffect, useRef } from 'react'
 
 interface RepeaterProps {
 	children: ReactNode
@@ -24,7 +24,7 @@ const Repeater = (props: RepeaterProps) => {
 interface KeepAliveProps extends RepeaterProps {
 	fallback?: ReactNode
 }
-const KeepAlive = (props: KeepAliveProps) => {
+const KeepAlive: FC<KeepAliveProps> = props => {
 	const { children, show, fallback } = props
 	return (
 		<Suspense fallback={fallback}>
@@ -32,5 +32,5 @@ const KeepAlive = (props: KeepAliveProps) => {
 		</Suspense>
 	)
 }
-
+KeepAlive.displayName = 'KeepAlive'
 export default KeepAlive

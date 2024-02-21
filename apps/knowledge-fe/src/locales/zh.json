@@ -378,5 +378,14 @@
     "batching_delete": "批量删除",
     "delete": "删除",
     "update_and_delete": "更新并发布"
+  },
+  "related": {
+    "feed_count": "条相关内容"
+  },
+  "code": {
+    "copy": {
+      "text": "复制代码",
+      "success": "代码已复制"
+    }
   }
 }

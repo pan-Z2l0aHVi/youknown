@@ -15,15 +15,15 @@ interface CollapsePanelProps extends Omit<HTMLAttributes<HTMLElement>, 'title' |
 	bordered?: boolean
 	mountOnEnter?: boolean
 	unmountOnExit?: boolean
-	expend?: boolean
-	onChange?: (expend: boolean) => void
+	expand?: boolean
+	onChange?: (expand: boolean) => void
 }
 
 const CollapsePanel: FC<CollapsePanelProps> = props => {
 	const {
 		className,
 		children,
-		expend,
+		expand,
 		title,
 		custom,
 		bordered = true,
@@ -39,7 +39,8 @@ const CollapsePanel: FC<CollapsePanelProps> = props => {
 	return (
 		<div
 			className={cls(prefixCls, {
-				[`${prefixCls}-bordered`]: bordered
+				[`${prefixCls}-bordered`]: bordered,
+				[`${prefixCls}-default`]: !custom
 			})}
 		>
 			{custom ?? (
@@ -47,18 +48,18 @@ const CollapsePanel: FC<CollapsePanelProps> = props => {
 					className={cls(className, `${prefixCls}-header`)}
 					onClick={event => {
 						onClick?.(event)
-						onChange?.(!expend)
+						onChange?.(!expand)
 					}}
 					{...rest}
 				>
 					<div>{title}</div>
 					<TbChevronDown
 						className={`${prefixCls}-header-icon`}
-						style={{ transform: `rotate(${expend ? 0 : -90}deg)` }}
+						style={{ transform: `rotate(${expand ? 0 : -90}deg)` }}
 					/>
 				</div>
 			)}
-			<Motion.Collapse in={expend} mountOnEnter={mountOnEnter} unmountOnExit={unmountOnExit}>
+			<Motion.Collapse in={expand} mountOnEnter={mountOnEnter} unmountOnExit={unmountOnExit}>
 				{children}
 			</Motion.Collapse>
 		</div>

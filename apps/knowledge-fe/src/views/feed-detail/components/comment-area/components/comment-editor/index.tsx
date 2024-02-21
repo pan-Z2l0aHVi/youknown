@@ -151,7 +151,7 @@ export default function CommentEditor(props: CommentEditorProps) {
 				</>
 			) : (
 				<div
-					className="flex-1 h-120px flex items-center justify-center bg-bg-2 color-text-3 rd-radius-m"
+					className="flex-1 h-120px flex items-center justify-center bg-bg-2 color-text-3 rd-radius-m cursor-pointer"
 					onClick={open_login_modal}
 				>
 					<span className="color-primary mr-4px">{t('login.text')}</span>

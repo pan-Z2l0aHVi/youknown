@@ -27,7 +27,8 @@ $prefix: '#{$ui-prefix}-list-item';
 	}
 
 	&-content {
-		width: 100%;
+		flex: 1;
+		width: 0;
 	}
 
 	&-small {

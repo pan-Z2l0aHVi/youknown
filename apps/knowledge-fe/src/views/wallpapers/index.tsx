@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
@@ -10,7 +11,7 @@ import NoMore from '@/components/no-more'
 import { useUIStore } from '@/stores'
 import { useCreation, useEvent, useInfinity, useMount, useUnmount, useUpdate } from '@youknown/react-hook/src'
 import { Divider, Form } from '@youknown/react-ui/src'
-import { macroDefer, storage } from '@youknown/utils/src'
+import { storage } from '@youknown/utils/src'
 
 import WallpaperCard from './components/wallpaper-card'
 import WallpaperFilter, {
@@ -170,8 +171,10 @@ export default function Wallpapers() {
 	const reload_wallpapers = useEvent(async () => {
 		const is_valid = await check_form_valid()
 		if (is_valid) {
-			change_page(0)
-			macroDefer(reload)
+			flushSync(() => {
+				change_page(0)
+			})
+			reload()
 		}
 	})
 
@@ -231,10 +234,10 @@ export default function Wallpapers() {
 					keywords={keywords}
 					on_keywords_input={val => {
 						storage.session.set(FILTER_KEYWORDS_KEY, val)
-						set_keywords(val)
-						macroDefer(() => {
-							update_params()
+						flushSync(() => {
+							set_keywords(val)
 						})
+						update_params()
 					}}
 					loading={loading}
 					on_search={reload_wallpapers}
