@@ -8,7 +8,6 @@ import { cls } from '@youknown/utils/src'
 
 import { UI_EDITOR_PREFIX } from '../../common'
 import LinkBubble from './components/link-bubble'
-import TableBubble from './components/table-bubble'
 
 export type BubbleListItem =
 	| '|' // divider
@@ -20,6 +19,7 @@ export type BubbleListItem =
 	| 'highlight'
 	| 'code'
 	| 'color'
+	| 'table'
 interface BubbleProps {
 	editor: Editor | null
 	tooltip?: boolean
@@ -33,6 +33,7 @@ export function Bubble(props: BubbleProps) {
 		return list ?? defaultList
 	}, [list])
 	const [linkPickerOpen, setLinkPickerOpen] = useState(false)
+	const [tableOperatorOpen, setTableOperatorOpen] = useState(false)
 	const [highlightPickerOpen, setHighlightPickerOpen] = useState(false)
 	const [colorPickerOpen, setColorPickerOpen] = useState(false)
 
@@ -51,18 +52,18 @@ export function Bubble(props: BubbleProps) {
 					pickerOpen={linkPickerOpen}
 					setPickerOpen={open => {
 						setLinkPickerOpen(open)
+						setTableOperatorOpen(false)
 						setColorPickerOpen(false)
 						setHighlightPickerOpen(false)
 					}}
 				/>
 			)
 		}
-		if (editor.isActive('table')) {
-			return <TableBubble editor={editor} />
-		}
 
+		const btnListWithTable = editor.isActive('table') ? ['table', '|', ...btnList] : btnList
 		const extensions = editor.extensionManager.extensions.filter(ext => ext.options.bubble)
-		return btnList.map((btn, index) => {
+
+		return btnListWithTable.map((btn, index) => {
 			if (btn === '|') {
 				return cloneElement(verticalDivider, { key: index })
 			}
@@ -83,6 +84,21 @@ export function Bubble(props: BubbleProps) {
 						open: linkPickerOpen,
 						onOpenChange(open: boolean) {
 							setLinkPickerOpen(open)
+							setTableOperatorOpen(false)
+							setColorPickerOpen(false)
+							setHighlightPickerOpen(false)
+						}
+					})
+				}
+				if (extension.name === 'table') {
+					return createElement(bubble, {
+						...basicProps,
+						appendTo: null,
+						trigger: 'manual',
+						open: tableOperatorOpen,
+						onOpenChange(open: boolean) {
+							setTableOperatorOpen(open)
+							setLinkPickerOpen(false)
 							setColorPickerOpen(false)
 							setHighlightPickerOpen(false)
 						}
@@ -98,6 +114,7 @@ export function Bubble(props: BubbleProps) {
 							setHighlightPickerOpen(open)
 							setColorPickerOpen(false)
 							setLinkPickerOpen(false)
+							setTableOperatorOpen(false)
 						}
 					})
 				}
@@ -111,6 +128,7 @@ export function Bubble(props: BubbleProps) {
 							setColorPickerOpen(open)
 							setHighlightPickerOpen(false)
 							setLinkPickerOpen(false)
+							setTableOperatorOpen(false)
 						}
 					})
 				}
@@ -130,6 +148,7 @@ export function Bubble(props: BubbleProps) {
 				moveTransition: 'transform 0.15s ease-out',
 				onHide: () => {
 					setLinkPickerOpen(false)
+					setTableOperatorOpen(false)
 					setColorPickerOpen(false)
 					setHighlightPickerOpen(false)
 				}
@@ -141,9 +160,6 @@ export function Bubble(props: BubbleProps) {
 				if (editor.isActive('codeBlock')) {
 					return false
 				}
-				// if (editor.isActive('table')) {
-				// 	return false
-				// }
 				return editor.view.state.selection.content().size > 0
 			}}
 		>

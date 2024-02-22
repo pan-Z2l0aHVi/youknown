@@ -97,8 +97,6 @@ export function Floating(props: FloatingProps) {
 				open={open}
 				onOpenChange={setOpen}
 				content={<Dropdown.Menu className={`${prefixCls}-dropdown`}>{renderFloatingContent()}</Dropdown.Menu>}
-				// Prevent image input[type=file] unmount.
-				unmountOnExit={!btnList.includes('image')}
 			>
 				<Button
 					size="small"

@@ -13,18 +13,30 @@ import { UI_EDITOR_PREFIX } from '../../common'
 export default function TableItem(props: { editor: Editor }) {
 	const { editor } = props
 	const { t } = useTranslation()
-	const [row, setRow] = useState(3)
-	const [col, setCol] = useState(3)
+	const [rows, setRows] = useState(3)
+	const [cols, setCols] = useState(3)
 
-	const insertDisabled = !editor.can().insertTable({ rows: row, cols: col })
+	const insertDisabled = !editor.can().insertTable({
+		rows,
+		cols,
+		withHeaderRow: false
+	})
 
 	const handleSelect = () => {
-		editor.chain().focus().insertTable({ rows: row, cols: col }).run()
+		editor
+			.chain()
+			.focus()
+			.insertTable({
+				rows,
+				cols,
+				withHeaderRow: false
+			})
+			.run()
 		Dropdown.close()
 	}
 	const reset = () => {
-		setRow(3)
-		setCol(3)
+		setRows(3)
+		setCols(3)
 	}
 
 	const tableList = useMemo(() => Array.from(Array(10)).map(() => Array.from(Array(10))), [])
@@ -40,11 +52,11 @@ export default function TableItem(props: { editor: Editor }) {
 							<div
 								key={`${i}x${j}`}
 								className={cls(`${prefixCls}-cell`, {
-									active: i < row && j < col
+									active: i < rows && j < cols
 								})}
 								onMouseEnter={() => {
-									setRow(i + 1)
-									setCol(j + 1)
+									setRows(i + 1)
+									setCols(j + 1)
 								}}
 								onClick={handleSelect}
 							></div>
@@ -52,7 +64,7 @@ export default function TableItem(props: { editor: Editor }) {
 					)}
 				</div>
 				<div className={`${prefixCls}-rows-cols`}>
-					{row} x {col}
+					{rows} x {cols}
 				</div>
 			</div>
 		</Dropdown.Menu>

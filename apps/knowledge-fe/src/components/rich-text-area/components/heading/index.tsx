@@ -27,8 +27,8 @@ export default function Heading(props: HeadingProps) {
 		<Tagname
 			className={cls(
 				heading_cls,
-				'relative before:absolute before:left--48px',
-				'before:hidden sm:hover-before:display-block before:w-40px before-text-right before:color-primary',
+				'relative before:absolute before:left--56px',
+				'before:hidden sm:hover-before:display-block before:w-48px before-text-right before-whitespace-nowrap before:color-primary',
 				className
 			)}
 			{...rest}

@@ -5,24 +5,24 @@ import { TbTablePlus } from 'react-icons/tb'
 
 import { cls } from '@youknown/utils/src'
 
-import { ButtonProps, UI_EDITOR_PREFIX } from '../../../../../../common'
-import CommandBtn from '../../../../../command-btn'
+import { ButtonProps, UI_EDITOR_PREFIX } from '../../../../common'
+import CommandBtn from '../../../command-btn'
 
-export default function RowBeforeAddBtn(props: ButtonProps) {
+export default function ColAfterAddBtn(props: ButtonProps) {
 	const { editor, tooltip = true } = props
 	const { t } = useTranslation()
-	const disabled = !editor.can().addRowBefore()
+	const disabled = !editor.can().addColumnAfter()
 	if (disabled) {
 		return null
 	}
-	const prefixCls = `${UI_EDITOR_PREFIX}-row-before-add-btn`
+	const prefixCls = `${UI_EDITOR_PREFIX}-col-after-add-btn`
 	return (
 		<CommandBtn
-			tooltip={t('react_rte.table.above_insert_row')}
+			tooltip={t('react_rte.table.right_insert_col')}
 			tooltipDisabled={!tooltip}
 			className={cls(prefixCls)}
 			onCommand={() => {
-				editor.chain().focus().addRowBefore().run()
+				editor.chain().focus().addColumnAfter().run()
 			}}
 		>
 			<TbTablePlus />

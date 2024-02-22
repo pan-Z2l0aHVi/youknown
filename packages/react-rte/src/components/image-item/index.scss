@@ -3,8 +3,4 @@
 $prefix: '#{$ui-editor-prefix}-img-item';
 .#{$prefix} {
 	@include icon;
-
-	&-file-input {
-		display: none;
-	}
 }

@@ -1,6 +1,5 @@
 import './index.scss'
 
-import { ChangeEvent, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbPhotoPlus } from 'react-icons/tb'
 
@@ -25,10 +24,9 @@ export default function ImageItem(props: ImageItemProps) {
 	const { editor, onCustomUpload } = props
 
 	const { t } = useTranslation()
-	const fileInputRef = useRef<HTMLInputElement>(null)
 
-	const handleFiles = async (event: ChangeEvent<HTMLInputElement>) => {
-		const { files } = event.target
+	const handleFiles = async (input: HTMLInputElement) => {
+		const { files } = input
 		if (!files || !files.length) {
 			return
 		}
@@ -44,8 +42,6 @@ export default function ImageItem(props: ImageItemProps) {
 				console.error('onCustomUpload error: ', error)
 			}
 		}
-		// 重置 files，允许再次上传同一个 file
-		event.target.value = ''
 	}
 
 	const prefixCls = `${UI_EDITOR_PREFIX}-img-item`
@@ -57,18 +53,17 @@ export default function ImageItem(props: ImageItemProps) {
 				</div>
 			}
 			onClick={() => {
-				fileInputRef.current?.click()
+				const input = document.createElement('input')
+				input.type = 'file'
+				input.multiple = true
+				input.accept = 'image/*'
+				input.onchange = () => {
+					handleFiles(input)
+				}
+				input.click()
 			}}
 		>
 			{t('react_rte.image.text')}
-			<input
-				type="file"
-				multiple
-				accept="image/*"
-				ref={fileInputRef}
-				className={cls(`${prefixCls}-file-input`)}
-				onChange={handleFiles}
-			/>
 		</Dropdown.Item>
 	)
 }

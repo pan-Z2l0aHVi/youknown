@@ -5,8 +5,8 @@ import { TbTablePlus } from 'react-icons/tb'
 
 import { cls } from '@youknown/utils/src'
 
-import { ButtonProps, UI_EDITOR_PREFIX } from '../../../../../../common'
-import CommandBtn from '../../../../../command-btn'
+import { ButtonProps, UI_EDITOR_PREFIX } from '../../../../common'
+import CommandBtn from '../../../command-btn'
 
 export default function RowAfterAddBtn(props: ButtonProps) {
 	const { editor, tooltip = true } = props

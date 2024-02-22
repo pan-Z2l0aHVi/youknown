@@ -5,8 +5,8 @@ import { CgArrowsShrinkH } from 'react-icons/cg'
 
 import { cls } from '@youknown/utils/src'
 
-import { ButtonProps, UI_EDITOR_PREFIX } from '../../../../../../common'
-import CommandBtn from '../../../../../command-btn'
+import { ButtonProps, UI_EDITOR_PREFIX } from '../../../../common'
+import CommandBtn from '../../../command-btn'
 
 export default function CellSplitBtn(props: ButtonProps) {
 	const { editor, tooltip = true } = props

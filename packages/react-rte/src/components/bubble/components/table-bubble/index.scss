@@ -1,8 +1,0 @@
-@use '../../../../styles/mixins.scss' as *;
-
-$prefix: '#{$ui-editor-prefix}-table-bubble';
-.#{$prefix} {
-	&-divider {
-		height: 20px;
-	}
-}

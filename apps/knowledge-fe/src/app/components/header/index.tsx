@@ -72,9 +72,9 @@ export default function Header(props: HeaderProps) {
 		<header
 			className={cls(
 				'sm:pl-32px sm:pr-32px <sm:pl-8px <sm:pr-8px',
-				'sticky top-0 z-20',
-				'bg-bg-0 b-b-1 b-b-solid',
-				border_visible ? 'b-divider' : 'b-transparent'
+				'sticky top-0 z-20 bg-bg-0',
+				border_visible &&
+					'before:content-empty before:absolute before:left-0 before:bottom-0 before:w-100% before:b-b-1 before:b-b-solid before:b-b-divider'
 			)}
 		>
 			{is_mobile ? (

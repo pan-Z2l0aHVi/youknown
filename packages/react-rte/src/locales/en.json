@@ -1,18 +1,18 @@
 {
   "react_rte": {
     "align": {
-      "left": "Left Align",
-      "right": "Right Align",
-      "center": "Center Align",
+      "left": "Left align",
+      "right": "Right align",
+      "center": "Center align",
       "justify": "Justify",
       "method": "Alignment"
     },
     "blockquote": "Blockquote",
     "bold": "Bold",
-    "bulletlist": "Bullet List",
-    "clear_format": "Clear Format",
+    "bulletlist": "Bullet list",
+    "clear_format": "Clear format",
     "code": "Code",
-    "code_block": "Code Block",
+    "code_block": "Code block",
     "divider": "Divider",
     "heading": {
       "1": "Heading 1",
@@ -28,36 +28,37 @@
     "italic": "Italic",
     "link": {
       "text": "Link",
-      "copy": "Copy Link",
-      "copy_success": "Link Copied Successfully",
-      "open": "Open Link",
-      "cancel": "Cancel Link",
-      "edit": "Edit Link"
+      "copy": "Copy link",
+      "copy_success": "link copied successfully",
+      "open": "Open link",
+      "cancel": "Cancel link",
+      "edit": "Edit link"
     },
     "mark": "Mark",
-    "no_bg": "No Background Color",
+    "no_bg": "No background color",
     "ok": "OK",
-    "orderlist": "Ordered List",
+    "orderlist": "Ordered list",
     "placeholder": {
-      "link": "Enter Link"
+      "link": "Enter link"
     },
     "redo": "Redo",
-    "restore": "Restore Default",
+    "restore": "Restore default",
     "strike": "Strikethrough",
     "table": {
       "text": "Table",
-      "merge_cells": "Merge Cells",
-      "split_cells": "Split Cells",
-      "right_insert_col": "Insert Column to the Right",
-      "left_insert_col": "Insert Column to the Left",
-      "below_insert_row": "Insert Row Below",
-      "above_insert_row": "Insert Row Above",
-      "rm_col": "Delete Current Column",
-      "rm_row": "Delete Current Row",
-      "delete": "Delete Table"
+      "operation": "Table operation",
+      "merge_cells": "Merge cells",
+      "split_cells": "Split cells",
+      "right_insert_col": "Insert column to the right",
+      "left_insert_col": "Insert column to the left",
+      "below_insert_row": "Insert row below",
+      "above_insert_row": "Insert row above",
+      "rm_col": "Delete current column",
+      "rm_row": "Delete current row",
+      "delete": "Delete table"
     },
     "text": "Text",
-    "text_color": "Text Color",
+    "text_color": "Text color",
     "underline": "Underline",
     "undo": "Undo"
   }

@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { TbChevronRight } from 'react-icons/tb'
 
 import { Feed, get_related_feeds } from '@/apis/feed'
 import MoreLoading from '@/components/more-loading'
@@ -66,6 +67,7 @@ export default function RelatedArea(props: RelatedAreaProps) {
 						<List.Item
 							key={subject.doc_id}
 							prefix={<Image className="w-40px h-32px rd-radius-m" src={subject.cover} />}
+							suffix={<TbChevronRight className="color-text-3 text-16px" />}
 							className="active-bg-active [@media(hover:hover)]-hover-not-active-bg-hover cursor-pointer"
 							onClick={() => go_feed_detail(feed_info)}
 						>

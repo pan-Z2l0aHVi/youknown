@@ -46,6 +46,7 @@
     "strike": "删除线",
     "table": {
       "text": "表格",
+      "operation": "表格操作",
       "merge_cells": "合并单元格",
       "split_cells": "拆分单元格",
       "right_insert_col": "右侧插入列",

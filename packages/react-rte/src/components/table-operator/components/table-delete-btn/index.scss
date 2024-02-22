@@ -1,0 +1,6 @@
+@use '../../../../styles/mixins.scss' as *;
+
+$prefix: '#{$ui-editor-prefix}-table-delete-btn';
+.#{$prefix} {
+	color: $color-danger;
+}

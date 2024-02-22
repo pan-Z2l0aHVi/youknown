@@ -1,12 +1,12 @@
 import './index.scss'
 
 import { useTranslation } from 'react-i18next'
-import { TbTableMinus } from 'react-icons/tb'
+import { TbTableRow } from 'react-icons/tb'
 
 import { cls } from '@youknown/utils/src'
 
-import { ButtonProps, UI_EDITOR_PREFIX } from '../../../../../../common'
-import CommandBtn from '../../../../../command-btn'
+import { ButtonProps, UI_EDITOR_PREFIX } from '../../../../common'
+import CommandBtn from '../../../command-btn'
 
 export default function RowDeleteBtn(props: ButtonProps) {
 	const { editor, tooltip = true } = props
@@ -25,7 +25,7 @@ export default function RowDeleteBtn(props: ButtonProps) {
 				editor.chain().focus().deleteRow().run()
 			}}
 		>
-			<TbTableMinus />
+			<TbTableRow />
 		</CommandBtn>
 	)
 }

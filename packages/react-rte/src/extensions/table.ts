@@ -1,3 +1,5 @@
+import TableOperator from '../components/table-operator'
+
 import TiptapTable, { TableOptions } from '@tiptap/extension-table'
 import TiptapTableCell from '@tiptap/extension-table-cell'
 import TiptapTableHeader from '@tiptap/extension-table-header'
@@ -16,7 +18,8 @@ export default TiptapTable.extend<
 			...this.parent?.(),
 			resizable: true,
 			insert: TableItem,
-			floating: TableItem
+			floating: TableItem,
+			bubble: TableOperator
 		}
 	},
 
