@@ -1,6 +1,6 @@
 import copy from 'copy-to-clipboard'
 import hljs from 'highlight.js/lib/core'
-import { HTMLAttributes, useLayoutEffect } from 'react'
+import { HTMLAttributes, useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MdOutlineContentCopy } from 'react-icons/md'
 import { TbCaretDownFilled } from 'react-icons/tb'
@@ -19,11 +19,14 @@ export default function CodeBlock(props: CodeBlockProps) {
 
 	const { t } = useTranslation()
 	const [expand, { setReverse: toggle_expand }] = useBoolean(false)
+	const code_ref = useRef<HTMLElement>(null)
 
 	useLayoutEffect(() => {
 		if (expand) {
 			initHlsLangs().then(() => {
-				hljs.highlightAll()
+				if (code_ref.current) {
+					hljs.highlightElement(code_ref.current)
+				}
 			})
 		}
 	}, [expand, language])
@@ -57,7 +60,9 @@ export default function CodeBlock(props: CodeBlockProps) {
 		<div className={cls('bg-bg-1 b-1 b-solid b-divider rd-radius-m overflow-hidden', className)} {...rest}>
 			<Collapse.Panel bordered={false} custom={action_bar} expand={expand}>
 				<pre className="m-0 b-0!">
-					<code className="bg-bg-1!">{code}</code>
+					<code className="bg-bg-1!" ref={code_ref}>
+						{code}
+					</code>
 				</pre>
 			</Collapse.Panel>
 		</div>

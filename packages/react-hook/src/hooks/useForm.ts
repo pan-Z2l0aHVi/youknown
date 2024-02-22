@@ -5,6 +5,7 @@ import { is, ValueOf } from '@youknown/utils/src'
 import { useCreation } from './useCreation'
 import { useEvent } from './useEvent'
 
+type controllerChangeEvent = ChangeEvent<HTMLSelectElement | HTMLInputElement>
 interface State {
 	[key: string]: any
 }
@@ -17,7 +18,6 @@ interface Field<S> {
 	label: keyof S
 	options: FieldOptions<S>
 }
-type controllerChangeEvent = ChangeEvent<HTMLSelectElement | HTMLInputElement>
 interface Options<S> {
 	defaultState: S
 	onFulfilled?(state: S): void

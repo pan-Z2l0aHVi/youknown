@@ -3,8 +3,8 @@ body {
 	font-size: var(--ui-font-size-m);
 	color: var(--ui-text-1);
 	background-color: var(--ui-bg-0);
-	-webkit-font-smoothing: auto;
 	-moz-osx-font-smoothing: auto;
+	-webkit-font-smoothing: auto;
 	-webkit-tap-highlight-color: transparent;
 
 	// 完全重置默认样式 button -> div
