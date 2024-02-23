@@ -1,16 +1,14 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TbChecklist, TbCloudCheck, TbWorld, TbWorldOff } from 'react-icons/tb'
+import { TbChecklist, TbCloudCheck } from 'react-icons/tb'
 import { useLocation, useParams, useSearchParams } from 'react-router-dom'
 
 import { Doc, get_doc_drafts, get_doc_info, update_doc, update_doc_drafts } from '@/apis/doc'
 import Header from '@/app/components/header'
-import { DOC_TITLE_MAX_LEN } from '@/consts'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
-import { is_dark_theme_getter, useRecordStore, useUIStore } from '@/stores'
+import { useRecordStore, useUIStore } from '@/stores'
 import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
-import { download_html } from '@/utils/exports'
 import { NetFetchError, with_api } from '@/utils/request'
 import { useBoolean, useDebounce, useFetch } from '@youknown/react-hook/src'
 import { RTEMenuBar } from '@youknown/react-rte/src/components/menu-bar'
@@ -33,22 +31,14 @@ import TextAlign from '@youknown/react-rte/src/extensions/text-align'
 import TextColor from '@youknown/react-rte/src/extensions/text-color'
 import Underline from '@youknown/react-rte/src/extensions/underline'
 import { useRTE } from '@youknown/react-rte/src/hooks/useRTE'
-import {
-	Button,
-	Dialog,
-	Image as ImageUI,
-	Input,
-	KeyboardToolbar,
-	Loading,
-	Space,
-	Toast,
-	Tooltip
-} from '@youknown/react-ui/src'
+import { Button, Image as ImageUI, KeyboardToolbar, Loading, Space, Toast } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import CoverUpload from './components/cover-upload'
 import DocHistoryDrawer from './components/doc-history-drawer'
 import DocOptionsDropdown from './components/doc-options-dropdown'
+import DocTitle from './components/doc-title'
+import PublicSwitch from './components/public-switch'
 
 import type { Editor } from '@youknown/react-rte/src'
 export default function Doc() {
@@ -59,13 +49,8 @@ export default function Doc() {
 	const doc_id = search_params.get('doc_id') as string
 	const recording = useRecordStore(state => state.recording)
 	const is_mobile = useUIStore(state => state.is_mobile)
-	const is_dark_theme = useUIStore(is_dark_theme_getter)
 
 	const [history_drawer_open, { setTrue: show_history_drawer, setFalse: hide_history_drawer }] = useBoolean(false)
-	const [title_focus, { setTrue: focus_title, setFalse: blur_title }] = useBoolean(false)
-	const [title_val, set_title_val] = useState('')
-	const title_input_ref = useRef<HTMLInputElement>(null)
-	const [publishing, set_publishing] = useState(false)
 	const [saving, set_saving] = useState(false)
 
 	const editor = useRTE({
@@ -96,13 +81,32 @@ export default function Doc() {
 								try {
 									const { compressImage } = await import('@youknown/img-wasm/src')
 									const compressed_file = await compressImage(result, 1600, 1200)
+									const toast = Toast.info({
+										content: t('file.uploading'),
+										duration: Infinity
+									})
 									upload_cloudflare_r2(compressed_file, {
+										progress(progress) {
+											toast.update({
+												duration: Infinity,
+												content: (
+													<>
+														<span className="color-primary">
+															{`(${Math.floor(progress.percent)}%)`}
+														</span>
+														{t('file.uploading')}
+													</>
+												)
+											})
+										},
 										complete(url) {
+											toast.close()
 											resolve({
 												src: url
 											})
 										},
 										error(err) {
+											toast.close()
 											Toast.error(t('upload.img.fail'))
 											reject(err)
 										}
@@ -186,15 +190,7 @@ export default function Doc() {
 		}
 	})
 
-	const doc_title = doc_info?.title ?? ''
-	useEffect(() => {
-		if (doc_title) {
-			set_title_val(doc_title)
-		}
-	}, [doc_title])
-
 	if (!editor) return null
-	const text_len = editor.storage.characterCount.characters()
 
 	if (!doc_id) {
 		return null
@@ -229,96 +225,12 @@ export default function Doc() {
 		navigate(`/library/${space_id}`)
 	}
 
-	const update_doc_title = async () => {
-		blur_title()
-		if (!title_val) {
-			Toast.warning(t('validate.title_required'))
-			set_title_val(doc_title)
-			return
-		}
-		if (title_val === doc_info?.title) {
-			return
-		}
-		const payload = {
-			doc_id,
-			title: title_val
-		}
-		const [err, res] = await with_api(update_doc)(payload)
-		if (err) {
-			set_title_val(doc_title)
-			return
-		}
-		set_doc_info(res)
-		Toast.success(t('update.title.success'))
-	}
-
 	const recovery_doc = (doc_content: string) => {
 		editor.commands.setContent(doc_content)
 		// 应用的内容与最新草稿不相同才更新草稿
 		if (doc_content != draft.content) {
 			update_drafts(doc_content)
 		}
-	}
-
-	const update_doc_public = async (is_public: boolean) => {
-		set_publishing(true)
-		const payload = {
-			doc_id,
-			public: is_public
-		}
-		const [err, res] = await with_api(update_doc)(payload)
-		set_publishing(false)
-		if (err) {
-			return
-		}
-		set_doc_info(res)
-		Toast.success(is_public ? t('doc.publish.ok') : t('doc.publish.cancel'))
-	}
-
-	const get_doc_html_str = () => {
-		const html_content = document.documentElement.outerHTML
-		const html = html_content.replace(
-			/<body.*?>[\s\S]*?<\/body>/i,
-			`<body>
-				<article class="rich-text-container max-w-720px p-[8px_8px_8px_16px] m-[0_auto]">
-					<h1 class="text-center">${doc_title}</h1>
-					<img class="w-100% max-h-30vh min-h-40px object-cover rd-radius-m mb-40px" src=${doc_info?.cover}>
-					${editor.getHTML()}
-				</article>
-			</body>
-			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-			<script>
-				const root = document.querySelector(':root')
-				root.classList.add('light-theme')
-				root.classList.remove('dark-theme')
-				hljs.highlightAll();
-				const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-				window.addEventListener("afterprint", function() {
-					if (isSafari) {
-						window.alert("Accomplish.");
-					}
-					window.close();
-				})
-				window.print();
-			</script>
-			`
-		)
-		return html
-	}
-
-	const on_export_html = () => {
-		const html = get_doc_html_str()
-		const filename = doc_info?.title + '.html'
-		download_html(html, filename)
-		Toast.success(t('export.html.success'))
-	}
-
-	const on_export_pdf = () => {
-		const html = get_doc_html_str()
-		const new_window = window.open('', '_blank') as Window
-		new_window?.focus()
-		new_window.document.write(html)
 	}
 
 	const doc_tips = (
@@ -331,81 +243,12 @@ export default function Doc() {
 		</>
 	)
 
-	const is_doc_public = doc_info?.public ?? false
-	const public_icon = (
-		<Tooltip placement="bottom" title={is_doc_public ? t('doc.public') : t('doc.private')}>
-			<Button
-				className="mr-8px"
-				text
-				square
-				size="small"
-				loading={publishing}
-				onClick={() => {
-					const next_doc_public = !is_doc_public
-					if (!next_doc_public) {
-						Dialog.confirm({
-							title: t('heading.delete_feed'),
-							content: t('feed.delete_tip'),
-							overlayClassName: cls(
-								'backdrop-blur-xl',
-								is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
-							),
-							okDanger: true,
-							okText: t('confirm'),
-							cancelText: t('cancel.text'),
-							closeIcon: null,
-							onOk: () => {
-								update_doc_public(next_doc_public)
-							}
-						})
-					} else {
-						update_doc_public(next_doc_public)
-					}
-				}}
-			>
-				{is_doc_public ? (
-					<TbWorld className="color-primary text-16px" />
-				) : (
-					<TbWorldOff className="color-text-3 text-16px" />
-				)}
-			</Button>
-		</Tooltip>
-	)
-
-	const title_ele = (
-		<>
-			{title_focus ? (
-				<div className="flex-1">
-					<Input
-						ref={title_input_ref}
-						className="w-100%! max-w-400px"
-						maxLength={DOC_TITLE_MAX_LEN}
-						value={title_val}
-						onChange={set_title_val}
-						autoFocus
-						placeholder={t('placeholder.title')}
-						onBlur={update_doc_title}
-					/>
-				</div>
-			) : (
-				<div className="flex-1 w-0 truncate flex items-center h-24px">
-					<span
-						className="max-w-100% pl-8px pr-8px rd-radius-m color-text-2 [@media(hover:hover)]-hover-bg-hover cursor-default"
-						onClick={focus_title}
-					>
-						{doc_title}
-					</span>
-				</div>
-			)}
-		</>
-	)
-
 	const header = (
 		<Header heading={t('heading.doc')} bordered="visible">
 			{is_mobile || (
 				<div className="flex-1 flex items-center ml-24px mr-24px">
-					{public_icon}
-					{title_ele}
+					<PublicSwitch doc_id={doc_id} doc_info={doc_info} on_updated={set_doc_info} />
+					<DocTitle doc_id={doc_id} doc_info={doc_info} on_updated={set_doc_info} />
 				</div>
 			)}
 
@@ -434,15 +277,7 @@ export default function Doc() {
 					</>
 				)}
 
-				{doc_info && (
-					<DocOptionsDropdown
-						doc_info={doc_info}
-						text_len={text_len}
-						on_updated={set_doc_info}
-						on_export_pdf={on_export_pdf}
-						on_export_html={on_export_html}
-					/>
-				)}
+				<DocOptionsDropdown editor={editor} doc_id={doc_id} doc_info={doc_info} on_updated={set_doc_info} />
 			</Space>
 		</Header>
 	)
@@ -458,11 +293,9 @@ export default function Doc() {
 				doc_content={doc_info?.content ?? ''}
 				on_recovery={recovery_doc}
 			/>
-
+			{/* TODO: mobile keyboard toolbar */}
 			{is_mobile ? (
-				<KeyboardToolbar>
-					<RTEMenuBar editor={editor} />
-				</KeyboardToolbar>
+				<KeyboardToolbar>{/* <RTEMenuBar editor={editor} /> */}</KeyboardToolbar>
 			) : (
 				<div
 					className={cls(

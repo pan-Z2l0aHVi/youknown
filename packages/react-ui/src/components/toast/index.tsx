@@ -52,7 +52,7 @@ const toast = (config: ToastConfig) => {
 		noticeList = noticeList.map(notice => {
 			if (notice.id === noticeID) {
 				return {
-					id: noticeID,
+					...notice,
 					...newConfig
 				}
 			}

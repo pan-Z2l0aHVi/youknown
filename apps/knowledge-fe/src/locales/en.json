@@ -387,5 +387,8 @@
       "text": "Copy the code",
       "success": "The code copied"
     }
+  },
+  "file": {
+    "uploading": "File uploading..."
   }
 }
