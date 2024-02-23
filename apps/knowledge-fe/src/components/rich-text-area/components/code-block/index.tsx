@@ -1,13 +1,13 @@
 import copy from 'copy-to-clipboard'
 import hljs from 'highlight.js/lib/core'
-import { HTMLAttributes, useLayoutEffect, useRef } from 'react'
+import { HTMLAttributes, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MdOutlineContentCopy } from 'react-icons/md'
 import { TbCaretDownFilled } from 'react-icons/tb'
 
 import { initHlsLangs } from '@/utils'
 import { useBoolean } from '@youknown/react-hook/src'
-import { Button, Collapse, Space, Toast } from '@youknown/react-ui/src'
+import { Button, Collapse, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 interface CodeBlockProps extends HTMLAttributes<HTMLDivElement> {
@@ -20,6 +20,15 @@ export default function CodeBlock(props: CodeBlockProps) {
 	const { t } = useTranslation()
 	const [expand, { setReverse: toggle_expand }] = useBoolean(false)
 	const code_ref = useRef<HTMLElement>(null)
+	const [copied, set_copied] = useState(false)
+	const timer = useRef(0)
+	const update_copy_status = () => {
+		set_copied(true)
+		clearTimeout(timer.current)
+		timer.current = setTimeout(() => {
+			set_copied(false)
+		}, 2000)
+	}
 
 	useLayoutEffect(() => {
 		if (expand) {
@@ -32,9 +41,9 @@ export default function CodeBlock(props: CodeBlockProps) {
 	}, [expand, language])
 
 	const action_bar = (
-		<div className={cls('flex justify-between items-center p-4px')}>
+		<div className={cls('flex justify-between items-center p-2px')}>
 			<Space align="center" size="small">
-				<Button size="small" text square onClick={toggle_expand}>
+				<Button text square onClick={toggle_expand}>
 					<TbCaretDownFilled
 						className="color-text-2"
 						style={{ transform: `rotate(${expand ? -180 : 0}deg)` }}
@@ -43,15 +52,18 @@ export default function CodeBlock(props: CodeBlockProps) {
 				<span className="color-text-3 text-12px">{language}</span>
 			</Space>
 			<Button
-				size="small"
 				text
-				prefixIcon={<MdOutlineContentCopy className="color-text-3" />}
+				prefixIcon={<MdOutlineContentCopy className={copied ? 'color-#00b42a' : 'color-text-3'} />}
 				onClick={() => {
 					copy(code)
-					Toast.success(t('code.copy.success'))
+					update_copy_status()
 				}}
 			>
-				<span className="text-12px color-text-3">{t('code.copy.text')}</span>
+				{copied ? (
+					<span className="text-12px color-#00b42a">{t('code.copy.success')}</span>
+				) : (
+					<span className="text-12px color-text-3">{t('code.copy.text')}</span>
+				)}
 			</Button>
 		</div>
 	)
