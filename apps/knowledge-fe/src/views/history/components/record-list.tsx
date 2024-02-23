@@ -1,4 +1,6 @@
 import { memo } from 'react'
+import AutoSizer from 'react-virtualized-auto-sizer'
+import { FixedSizeList, ListChildComponentProps } from 'react-window'
 
 import { RecordValue } from '@/utils/idb'
 
@@ -9,12 +11,26 @@ interface RecordListProps {
 }
 function RecordList(props: RecordListProps) {
 	const { list } = props
+
+	const renderRow = ({ index, style }: ListChildComponentProps) => {
+		const record = list[index]
+		return (
+			<div className="sm:p-[0_32px] sm:flex sm:justify-center" style={style}>
+				<RecordItem record={record} />
+			</div>
+		)
+	}
+
 	return (
-		<div className="flex-1 max-w-960px">
-			{list.map(record => (
-				<RecordItem key={record.id} record={record} />
-			))}
-		</div>
+		<AutoSizer>
+			{({ width, height }) => {
+				return (
+					<FixedSizeList width={width} height={height} itemCount={list.length} itemSize={80}>
+						{renderRow}
+					</FixedSizeList>
+				)
+			}}
+		</AutoSizer>
 	)
 }
 

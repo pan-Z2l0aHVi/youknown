@@ -25,7 +25,7 @@ export function DesktopLayout() {
 						</div>
 					}
 				>
-					<div className={cls('flex-1')}>
+					<div className={cls('flex-1 sm:flex sm:flex-col')}>
 						<KeepAliveOutlet />
 					</div>
 				</Suspense>

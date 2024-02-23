@@ -234,6 +234,12 @@ importers:
       qiniu-js:
         specifier: ^3.4.2
         version: 3.4.2
+      react-virtualized-auto-sizer:
+        specifier: ^1.0.23
+        version: 1.0.23(react-dom@18.2.0)(react@18.2.0)
+      react-window:
+        specifier: ^1.8.10
+        version: 1.8.10(react-dom@18.2.0)(react@18.2.0)
       zustand:
         specifier: ^4.5.1
         version: 4.5.1(@types/react@18.2.57)(react@18.2.0)
@@ -247,6 +253,9 @@ importers:
       '@types/mime-types':
         specifier: ^2.1.4
         version: 2.1.4
+      '@types/react-window':
+        specifier: ^1.8.8
+        version: 1.8.8
       mime-types:
         specifier: ^2.1.35
         version: 2.1.35
@@ -274,6 +283,16 @@ importers:
       html-diff-ts:
         specifier: ^1.4.2
         version: 1.4.2
+      react-virtualized-auto-sizer:
+        specifier: ^1.0.23
+        version: 1.0.23(react-dom@18.2.0)(react@18.2.0)
+      react-window:
+        specifier: ^1.8.10
+        version: 1.8.10(react-dom@18.2.0)(react@18.2.0)
+    devDependencies:
+      '@types/react-window':
+        specifier: ^1.8.8
+        version: 1.8.8
 
   apps/vue-demos:
     dependencies:
@@ -5209,6 +5228,12 @@ packages:
     dependencies:
       '@types/react': 18.2.57
 
+  /@types/react-window@1.8.8:
+    resolution: {integrity: sha512-8Ls660bHR1AUA2kuRvVG9D/4XpRC6wjAaPT9dil7Ckc76eP9TKWZwwmgfq8Q1LANX3QNDnoU4Zp48A3w+zK69Q==}
+    dependencies:
+      '@types/react': 18.2.57
+    dev: true
+
   /@types/react@18.2.57:
     resolution: {integrity: sha512-ZvQsktJgSYrQiMirAN60y4O/LRevIV8hUzSOSNB6gfR3/o3wCBFQx3sPwIYtuDMeiVgsSS3UzCV26tEzgnfvQw==}
     dependencies:
@@ -9399,6 +9424,10 @@ packages:
     resolution: {integrity: sha512-Lf+9+2r+Tdp5wXDXC4PcIBjTDtq4UKjCPMQhKIuzpJNW0b96kVqSwW0bT7FhRSfmAiFYgP+SCRvdrDozfh0U5w==}
     dev: false
 
+  /memoize-one@5.2.1:
+    resolution: {integrity: sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q==}
+    dev: false
+
   /meow@10.1.5:
     resolution: {integrity: sha512-/d+PQ4GKmGvM9Bee/DPa8z3mXs/pkvJE2KEThngVNOqtmljC6K7NMPxtc2JeZYTmpWb9k/TmxjeL18ez3h7vCw==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -10776,6 +10805,29 @@ packages:
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /react-virtualized-auto-sizer@1.0.23(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-5id3UTx+fG7b7SIOKL9/7aR1vP8+MtIT84cJCf09F6pYalB/nvHlx5EQvsSk27SwHUKjgPamG/nS8ynI0uSfKA==}
+    peerDependencies:
+      react: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0
+      react-dom: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /react-window@1.8.10(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Y0Cx+dnU6NLa5/EvoHukUD0BklJ8qITCtVEPY1C/nL8wwoZ0b5aEw8Ff1dOVHw7fCzMt55XfJDd8S8W8LCaUCg==}
+    engines: {node: '>8.0.0'}
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@babel/runtime': 7.23.9
+      memoize-one: 5.2.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false

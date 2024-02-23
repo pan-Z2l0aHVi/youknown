@@ -2,7 +2,7 @@ import copy from 'copy-to-clipboard'
 import hljs from 'highlight.js/lib/core'
 import { HTMLAttributes, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { MdOutlineContentCopy } from 'react-icons/md'
+import { MdCheck, MdOutlineContentCopy } from 'react-icons/md'
 import { TbCaretDownFilled } from 'react-icons/tb'
 
 import { initHlsLangs } from '@/utils'
@@ -53,7 +53,9 @@ export default function CodeBlock(props: CodeBlockProps) {
 			</Space>
 			<Button
 				text
-				prefixIcon={<MdOutlineContentCopy className={copied ? 'color-#00b42a' : 'color-text-3'} />}
+				prefixIcon={
+					copied ? <MdCheck className="color-#00b42a" /> : <MdOutlineContentCopy className="color-text-3" />
+				}
 				onClick={() => {
 					copy(code)
 					update_copy_status()

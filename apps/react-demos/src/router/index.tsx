@@ -211,6 +211,11 @@ export const componentRoutes: RouteItem[] = [
 				element: <DetailView />
 			}
 		]
+	},
+	{
+		name: 'VirtualList',
+		path: 'virtual_list',
+		element: createElement(lazy(() => import('@/other-views/VirtualListExample')))
 	}
 ]
 

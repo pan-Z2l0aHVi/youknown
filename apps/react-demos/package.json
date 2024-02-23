@@ -20,7 +20,9 @@
     "@youknown/react-rte": "workspace:*",
     "@youknown/react-ui": "workspace:*",
     "@youknown/utils": "workspace:*",
-    "html-diff-ts": "^1.4.2"
+    "html-diff-ts": "^1.4.2",
+    "react-virtualized-auto-sizer": "^1.0.23",
+    "react-window": "^1.8.10"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": "eslint --cache --fix",
@@ -30,5 +32,8 @@
     "last 1 version",
     "> 1%",
     "not dead"
-  ]
+  ],
+  "devDependencies": {
+    "@types/react-window": "^1.8.8"
+  }
 }

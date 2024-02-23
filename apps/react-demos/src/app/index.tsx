@@ -64,7 +64,7 @@ const App = () => {
 					</div>
 				</div>
 			)}
-			<div className="flex-1">
+			<div className="flex-1 flex flex-col">
 				<div className="p-[8px_64px]">
 					<Tooltip placement="bottom" title={`切换${isDark ? '亮色' : '暗色'}模式`}>
 						<Button square onClick={toggleDark}>
@@ -72,7 +72,7 @@ const App = () => {
 						</Button>
 					</Tooltip>
 				</div>
-				<div className="p-[0_64px]">
+				<div className="flex-1 p-[0_64px]">
 					<Suspense fallback={<Loading spinning />}>
 						<Outlet />
 					</Suspense>

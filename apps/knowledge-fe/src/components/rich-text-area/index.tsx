@@ -7,8 +7,6 @@ import { cls } from '@youknown/utils/src'
 import CodeBlock from './components/code-block'
 import Heading from './components/heading'
 
-const str_to_px = (val?: string): number | undefined => (val ? +val : undefined)
-
 interface RichTextAreaProps extends HTMLAttributes<HTMLDivElement> {
 	html: string
 }
@@ -36,8 +34,8 @@ const RichTextArea = forwardRef((props: RichTextAreaProps, ref: ForwardedRef<HTM
 							canPreview
 							src={src}
 							style={{
-								width: str_to_px(width),
-								height: str_to_px(height)
+								width: parseFloat(width),
+								height: parseFloat(height)
 							}}
 						/>
 					)

@@ -83,9 +83,13 @@ export default function History() {
 				</Space>
 			</Header>
 
-			<div className="flex justify-center sm:p-[0_32px_32px_32px] <sm:p-0">
+			{is_mobile ? (
 				<RecordList list={record_result} />
-			</div>
+			) : (
+				<div className="flex-1">
+					<RecordList list={record_result} />
+				</div>
+			)}
 		</>
 	)
 }
