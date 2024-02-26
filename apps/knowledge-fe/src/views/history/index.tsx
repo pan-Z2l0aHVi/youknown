@@ -1,4 +1,4 @@
-import { useDeferredValue, useMemo, useState } from 'react'
+import { useDeferredValue, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbSearch, TbTrash } from 'react-icons/tb'
 
@@ -60,6 +60,14 @@ export default function History() {
 			closeIcon: null
 		})
 	}
+
+	useEffect(() => {
+		const pre_body_overflow = document.body.style.overflow
+		document.body.style.overflow = 'hidden'
+		return () => {
+			document.body.style.overflow = pre_body_overflow
+		}
+	}, [])
 
 	return (
 		<>

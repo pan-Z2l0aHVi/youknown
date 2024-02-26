@@ -2,6 +2,7 @@ import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Comment, comment_update, Feed, SubComment } from '@/apis/feed'
+import { useRecordStore } from '@/stores'
 import { with_api } from '@/utils/request'
 import { useCreation } from '@youknown/react-hook/src'
 import { Toast } from '@youknown/react-ui/src'
@@ -22,6 +23,7 @@ export default function CommentEdit(props: CommentEditProps) {
 	const is_sub_comment = !!sub_comment_info
 
 	const ctx = useContext(CommentContext)
+	const recording = useRecordStore(state => state.recording)
 	const { t } = useTranslation()
 	const [send_loading, set_send_loading] = useState(false)
 	const default_comment_text = useCreation(() => {
@@ -35,6 +37,17 @@ export default function CommentEdit(props: CommentEditProps) {
 	const placeholder = is_sub_comment
 		? `${t('reply.text')} ${sub_comment_info.commentator.nickname}`
 		: t('placeholder.input')
+
+	const record_edit_comment = () => {
+		recording({
+			action: 'record.edit',
+			target: feed.creator.nickname,
+			target_id: feed.creator_id,
+			obj_type: 'record.public_doc',
+			obj: `${feed.subject.title}${t('record.comment_in_it')}`,
+			obj_id: feed_id
+		})
+	}
 
 	const update_comment = async () => {
 		const params = {
@@ -51,6 +64,7 @@ export default function CommentEdit(props: CommentEditProps) {
 		if (err) {
 			return
 		}
+		record_edit_comment()
 		Toast.success(t('comment.edit.success'))
 		if (is_sub_comment) {
 			ctx.on_sub_comment_updated?.(new_comment as SubComment)

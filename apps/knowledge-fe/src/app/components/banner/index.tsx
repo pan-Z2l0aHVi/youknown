@@ -1,23 +1,11 @@
-import dayjs, { Dayjs } from 'dayjs'
-import { useEffect } from 'react'
 import { TbX } from 'react-icons/tb'
 
-import { useBoolean } from '@youknown/react-hook/src'
-import { cls, storage } from '@youknown/utils/src'
+import { useBannerVisible } from '@/hooks/use-banner-visible'
+import { cls } from '@youknown/utils/src'
 
 export default function Banner() {
-	const [visible, { setTrue: show, setFalse: hide }] = useBoolean(false)
-	const CLOSED_KEY = 'banner-closed'
+	const [visible, { hide }] = useBannerVisible()
 	const text = 'Welcome~'
-
-	useEffect(() => {
-		const closed_date = storage.local.get<Dayjs>(CLOSED_KEY)
-		if (!closed_date) {
-			show()
-		} else if (dayjs().diff(closed_date, 'day') > 7) {
-			show()
-		}
-	}, [show])
 
 	if (!visible) {
 		return null
@@ -33,10 +21,7 @@ export default function Banner() {
 			{text}
 			<div
 				className="absolute right-8px flex items-center justify-center w-24px h-24px cursor-pointer [@media(hover:hover)]-hover-color-primary-hover"
-				onClick={() => {
-					storage.local.set(CLOSED_KEY, dayjs())
-					hide()
-				}}
+				onClick={hide}
 			>
 				<TbX className="text-16px" />
 			</div>

@@ -2,6 +2,7 @@ import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Comment, comment_reply, Feed, SubComment } from '@/apis/feed'
+import { useRecordStore } from '@/stores'
 import { with_api } from '@/utils/request'
 import { Toast } from '@youknown/react-ui/src'
 
@@ -22,9 +23,21 @@ export default function CommentReply(props: CommentReplyProps) {
 
 	const { t } = useTranslation()
 	const ctx = useContext(CommentContext)
+	const recording = useRecordStore(state => state.recording)
 	const [send_loading, set_send_loading] = useState(false)
 	const [comment_text, set_comment_text] = useState('')
 	const placeholder = `${t('reply.text')} ${comment_info.commentator.nickname}`
+
+	const record_reply_comment = () => {
+		recording({
+			action: 'record.reply',
+			target: feed.creator.nickname,
+			target_id: feed.creator_id,
+			obj_type: 'record.public_doc',
+			obj: `${feed.subject.title}${t('record.comment_in_it')}`,
+			obj_id: feed_id
+		})
+	}
 
 	const reply_comment = async () => {
 		const [err, new_sub_comment] = await with_api(comment_reply)({
@@ -36,6 +49,7 @@ export default function CommentReply(props: CommentReplyProps) {
 		if (err) {
 			return
 		}
+		record_reply_comment()
 		Toast.success(t('reply.success'))
 		ctx.on_comment_reply?.(comment_info.id, new_sub_comment)
 		on_close()

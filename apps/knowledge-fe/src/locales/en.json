@@ -377,7 +377,17 @@
     "read": "read",
     "batching_delete": "deleted documents in batches",
     "delete": "delete",
-    "update_and_delete": "update and publish"
+    "update_and_delete": "update and publish",
+    "collect": "Collect",
+    "cancel_collect": "Cancel the collection",
+    "wallpaper": "Wallpaper",
+    "follow": "Follow",
+    "unfollow": "Unfollow",
+    "user": "User",
+    "comment": "Comment",
+    "comment_in_it": "Comments in it",
+    "edit": "Edit",
+    "reply": "Reply"
   },
   "related": {
     "feed_count": "Related content"

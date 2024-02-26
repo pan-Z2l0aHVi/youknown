@@ -5,8 +5,8 @@ import { Image } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import CodeBlock from './components/code-block'
-import Heading from './components/heading'
 import GIFLazyImage from './components/gif-lazy-img'
+import Heading from './components/heading'
 
 interface RichTextAreaProps extends HTMLAttributes<HTMLDivElement> {
 	html: string

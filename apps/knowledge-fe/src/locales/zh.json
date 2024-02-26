@@ -377,7 +377,17 @@
     "read": "阅读",
     "batching_delete": "批量删除",
     "delete": "删除",
-    "update_and_delete": "更新并发布"
+    "update_and_delete": "更新并发布",
+    "collect": "收藏",
+    "cancel_collect": "取消收藏",
+    "wallpaper": "壁纸",
+    "follow": "关注",
+    "unfollow": "取消关注",
+    "user": "用户",
+    "comment": "评论",
+    "comment_in_it": "上的评论回复",
+    "edit": "编辑",
+    "reply": "回复"
   },
   "related": {
     "feed_count": "条相关内容"

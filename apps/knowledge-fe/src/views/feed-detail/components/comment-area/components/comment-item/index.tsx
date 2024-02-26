@@ -6,7 +6,7 @@ import { TbTrash } from 'react-icons/tb'
 import { Comment, comment_delete, Feed } from '@/apis/feed'
 import RichTextArea from '@/components/rich-text-area'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
-import { is_dark_theme_getter, useUIStore, useUserStore } from '@/stores'
+import { is_dark_theme_getter, useRecordStore, useUIStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
 import { with_api } from '@/utils/request'
 import { useBoolean } from '@youknown/react-hook/src'
@@ -29,6 +29,7 @@ export default function CommentItem(props: CommentItemProps) {
 	const { t } = useTranslation()
 	const ctx = useContext(CommentContext)
 	const profile = useUserStore(state => state.profile)
+	const recording = useRecordStore(state => state.recording)
 	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const navigate = useTransitionNavigate()
 	const [reply_visible, { setReverse: toggle_reply, setFalse: hide_reply }] = useBoolean(false)
@@ -48,6 +49,17 @@ export default function CommentItem(props: CommentItemProps) {
 		)
 	}
 
+	const record_delete_comment = () => {
+		recording({
+			action: 'record.delete',
+			target: feed.creator.nickname,
+			target_id: feed.creator_id,
+			obj_type: 'record.public_doc',
+			obj: `${feed.subject.title}${t('comment_in_it')}`,
+			obj_id: feed_id
+		})
+	}
+
 	const delete_comment = async () => {
 		if (del_loading) return
 		set_del_loading(true)
@@ -59,6 +71,7 @@ export default function CommentItem(props: CommentItemProps) {
 		if (err) {
 			return
 		}
+		record_delete_comment()
 		Toast.success(t('comment.delete.success'))
 		ctx.on_comment_deleted?.(comment.id)
 	}

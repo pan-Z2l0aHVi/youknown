@@ -10,7 +10,7 @@ import { TbEyeCheck, TbPhotoSearch } from 'react-icons/tb'
 
 import { cancel_collect_wallpaper, collect_wallpaper } from '@/apis/user'
 import { get_wallpaper_info, Wallpaper, WallpaperTag } from '@/apis/wallpaper'
-import { is_dark_theme_getter, useModalStore, useUIStore, useUserStore } from '@/stores'
+import { is_dark_theme_getter, useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
 import { format_file_size, format_time } from '@/utils'
 import { find_wallpaper_seen, insert_wallpaper_seen } from '@/utils/idb'
 import { with_api } from '@/utils/request'
@@ -31,6 +31,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 	const is_dark_theme = useUIStore(is_dark_theme_getter)
 	const has_login = useUserStore(state => state.has_login)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
+	const recording = useRecordStore(state => state.recording)
 	const [hovered, { setTrue: start_hover, setFalse: stop_hover }] = useBoolean(false)
 	const [more_open, { setBool: set_more_open }] = useBoolean(false)
 	const [img_loaded, { setTrue: set_img_loaded }] = useBoolean(false)
@@ -43,6 +44,17 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		set_collected(wallpaper_collected)
 	}, [wallpaper_collected])
 
+	const record_collect_wallpaper = (action: string) => {
+		recording({
+			action,
+			target: '',
+			target_id: '',
+			obj_type: 'record.wallpaper',
+			obj: wallpaper.path,
+			obj_id: wallpaper.id
+		})
+	}
+
 	const add_to_collection = async () => {
 		if (!has_login) {
 			open_login_modal()
@@ -54,6 +66,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		if (err) {
 			return
 		}
+		record_collect_wallpaper('record.collect')
 		Toast.success(t('collect.success'))
 		set_collected(true)
 	}
@@ -68,6 +81,7 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		if (err) {
 			return
 		}
+		record_collect_wallpaper('record.cancel_collect')
 		Toast.success(t('collect.cancel.success'))
 		set_collected(false)
 		on_removed?.()

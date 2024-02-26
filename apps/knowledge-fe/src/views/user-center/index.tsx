@@ -8,7 +8,7 @@ import { follow_user, get_user_info, unfollow_user, update_profile } from '@/api
 import Header from '@/app/components/header'
 import TabBar from '@/app/components/tab-bar'
 import { IMAGE_ACCEPT } from '@/consts'
-import { useModalStore, useUIStore, useUserStore } from '@/stores'
+import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { with_api } from '@/utils/request'
@@ -37,6 +37,7 @@ export default function UserCenter() {
 	const set_profile = useUserStore(state => state.set_profile)
 	const has_login = useUserStore(state => state.has_login)
 	const open_login_modal = useModalStore(state => state.open_login_modal)
+	const recording = useRecordStore(state => state.recording)
 	const [search_params] = useSearchParams()
 	const target_user_id = search_params.get('target_user_id') ?? ''
 	const is_self = !target_user_id || target_user_id === profile?.user_id
@@ -107,6 +108,19 @@ export default function UserCenter() {
 		stop_edit()
 	}
 
+	const record_follow_user = (action: string) => {
+		if (user_info && user_info.user_id && user_info?.nickname) {
+			recording({
+				action,
+				target: '',
+				target_id: '',
+				obj_type: 'record.user',
+				obj: user_info.nickname,
+				obj_id: user_info.user_id
+			})
+		}
+	}
+
 	const handle_follow_user = async () => {
 		if (!has_login) {
 			open_login_modal()
@@ -123,6 +137,7 @@ export default function UserCenter() {
 		if (err) {
 			return
 		}
+		record_follow_user('record.follow')
 		set_follow_loading(false)
 		Toast.success(t('follow.ok.success'))
 		set_user_info(p => (p ? { ...p, collected: true } : p))
@@ -145,6 +160,7 @@ export default function UserCenter() {
 		if (err) {
 			return
 		}
+		record_follow_user('record.unfollow')
 		Toast.success(t('follow.cancel.success'))
 		set_user_info(p => (p ? { ...p, collected: false } : p))
 	}

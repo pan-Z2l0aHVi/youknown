@@ -43,6 +43,20 @@ export default function FeedDetail() {
 		})
 	}
 
+	const record_collect_feed = (action: string, feed_info?: Feed) => {
+		if (!feed_info) {
+			return
+		}
+		recording({
+			action,
+			target: feed_info.creator.nickname,
+			target_id: feed_info.creator_id,
+			obj_type: 'record.public_doc',
+			obj: feed_info.subject.title,
+			obj_id: feed_info.id
+		})
+	}
+
 	const {
 		data: detail,
 		loading,
@@ -81,6 +95,7 @@ export default function FeedDetail() {
 		if (err) {
 			return
 		}
+		record_collect_feed('record.collect', detail)
 		Toast.success(t('collect.success'))
 		set_detail(p => (p ? { ...p, collected: true } : p))
 	}
@@ -97,6 +112,7 @@ export default function FeedDetail() {
 		if (err) {
 			return
 		}
+		record_collect_feed('record.cancel_collect', detail)
 		Toast.success(t('collect.cancel.success'))
 		set_detail(p => (p ? { ...p, collected: false } : p))
 	}

@@ -2,6 +2,7 @@ import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { comment, Feed } from '@/apis/feed'
+import { useRecordStore } from '@/stores'
 import { with_api } from '@/utils/request'
 import { Toast } from '@youknown/react-ui/src'
 
@@ -17,9 +18,21 @@ export default function CommentCreate(props: CommentCreateProps) {
 	const { id: feed_id } = feed
 
 	const { t } = useTranslation()
+	const recording = useRecordStore(state => state.recording)
 	const [send_loading, set_send_loading] = useState(false)
 	const [comment_text, set_comment_text] = useState('')
 	const ctx = useContext(CommentContext)
+
+	const record_comment = () => {
+		recording({
+			action: 'record.comment',
+			target: feed.creator.nickname,
+			target_id: feed.creator_id,
+			obj_type: 'record.public_doc',
+			obj: feed.subject.title,
+			obj_id: feed_id
+		})
+	}
 
 	const send_comment = async () => {
 		const [err, new_comment] = await with_api(comment)({
@@ -29,6 +42,7 @@ export default function CommentCreate(props: CommentCreateProps) {
 		if (err) {
 			return
 		}
+		record_comment()
 		Toast.success(t('comment.success'))
 		ctx.on_comment_created?.(new_comment)
 	}
