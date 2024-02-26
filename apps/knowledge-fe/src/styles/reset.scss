@@ -28,4 +28,10 @@ body {
 		border-radius: 0;
 		outline: none;
 	}
+
+	&.webkit-scrollbar-hidden {
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
 }

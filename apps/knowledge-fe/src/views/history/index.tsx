@@ -64,8 +64,10 @@ export default function History() {
 	useEffect(() => {
 		const pre_body_overflow = document.body.style.overflow
 		document.body.style.overflow = 'hidden'
+		document.body.classList.add('webkit-scrollbar-hidden')
 		return () => {
 			document.body.style.overflow = pre_body_overflow
+			document.body.classList.remove('webkit-scrollbar-hidden')
 		}
 	}, [])
 
