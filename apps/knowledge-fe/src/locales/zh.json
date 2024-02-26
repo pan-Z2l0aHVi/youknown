@@ -386,7 +386,9 @@
     "copy": {
       "text": "复制代码",
       "success": "代码已复制"
-    }
+    },
+    "expand": "展开代码",
+    "collapse": "收起代码"
   },
   "file": {
     "uploading": "文件上传中..."

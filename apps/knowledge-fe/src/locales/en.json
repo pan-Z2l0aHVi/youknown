@@ -386,7 +386,9 @@
     "copy": {
       "text": "Copy the code",
       "success": "The code copied"
-    }
+    },
+    "expand": "Expand the code",
+    "collapse": "Collapse the code"
   },
   "file": {
     "uploading": "File uploading..."

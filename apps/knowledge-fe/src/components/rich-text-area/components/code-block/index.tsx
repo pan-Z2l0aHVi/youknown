@@ -7,7 +7,7 @@ import { TbCaretDownFilled } from 'react-icons/tb'
 
 import { initHlsLangs } from '@/utils'
 import { useBoolean } from '@youknown/react-hook/src'
-import { Button, Collapse, Space } from '@youknown/react-ui/src'
+import { Button, Collapse, Space, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 interface CodeBlockProps extends HTMLAttributes<HTMLDivElement> {
@@ -43,12 +43,14 @@ export default function CodeBlock(props: CodeBlockProps) {
 	const action_bar = (
 		<div className={cls('flex justify-between items-center p-2px')}>
 			<Space align="center" size="small">
-				<Button text square onClick={toggle_expand}>
-					<TbCaretDownFilled
-						className="color-text-2"
-						style={{ transform: `rotate(${expand ? -180 : 0}deg)` }}
-					/>
-				</Button>
+				<Tooltip title={expand ? t('code.collapse') : t('code.expand')}>
+					<Button text square onClick={toggle_expand}>
+						<TbCaretDownFilled
+							className="color-text-2"
+							style={{ transform: `rotate(${expand ? -180 : 0}deg)` }}
+						/>
+					</Button>
+				</Tooltip>
 				<span className="color-text-3 text-12px">{language}</span>
 			</Space>
 			<Button

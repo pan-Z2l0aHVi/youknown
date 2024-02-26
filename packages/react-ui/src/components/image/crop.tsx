@@ -4,9 +4,17 @@ import { render as renderReactRoot } from '../../utils/renderReactRoot'
 import ImageCropper from './ImageCropper'
 
 type ImageCropperProps = ComponentProps<typeof ImageCropper>
-type CropConfig = Omit<ImageCropperProps, 'open' | 'onClose'>
+type CropConfig = Omit<ImageCropperProps, 'open' | 'onClose'> & {
+	fileTypeExcludes?: string[]
+}
 
 export const crop = (config: CropConfig) => {
+	const { fileTypeExcludes = [], file } = config
+	if (fileTypeExcludes.includes(file.type)) {
+		config.onCrop?.(file)
+		return
+	}
+
 	const div = document.createElement('div')
 	document.body.appendChild(div)
 

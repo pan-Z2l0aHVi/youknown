@@ -231,6 +231,9 @@ importers:
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.1
+      omggif:
+        specifier: ^1.0.10
+        version: 1.0.10
       qiniu-js:
         specifier: ^3.4.2
         version: 3.4.2
@@ -253,6 +256,9 @@ importers:
       '@types/mime-types':
         specifier: ^2.1.4
         version: 2.1.4
+      '@types/omggif':
+        specifier: ^1.0.5
+        version: 1.0.5
       '@types/react-window':
         specifier: ^1.8.8
         version: 1.8.8
@@ -283,6 +289,9 @@ importers:
       html-diff-ts:
         specifier: ^1.4.2
         version: 1.4.2
+      omggif:
+        specifier: ^1.0.10
+        version: 1.0.10
       react-virtualized-auto-sizer:
         specifier: ^1.0.23
         version: 1.0.23(react-dom@18.2.0)(react@18.2.0)
@@ -290,6 +299,9 @@ importers:
         specifier: ^1.8.10
         version: 1.8.10(react-dom@18.2.0)(react@18.2.0)
     devDependencies:
+      '@types/omggif':
+        specifier: ^1.0.5
+        version: 1.0.5
       '@types/react-window':
         specifier: ^1.8.8
         version: 1.8.8
@@ -5210,6 +5222,10 @@ packages:
     resolution: {integrity: sha512-5PjwB0uP2XDp3nt5u5NJAG2DORHIRClPzWT/TTZhJ2Ekwe8M5bA9tvPdi9NO/n2uvu2/ictat8kgqvLfcIE1SA==}
     dev: false
 
+  /@types/omggif@1.0.5:
+    resolution: {integrity: sha512-gDQJflz1rOgEcUXkMAl80bDGN46f5mp8GbcM5dyvq+zsFV6YRBRtmNxlJJ5mjY77T7BRkRFzdIBVmK90QYhCxA==}
+    dev: true
+
   /@types/parse-json@4.0.2:
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
     dev: false
@@ -9764,6 +9780,10 @@ packages:
       node-fetch-native: 1.6.2
       ufo: 1.4.0
     dev: true
+
+  /omggif@1.0.10:
+    resolution: {integrity: sha512-LMJTtvgc/nugXj0Vcrrs68Mn2D1r0zf630VNtqtpI1FEO7e+O9FP4gqs9AcnBaSEeoHIPm28u6qgPR0oyEpGSw==}
+    dev: false
 
   /once@1.4.0:
     resolution: {integrity: sha1-WDsap3WWHUsROsF9nFC6753Xa9E=}

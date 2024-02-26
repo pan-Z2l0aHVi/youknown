@@ -6,6 +6,7 @@ import { cls } from '@youknown/utils/src'
 
 import CodeBlock from './components/code-block'
 import Heading from './components/heading'
+import GIFLazyImage from './components/gif-lazy-img'
 
 interface RichTextAreaProps extends HTMLAttributes<HTMLDivElement> {
 	html: string
@@ -29,6 +30,18 @@ const RichTextArea = forwardRef((props: RichTextAreaProps, ref: ForwardedRef<HTM
 
 				if (node.name === 'img') {
 					const { src, width, height } = node.attribs
+					if (src.endsWith('.gif')) {
+						return (
+							<GIFLazyImage
+								src={src}
+								style={{
+									width: parseFloat(width),
+									height: parseFloat(height)
+								}}
+							/>
+						)
+					}
+
 					return (
 						<Image
 							canPreview

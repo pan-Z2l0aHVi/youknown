@@ -216,6 +216,11 @@ export const componentRoutes: RouteItem[] = [
 		name: 'VirtualList',
 		path: 'virtual_list',
 		element: createElement(lazy(() => import('@/other-views/VirtualListExample')))
+	},
+	{
+		name: 'GIF',
+		path: 'gif',
+		element: createElement(lazy(() => import('@/other-views/GIFExample')))
 	}
 ]
 

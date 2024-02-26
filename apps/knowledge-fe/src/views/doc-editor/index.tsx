@@ -76,6 +76,7 @@ export default function Doc() {
 					new Promise((resolve, reject) => {
 						ImageUI.crop({
 							file,
+							fileTypeExcludes: ['image/gif'],
 							onCancel: reject,
 							async onCrop(result) {
 								try {
