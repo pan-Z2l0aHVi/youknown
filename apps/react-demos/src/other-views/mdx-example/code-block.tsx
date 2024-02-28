@@ -1,12 +1,11 @@
 import copy from 'copy-to-clipboard'
 import hljs from 'highlight.js/lib/core'
 import { HTMLAttributes, useLayoutEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { MdCheck, MdOutlineContentCopy } from 'react-icons/md'
 import { TbCaretDownFilled } from 'react-icons/tb'
 
-import { initHlsLangs } from '@/utils'
 import { useBoolean } from '@youknown/react-hook/src'
+import { loadLanguages } from '@youknown/react-rte/src/utils/load-langs'
 import { Button, Collapse, Space, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
@@ -17,7 +16,6 @@ interface CodeBlockProps extends HTMLAttributes<HTMLDivElement> {
 export default function CodeBlock(props: CodeBlockProps) {
 	const { className, language = '', code = '', ...rest } = props
 
-	const { t } = useTranslation()
 	const [expand, { setReverse: toggle_expand }] = useBoolean(false)
 	const code_ref = useRef<HTMLElement>(null)
 	const [copied, set_copied] = useState(false)
@@ -25,14 +23,14 @@ export default function CodeBlock(props: CodeBlockProps) {
 	const update_copy_status = () => {
 		set_copied(true)
 		clearTimeout(timer.current)
-		timer.current = setTimeout(() => {
+		timer.current = window.setTimeout(() => {
 			set_copied(false)
 		}, 2000)
 	}
 
 	useLayoutEffect(() => {
 		if (expand) {
-			initHlsLangs().then(() => {
+			loadLanguages().then(() => {
 				if (code_ref.current) {
 					hljs.highlightElement(code_ref.current)
 				}
@@ -47,7 +45,7 @@ export default function CodeBlock(props: CodeBlockProps) {
 
 	const action_bar = (
 		<div className={cls('flex justify-between items-center p-2px')}>
-			<Tooltip title={expand ? t('code.collapse') : t('code.expand')}>
+			<Tooltip title={expand ? '收起' : '展开'}>
 				{language ? (
 					<Button className="line-height-32px" text prefixIcon={caret_icon} onClick={toggle_expand}>
 						{language_text}
@@ -70,9 +68,9 @@ export default function CodeBlock(props: CodeBlockProps) {
 				}}
 			>
 				{copied ? (
-					<span className="text-12px color-#00b42a">{t('code.copy.success')}</span>
+					<span className="text-12px color-#00b42a">代码已复制</span>
 				) : (
-					<span className="text-12px color-text-3">{t('code.copy.text')}</span>
+					<span className="text-12px color-text-3">复制代码</span>
 				)}
 			</Button>
 		</div>

@@ -1,0 +1,39 @@
+# Button
+
+## 代码演示
+import { Button, Space } from '@youknown/react-ui'
+
+export function ButtonExample() {
+  return (
+    <Space>
+      <Button>Button</Button>
+      <Button primary>Primary button</Button>
+      <Button disabled>Disabled button</Button>
+    </Space>
+  )
+}
+
+<ButtonExample />
+
+---
+
+```tsx
+import { Button, Space } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space>
+      <Button>Button</Button>
+      <Button primary>Primary button</Button>
+      <Button disabled>Disabled button</Button>
+    </Space>
+  )
+}
+```
+
+## API
+
+| 属性 | 说明 | 类型 | 默认值 |
+| ------- | ------- | ------- | ------- |
+| primary  | 主要  | `boolean`  | `false`  |
+| disabled  | 禁用状态  | `boolean`  | `false`  |

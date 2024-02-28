@@ -12,6 +12,12 @@
 		background: rgba(200, 200, 255, 0.4);
 	}
 
+	hr {
+		margin: 16px 0;
+		border: none;
+		border-bottom: 1px solid var(--ui-divider);
+	}
+
 	h1,
 	h2,
 	h3,

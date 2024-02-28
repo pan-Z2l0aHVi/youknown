@@ -35,6 +35,7 @@
         "deploy:knowledge-fe": "pnpm -C apps/knowledge-fe run deploy"
     },
     "dependencies": {
+        "@mdx-js/react": "^3.0.1",
         "copy-to-clipboard": "^3.3.3",
         "dayjs": "^1.11.10",
         "file64": "^1.0.3",
@@ -52,9 +53,11 @@
         "vue-router": "^4.2.5"
     },
     "devDependencies": {
+        "@mdx-js/rollup": "^3.0.1",
         "@types/dom-view-transitions": "^1.0.4",
         "@types/jest": "^29.5.12",
         "@types/lodash-es": "^4.17.12",
+        "@types/mdx": "^2.0.11",
         "@types/node": "^20.11.19",
         "@types/react": "^18.2.57",
         "@types/react-dom": "^18.2.19",
@@ -80,6 +83,7 @@
         "postcss-preset-env": "^9.4.0",
         "prettier": "^3.2.5",
         "qiniu": "^7.11.0",
+        "remark-gfm": "^4.0.0",
         "rollup-plugin-visualizer": "^5.12.0",
         "sass": "^1.71.0",
         "stylelint": "^15.11.0",

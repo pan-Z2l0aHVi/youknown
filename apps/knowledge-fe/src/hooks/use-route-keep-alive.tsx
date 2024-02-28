@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { matchPath, useLocation, useOutlet } from 'react-router-dom'
 
-const KEEP_ALIVE_PATHS: string[] = ['/browse']
+const KEEP_ALIVE_PATHS: string[] = []
 
 export const outlet_cache = new Map<string, ReturnType<typeof useOutlet>>()
 

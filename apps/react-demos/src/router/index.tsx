@@ -221,6 +221,11 @@ export const componentRoutes: RouteItem[] = [
 		name: 'GIF',
 		path: 'gif',
 		element: createElement(lazy(() => import('@/other-views/GIFExample')))
+	},
+	{
+		name: 'MDX',
+		path: 'mdx',
+		element: createElement(lazy(() => import('@/other-views/mdx-example')))
 	}
 ]
 
