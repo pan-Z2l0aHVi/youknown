@@ -7,11 +7,11 @@ import { useModalStore, useUserStore } from '@/stores'
 import { Avatar, Divider, Dropdown, Motion, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
-interface PersonalProps {
+interface MyProps {
 	expand: boolean
 }
 
-export default function My({ expand }: PersonalProps) {
+export default function My({ expand }: MyProps) {
 	const { t } = useTranslation()
 	const has_login = useUserStore(state => state.has_login)
 	const profile = useUserStore(state => state.profile)

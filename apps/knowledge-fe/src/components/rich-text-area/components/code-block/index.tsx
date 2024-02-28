@@ -7,7 +7,7 @@ import { TbCaretDownFilled } from 'react-icons/tb'
 
 import { initHlsLangs } from '@/utils'
 import { useBoolean } from '@youknown/react-hook/src'
-import { Button, Collapse, Space, Tooltip } from '@youknown/react-ui/src'
+import { Button, Collapse, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 interface CodeBlockProps extends HTMLAttributes<HTMLDivElement> {

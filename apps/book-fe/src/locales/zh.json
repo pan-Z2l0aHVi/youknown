@@ -1,0 +1,219 @@
+{
+  "and": "与",
+  "atleast": "至少",
+  "cancel": {
+    "text": "取消"
+  },
+  "cate": "类别",
+  "clear": {
+    "text": "清除",
+    "history": "清除历史记录"
+  },
+  "compare": "对比",
+  "copy": {
+    "share_link": {
+      "success": "已复制分享链接"
+    }
+  },
+  "create": {
+    "text": "创建"
+  },
+  "delete": {
+    "text": "删除",
+    "success": "删除成功",
+    "fail": "删除失败",
+    "batching": "批量删除"
+  },
+  "detail": "详情",
+  "download": {
+    "to": "下载为",
+    "fail_and_copy": "下载失败，请复制原图链接然后在浏览器中打开",
+    "original_img": "下载原图"
+  },
+  "edit": {
+    "text": "编辑"
+  },
+  "filter": {
+    "text": "筛选",
+    "tool": "筛选器"
+  },
+  "find": {
+    "empty": "未找到匹配的结果",
+    "similar": "查找相似"
+  },
+  "fold": "收起",
+  "form": {
+    "cover": "封面：",
+    "title": "标题：",
+    "feed_setting": "动态设置：",
+    "public": "公开发布",
+    "private": "不公开",
+    "creation_time": "创建日期",
+    "update_time": "更新日期",
+    "edit_time": "编辑日期",
+    "order_by": "排序方式",
+    "order": "顺序",
+    "keywords": "关键词",
+    "new": "最新的排在前",
+    "old": "最旧的的排在前",
+    "ai": "含AI作品",
+    "no_ai": "不含AI作品",
+    "general": "寻常",
+    "anime": "二次元",
+    "people": "人物",
+    "top_list": "排行榜",
+    "views": "访问量",
+    "relevance": "相关性",
+    "date_added": "最新",
+    "random": "随机",
+    "desc": "降序",
+    "asc": "升序",
+    "hot": "热门",
+    "favorites": "收藏次数"
+  },
+  "heading": {
+    "doc": "文档",
+    "doc_setting": "文档设置",
+    "delete_doc": "删除文档",
+    "cover": "设置封面",
+    "batching_delete_doc": "批量删除文档",
+    "knowledge_base": "我的知识库",
+    "delete_space": "删除空间",
+    "set_avatar": "设置头像",
+    "preference": "偏好设置",
+    "user_login": "用户登录",
+    "clear_history": "确认清除历史记录吗？",
+    "delete_feed": "删除动态",
+    "delete_comment": "删除评论"
+  },
+  "history": {
+    "clear_tip": "一旦执行该操作，你的所有历史记录将从当前设备中清除。"
+  },
+  "introduction": "简介",
+  "keyboard": {
+    "tip": "支持 ↑↓ 键选择、Enter 键打开、双击打开"
+  },
+  "latest": "最新",
+  "load": {
+    "ing": "加载中...",
+    "no_more": "没有更多内容了"
+  },
+  "network": {
+    "recovery": "网络连接恢复",
+    "abort": "网络连接中断",
+    "error": "无法连接到服务器，请检查网络连接"
+  },
+  "page": {
+    "title": {
+      "home": "指南"
+    }
+  },
+  "placeholder": {
+    "keywords": "关键词",
+    "input": "请输入",
+    "more": "输入内容 / 唤起更多",
+    "search": "搜一搜"
+  },
+  "reset": {
+    "text": "重置",
+    "all": "全部重置"
+  },
+  "save": {
+    "text": "保存",
+    "success": "保存成功",
+    "fail": "保存失败"
+  },
+  "seen": "看过",
+  "select": {
+    "text": "选择",
+    "all": "全选",
+    "cancel": "取消选择",
+    "cancel_all": "取消全选",
+    "choosing": "已选中："
+  },
+  "setting": {
+    "text": "设置",
+    "right_angle": "直角",
+    "corners": "圆角",
+    "large_corners": "大圆角",
+    "ui_style": "界面风格",
+    "hue": "强调色",
+    "theme": "主题",
+    "language": "语言",
+    "system": "跟随系统",
+    "light": "亮色",
+    "dark": "暗色"
+  },
+  "share": {
+    "text": "分享"
+  },
+  "size": "大小",
+  "tags": "标签",
+  "time": {
+    "join": "加入时间：",
+    "today": "今天",
+    "yesterday": "昨天",
+    "before_yesterday": "前天",
+    "last_week": "上周",
+    "last_month": "上个月",
+    "nearly_3_months": "近三个月",
+    "nearly_half_a_year": "近半年",
+    "nearly_a_year": "近一年",
+    "tomorrow": "明天",
+    "year_date": "YYYY年MM月DD日",
+    "month_date": "MM月DD日",
+    "create": "创建时间",
+    "update": "更新时间",
+    "just": "刚刚",
+    "minutes_ago": "{{count}}分钟前",
+    "hours_ago": "{{count}}小时前"
+  },
+  "unfold": "展开",
+  "unnamed": "未命名",
+  "update": {
+    "text": "更新",
+    "success": "更新成功",
+    "fail": "更新失败"
+  },
+  "upload": {
+    "img": {
+      "success": "上传图片成功",
+      "fail": "上传图片失败"
+    }
+  },
+  "validate": {
+    "required": "必填项",
+    "array_required": "至少选择一项",
+    "max_len": "长度不能超过{{max}}字",
+    "letters_and_numbers": "只能包含字母和数字",
+    "phone": "不是有效的手机号码",
+    "cover_required": "公开发布时，封面必填",
+    "title_required": "标题不能为空"
+  },
+  "view": {
+    "detail": "详细信息",
+    "introduction": "查看简介",
+    "full_text": "阅读全文"
+  },
+  "tab": {
+    "home": "指南"
+  },
+  "author": "作者：",
+  "last_update_at": "最后更新于：",
+  "route_error": "页面出错啦！",
+  "reload&retry": "刷新重试",
+  "return_homepage": "回到首页",
+  "confirm": "确认",
+  "created_at": "创建于",
+  "code": {
+    "copy": {
+      "text": "复制代码",
+      "success": "代码已复制"
+    },
+    "expand": "展开代码",
+    "collapse": "收起代码"
+  },
+  "file": {
+    "uploading": "文件上传中..."
+  }
+}

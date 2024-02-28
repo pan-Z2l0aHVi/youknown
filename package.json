@@ -8,6 +8,7 @@
     },
     "scripts": {
         "prepare": "husky install",
+        "build:book-fe": "pnpm -C apps/book-fe run build",
         "build:knowledge-fe": "pnpm -C apps/knowledge-fe run build",
         "build:react-demos": "pnpm -C apps/vue-demos run build",
         "build:vue-demos": "pnpm -C apps/vue-demos run build",
@@ -18,6 +19,7 @@
         "build:img-wasm": "pnpm -C packages/img-wasm run build",
         "build:css": "pnpm -C packages/css run build",
         "build": "turbo run build",
+        "preview:book-fe": "pnpm -C apps/book-fe run preview",
         "preview:knowledge-fe": "pnpm -C apps/knowledge-fe run preview",
         "preview:react-demos": "pnpm -C apps/react-demos run preview",
         "preview:vue-demos": "pnpm -C apps/vue-demos run preview",
@@ -29,9 +31,11 @@
         "watch:utils": "pnpm -C packages/utils run watch",
         "watch:img-wasm": "pnpm -C packages/img-wasm run watch",
         "dev:css": "pnpm -C packages/css run dev",
+        "dev:book-fe": "pnpm -C apps/book-fe run dev",
         "dev:knowledge-fe": "pnpm -C apps/knowledge-fe run dev",
         "dev:react-demos": "pnpm -C apps/react-demos run dev",
         "dev:vue-demos": "pnpm -C apps/vue-demos run dev",
+        "deploy:book-fe": "pnpm -C apps/book-fe run deploy",
         "deploy:knowledge-fe": "pnpm -C apps/knowledge-fe run deploy"
     },
     "dependencies": {

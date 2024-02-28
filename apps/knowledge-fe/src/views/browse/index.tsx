@@ -1,19 +1,15 @@
-import { useLayoutEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbSearch } from 'react-icons/tb'
-import { useLocation } from 'react-router-dom'
 
 import Header from '@/app/components/header'
 import TabBar from '@/app/components/tab-bar'
 import { useUIStore, useUserStore } from '@/stores'
-import { useBoolean, useEvent } from '@youknown/react-hook/src'
+import { useBoolean } from '@youknown/react-hook/src'
 import { Button, Input, Tabs } from '@youknown/react-ui/src'
-import { storage } from '@youknown/utils/src'
 
 import FeedList, { FEED_TAB } from './components/feed-list'
 import Searcher from './components/searcher'
-
-const BROWSE_SCROLL_Y_KEY = 'browse_scroll_y'
 
 export default function Browse() {
 	const { t } = useTranslation()
@@ -21,26 +17,6 @@ export default function Browse() {
 	const is_mobile = useUIStore(state => state.is_mobile)
 	const [search_modal_open, { setTrue: show_search_modal, setFalse: hide_search_modal }] = useBoolean(false)
 	const [feed_tab, set_feed_tab] = useState<FEED_TAB>(FEED_TAB.LATEST)
-
-	const restore_scroll_y = useEvent(() => {
-		const scroll_y_cache = storage.session.get<number>(BROWSE_SCROLL_Y_KEY)
-		if (scroll_y_cache) {
-			storage.session.remove(BROWSE_SCROLL_Y_KEY)
-			window.scrollTo({
-				top: scroll_y_cache,
-				behavior: 'instant'
-			})
-		}
-	})
-
-	const { pathname } = useLocation()
-	useLayoutEffect(() => {
-		if (pathname === '/browse') {
-			restore_scroll_y()
-		} else {
-			storage.session.set(BROWSE_SCROLL_Y_KEY, window.scrollY)
-		}
-	}, [pathname, restore_scroll_y])
 
 	const feed_tabs = (
 		<Tabs
