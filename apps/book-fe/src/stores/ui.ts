@@ -23,6 +23,7 @@ export interface UIState {
 	radius: number[]
 	theme: THEME
 	i18n_lang: I18N_LANG
+	menu_drawer_open: boolean
 	set_is_mobile: (is_mobile: boolean) => void
 	set_progress_percent: (percent: number) => void
 	show_progress: () => void
@@ -33,6 +34,7 @@ export interface UIState {
 	set_radius: (radius: number[]) => void
 	set_theme: (theme: THEME) => void
 	set_i18n_lang: (lang: I18N_LANG) => void
+	set_menu_drawer_open: (open: boolean) => void
 }
 
 let timer = 0
@@ -40,10 +42,11 @@ const ui_state_creator: StateCreator<UIState> = (set, get) => ({
 	is_mobile: checkMobile(),
 	progress_percent: 0,
 	progress_visible: false,
-	primary_color: '#ff9500',
+	primary_color: '#af52de',
 	radius: [4, 8, 12],
 	theme: THEME.SYSTEM,
 	i18n_lang: I18N_LANG.SYSTEM,
+	menu_drawer_open: false,
 
 	set_is_mobile: (is_mobile: boolean) =>
 		set({
@@ -97,7 +100,8 @@ const ui_state_creator: StateCreator<UIState> = (set, get) => ({
 	set_primary_color: primary_color => set({ primary_color }),
 	set_radius: radius => set({ radius }),
 	set_theme: theme => set({ theme }),
-	set_i18n_lang: lang => set({ i18n_lang: lang })
+	set_i18n_lang: lang => set({ i18n_lang: lang }),
+	set_menu_drawer_open: open => set({ menu_drawer_open: open })
 })
 
 const compute_is_dark_theme = (theme: THEME) => {

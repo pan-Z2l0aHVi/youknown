@@ -1,4 +1,4 @@
-import { TbPhotoX, TbUser } from 'react-icons/tb'
+import { TbUser } from 'react-icons/tb'
 
 import { Avatar, Divider, Space } from '@youknown/react-ui/src'
 
@@ -27,30 +27,6 @@ export default () => {
 			<Avatar src={picSrc}>Text</Avatar>
 			<Divider />
 			<Avatar badge="99+" src={picSrc} />
-			<Divider />
-			<Avatar.Group size="small">
-				<Avatar round src={picSrc} />
-				<Avatar round src={picSrc} />
-				<Avatar round src={picSrc} />
-				<Avatar round src={picSrc} />
-				<Avatar round src={picSrc} />
-			</Avatar.Group>
-			<Divider />
-			<Avatar.Group size="medium">
-				<Avatar round src={picSrc} />
-				<Avatar round src={picSrc} />
-				<Avatar round src={picSrc} />
-				<Avatar round src={picSrc} />
-				<Avatar round src={picSrc} />
-			</Avatar.Group>
-			<Divider />
-			<Avatar.Group size="large">
-				<Avatar round src={picSrc} />
-				<Avatar round src={picSrc} />
-				<Avatar round src={picSrc} />
-				<Avatar round src={picSrc} />
-				<Avatar round src={picSrc} />
-			</Avatar.Group>
 			<Divider />
 			<Avatar.Group size="small">
 				<Avatar round src={picSrc} />

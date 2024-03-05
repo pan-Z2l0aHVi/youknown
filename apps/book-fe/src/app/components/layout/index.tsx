@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
-import { Outlet } from 'react-router-dom'
 
-import { Loading } from '@youknown/react-ui/src'
+import { useUIStore } from '@/stores'
+import { Drawer, Loading } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import Banner from '../banner'
@@ -35,6 +35,8 @@ export function DesktopLayout() {
 }
 
 export function MobileLayout() {
+	const menu_drawer_open = useUIStore(state => state.menu_drawer_open)
+	const set_menu_drawer_open = useUIStore(state => state.set_menu_drawer_open)
 	return (
 		<Suspense
 			fallback={
@@ -47,22 +49,16 @@ export function MobileLayout() {
 				<Banner />
 				<KeepAliveOutlet />
 			</div>
-		</Suspense>
-	)
-}
 
-export function NoLayout() {
-	return (
-		<Suspense
-			fallback={
-				<div className="min-h-screen flex justify-center items-center">
-					<Loading spinning size="large" />
-				</div>
-			}
-		>
-			<div className={cls('min-h-screen')}>
-				<Outlet />
-			</div>
+			<Drawer
+				placement="left"
+				open={menu_drawer_open}
+				onCancel={() => {
+					set_menu_drawer_open(false)
+				}}
+			>
+				<Sidebar />
+			</Drawer>
 		</Suspense>
 	)
 }

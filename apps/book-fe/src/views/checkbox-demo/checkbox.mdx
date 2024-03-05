@@ -1,0 +1,320 @@
+# Checkbox
+
+## 代码演示
+
+import { useEffect, useState } from 'react'
+import { Checkbox, Divider, Space, Button, Switch, Tabs } from '@youknown/react-ui/src'
+
+---
+
+### 基本用法
+
+export function BasicUsage() {
+  return (
+    <Checkbox defaultValue={true}>
+      Basic
+    </Checkbox>
+  )
+}
+
+<BasicUsage />
+
+---
+
+```tsx
+import { Checkbox } from '@youknown/react-ui'
+export default () => {
+  return (
+    <Checkbox defaultValue={true}>
+      Basic
+    </Checkbox>
+  )
+}
+```
+
+### 受控组件
+
+export function Controlled() {
+  const [val, setVal] = useState(false)
+  return (
+    <>
+      <Checkbox value={val} onChange={setVal}>
+        Controlled
+      </Checkbox>
+      <Divider />
+      <Space>
+        <Button onClick={() => setVal(true)}>Check</Button>
+        <Button onClick={() => setVal(false)}>Uncheck</Button>
+      </Space>
+    </>
+  )
+}
+
+<Controlled />
+
+---
+
+```tsx
+import { Checkbox, Space, Divider, Button } from '@youknown/react-ui'
+
+export default () => {
+  const [val, setVal] = useState(false)
+  return (
+    <>
+      <Checkbox value={val} onChange={setVal}>
+        Controlled
+      </Checkbox>
+      <Divider />
+      <Space>
+        <Button onClick={() => setVal(true)}>Check</Button>
+        <Button onClick={() => setVal(false)}>Uncheck</Button>
+      </Space>
+    </>
+  )
+}
+```
+
+### 复选框大小
+
+export function CheckboxSize() {
+  return (
+    <Space>
+      <Checkbox size="small" defaultValue={true}>
+        Small
+      </Checkbox>
+      <Checkbox size="medium" defaultValue={true}>
+        Medium
+      </Checkbox>
+      <Checkbox size="large" defaultValue={true}>
+        Large
+      </Checkbox>
+    </Space>
+  )
+}
+
+<CheckboxSize />
+
+---
+
+```tsx
+import { Checkbox, Space } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space>
+      <Checkbox size="small" defaultValue={true}>
+        Small
+      </Checkbox>
+      <Checkbox size="medium" defaultValue={true}>
+        Medium
+      </Checkbox>
+      <Checkbox size="large" defaultValue={true}>
+        Large
+      </Checkbox>
+    </Space>
+  )
+}
+```
+
+### 复选框组
+
+export function CheckboxGroup() {
+  const [groupVal, setGroupVal] = useState([2])
+  const [dir, setDir] = useState('horizontal')
+  return (
+    <>
+      <Tabs
+        type="segment"
+        tabList={[
+          { key: 'horizontal', name: 'Horizontal' },
+          { key: 'vertical', name: 'Vertical' }
+        ]}
+        value={dir}
+        onChange={setDir}
+      />
+      <Divider />
+      <Checkbox.Group
+        direction={dir}
+        options={[
+          { label: 0, child: 'Cherry' },
+          { label: 1, child: 'Apple' },
+          { label: 2, child: 'Pear' },
+          { label: 3, child: 'Orange', disabled: true }
+        ]}
+        value={groupVal}
+        onChange={setGroupVal}
+      />
+    </>
+  )
+}
+
+<CheckboxGroup />
+
+---
+
+```tsx
+import { Checkbox } from '@youknown/react-ui'
+import { useState } from 'react'
+
+export default () => {
+  const [groupVal, setGroupVal] = useState<(string | number)[]>([2])
+  const [dir, setDir] = useState<'horizontal' | 'vertical'>('horizontal')
+  return (
+    <Checkbox.Group
+      direction={dir}
+      options={[
+        { label: 0, child: 'Cherry' },
+        { label: 1, child: 'Apple' },
+        { label: 2, child: 'Pear' },
+        { label: 3, child: 'Orange', disabled: true }
+      ]}
+      value={groupVal}
+      onChange={setGroupVal}
+    />
+  )
+}
+```
+
+### 禁用状态
+
+export function CheckboxDisabled() {
+  const [disabled, setDisabled] = useState(true)
+  return (
+    <>
+      <Switch value={disabled} onChange={setDisabled} />
+      <Divider />
+      <Space direction="vertical">
+        <Checkbox disabled={disabled} defaultValue={true}>Disabled</Checkbox>
+        <Checkbox.Group
+          disabled={disabled}
+          defaultValue={[0, 1]}
+          options={[
+            { label: 0, child: 'A' },
+            { label: 1, child: 'B' },
+            { label: 2, child: 'C' }
+          ]}
+        />
+      </Space>
+    </>
+  )
+}
+
+<CheckboxDisabled />
+
+---
+
+```tsx
+import { Checkbox, Switch, Divider, Space } from '@youknown/react-ui'
+import { useState } from 'react'
+
+export default () => {
+  const [disabled, setDisabled] = useState(false)
+  return (
+    <>
+      <Switch value={disabled} onChange={setDisabled} />
+      <Divider />
+      <Space direction="vertical">
+        <Checkbox disabled={disabled} defaultValue={true}>Disabled</Checkbox>
+        <Checkbox.Group
+          disabled={disabled}
+          defaultValue={[0, 1]}
+          options={[
+            { label: 0, child: 'A' },
+            { label: 1, child: 'B' },
+            { label: 2, child: 'C' }
+          ]}
+        />
+      </Space>
+    </>
+  )
+}
+```
+
+### JSX
+
+export function CheckboxJSX() {
+  const [groupVal, setGroupVal] = useState([2, 3])
+  return (
+    <>
+      <Checkbox.Group
+        direction="vertical"
+        options={[
+          { label: 0, child: 'Options A' },
+          { label: 1, child: 'Options B' },
+          { label: 2, child: 'Options C' }
+        ]}
+        value={groupVal}
+        onChange={setGroupVal}
+      >
+        <Checkbox label={3}>JSX A</Checkbox>
+        <Checkbox label={4}>JSX B</Checkbox>
+        <Checkbox label={5}>JSX C</Checkbox>
+      </Checkbox.Group>
+    </>
+  )
+}
+
+<CheckboxJSX />
+
+---
+
+```tsx
+import { Checkbox } from '@youknown/react-ui'
+import { useState } from 'react'
+
+export default () => {
+  const [groupVal, setGroupVal] = useState<number[]>([2, 3])
+  return (
+    <>
+      <Checkbox.Group
+        direction="vertical"
+        options={[
+          { label: 0, child: 'Options A' },
+          { label: 1, child: 'Options B' },
+          { label: 2, child: 'Options C' }
+        ]}
+        value={groupVal}
+        onChange={setGroupVal}
+      >
+        <Checkbox label={3}>JSX A</Checkbox>
+        <Checkbox label={4}>JSX B</Checkbox>
+        <Checkbox label={5}>JSX C</Checkbox>
+      </Checkbox.Group>
+    </>
+  )
+}
+```
+
+## API
+
+### Checkbox Props
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| disabled   | 禁用状态           | `boolean`         | `false`  |
+| size       | 大小               | `'small'`         | `'small' \| 'medium' \| 'large'`  |
+| label    | 标识id           | `string \| number`         | -  |
+| defaultValue    | 默认值           | `boolean`         | `false`  |
+| value    |  是否选中          | `boolean`         | -  |
+| onChange    |  选中事件回调          | `(value: boolean) => void`         | -  |
+
+### Checkbox.Group Props
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| disabled   | 禁用状态           | `boolean`         | `false`  |
+| size       | 大小               | `'small'`         | `'small' \| 'medium' \| 'large'`  |
+| defaultValue    | 默认值           | `(string \| number)[]`         | `[]`  |
+| value    | 选中值           | `(string \| number)[]`         | -  |
+| onChange    | 选中事件回调           | `(value: (string \| number)[]) => void`         | -  |
+| direction    | 方向           | `'vertical' \| 'horizontal'`         | `'horizontal'`  |
+| options    | 可选项列表           | `Options`         | `[]`  |
+
+### Options
+
+| 参数       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| disabled   | 禁用状态           | `boolean`         | `false`  |
+| label    | 标识id           | `string \| number`         | -  |
+| child    | 子元素           | `React.ReactNode`         | -  |
+

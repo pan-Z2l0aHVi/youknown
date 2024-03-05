@@ -178,6 +178,13 @@ export default function Wallpapers() {
 		}
 	})
 
+	useEffect(() => {
+		const keywords_query = search_params.get('keywords')
+		if (keywords_query) {
+			reload_wallpapers()
+		}
+	}, [reload_wallpapers, search_params])
+
 	// 从缓存中恢复之前的浏览状态
 	// 包括：页码、壁纸数据、滚动条位置
 	const restore_scroll_y = () => {

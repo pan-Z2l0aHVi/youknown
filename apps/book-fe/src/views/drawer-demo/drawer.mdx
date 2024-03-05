@@ -1,0 +1,131 @@
+# Drawer
+
+## 代码演示
+
+import { useState } from 'react'
+import { Button, Divider, Drawer, Tabs } from '@youknown/react-ui/src'
+
+---
+
+### 方向
+
+export function DrawerDirection() {
+  const [placement, setPlacement] = useState('left')
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Tabs
+        type="segment"
+        value={placement}
+        onChange={setPlacement}
+        tabList={[
+          { key: 'left', name: 'Left' },
+          { key: 'top', name: 'Top' },
+          { key: 'right', name: 'Right' },
+          { key: 'bottom', name: 'Bottom' }
+        ]}
+      />
+      <Divider />
+      <Button onClick={() => setOpen(true)}>Show drawer</Button>
+      <Drawer open={open} placement={placement} onCancel={() => setOpen(false)}>
+        <h1>Title</h1>
+        <div className="w-280px h-280px"></div>
+      </Drawer>
+    </>
+  )
+}
+
+<DrawerDirection />
+
+---
+
+```tsx
+import { useState } from 'react'
+import { Button, Divider, Drawer, Tabs } from '@youknown/react-ui'
+
+export default () => {
+  const [placement, setPlacement] = useState<'left' | 'top' | 'right' | 'bottom'>('left')
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Tabs
+        type="segment"
+        value={placement}
+        onChange={setPlacement}
+        tabList={[
+          { key: 'left', name: 'Left' },
+          { key: 'top', name: 'Top' },
+          { key: 'right', name: 'Right' },
+          { key: 'bottom', name: 'Bottom' }
+        ]}
+      />
+      <Divider />
+      <Button onClick={() => setOpen(true)}>Show drawer</Button>
+      <Drawer open={open} placement={placement} onCancel={() => setOpen(false)}>
+        <h1>Title</h1>
+        <div className="w-280px h-280px"></div>
+      </Drawer>
+    </>
+  )
+}
+```
+
+### 点击蒙层不可关闭
+
+export function DrawerOverlayClosable() {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Overlay not closed</Button>
+      <Drawer closable overlayClosable={false} width={300} open={open} onCancel={() => setOpen(false)}>
+        <h1>Title</h1>
+      </Drawer>
+    </>
+  )
+}
+
+<DrawerOverlayClosable />
+
+---
+
+```tsx
+import { useState } from 'react'
+import { Button, Drawer } from '@youknown/react-ui'
+
+export default () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Overlay not closed</Button>
+      <Drawer
+        closable
+        overlayClosable={false}
+        width={300}
+        open={open}
+        onCancel={() => setOpen(false)}
+      >
+        <h1>Title</h1>
+      </Drawer>
+    </>
+  )
+}
+```
+
+## API
+
+Drawer Props
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| open    | 是否打开           | `boolean`         | `false`  |
+| placement    | 方向           | `'left' \| 'top' \| 'right' \| 'bottom'`         | `'right'`  |
+| width    | 宽度           | `number \| string`         | -  |
+| height    | 高度           | `number \| string`         | -  |
+| overlayStyle    | 蒙层样式           | `React.CSSProperties`         | -  |
+| overlayClassName    | 蒙层class           | `string`         | -  |
+| overlayClosable    | 启用蒙层点击关闭           | `boolean`         | `true`  |
+| escClosable    | 启用esc键关闭           | `boolean`         | `true`  |
+| closable    | 是否展示关闭图标           | `boolean`         | `false` |
+| appendTo    | 插入到节点           | `HTMLElement \| null`         | `document.body` |
+| unmountOnExit    | 是否展示关闭图标           | `boolean`         | `false` |
+| onCancel    | 关闭回调函数           | `() => void`         | - |

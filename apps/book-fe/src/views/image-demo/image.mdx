@@ -1,0 +1,188 @@
+# Image
+
+## 代码演示
+
+import { Image, Divider, Space, Button } from '@youknown/react-ui/src'
+
+export const picSrc = 'https://iph.href.lu/879x400'
+
+---
+
+### 可查看大图
+
+export function ImageCanPreview() {
+  return (
+    <>
+      <Image canPreview src={picSrc} width="300px" />
+      <Divider />
+      <Image canPreview src={picSrc} width="300px" minZoom={0.5} maxZoom={2} />
+      <Divider />
+      <Image canPreview toolbarVisible={false} src={picSrc} width="300px" />
+    </>
+  )
+}
+
+<ImageCanPreview />
+
+---
+
+```tsx
+import { Image, Divider } from '@youknown/react-ui'
+
+export default () => {
+  const picSrc = 'https://iph.href.lu/879x400'
+  return (
+    <>
+      <Image canPreview src={picSrc} width="300px" />
+      <Divider />
+      <Image canPreview src={picSrc} width="300px" minZoom={0.5} maxZoom={2} />
+      <Divider />
+      <Image canPreview toolbarVisible={false} src={picSrc} width="300px" />
+    </>
+  )
+}
+```
+
+### 禁止查看大图
+
+export function ImageCanNotPreview() {
+  return (
+    <Image src={picSrc} width="300px" />
+  )
+}
+
+<ImageCanNotPreview />
+
+---
+
+```tsx
+import { Image } from '@youknown/react-ui'
+
+export default () => {
+  const picSrc = 'https://iph.href.lu/879x400'
+  return (
+    <Image src={picSrc} width="300px" />
+  )
+}
+```
+
+### 命令式图片查看器
+
+export function ImageCommand() {
+  return (
+    <Space>
+      <Button
+        onClick={() => {
+          Image.preview({
+            url: picSrc
+          })
+        }}
+      >
+        Preview image
+      </Button>
+      <Button
+        onClick={() => {
+          Image.preview({
+            url: picSrc,
+            toolbarVisible: false
+          })
+        }}
+      >
+        Preview image without toolbar
+      </Button>
+    </Space>
+  )
+}
+
+<ImageCommand />
+
+---
+
+```tsx
+import { Image, Space, Button } from '@youknown/react-ui'
+
+export default () => {
+  const picSrc = 'https://iph.href.lu/879x400'
+  return (
+    <Space>
+      <Button
+        onClick={() => {
+          Image.preview({
+            url: picSrc
+          })
+        }}
+      >
+        Preview image
+      </Button>
+      <Button
+        onClick={() => {
+          Image.preview({
+            url: picSrc,
+            toolbarVisible: false
+          })
+        }}
+      >
+        Preview image without toolbar
+      </Button>
+    </Space>
+  )
+}
+```
+
+### 图片裁剪
+
+export function ImageCrop() {
+  return (
+    <input
+      type="file"
+      accept="image/*"
+      onChange={e => {
+        const [file] = e.target.files ?? []
+        Image.crop({
+          file,
+          onCrop(result) {
+            console.log('clip result: ', result)
+          }
+        })
+      }}
+    />
+  )
+}
+
+<ImageCrop />
+
+---
+
+```tsx
+import { Image } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <input
+      type="file"
+      accept="image/*"
+      onChange={e => {
+        const [file] = e.target.files ?? []
+        Image.crop({
+          file,
+          onCrop(result) {
+            console.log('clip result: ', result)
+          }
+        })
+      }}
+    />
+  )
+}
+```
+
+## API
+
+### Image Props
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| bordered    | 有边框           | `boolean`         | `false`  |
+| shadow    | 有阴影           | `boolean`         | `false`  |
+| header    | 头部           | `React.ReactNode`         | -  |
+| footer    | 底部           | `React.ReactNode`         | -  |
+| cover    | 封面           | `React.ReactNode`         | -  |

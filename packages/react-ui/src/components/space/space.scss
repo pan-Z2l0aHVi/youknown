@@ -9,6 +9,10 @@ $prefix: '#{$ui-prefix}-space';
 	font-size: unset;
 	color: unset;
 
+	&-wrap {
+		flex-wrap: wrap;
+	}
+
 	&-horizontal {
 		width: max-content;
 

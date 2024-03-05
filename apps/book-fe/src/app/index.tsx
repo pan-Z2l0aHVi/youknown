@@ -6,7 +6,7 @@ import { useRouteScrollTop } from '@/hooks/use-route-scroll-top'
 import { useUIStore } from '@/stores'
 
 import FabBar from './components/fab-bar'
-import { DesktopLayout, MobileLayout, NoLayout } from './components/layout'
+import { DesktopLayout, MobileLayout } from './components/layout'
 import PageProgress from './components/page-progress'
 
 const PreferencesModal = lazy(() => import('./components/preferences-modal'))
@@ -15,8 +15,6 @@ export default function App() {
 	const is_mobile = useUIStore(state => state.is_mobile)
 	useRouteScrollTop()
 	useInitApp()
-	const login_success_match = useMatch('/login-success')
-	const with_layout = !login_success_match
 
 	const global_els = (
 		<>
@@ -31,14 +29,8 @@ export default function App() {
 		<>
 			{global_els}
 
-			{with_layout ? (
-				<>
-					{is_mobile ? <MobileLayout /> : <DesktopLayout />}
-					<FabBar />
-				</>
-			) : (
-				<NoLayout />
-			)}
+			{is_mobile ? <MobileLayout /> : <DesktopLayout />}
+			<FabBar />
 		</>
 	)
 }

@@ -1,0 +1,320 @@
+# Button
+
+## 代码演示
+
+import { Button, Space, Tooltip, Divider, Tabs, Switch } from '@youknown/react-ui/src'
+import { TbSearch, TbUpload } from 'react-icons/tb'
+import { useState } from 'react'
+
+---
+
+### 按钮类型
+
+export function ButtonType() {
+  return (
+    <Space>
+      <Button>Click me</Button>
+      <Button primary>Primary</Button>
+      <Button danger>Danger</Button>
+      <Button text>Text</Button>
+    </Space>
+  )
+}
+
+<ButtonType />
+
+---
+
+```tsx
+import { Button, Space } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space>
+      <Button>Click me</Button>
+      <Button primary>Primary</Button>
+      <Button danger>Danger</Button>
+      <Button text>Text</Button>
+    </Space>
+  )
+}
+```
+
+### 按钮形状
+
+export function ButtonShape() {
+  return (
+    <Space>
+      <Button>Default</Button>
+      <Button round>Round</Button>
+      <Tooltip title="square button">
+        <Button square>
+          <TbSearch />
+        </Button>
+      </Tooltip>
+      <Tooltip title="square primary button">
+        <Button square primary>
+          <TbSearch />
+        </Button>
+      </Tooltip>
+      <Tooltip title="circle button">
+        <Button circle>
+          <TbSearch />
+        </Button>
+      </Tooltip>
+      <Tooltip title="circle primary button">
+        <Button circle primary>
+          <TbSearch />
+        </Button>
+      </Tooltip>
+    </Space>
+  )
+}
+
+<ButtonShape />
+
+---
+
+```tsx
+import { Button, Space } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space>
+      <Button>Default</Button>
+      <Button round>Round</Button>
+      <Button square>
+        <TbSearch />
+      </Button>
+      <Button circle>
+        <TbSearch />
+      </Button>
+    </Space>
+  )
+}
+```
+
+### 按钮大小
+
+export function ButtonSize() {
+  const [size, setSize] = useState('small')
+  return (
+    <>
+      <Tabs
+        type="segment"
+        tabList={[
+          { key: 'small', name: 'Small' },
+          { key: 'medium', name: 'Medium' },
+          { key: 'large', name: 'Large' }
+        ]}
+        value={size}
+        onChange={setSize}
+      />
+      <Divider />
+      <Space>
+        <Button size={size}>Button</Button>
+        <Button size={size} primary>
+          Primary
+        </Button>
+        <Button size={size} danger>
+          Danger
+        </Button>
+        <Button size={size} disabled>
+          Disabled
+        </Button>
+        <Button size={size} loading>
+          Loading
+        </Button>
+        <Button size={size} round>
+          Round
+        </Button>
+        <Button size={size} square>
+          <TbSearch />
+        </Button>
+        <Button size={size} circle>
+          <TbSearch />
+        </Button>
+      </Space>
+    </>
+  )
+}
+
+<ButtonSize />
+
+---
+
+```tsx
+import { Button, Space } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space>
+      <Button size="small">Small</Button>
+      <Button size="medium">medium</Button>
+      <Button size="large">Large</Button>
+    </Space>
+  )
+}
+```
+
+### 图标按钮
+
+export function ButtonIcon() {
+  return (
+    <Space>
+      <Button prefixIcon={<TbSearch />}>
+        Prefix
+      </Button>
+      <Button suffixIcon={<TbSearch />}>
+        Suffix
+      </Button>
+    </Space>
+  )
+}
+
+<ButtonIcon />
+
+---
+
+```tsx
+import { Button } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space>
+      <Button prefixIcon={<TbSearch />}>
+        Prefix
+      </Button>
+      <Button suffixIcon={<TbSearch />}>
+        Suffix
+      </Button>
+    </Space>
+  )
+}
+```
+
+### 加载中状态
+
+export function ButtonLoading() {
+  const [loading, setLoading] = useState(true)
+  return (
+    <>
+      <Switch value={loading} onChange={setLoading} />
+      <Divider />
+      <Space>
+        <Button loading={loading}>Button</Button>
+        <Button loading={loading} primary>
+          Primary
+        </Button>
+        <Button loading={loading} danger>
+          Danger
+        </Button>
+        <Button loading={loading} disabled>
+          Disabled
+        </Button>
+        <Button loading={loading} round>
+          Round
+        </Button>
+        <Button loading={loading} square>
+          <TbSearch />
+        </Button>
+        <Button loading={loading} circle>
+          <TbSearch />
+        </Button>
+        <Button loading={loading} prefixIcon={<TbSearch />}>
+          Prefix
+        </Button>
+        <Button loading={loading} suffixIcon={<TbSearch />}>
+          Suffix
+        </Button>
+      </Space>
+    </>
+  )
+}
+
+<ButtonLoading />
+
+---
+
+```tsx
+import { Button } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <>
+      <Button loading>Loading</Button>
+    </>
+  )
+}
+```
+
+### 禁用状态
+
+export function ButtonDisabled() {
+  const [disabled, setDisabled] = useState(true)
+  return (
+    <>
+      <Switch value={disabled} onChange={setDisabled} />
+      <Divider />
+      <Space>
+        <Button disabled={disabled}>Button</Button>
+        <Button disabled={disabled} primary>
+          Primary
+        </Button>
+        <Button disabled={disabled} danger>
+          Danger
+        </Button>
+        <Button disabled={disabled} loading>
+          Loading
+        </Button>
+        <Button disabled={disabled} round>
+          Round
+        </Button>
+        <Button disabled={disabled} square>
+          <TbSearch />
+        </Button>
+        <Button disabled={disabled} circle>
+          <TbSearch />
+        </Button>
+        <Button disabled={disabled} prefixIcon={<TbSearch />}>
+          Prefix
+        </Button>
+        <Button disabled={disabled} suffixIcon={<TbSearch />}>
+          Suffix
+        </Button>
+      </Space>
+    </>
+  )
+}
+
+<ButtonDisabled />
+
+---
+
+```tsx
+import { Button } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <>
+      <Button disabled>Disabled</Button>
+    </>
+  )
+}
+```
+
+## API
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| primary    | 主要按钮           | `boolean`         | `false`  |
+| disabled   | 禁用状态           | `boolean`         | `false`  |
+| size       | 大小               |  `'small' \| 'medium' \| 'large'`  | `'medium'` |
+| danger     | 危险按钮           | `boolean`         | `false`  |
+| text       | 文本按钮           | `boolean`         | `false`  |
+| round      | 大圆角形状         | `boolean`         | `false`  |
+| square     | 正方形             | `boolean`         | `false`  |
+| circle     | 圆形               | `boolean`         | `false`  |
+| loading    | 加载中状态         | `boolean`         | `false`  |
+| prefixIcon | 按钮文本前面的图标 | `React.ReactNode` | `null`   |
+| suffixIcon | 按钮文本后面的图标 | `React.ReactNode` | `null`   |

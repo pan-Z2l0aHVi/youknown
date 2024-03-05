@@ -1,4 +1,5 @@
 import { resolve } from 'path'
+import remarkGfm from 'remark-gfm'
 import { visualizer } from 'rollup-plugin-visualizer'
 import unocss from 'unocss/vite'
 import { defineConfig, loadEnv, PluginOption, splitVendorChunkPlugin } from 'vite'
@@ -6,6 +7,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import topLevelAwait from 'vite-plugin-top-level-await'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
+import mdx from '@mdx-js/rollup'
 import react from '@vitejs/plugin-react-swc'
 import { excludeDeps } from '@youknown/img-wasm'
 
@@ -15,6 +17,9 @@ export default defineConfig(({ mode, command }) => {
 	return {
 		base: isBuild ? env.VITE_CDN_BASE_URL : '',
 		plugins: [
+			mdx({
+				remarkPlugins: [remarkGfm]
+			}),
 			VitePWA({
 				devOptions: {
 					enabled: true

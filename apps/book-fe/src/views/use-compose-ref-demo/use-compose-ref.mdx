@@ -1,0 +1,91 @@
+# useComposeRef
+
+## 代码演示
+
+import { useComposeRef } from '@youknown/react-hook/src'
+import { Button } from '@youknown/react-ui/src'
+import { useRef } from 'react'
+
+合并Ref
+
+---
+
+### 基本用法
+
+export function BasicUsage() {
+  const ref1 = useRef(null)
+  const ref2 = useRef(null)
+  const ref = useComposeRef(ref1, ref2)
+  return (
+    <>
+      <input ref={ref} />
+      <Button
+        onClick={() => {
+          ref1.current.focus()
+        }}
+      >
+        ref1 focus
+      </Button>
+      <Button
+        onClick={() => {
+          ref2.current.focus()
+        }}
+      >
+        ref2 focus
+      </Button>
+    </>
+  )
+}
+
+<BasicUsage />
+
+---
+
+```tsx
+import { useComposeRef } from '@youknown/react-hook'
+import { Button } from '@youknown/react-ui'
+import { useRef } from 'react'
+
+export default () => {
+  const ref1 = useRef(null)
+  const ref2 = useRef(null)
+  const ref = useComposeRef(ref1, ref2)
+  return (
+    <>
+      <input ref={ref} />
+      <Button
+        onClick={() => {
+          ref1.current.focus()
+        }}
+      >
+        ref1 focus
+      </Button>
+      <Button
+        onClick={() => {
+          ref2.current.focus()
+        }}
+      >
+        ref2 focus
+      </Button>
+    </>
+  )
+}
+```
+
+## API
+
+### Type
+
+`(...refs: Ref[]) => Ref`
+
+### Params
+
+| 参数       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| ...refs    | 待合并的 Ref 列表           | `Ref[]`         | `[]`  |
+
+### Result
+
+| 参数       | 说明               | 类型              |
+| ---------- | ------------------ | ----------------- |
+| ref    | 合并的 Ref           | `Ref`         |

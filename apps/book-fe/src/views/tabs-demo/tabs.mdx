@@ -1,0 +1,253 @@
+# Tabs
+
+## 代码演示
+
+import { useState } from 'react'
+import { Divider, Tabs } from '@youknown/react-ui/src'
+
+---
+
+### 类型
+
+export function BasicUsage() {
+  const tabList = [
+    {
+      key: 'a',
+      name: 'Tab A'
+    },
+    {
+      key: 'b',
+      name: 'Tab B',
+      disabled: true
+    },
+    {
+      key: 'c',
+      name: 'Tab C'
+    },
+    {
+      key: 'd',
+      name: 'Tab D'
+    }
+  ]
+  const [tabsType, setTabsType] = useState('line')
+  return (
+    <>
+      <Tabs
+        type="segment"
+        tabList={[
+          { key: 'line', name: 'Line Tab' },
+          { key: 'round', name: 'Round Tab' },
+          { key: 'segment', name: 'Segment Tab' }
+        ]}
+        value={tabsType}
+        onChange={setTabsType}
+      />
+      <Divider />
+      <Tabs type={tabsType} tabList={tabList} defaultValue='a' />
+    </>
+  )
+}
+
+<BasicUsage />
+
+---
+
+```tsx
+import { Tabs } from '@youknown/react-ui'
+import { useState } from 'react'
+
+export default () => {
+  const tabList = [
+    {
+      key: 'a',
+      name: 'Tab A'
+    },
+    {
+      key: 'b',
+      name: 'Tab B',
+      disabled: true
+    },
+    {
+      key: 'c',
+      name: 'Tab C'
+    },
+    {
+      key: 'd',
+      name: 'Tab D'
+    }
+  ]
+  const [tabsType, setTabsType] = useState('line')
+  return (
+    <>
+      <Tabs
+        type="segment"
+        tabList={[
+          { key: 'line', name: 'Line Tab' },
+          { key: 'round', name: 'Round Tab' },
+          { key: 'segment', name: 'Segment Tab' }
+        ]}
+        value={tabsType}
+        onChange={setTabsType}
+      />
+      <Divider />
+      <Tabs type={tabsType} tabList={tabList} defaultValue='line' />
+    </>
+  )
+}
+```
+
+### 受控组件
+
+export function Controllable() {
+  const tabList = [
+    {
+      key: 'a',
+      name: 'Tab A'
+    },
+    {
+      key: 'b',
+      name: 'Tab B',
+      disabled: true
+    },
+    {
+      key: 'c',
+      name: 'Tab C'
+    },
+    {
+      key: 'd',
+      name: 'Tab D'
+    }
+  ]
+  const [tabKey, setTabKey] = useState(tabList[0].key)
+  return <Tabs value={tabKey} onChange={setTabKey} tabList={tabList} />
+}
+
+<Controllable />
+
+---
+
+```tsx
+import { useState } from 'react'
+import { Tabs } from '@youknown/react-ui'
+
+export default () => {
+  const tabList = [
+    {
+      key: 'a',
+      name: 'Tab A'
+    },
+    {
+      key: 'b',
+      name: 'Tab B',
+      disabled: true
+    },
+    {
+      key: 'c',
+      name: 'Tab C'
+    },
+    {
+      key: 'd',
+      name: 'Tab D'
+    }
+  ]
+  const [tabKey, setTabKey] = useState(tabList[0].key)
+  return <Tabs value={tabKey} onChange={setTabKey} tabList={tabList} />
+}
+```
+
+### 可删除
+
+export function Closable() {
+  const [closableList, setClosableTabList] = useState([
+    {
+      key: 'a',
+      name: 'Tab A',
+      closable: true
+    },
+    {
+      key: 'b',
+      name: 'Tab B',
+      closable: true
+    },
+    {
+      key: 'c',
+      name: 'Tab C',
+      closable: true
+    },
+    {
+      key: 'd',
+      name: 'Tab D',
+      closable: true
+    }
+  ])
+  return (
+    <Tabs
+      defaultValue="a"
+      tabList={closableList}
+      onTabListChange={setClosableTabList}
+    />
+  )
+}
+
+<Closable />
+
+---
+
+```tsx
+import { useState } from 'react'
+import { Tabs } from '@youknown/react-ui'
+
+export default () => {
+  const [closableList, setClosableTabList] = useState([
+    {
+      key: 'a',
+      name: 'Tab A',
+      closable: true
+    },
+    {
+      key: 'b',
+      name: 'Tab B',
+      closable: true
+    },
+    {
+      key: 'c',
+      name: 'Tab C',
+      closable: true
+    },
+    {
+      key: 'd',
+      name: 'Tab D',
+      closable: true
+    }
+  ])
+  return (
+    <Tabs
+      defaultValue="a"
+      tabList={closableList}
+      onTabListChange={setClosableTabList}
+    />
+  )
+}
+```
+
+## API
+
+### Tabs Props
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| type    | 类型           | `'line' \| 'round' \| 'segment'`         | `'line'`  |
+| tabList    | 标签列表           | `TabOption[]`         | `[]`  |
+| onTabListChange    | 标签列表变化回调函数           | `(tabList: TabOption[]) => void`         | -  |
+| defaultValue    | 默认值           | `string \| number`         | -  |
+| value    | 值           | `string \| number`         | -  |
+| onChange    | 值变化回调函数           | (value: `string \| number`) => void         | -  |
+
+### TabOption
+
+| 参数       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| key    | 标签key           | `string \| number`         | -  |
+| name    | 标签标题           | `React.ReactNode`         | -  |
+| disabled    | 是否禁用           | `boolean`         | -  |
+| closable    | 是否展示关闭按钮           | `boolean`         | -  |

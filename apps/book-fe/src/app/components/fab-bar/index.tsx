@@ -12,7 +12,7 @@ export default function FabBar() {
 			tooltip_disabled: true,
 			icon: <GrGithub className="text-20px" />,
 			handler: () => {
-				window.open('https://github.com/pan-Z2l0aHVi/book-fe/tree/master/apps/book-fe')
+				window.open('https://github.com/pan-Z2l0aHVi/knowledge-fe/tree/master/apps/book-fe')
 			}
 		}
 	]

@@ -1,0 +1,181 @@
+# Upload
+
+## 代码演示
+
+import { useState } from 'react'
+import { Divider, Space, Upload } from '@youknown/react-ui/src'
+import { delay } from '@youknown/utils/src'
+
+---
+
+### 基本用法
+
+export function BasicUsage() {
+  return (
+    <Space>
+      <Upload
+        action={async () => {
+          await delay(2000)
+          return 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+        }}
+      />
+      <Upload
+        circle
+        action={async () => {
+          await delay(2000)
+          return 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+        }}
+      />
+    </Space>
+  )
+}
+
+<BasicUsage />
+
+---
+
+```tsx
+import { Space, Upload } from '@youknown/react-ui'
+import { delay } from '@youknown/utils'
+
+export default () => {
+  return (
+    <Space>
+      <Upload
+        action={async () => {
+          await delay(2000)
+          return 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+        }}
+      />
+      <Upload
+        circle
+        action={async () => {
+          await delay(2000)
+          return 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+        }}
+      />
+    </Space>
+  )
+}
+```
+
+### 禁用态
+
+export function Disabled() {
+  return <Upload disabled />
+}
+
+<Disabled />
+
+---
+
+```tsx
+import { Upload } from '@youknown/react-ui'
+
+export default () => {
+  return <Upload disabled />
+}
+```
+
+### 自定义上传组件
+
+export function UploadCustom() {
+  const [fileList, setFileList] = useState([])
+  const [uploading, setUploading] = useState(false)
+  return (
+    <Upload
+      value={fileList}
+      onChange={setFileList}
+      multiple
+      action={async () => {
+        setUploading(true)
+        await delay(2000)
+        setUploading(false)
+        return 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+      }}
+    >
+      <ul className="min-w-80px min-h-80px m-0 p-0">
+        {uploading
+          ? 'uploading...'
+          : fileList.map(file => {
+              return (
+                <li key={file.uid} className="m-16px">
+                  {file.url}
+                </li>
+              )
+            })}
+      </ul>
+    </Upload>
+  )
+}
+
+<UploadCustom />
+
+---
+
+```tsx
+import { Upload } from '@youknown/react-ui'
+import { delay } from '@youknown/utils'
+import { ComponentProps } from 'react'
+
+type UploadFileList = Required<ComponentProps<typeof Upload>>['value']
+
+export default () => {
+  const [fileList, setFileList] = useState<UploadFileList>([])
+  const [uploading, setUploading] = useState(false)
+  return (
+    <Upload
+      value={fileList}
+      onChange={setFileList}
+      multiple
+      action={async () => {
+        setUploading(true)
+        await delay(2000)
+        setUploading(false)
+        return 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+      }}
+    >
+      <ul className="min-w-80px min-h-80px m-0 p-0">
+        {uploading
+          ? 'uploading...'
+          : fileList.map(file => {
+              return (
+                <li key={file.uid} className="m-16px">
+                  {file.url}
+                </li>
+              )
+            })}
+      </ul>
+    </Upload>
+  )
+}
+```
+
+## API
+
+### Upload Props
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| circle    | 是否圆形           | `boolean`         | `false`  |
+| headless    | 是否无样式           | `boolean`         | `false`  |
+| multiple    | 是否可多选           | `boolean`         | `false`  |
+| disabled    | 是否禁用           | `boolean`         | `false`  |
+| accept    | 可选择的类型           | `string`         | -  |
+| defaultValue    | 默认选中的文件列表           | `UploadFile[]`         | `[]`  |
+| value    | 选中的文件列表           | `UploadFile[]`         | -  |
+| action    | 文件传输函数           | `(file: File) => Promise<string>`         | -  |
+| onChange    | 文件列表变化回调函数           | `(value: UploadFile[]) => void`         | -  |
+
+### UploadFile
+
+`interface UploadFile extends File, UploadAttr {}`
+
+### UploadAttr
+
+| 参数       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| uid    | 唯一ID           | `string \| number`         | -  |
+| url    | 图片链接           | `string`         | -  |
+| previewURL    | 预览图像链接           | `string`         | -  |
+| status    | 状态           | `'success' \| 'error' \| 'uploading'`         | -  |

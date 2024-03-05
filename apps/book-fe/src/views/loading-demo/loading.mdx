@@ -1,0 +1,208 @@
+# Loading
+
+## 代码演示
+
+import { Divider, Loading, Space, Card, Button } from '@youknown/react-ui/src'
+import { TbLoader } from 'react-icons/tb'
+import { useState } from 'react'
+
+---
+
+### 基本用法
+
+export function BasicUsage() {
+  return (
+    <>
+      <Loading spinning />
+      <Divider />
+      <Space size="large">
+        <Loading size="small" spinning />
+        <Loading size="medium" spinning />
+        <Loading size="large" spinning />
+      </Space>
+    </>
+  )
+}
+
+<BasicUsage />
+
+---
+
+```tsx
+import { Loading, Divider, Space } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <>
+      <Loading spinning />
+      <Divider />
+      <Space size="large">
+        <Loading size="small" spinning />
+        <Loading size="medium" spinning />
+        <Loading size="large" spinning />
+      </Space>
+    </>
+  )
+}
+```
+
+### 有边框
+
+export function Bordered() {
+  return (
+    <Space size="large">
+      <Loading bordered size="small" spinning />
+      <Loading bordered size="medium" spinning />
+      <Loading bordered size="large" spinning />
+    </Space>
+  )
+}
+
+<Bordered />
+
+---
+
+```tsx
+import { Loading, Space } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space size="large">
+      <Loading bordered size="small" spinning />
+      <Loading bordered size="medium" spinning />
+      <Loading bordered size="large" spinning />
+    </Space>
+  )
+}
+```
+
+### 自定义图标
+
+export function LoadingIcon() {
+  return (
+    <Space size="large">
+      <Loading icon={<TbLoader />} size="small" spinning />
+      <Loading icon={<TbLoader />} size="medium" spinning />
+      <Loading icon={<TbLoader />} size="large" spinning />
+    </Space>
+  )
+}
+
+<LoadingIcon />
+
+---
+
+```tsx
+import { Loading, Space } from '@youknown/react-ui'
+import { TbLoader } from 'react-icons/tb'
+
+export default () => {
+  return (
+    <Space size="large">
+      <Loading icon={<TbLoader />} size="small" spinning />
+      <Loading icon={<TbLoader />} size="medium" spinning />
+      <Loading icon={<TbLoader />} size="large" spinning />
+    </Space>
+  )
+}
+```
+
+### 容器类型的加载中
+
+export function LoadingContainer() {
+  const [spinning, setSpinning] = useState(true)
+  return (
+    <Space direction="vertical">
+      <Button
+        onClick={() => {
+          setSpinning(p => !p)
+        }}
+      >
+        {spinning ? 'Cancel' : 'Start'} spinning
+      </Button>
+      <Space>
+        <Loading spinning={spinning} />
+        <Loading spinning={spinning}>
+          <Card header="Loading wrapper">Content</Card>
+        </Loading>
+        <Loading bordered spinning={spinning}>
+          <Card header="Bordered spinning">Content</Card>
+        </Loading>
+        <Loading icon={<TbLoader />} spinning={spinning}>
+          <Card header="Custom spinning icon">Content</Card>
+        </Loading>
+      </Space>
+    </Space>
+  )
+}
+
+<LoadingContainer />
+
+---
+
+```tsx
+import { Loading, Space, Button } from '@youknown/react-ui'
+import { TbLoader } from 'react-icons/tb'
+import { useState } from 'react'
+
+export default () => {
+  const [spinning, setSpinning] = useState(true)
+  return (
+    <Space direction="vertical">
+      <Button onClick={() => setSpinning(p => !p)}>
+        {spinning ? 'Cancel' : 'Start'} spinning
+      </Button>
+      <Space>
+        <Loading spinning={spinning} />
+        <Loading spinning={spinning}>
+          <Card header="Loading wrapper">Content</Card>
+        </Loading>
+        <Loading bordered spinning={spinning}>
+          <Card header="Bordered spinning">Content</Card>
+        </Loading>
+        <Loading icon={<TbLoader />} spinning={spinning}>
+          <Card header="Custom spinning icon">Content</Card>
+        </Loading>
+      </Space>
+    </Space>
+  )
+}
+```
+
+### 文本描述
+
+export function LoadingDesc() {
+  return (
+    <Loading description="Loading..." spinning>
+      <Card header="Description">Content</Card>
+    </Loading>
+  )
+}
+
+<LoadingDesc />
+
+---
+
+```tsx
+import { Loading, Card } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Loading description="Loading..." spinning>
+      <Card header="Description">Content</Card>
+    </Loading>
+  )
+}
+```
+
+## API
+
+### Loading Props
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| spinning    | 加载中           | `boolean`         | `false`  |
+| bordered    | 有边框           | `boolean`         | `false`  |
+| size    | 大小           | `'small' \| 'medium' \| 'large'`         | `medium`  |
+| icon    | 图标           | `React.ReactNode`         | -  |
+| description    | 描述           | `React.ReactNode`         | -  |

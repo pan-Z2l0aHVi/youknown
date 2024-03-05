@@ -1,0 +1,59 @@
+# useLatestRef
+
+## 代码演示
+
+import { useLatestRef } from '@youknown/react-hook/src'
+import { useEffect, useState } from 'react'
+
+返回当前最新值的 Hook，可以避免闭包问题
+
+---
+
+### 基本用法
+
+export function BasicUsage() {
+  const [count, setCount] = useState(0)
+  const latestCountRef = useLatestRef(count)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount(latestCountRef.current + 1)
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
+  return (
+    <>
+      <p>count: {count}</p>
+    </>
+  )
+}
+
+<BasicUsage />
+
+---
+
+```tsx
+import { useLatestRef } from '@youknown/react-hook'
+import { useEffect, useState } from 'react'
+
+export default () => {
+  const [count, setCount] = useState(0)
+  const latestCountRef = useLatestRef(count)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount(latestCountRef.current + 1)
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
+  return (
+    <>
+      <p>count: {count}</p>
+    </>
+  )
+}
+```
+
+## API
+
+### Type
+
+`<T>(value: T) => MutableRefObject<T>`

@@ -1,0 +1,114 @@
+# Slider
+
+## 代码演示
+
+import { useState } from 'react'
+import { Slider, Space } from '@youknown/react-ui/src'
+
+---
+
+### 基本用法
+
+export function BasicUsage() {
+  return (
+    <Space className="w-320px" direction="vertical" size="large">
+      <Slider />
+      <Slider defaultValue={30} />
+      <Slider disabled defaultValue={30} />
+      <Slider min={20} max={80} />
+      <Slider min={-40} max={40} />
+      <Slider tooltipFormatter={val => `${val.toFixed(1)}%`} />
+      <Slider step={10} />
+    </Space>
+  )
+}
+
+<BasicUsage />
+
+---
+
+```tsx
+import { useState } from 'react'
+import { Slider, Space } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space className="w-320px" direction="vertical" size="large">
+      <Slider />
+      <Slider defaultValue={30} />
+      <Slider disabled defaultValue={30} />
+      <Slider min={20} max={80} />
+      <Slider min={-40} max={40} />
+      <Slider tooltipFormatter={val => `${val.toFixed(1)}%`} />
+      <Slider step={10} />
+    </Space>
+  )
+}
+```
+
+### 受控组件
+
+export function Controllable() {
+  const [value, setValue] = useState(70)
+  return <Slider value={value} onChange={setValue} />
+}
+
+<Controllable />
+
+---
+
+```tsx
+import { useState } from 'react'
+import { Slider } from '@youknown/react-ui'
+
+export default () => {
+  const [value, setValue] = useState(70)
+  return <Slider value={value} onChange={setValue} />
+}
+```
+
+### 垂直布局
+
+export function Vertical() {
+  return (
+    <Space className="h-120px" size="large">
+      <Slider vertical />
+      <Slider vertical disabled />
+      <Slider vertical min={-100} max={100} />
+    </Space>
+  )
+}
+
+<Vertical />
+
+---
+
+```tsx
+import { Slider, Space } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space className="h-120px" size="large">
+      <Slider vertical />
+      <Slider vertical disabled />
+      <Slider vertical min={-100} max={100} />
+    </Space>
+  )
+}
+```
+
+## API
+
+### Slider Props
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| disabled    | 是否禁用           | `boolean`         | `false`  |
+| vertical    | 是否垂直           | `boolean`         | `false`  |
+| tooltipFormatter    | 提示语格式化函数           | `(value: number) => string`         | `(x: number) => String(Math.round(x))`  |
+| min    | 最小值           | `number`         | `0`  |
+| max    | 最大值           | `number`         | `100`  |
+| step    | 跨度           | `number`         | `5`  |
+| defaultValue    | 默认值           | `number`         | `props.min`  |
+| value    | 值           | `number`         | -  |
+| onChange    | 值改变事件           | `(value: number) => void`         | -  |

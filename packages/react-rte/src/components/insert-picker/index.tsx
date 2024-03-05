@@ -68,7 +68,7 @@ export default function InsertPicker(props: InsertPickerProps) {
 	})
 
 	const prefixCls = `${UI_EDITOR_PREFIX}-insert-picker`
-	return (
+	return optionList.length > 0 ? (
 		<Dropdown
 			trigger="click"
 			onOpenChange={setOpen}
@@ -86,5 +86,5 @@ export default function InsertPicker(props: InsertPickerProps) {
 				</div>
 			</CommandBtn>
 		</Dropdown>
-	)
+	) : null
 }

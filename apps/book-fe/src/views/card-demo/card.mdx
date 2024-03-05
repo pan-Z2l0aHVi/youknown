@@ -1,0 +1,139 @@
+# Card
+
+## 代码演示
+
+import { Card, Divider, Loading } from '@youknown/react-ui/src'
+
+---
+
+### 典型卡片
+
+包含标题、内容、操作区域。
+
+export function BasicCard() {
+  return (
+    <>
+      <Card bordered header="Basic card" footer="Footer">
+        Content
+      </Card>
+      <Divider />
+      <Card bordered header="Header" cover={<img src="https://iph.href.lu/200x160" />}>
+        Content
+      </Card>
+      <Divider />
+      <Card
+        bordered
+        header={
+          <div className="color-purple p-24px">
+            <strong>Custom header</strong>
+          </div>
+        }
+        footer={
+          <div className="bg-#eee p-24px rd-b-6px">
+            <span>Custom footer</span>
+          </div>
+        }
+      >
+        Content
+      </Card>
+    </>
+  )
+}
+
+<BasicCard />
+
+---
+
+```tsx
+import { Card, Divider } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <>
+      <Card bordered header="Basic card" footer="Footer">
+        Content
+      </Card>
+      <Divider />
+      <Card bordered header="Header" cover={<img src="https://iph.href.lu/200x160" />}>
+        Content
+      </Card>
+      <Divider />
+      <Card
+        bordered
+        header={
+          <div className="color-purple p-24px">
+            <strong>Custom header</strong>
+          </div>
+        }
+        footer={
+          <div className="bg-#eee p-24px rd-b-6px">
+            <span>Custom footer</span>
+          </div>
+        }
+      >
+        Content
+      </Card>
+    </>
+  )
+}
+```
+
+### 卡片类型&状态
+
+export function CardTypeAndStatus() {
+  return (
+    <>
+      <Card header="No border" footer="Footer">
+        Content
+      </Card>
+      <Divider />
+      <Card shadow header="Shadow card">
+        Content
+      </Card>
+      <Divider />
+      <Loading spinning>
+        <Card shadow header="Loading card">
+          Content
+        </Card>
+      </Loading>
+    </>
+  )
+}
+
+<CardTypeAndStatus />
+
+---
+
+```tsx
+import { Card } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <>
+      <Card header="No border" footer="Footer">
+        Content
+      </Card>
+      <Divider />
+      <Card shadow header="Shadow card">
+        Content
+      </Card>
+      <Divider />
+      <Loading spinning>
+        <Card shadow header="Loading card">
+          Content
+        </Card>
+      </Loading>
+    </>
+  )
+}
+```
+
+## API
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| bordered    | 有边框           | `boolean`         | `false`  |
+| shadow    | 有阴影           | `boolean`         | `false`  |
+| header    | 头部           | `React.ReactNode`         | -  |
+| footer    | 底部           | `React.ReactNode`         | -  |
+| cover    | 封面           | `React.ReactNode`         | -  |

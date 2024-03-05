@@ -6,10 +6,9 @@ $prefix: '#{$ui-prefix}-button';
 
 	cursor: pointer;
 	user-select: none;
-	display: flex;
+	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: max-content;
 	padding: 0 12px;
 	background-color: $bg-1;
 	border: 1px solid $divider;

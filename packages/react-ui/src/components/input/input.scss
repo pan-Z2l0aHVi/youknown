@@ -5,7 +5,7 @@ $prefix: '#{$ui-prefix}-input';
 	@include basic;
 
 	position: relative;
-	display: flex;
+	display: inline-flex;
 	align-items: center;
 	width: 240px;
 	padding: 4px 8px;

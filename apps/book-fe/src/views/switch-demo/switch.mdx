@@ -1,0 +1,118 @@
+# Switch
+
+## 代码演示
+
+import { useState } from 'react'
+import { Space, Switch, Button } from '@youknown/react-ui/src'
+
+---
+
+### 基本用法
+
+export function BasicUsage() {
+  return <Switch defaultValue={true} />
+}
+
+<BasicUsage />
+
+---
+
+```tsx
+import { Switch } from '@youknown/react-ui'
+
+export default () => {
+  return <Switch defaultValue={true} />
+}
+```
+
+### 大小
+
+export function SwitchSize() {
+  return (
+    <Space>
+      <Switch size="small" defaultValue />
+      <Switch size="medium" defaultValue />
+      <Switch size="large" defaultValue />
+    </Space>
+  )
+}
+
+<SwitchSize />
+
+---
+
+```tsx
+import { useState } from 'react'
+import { Space, Switch } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space>
+      <Switch size="small" defaultValue />
+      <Switch size="medium" defaultValue />
+      <Switch size="large" defaultValue />
+    </Space>
+  ) 
+}
+```
+
+### 受控组件
+
+export function Controllable() {
+  const [checked, setChecked] = useState(false)
+  return (
+    <>
+      <Switch value={checked} onChange={setChecked} />
+      <Button onClick={() => setChecked(p => !p)}>Toggle</Button>
+    </>
+  )
+}
+
+<Controllable />
+
+---
+
+```tsx
+import { useState } from 'react'
+import { Switch } from '@youknown/react-ui'
+
+export default () => {
+  const [checked, setChecked] = useState(false)
+  return (
+    <>
+      <Switch value={checked} onChange={setChecked} />
+      <Button onClick={() => setChecked(p => !p)}>Toggle</Button>
+    </>
+  )
+}
+```
+
+### 禁用态
+
+export function Disabled() {
+  return <Switch disabled />
+}
+
+<Disabled />
+
+---
+
+```tsx
+import { Switch } from '@youknown/react-ui'
+
+export default () => {
+  return <Switch disabled />
+}
+```
+
+## API
+
+### Switch Props
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| size    | 大小           | `'small' \| 'medium' \| 'large'`         | `'medium'`  |
+| disabled    | 是否禁用           | `boolean`         | `false`  |
+| defaultValue    | 默认值           | `boolean`         | `false`  |
+| value    | 值           | `boolean`         | -  |
+| onChange    | 值改变回调函数           | `(value: boolean) => void`         | -  |

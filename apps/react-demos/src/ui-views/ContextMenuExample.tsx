@@ -1,10 +1,12 @@
-import { Button, ContextMenu, Dropdown } from '@youknown/react-ui/src'
+import { ContextMenu, Dropdown } from '@youknown/react-ui/src'
 
 export default () => {
 	const { onContextMenu, contextMenuProps, closeContextMenu } = ContextMenu.useContextMenu()
 	return (
 		<>
-			<Button onContextMenu={onContextMenu}>Right click menu</Button>
+			<div className="flex justify-center items-center w-200px h-160px" onContextMenu={onContextMenu}>
+				Right click menu
+			</div>
 			<ContextMenu {...contextMenuProps}>
 				<Dropdown.Menu closeAfterItemClick closeDropdown={closeContextMenu}>
 					<Dropdown.Item onClick={() => history.back()}>Back</Dropdown.Item>

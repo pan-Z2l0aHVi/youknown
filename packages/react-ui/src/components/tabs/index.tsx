@@ -17,7 +17,6 @@ interface TabOption<T> {
 }
 
 interface TabsProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'onChange' | 'defaultValue'> {
-	trigger?: 'click' | 'hover'
 	type?: 'line' | 'round' | 'segment'
 	tabList?: TabOption<T>[]
 	onTabListChange?: (tabList: TabOption<T>[]) => void

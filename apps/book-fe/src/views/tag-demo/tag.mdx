@@ -1,0 +1,137 @@
+# Tag
+
+## 代码演示
+
+import { Divider, Space, Tag } from '@youknown/react-ui/src'
+
+---
+
+### 基本用法
+
+export function BasicUsage() {
+  return (
+    <Space>
+      <Tag>Basic</Tag>
+      <Tag round>Round</Tag>
+      <Tag bordered>Round</Tag>
+      <Tag bordered round>
+        Round
+      </Tag>
+    </Space>
+  )
+}
+
+<BasicUsage />
+
+---
+
+```tsx
+import { Space, Tag } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space>
+      <Tag>Basic</Tag>
+      <Tag round>Round</Tag>
+      <Tag bordered>Round</Tag>
+      <Tag bordered round>
+        Round
+      </Tag>
+    </Space>
+  )
+}
+```
+
+### 大小
+
+export function TagSize() {
+  return (
+    <Space>
+      <Tag size="small">Small</Tag>
+      <Tag size="medium">Medium</Tag>
+      <Tag size="large">Large</Tag>
+    </Space>
+  )
+}
+
+<TagSize />
+
+---
+
+```tsx
+import { Tag, Space } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space>
+      <Tag size="small">Small</Tag>
+      <Tag size="medium">Medium</Tag>
+      <Tag size="large">Large</Tag>
+    </Space>
+  )
+}
+```
+
+### 可关闭
+
+export function Closable() {
+  return (
+    <Space>
+      <Tag closable>Closable</Tag>
+      <Tag
+        closable
+        onClose={() =>
+          new Promise(resolve => {
+            setTimeout(() => {
+              resolve()
+            }, 2000)
+          })
+        }
+      >
+        Async close
+      </Tag>
+    </Space>
+  )
+}
+
+<Closable />
+
+---
+
+```tsx
+import { Tag, Space } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space>
+      <Tag closable>Closable</Tag>
+      <Tag
+        closable
+        onClose={() =>
+          new Promise(resolve => {
+            setTimeout(() => {
+              resolve()
+            }, 2000)
+          })
+        }
+      >
+        Async close
+      </Tag>
+    </Space>
+  )
+}
+```
+
+## API
+
+### Tag Props
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| size    | 大小           | `'small' \| 'medium' \| 'large'`         | `'medium'`  |
+| round    | 是否圆角           | `boolean`         | `false`  |
+| bordered    | 是否有边框           | `boolean`         | `false`  |
+| closable    | 是否展示关闭按钮           | `boolean`         | `false`  |
+| color    | 颜色           | `string`         | -  |
+| bgColor    | 背景色           | `string`         | -  |
+| onClose    | 关闭回调函数           | `() => void \| Promise<void>`         | -  |

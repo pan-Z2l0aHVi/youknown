@@ -1,0 +1,297 @@
+# Toast
+
+## 代码演示
+
+import { TbInfoCircle } from 'react-icons/tb'
+import { Button, Divider, Space, Toast } from '@youknown/react-ui/src'
+
+---
+
+### 基本用法
+
+export function BasicUsage() {
+  return (
+    <Space>
+      <Button
+        onClick={() => {
+          Toast({ content: 'Hi' })
+        }}
+      >
+        Show basic toast
+      </Button>
+      <Button
+        onClick={() => {
+          Toast({
+            content: (
+              <span>
+                <strong>Penguins</strong> are <span className="color-red">birds</span>.
+              </span>
+            )
+          })
+        }}
+      >
+        Toast content element
+      </Button>
+    </Space>
+  )
+}
+
+<BasicUsage />
+
+---
+
+```tsx
+import { Space, Button, Toast } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space>
+      <Button
+        onClick={() => {
+          Toast({ content: 'Hi' })
+        }}
+      >
+        Show basic toast
+      </Button>
+      <Button
+        onClick={() => {
+          Toast({
+            content: (
+              <span>
+                <strong>Penguins</strong> are <span className="color-red">birds</span>.
+              </span>
+            )
+          })
+        }}
+      >
+        Toast content element
+      </Button>
+    </Space>
+  )
+}
+```
+
+### 提示类型
+
+export function ToastType() {
+  return (
+    <Space>
+      <Button
+        onClick={() => {
+          Toast.info('Info')
+        }}
+      >
+        Info
+      </Button>
+      <Button
+        onClick={() => {
+          Toast.success('Success')
+        }}
+      >
+        Success
+      </Button>
+      <Button
+        onClick={() => {
+          Toast.warning('Warning')
+        }}
+      >
+        Warning
+      </Button>
+      <Button
+        onClick={() => {
+          Toast.error('Error')
+        }}
+      >
+        Error
+      </Button>
+    </Space>
+  )
+}
+
+<ToastType />
+
+---
+
+```tsx
+import { Space, Button, Toast } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space>
+      <Button
+        onClick={() => {
+          Toast.info('Info')
+        }}
+      >
+        Info
+      </Button>
+      <Button
+        onClick={() => {
+          Toast.success('Success')
+        }}
+      >
+        Success
+      </Button>
+      <Button
+        onClick={() => {
+          Toast.warning('Warning')
+        }}
+      >
+        Warning
+      </Button>
+      <Button
+        onClick={() => {
+          Toast.error('Error')
+        }}
+      >
+        Error
+      </Button>
+    </Space>
+  )
+}
+```
+
+### 带图标的按钮
+
+export function ToastIcon() {
+  return (
+    <Button
+      onClick={() => {
+        Toast({ content: 'With icon', icon: <TbInfoCircle /> })
+      }}
+    >
+      With icon toast
+    </Button>
+  )
+}
+
+<ToastIcon />
+
+---
+
+```tsx
+import { Button, Toast } from '@youknown/react-ui'
+import { TbInfoCircle } from 'react-icons/tb'
+
+export default () => {
+  return (
+    <Button
+      onClick={() => {
+        Toast({ content: 'With icon', icon: <TbInfoCircle /> })
+      }}
+    >
+      With icon toast
+    </Button>
+  )
+}
+```
+
+### 进阶用法
+
+export function Advance() {
+  return (
+    <Space>
+      <Button
+        onClick={() => {
+          const inst = Toast({
+            content: 'Click me',
+            duration: 10000,
+            onClick() {
+              console.log('clicked')
+              inst.close()
+            },
+            onClose() {
+              console.log('closed')
+            }
+          })
+        }}
+      >
+        Close toast
+      </Button>
+      <Button
+        onClick={() => {
+          const inst = Toast({
+            content: 'Click me',
+            duration: 5000,
+            onClick() {
+              console.log('clicked')
+              inst.update({
+                content: 'Hello'
+              })
+            },
+            onClose() {
+              console.log('closed')
+            }
+          })
+        }}
+      >
+        Update toast
+      </Button>
+    </Space>
+  )
+}
+
+<Advance />
+
+---
+
+```tsx
+import { Button, Toast, Space } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space>
+      <Button
+        onClick={() => {
+          const inst = Toast({
+            content: 'Click me',
+            duration: 10000,
+            onClick() {
+              console.log('clicked')
+              inst.close()
+            },
+            onClose() {
+              console.log('closed')
+            }
+          })
+        }}
+      >
+        Close toast
+      </Button>
+      <Button
+        onClick={() => {
+          const inst = Toast({
+            content: 'Click me',
+            duration: 5000,
+            onClick() {
+              console.log('clicked')
+              inst.update({
+                content: 'Hello'
+              })
+            },
+            onClose() {
+              console.log('closed')
+            }
+          })
+        }}
+      >
+        Update toast
+      </Button>
+    </Space>
+  )
+}
+```
+
+## API
+
+### Toast Options
+
+| 参数       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| content    | 内容           | `React.ReactNode`         | -  |
+| duration    | 持续时间（毫秒）           | `number`         | `2000`  |
+| icon    | 图标           | `React.ReactNode`         | -  |
+| className    | 样式class           | `string`         | -  |
+| style    | 样式           | `React.CSSProperties`         | -  |
+| onClick    | 点击事件           | `(event: MouseEvent) => void`         | -  |
+| onClose    | 关闭回调函数           | `() => void`         | -  |

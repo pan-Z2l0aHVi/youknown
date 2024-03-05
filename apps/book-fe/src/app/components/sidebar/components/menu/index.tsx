@@ -1,4 +1,4 @@
-import { Fragment, MouseEvent, useEffect, useMemo, useState } from 'react'
+import { Fragment, MouseEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import { BiChevronDown } from 'react-icons/bi'
 
 import TransitionNavLink from '@/components/transition-nav-link'
@@ -19,13 +19,36 @@ interface MenuProps {
 }
 export default function Menu({ expand }: MenuProps) {
 	const is_dark_theme = useUIStore(is_dark_theme_getter)
+	const set_menu_drawer_open = useUIStore(state => state.set_menu_drawer_open)
+	const is_mobile = useUIStore(state => state.is_mobile)
+	const close_sidebar = () => {
+		if (is_mobile) {
+			set_menu_drawer_open(false)
+		}
+	}
 
 	const get_nav = (path: string) => {
 		const route = routes.find(route => route.path === path)!
 		return pick(route, 'path', 'meta')
 	}
+	const get_has_children_nav = useCallback((path: string) => {
+		const route = routes.find(route => route.path === path)!
+		return {
+			...pick(route, 'path', 'meta'),
+			children: route.children?.length ? route.children.filter(child => !['*', '/', ''].includes(child.path)) : []
+		}
+	}, [])
 
-	const nav_list = useMemo(() => [get_nav('home')] as MenuRouteItem[], [])
+	const nav_list = useMemo(
+		() =>
+			[
+				get_nav('home'),
+				get_nav('rich_text_editor'),
+				get_has_children_nav('ui_components'),
+				get_has_children_nav('hooks')
+			] as MenuRouteItem[],
+		[get_has_children_nav]
+	)
 
 	const local_open_map = useCreation(() => storage.local.get<Record<string, boolean>>(OPEN_MAP_KEY))
 	const [open_map, set_open_map] = useState<Record<string, boolean>>(local_open_map ?? {})
@@ -114,7 +137,11 @@ export default function Menu({ expand }: MenuProps) {
 									)
 								}
 								onClick={() => {
-									set_open(path, true)
+									if (has_sub_nav) {
+										set_open(path, true)
+									} else {
+										close_sidebar()
+									}
 								}}
 							>
 								{nav_content}
@@ -154,6 +181,7 @@ export default function Menu({ expand }: MenuProps) {
 																}
 															)
 														}
+														onClick={close_sidebar}
 													>
 														<div className="leading-0 text-18px color-primary">
 															{child.meta.icon}

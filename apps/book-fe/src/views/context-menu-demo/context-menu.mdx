@@ -1,0 +1,71 @@
+# ContextMenu
+
+## 代码演示
+
+import { ContextMenu, Dropdown } from '@youknown/react-ui/src'
+
+---
+
+### 基本用法
+
+export function BasicUsage() {
+  const { onContextMenu, contextMenuProps, closeContextMenu } = ContextMenu.useContextMenu()
+  return (
+    <>
+      <div className="flex justify-center items-center w-200px h-160px b-1 b-solid b-#ddd" onContextMenu={onContextMenu}>
+        Right click menu
+      </div>
+      <ContextMenu {...contextMenuProps}>
+        <Dropdown.Menu closeAfterItemClick closeDropdown={closeContextMenu}>
+          <Dropdown.Item onClick={() => history.back()}>Back</Dropdown.Item>
+          <Dropdown.Item onClick={() => history.forward()}>Forward</Dropdown.Item>
+          <Dropdown.Item closeAfterItemClick={false}>Won't close</Dropdown.Item>
+          <Dropdown.Item onClick={closeContextMenu}>Close</Dropdown.Item>
+        </Dropdown.Menu>
+      </ContextMenu>
+    </>
+  )
+}
+
+<BasicUsage />
+
+---
+
+```tsx
+import { ContextMenu, Dropdown } from '@youknown/react-ui'
+
+export default () => {
+  const { onContextMenu, contextMenuProps, closeContextMenu } = ContextMenu.useContextMenu()
+  return (
+    <>
+      <div className="flex justify-center items-center w-200px h-160px b-1 b-solid b-#ebebeb" onContextMenu={onContextMenu}>
+        Right click menu
+      </div>
+      <ContextMenu {...contextMenuProps}>
+        <Dropdown.Menu closeAfterItemClick closeDropdown={closeContextMenu}>
+          <Dropdown.Item onClick={() => history.back()}>Back</Dropdown.Item>
+          <Dropdown.Item onClick={() => history.forward()}>Forward</Dropdown.Item>
+          <Dropdown.Item closeAfterItemClick={false}>Won't close</Dropdown.Item>
+          <Dropdown.Item onClick={closeContextMenu}>Close</Dropdown.Item>
+        </Dropdown.Menu>
+      </ContextMenu>
+    </>
+  )
+}
+```
+
+## API
+
+ContextMenu Props
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| defaultOpen    | 默认是否弹出           | `boolean`         | `false`  |
+| open    | 是否弹出           | `boolean`         | -  |
+| onOpenChange    | 弹出状态变化事件回调           | `(open: boolean) => void`         | -  |
+| x    | 横坐标           | `number`         | `0`  |
+| y    | 纵坐标           | `number`         | `0`  |
+| overlayClosable    | 允许点击蒙层关闭           | `boolean`         | `true`  |
+| escClosable    | 允许esc键关闭           | `boolean`         | `true`  |
+| appendTo    | 插入到节点           | `React.ReactNode`         | `document.body`  |
+| afterClose    | 关闭后事件回调           | `() => void`         | -  |

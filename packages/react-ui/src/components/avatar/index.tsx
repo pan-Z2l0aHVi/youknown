@@ -38,7 +38,14 @@ const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLDivElement>) => {
 
 	const prefixCls = `${UI_PREFIX}-avatar`
 
-	const imgEle = <Image className={`${prefixCls}-img`} src={src} alt="Avatar" canPreview={canPreview} />
+	const imgEle = (
+		<Image
+			style={{ width: '100%', height: '100%', borderRadius: 'inherit' }}
+			src={src}
+			alt="Avatar"
+			canPreview={canPreview}
+		/>
+	)
 
 	const avatarStyle = is.number(size)
 		? {

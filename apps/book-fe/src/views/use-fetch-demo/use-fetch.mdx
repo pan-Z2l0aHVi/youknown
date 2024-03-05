@@ -1,0 +1,110 @@
+# useFetch
+
+## 代码演示
+
+import { useFetch } from '@youknown/react-hook/src'
+import { Button } from '@youknown/react-ui/src'
+import { uuid } from '@youknown/utils/src'
+
+---
+
+### 基本用法
+
+export let reqID = 0
+export const mockRequest = () =>
+  new Promise(resolve => {
+    const duration = Math.random() * 3000
+    const currentID = ++reqID
+    setTimeout(() => {
+      const res = {
+        id: currentID,
+        content: uuid()
+      }
+      console.log(`${currentID}---${res.content}`)
+      resolve(res)
+    }, duration)
+  })
+
+export function BasicUsage() {
+  const { data, loading, run: do_fetch } = useFetch(mockRequest)
+  return (
+    <>
+      <Button onClick={do_fetch}>Request</Button>
+      <div className="pt-24px">{loading ? <div>loading...</div> : <div>{data?.content}</div>}</div>
+    </>
+  )
+}
+
+<BasicUsage />
+
+---
+
+```tsx
+import { useFetch } from '@youknown/react-hook'
+import { Button } from '@youknown/react-ui'
+import { uuid } from '@youknown/utils'
+
+export let reqID = 0
+export const mockRequest = () =>
+  new Promise(resolve => {
+    const duration = Math.random() * 3000
+    const currentID = ++reqID
+    setTimeout(() => {
+      const res = {
+        id: currentID,
+        content: uuid()
+      }
+      console.log(`${currentID}---${res.content}`)
+      resolve(res)
+    }, duration)
+  })
+
+export default () => {
+  const { data, loading, run: do_fetch } = useFetch(mockRequest)
+  return (
+    <>
+      <Button onClick={do_fetch}>Request</Button>
+      <div className="pt-24px">{loading ? <div>loading...</div> : <div>{data?.content}</div>}</div>
+    </>
+  )
+}
+```
+
+## API
+
+### Type
+
+`(fetcher: (...args: any) => Promise<any>, options: Options) => Result`
+
+### Params
+
+| 参数       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| fetcher    | 请求函数           | `(...args: any) => Promise<any>`         | -  |
+| options    | 可选配置           | `Options`         | `false`  |
+
+### Result
+
+| 参数       | 说明               | 类型              |
+| ---------- | ------------------ | ----------------- |
+| data    | 数据           | `any`         |
+| error    | 错误           | `any`         |
+| loading    | 是否加载中           | `boolean`         |
+| run    | 请求执行函数           | `() => void`         |
+| cancel    | 请求取消函数           | `() => void`         |
+| mutate    | 手动修改数据           | `React.Dispatch<React.SetStateAction>`         |
+
+### Options
+
+| 参数       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| initialData    | 初始数据           | `any`         | -  |
+| manual    | 是否为手动触发           | `boolean`         | `false`  |
+| ready    | 是否可以发起请求           | `boolean`         | `true`  |
+| loadingDelay    | 加载中延时触发时长           | `number`         | `0`  |
+| refreshDeps    | 自动刷新的依赖列表           | `React.DependencyList`         | `[]`  |
+| params    | 请求参数           | `any[]`         | `[]`  |
+| onBefore    | 请求发起前回调函数，返回值为`true`时终止请求          | `(params: any[]) => Promise<void \| boolean>`         | -  |
+| onSuccess    | 请求成功回调函数           | `(data: any, params: any[]) => void`         | -  |
+| onError    | 请求失败回调函数           | `(error: any, params: any[]) => void`         | -  |
+| onFinally    | 请求结束回调函数           | `(params: any[]) => void`         | -  |

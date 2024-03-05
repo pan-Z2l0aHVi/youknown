@@ -105,7 +105,38 @@
   },
   "page": {
     "title": {
-      "home": "Guide"
+      "home": "Start",
+      "rte": "Rich text editor",
+      "ui_components": "UI components",
+      "anchor": "Anchor",
+      "avatar": "Avatar",
+      "button": "Button",
+      "card": "Card",
+      "checkbox": "Checkbox",
+      "collapse": "Collapse",
+      "context_menu": "Context menu",
+      "date_picker": "Date picker",
+      "dialog": "Dialog",
+      "drawer": "Drawer",
+      "dropdown": "Dropdown",
+      "form": "Form",
+      "image": "Image",
+      "input": "Input",
+      "list": "List",
+      "loading": "Loading",
+      "overlay": "Overlay",
+      "popover": "Popover",
+      "progress": "Progress",
+      "radio": "Radio",
+      "select": "Select",
+      "slider": "Slider",
+      "switch": "Switch",
+      "tabs": "Tabs",
+      "tag": "Tag",
+      "toast": "Toast",
+      "tooltip": "Tooltip",
+      "trigger": "Trigger",
+      "upload": "Upload"
     }
   },
   "placeholder": {
@@ -215,5 +246,10 @@
   },
   "file": {
     "uploading": "File uploading..."
+  },
+  "desc": {
+    "react_rte": "A React rich text editor component",
+    "react_ui": "A React UI components library",
+    "react_hook": "A React hook library"
   }
 }

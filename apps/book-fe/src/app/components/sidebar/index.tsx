@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { TbDotsVertical } from 'react-icons/tb'
 
 import TransitionLink from '@/components/transition-link'
+import { useUIStore } from '@/stores'
 import { useBoolean, useCreation, useEvent, useLatestRef } from '@youknown/react-hook/src'
 import { Image, Tooltip } from '@youknown/react-ui/src'
 import { cls, storage } from '@youknown/utils/src'
@@ -18,6 +19,7 @@ const MAX_W = 400
 
 export default function Sidebar() {
 	const { t } = useTranslation()
+	const is_mobile = useUIStore(state => state.is_mobile)
 	const local_expand = useCreation(() => storage.local.get<boolean>(EXPAND_KEY))
 	const local_width = useCreation(() => storage.local.get<number>(WIDTH_KEY))
 	const [expand, { setReverse: toggle_expand }] = useBoolean(local_expand ?? true)
@@ -83,20 +85,26 @@ export default function Sidebar() {
 			width: sidebar_width
 		}
 	}
+	if (is_mobile) {
+		sidebar_style = {
+			width: '80vw'
+		}
+	}
 
-	const drag_divider = expand ? (
-		<div
-			className="group absolute right--8px top-0 p-[0_8px] h-100% cursor-col-resize active-cursor-col-resize select-none"
-			onMouseDown={handle_mousedown}
-			onTouchStart={handle_touch_start}
-		>
+	const drag_divider =
+		expand && !is_mobile ? (
 			<div
-				className={cls('w-2px h-100% [@media(hover:hover)]-group-hover-bg-primary', {
-					'bg-primary': dragging
-				})}
-			></div>
-		</div>
-	) : null
+				className="group absolute right--8px top-0 pr-8px h-100% cursor-col-resize active-cursor-col-resize select-none"
+				onMouseDown={handle_mousedown}
+				onTouchStart={handle_touch_start}
+			>
+				<div
+					className={cls('w-2px h-100% [@media(hover:hover)]-group-hover-bg-primary', {
+						'bg-primary': dragging
+					})}
+				></div>
+			</div>
+		) : null
 
 	return (
 		<aside
@@ -126,15 +134,17 @@ export default function Sidebar() {
 				)}
 			>
 				<Options expand={expand} />
-				<Tooltip title={expand ? t('fold') : t('unfold')} placement="right" spacing={20}>
-					<button
-						className="mt-16px border-0 bg-transparent w-44px h-32px flex items-center justify-center rd-radius-m custom-focus-outline
+				{is_mobile || (
+					<Tooltip title={expand ? t('fold') : t('unfold')} placement="right" spacing={20}>
+						<button
+							className="mt-16px border-0 bg-transparent w-44px h-32px flex items-center justify-center rd-radius-m custom-focus-outline
 					active-bg-secondary-active [@media(hover:hover)]-hover-not-active-bg-secondary-hover cursor-pointer text-16px color-text-1"
-						onClick={toggle_expand}
-					>
-						<TbDotsVertical />
-					</button>
-				</Tooltip>
+							onClick={toggle_expand}
+						>
+							<TbDotsVertical />
+						</button>
+					</Tooltip>
+				)}
 			</div>
 
 			{drag_divider}

@@ -30,6 +30,7 @@ function RecordList(props: RecordListProps) {
 			{({ width, height }) => {
 				return (
 					<FixedSizeList
+						style={{ paddingBottom: 40 }}
 						width={width}
 						height={bannerVisible ? height - BANNER_HEIGHT : height}
 						itemCount={list.length}

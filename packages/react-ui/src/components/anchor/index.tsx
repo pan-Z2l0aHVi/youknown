@@ -28,10 +28,12 @@ interface AnchorItem {
 interface AnchorProps extends HTMLAttributes<HTMLUListElement> {
 	items?: AnchorItem[]
 	container?: Element
+	offsetX?: number
+	offsetY?: number
 }
 
 const Anchor = (props: AnchorProps, ref: ForwardedRef<HTMLUListElement>) => {
-	const { className, items = [], container = window, ...rest } = props
+	const { className, items = [], container = window, offsetX = 0, offsetY = 0, ...rest } = props
 	const [selection, setSelection] = useState('')
 	const flattenItems = useMemo(() => flattenArray(items), [items])
 
@@ -69,7 +71,6 @@ const Anchor = (props: AnchorProps, ref: ForwardedRef<HTMLUListElement>) => {
 
 	const onScroll = useThrottle(() => {
 		const ele = getInViewEle()
-		// console.log('ele: ', ele, scrollingRef.current)
 		const labelledby = ele && ele.getAttribute('aria-labelledby')
 		if (labelledby) {
 			setSelection(labelledby)
@@ -114,7 +115,17 @@ const Anchor = (props: AnchorProps, ref: ForwardedRef<HTMLUListElement>) => {
 								onClick={event => {
 									item.handler?.(event)
 									const ele = document.querySelector(`[aria-labelledby="${item.labelledby}"]`)
-									ele?.scrollIntoView({ behavior: 'smooth' })
+									ele?.scrollIntoView({
+										behavior: 'instant',
+										block: 'start'
+									})
+									requestAnimationFrame(() => {
+										container.scrollBy({
+											behavior: 'instant',
+											left: offsetX,
+											top: offsetY
+										})
+									})
 								}}
 							>
 								{item.content}

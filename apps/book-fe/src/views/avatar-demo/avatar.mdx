@@ -1,0 +1,219 @@
+# Avatar
+
+## 代码演示
+
+import { TbUser } from 'react-icons/tb'
+import { useState } from 'react'
+import { Avatar, Divider, Space, Tabs } from '@youknown/react-ui/src'
+
+export const picSrc = 'https://iph.href.lu/200x200'
+
+---
+
+### 头像类型
+
+export function AvatarType() {
+  return (
+    <Space>
+      <Avatar src={picSrc} />
+      <Avatar src='this is a error url' />
+      <Avatar>
+        <TbUser size={20} />
+      </Avatar>
+      <Avatar>
+        Text
+      </Avatar>
+    </Space>
+  )
+}
+
+<AvatarType />
+
+---
+
+```tsx
+import { Avatar, Space } from '@youknown/react-ui'
+
+export default () => {
+  const picSrc = 'https://iph.href.lu/200x200'
+  return (
+    <Space>
+      <Avatar src={picSrc} />
+      <Avatar src='this_is_a_error_url' />
+      <Avatar>
+        <TbUser size={20} />
+      </Avatar>
+      <Avatar>
+        Text
+      </Avatar>
+    </Space>
+  )
+}
+```
+
+### 头像形状
+
+export function AvatarShape() {
+  return (
+    <Space>
+      <Avatar src={picSrc} />
+      <Avatar round src={picSrc} />
+    </Space>
+  )
+}
+
+<AvatarShape />
+
+---
+
+```tsx
+import { Avatar, Space } from '@youknown/react-ui'
+
+export default () => {
+  const picSrc = 'https://iph.href.lu/200x200'
+  return (
+    <Space>
+      <Avatar src={picSrc} />
+      <Avatar round src={picSrc} />
+    </Space>
+  )
+}
+```
+
+### 头像大小
+
+export function AvatarSize() {
+  const [size, setSize] = useState('large')
+  return (
+    <>
+      <Tabs
+        type="segment"
+        size="small"
+        tabList={[
+          { key: 'small', name: 'Small' },
+          { key: 'medium', name: 'Medium' },
+          { key: 'large', name: 'Large' }
+        ]}
+        value={size}
+        onChange={setSize}
+      />
+      <Divider />
+      <Space>
+        <Avatar size={size} src={picSrc} />
+        <Avatar size={size}>
+          <TbUser size={20} />
+        </Avatar>
+        <Avatar size={size}>
+          <span className='text-12px'>Text</span>
+        </Avatar>
+      </Space>
+      <Divider />
+      <Space>
+        <Avatar.Group size={size}>
+          <Avatar round src={picSrc} />
+          <Avatar round src={picSrc} />
+          <Avatar round src={picSrc} />
+          <Avatar round src={picSrc} />
+          <Avatar round src={picSrc} />
+        </Avatar.Group>
+      </Space>
+    </>
+  )
+}
+
+<AvatarSize />
+
+---
+
+```tsx
+import { Avatar, Space } from '@youknown/react-ui'
+
+export default () => {
+  const picSrc = 'https://iph.href.lu/200x200'
+  return (
+    <Space>
+      <Avatar size={size} src={picSrc} />
+      <Avatar size={size}>
+        <TbUser size={20} />
+      </Avatar>
+      <Avatar size={size}>
+        Text
+      </Avatar>
+    </Space>
+  )
+}
+```
+
+### 头像徽章
+
+export function AvatarBadge() {
+  return (
+    <Avatar badge="99+" src={picSrc} />
+  )
+}
+
+<AvatarBadge />
+
+---
+
+```tsx
+import { Avatar } from '@youknown/react-ui'
+
+export default () => {
+  const picSrc = 'https://iph.href.lu/200x200'
+  return (
+    <>
+      <Avatar badge="99+" src={picSrc} />
+    </>
+  )
+}
+```
+
+### 头像组
+
+export function AvatarGroup() {
+  return (
+    <Avatar.Group>
+      <Avatar round src={picSrc} />
+      <Avatar round src={picSrc} />
+      <Avatar round src={picSrc} />
+      <Avatar round src={picSrc} />
+      <Avatar round src={picSrc} />
+    </Avatar.Group>
+  )
+}
+
+<AvatarGroup />
+
+---
+
+```tsx
+import { Avatar } from '@youknown/react-ui'
+
+export default () => {
+  const picSrc = 'https://iph.href.lu/200x200'
+  return (
+    <>
+      <Avatar.Group>
+        <Avatar round src={picSrc} />
+        <Avatar round src={picSrc} />
+        <Avatar round src={picSrc} />
+        <Avatar round src={picSrc} />
+        <Avatar round src={picSrc} />
+      </Avatar.Group>
+    </>
+  )
+}
+```
+
+## API
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| bordered    | 有边框           | `boolean`         | `false`  |
+| canPreview   | 开启图片查看器           | `boolean`         | `false`  |
+| size       | 大小               | `number \| 'small' \| 'medium' \| 'large'` | `'medium'` |
+| round      | 大圆角形状         | `boolean`         | `false`  |
+| src    | 图像地址         | `string`         | `''`  |
+| color    | 背景色         | `string`         | `'var(--ui-bg-3)'`  |
+| badge    | 角标         | `React.ReactNode`         | -  |

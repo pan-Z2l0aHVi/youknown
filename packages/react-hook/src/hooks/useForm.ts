@@ -26,7 +26,7 @@ interface Options<S> {
 }
 interface FieldController<S> {
 	defaultValue?: ValueOf<S>
-	value?: S
+	value?: ValueOf<S>
 	onChange(arg: ValueOf<S> | controllerChangeEvent): void
 }
 export interface FormInstance<S = any> {

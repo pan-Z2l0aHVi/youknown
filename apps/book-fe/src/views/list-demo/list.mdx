@@ -1,0 +1,160 @@
+# List
+
+## 代码演示
+
+import { Tabs, Avatar, Divider, List } from '@youknown/react-ui/src'
+import { useState } from 'react'
+
+---
+
+### 列表大小
+
+export function ListSize() {
+  const [size, setSize] = useState('small')
+  return (
+    <>
+      <Tabs
+        className="mb-8px"
+        type="segment"
+        value={size}
+        onChange={setSize}
+        tabList={[
+          { key: 'small', name: 'Small' },
+          { key: 'medium', name: 'Medium' },
+          { key: 'large', name: 'Large' }
+        ]}
+      />
+      <List size={size}>
+        <List.Item>List item 1</List.Item>
+        <List.Item>List item 2</List.Item>
+        <List.Item>List item 2</List.Item>
+      </List>
+    </>
+  )
+}
+
+<ListSize />
+
+---
+
+```tsx
+import { List, Tabs } from '@youknown/react-ui'
+
+export default () => {
+  const [size, setSize] = useState('small')
+  return (
+    <>
+      <Tabs
+        className="mb-8px"
+        type="segment"
+        value={size}
+        onChange={setSize}
+        tabList={[
+          { key: 'small', name: 'Small' },
+          { key: 'medium', name: 'Medium' },
+          { key: 'large', name: 'Large' }
+        ]}
+      />
+      <List size={size}>
+        <List.Item>List item 1</List.Item>
+        <List.Item>List item 2</List.Item>
+        <List.Item>List item 2</List.Item>
+      </List>
+    </>
+  )
+}
+```
+
+### 无边框
+
+export function Borderless() {
+  return (
+    <List bordered={false}>
+      <List.Item>Rimless list item 1</List.Item>
+      <List.Item>Rimless list item 2</List.Item>
+      <List.Item>Rimless list item 2</List.Item>
+    </List>
+  )
+}
+
+<Borderless />
+
+---
+
+```tsx
+import { List } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <List bordered={false}>
+      <List.Item>Rimless list item 1</List.Item>
+      <List.Item>Rimless list item 2</List.Item>
+      <List.Item>Rimless list item 2</List.Item>
+    </List>
+  )
+}
+```
+
+### 带图标的列表
+
+export function ListIcon() {
+  return (
+    <>
+      <List>
+        <List.Item prefix={<Avatar />}>Prefix list item 1</List.Item>
+        <List.Item prefix={<Avatar />}>Prefix list item 2</List.Item>
+        <List.Item prefix={<Avatar />}>Prefix list item 2</List.Item>
+      </List>
+      <Divider />
+      <List>
+        <List.Item suffix={<Avatar />}>Suffix list item 1</List.Item>
+        <List.Item suffix={<Avatar />}>Suffix list item 2</List.Item>
+        <List.Item suffix={<Avatar />}>Suffix list item 2</List.Item>
+      </List>
+    </>
+  )
+}
+
+<ListIcon />
+
+---
+
+```tsx
+import { List, Avatar } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <>
+      <List>
+        <List.Item prefix={<Avatar />}>Prefix list item 1</List.Item>
+        <List.Item prefix={<Avatar />}>Prefix list item 2</List.Item>
+        <List.Item prefix={<Avatar />}>Prefix list item 2</List.Item>
+      </List>
+      <br />
+      <List>
+        <List.Item suffix={<Avatar />}>Suffix list item 1</List.Item>
+        <List.Item suffix={<Avatar />}>Suffix list item 2</List.Item>
+        <List.Item suffix={<Avatar />}>Suffix list item 2</List.Item>
+      </List>
+    </>
+  )
+}
+```
+
+## API
+
+### List Props
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| bordered    | 是否有边框           | `boolean`         | `false`  |
+| size    | 大小           | `'small' \| 'medium' \| 'large'`         | `'medium'`  |
+
+### List Item Props
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| bordered    | 是否有边框           | `boolean`         | `false`  |
+| size    | 大小           | `'small' \| 'medium' \| 'large'`         | `'medium'`  |
+| prefix    | 前缀图标           | `React.ReactNode`         | -  |
+| suffix    | 后缀图标           | `React.ReactNode`         | -  |

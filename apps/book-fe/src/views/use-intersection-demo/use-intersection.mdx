@@ -1,0 +1,70 @@
+# useIntersection
+
+## 代码演示
+
+import { useIntersection } from '@youknown/react-hook/src'
+import { Toast } from '@youknown/react-ui/src'
+import { useEffect, useRef } from 'react'
+
+监听元素在某个区域出现或消失
+
+---
+
+### 基本用法
+
+export function BasicUsage() {
+  const targetRef = useRef(null)
+  const isIntersection = useIntersection(targetRef)
+  useEffect(() => {
+    if (isIntersection) {
+      Toast.info('true')
+    } else {
+      Toast.info('false')
+    }
+  }, [isIntersection])
+  return (
+    <div className='h-1200px'>
+      <div ref={targetRef}>target</div>
+    </div>
+  )
+}
+
+<BasicUsage />
+
+---
+
+```tsx
+import { useIntersection } from '@youknown/react-hook'
+import { Toast } from '@youknown/react-ui'
+import { useEffect, useRef } from 'react'
+
+export default () => {
+  const targetRef = useRef(null)
+  const isIntersection = useIntersection(targetRef)
+  useEffect(() => {
+    if (isIntersection) {
+      Toast.info('true')
+    } else {
+      Toast.info('false')
+    }
+  }, [isIntersection])
+  return (
+    <div className='h-1200px'>
+      <div ref={targetRef}>target</div>
+    </div>
+  )
+}
+```
+
+## API
+
+### Type
+
+`(target: MutableRefObject, observerInit: IntersectionObserverInit) => boolean`
+
+### Params
+
+| 参数       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| target    | 目标ref           | `MutableRefObject`         | -  |
+| observerInit    | observer 配置项           | `IntersectionObserverInit`         | -  |

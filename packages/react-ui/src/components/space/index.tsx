@@ -10,10 +10,20 @@ interface SpaceProps extends HTMLAttributes<HTMLElement> {
 	size?: 'small' | 'medium' | 'large'
 	align?: 'start' | 'end' | 'center' | 'baseline'
 	direction?: 'horizontal' | 'vertical'
+	wrap?: boolean
 }
 
 const Space = (props: SpaceProps, propRef: ForwardedRef<HTMLDivElement>) => {
-	const { children, className, size = 'medium', align = 'start', direction = 'horizontal', style, ...rest } = props
+	const {
+		children,
+		className,
+		size = 'medium',
+		align = 'start',
+		direction = 'horizontal',
+		wrap = true,
+		style,
+		...rest
+	} = props
 
 	function toAlignItems(align: string) {
 		if (['start', 'end'].includes(align)) {
@@ -28,7 +38,7 @@ const Space = (props: SpaceProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	}
 
 	const prefixCls = `${UI_PREFIX}-space`
-	const wrapCls = cls(className, prefixCls, `${prefixCls}-${direction}-${size}`)
+	const wrapCls = cls(className, prefixCls, `${prefixCls}-${direction}-${size}`, wrap && `${prefixCls}-wrap`)
 
 	return (
 		<div

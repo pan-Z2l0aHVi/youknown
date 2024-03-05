@@ -1,0 +1,256 @@
+# Tooltip
+
+## 代码演示
+
+import { TbCheck, TbSearch, TbX } from 'react-icons/tb'
+import { Button, Divider, Space, Switch, Tooltip } from '@youknown/react-ui/src'
+
+---
+
+### 排布
+
+export function Placement() {
+  const cellStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+  return (
+    <div className="grid grid-cols-[repeat(3,160px)] grid-rows-[repeat(5,auto)] gap-12px justify-center justify-items-center">
+      <Tooltip placement="top-start" title="Top start">
+        <Button style={cellStyle}>Top start</Button>
+      </Tooltip>
+      <Tooltip placement="top" title="Top">
+        <Button style={cellStyle}>Top</Button>
+      </Tooltip>
+      <Tooltip placement="top-end" title="Top end">
+        <Button style={cellStyle}>Top end</Button>
+      </Tooltip>
+      <Tooltip placement="left-start" title="Left start">
+        <Button style={cellStyle}>Left start</Button>
+      </Tooltip>
+      <div style={cellStyle}></div>
+      <Tooltip placement="right-start" title="Right start">
+        <Button style={cellStyle}>Right start</Button>
+      </Tooltip>
+      <Tooltip placement="left" title="Left">
+        <Button style={cellStyle}>Left</Button>
+      </Tooltip>
+      <div style={cellStyle}></div>
+      <Tooltip placement="right" title="Right">
+        <Button style={cellStyle}>Right</Button>
+      </Tooltip>
+      <Tooltip placement="left-end" title="Left end">
+        <Button style={cellStyle}>Left end</Button>
+      </Tooltip>
+      <div style={cellStyle}></div>
+      <Tooltip placement="right-end" title="Right end">
+        <Button style={cellStyle}>Right end</Button>
+      </Tooltip>
+      <Tooltip placement="bottom-start" title="Bottom start">
+        <Button style={cellStyle}>Bottom start</Button>
+      </Tooltip>
+      <Tooltip placement="bottom" title="Bottom">
+        <Button style={cellStyle}>Bottom</Button>
+      </Tooltip>
+      <Tooltip placement="bottom-end" title="Bottom end">
+        <Button style={cellStyle}>Bottom end</Button>
+      </Tooltip>
+    </div>
+  )
+}
+
+<Placement />
+
+---
+
+```tsx
+import { Button, Tooltip } from '@youknown/react-ui/src'
+
+export default () => {
+  const cellStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+  return (
+    <div className="grid grid-cols-[repeat(3,160px)] grid-rows-[repeat(5,auto)] gap-12px justify-center justify-items-center">
+      <Tooltip placement="top-start" title="Top start">
+        <Button style={cellStyle}>Top start</Button>
+      </Tooltip>
+      <Tooltip placement="top" title="Top">
+        <Button style={cellStyle}>Top</Button>
+      </Tooltip>
+      <Tooltip placement="top-end" title="Top end">
+        <Button style={cellStyle}>Top end</Button>
+      </Tooltip>
+      <Tooltip placement="left-start" title="Left start">
+        <Button style={cellStyle}>Left start</Button>
+      </Tooltip>
+      <div style={cellStyle}></div>
+      <Tooltip placement="right-start" title="Right start">
+        <Button style={cellStyle}>Right start</Button>
+      </Tooltip>
+      <Tooltip placement="left" title="Left">
+        <Button style={cellStyle}>Left</Button>
+      </Tooltip>
+      <div style={cellStyle}></div>
+      <Tooltip placement="right" title="Right">
+        <Button style={cellStyle}>Right</Button>
+      </Tooltip>
+      <Tooltip placement="left-end" title="Left end">
+        <Button style={cellStyle}>Left end</Button>
+      </Tooltip>
+      <div style={cellStyle}></div>
+      <Tooltip placement="right-end" title="Right end">
+        <Button style={cellStyle}>Right end</Button>
+      </Tooltip>
+      <Tooltip placement="bottom-start" title="Bottom start">
+        <Button style={cellStyle}>Bottom start</Button>
+      </Tooltip>
+      <Tooltip placement="bottom" title="Bottom">
+        <Button style={cellStyle}>Bottom</Button>
+      </Tooltip>
+      <Tooltip placement="bottom-end" title="Bottom end">
+        <Button style={cellStyle}>Bottom end</Button>
+      </Tooltip>
+    </div>
+  )
+}
+```
+
+### 基本用法
+
+export function BasicUsage() {
+  return (
+    <Space size="large">
+      <Tooltip title="Icon tooltip">
+        <Button circle>
+          <TbSearch />
+        </Button>
+      </Tooltip>
+      <Tooltip title="Button tooltip">
+        <Button primary>Primary button</Button>
+      </Tooltip>
+      <Tooltip title="Switch tooltip">
+        <Switch />
+      </Tooltip>
+      <Tooltip title="Tooltip">
+        <span>Text or anything</span>
+      </Tooltip>
+    </Space>
+  )
+}
+
+<BasicUsage />
+
+---
+
+```tsx
+import { Space, Tooltip, Button } from '@youknown/react-ui'
+import { TbSearch } from 'react-icons/tb'
+
+export default () => {
+  return (
+    <Space size="large">
+      <Tooltip title="Icon tooltip">
+        <Button circle>
+          <TbSearch />
+        </Button>
+      </Tooltip>
+      <Tooltip title="Button tooltip">
+        <Button primary>Primary button</Button>
+      </Tooltip>
+      <Tooltip title="Switch tooltip">
+        <Switch />
+      </Tooltip>
+      <Tooltip title="Tooltip">
+        <span>Text or anything</span>
+      </Tooltip>
+    </Space>
+  )
+}
+```
+
+### 颜色
+
+export function TooltipColor() {
+  return (
+    <Space size="large">
+      <Tooltip title="Dark tooltip">
+        <Button>Dark</Button>
+      </Tooltip>
+      <Tooltip title="Light tooltip">
+        <Button>Light</Button>
+      </Tooltip>
+    </Space>
+  )
+}
+
+<TooltipColor />
+
+---
+
+```tsx
+import { Space, Tooltip, Button } from '@youknown/react-ui'
+
+export default () => {
+  return (
+    <Space size="large">
+      <Tooltip title="Dark tooltip">
+        <Button>Dark</Button>
+      </Tooltip>
+      <Tooltip title="Light tooltip">
+        <Button>Light</Button>
+      </Tooltip>
+    </Space>
+  )
+}
+```
+
+### 禁用态
+
+export function Disabled() {
+  return (
+    <Space>
+      <Tooltip title="Enabled">
+        <Button prefixIcon={<TbCheck />}>Enabled</Button>
+      </Tooltip>
+      <Tooltip title="Disabled" disabled>
+        <Button prefixIcon={<TbX />}>Disabled</Button>
+      </Tooltip>
+    </Space>
+  )
+}
+
+<Disabled />
+
+---
+
+```tsx
+import { Space, Tooltip, Button } from '@youknown/react-ui'
+import { TbCheck, TbX } from 'react-icons/tb'
+
+export default () => {
+  return (
+    <Space>
+      <Tooltip title="Enabled">
+        <Button prefixIcon={<TbCheck />}>Enabled</Button>
+      </Tooltip>
+      <Tooltip title="Disabled" disabled>
+        <Button prefixIcon={<TbX />}>Disabled</Button>
+      </Tooltip>
+    </Space>
+  )
+}
+```
+
+## API
+
+### Tooltip Props
+
+继承自 Trigger Props
+
+| 属性       | 说明               | 类型              | 默认值   |
+| ---------- | ------------------ | ----------------- | -------- |
+| title    | 文本           | `string`         | `''`  |
