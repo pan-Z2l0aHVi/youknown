@@ -1,16 +1,7 @@
-import Header from '@/app/components/header'
-import { components } from '@/utils/mdx-components'
+import Demo from '@/app/components/demo'
 
 import UseBooleanMDX from './use-boolean.mdx'
 
 export default function UseBooleanDemo() {
-	return (
-		<>
-			<Header heading="UseBoolean"></Header>
-
-			<div className="rich-text-container sm:p-32px <sm:p-16px! sm:m-[0_auto] sm:w-800px">
-				<UseBooleanMDX components={components} />
-			</div>
-		</>
-	)
+	return <Demo heading="UseBoolean" component={UseBooleanMDX} />
 }

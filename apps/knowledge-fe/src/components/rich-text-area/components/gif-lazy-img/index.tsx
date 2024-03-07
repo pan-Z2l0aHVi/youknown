@@ -3,12 +3,13 @@ import { HTMLAttributes, useCallback, useEffect, useRef, useState } from 'react'
 import { parse_gif_frame } from '@/utils/gif'
 import { useBoolean, useIntersection } from '@youknown/react-hook/src'
 import { cls } from '@youknown/utils/src'
+import { Loading } from '@youknown/react-ui/src'
 
 interface GIFLazyImageProps extends HTMLAttributes<HTMLElement> {
 	src: string
 }
 export default function GIFLazyImage(props: GIFLazyImageProps) {
-	const { src, ...rest } = props
+	const { src, className, ...rest } = props
 	const [final_src, set_final_src] = useState('')
 	const [first_frame, set_first_frame] = useState('')
 	const [playing, { setReverse: toggle_play }] = useBoolean(false)
@@ -59,7 +60,7 @@ export default function GIFLazyImage(props: GIFLazyImageProps) {
 
 	return final_src ? (
 		<div ref={container_ref} className="relative w-max cursor-pointer" onClick={toggle_play}>
-			<img loading="lazy" src={final_src} {...rest} />
+			<img loading="lazy" src={final_src} className={className} {...rest} />
 			{playing || (
 				<div
 					className={cls(
@@ -73,6 +74,8 @@ export default function GIFLazyImage(props: GIFLazyImageProps) {
 			)}
 		</div>
 	) : (
-		<div ref={container_ref} {...rest}></div>
+		<Loading spinning>
+			<div ref={container_ref} className={cls(className, 'w-120px h-120px bg-bg-2 rd-radius-m')} {...rest}></div>
+		</Loading>
 	)
 }

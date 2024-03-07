@@ -53,7 +53,7 @@ export default function TabBar() {
 						>
 							<tab.Icon
 								className={cls(
-									is_active ? 'box-content bg-primary rd-full p-4px text-24px mt--8px' : 'text-24px',
+									is_active ? 'box-content bg-primary rd-full p-4px text-20px mt--8px' : 'text-20px',
 									is_dark_theme
 										? is_active
 											? 'color-#fff'

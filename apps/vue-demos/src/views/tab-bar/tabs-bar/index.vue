@@ -32,9 +32,6 @@ const rectTop = ref(0)
 const handleClickTab = (tab: TabItem) => {
 	emit('click-tab', tab)
 
-	// containerRef.value?.scrollIntoView({
-	// 	behavior: 'smooth'
-	// })
 	const top = rectTop.value - props.offsetTop
 	props.container.scrollTo({
 		top,

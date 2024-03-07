@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuHeart, LuHeartOff } from 'react-icons/lu'
 import { TbPencil } from 'react-icons/tb'
@@ -10,9 +10,10 @@ import Header from '@/app/components/header'
 import RichTextArea from '@/components/rich-text-area'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
+import { HeadingLeaf, prase_heading_tree } from '@/utils'
 import { with_api } from '@/utils/request'
 import { useFetch } from '@youknown/react-hook/src'
-import { Button, Image, Loading, Toast } from '@youknown/react-ui/src'
+import { Anchor, Button, Image, Loading, Toast } from '@youknown/react-ui/src'
 import { QS } from '@youknown/utils/src'
 
 import CommentArea from './components/comment-area'
@@ -134,6 +135,13 @@ export default function FeedDetail() {
 
 	const doc_content = detail?.subject.content ?? ''
 	const rich_text_container_ref = useRef<HTMLDivElement>(null)
+	const [anchor_items, set_anchor_items] = useState<HeadingLeaf[]>([])
+
+	useEffect(() => {
+		const tree = prase_heading_tree(doc_content)
+		console.log('tree: ', tree)
+		set_anchor_items(tree)
+	}, [doc_content])
 
 	const is_owner = detail?.creator_id === profile?.user_id
 	const action_btn = detail && (
@@ -195,6 +203,28 @@ export default function FeedDetail() {
 		</>
 	)
 
+	const feed_content = (
+		<div className="flex-1 sm:w-720px">
+			{detail?.subject.cover && (
+				<Image
+					className="w-100% max-h-30vh min-h-40px rd-radius-m mb-16px"
+					src={detail.subject.cover}
+					canPreview
+					alt="Cover"
+				/>
+			)}
+			<RichTextArea ref={rich_text_container_ref} className="text-16px" html={doc_content} />
+			{detail && (
+				<>
+					<DescArea feed={detail} />
+					<LikeArea feed={detail} />
+					<RelatedArea feed={detail} />
+					<CommentArea feed={detail} />
+				</>
+			)}
+		</div>
+	)
+
 	return (
 		<>
 			<Header heading={detail?.subject.title || t('detail')}>{action_btn}</Header>
@@ -204,28 +234,16 @@ export default function FeedDetail() {
 					<Loading spinning size="large" />
 				</div>
 			) : (
-				<div className="flex sm:p-24px <sm:p-16px">
-					<div className="sm:w-720px sm:m-auto <sm:w-100%">
-						{detail?.subject.cover && (
-							<Image
-								className="w-100% max-h-30vh min-h-40px rd-radius-m mb-16px"
-								src={detail.subject.cover}
-								canPreview
-								alt="Cover"
-							/>
-						)}
-						<RichTextArea ref={rich_text_container_ref} className="text-16px" html={doc_content} />
-					</div>
+				<div className="flex sm:p-24px <sm:p-16px sm:m-auto <sm:w-100%">
+					{feed_content}
+					{is_mobile || (
+						<Anchor
+							className="sticky top-80px ml-40px! max-w-200px max-h-70vh overflow-y-auto"
+							offsetY={56}
+							items={anchor_items}
+						/>
+					)}
 				</div>
-			)}
-
-			{detail && (
-				<>
-					<DescArea feed={detail} />
-					<LikeArea feed={detail} />
-					<RelatedArea feed={detail} />
-					<CommentArea feed={detail} />
-				</>
 			)}
 		</>
 	)

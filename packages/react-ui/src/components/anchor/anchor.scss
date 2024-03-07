@@ -4,16 +4,19 @@ $prefix: '#{$ui-prefix}-anchor';
 .#{$prefix} {
 	@include basic;
 
-	margin: 0;
+	margin: 0 0 0 4px;
 	padding: 0 0 0 4px;
 	list-style: none;
 	border-left: 2px solid $divider;
 
 	&-item {
+		@include text-ellipsis;
+
 		cursor: pointer;
 		position: relative;
 		margin: 0;
 		padding: 4px 32px 4px 0;
+		white-space: nowrap;
 		border-radius: $radius-m;
 
 		&:hover {

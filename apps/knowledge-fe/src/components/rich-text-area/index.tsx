@@ -1,6 +1,7 @@
 import parse, { DOMNode, domToReact, Element, Text } from 'html-react-parser'
-import { ForwardedRef, forwardRef, HTMLAttributes, useMemo } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes, useMemo, useRef } from 'react'
 
+import { DEFAULT_NODE_ID } from '@/utils'
 import { Image } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
@@ -14,9 +15,12 @@ interface RichTextAreaProps extends HTMLAttributes<HTMLDivElement> {
 const RichTextArea = forwardRef((props: RichTextAreaProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const { className, html } = props
 
+	const node_id_ref = useRef(DEFAULT_NODE_ID)
+
 	const classnames = cls(className, 'rich-text-container')
 
 	const rich_text_content = useMemo(() => {
+		node_id_ref.current = DEFAULT_NODE_ID
 		return parse(html, {
 			replace(node) {
 				if (!(node instanceof Element)) {
@@ -25,7 +29,13 @@ const RichTextArea = forwardRef((props: RichTextAreaProps, ref: ForwardedRef<HTM
 
 				if (['h1', 'h2', 'h3', 'h4'].includes(node.name)) {
 					const level = Number(node.name.slice(-1))
-					return <Heading level={level}>{domToReact(node.children as DOMNode[])}</Heading>
+					// 节点遍历规则与 prase_heading_tree 保持一致，则节点自增 ID 一致
+					node_id_ref.current++
+					return (
+						<Heading level={level} labelledby={String(node_id_ref.current)}>
+							{domToReact(node.children as DOMNode[])}
+						</Heading>
+					)
 				}
 
 				if (node.name === 'img') {

@@ -1,7 +1,7 @@
 {
   "name": "@youknown/book-fe",
   "version": "1.0.0",
-  "description": "A frontend documents project.",
+  "description": "A frontend document book project.",
   "type": "module",
   "engines": {
     "node": ">=18.12.0"

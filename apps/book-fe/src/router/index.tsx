@@ -15,7 +15,7 @@ const router = createBrowserRouter(
 		}
 	],
 	{
-		basename: '/book'
+		basename: import.meta.env.VITE_ROUTER_BASENAME
 	}
 )
 

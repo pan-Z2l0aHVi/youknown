@@ -1,14 +1,14 @@
 import './tooltip.scss'
 
-import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, isValidElement } from 'react'
+import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, isValidElement, ReactNode } from 'react'
 
 import { checkHoverSupported, cls, pick, pickDataAttrs } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Trigger, { EventsByTriggerNeed } from '../trigger'
 
-interface TooltipProps extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'motion'> {
-	title?: string
+interface TooltipProps extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'motion' | 'title'> {
+	title?: ReactNode
 }
 
 const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {

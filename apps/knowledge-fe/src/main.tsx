@@ -1,4 +1,5 @@
 import 'virtual:uno.css'
+import '@youknown/css/src/rte.scss'
 import '@/styles/reset.scss'
 import '@/styles/theme.scss'
 import '@/utils/i18n'

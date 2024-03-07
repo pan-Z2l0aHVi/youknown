@@ -22,7 +22,7 @@ export default function Sidebar() {
 	const is_mobile = useUIStore(state => state.is_mobile)
 	const local_expand = useCreation(() => storage.local.get<boolean>(EXPAND_KEY))
 	const local_width = useCreation(() => storage.local.get<number>(WIDTH_KEY))
-	const [expand, { setReverse: toggle_expand }] = useBoolean(local_expand ?? true)
+	const [expand, { setReverse: toggle_expand, setTrue: unfold }] = useBoolean(local_expand ?? true)
 	const [sidebar_width, set_sidebar_width] = useState(local_width ?? DEFAULT_W)
 	const [dragging, { setTrue: start_drag, setFalse: stop_drag }] = useBoolean(false)
 	const dragging_ref = useLatestRef(dragging)
@@ -78,6 +78,12 @@ export default function Sidebar() {
 		document.addEventListener('touchend', touch_stop_handler, { once: true })
 		document.addEventListener('touchcancel', touch_stop_handler, { once: true })
 	})
+
+	useEffect(() => {
+		if (is_mobile) {
+			unfold()
+		}
+	}, [is_mobile, unfold])
 
 	let sidebar_style = {}
 	if (expand) {

@@ -58,3 +58,18 @@
 		outline-offset 0s,
 		outline 0s;
 }
+
+@mixin text-ellipsis($line: 1) {
+	@if $line == 1 {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	} @else {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: $line;
+		-webkit-box-orient: vertical;
+		word-wrap: break-word;
+	}
+}

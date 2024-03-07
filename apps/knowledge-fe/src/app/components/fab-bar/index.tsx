@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { GrGithub } from 'react-icons/gr'
 import { TbMessagePlus } from 'react-icons/tb'
 import { useLocation } from 'react-router-dom'
+import scrollIntoView from 'scroll-into-view-if-needed'
 
 import { Button, Space, Tooltip } from '@youknown/react-ui/src'
 
@@ -29,9 +30,13 @@ export default function FabBar() {
 			icon: <TbMessagePlus className="text-20px" />,
 			handler: () => {
 				const container = document.getElementById('feed-comment-area')
-				container?.scrollIntoView({
-					behavior: 'instant'
-				})
+				if (container) {
+					scrollIntoView(container, {
+						scrollMode: 'if-needed',
+						block: 'nearest',
+						inline: 'nearest'
+					})
+				}
 				const comment_input = document.querySelector<HTMLInputElement>('#feed-comment-area .tiptap.ProseMirror')
 				comment_input?.focus()
 			}

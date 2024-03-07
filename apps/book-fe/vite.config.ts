@@ -63,7 +63,7 @@ export default defineConfig(({ mode, command }) => {
 		},
 		server: {
 			host: '0.0.0.0',
-			open: true,
+			open: env.VITE_ROUTER_BASENAME,
 			cors: true,
 			proxy: {
 				'/proxy': {

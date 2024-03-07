@@ -80,3 +80,42 @@ export async function initHlsLangs() {
 	await loadLanguages()
 	langs_ready = true
 }
+
+export const DEFAULT_NODE_ID = 100
+
+export interface HeadingLeaf {
+	labelledby: string
+	content: string
+	children?: HeadingLeaf[]
+}
+
+export function prase_heading_tree(html: string): HeadingLeaf[] {
+	let id = DEFAULT_NODE_ID
+	const regex = /<(h[1-4])[^>]*>(.*?)<\/\1>/gi
+	const matches = html.match(regex)
+	if (!matches) {
+		return []
+	}
+	const headingsTree: HeadingLeaf[] = []
+
+	matches.forEach(match => {
+		const matched = match.match(/<([a-zA-Z0-9]+)[^>]*>(.*?)<\/\1>/)
+		if (!matched) {
+			return
+		}
+		const [_, tag, content] = matched
+		const level = parseInt(tag.charAt(1))
+		let currentNode = headingsTree
+
+		for (let i = 1; i < level; i++) {
+			const lastChild = currentNode[currentNode.length - 1]
+			if (!lastChild.children) {
+				lastChild.children = []
+			}
+			currentNode = lastChild.children
+		}
+		id++
+		currentNode.push({ labelledby: String(id), content, children: [] })
+	})
+	return headingsTree
+}

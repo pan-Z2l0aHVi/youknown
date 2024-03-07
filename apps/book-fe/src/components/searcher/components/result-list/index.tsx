@@ -1,10 +1,11 @@
 import { forwardRef, ReactNode, useEffect, useRef } from 'react'
 import { TbArrowBack } from 'react-icons/tb'
+import scrollIntoView from 'scroll-into-view-if-needed'
 
 import { RouteItem } from '@/router/routes'
 import { useComposeRef, useEvent } from '@youknown/react-hook/src'
 import { Button } from '@youknown/react-ui/src'
-import { checkElementInContainer, cls } from '@youknown/utils/src'
+import { cls } from '@youknown/utils/src'
 
 interface ResultListProps {
 	footer?: ReactNode
@@ -23,8 +24,12 @@ const ResultList = forwardRef<HTMLDivElement, ResultListProps>((props, prop_ref)
 
 	const selection_index = result.findIndex(item => item.path === select_item_path)
 	const into_view = (el: HTMLElement | null) => {
-		if (el && !checkElementInContainer(el, list_ref.current)) {
-			el.scrollIntoView()
+		if (el) {
+			scrollIntoView(el, {
+				scrollMode: 'if-needed',
+				block: 'nearest',
+				inline: 'nearest'
+			})
 		}
 	}
 

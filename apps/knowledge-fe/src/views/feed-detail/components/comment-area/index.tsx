@@ -118,7 +118,7 @@ export default function CommentArea(props: CommentAreaProps) {
 				on_sub_comment_updated
 			}}
 		>
-			<div id="feed-comment-area" className="w-720px max-w-100% sm:p-[24px_0] <sm:p-[24px_16px] m-[0_auto]">
+			<div id="feed-comment-area" className="p-[24px_0]">
 				<div className="font-700 text-18px mb-24px">
 					{comment_total} {t('comment.count')}
 				</div>

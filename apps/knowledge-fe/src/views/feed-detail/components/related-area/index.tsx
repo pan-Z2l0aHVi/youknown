@@ -55,7 +55,7 @@ export default function RelatedArea(props: RelatedAreaProps) {
 	})
 
 	return (
-		<div className="max-w-100% sm:w-720px sm:ml-auto sm:mr-auto <sm:pl-16px <sm:pr-16px mt-32px mb-32px">
+		<div className="mt-32px mb-32px">
 			<div className="font-700 text-18px mb-24px">
 				{feeds_total} {t('related.feed_count')}
 			</div>
