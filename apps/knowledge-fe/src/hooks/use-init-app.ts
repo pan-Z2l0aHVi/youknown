@@ -4,10 +4,9 @@ import { useLocation } from 'react-router-dom'
 
 import { useRouteMeta } from '@/hooks/use-route-meta'
 import { useModalStore, useRecordStore, useSpaceStore, useUserStore } from '@/stores'
-import { initHlsLangs } from '@/utils'
 import { get_local_token } from '@/utils/local'
 import { report } from '@/utils/report'
-import { useAsyncEffect, useMount } from '@youknown/react-hook/src'
+import { useMount } from '@youknown/react-hook/src'
 import { Toast } from '@youknown/react-ui/src'
 
 export function useInitApp() {
@@ -19,10 +18,6 @@ export function useInitApp() {
 	const init_records = useRecordStore(state => state.init_records)
 	const close_login_modal = useModalStore(state => state.close_login_modal)
 	const close_preferences_modal = useModalStore(state => state.close_preferences_modal)
-
-	useAsyncEffect(async () => {
-		initHlsLangs()
-	}, [])
 
 	useMount(() => {
 		if (get_local_token()) {

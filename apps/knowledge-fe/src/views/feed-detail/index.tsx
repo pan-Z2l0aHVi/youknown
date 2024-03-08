@@ -238,7 +238,7 @@ export default function FeedDetail() {
 					{feed_content}
 					{is_mobile || (
 						<Anchor
-							className="sticky top-80px ml-40px! max-w-200px max-h-70vh overflow-y-auto"
+							className="sticky top-80px ml-40px w-200px max-h-70vh h-max overflow-y-auto"
 							offsetY={56}
 							items={anchor_items}
 						/>

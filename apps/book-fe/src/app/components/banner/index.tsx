@@ -5,7 +5,7 @@ import { cls } from '@youknown/utils/src'
 
 export default function Banner() {
 	const [visible, { hide }] = useBannerVisible()
-	const text = 'Welcome~'
+	const text = 'Hello~'
 
 	if (!visible) {
 		return null

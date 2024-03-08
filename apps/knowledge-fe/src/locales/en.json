@@ -341,6 +341,7 @@
     "mine": "Mine"
   },
   "author": "Author: ",
+  "created_in": "Created in: ",
   "last_update_at": "Last updated at: ",
   "route_error": "The page is wrong!",
   "reload&retry": "Reload and retry",

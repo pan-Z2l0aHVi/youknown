@@ -27,18 +27,18 @@ export interface AnchorItem {
 	children?: AnchorItem[]
 }
 
-export interface AnchorProps extends HTMLAttributes<HTMLUListElement> {
+export interface AnchorProps extends HTMLAttributes<HTMLDivElement> {
 	items?: AnchorItem[]
 	container?: Element
 	offsetY?: number
 }
 
-const Anchor = (props: AnchorProps, ref: ForwardedRef<HTMLUListElement>) => {
+const Anchor = (props: AnchorProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const { className, items = [], container = window, offsetY = 0, ...rest } = props
 	const [selection, setSelection] = useState('')
 	const flattenItems = useMemo(() => flattenArray(items), [items])
 	const scriptScrollRef = useRef(false)
-	const anchorRef = useRef<HTMLUListElement>(null)
+	const anchorRef = useRef<HTMLDivElement>(null)
 	const mergedRef = useComposeRef(anchorRef, ref)
 	const flattenItemsRef = useRef<Record<string, HTMLLIElement | null>>({})
 
@@ -145,9 +145,9 @@ const Anchor = (props: AnchorProps, ref: ForwardedRef<HTMLUListElement>) => {
 	}
 
 	return (
-		<ul ref={mergedRef} className={cls(className, prefixCls)} {...rest}>
-			{renderItems(items)}
-		</ul>
+		<div ref={mergedRef} className={cls(className, prefixCls)} {...rest}>
+			<ul className={`${prefixCls}-list`}>{renderItems(items)}</ul>
+		</div>
 	)
 }
 

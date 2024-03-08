@@ -31,7 +31,7 @@ import TextAlign from '@youknown/react-rte/src/extensions/text-align'
 import TextColor from '@youknown/react-rte/src/extensions/text-color'
 import Underline from '@youknown/react-rte/src/extensions/underline'
 import { useRTE } from '@youknown/react-rte/src/hooks/useRTE'
-import { Button, Image as ImageUI, KeyboardToolbar, Loading, Space, Toast } from '@youknown/react-ui/src'
+import { Button, Image as ImageUI, Loading, Space, Toast } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 
 import CoverUpload from './components/cover-upload'
@@ -294,20 +294,15 @@ export default function Doc() {
 				doc_content={doc_info?.content ?? ''}
 				on_recovery={recovery_doc}
 			/>
-			{/* TODO: mobile keyboard toolbar */}
-			{is_mobile ? (
-				<KeyboardToolbar>{/* <RTEMenuBar editor={editor} /> */}</KeyboardToolbar>
-			) : (
-				<div
-					className={cls(
-						'z-10 sticky top-56px right-0',
-						'w-100% flex justify-center p-[12px_32px] bg-bg-0',
-						'after:content-empty after:absolute after:bottom-0 after:left-50% after:translate-x--50% after:w-100% after:h-1px after:bg-divider'
-					)}
-				>
-					<RTEMenuBar editor={editor} />
-				</div>
-			)}
+			<div
+				className={cls(
+					'z-10 sticky sm:top-56px <sm:top-48px right-0',
+					'w-100% flex justify-center sm:p-[12px_32px] <sm:p-[8px_12px] bg-bg-0',
+					'after:content-empty after:absolute after:bottom-0 after:left-50% after:translate-x--50% after:w-100% after:h-1px after:bg-divider'
+				)}
+			>
+				<RTEMenuBar editor={editor} />
+			</div>
 
 			<Loading
 				className="can-print w-720px! max-w-100% pt-24px pb-24px <sm:pl-16px <sm-pr-16px sm:m-[0_auto]"

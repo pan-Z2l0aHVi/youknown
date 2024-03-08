@@ -21,7 +21,7 @@ export function EntryCard(props: EntryCardProps) {
 	}
 	return (
 		<TransitionNavLink
-			className="decoration-none mb-24px hover-translate-y--12px transition-transform"
+			className="inline-block decoration-none m-24px hover-translate-y--12px transition-transform"
 			to="/ui_components"
 		>
 			<Card shadow header={title}>

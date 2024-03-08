@@ -33,8 +33,10 @@ export default function DescArea(props: DescAreaProps) {
 			<span className="max-w-120px truncate mr-24px color-text-2 cursor-pointer" onClick={go_user_center}>
 				{feed.creator.nickname}
 			</span>
+			<span>{t('created_in')}</span>
+			<span className="color-text-2 mr-24px">{format_time(feed.subject.creation_time)}</span>
 			<span>{t('last_update_at')}</span>
-			<span className="color-text-2">{format_time(feed.update_time)}</span>
+			<span className="color-text-2">{format_time(feed.subject.update_time)}</span>
 		</div>
 	)
 }

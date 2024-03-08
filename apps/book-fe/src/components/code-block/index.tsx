@@ -6,9 +6,10 @@ import { MdCheck, MdOutlineContentCopy } from 'react-icons/md'
 import { TbCaretDownFilled } from 'react-icons/tb'
 
 import { useBoolean } from '@youknown/react-hook/src'
-import { loadLanguages } from '@youknown/react-rte/src/utils/load-langs'
 import { Button, Collapse, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+
+import { initHlsLangs } from '@/utils'
 
 interface CodeBlockProps extends HTMLAttributes<HTMLDivElement> {
 	language?: string
@@ -32,7 +33,7 @@ export default function CodeBlock(props: CodeBlockProps) {
 
 	useLayoutEffect(() => {
 		if (expand) {
-			loadLanguages().then(() => {
+			initHlsLangs().then(() => {
 				if (code_ref.current) {
 					hljs.highlightElement(code_ref.current)
 				}

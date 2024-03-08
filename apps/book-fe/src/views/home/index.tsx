@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
 import Header from '@/app/components/header'
-import { Space } from '@youknown/react-ui/src'
 
 import { EntryCard } from './components/entry-card'
 
@@ -12,11 +11,11 @@ export default function Home() {
 		<>
 			<Header heading={t('page.title.home')}></Header>
 
-			<Space size="large" className="<sm:justify-center sm:p-32px <sm:p-16px">
+			<div className="<sm:flex <sm:flex-wrap <sm:justify-center <sm:p-[32px_0] sm:p-32px">
 				<EntryCard title="React RTE" desc={t('desc.react_rte')} code="npm i @youknown/react-rte" />
 				<EntryCard title="React UI" desc={t('desc.react_ui')} code="npm i @youknown/react-ui" />
 				<EntryCard title="React Hook" desc={t('desc.react_hook')} code="npm i @youknown/react-hook" />
-			</Space>
+			</div>
 		</>
 	)
 }

@@ -65,7 +65,7 @@ export default function FeedItem(props: FeedItemProps) {
 					>
 						{feed.creator.nickname}
 					</div>
-					<div className="ml-8px color-text-3 text-12px">{format_time(feed.update_time)}</div>
+					<div className="ml-8px color-text-3 text-12px">{format_time(feed.subject.update_time)}</div>
 				</div>
 			</div>
 

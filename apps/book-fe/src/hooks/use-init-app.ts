@@ -4,19 +4,13 @@ import { useLocation } from 'react-router-dom'
 
 import { useRouteMeta } from '@/hooks/use-route-meta'
 import { useModalStore } from '@/stores'
-import { initHlsLangs } from '@/utils'
 import { report } from '@/utils/report'
-import { useAsyncEffect, useMount } from '@youknown/react-hook/src'
+import { useMount } from '@youknown/react-hook/src'
 import { Toast } from '@youknown/react-ui/src'
 
 export function useInitApp() {
 	const { t } = useTranslation()
 	const close_preferences_modal = useModalStore(state => state.close_preferences_modal)
-
-	useAsyncEffect(async () => {
-		// FIXME:
-		initHlsLangs()
-	}, [])
 
 	useMount(() => {
 		window.addEventListener('online', () => {

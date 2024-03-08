@@ -341,6 +341,7 @@
     "mine": "我"
   },
   "author": "作者：",
+  "created_in": "创建于：",
   "last_update_at": "最后更新于：",
   "route_error": "页面出错啦！",
   "reload&retry": "刷新重试",

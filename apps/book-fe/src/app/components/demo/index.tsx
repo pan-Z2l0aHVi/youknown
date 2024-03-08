@@ -83,7 +83,7 @@ export default function Demo(props: DemoProps) {
 							<Component components={components} />
 						</div>
 						<Anchor
-							className="sticky top-120px max-w-200px max-h-60vh overflow-y-auto ml-40px!"
+							className="sticky top-120px w-200px max-h-60vh h-max overflow-y-auto ml-40px"
 							offsetY={56}
 							items={anchor_items_ref.current}
 						/>
