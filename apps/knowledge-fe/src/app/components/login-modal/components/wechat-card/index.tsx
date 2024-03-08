@@ -1,3 +1,6 @@
+import { useBoolean, useFetch, useHover, useUnmount } from '@youknown/react-hook/src'
+import { Loading, Toast } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RiWechatFill } from 'react-icons/ri'
@@ -6,9 +9,6 @@ import { check_yd_login_status, get_yd_qrcode, login as login_api } from '@/apis
 import { LOGIN_TYPE } from '@/consts'
 import { useModalStore, useUserStore } from '@/stores'
 import { set_local_token } from '@/utils/local'
-import { useBoolean, useFetch, useHover, useUnmount } from '@youknown/react-hook/src'
-import { Loading, Toast } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
 
 const POLLING_INTERVAL = 1500
 export default function WeChatCard() {

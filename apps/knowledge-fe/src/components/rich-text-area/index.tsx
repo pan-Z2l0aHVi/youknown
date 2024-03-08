@@ -1,9 +1,9 @@
+import { Image } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 import parse, { DOMNode, domToReact, Element, Text } from 'html-react-parser'
 import { ForwardedRef, forwardRef, HTMLAttributes, useMemo, useRef } from 'react'
 
 import { DEFAULT_NODE_ID } from '@/utils'
-import { Image } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
 
 import CodeBlock from './components/code-block'
 import GIFLazyImage from './components/gif-lazy-img'

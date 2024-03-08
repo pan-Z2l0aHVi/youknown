@@ -1,8 +1,7 @@
 import './dropdown-menu.scss'
 
-import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
-
 import { cls } from '@youknown/utils/src'
+import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 import { clickOutside } from './clickOutside'

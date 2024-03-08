@@ -1,3 +1,5 @@
+import { useMount } from '@youknown/react-hook/src'
+import { Toast } from '@youknown/react-ui/src'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
@@ -6,8 +8,6 @@ import { useRouteMeta } from '@/hooks/use-route-meta'
 import { useModalStore, useRecordStore, useSpaceStore, useUserStore } from '@/stores'
 import { get_local_token } from '@/utils/local'
 import { report } from '@/utils/report'
-import { useMount } from '@youknown/react-hook/src'
-import { Toast } from '@youknown/react-ui/src'
 
 export function useInitApp() {
 	const { t } = useTranslation()

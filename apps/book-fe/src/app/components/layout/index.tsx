@@ -1,8 +1,8 @@
+import { Drawer, Loading } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 import { Suspense } from 'react'
 
 import { useUIStore } from '@/stores'
-import { Drawer, Loading } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
 
 import Banner from '../banner'
 import KeepAliveOutlet from '../keep-alive-outlet'

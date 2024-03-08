@@ -5,10 +5,11 @@
 </template>
 
 <script setup lang="ts">
-import { EditorContent, useEditor } from '@tiptap/vue-3'
-import StarterKit from '@tiptap/starter-kit'
-import Placeholder from '@tiptap/extension-placeholder'
 import '@/assets/rich-text.scss'
+
+import Placeholder from '@tiptap/extension-placeholder'
+import StarterKit from '@tiptap/starter-kit'
+import { EditorContent, useEditor } from '@tiptap/vue-3'
 const editor = useEditor({
 	content: localStorage.getItem('editorHTML') ?? '',
 	extensions: [

@@ -1,7 +1,6 @@
-import { useRef } from 'react'
-
 import { useInfinity } from '@youknown/react-hook/src'
 import { Button, Divider, List } from '@youknown/react-ui/src'
+import { useRef } from 'react'
 
 const LIST_TOTAL = 204
 const allList = Array.from(Array(LIST_TOTAL)).map((_, index) => ({

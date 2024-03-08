@@ -12,9 +12,10 @@
 </template>
 
 <script setup lang="ts">
-import uuid from '@/utils/uuid'
-import { useFetch } from '@/hooks'
 import { ref } from 'vue'
+
+import { useFetch } from '@/hooks'
+import uuid from '@/utils/uuid'
 
 let reqID = 0
 const mockRequest = () =>

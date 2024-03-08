@@ -1,10 +1,9 @@
 import './index.scss'
 
-import { cloneElement, createElement, useMemo } from 'react'
-
 import { Editor } from '@tiptap/react'
 import { Divider, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+import { cloneElement, createElement, useMemo } from 'react'
 
 import { UI_EDITOR_PREFIX } from '../../common'
 import EraserBtn from '../eraser-btn'

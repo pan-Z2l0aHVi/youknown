@@ -1,7 +1,7 @@
+import { checkElementInContainer } from '@youknown/utils/src'
 import { computed, nextTick, Ref, ref } from 'vue'
 
 import { omit } from '@/utils/object'
-import { checkElementInContainer } from '@youknown/utils/src'
 
 import { FetchOptions, useFetch } from './useFetch'
 import useIntersection from './useIntersection'

@@ -1,10 +1,9 @@
 import './checkbox.scss'
 
-import { ChangeEventHandler, ForwardedRef, forwardRef, LabelHTMLAttributes, useRef } from 'react'
-import { HiCheck } from 'react-icons/hi'
-
 import { useComposeRef, useControllable } from '@youknown/react-hook/src'
 import { cls, omit } from '@youknown/utils/src'
+import { ChangeEventHandler, ForwardedRef, forwardRef, LabelHTMLAttributes, useRef } from 'react'
+import { HiCheck } from 'react-icons/hi'
 
 import { UI_PREFIX } from '../../constants'
 import CheckboxGroup from './CheckboxGroup'

@@ -1,12 +1,11 @@
 import './index.scss'
 
-import { useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { TbChevronRight, TbTablePlus } from 'react-icons/tb'
-
 import { Editor } from '@tiptap/react'
 import { Dropdown } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+import { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { TbChevronRight, TbTablePlus } from 'react-icons/tb'
 
 import { UI_EDITOR_PREFIX } from '../../common'
 

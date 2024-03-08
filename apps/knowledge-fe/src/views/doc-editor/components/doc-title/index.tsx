@@ -1,11 +1,11 @@
+import { useBoolean } from '@youknown/react-hook/src'
+import { Input, Toast } from '@youknown/react-ui/src'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Doc, update_doc } from '@/apis/doc'
 import { DOC_TITLE_MAX_LEN } from '@/consts'
 import { with_api } from '@/utils/request'
-import { useBoolean } from '@youknown/react-hook/src'
-import { Input, Toast } from '@youknown/react-ui/src'
 
 interface DocTitleProps {
 	doc_id: string

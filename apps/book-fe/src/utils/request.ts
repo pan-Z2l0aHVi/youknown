@@ -1,6 +1,7 @@
-import { B_CODE } from '@/consts'
 import { Toast } from '@youknown/react-ui/src'
 import { ArgumentType, Net, PromiseFnResult } from '@youknown/utils/src'
+
+import { B_CODE } from '@/consts'
 
 const { t } = await import('i18next')
 

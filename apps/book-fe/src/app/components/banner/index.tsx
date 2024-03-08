@@ -1,7 +1,7 @@
+import { cls } from '@youknown/utils/src'
 import { TbX } from 'react-icons/tb'
 
 import { useBannerVisible } from '@/hooks/use-banner-visible'
-import { cls } from '@youknown/utils/src'
 
 export default function Banner() {
 	const [visible, { hide }] = useBannerVisible()

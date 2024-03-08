@@ -1,9 +1,9 @@
+import { Motion, Tooltip } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 import { useTranslation } from 'react-i18next'
 import { IoSettingsSharp } from 'react-icons/io5'
 
 import { useModalStore } from '@/stores'
-import { Motion, Tooltip } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
 
 interface OptionsProps {
 	expand: boolean

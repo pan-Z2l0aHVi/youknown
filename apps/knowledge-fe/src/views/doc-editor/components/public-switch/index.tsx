@@ -1,3 +1,5 @@
+import { Button, Dialog, Toast, Tooltip } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbWorld, TbWorldOff } from 'react-icons/tb'
@@ -5,8 +7,6 @@ import { TbWorld, TbWorldOff } from 'react-icons/tb'
 import { Doc, update_doc } from '@/apis/doc'
 import { is_dark_theme_getter, useUIStore } from '@/stores'
 import { with_api } from '@/utils/request'
-import { Button, Dialog, Toast, Tooltip } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
 
 interface PublicSwitchProps {
 	doc_id: string

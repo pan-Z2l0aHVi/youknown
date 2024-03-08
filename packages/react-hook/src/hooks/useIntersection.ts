@@ -1,6 +1,5 @@
-import { MutableRefObject, useLayoutEffect, useState } from 'react'
-
 import { is } from '@youknown/utils/src'
+import { MutableRefObject, useLayoutEffect, useState } from 'react'
 
 export function useIntersection(
 	target?: MutableRefObject<HTMLElement | null>,

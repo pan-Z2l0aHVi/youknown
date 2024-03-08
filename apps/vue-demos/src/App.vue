@@ -11,6 +11,7 @@
 import { watchEffect } from 'vue'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+
 import { navTabRoutes } from '@/router/routes'
 
 const route = useRoute()

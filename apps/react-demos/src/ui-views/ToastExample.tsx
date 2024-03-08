@@ -1,6 +1,5 @@
-import { TbInfoCircle } from 'react-icons/tb'
-
 import { Button, Divider, Space, Toast } from '@youknown/react-ui/src'
+import { TbInfoCircle } from 'react-icons/tb'
 
 export default () => {
 	return (

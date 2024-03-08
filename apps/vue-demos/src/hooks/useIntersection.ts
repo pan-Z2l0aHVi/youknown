@@ -1,4 +1,4 @@
-import { ref, Ref, watchPostEffect } from 'vue'
+import { Ref, ref, watchPostEffect } from 'vue'
 
 /**
  * @param target

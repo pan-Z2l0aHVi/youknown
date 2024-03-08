@@ -1,9 +1,8 @@
 import './index.scss'
 
+import { Editor } from '@tiptap/react'
 import { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom'
-
-import { Editor } from '@tiptap/react'
 
 const isReact18 = Number(ReactDOM.version?.split('.')[0]) > 17
 const flushSyncProps = isReact18 ? { flushSync: ReactDOM.flushSync } : {}

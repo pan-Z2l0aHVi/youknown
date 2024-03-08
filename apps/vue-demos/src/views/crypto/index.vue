@@ -9,9 +9,10 @@
 </template>
 
 <script setup lang="ts">
-import { encrypt, decrypt } from '@/utils/ase'
 import CryptoJS from 'crypto-js'
 import { ref } from 'vue'
+
+import { decrypt, encrypt } from '@/utils/ase'
 
 const plaintext = ref(CryptoJS.enc.Base64.parse('Hello, World!').toString())
 

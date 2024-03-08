@@ -1,11 +1,10 @@
 import './index.scss'
 
-import { useTranslation } from 'react-i18next'
-import { PiListDashesBold } from 'react-icons/pi'
-
 import { Editor } from '@tiptap/react'
 import { Dropdown } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+import { useTranslation } from 'react-i18next'
+import { PiListDashesBold } from 'react-icons/pi'
 
 import { UI_EDITOR_PREFIX } from '../../common'
 

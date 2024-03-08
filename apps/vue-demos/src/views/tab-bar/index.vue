@@ -13,8 +13,9 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
-import TabsBar from './tabs-bar/index.vue'
 import { ref } from 'vue'
+
+import TabsBar from './tabs-bar/index.vue'
 const getAppEle = () => {
 	return document.getElementById('app')
 }

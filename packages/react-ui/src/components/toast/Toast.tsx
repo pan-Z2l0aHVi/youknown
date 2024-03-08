@@ -1,9 +1,8 @@
 import './toast.scss'
 
+import { cls } from '@youknown/utils/src'
 import { ComponentProps, ForwardedRef, forwardRef } from 'react'
 import { TransitionGroup } from 'react-transition-group'
-
-import { cls } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import { useZIndex } from '../../hooks/useZIndex'

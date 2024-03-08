@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-
 import { Checkbox, Divider, Space } from '@youknown/react-ui/src'
+import { useEffect, useRef, useState } from 'react'
 
 export default () => {
 	const [val, setVal] = useState(false)

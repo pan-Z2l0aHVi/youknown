@@ -1,6 +1,5 @@
-import { useState } from 'react'
-
 import { Divider, Space, Switch } from '@youknown/react-ui/src'
+import { useState } from 'react'
 
 export default () => {
 	const [checked, setChecked] = useState<boolean>(false)

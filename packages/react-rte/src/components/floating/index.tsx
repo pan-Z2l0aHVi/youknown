@@ -1,10 +1,9 @@
 import './index.scss'
 
-import { cloneElement, createElement, useMemo, useState } from 'react'
-import { TbPlus } from 'react-icons/tb'
-
 import { Editor, FloatingMenu } from '@tiptap/react'
 import { Button, Divider, Dropdown } from '@youknown/react-ui/src'
+import { cloneElement, createElement, useMemo, useState } from 'react'
+import { TbPlus } from 'react-icons/tb'
 
 import { UI_EDITOR_PREFIX } from '../../common'
 

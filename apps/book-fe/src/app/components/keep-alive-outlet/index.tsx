@@ -1,9 +1,9 @@
+import { useUpdate } from '@youknown/react-hook/src'
+import { KeepAlive } from '@youknown/react-ui/src'
 import { useLayoutEffect } from 'react'
 import { useLocation, useOutlet } from 'react-router-dom'
 
 import { outlet_cache, useRouteKeepAlive } from '@/hooks/use-route-keep-alive'
-import { useUpdate } from '@youknown/react-hook/src'
-import { KeepAlive } from '@youknown/react-ui/src'
 
 export default function KeepAliveOutlet() {
 	const outlet = useOutlet()

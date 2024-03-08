@@ -1,6 +1,6 @@
 {
 	"parser": "@typescript-eslint/parser",
-	"plugins": [],
+	"plugins": ["simple-import-sort"],
 	"extends": [
 		"plugin:@typescript-eslint/recommended",
 		"plugin:prettier/recommended",
@@ -18,5 +18,8 @@
 		}
 	},
 	"settings": {},
-	"rules": {}
+	"rules": {
+		"simple-import-sort/imports": "error",
+		"simple-import-sort/exports": "error"
+	}
 }

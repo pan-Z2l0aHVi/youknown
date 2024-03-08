@@ -1,10 +1,9 @@
 import './tag.scss'
 
-import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
-import { TbX } from 'react-icons/tb'
-
 import { useBoolean } from '@youknown/react-hook/src'
 import { cls } from '@youknown/utils/src'
+import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
+import { TbX } from 'react-icons/tb'
 
 import { UI_PREFIX } from '../../constants'
 import Loading from '../loading'

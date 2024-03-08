@@ -1,7 +1,6 @@
+import { Button, Card, Divider, Loading, Space } from '@youknown/react-ui/src'
 import { useState } from 'react'
 import { TbLoader } from 'react-icons/tb'
-
-import { Button, Card, Divider, Loading, Space } from '@youknown/react-ui/src'
 
 export default () => {
 	const [spinning, setSpinning] = useState(true)

@@ -1,3 +1,7 @@
+import { useBoolean } from '@youknown/react-hook/src'
+import type { Editor } from '@youknown/react-rte/src'
+import { Dialog, Divider, Dropdown, Toast } from '@youknown/react-ui/src'
+import { cls, QS } from '@youknown/utils/src'
 import copy from 'copy-to-clipboard'
 import hljs from 'highlight.js/lib/core'
 import { useState } from 'react'
@@ -16,11 +20,6 @@ import { is_dark_theme_getter, useUIStore } from '@/stores'
 import { format_time } from '@/utils'
 import { download_html, open_html } from '@/utils/exports'
 import { with_api } from '@/utils/request'
-import { useBoolean } from '@youknown/react-hook/src'
-import { Dialog, Divider, Dropdown, Toast } from '@youknown/react-ui/src'
-import { cls, QS } from '@youknown/utils/src'
-
-import type { Editor } from '@youknown/react-rte/src'
 interface DocOptionsDropdownProps {
 	doc_id: string
 	doc_info?: Doc

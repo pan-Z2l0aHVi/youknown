@@ -1,17 +1,3 @@
-import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { RiUserFollowLine, RiUserUnfollowLine } from 'react-icons/ri'
-import { TbUserCheck, TbUserEdit, TbX } from 'react-icons/tb'
-import { useSearchParams } from 'react-router-dom'
-
-import { follow_user, get_user_info, unfollow_user, update_profile } from '@/apis/user'
-import Header from '@/app/components/header'
-import TabBar from '@/app/components/tab-bar'
-import { IMAGE_ACCEPT } from '@/consts'
-import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
-import { format_time } from '@/utils'
-import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
-import { with_api } from '@/utils/request'
 import { useBoolean, useFetch } from '@youknown/react-hook/src'
 import {
 	AspectRatio,
@@ -26,6 +12,20 @@ import {
 	Upload
 } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { RiUserFollowLine, RiUserUnfollowLine } from 'react-icons/ri'
+import { TbUserCheck, TbUserEdit, TbX } from 'react-icons/tb'
+import { useSearchParams } from 'react-router-dom'
+
+import { follow_user, get_user_info, unfollow_user, update_profile } from '@/apis/user'
+import Header from '@/app/components/header'
+import TabBar from '@/app/components/tab-bar'
+import { IMAGE_ACCEPT } from '@/consts'
+import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
+import { format_time } from '@/utils'
+import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
+import { with_api } from '@/utils/request'
 
 import Entires from './components/entries'
 import MyOptions from './components/my-options'

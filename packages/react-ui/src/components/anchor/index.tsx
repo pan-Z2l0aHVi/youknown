@@ -1,5 +1,7 @@
 import './anchor.scss'
 
+import { useComposeRef, useEvent } from '@youknown/react-hook/src'
+import { cls, is } from '@youknown/utils/src'
 import {
 	ForwardedRef,
 	forwardRef,
@@ -13,9 +15,6 @@ import {
 	useState
 } from 'react'
 import scrollIntoView from 'scroll-into-view-if-needed'
-
-import { useComposeRef, useEvent } from '@youknown/react-hook/src'
-import { cls, is } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import { flattenArray } from '../../utils/flattenArray'

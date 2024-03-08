@@ -1,8 +1,3 @@
-import { ReactNode, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-
-import { useModalStore, useUIStore, useUserStore } from '@/stores'
-import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { RTEMenuBar } from '@youknown/react-rte/src/components/menu-bar'
 import { RTEContent } from '@youknown/react-rte/src/components/rich-text-content'
 import Blockquote from '@youknown/react-rte/src/extensions/blockquote'
@@ -16,6 +11,11 @@ import Strike from '@youknown/react-rte/src/extensions/strike'
 import TextColor from '@youknown/react-rte/src/extensions/text-color'
 import { useRTE } from '@youknown/react-rte/src/hooks/useRTE'
 import { Avatar, Button, Image as ImageUI, Space, Toast } from '@youknown/react-ui/src'
+import { ReactNode, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { useModalStore, useUIStore, useUserStore } from '@/stores'
+import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 
 interface CommentEditorProps {
 	auto_focus?: boolean

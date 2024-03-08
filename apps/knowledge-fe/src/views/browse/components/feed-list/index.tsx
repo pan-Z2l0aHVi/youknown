@@ -1,10 +1,10 @@
+import { useInfinity } from '@youknown/react-hook/src'
 import { useEffect, useRef } from 'react'
 
 import { get_feed_list, GetFeedListParams } from '@/apis/feed'
 import MoreLoading from '@/components/more-loading'
 import NoMore from '@/components/no-more'
 import { useUserStore } from '@/stores'
-import { useInfinity } from '@youknown/react-hook/src'
 
 import FeedItem from './components/feed-item'
 

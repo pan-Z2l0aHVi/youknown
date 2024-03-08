@@ -1,5 +1,3 @@
-import { DependencyList } from 'react'
-
 import CharacterCount from '@tiptap/extension-character-count'
 import Document from '@tiptap/extension-document'
 import Dropcursor from '@tiptap/extension-dropcursor'
@@ -10,6 +8,7 @@ import Paragraph from '@tiptap/extension-paragraph'
 import Placeholder, { PlaceholderOptions } from '@tiptap/extension-placeholder'
 import Text from '@tiptap/extension-text'
 import { EditorOptions, useEditor } from '@tiptap/react'
+import { DependencyList } from 'react'
 
 interface RTEOptions extends Partial<EditorOptions> {
 	placeholder?: PlaceholderOptions['placeholder']

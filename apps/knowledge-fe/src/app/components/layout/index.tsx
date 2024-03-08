@@ -1,8 +1,7 @@
-import { Suspense } from 'react'
-import { Outlet } from 'react-router-dom'
-
 import { Loading } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+import { Suspense } from 'react'
+import { Outlet } from 'react-router-dom'
 
 import Banner from '../banner'
 import KeepAliveOutlet from '../keep-alive-outlet'

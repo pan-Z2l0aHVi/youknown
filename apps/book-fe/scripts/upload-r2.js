@@ -1,7 +1,7 @@
-import path from 'path'
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import fs from 'fs'
 import mime from 'mime-types'
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import path from 'path'
 
 const BUCKET = 'youknown'
 const ACCOUNT_ID = '70bc20cd210d1c9e762acb3786056b90'

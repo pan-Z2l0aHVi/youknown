@@ -1,9 +1,8 @@
+import { Collapse, Fade, Grow, Slide, Zoom } from '@mui/material'
+import { useComposeRef } from '@youknown/react-hook/src'
 import { cloneElement, ForwardedRef, forwardRef, HTMLAttributes, isValidElement, useRef } from 'react'
 import { Transition } from 'react-transition-group'
 import { TransitionProps } from 'react-transition-group/Transition'
-
-import { Collapse, Fade, Grow, Slide, Zoom } from '@mui/material'
-import { useComposeRef } from '@youknown/react-hook/src'
 
 interface StretchProps
 	extends Pick<

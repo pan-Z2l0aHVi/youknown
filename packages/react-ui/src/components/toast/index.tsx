@@ -1,8 +1,7 @@
+import { is, uuid } from '@youknown/utils/src'
 import { ComponentProps, CSSProperties, MouseEvent, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { FaCircleCheck, FaCircleExclamation, FaCircleInfo, FaCircleXmark } from 'react-icons/fa6'
-
-import { is, uuid } from '@youknown/utils/src'
 
 import { render as renderReactRoot } from '../../utils/renderReactRoot'
 import Toast from './Toast'

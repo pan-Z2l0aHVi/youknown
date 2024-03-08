@@ -15,6 +15,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+
 import { useInfinity } from '@/hooks'
 
 const LIST_TOTAL = 204

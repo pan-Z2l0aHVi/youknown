@@ -1,13 +1,12 @@
 import './index.scss'
 
+import { useControllable } from '@youknown/react-hook/src'
+import { Button, Divider, Popover, Tooltip } from '@youknown/react-ui/src'
+import { cls, omit } from '@youknown/utils/src'
 import { ComponentProps, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BiSolidChevronDown } from 'react-icons/bi'
 import { RiMarkPenLine } from 'react-icons/ri'
-
-import { useControllable } from '@youknown/react-hook/src'
-import { Button, Divider, Popover, Tooltip } from '@youknown/react-ui/src'
-import { cls, omit } from '@youknown/utils/src'
 
 import { ButtonProps, UI_EDITOR_PREFIX } from '../../common'
 import CommandBtn from '../command-btn'

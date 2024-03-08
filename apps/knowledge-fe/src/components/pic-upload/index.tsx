@@ -1,9 +1,9 @@
+import { Image, Progress, Upload } from '@youknown/react-ui/src'
 import { ComponentProps, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { IMAGE_ACCEPT } from '@/consts'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
-import { Image, Progress, Upload } from '@youknown/react-ui/src'
 
 type UploadFile = Required<ComponentProps<typeof Upload>>['value']
 interface PicUploadProps {

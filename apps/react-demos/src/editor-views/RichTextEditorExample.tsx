@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-
 import {
 	Blockquote,
 	Bold,
@@ -25,6 +23,7 @@ import {
 } from '@youknown/react-rte/src'
 import { Divider } from '@youknown/react-ui/src'
 import { delay } from '@youknown/utils/src'
+import { useEffect } from 'react'
 
 let index = -1
 export default () => {

@@ -1,8 +1,7 @@
 import './avatar.scss'
 
-import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode, useContext } from 'react'
-
 import { cls, is } from '@youknown/utils/src'
+import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode, useContext } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 import Image from '../image/Image'

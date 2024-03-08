@@ -1,6 +1,5 @@
-import { useState } from 'react'
-
 import { Divider, Slider, Space } from '@youknown/react-ui/src'
+import { useState } from 'react'
 
 export default () => {
 	const [value, setValue] = useState(70)

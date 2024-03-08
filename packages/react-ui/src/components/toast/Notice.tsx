@@ -1,5 +1,6 @@
 import './notice.scss'
 
+import { cls } from '@youknown/utils/src'
 import {
 	ForwardedRef,
 	forwardRef,
@@ -10,8 +11,6 @@ import {
 	useEffect,
 	useRef
 } from 'react'
-
-import { cls } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 

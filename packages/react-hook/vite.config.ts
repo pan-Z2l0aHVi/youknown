@@ -1,9 +1,8 @@
+import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import styleInject from 'vite-plugin-css-injected-by-js'
 import tsconfigPaths from 'vite-tsconfig-paths'
-
-import react from '@vitejs/plugin-react'
 
 export default defineConfig({
 	base: '',

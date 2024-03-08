@@ -1,9 +1,8 @@
 import './drawer.scss'
 
+import { cls } from '@youknown/utils/src'
 import { CSSProperties, FC, HTMLAttributes } from 'react'
 import { createPortal } from 'react-dom'
-
-import { cls } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import { useEscape } from '../../hooks/useEscape'

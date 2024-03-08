@@ -1,11 +1,10 @@
 import './index.scss'
 
+import { Toast } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 import copy from 'copy-to-clipboard'
 import { useTranslation } from 'react-i18next'
 import { TbCopy } from 'react-icons/tb'
-
-import { Toast } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
 
 import { ButtonProps, UI_EDITOR_PREFIX } from '../../../../../../common'
 import CommandBtn from '../../../../../command-btn'

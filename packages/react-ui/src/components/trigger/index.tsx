@@ -1,18 +1,6 @@
 import './trigger.scss'
 
 import {
-	Children,
-	cloneElement,
-	ForwardedRef,
-	forwardRef,
-	HTMLAttributes,
-	isValidElement,
-	ReactNode,
-	useRef
-} from 'react'
-import { createPortal } from 'react-dom'
-
-import {
 	autoUpdate,
 	flip,
 	offset,
@@ -30,6 +18,17 @@ import {
 } from '@floating-ui/react'
 import { useControllable } from '@youknown/react-hook/src'
 import { checkHoverSupported, omit } from '@youknown/utils/src'
+import {
+	Children,
+	cloneElement,
+	ForwardedRef,
+	forwardRef,
+	HTMLAttributes,
+	isValidElement,
+	ReactNode,
+	useRef
+} from 'react'
+import { createPortal } from 'react-dom'
 
 import { UI_PREFIX } from '../../constants'
 import { useZIndex } from '../../hooks/useZIndex'

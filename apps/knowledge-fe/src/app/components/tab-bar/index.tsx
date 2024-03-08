@@ -1,10 +1,10 @@
+import { cls } from '@youknown/utils/src'
 import { useTranslation } from 'react-i18next'
 import { TbBook2, TbInnerShadowBottom, TbSmartHome, TbVersions } from 'react-icons/tb'
 import { useMatches } from 'react-router-dom'
 
 import TransitionNavLink from '@/components/transition-nav-link'
 import { is_dark_theme_getter, useUIStore } from '@/stores'
-import { cls } from '@youknown/utils/src'
 
 export default function TabBar() {
 	const { t } = useTranslation()

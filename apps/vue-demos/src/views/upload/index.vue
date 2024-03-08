@@ -10,9 +10,10 @@
 </template>
 
 <script setup lang="ts">
-import { net } from '@/utils/request'
 import { storage } from '@youknown/utils/src'
 import { ref } from 'vue'
+
+import { net } from '@/utils/request'
 
 let token: string = storage.session.get('cdn_token') ?? ''
 const initCDNToken = async () => {

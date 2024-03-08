@@ -1,12 +1,12 @@
+import { useEvent } from '@youknown/react-hook/src'
+import { Button, Dialog, Input, Space } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 import { useDeferredValue, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbSearch, TbTrash } from 'react-icons/tb'
 
 import Header from '@/app/components/header'
 import { is_dark_theme_getter, useRecordStore, useUIStore } from '@/stores'
-import { useEvent } from '@youknown/react-hook/src'
-import { Button, Dialog, Input, Space } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
 
 import RecordList from './components/record-list'
 

@@ -1,8 +1,7 @@
 import './avatar-group.scss'
 
-import { FC, HTMLAttributes } from 'react'
-
 import { cls } from '@youknown/utils/src'
+import { FC, HTMLAttributes } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 import { AvatarCtx } from './avatarCtx'

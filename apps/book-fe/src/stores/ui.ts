@@ -1,9 +1,9 @@
+import { checkDarkMode, checkMobile, delay, onDarkModeChange, onMobileChange, setRootStyle } from '@youknown/utils/src'
 import { cloneDeep } from 'lodash-es'
 import { create, StateCreator } from 'zustand'
 import { createJSONStorage, persist, subscribeWithSelector } from 'zustand/middleware'
 
 import { change_i18n_lang } from '@/utils/i18n'
-import { checkDarkMode, checkMobile, delay, onDarkModeChange, onMobileChange, setRootStyle } from '@youknown/utils/src'
 
 export const enum THEME {
 	LIGHT = 1,
@@ -37,7 +37,6 @@ export interface UIState {
 	set_menu_drawer_open: (open: boolean) => void
 }
 
-let timer = 0
 const ui_state_creator: StateCreator<UIState> = (set, get) => ({
 	is_mobile: checkMobile(),
 	progress_percent: 0,
@@ -71,7 +70,7 @@ const ui_state_creator: StateCreator<UIState> = (set, get) => ({
 		}
 		const roll_step = async () => {
 			const { progress_percent, progress_visible } = get()
-			const next_per = Math.min(progress_percent + roll_step_percent())
+			const next_per = progress_percent + roll_step_percent()
 			if (next_per > 95 || !progress_visible) {
 				return
 			}
@@ -81,19 +80,12 @@ const ui_state_creator: StateCreator<UIState> = (set, get) => ({
 		}
 		set_progress_percent(0)
 		show_progress()
-		// 防止 batching update
-		await delay(0)
-		set_progress_percent(roll_step_percent())
 		roll_step()
 	},
 
 	stop_progress: async () => {
 		const { set_progress_percent, hide_progress } = get()
-		// 防止 batching update
-		await delay(0)
 		set_progress_percent(100)
-		clearTimeout(timer)
-		timer = await delay(300)
 		hide_progress()
 	},
 

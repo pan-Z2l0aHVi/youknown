@@ -1,9 +1,8 @@
+import { Button, Popover, Space } from '@youknown/react-ui/src'
 import { useTranslation } from 'react-i18next'
 import { MdOutlineWifiTetheringErrorRounded } from 'react-icons/md'
 import { TbHome, TbReload } from 'react-icons/tb'
 import { useRouteError } from 'react-router-dom'
-
-import { Button, Popover, Space } from '@youknown/react-ui/src'
 
 export default function ErrorBoundary() {
 	const error = useRouteError() as Error

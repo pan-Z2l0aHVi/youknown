@@ -1,6 +1,5 @@
-import { TbUser } from 'react-icons/tb'
-
 import { Avatar, Divider, Space } from '@youknown/react-ui/src'
+import { TbUser } from 'react-icons/tb'
 
 export default () => {
 	const picSrc = 'https://iph.href.lu/200x200'

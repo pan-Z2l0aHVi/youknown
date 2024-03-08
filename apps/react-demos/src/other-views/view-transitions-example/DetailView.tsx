@@ -1,7 +1,6 @@
-import { useNavigate, useParams } from 'react-router-dom'
-
 import { useStartViewTransition } from '@youknown/react-hook/src'
 import { Button, Image } from '@youknown/react-ui/src'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { list } from './data'
 

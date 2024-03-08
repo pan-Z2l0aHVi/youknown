@@ -1,5 +1,7 @@
 import './upload.scss'
 
+import { useComposeRef, useControllable } from '@youknown/react-hook/src'
+import { cls, omit, uuid } from '@youknown/utils/src'
 import {
 	ChangeEventHandler,
 	ForwardedRef,
@@ -10,9 +12,6 @@ import {
 	useState
 } from 'react'
 import { TbPlus } from 'react-icons/tb'
-
-import { useComposeRef, useControllable } from '@youknown/react-hook/src'
-import { cls, omit, uuid } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Loading from '../loading'

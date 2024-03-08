@@ -1,12 +1,12 @@
+import { useBoolean } from '@youknown/react-hook/src'
+import { Button, Loading, Space, Tooltip } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 import { Suspense, useEffect } from 'react'
 import { CgDarkMode } from 'react-icons/cg'
 import { TbMenu2 } from 'react-icons/tb'
 import { NavLink, Outlet } from 'react-router-dom'
 
 import { componentRoutes } from '@/router'
-import { useBoolean } from '@youknown/react-hook/src'
-import { Button, Loading, Space, Tooltip } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
 
 const App = () => {
 	const [isDark, { setReverse: toggleDark }] = useBoolean(false)

@@ -1,6 +1,5 @@
-import { HTMLAttributes } from 'react'
-
 import { cls } from '@youknown/utils/src'
+import { HTMLAttributes } from 'react'
 
 interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
 	level?: number

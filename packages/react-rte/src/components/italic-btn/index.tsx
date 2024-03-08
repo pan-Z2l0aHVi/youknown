@@ -1,9 +1,8 @@
 import './index.scss'
 
+import { cls } from '@youknown/utils/src'
 import { useTranslation } from 'react-i18next'
 import { PiTextItalicBold } from 'react-icons/pi'
-
-import { cls } from '@youknown/utils/src'
 
 import { ButtonProps, UI_EDITOR_PREFIX } from '../../common'
 import CommandBtn from '../command-btn'

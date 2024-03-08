@@ -1,7 +1,6 @@
+import { Button, Divider, Progress, Space } from '@youknown/react-ui/src'
 import { useState } from 'react'
 import { TbMinus, TbPlus } from 'react-icons/tb'
-
-import { Button, Divider, Progress, Space } from '@youknown/react-ui/src'
 
 export default () => {
 	const [percent, setPercent] = useState(70)

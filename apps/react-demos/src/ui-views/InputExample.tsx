@@ -1,7 +1,6 @@
+import { Button, Divider, Input, Space } from '@youknown/react-ui/src'
 import { useRef, useState } from 'react'
 import { TbEyeOff, TbSearch } from 'react-icons/tb'
-
-import { Button, Divider, Input, Space } from '@youknown/react-ui/src'
 
 export default () => {
 	const [inputVal, setInputVal] = useState('Controlled input')

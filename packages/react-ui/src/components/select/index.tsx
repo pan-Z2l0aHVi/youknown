@@ -1,5 +1,7 @@
 import './select.scss'
 
+import { useBoolean, useControllable, useEvent, useIntersection, useLatestRef } from '@youknown/react-hook/src'
+import { cls, is, omit } from '@youknown/utils/src'
 import {
 	ComponentProps,
 	CSSProperties,
@@ -14,9 +16,6 @@ import {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbCheck, TbSelector } from 'react-icons/tb'
-
-import { useBoolean, useControllable, useEvent, useIntersection, useLatestRef } from '@youknown/react-hook/src'
-import { cls, is, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Divider from '../divider'

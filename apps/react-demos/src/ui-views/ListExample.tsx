@@ -1,6 +1,5 @@
-import { useState } from 'react'
-
 import { Avatar, Divider, List, Tabs } from '@youknown/react-ui/src'
+import { useState } from 'react'
 
 export default () => {
 	const [size, setSize] = useState<'small' | 'medium' | 'large'>('small')

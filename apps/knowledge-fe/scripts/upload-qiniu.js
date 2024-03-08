@@ -1,5 +1,5 @@
-import path from 'path'
 import fs from 'fs'
+import path from 'path'
 import qiniu from 'qiniu'
 
 // 七牛云cdn配置信息

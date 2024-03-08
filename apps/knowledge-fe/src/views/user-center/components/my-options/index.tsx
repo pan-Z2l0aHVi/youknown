@@ -1,10 +1,10 @@
+import { List } from '@youknown/react-ui/src'
 import { useTranslation } from 'react-i18next'
 import { LuSettings2 } from 'react-icons/lu'
 import { TbChevronRight, TbLogin, TbLogout } from 'react-icons/tb'
 
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { useModalStore, useUserStore } from '@/stores'
-import { List } from '@youknown/react-ui/src'
 
 export default function MyOptions() {
 	const { t } = useTranslation()

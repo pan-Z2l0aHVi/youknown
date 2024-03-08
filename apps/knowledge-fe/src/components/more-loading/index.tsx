@@ -1,7 +1,6 @@
+import { Loading } from '@youknown/react-ui/src'
 import { ForwardedRef, forwardRef } from 'react'
 import { useTranslation } from 'react-i18next'
-
-import { Loading } from '@youknown/react-ui/src'
 
 interface MoreLoadingProps {
 	loading_text?: string

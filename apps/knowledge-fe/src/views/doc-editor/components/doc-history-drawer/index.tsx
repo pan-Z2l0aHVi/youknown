@@ -1,5 +1,8 @@
 import './html-diff.scss'
 
+import { useInfinity } from '@youknown/react-hook/src'
+import { Button, Drawer, Select } from '@youknown/react-ui/src'
+import { cls, is } from '@youknown/utils/src'
 import dayjs from 'dayjs'
 import diff from 'html-diff-ts'
 import { useEffect, useMemo, useState } from 'react'
@@ -8,9 +11,6 @@ import { TbCheck } from 'react-icons/tb'
 
 import { get_doc_drafts } from '@/apis/doc'
 import { is_dark_theme_getter, useUIStore } from '@/stores'
-import { useInfinity } from '@youknown/react-hook/src'
-import { Button, Drawer, Select } from '@youknown/react-ui/src'
-import { cls, is } from '@youknown/utils/src'
 
 interface DocHistoryDrawerProps {
 	open: boolean

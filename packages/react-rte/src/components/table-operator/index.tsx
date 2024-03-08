@@ -1,12 +1,11 @@
 import './index.scss'
 
-import { ComponentProps } from 'react'
-import { useTranslation } from 'react-i18next'
-import { TbTableOptions } from 'react-icons/tb'
-
 import { useControllable } from '@youknown/react-hook/src'
 import { Divider, Popover, Space } from '@youknown/react-ui/src'
 import { cls, omit } from '@youknown/utils/src'
+import { ComponentProps } from 'react'
+import { useTranslation } from 'react-i18next'
+import { TbTableOptions } from 'react-icons/tb'
 
 import { ButtonProps, UI_EDITOR_PREFIX } from '../../common'
 import CommandBtn from '../command-btn'

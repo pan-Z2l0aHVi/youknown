@@ -1,9 +1,8 @@
 import './index.scss'
 
+import { cls } from '@youknown/utils/src'
 import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
 import { TbX } from 'react-icons/tb'
-
-import { cls } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 

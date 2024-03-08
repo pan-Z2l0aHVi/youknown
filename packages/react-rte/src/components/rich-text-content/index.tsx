@@ -1,10 +1,9 @@
 import './index.scss'
 import '@youknown/css/src/rte.scss'
 
-import { ComponentProps } from 'react'
-
 import { EditorContent } from '@tiptap/react'
 import { cls } from '@youknown/utils/src'
+import { ComponentProps } from 'react'
 
 import { UI_EDITOR_PREFIX } from '../../common'
 import { Bubble, BubbleListItem } from '../bubble'

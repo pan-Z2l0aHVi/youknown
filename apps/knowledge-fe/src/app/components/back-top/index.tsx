@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react'
-import { TbArrowBarToUp } from 'react-icons/tb'
-
 import { useDebounce } from '@youknown/react-hook/src'
 import { Button, Motion } from '@youknown/react-ui/src'
 import { is } from '@youknown/utils/src'
+import { useEffect, useState } from 'react'
+import { TbArrowBarToUp } from 'react-icons/tb'
 
 interface BackTopProps {
 	threshold?: number

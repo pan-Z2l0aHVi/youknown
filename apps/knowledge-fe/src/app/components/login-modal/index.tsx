@@ -1,8 +1,8 @@
+import { CloseIcon, Dialog } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 import { useTranslation } from 'react-i18next'
 
 import { is_dark_theme_getter, useModalStore, useUIStore } from '@/stores'
-import { CloseIcon, Dialog } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
 
 import GithubCard from './components/github-card'
 import WeChatCard from './components/wechat-card'

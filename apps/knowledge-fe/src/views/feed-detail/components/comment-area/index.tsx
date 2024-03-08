@@ -1,12 +1,12 @@
 import './index.scss'
 
+import { useEvent, useInfinity } from '@youknown/react-hook/src'
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Comment, Feed, get_comment_list, SubComment } from '@/apis/feed'
 import MoreLoading from '@/components/more-loading'
 import NoMore from '@/components/no-more'
-import { useEvent, useInfinity } from '@youknown/react-hook/src'
 
 import { CommentContext } from './comment-context'
 import CommentCreate from './components/comment-create'

@@ -1,5 +1,7 @@
 import './input.scss'
 
+import { useBoolean, useComposeRef, useControllable } from '@youknown/react-hook/src'
+import { cls, omit } from '@youknown/utils/src'
 import {
 	ChangeEventHandler,
 	FocusEventHandler,
@@ -13,9 +15,6 @@ import {
 	useRef
 } from 'react'
 import { IoMdCloseCircle } from 'react-icons/io'
-
-import { useBoolean, useComposeRef, useControllable } from '@youknown/react-hook/src'
-import { cls, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Textarea from './Textarea'

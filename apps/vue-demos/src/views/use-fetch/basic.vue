@@ -9,8 +9,9 @@
 </template>
 
 <script setup lang="ts">
-import uuid from '@/utils/uuid'
 import { ref } from 'vue'
+
+import uuid from '@/utils/uuid'
 
 let reqID = 0
 const mockRequest = () =>

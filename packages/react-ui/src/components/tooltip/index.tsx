@@ -1,8 +1,7 @@
 import './tooltip.scss'
 
-import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, isValidElement, ReactNode } from 'react'
-
 import { checkHoverSupported, cls, pick, pickDataAttrs } from '@youknown/utils/src'
+import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, isValidElement, ReactNode } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 import Trigger, { EventsByTriggerNeed } from '../trigger'

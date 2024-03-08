@@ -1,11 +1,10 @@
 import '@youknown/css/src/rte.scss'
 
+import type { MDXComponents } from 'mdx/types'
 import { isValidElement } from 'react'
 
 import ButtonMDX from './button.mdx'
 import CodeBlock from './code-block'
-
-import type { MDXComponents } from 'mdx/types'
 const components: MDXComponents = {
 	pre: props => {
 		if (isValidElement(props.children)) {

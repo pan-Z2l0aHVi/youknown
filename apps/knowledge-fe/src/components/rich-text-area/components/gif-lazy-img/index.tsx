@@ -1,9 +1,9 @@
-import { HTMLAttributes, useCallback, useEffect, useRef, useState } from 'react'
-
-import { parse_gif_frame } from '@/utils/gif'
 import { useBoolean, useIntersection } from '@youknown/react-hook/src'
 import { Loading } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+import { HTMLAttributes, useCallback, useEffect, useRef, useState } from 'react'
+
+import { parse_gif_frame } from '@/utils/gif'
 
 interface GIFLazyImageProps extends HTMLAttributes<HTMLElement> {
 	src: string

@@ -1,7 +1,6 @@
+import { checkElementInContainer, is, omit } from '@youknown/utils/src'
 import { MutableRefObject, SetStateAction, useState } from 'react'
 import { flushSync } from 'react-dom'
-
-import { checkElementInContainer, is, omit } from '@youknown/utils/src'
 
 import { useCreation } from './useCreation'
 import { useEvent } from './useEvent'

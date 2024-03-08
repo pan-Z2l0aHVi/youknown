@@ -13,6 +13,7 @@ import {
 	useRef,
 	useState
 } from 'react'
+import type { Area, Point } from 'react-easy-crop'
 import Cropper from 'react-easy-crop'
 import { useTranslation } from 'react-i18next'
 import {
@@ -35,8 +36,6 @@ import Overlay from '../overlay'
 import Slider from '../slider'
 import Space from '../space'
 import Tooltip from '../tooltip'
-
-import type { Area, Point } from 'react-easy-crop'
 interface ImageCropperProps {
 	file: File
 	title?: ReactNode

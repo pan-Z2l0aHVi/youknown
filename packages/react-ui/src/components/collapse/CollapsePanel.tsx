@@ -1,9 +1,8 @@
 import './collapse-panel.scss'
 
+import { cls, omit } from '@youknown/utils/src'
 import { FC, HTMLAttributes, ReactNode } from 'react'
 import { TbChevronDown } from 'react-icons/tb'
-
-import { cls, omit } from '@youknown/utils/src'
 
 import { UI_PREFIX } from '../../constants'
 import Motion from '../motion'

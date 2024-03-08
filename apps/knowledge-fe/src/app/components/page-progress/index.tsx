@@ -1,5 +1,6 @@
-import { useUIStore } from '@/stores'
 import { Motion, Progress } from '@youknown/react-ui/src'
+
+import { useUIStore } from '@/stores'
 
 export default function PageProgress() {
 	const percent = useUIStore(state => state.progress_percent)
