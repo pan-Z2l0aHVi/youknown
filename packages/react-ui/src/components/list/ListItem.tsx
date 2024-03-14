@@ -1,9 +1,10 @@
 import './list-item.scss'
 
 import { cls } from '@youknown/utils/src'
-import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode, useContext } from 'react'
 
 import { UI_PREFIX } from '../../constants'
+import { ListCtx } from './ListCtx'
 
 interface ListItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'prefix'> {
 	prefix?: ReactNode
@@ -13,7 +14,16 @@ interface ListItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'prefix'> {
 }
 
 const ListItem = (props: ListItemProps, propRef: ForwardedRef<HTMLDivElement>) => {
-	const { className, children, size = 'medium', bordered = true, prefix, suffix, ...rest } = props
+	const listCtx = useContext(ListCtx)
+	const {
+		className,
+		children,
+		prefix,
+		suffix,
+		size = listCtx.size ?? 'medium',
+		bordered = listCtx.bordered ?? true,
+		...rest
+	} = props
 
 	const prefixCls = `${UI_PREFIX}-list-item`
 

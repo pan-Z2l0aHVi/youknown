@@ -73,13 +73,13 @@ export default function Demo(props: DemoProps) {
 			<Header heading={heading}></Header>
 
 			<div
-				className={cls('rich-text-container sm:p-32px <sm:p-16px! sm:m-[0_auto] sm:w-960px', {
+				className={cls('rich-text-container <sm:p-16px! sm:p-32px sm:m-[0_auto]', {
 					flex: with_anchor
 				})}
 			>
 				{with_anchor ? (
 					<>
-						<div className="flex-1">
+						<div className="w-720px">
 							<Component components={components} />
 						</div>
 						<Anchor

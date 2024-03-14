@@ -13,11 +13,11 @@ export const picSrc = 'https://iph.href.lu/879x400'
 export function ImageCanPreview() {
   return (
     <>
-      <Image canPreview src={picSrc} width="300px" />
+      <Image canPreview previewSrc={picSrc} src={picSrc} width="300px" />
       <Divider />
-      <Image canPreview src={picSrc} width="300px" minZoom={0.5} maxZoom={2} />
+      <Image canPreview previewSrc={picSrc} src={picSrc} width="300px" minZoom={0.5} maxZoom={2} />
       <Divider />
-      <Image canPreview toolbarVisible={false} src={picSrc} width="300px" />
+      <Image canPreview previewSrc={picSrc} toolbarVisible={false} src={picSrc} width="300px" />
     </>
   )
 }
@@ -33,11 +33,11 @@ export default () => {
   const picSrc = 'https://iph.href.lu/879x400'
   return (
     <>
-      <Image canPreview src={picSrc} width="300px" />
+      <Image canPreview previewSrc={picSrc} src={picSrc} width="300px" />
       <Divider />
-      <Image canPreview src={picSrc} width="300px" minZoom={0.5} maxZoom={2} />
+      <Image canPreview previewSrc={picSrc} src={picSrc} width="300px" minZoom={0.5} maxZoom={2} />
       <Divider />
-      <Image canPreview toolbarVisible={false} src={picSrc} width="300px" />
+      <Image canPreview previewSrc={picSrc} toolbarVisible={false} src={picSrc} width="300px" />
     </>
   )
 }

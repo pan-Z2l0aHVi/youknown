@@ -132,7 +132,7 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 
 	const operatorBar = (
 		<div className={`${prefixCls}-operator-bar`}>
-			<Space size="large" align="center">
+			<Space size="large" align="center" wrap={false}>
 				<Tooltip title={t('react_ui.rotate_counterclockwise')}>
 					<Button circle text disabled={rotation <= -180}>
 						<TbRotate size={18} onClick={() => setRotation(p => p - 1)} />
@@ -152,7 +152,7 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 				</Tooltip>
 			</Space>
 
-			<Space size="large" align="center">
+			<Space size="large" align="center" wrap={false}>
 				<Tooltip title={t('react_ui.zoom.out')}>
 					<Button circle text disabled={zoom <= minZoom}>
 						<TbZoomOut size={18} onClick={() => setZoom(p => Math.max(minZoom, p - 0.1))} />
@@ -173,7 +173,7 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 			</Space>
 
 			{aspectRatioFixed || (
-				<Space size="large" align="center">
+				<Space size="large" align="center" wrap={false}>
 					<Tooltip title={t('react_ui.narrower')}>
 						<Button circle text disabled={aspectRatio <= 0.25}>
 							<TbViewportNarrow size={18} onClick={() => setAspectRatio(p => p - 0.01)} />

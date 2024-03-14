@@ -1,9 +1,9 @@
 import { useMemo, useRef } from 'react'
 
-type noop = (this: any, ...args: any[]) => any
-type PickFunction<T extends noop> = (this: ThisParameterType<T>, ...args: Parameters<T>) => ReturnType<T>
+type Fn = (this: any, ...args: any[]) => any
+type PickFunction<T extends Fn> = (this: ThisParameterType<T>, ...args: Parameters<T>) => ReturnType<T>
 
-export function useEvent<T extends noop>(fn: T) {
+export function useEvent<T extends Fn>(fn: T) {
 	const fnRef = useRef<T>(fn)
 	// why not write `fnRef.current = fn`?
 	// https://github.com/alibaba/hooks/issues/728

@@ -102,7 +102,7 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 			`<body>
 				<article class="rich-text-container max-w-720px p-[8px_8px_8px_16px] m-[0_auto]">
 					<h1 class="text-center">${doc_info?.title ?? ''}</h1>
-					<img class="w-100% max-h-30vh min-h-40px object-cover rd-radius-m mb-40px" src=${doc_info?.cover}>
+					<img class="w-100% max-h-30vh min-h-40px object-cover b-1 b-solid b-divider rd-radius-m mb-40px" src=${doc_info?.cover}>
 					${get_highlighted_html()}
 				</article>
 			</body>`

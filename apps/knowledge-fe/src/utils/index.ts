@@ -70,14 +70,9 @@ export function parse_file_size_mb(size: number) {
 	return fileSizeInKB / 1024
 }
 
-let langs_ready = false
 export async function initHlsLangs() {
-	if (langs_ready) {
-		return
-	}
 	const { loadLanguages } = await import('@youknown/react-rte/src/utils/load-langs')
 	await loadLanguages()
-	langs_ready = true
 }
 
 export const DEFAULT_NODE_ID = 100

@@ -4,7 +4,7 @@ export const B_CODE = {
 	NOT_AUTH: 2
 }
 
-export const DOC_TITLE_MAX_LEN = 30
+export const DOC_TITLE_MAX_LEN = 50
 
 export const enum LOGIN_TYPE {
 	GITHUB = 1,

@@ -1,5 +1,5 @@
 import { Toast } from '@youknown/react-ui/src'
-import { ArgumentType, Net, PromiseFnResult } from '@youknown/utils/src'
+import { ArgumentType, Net } from '@youknown/utils/src'
 
 import { B_CODE } from '@/consts'
 
@@ -49,9 +49,9 @@ export const net = Net.create({
 type Fetcher = (...args: any[]) => Promise<any>
 export const with_api =
 	<T extends Fetcher>(fetcher: T) =>
-	async (...args: ArgumentType<T>[]): Promise<[null, PromiseFnResult<T>] | [NetFetchError, null]> => {
+	async (...args: ArgumentType<T>[]): Promise<[null, Awaited<ReturnType<T>>] | [NetFetchError, null]> => {
 		try {
-			const res: PromiseFnResult<T> = await fetcher(...args)
+			const res: Awaited<ReturnType<T>> = await fetcher(...args)
 			return [null, res]
 		} catch (err) {
 			return [err as NetFetchError, null]

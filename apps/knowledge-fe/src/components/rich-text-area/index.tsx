@@ -55,6 +55,7 @@ const RichTextArea = forwardRef((props: RichTextAreaProps, ref: ForwardedRef<HTM
 					return (
 						<Image
 							canPreview
+							previewSrc={src}
 							src={src}
 							style={{
 								width: parseFloat(width),

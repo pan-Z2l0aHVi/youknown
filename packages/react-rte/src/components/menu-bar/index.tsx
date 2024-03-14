@@ -25,12 +25,13 @@ type MenuListItem =
 	| 'textAlign'
 interface RTEMenuBarProps {
 	editor: Editor | null
+	className?: string
 	tooltip?: boolean
 	list?: MenuListItem[]
 	insertList?: insertListItem[]
 }
 export function RTEMenuBar(props: RTEMenuBarProps) {
-	const { editor, tooltip = true, list, insertList } = props
+	const { editor, className, tooltip = true, list, insertList } = props
 
 	const btnList = useMemo(() => {
 		const defaultList = [
@@ -85,7 +86,7 @@ export function RTEMenuBar(props: RTEMenuBarProps) {
 	})
 
 	return (
-		<Space className={cls(prefixCls)} align="center">
+		<Space className={cls(prefixCls, className)} align="center">
 			<UndoBtn editor={editor} tooltip={tooltip} />
 			<RedoBtn editor={editor} tooltip={tooltip} />
 			<EraserBtn editor={editor} tooltip={tooltip} />

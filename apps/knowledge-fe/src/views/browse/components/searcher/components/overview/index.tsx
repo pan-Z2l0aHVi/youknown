@@ -17,6 +17,7 @@ export default function Overview(props: OverviewProps) {
 				<Image
 					className="min-w-144px w-144px h-144px rd-radius-m shadow-shadow-l b-1 b-solid b-divider"
 					src={selection.subject.cover}
+					previewSrc={selection.subject.cover}
 					canPreview
 					alt="Cover"
 				/>

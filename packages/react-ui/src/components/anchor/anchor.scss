@@ -5,6 +5,7 @@ $prefix: '#{$ui-prefix}-anchor';
 	@include basic;
 
 	padding: 0 0 0 4px;
+	font-size: $font-size-s;
 
 	&-list {
 		padding: 0 0 0 4px;
@@ -16,7 +17,7 @@ $prefix: '#{$ui-prefix}-anchor';
 		cursor: pointer;
 		position: relative;
 		margin: 0;
-		padding: 4px 32px 4px 0;
+		padding: 4px 4px 4px 0;
 		border-radius: $radius-m;
 
 		&:hover {

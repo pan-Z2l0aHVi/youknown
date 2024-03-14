@@ -1,9 +1,10 @@
 import './list.scss'
 
 import { cls } from '@youknown/utils/src'
-import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, HTMLAttributes, isValidElement } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
 
 import { UI_PREFIX } from '../../constants'
+import { ListCtx } from './ListCtx'
 import ListItem from './ListItem'
 
 interface ListProps extends HTMLAttributes<HTMLDivElement> {
@@ -17,19 +18,17 @@ const List = (props: ListProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const prefixCls = `${UI_PREFIX}-list`
 
 	return (
-		<div
-			ref={propRef}
-			className={cls(className, prefixCls, {
-				[`${prefixCls}-bordered`]: bordered
-			})}
-			{...rest}
-		>
-			{Children.map(children, child => {
-				if (!isValidElement<ComponentProps<typeof ListItem>>(child)) return child
-
-				return cloneElement(child, { size, bordered })
-			})}
-		</div>
+		<ListCtx.Provider value={{ size, bordered }}>
+			<div
+				ref={propRef}
+				className={cls(className, prefixCls, {
+					[`${prefixCls}-bordered`]: bordered
+				})}
+				{...rest}
+			>
+				{children}
+			</div>
+		</ListCtx.Provider>
 	)
 }
 List.displayName = 'List'

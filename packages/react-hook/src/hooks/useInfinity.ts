@@ -85,24 +85,18 @@ export function useInfinity<T extends any[], S extends any[]>(
 		setNoMore(false)
 	})
 
-	const reload = useEvent(() => {
-		return new Promise((resolve, reject) => {
+	const reload = useEvent(async () => {
+		flushSync(() => {
 			reset()
-			// Warning: flushSync was called from inside a lifecycle method.
-			// React cannot flush when React is already rendering. Consider moving this call to a scheduler task or micro task.
-			Promise.resolve().then(() => {
-				flushSync(() => {
-					setData(p => {
-						return (p?.slice(0, initialPageSize) ?? []) as T
-					})
-				})
-				const root = opts.observerInit?.root
-				if (root instanceof HTMLElement) {
-					root.scrollTo(0, 0)
-				}
-				loadMore().then(resolve).catch(reject)
+			setData(p => {
+				return (p?.slice(0, initialPageSize) ?? []) as T
 			})
 		})
+		const root = opts.observerInit?.root
+		if (root instanceof HTMLElement) {
+			root.scrollTo(0, 0)
+		}
+		await loadMore()
 	})
 
 	return {

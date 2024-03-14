@@ -76,8 +76,9 @@ export default function CoverUpload(props: CoverUploadProps) {
 			{preview_cover || cover ? (
 				<div className="group relative">
 					<Image
-						className="w-100% max-h-30vh min-h-40px rd-radius-m"
+						className="w-100% max-h-30vh min-h-40px b-1 b-solid b-divider rd-radius-m"
 						src={updating ? preview_cover : cover}
+						previewSrc={updating ? preview_cover : cover}
 						canPreview
 						alt="Cover"
 					/>
@@ -114,7 +115,7 @@ export default function CoverUpload(props: CoverUploadProps) {
 				</div>
 			) : (
 				<Upload accept={IMAGE_ACCEPT} headless action={upload_cover} value={file_list} onChange={set_file_list}>
-					<div className="flex items-center w-max p-[4px_12px] sm:ml-16px bg-bg-2 rd-full color-text-2 [@media(hover:hover)]-hover-color-primary">
+					<div className="flex items-center w-max p-[4px_12px] bg-bg-2 rd-full color-text-2 [@media(hover:hover)]-hover-color-primary">
 						<TbPhotoPlus className="mr-8px text-16px" />
 						{t('cover.add')}
 					</div>

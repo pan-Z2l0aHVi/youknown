@@ -6,11 +6,11 @@ export default () => {
 		<div>
 			<h1>Image</h1>
 			<Divider />
-			<Image canPreview src={picSrc} width="300px" />
+			<Image canPreview previewSrc={picSrc} src={picSrc} width="300px" />
 			<Divider />
-			<Image canPreview src={picSrc} width="300px" minZoom={0.5} maxZoom={2} />
+			<Image canPreview previewSrc={picSrc} src={picSrc} width="300px" minZoom={0.5} maxZoom={2} />
 			<Divider />
-			<Image canPreview toolbarVisible={false} src={picSrc} width="300px" />
+			<Image canPreview previewSrc={picSrc} toolbarVisible={false} src={picSrc} width="300px" />
 			<Divider />
 			<Image src={picSrc} width="300px" />
 			<Divider />

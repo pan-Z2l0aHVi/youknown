@@ -309,7 +309,7 @@ export default function Doc() {
 				size="large"
 			>
 				<CoverUpload doc_id={doc_id} cover={doc_info?.cover} on_updated={set_doc_info} />
-				<RTEContent editor={editor} floating={!is_mobile} />
+				<RTEContent className="pl-0! pr-0!" editor={editor} floating={!is_mobile} />
 			</Loading>
 		</>
 	)

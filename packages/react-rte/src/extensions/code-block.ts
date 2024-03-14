@@ -1,7 +1,7 @@
 import TiptapCodeBlock, { CodeBlockLowlightOptions } from '@tiptap/extension-code-block-lowlight'
 
 import CodeBlockItem from '../components/code-block-item'
-import { lowlight } from '../utils/load-langs'
+import { loadLanguages, lowlight } from '../utils/load-langs'
 
 export default TiptapCodeBlock.extend<
 	CodeBlockLowlightOptions & {
@@ -16,5 +16,9 @@ export default TiptapCodeBlock.extend<
 			insert: CodeBlockItem,
 			floating: CodeBlockItem
 		}
+	},
+
+	onCreate() {
+		loadLanguages()
 	}
 })

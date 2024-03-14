@@ -39,9 +39,8 @@ export default function Wallpapers() {
 	const loading_ref = useRef<HTMLDivElement>(null)
 	const wrapper_ref = useRef<HTMLDivElement>(null)
 
-	const default_keywords = useCreation(
-		() => search_params.get('keywords') ?? storage.session.get(FILTER_KEYWORDS_KEY) ?? ''
-	)
+	const keywords_query_initial = useCreation(() => search_params.get('keywords'))
+	const default_keywords = useCreation(() => keywords_query_initial ?? storage.session.get(FILTER_KEYWORDS_KEY) ?? '')
 	const [keywords, set_keywords] = useState(default_keywords)
 	const session_filter_state = useCreation(() => storage.session.get<filterState>(FILTER_STATE_KEY))
 	const keywords_filter_ref = useRef<ImperativeHandle>(null)
@@ -153,8 +152,8 @@ export default function Wallpapers() {
 		reload,
 		changePage: change_page
 	} = useInfinity(wallpaper_fetcher, {
-		initialData: wallpapers_cache,
-		initialPage: wallpaper_page_cache,
+		initialData: keywords_query_initial ? [] : wallpapers_cache,
+		initialPage: keywords_query_initial ? 1 : wallpaper_page_cache,
 		initialPageSize: PAGE_SIZE,
 		ready: !!params,
 		target: loading_ref,
@@ -178,13 +177,6 @@ export default function Wallpapers() {
 		}
 	})
 
-	useEffect(() => {
-		const keywords_query = search_params.get('keywords')
-		if (keywords_query) {
-			reload_wallpapers()
-		}
-	}, [reload_wallpapers, search_params])
-
 	// 从缓存中恢复之前的浏览状态
 	// 包括：页码、壁纸数据、滚动条位置
 	const restore_scroll_y = () => {
@@ -198,26 +190,17 @@ export default function Wallpapers() {
 		}
 	}
 	useMount(() => {
-		if (search_params.get('keywords')) {
+		if (keywords_query_initial) {
+			reload_wallpapers()
 			return
 		}
 		restore_scroll_y()
 	})
 	useUnmount(() => {
 		storage.session.set(WALLPAPER_SCROLL_Y_KEY, window.scrollY)
+		storage.session.set(WALLPAPER_PAGE_KEY, page)
+		storage.session.set(WALLPAPERS_KEY, wallpapers)
 	})
-	useEffect(
-		() => () => {
-			storage.session.set(WALLPAPER_PAGE_KEY, page)
-		},
-		[page]
-	)
-	useEffect(
-		() => () => {
-			storage.session.set(WALLPAPERS_KEY, wallpapers)
-		},
-		[wallpapers]
-	)
 
 	const wallpaper_list = (
 		<div ref={wrapper_ref} className="m--8px text-center">

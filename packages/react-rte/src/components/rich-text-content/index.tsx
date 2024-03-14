@@ -11,6 +11,7 @@ import { Floating, FloatingListItem } from '../floating'
 import ImageResizer from '../image-resizer'
 
 interface RTEContentProps extends ComponentProps<typeof EditorContent> {
+	className?: string
 	tooltip?: boolean
 	bubble?: boolean
 	floating?: boolean
@@ -19,11 +20,20 @@ interface RTEContentProps extends ComponentProps<typeof EditorContent> {
 }
 export function RTEContent(props: RTEContentProps) {
 	const prefixCls = `${UI_EDITOR_PREFIX}-content`
-	const { editor, tooltip = true, bubble = true, floating = true, floatingList, bubbleList, ...rest } = props
+	const {
+		editor,
+		className,
+		tooltip = true,
+		bubble = true,
+		floating = true,
+		floatingList,
+		bubbleList,
+		...rest
+	} = props
 	const hasImageExt = editor && editor.extensionManager.extensions.some(ext => ext.name === 'image')
 	return (
 		<div
-			className={cls(prefixCls)}
+			className={cls(prefixCls, className)}
 			onClick={() => {
 				editor?.chain().focus().run()
 			}}

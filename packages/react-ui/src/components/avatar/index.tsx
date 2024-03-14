@@ -43,6 +43,7 @@ const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLDivElement>) => {
 			src={src}
 			alt="Avatar"
 			canPreview={canPreview}
+			previewSrc={src}
 		/>
 	)
 

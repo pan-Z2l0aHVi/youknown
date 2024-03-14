@@ -59,7 +59,7 @@ export default function GIFLazyImage(props: GIFLazyImageProps) {
 	}, [fetch_gif_first_frame, is_intersection, src])
 
 	return final_src ? (
-		<div ref={container_ref} className="relative w-max cursor-pointer" onClick={toggle_play}>
+		<div ref={container_ref} className="relative w-max max-w-full cursor-pointer" onClick={toggle_play}>
 			<img loading="lazy" src={final_src} className={className} {...rest} />
 			{playing || (
 				<div
