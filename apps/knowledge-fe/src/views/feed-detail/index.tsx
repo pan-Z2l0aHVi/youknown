@@ -207,7 +207,7 @@ export default function FeedDetail() {
 		<div className="flex-1 sm:w-720px">
 			{detail?.subject.cover && (
 				<Image
-					className="w-100% max-h-30vh min-h-40px b-1 b-solid b-divider rd-radius-m mb-16px"
+					className="w-100% max-h-30vh min-h-80px b-1 b-solid b-divider rd-radius-m mb-16px"
 					src={detail.subject.cover}
 					previewSrc={detail.subject.cover}
 					canPreview

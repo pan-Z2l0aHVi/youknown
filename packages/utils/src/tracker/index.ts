@@ -5,28 +5,26 @@ type Reject = (reason: any) => void
 interface Params {
 	[key: string]: any
 }
-interface TrackerOptions<S, R> {
+interface TrackerOptions {
 	url: string
-	transfer: (params: S) => R
 	batchingDelay: number
 }
 
 const DEFAULT_OPTIONS = {
-	transfer: (s: unknown) => s,
 	batchingDelay: 200
 }
 
-export default class Tracker<S extends Params, R extends Params> {
-	options: TrackerOptions<S, R>
-	trackMap: Record<string, R>
+export default class Tracker<S extends Params> {
+	options: TrackerOptions
+	trackMap: Record<string, S>
 	resolves: Resolve[]
 	rejects: Reject[]
 	idQueue: string[]
-	constructor(opts: Partial<TrackerOptions<S, R>>) {
+	constructor(opts: Partial<TrackerOptions>) {
 		this.options = {
 			...DEFAULT_OPTIONS,
 			...opts
-		} as TrackerOptions<S, R>
+		} as TrackerOptions
 		this.trackMap = {}
 		this.resolves = []
 		this.rejects = []
@@ -34,18 +32,16 @@ export default class Tracker<S extends Params, R extends Params> {
 	}
 
 	public track(params: S, instant = false) {
-		const { transfer } = this.options
-		const realParams = transfer(params)
 		const trackID = uuid()
 		if (instant) {
-			const trackParams = this.makeTrackParams(trackID, realParams)
+			const trackParams = this.makeTrackParams(trackID, params)
 			this.request([trackParams])
 		} else {
-			this.batchingTrack(trackID, realParams)
+			this.batchingTrack(trackID, params)
 		}
 	}
 
-	private batchingTrack(trackID: string, params: R) {
+	private batchingTrack(trackID: string, params: S) {
 		const { batchingDelay } = this.options
 		return new Promise((resolve, reject) => {
 			this.resolves.push(resolve)
@@ -61,7 +57,7 @@ export default class Tracker<S extends Params, R extends Params> {
 		})
 	}
 
-	private makeTrackParams(id: string, params: R) {
+	private makeTrackParams(id: string, params: S) {
 		return {
 			id,
 			timestamp: new Date().getTime(),
@@ -69,7 +65,7 @@ export default class Tracker<S extends Params, R extends Params> {
 		}
 	}
 
-	private request(paramsList: R[]) {
+	private request(paramsList: S[]) {
 		const { url } = this.options
 		try {
 			navigator.sendBeacon(url, JSON.stringify(paramsList))

@@ -10,6 +10,15 @@
       ]
     },
     "lint": {},
-    "test": {}
+    "test": {
+      "dependsOn": [
+        "^test"
+      ]
+    },
+    "deploy": {
+      "dependsOn": [
+        "^deploy"
+      ]
+    }
   }
 }

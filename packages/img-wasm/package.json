@@ -18,7 +18,7 @@
     "scripts": {
         "build": "rm -rf ./dist && tsc",
         "watch": "tsc -w",
-        "test": "jest --detectOpenHandles"
+        "test": "jest --detectOpenHandles --passWithNoTests"
     },
     "dependencies": {
         "@jsquash/jpeg": "^1.4.0",

@@ -86,6 +86,9 @@ export function useInfinity<T extends any[], S extends any[]>(
 	})
 
 	const reload = useEvent(async () => {
+		// Warning: flushSync was called from inside a lifecycle method.
+		// React cannot flush when React is already rendering. Consider moving this call to a scheduler task or micro task.
+		await Promise.resolve()
 		flushSync(() => {
 			reset()
 			setData(p => {

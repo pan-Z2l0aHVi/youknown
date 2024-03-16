@@ -39,7 +39,7 @@ const ui_state_creator: StateCreator<UIState> = (set, get) => ({
 	is_mobile: checkMobile(),
 	progress_percent: 0,
 	progress_visible: false,
-	primary_color: '#ff9500',
+	primary_color: '#af52de',
 	radius: [4, 8, 12],
 	theme: THEME.SYSTEM,
 	i18n_lang: I18N_LANG.SYSTEM,

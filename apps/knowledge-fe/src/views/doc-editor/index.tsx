@@ -308,7 +308,7 @@ export default function Doc() {
 				spinning={!doc_state && loading}
 				size="large"
 			>
-				<CoverUpload doc_id={doc_id} cover={doc_info?.cover} on_updated={set_doc_info} />
+				{doc_info && <CoverUpload doc_id={doc_id} cover={doc_info.cover} on_updated={set_doc_info} />}
 				<RTEContent className="pl-0! pr-0!" editor={editor} floating={!is_mobile} />
 			</Loading>
 		</>

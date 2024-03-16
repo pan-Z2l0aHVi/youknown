@@ -25,7 +25,10 @@ export default function PicUpload(props: PicUploadProps) {
 				file,
 				title: t('heading.cover'),
 				initialAspectRatio: 16 / 9,
-				onCancel: reject,
+				onCancel: () => {
+					set_file_list([])
+					reject('Crop cancel')
+				},
 				async onCrop(result) {
 					set_uploading(true)
 					try {

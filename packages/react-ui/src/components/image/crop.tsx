@@ -26,14 +26,20 @@ export const crop = (config: CropConfig) => {
 			root.render(ele)
 		} else {
 			root = renderReactRoot(ele, div)
-			destroy()
+			if (div.parentNode) {
+				div.parentNode.removeChild(div)
+			}
 		}
 	}
 
 	const imageCropperProps: ComponentProps<typeof ImageCropper> = {
 		...config,
 		open: false,
-		onClose: close
+		onClose: close,
+		afterClose() {
+			config.afterClose?.()
+			destroy()
+		}
 	}
 	open()
 
@@ -48,6 +54,10 @@ export const crop = (config: CropConfig) => {
 	}
 
 	function destroy() {
+		const { unmountOnExit = true } = config
+		if (unmountOnExit) {
+			root = root?._unmount()
+		}
 		if (div.parentNode) {
 			div.parentNode.removeChild(div)
 		}

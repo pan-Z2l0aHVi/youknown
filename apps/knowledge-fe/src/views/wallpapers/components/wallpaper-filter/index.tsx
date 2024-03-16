@@ -353,7 +353,7 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 								on_reset()
 							}}
 						>
-							{t('reset.all')}
+							{t('reset.condition')}
 						</Button>
 						<Button primary prefixIcon={<TbSearch />} loading={loading} onClick={form.submit}>
 							{t('filter.text')}

@@ -263,7 +263,7 @@ export default function UserCenter() {
 			{header}
 			{banner}
 
-			<div className="relative sm:p-32px <sm:p-[32px_16px] max-w-720px m-[0_auto]">
+			<div className="relative sm:p-32px <sm:p-[32px_16px] sm:w-720px sm:m-[0_auto]">
 				{follow_btn}
 
 				{is_self && !has_login ? (

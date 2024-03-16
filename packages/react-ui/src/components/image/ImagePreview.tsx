@@ -37,6 +37,7 @@ interface ImagePreviewProps {
 	downloadFileName?: string
 	open: boolean
 	onClose: () => void
+	afterClose?: () => void
 	onLoad?: ReactEventHandler<HTMLImageElement>
 	onError?: ReactEventHandler<HTMLImageElement>
 	onDownloadSuccess?: () => void
@@ -54,6 +55,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 		unmountOnExit = true,
 		downloadFileName = 'picture',
 		onClose,
+		afterClose,
 		onLoad,
 		onError,
 		onDownloadSuccess,
@@ -373,6 +375,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 			open={open}
 			onCancel={onClose}
 			onTouchStart={handleTouchDragStart}
+			afterClose={afterClose}
 		>
 			<div
 				className={`${prefixCls}`}

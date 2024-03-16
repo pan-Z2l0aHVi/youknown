@@ -18,7 +18,7 @@
         "build:utils": "pnpm -C packages/utils run build",
         "build:img-wasm": "pnpm -C packages/img-wasm run build",
         "build:css": "pnpm -C packages/css run build",
-        "build": "turbo run build",
+        "build": "turbo build test",
         "preview:book-fe": "pnpm -C apps/book-fe run preview",
         "preview:knowledge-fe": "pnpm -C apps/knowledge-fe run preview",
         "preview:react-demos": "pnpm -C apps/react-demos run preview",

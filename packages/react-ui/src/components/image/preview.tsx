@@ -20,7 +20,6 @@ export const preview = (config: PreviewConfig) => {
 			root.render(ele)
 		} else {
 			root = renderReactRoot(ele, div)
-			destroy()
 		}
 	}
 
@@ -28,7 +27,11 @@ export const preview = (config: PreviewConfig) => {
 		...config,
 		src: config.url,
 		open: false,
-		onClose: close
+		onClose: close,
+		afterClose() {
+			config.afterClose?.()
+			destroy()
+		}
 	}
 	open()
 
@@ -43,6 +46,10 @@ export const preview = (config: PreviewConfig) => {
 	}
 
 	function destroy() {
+		const { unmountOnExit = true } = config
+		if (unmountOnExit) {
+			root = root?._unmount()
+		}
 		if (div.parentNode) {
 			div.parentNode.removeChild(div)
 		}

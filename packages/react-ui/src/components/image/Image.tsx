@@ -39,29 +39,16 @@ const Image = (props: ImageProps, propRef: ForwardedRef<HTMLImageElement>) => {
 		}
 	}, [src])
 
-	const previewInstRef = useRef<ReturnType<typeof preview>>()
 	const showDetail = useEvent((url: string) => {
-		if (!previewInstRef.current) {
-			previewInstRef.current = preview({
-				url,
-				toolbarVisible,
-				minZoom,
-				maxZoom,
-				onDownloadSuccess,
-				onDownloadError
-			})
-		} else {
-			previewInstRef.current.open()
-		}
+		preview({
+			url,
+			toolbarVisible,
+			minZoom,
+			maxZoom,
+			onDownloadSuccess,
+			onDownloadError
+		})
 	})
-	useEffect(
-		() => () => {
-			if (previewInstRef.current) {
-				previewInstRef.current.close()
-			}
-		},
-		[]
-	)
 
 	const prefixCls = `${UI_PREFIX}-image`
 

@@ -1,5 +1,4 @@
 import { storage } from '@youknown/utils/src'
-import dayjs, { Dayjs } from 'dayjs'
 import { useCallback, useEffect, useState } from 'react'
 
 const CLOSED_KEY = 'banner-closed'
@@ -14,14 +13,8 @@ export function useBannerVisible(): [
 	const [visible, setVisible] = useState(false)
 
 	const update_visible_status = () => {
-		const closed_date = storage.local.get<Dayjs>(CLOSED_KEY)
-		if (!closed_date) {
-			setVisible(true)
-		} else if (dayjs().diff(closed_date, 'day') > 7) {
-			setVisible(true)
-		} else {
-			setVisible(false)
-		}
+		const closed = storage.local.get(CLOSED_KEY)
+		setVisible(!closed)
 	}
 
 	useEffect(() => {
@@ -43,7 +36,7 @@ export function useBannerVisible(): [
 	}, [])
 
 	const hide = useCallback(() => {
-		storage.local.set(CLOSED_KEY, dayjs())
+		storage.local.set(CLOSED_KEY, 1, 7 * 24 * 60 * 60 * 1000)
 		setVisible(false)
 	}, [])
 

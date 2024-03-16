@@ -1,6 +1,8 @@
 import uuid from '../uuid'
 import storage from './'
 
+jest.useFakeTimers()
+
 describe('storage', () => {
 	global.URL.createObjectURL = jest.fn(() => 'uuid_key')
 
@@ -16,15 +18,15 @@ describe('storage', () => {
 
 	it('should set basic to string', () => {
 		storage.local.set(id, true)
-		expect(window.localStorage.getItem(id)).toBe('true')
+		expect(window.localStorage.getItem(id)).toBe('{"__value":true}')
 
 		storage.local.set(id, 123)
-		expect(window.localStorage.getItem(id)).toBe('123')
+		expect(window.localStorage.getItem(id)).toBe('{"__value":123}')
 	})
 
 	it('should set object to json', () => {
 		storage.local.set(id, {})
-		expect(window.localStorage.getItem(id)).toBe('{}')
+		expect(window.localStorage.getItem(id)).toBe('{"__value":{}}')
 	})
 
 	it('should get original value', () => {
@@ -59,5 +61,17 @@ describe('storage', () => {
 		storage.local.clear()
 		expect(window.localStorage.getItem('key1')).toBe(null)
 		expect(window.localStorage.getItem('key2')).toBe(null)
+	})
+
+	it('should expired', () => {
+		storage.local.set('key', 123, 1000)
+		jest.advanceTimersByTime(2000)
+		expect(storage.local.get('key')).toBe(null)
+	})
+
+	it('should not expired.', () => {
+		storage.local.set('key', 123, 3000)
+		jest.advanceTimersByTime(2000)
+		expect(storage.local.get('key')).toBe(123)
 	})
 })

@@ -39,8 +39,10 @@ import Tooltip from '../tooltip'
 interface ImageCropperProps {
 	file: File
 	title?: ReactNode
+	unmountOnExit?: boolean
 	open?: boolean
 	onClose?: () => void
+	afterClose?: () => void
 	onCrop?: (result: File) => void
 	onCancel?: () => void
 	initialAspectRatio?: number
@@ -62,8 +64,10 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 	const { t } = useTranslation()
 	const {
 		title = t('react_ui.title.crop'),
+		unmountOnExit = true,
 		open,
 		onClose,
+		afterClose,
 		file,
 		onCrop,
 		onCancel,
@@ -218,7 +222,7 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 	)
 
 	return (
-		<Overlay unmountOnExit open={open} onCancel={handleCancel}>
+		<Overlay unmountOnExit={unmountOnExit} open={open} onCancel={handleCancel} afterClose={afterClose}>
 			<Card className={`${prefixCls}-card`} shadow header={header} footer={footer}>
 				<div className={`${prefixCls}-content`}>
 					<Cropper

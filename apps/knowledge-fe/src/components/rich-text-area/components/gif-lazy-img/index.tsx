@@ -59,7 +59,11 @@ export default function GIFLazyImage(props: GIFLazyImageProps) {
 	}, [fetch_gif_first_frame, is_intersection, src])
 
 	return final_src ? (
-		<div ref={container_ref} className="relative w-max max-w-full cursor-pointer" onClick={toggle_play}>
+		<div
+			ref={container_ref}
+			className="relative sm:w-max <sm:w-100% max-w-full cursor-pointer"
+			onClick={toggle_play}
+		>
 			<img loading="lazy" src={final_src} className={className} {...rest} />
 			{playing || (
 				<div
@@ -74,8 +78,12 @@ export default function GIFLazyImage(props: GIFLazyImageProps) {
 			)}
 		</div>
 	) : (
-		<Loading spinning>
-			<div ref={container_ref} className={cls(className, 'w-120px h-120px bg-bg-2 rd-radius-m')} {...rest}></div>
-		</Loading>
+		<div
+			ref={container_ref}
+			className={cls(className, 'flex items-center justify-center min-w-120px min-h-120px bg-bg-2 rd-radius-m')}
+			{...rest}
+		>
+			<Loading spinning />
+		</div>
 	)
 }

@@ -40,7 +40,10 @@ export default function CoverUpload(props: CoverUploadProps) {
 				file,
 				title: t('heading.cover'),
 				initialAspectRatio: 16 / 9,
-				onCancel: reject,
+				onCancel: () => {
+					set_file_list([])
+					reject('Crop cancel')
+				},
 				async onCrop(result) {
 					start_updating()
 					try {
@@ -70,15 +73,16 @@ export default function CoverUpload(props: CoverUploadProps) {
 
 	const preview_cover = file_list?.[file_list.length - 1]?.previewURL ?? ''
 	const upload_ref = useRef<HTMLInputElement>(null)
+	const final_cover = preview_cover || cover
 
 	return (
 		<Loading className="w-100%!" spinning={updating}>
-			{preview_cover || cover ? (
+			{final_cover ? (
 				<div className="group relative">
 					<Image
-						className="w-100% max-h-30vh min-h-40px b-1 b-solid b-divider rd-radius-m"
-						src={updating ? preview_cover : cover}
-						previewSrc={updating ? preview_cover : cover}
+						className="w-100% max-h-30vh min-h-80px b-1 b-solid b-divider rd-radius-m"
+						src={final_cover}
+						previewSrc={final_cover}
 						canPreview
 						alt="Cover"
 					/>

@@ -232,7 +232,8 @@
   },
   "reset": {
     "text": "Reset",
-    "all": "Reset all"
+    "all": "Reset all",
+    "condition": "Reset conditions"
   },
   "save": {
     "text": "Save",

@@ -3,6 +3,7 @@ import { cls } from '@youknown/utils/src'
 import parse, { DOMNode, domToReact, Element, Text } from 'html-react-parser'
 import { ForwardedRef, forwardRef, HTMLAttributes, useMemo, useRef } from 'react'
 
+import { useUIStore } from '@/stores'
 import { DEFAULT_NODE_ID } from '@/utils'
 
 import CodeBlock from './components/code-block'
@@ -15,6 +16,7 @@ interface RichTextAreaProps extends HTMLAttributes<HTMLDivElement> {
 const RichTextArea = forwardRef((props: RichTextAreaProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const { className, html } = props
 
+	const is_mobile = useUIStore(state => state.is_mobile)
 	const node_id_ref = useRef(DEFAULT_NODE_ID)
 
 	const classnames = cls(className, 'rich-text-container')
@@ -44,10 +46,17 @@ const RichTextArea = forwardRef((props: RichTextAreaProps, ref: ForwardedRef<HTM
 						return (
 							<GIFLazyImage
 								src={src}
-								style={{
-									width: parseFloat(width),
-									height: parseFloat(height)
-								}}
+								style={
+									is_mobile
+										? {
+												width: '100%',
+												aspectRatio: parseFloat(width) / parseFloat(height)
+											}
+										: {
+												width: parseFloat(width),
+												height: parseFloat(height)
+											}
+								}
 							/>
 						)
 					}
@@ -80,7 +89,7 @@ const RichTextArea = forwardRef((props: RichTextAreaProps, ref: ForwardedRef<HTM
 				}
 			}
 		})
-	}, [html])
+	}, [html, is_mobile])
 
 	return (
 		<div ref={ref} className={classnames}>
