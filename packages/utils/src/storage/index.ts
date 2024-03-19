@@ -35,7 +35,7 @@ class Storage {
 		}
 	}
 
-	public set<T>(key: string, val: T, expiration?: number): void {
+	public set<T>(key: string, val: T, expiration?: number) {
 		const pkg: Pkg<T> = { __value: val }
 		if (expiration) {
 			Object.assign(pkg, {
@@ -45,7 +45,7 @@ class Storage {
 		this.store.setItem(key, JSON.stringify(pkg))
 	}
 
-	public remove(key: string): void {
+	public remove(key: string) {
 		this.store.removeItem(key)
 	}
 

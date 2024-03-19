@@ -1,14 +1,19 @@
 import { Button, Space, Tooltip } from '@youknown/react-ui/src'
+import { ReactNode } from 'react'
 import { GrGithub } from 'react-icons/gr'
 
 import BackTop from '../back-top'
 
+interface FabItem {
+	id: string
+	title?: string
+	icon: ReactNode
+	handler?: () => void
+}
 export default function FabBar() {
-	const fab_list = [
+	const fab_list: FabItem[] = [
 		{
-			id: 1,
-			title: 'Github',
-			tooltip_disabled: true,
+			id: 'github',
 			icon: <GrGithub className="text-20px" />,
 			handler: () => {
 				window.open('https://github.com/pan-Z2l0aHVi/knowledge-fe/tree/master/apps/book-fe')
@@ -20,7 +25,7 @@ export default function FabBar() {
 			<BackTop />
 
 			{fab_list.map(item => (
-				<Tooltip key={item.id} title={item.title} disabled={item.tooltip_disabled}>
+				<Tooltip key={item.id} title={item.title} disabled={!item.title}>
 					<Button circle size="large" className="shadow-shadow-m" onClick={item.handler}>
 						{item.icon}
 					</Button>

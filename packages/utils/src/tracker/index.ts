@@ -1,7 +1,6 @@
 import uuid from '../uuid'
 
 type Resolve = (value: any) => void
-type Reject = (reason: any) => void
 interface Params {
 	[key: string]: any
 }
@@ -18,7 +17,6 @@ export default class Tracker<S extends Params> {
 	options: TrackerOptions
 	trackMap: Record<string, S>
 	resolves: Resolve[]
-	rejects: Reject[]
 	idQueue: string[]
 	constructor(opts: Partial<TrackerOptions>) {
 		this.options = {
@@ -27,7 +25,6 @@ export default class Tracker<S extends Params> {
 		} as TrackerOptions
 		this.trackMap = {}
 		this.resolves = []
-		this.rejects = []
 		this.idQueue = []
 	}
 
@@ -43,14 +40,17 @@ export default class Tracker<S extends Params> {
 
 	private batchingTrack(trackID: string, params: S) {
 		const { batchingDelay } = this.options
-		return new Promise((resolve, reject) => {
+		return new Promise(resolve => {
 			this.resolves.push(resolve)
-			this.rejects.push(reject)
 			this.trackMap[trackID] = this.makeTrackParams(trackID, params)
 
 			if (this.idQueue.push(trackID) === 1) {
 				setTimeout(() => {
 					this.request(this.idQueue.map(id => this.trackMap[id]))
+					this.resolves.forEach(fn => {
+						fn(undefined)
+					})
+					this.resolves = []
 					this.idQueue = []
 				}, batchingDelay)
 			}
