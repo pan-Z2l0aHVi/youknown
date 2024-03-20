@@ -1,7 +1,6 @@
 import { useBoolean } from '@youknown/react-hook/src'
 import { ContextMenu, Dialog, Dropdown, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
-import copy from 'copy-to-clipboard'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FiEdit3 } from 'react-icons/fi'
@@ -9,7 +8,7 @@ import { GoCheck } from 'react-icons/go'
 import { LuSettings2 } from 'react-icons/lu'
 import { PiTrashSimpleBold } from 'react-icons/pi'
 import { RiHistoryFill } from 'react-icons/ri'
-import { TbShare2, TbWorld } from 'react-icons/tb'
+import { TbWorld } from 'react-icons/tb'
 
 import { delete_doc, Doc } from '@/apis/doc'
 import DocOptionsModal from '@/components/doc-options-modal'
@@ -98,17 +97,6 @@ export default function DocCard(props: DocCardProps) {
 			onOk: remove_doc
 		})
 	}
-	const copy_share_url = () => {
-		copy(
-			QS.stringify({
-				base: `${window.location.origin}/browse/feed-detail`,
-				query: {
-					feed_id: info.doc_id
-				}
-			})
-		)
-		Toast.success(t('copy.share_link.success'))
-	}
 
 	const [menu_open, set_menu_open] = useState(false)
 	const ctx_menu = ContextMenu.useContextMenu(menu_open, set_menu_open)
@@ -123,11 +111,6 @@ export default function DocCard(props: DocCardProps) {
 				<Dropdown.Item prefix={<FiEdit3 className="text-16px" />} onClick={select_doc}>
 					{t('edit.text')}
 				</Dropdown.Item>
-				{info.public && (
-					<Dropdown.Item prefix={<TbShare2 className="text-16px" />} onClick={copy_share_url}>
-						{t('share.text')}
-					</Dropdown.Item>
-				)}
 				<Dropdown.Item prefix={<LuSettings2 className="text-16px" />} onClick={edit_doc_options}>
 					{t('doc.setting')}
 				</Dropdown.Item>

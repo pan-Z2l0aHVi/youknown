@@ -2,8 +2,6 @@ import { createElement, lazy, ReactNode } from 'react'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 
 import App from '@/app'
-import DetailView from '@/other-views/view-transitions-example/DetailView'
-import ThumbView from '@/other-views/view-transitions-example/ThumbView'
 
 export interface RouteItem {
 	name?: string
@@ -209,11 +207,11 @@ export const componentRoutes: RouteItem[] = [
 			},
 			{
 				path: 'thumb',
-				element: <ThumbView />
+				element: createElement(lazy(() => import('@/other-views/view-transitions-example/ThumbView')))
 			},
 			{
 				path: 'detail/:id',
-				element: <DetailView />
+				element: createElement(lazy(() => import('@/other-views/view-transitions-example/DetailView')))
 			}
 		]
 	},

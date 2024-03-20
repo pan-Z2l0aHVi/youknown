@@ -12,7 +12,7 @@ function langFactory(lang: string) {
 
 function registerLangAlias(lang: string, alias: string[]) {
 	hljs.registerAliases(alias, { languageName: lang })
-	lowlight.registerAlias({ [lang]: alias })
+	lowlight.registerAlias(lang, alias)
 }
 
 export async function loadLanguages() {
@@ -52,6 +52,7 @@ export async function loadLanguages() {
 		import('highlight.js/lib/languages/yaml').then(langFactory('yaml'))
 	])
 	registerLangAlias('markdown', ['md'])
+	registerLangAlias('html', ['vue'])
 	registerLangAlias('javascript', ['js', 'jsx'])
 	registerLangAlias('typescript', ['ts', 'tsx'])
 }

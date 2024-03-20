@@ -23,7 +23,7 @@ export interface Context {
 	err: any
 }
 
-export default class Net {
+export class Net {
 	private baseConf: Partial<Configure>
 	private middlewares: Middleware<Context>[]
 
