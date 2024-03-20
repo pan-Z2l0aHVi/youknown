@@ -23,7 +23,7 @@ export default function FabBar() {
 			id: 'github',
 			icon: <GrGithub className="text-20px" />,
 			handler: () => {
-				window.open('https://github.com/pan-Z2l0aHVi/knowledge-fe/tree/master/apps/knowledge-fe')
+				window.open('https://github.com/pan-Z2l0aHVi/youknown/tree/master/apps/knowledge-fe')
 			}
 		},
 		{

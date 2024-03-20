@@ -1,6 +1,6 @@
 {
     "name": "@youknown/react-hook",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "",
     "type": "module",
     "main": "dist/main.es.js",
@@ -16,9 +16,19 @@
     },
     "scripts": {
         "build": "rm -rf ./types && tsc && vite build",
-        "watch": "concurrently --kill-others \"tsc -w\" \"vite build --watch\""
+        "watch": "concurrently --kill-others \"tsc -w\" \"vite build --watch\"",
+        "deploy": "npm publish"
     },
     "author": "Grey",
+    "private": false,
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pan-Z2l0aHVi/youknown.git"
+    },
     "license": "MIT",
     "dependencies": {
         "@youknown/utils": "workspace:*"

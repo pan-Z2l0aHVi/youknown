@@ -1,3 +1,4 @@
+import legacy from '@vitejs/plugin-legacy'
 import react from '@vitejs/plugin-react-swc'
 import { excludeDeps } from '@youknown/img-wasm'
 import { resolve } from 'path'
@@ -35,6 +36,10 @@ export default defineConfig(({ mode, command }) => {
 						}
 					]
 				}
+			}),
+			legacy({
+				renderLegacyChunks: false,
+				modernPolyfills: ['es.promise.all-settled', 'es.object.has-own']
 			}),
 			splitVendorChunkPlugin(),
 			tsconfigPaths(),

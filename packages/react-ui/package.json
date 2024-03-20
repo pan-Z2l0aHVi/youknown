@@ -1,6 +1,6 @@
 {
     "name": "@youknown/react-ui",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "",
     "type": "module",
     "main": "dist/main.es.js",
@@ -16,7 +16,8 @@
     },
     "scripts": {
         "build": "rm -rf ./types && tsc && vite build",
-        "watch": "concurrently --kill-others \"tsc -w\" \"vite build --watch\""
+        "watch": "concurrently --kill-others \"tsc -w\" \"vite build --watch\"",
+        "deploy": "npm publish"
     },
     "keywords": [
         "react",
@@ -24,17 +25,26 @@
         "component"
     ],
     "author": "Grey",
+    "private": false,
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pan-Z2l0aHVi/youknown.git"
+    },
     "license": "MIT",
     "dependencies": {
-        "@emotion/react": "^11.11.3",
+        "@emotion/react": "^11.11.4",
         "@emotion/styled": "^11.11.0",
         "@floating-ui/react": "^0.26.9",
-        "@mui/material": "^5.15.10",
+        "@mui/material": "^5.15.14",
         "@youknown/css": "workspace:*",
         "@youknown/react-hook": "workspace:*",
         "@youknown/utils": "workspace:*",
         "modern-css-reset": "^1.4.0",
-        "react-countup": "^6.5.0",
+        "react-countup": "^6.5.2",
         "react-easy-crop": "^5.0.5",
         "react-textarea-autosize": "^8.5.3",
         "react-transition-group": "^4.4.5"

@@ -12,12 +12,14 @@
     "lint": {},
     "test": {
       "dependsOn": [
-        "^test"
+        "^build"
       ]
     },
     "deploy": {
       "dependsOn": [
-        "^deploy"
+        "build",
+        "test",
+        "lint"
       ]
     }
   }

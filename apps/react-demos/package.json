@@ -22,7 +22,7 @@
     "@youknown/utils": "workspace:*",
     "html-diff-ts": "^1.4.2",
     "omggif": "^1.0.10",
-    "react-virtualized-auto-sizer": "^1.0.23",
+    "react-virtualized-auto-sizer": "^1.0.24",
     "react-window": "^1.8.10"
   },
   "lint-staged": {

@@ -1,8 +1,17 @@
 {
     "name": "@youknown/utils",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "",
     "author": "Grey",
+    "private": false,
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pan-Z2l0aHVi/youknown.git"
+    },
     "license": "MIT",
     "type": "module",
     "main": "dist/index.js",
@@ -18,7 +27,8 @@
     "scripts": {
         "build": "rm -rf ./dist && tsc",
         "watch": "tsc -w",
-        "test": "jest --detectOpenHandles"
+        "test": "jest --detectOpenHandles",
+        "deploy": "npm publish"
     },
     "dependencies": {},
     "lint-staged": {
