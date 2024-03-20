@@ -164,6 +164,11 @@ export const componentRoutes: RouteItem[] = [
 		element: createElement(lazy(() => import('@/editor-views/RichTextEditorExample')))
 	},
 	{
+		name: 'UseLatestRef',
+		path: 'use_latest_ref',
+		element: createElement(lazy(() => import('@/hook-views/UseLatestRefExample')))
+	},
+	{
 		name: 'UseFetch',
 		path: 'use_fetch',
 		element: createElement(lazy(() => import('@/hook-views/UseFetchExample')))
