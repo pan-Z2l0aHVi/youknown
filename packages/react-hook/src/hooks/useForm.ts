@@ -1,7 +1,6 @@
 import { is, ValueOf } from '@youknown/utils/src'
 import { ChangeEvent, FormEventHandler, useRef, useState } from 'react'
 
-import { useCreation } from './useCreation'
 import { useEvent } from './useEvent'
 
 type controllerChangeEvent = ChangeEvent<HTMLSelectElement | HTMLInputElement>
@@ -40,7 +39,7 @@ export interface FormInstance<S = any> {
 }
 
 export function useForm<S extends State>(opts: Options<S>): FormInstance<S> {
-	const defaultState = useCreation(() => opts.defaultState)
+	const [defaultState] = useState(() => opts.defaultState)
 	// shallow copy
 	const state = useRef<S>({ ...defaultState })
 	const fields = useRef<Field<S>[]>([])

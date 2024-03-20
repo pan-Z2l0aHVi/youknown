@@ -1,7 +1,6 @@
 import { is, omit } from '@youknown/utils/src'
 import { SetStateAction, useState } from 'react'
 
-import { useCreation } from './useCreation'
 import { useEvent } from './useEvent'
 import { FetchOptions, useFetch } from './useFetch'
 import { useUpdateEffect } from './useUpdateEffect'
@@ -19,8 +18,8 @@ export function usePagination<T extends PaginationData, S extends any[]>(
 	fetcher: (...args: S) => Promise<T>,
 	opts: PaginationOptions<T, S> = {}
 ) {
-	const initialPage = useCreation(() => opts.initialPage ?? 1)
-	const initialPageSize = useCreation(() => opts.initialPageSize ?? 10)
+	const [initialPage] = useState(() => opts.initialPage ?? 1)
+	const [initialPageSize] = useState(() => opts.initialPageSize ?? 10)
 	const [page, setPage] = useState(initialPage)
 	const [pageSize, setPageSize] = useState(initialPageSize)
 	const [total, setTotal] = useState(0)

@@ -2,7 +2,6 @@ import { checkElementInContainer, is, omit } from '@youknown/utils/src'
 import { MutableRefObject, SetStateAction, useState } from 'react'
 import { flushSync } from 'react-dom'
 
-import { useCreation } from './useCreation'
 import { useEvent } from './useEvent'
 import { FetchOptions, useFetch } from './useFetch'
 import { useIntersection } from './useIntersection'
@@ -18,8 +17,8 @@ export function useInfinity<T extends any[], S extends any[]>(
 	fetcher: (...args: S) => Promise<T>,
 	opts: InfinityOptions<T, S> = {}
 ) {
-	const initialPage = useCreation(() => opts.initialPage ?? 1)
-	const initialPageSize = useCreation(() => opts.initialPageSize ?? 10)
+	const [initialPage] = useState(() => opts.initialPage ?? 1)
+	const [initialPageSize] = useState(() => opts.initialPageSize ?? 10)
 	const [page, setPage] = useState(initialPage)
 	const [pageSize, setPageSize] = useState(initialPageSize)
 	const [noMore, setNoMore] = useState(false)

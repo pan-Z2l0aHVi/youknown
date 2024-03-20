@@ -1,6 +1,5 @@
 import { DependencyList, useEffect, useRef, useState } from 'react'
 
-import { useCreation } from './useCreation'
 import { useEvent } from './useEvent'
 
 export interface FetchOptions<T, S> {
@@ -29,8 +28,7 @@ export function useFetch<T, S extends any[]>(fetcher: (...args: S) => Promise<T>
 		onFinally
 	} = opts
 
-	const defaultData = useCreation(() => opts.initialData)
-	const [data, setData] = useState(defaultData)
+	const [data, setData] = useState(() => opts.initialData)
 	const [error, setError] = useState<Error>()
 	const [loading, setLoading] = useState(false)
 	const fetchCount = useRef(0)

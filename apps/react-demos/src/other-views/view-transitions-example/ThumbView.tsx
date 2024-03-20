@@ -1,4 +1,4 @@
-import { useCreation, useStartViewTransition } from '@youknown/react-hook/src'
+import { useStartViewTransition } from '@youknown/react-hook/src'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Image, List } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
@@ -15,13 +15,12 @@ export default () => {
 	}
 
 	const isBack = preLocation?.pathname.startsWith('/component/view_transitions/detail')
-	const defaultDetailID = useCreation(() => {
+	const [detailID, setDetailID] = useState(() => {
 		if (isBack) {
 			return getParamID()
 		}
 		return ''
 	})
-	const [detailID, setDetailID] = useState(defaultDetailID)
 	const startViewTransition = useStartViewTransition()
 
 	return (

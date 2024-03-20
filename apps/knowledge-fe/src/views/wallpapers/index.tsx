@@ -1,4 +1,4 @@
-import { useCreation, useEvent, useInfinity, useMount, useUnmount, useUpdate } from '@youknown/react-hook/src'
+import { useEvent, useInfinity, useMount, useUnmount, useUpdate } from '@youknown/react-hook/src'
 import { Divider, Form } from '@youknown/react-ui/src'
 import { storage } from '@youknown/utils/src'
 import { Fragment, useEffect, useRef, useState } from 'react'
@@ -39,10 +39,11 @@ export default function Wallpapers() {
 	const loading_ref = useRef<HTMLDivElement>(null)
 	const wrapper_ref = useRef<HTMLDivElement>(null)
 
-	const keywords_query_initial = useCreation(() => search_params.get('keywords'))
-	const default_keywords = useCreation(() => keywords_query_initial ?? storage.session.get(FILTER_KEYWORDS_KEY) ?? '')
-	const [keywords, set_keywords] = useState(default_keywords)
-	const session_filter_state = useCreation(() => storage.session.get<filterState>(FILTER_STATE_KEY))
+	const [keywords_query_initial] = useState(() => search_params.get('keywords'))
+	const [keywords, set_keywords] = useState(
+		() => search_params.get('keywords') ?? storage.session.get(FILTER_KEYWORDS_KEY) ?? ''
+	)
+	const [session_filter_state] = useState(() => storage.session.get<filterState>(FILTER_STATE_KEY))
 	const keywords_filter_ref = useRef<ImperativeHandle>(null)
 	const [params, set_params] = useState<WallpaperQuery>()
 
@@ -118,8 +119,8 @@ export default function Wallpapers() {
 		update_params()
 	}, [update_params])
 
-	const wallpapers_cache = useCreation(() => storage.session.get<Wallpaper[]>(WALLPAPERS_KEY) ?? [])
-	const wallpaper_page_cache = useCreation(() => storage.session.get<number>(WALLPAPER_PAGE_KEY) ?? 1)
+	const [wallpapers_cache] = useState(() => storage.session.get<Wallpaper[]>(WALLPAPERS_KEY) ?? [])
+	const [wallpaper_page_cache] = useState(() => storage.session.get<number>(WALLPAPER_PAGE_KEY) ?? 1)
 
 	const check_form_valid = async () => {
 		const explains_map = await form.validate()

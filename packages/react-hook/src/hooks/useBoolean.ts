@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useState } from 'react'
 
-export function useBoolean(initial: boolean): [
+export function useBoolean(initialState: boolean | (() => boolean)): [
 	boolean,
 	{
 		setBool: Dispatch<SetStateAction<boolean>>
@@ -9,7 +9,7 @@ export function useBoolean(initial: boolean): [
 		setReverse: () => void
 	}
 ] {
-	const [bool, setBool] = useState(initial)
+	const [bool, setBool] = useState(initialState)
 
 	const setTrue = useCallback(() => {
 		setBool(true)

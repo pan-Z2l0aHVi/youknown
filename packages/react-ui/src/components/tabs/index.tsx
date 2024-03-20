@@ -1,8 +1,8 @@
 import './tabs.scss'
 
-import { useControllable, useCreation, useNextTickState } from '@youknown/react-hook/src'
+import { useControllable, useNextTickState } from '@youknown/react-hook/src'
 import { cls, omit } from '@youknown/utils/src'
-import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode, useState } from 'react'
 import { TbX } from 'react-icons/tb'
 
 import { UI_PREFIX } from '../../constants'
@@ -33,7 +33,7 @@ const Tabs = <T extends string | number>(props: TabsProps<T>, propRef: Forwarded
 		...rest
 	} = omit(props, 'defaultValue', 'value', 'onChange')
 
-	const tabMap = useCreation(() => new Map<T, HTMLElement | null>())
+	const [tabMap] = useState(() => new Map<T, HTMLElement | null>())
 	const [, setSelectedIndex] = useNextTickState(0)
 	const [value, setValue] = useControllable<T>(props)
 

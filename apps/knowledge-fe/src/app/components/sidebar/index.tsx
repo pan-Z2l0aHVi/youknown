@@ -1,4 +1,4 @@
-import { useBoolean, useCreation, useEvent, useLatestRef } from '@youknown/react-hook/src'
+import { useBoolean, useEvent, useLatestRef } from '@youknown/react-hook/src'
 import { Image, Tooltip } from '@youknown/react-ui/src'
 import { cls, storage } from '@youknown/utils/src'
 import { useEffect, useState, useTransition } from 'react'
@@ -18,10 +18,8 @@ const MAX_W = 400
 
 export default function Sidebar() {
 	const { t } = useTranslation()
-	const local_expand = useCreation(() => storage.local.get<boolean>(EXPAND_KEY))
-	const local_width = useCreation(() => storage.local.get<number>(WIDTH_KEY))
-	const [expand, { setReverse: toggle_expand }] = useBoolean(local_expand ?? true)
-	const [sidebar_width, set_sidebar_width] = useState(local_width ?? DEFAULT_W)
+	const [expand, { setReverse: toggle_expand }] = useBoolean(() => storage.local.get<boolean>(EXPAND_KEY) ?? true)
+	const [sidebar_width, set_sidebar_width] = useState(() => storage.local.get<number>(WIDTH_KEY) ?? DEFAULT_W)
 	const [dragging, { setTrue: start_drag, setFalse: stop_drag }] = useBoolean(false)
 	const dragging_ref = useLatestRef(dragging)
 	const [, start_transition] = useTransition()

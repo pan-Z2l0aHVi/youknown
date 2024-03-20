@@ -1,4 +1,3 @@
-import { useCreation } from '@youknown/react-hook/src'
 import { Motion, Tooltip } from '@youknown/react-ui/src'
 import { cls, DeepRequired, pick, storage } from '@youknown/utils/src'
 import { Fragment, MouseEvent, useCallback, useEffect, useMemo, useState } from 'react'
@@ -54,8 +53,9 @@ export default function Menu({ expand }: MenuProps) {
 		[get_library_nav]
 	)
 
-	const local_open_map = useCreation(() => storage.local.get<Record<string, boolean>>(OPEN_MAP_KEY))
-	const [open_map, set_open_map] = useState<Record<string, boolean>>(local_open_map ?? {})
+	const [open_map, set_open_map] = useState<Record<string, boolean>>(
+		() => storage.local.get<Record<string, boolean>>(OPEN_MAP_KEY) ?? {}
+	)
 	useEffect(() => {
 		storage.local.set(OPEN_MAP_KEY, open_map)
 	}, [open_map])

@@ -349,14 +349,6 @@ export const routes: RouteItem[] = [
 				}
 			},
 			{
-				path: 'use_creation',
-				element: createElement(lazy(() => import('@/views/use-creation-demo'))),
-				meta: {
-					title: () => 'useCreation',
-					icon: <TbFishHook />
-				}
-			},
-			{
 				path: 'use_debounce',
 				element: createElement(lazy(() => import('@/views/use-debounce-demo'))),
 				meta: {

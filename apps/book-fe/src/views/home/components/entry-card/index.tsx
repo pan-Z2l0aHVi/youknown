@@ -9,9 +9,10 @@ export interface EntryCardProps {
 	title: string
 	desc: string
 	code: string
+	href: string
 }
 export function EntryCard(props: EntryCardProps) {
-	const { title, desc, code } = props
+	const { title, desc, code, href } = props
 	const { t } = useTranslation()
 	const handle_copy_code = (e: MouseEvent) => {
 		e.preventDefault()
@@ -22,7 +23,7 @@ export function EntryCard(props: EntryCardProps) {
 	return (
 		<TransitionNavLink
 			className="inline-block decoration-none m-24px hover-translate-y--12px transition-transform"
-			to="/ui_components"
+			to={href}
 		>
 			<Card shadow header={title}>
 				<div className="p-24px">

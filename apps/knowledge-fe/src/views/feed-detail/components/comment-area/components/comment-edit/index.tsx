@@ -1,4 +1,3 @@
-import { useCreation } from '@youknown/react-hook/src'
 import { Toast } from '@youknown/react-ui/src'
 import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -26,13 +25,12 @@ export default function CommentEdit(props: CommentEditProps) {
 	const recording = useRecordStore(state => state.recording)
 	const { t } = useTranslation()
 	const [send_loading, set_send_loading] = useState(false)
-	const default_comment_text = useCreation(() => {
+	const [comment_text, set_comment_text] = useState(() => {
 		if (is_sub_comment) {
 			return sub_comment_info?.content ?? ''
 		}
 		return comment_info?.content ?? ''
 	})
-	const [comment_text, set_comment_text] = useState(default_comment_text)
 
 	const placeholder = is_sub_comment
 		? `${t('reply.text')} ${sub_comment_info.commentator.nickname}`

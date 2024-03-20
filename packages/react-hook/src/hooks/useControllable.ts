@@ -1,7 +1,6 @@
 import { is } from '@youknown/utils/src'
-import { SetStateAction, useRef } from 'react'
+import { SetStateAction, useRef, useState } from 'react'
 
-import { useCreation } from './useCreation'
 import { useEvent } from './useEvent'
 import { useUpdate } from './useUpdate'
 
@@ -36,7 +35,7 @@ export function useControllable<T = any>(props: Props = {}, options: Options<T> 
 	const value = props[valuePropName] as T
 	const isControlled = props.hasOwnProperty(valuePropName) && !is.undefined(props[valuePropName])
 
-	const initialValue = useCreation(() => {
+	const [initialValue] = useState(() => {
 		if (isControlled) {
 			return value
 		}
