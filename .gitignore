@@ -137,3 +137,8 @@ dist
 stats.html
 .DS_Store
 dev-dist/
+
+# configure
+deploy.sh
+upload-r2.js
+upload-qiniu.js
