@@ -5,12 +5,12 @@ import { cls, is } from '@youknown/utils/src'
 import { ComponentProps, ForwardedRef, forwardRef, isValidElement, ReactNode, useRef } from 'react'
 
 import { UI_PREFIX } from '../../constants'
-import Button from '../button'
-import Card from '../card'
-import CloseIcon from '../close-icon'
-import Motion from '../motion'
-import Overlay from '../overlay'
-import Space from '../space'
+import { Button } from '../button'
+import { Card } from '../card'
+import { CloseIcon } from '../close-icon'
+import { Motion } from '../motion'
+import { Overlay } from '../overlay'
+import { Space } from '../space'
 
 export interface DialogProps extends ComponentProps<typeof Overlay> {
 	hasCancel?: boolean
@@ -51,7 +51,7 @@ document.addEventListener(
 	true
 )
 
-const Dialog = (props: DialogProps, ref: ForwardedRef<HTMLDivElement>) => {
+const _Dialog = (props: DialogProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const prefixCls = `${UI_PREFIX}-dialog`
 	const {
 		children,
@@ -166,5 +166,5 @@ const Dialog = (props: DialogProps, ref: ForwardedRef<HTMLDivElement>) => {
 	)
 }
 
-Dialog.displayName = 'Dialog'
-export default forwardRef(Dialog)
+_Dialog.displayName = 'Dialog'
+export const Dialog = forwardRef(_Dialog)

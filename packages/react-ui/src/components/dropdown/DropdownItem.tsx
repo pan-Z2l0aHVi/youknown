@@ -6,14 +6,14 @@ import { ForwardedRef, forwardRef, HTMLAttributes, MouseEventHandler, ReactNode,
 import { UI_PREFIX } from '../../constants'
 import { MenuCtx } from './MenuCtx'
 
-interface DropdownItemProps extends Omit<HTMLAttributes<HTMLElement>, 'prefix'> {
+export interface DropdownItemProps extends Omit<HTMLAttributes<HTMLElement>, 'prefix'> {
 	prefix?: ReactNode
 	suffix?: ReactNode
 	closeAfterItemClick?: boolean
 	disabled?: boolean
 }
 
-const DropdownItem = (props: DropdownItemProps, ref: ForwardedRef<HTMLDivElement>) => {
+const _DropdownItem = (props: DropdownItemProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const {
 		className,
 		children,
@@ -57,5 +57,5 @@ const DropdownItem = (props: DropdownItemProps, ref: ForwardedRef<HTMLDivElement
 		</div>
 	)
 }
-DropdownItem.displayName = 'DropdownItem'
-export default forwardRef(DropdownItem)
+_DropdownItem.displayName = 'DropdownItem'
+export const DropdownItem = forwardRef(_DropdownItem)

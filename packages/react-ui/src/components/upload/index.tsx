@@ -14,7 +14,7 @@ import {
 import { TbPlus } from 'react-icons/tb'
 
 import { UI_PREFIX } from '../../constants'
-import Loading from '../loading'
+import { Loading } from '../loading'
 
 interface UploadAttr {
 	uid: string | number
@@ -25,7 +25,7 @@ interface UploadAttr {
 
 export interface UploadFile extends File, UploadAttr {}
 
-interface UploadProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
+export interface UploadProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
 	disabled?: boolean
 	defaultValue?: UploadFile[]
 	value?: UploadFile[]
@@ -37,7 +37,7 @@ interface UploadProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultVal
 	headless?: boolean
 }
 
-const Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => {
+const _Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => {
 	const {
 		className,
 		children,
@@ -146,5 +146,5 @@ const Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) => 
 		</label>
 	)
 }
-Upload.displayName = 'Upload'
-export default forwardRef(Upload)
+_Upload.displayName = 'Upload'
+export const Upload = forwardRef(_Upload)

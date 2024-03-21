@@ -4,9 +4,9 @@ import { createPortal } from 'react-dom'
 import { FaCircleCheck, FaCircleExclamation, FaCircleInfo, FaCircleXmark } from 'react-icons/fa6'
 
 import { render as renderReactRoot } from '../../utils/renderReactRoot'
-import Toast from './Toast'
+import { Toast as _Toast } from './Toast'
 
-interface ToastConfig {
+export interface ToastConfig {
 	content: ReactNode
 	duration?: number
 	className?: string
@@ -16,13 +16,13 @@ interface ToastConfig {
 	onClose?: () => void
 }
 let root: ReturnType<typeof renderReactRoot> | void
-let noticeList: ComponentProps<typeof Toast>['noticeList'] = []
+let noticeList: ComponentProps<typeof _Toast>['noticeList'] = []
 
 const toast = (config: ToastConfig) => {
 	const noticeID = uuid()
 
 	function render() {
-		const ele = createPortal(<Toast noticeList={noticeList} onNoticeClose={remove} />, document.body)
+		const ele = createPortal(<_Toast noticeList={noticeList} onNoticeClose={remove} />, document.body)
 		if (root) {
 			root.render(ele)
 		} else {
@@ -120,4 +120,4 @@ toast.error = (arg: ToastConfig | string) => {
 	})
 }
 
-export default toast
+export const Toast = toast

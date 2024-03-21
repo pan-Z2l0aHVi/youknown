@@ -1,18 +1,18 @@
 import { pick, pickDataAttrs } from '@youknown/utils/src'
 import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, isValidElement, ReactNode } from 'react'
 
-import Trigger, { EventsByTriggerNeed } from '../trigger'
+import { EventsByTriggerNeed, Trigger } from '../trigger'
 import { clickOutside } from './clickOutside'
-import DropdownItem from './DropdownItem'
-import DropdownMenu from './DropdownMenu'
-import DropdownTitle from './DropdownTitle'
+import { DropdownItem } from './DropdownItem'
+import { DropdownMenu } from './DropdownMenu'
+import { DropdownTitle } from './DropdownTitle'
 
-interface DropdownProps
+export interface DropdownProps
 	extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'growTransformOrigin' | 'content' | 'motion'> {
 	content?: ReactNode
 }
 
-const Dropdown = (props: DropdownProps, propRef: ForwardedRef<HTMLElement>) => {
+const _Dropdown = (props: DropdownProps, propRef: ForwardedRef<HTMLElement>) => {
 	const {
 		children,
 		content,
@@ -65,18 +65,16 @@ const Dropdown = (props: DropdownProps, propRef: ForwardedRef<HTMLElement>) => {
 		</Trigger>
 	)
 }
-Dropdown.displayName = 'Dropdown'
+_Dropdown.displayName = 'Dropdown'
 
-const RefDropdown = forwardRef(Dropdown)
-const ExportDropdown = RefDropdown as typeof RefDropdown & {
+const RefDropdown = forwardRef(_Dropdown)
+export const Dropdown = RefDropdown as typeof RefDropdown & {
 	Menu: typeof DropdownMenu
 	Item: typeof DropdownItem
 	Title: typeof DropdownTitle
 	close: typeof clickOutside
 }
-ExportDropdown.Menu = DropdownMenu
-ExportDropdown.Item = DropdownItem
-ExportDropdown.Title = DropdownTitle
-ExportDropdown.close = clickOutside
-
-export default ExportDropdown
+Dropdown.Menu = DropdownMenu
+Dropdown.Item = DropdownItem
+Dropdown.Title = DropdownTitle
+Dropdown.close = clickOutside

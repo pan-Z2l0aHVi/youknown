@@ -1,13 +1,13 @@
 import './collapse-panel.scss'
 
 import { cls, omit } from '@youknown/utils/src'
-import { FC, HTMLAttributes, ReactNode } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode } from 'react'
 import { TbChevronDown } from 'react-icons/tb'
 
 import { UI_PREFIX } from '../../constants'
-import Motion from '../motion'
+import { Motion } from '../motion'
 
-interface CollapsePanelProps extends Omit<HTMLAttributes<HTMLElement>, 'title' | 'onChange'> {
+export interface CollapsePanelProps extends Omit<HTMLAttributes<HTMLElement>, 'title' | 'onChange'> {
 	itemKey?: string | number
 	custom?: ReactNode
 	title?: ReactNode
@@ -18,7 +18,7 @@ interface CollapsePanelProps extends Omit<HTMLAttributes<HTMLElement>, 'title' |
 	onChange?: (expand: boolean) => void
 }
 
-const CollapsePanel: FC<CollapsePanelProps> = props => {
+const _CollapsePanel = (props: CollapsePanelProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const {
 		className,
 		children,
@@ -37,6 +37,7 @@ const CollapsePanel: FC<CollapsePanelProps> = props => {
 
 	return (
 		<div
+			ref={ref}
 			className={cls(prefixCls, {
 				[`${prefixCls}-bordered`]: bordered,
 				[`${prefixCls}-default`]: !custom
@@ -64,5 +65,5 @@ const CollapsePanel: FC<CollapsePanelProps> = props => {
 		</div>
 	)
 }
-
-export default CollapsePanel
+_CollapsePanel.displayName = 'CollapsePanel'
+export const CollapsePanel = forwardRef(_CollapsePanel)

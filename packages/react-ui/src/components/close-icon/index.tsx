@@ -6,7 +6,7 @@ import { TbX } from 'react-icons/tb'
 
 import { UI_PREFIX } from '../../constants'
 
-const CloseIcon = (props: HTMLAttributes<HTMLDivElement>, ref: ForwardedRef<HTMLDivElement>) => {
+const _CloseIcon = (props: HTMLAttributes<HTMLDivElement>, ref: ForwardedRef<HTMLDivElement>) => {
 	const { className, ...rest } = props
 	const prefixCls = `${UI_PREFIX}-close-icon`
 	return (
@@ -15,5 +15,5 @@ const CloseIcon = (props: HTMLAttributes<HTMLDivElement>, ref: ForwardedRef<HTML
 		</div>
 	)
 }
-CloseIcon.displayName = 'CloseIcon'
-export default forwardRef(CloseIcon)
+_CloseIcon.displayName = 'CloseIcon'
+export const CloseIcon = forwardRef(_CloseIcon)

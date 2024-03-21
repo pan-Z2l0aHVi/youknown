@@ -4,13 +4,13 @@ import { checkHoverSupported, cls, pick, pickDataAttrs } from '@youknown/utils/s
 import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, isValidElement, ReactNode } from 'react'
 
 import { UI_PREFIX } from '../../constants'
-import Trigger, { EventsByTriggerNeed } from '../trigger'
+import { EventsByTriggerNeed, Trigger } from '../trigger'
 
-interface TooltipProps extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'motion' | 'title'> {
+export interface TooltipProps extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'motion' | 'title'> {
 	title?: ReactNode
 }
 
-const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
+const _Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 	const {
 		children,
 		title = '',
@@ -66,5 +66,5 @@ const Tooltip = (props: TooltipProps, propRef: ForwardedRef<HTMLElement>) => {
 		</Trigger>
 	)
 }
-Tooltip.displayName = 'Tooltip'
-export default forwardRef(Tooltip)
+_Tooltip.displayName = 'Tooltip'
+export const Tooltip = forwardRef(_Tooltip)

@@ -6,15 +6,15 @@ import { TransitionGroup } from 'react-transition-group'
 
 import { UI_PREFIX } from '../../constants'
 import { useZIndex } from '../../hooks/useZIndex'
-import Motion from '../motion'
-import Notice from './Notice'
+import { Motion } from '../motion'
+import { Notice } from './Notice'
 
-interface ToastProps {
+export interface ToastProps {
 	noticeList: (ComponentProps<typeof Notice> & { id: string | number })[]
 	onNoticeClose: (id: string | number) => void
 }
 
-const Toast = (props: ToastProps, propRef: ForwardedRef<HTMLDivElement>) => {
+const _Toast = (props: ToastProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const { noticeList = [], onNoticeClose } = props
 
 	const zIndex = useZIndex('message')
@@ -54,5 +54,5 @@ const Toast = (props: ToastProps, propRef: ForwardedRef<HTMLDivElement>) => {
 		</div>
 	)
 }
-Toast.displayName = 'Toast'
-export default forwardRef(Toast)
+_Toast.displayName = 'Toast'
+export const Toast = forwardRef(_Toast)

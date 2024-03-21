@@ -18,20 +18,20 @@ import { useTranslation } from 'react-i18next'
 import { TbCheck, TbSelector } from 'react-icons/tb'
 
 import { UI_PREFIX } from '../../constants'
-import Divider from '../divider'
-import Dropdown from '../dropdown'
-import DropdownTitle from '../dropdown/DropdownTitle'
-import Input from '../input'
-import Loading from '../loading'
-import Space from '../space'
-import Tag from '../tag'
+import { Divider } from '../divider'
+import { Dropdown } from '../dropdown'
+import { DropdownTitle } from '../dropdown/DropdownTitle'
+import { Input } from '../input'
+import { Loading } from '../loading'
+import { Space } from '../space'
+import { Tag } from '../tag'
 
-interface Option<T> {
+export interface Option<T> {
 	label: ReactNode
 	value: T
 	disabled?: boolean
 }
-interface SelectProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
+export interface SelectProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
 	multiple?: boolean
 	disabled?: boolean
 	placement?: ComponentProps<typeof Dropdown>['placement']
@@ -46,7 +46,7 @@ interface SelectProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue
 	onLoad?: () => void
 }
 
-const Select = <T extends string | number>(props: SelectProps<T>) => {
+export const Select = <T extends string | number>(props: SelectProps<T>) => {
 	const { t } = useTranslation()
 	const {
 		className,
@@ -376,5 +376,5 @@ const Select = <T extends string | number>(props: SelectProps<T>) => {
 		</Dropdown>
 	)
 }
+
 Select.displayName = 'Select'
-export default Select

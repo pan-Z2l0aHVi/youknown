@@ -5,7 +5,7 @@ import { ForwardedRef, forwardRef, HTMLAttributes, isValidElement, ReactNode } f
 
 import { UI_PREFIX } from '../../constants'
 
-interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
 	bordered?: boolean
 	shadow?: boolean
 	header?: ReactNode
@@ -13,7 +13,7 @@ interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
 	cover?: ReactNode
 }
 
-const Card = (props: CardProps, propRef: ForwardedRef<HTMLDivElement>) => {
+const _Card = (props: CardProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const { children, className, bordered = false, shadow = false, header, footer, cover, ...rest } = props
 
 	const prefixCls = `${UI_PREFIX}-card`
@@ -44,5 +44,5 @@ const Card = (props: CardProps, propRef: ForwardedRef<HTMLDivElement>) => {
 		</div>
 	)
 }
-Card.displayName = 'Card'
-export default forwardRef(Card)
+_Card.displayName = 'Card'
+export const Card = forwardRef(_Card)

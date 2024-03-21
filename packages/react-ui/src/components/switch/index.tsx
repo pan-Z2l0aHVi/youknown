@@ -6,7 +6,7 @@ import { ChangeEventHandler, ForwardedRef, forwardRef, LabelHTMLAttributes, useR
 
 import { UI_PREFIX } from '../../constants'
 
-interface SwitchProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
+export interface SwitchProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
 	size?: 'small' | 'medium' | 'large'
 	disabled?: boolean
 	defaultValue?: boolean
@@ -14,7 +14,7 @@ interface SwitchProps extends Omit<LabelHTMLAttributes<HTMLElement>, 'defaultVal
 	onChange?: (value: boolean) => void
 }
 
-const Switch = (props: SwitchProps, propRef: ForwardedRef<HTMLInputElement>) => {
+const _Switch = (props: SwitchProps, propRef: ForwardedRef<HTMLInputElement>) => {
 	const { className, size = 'medium', disabled = false, ...rest } = omit(props, 'defaultValue', 'value', 'onChange')
 
 	const [checked, setChecked] = useControllable(props, {
@@ -50,5 +50,5 @@ const Switch = (props: SwitchProps, propRef: ForwardedRef<HTMLInputElement>) => 
 		</label>
 	)
 }
-Switch.displayName = 'Switch'
-export default forwardRef(Switch)
+_Switch.displayName = 'Switch'
+export const Switch = forwardRef(_Switch)

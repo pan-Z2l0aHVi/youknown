@@ -3,10 +3,11 @@ import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode, useLayoutEffect, u
 
 import { UI_PREFIX } from '../../constants'
 
-interface KeyboardToolbarProps extends HTMLAttributes<HTMLDivElement> {
+// TODO:
+export interface KeyboardToolbarProps extends HTMLAttributes<HTMLDivElement> {
 	panel?: ReactNode
 }
-const KeyboardToolbar = (props: KeyboardToolbarProps, ref: ForwardedRef<HTMLDivElement>) => {
+const _KeyboardToolbar = (props: KeyboardToolbarProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const { className, children, panel } = props
 
 	const [keyboardHeight, setKeyboardHeight] = useState(0)
@@ -40,5 +41,5 @@ const KeyboardToolbar = (props: KeyboardToolbarProps, ref: ForwardedRef<HTMLDivE
 	)
 }
 
-KeyboardToolbar.displayName = 'KeyboardToolbar'
-export default forwardRef(KeyboardToolbar)
+_KeyboardToolbar.displayName = 'KeyboardToolbar'
+export const KeyboardToolbar = forwardRef(_KeyboardToolbar)

@@ -6,9 +6,9 @@ import CountUp from 'react-countup'
 import { RenderCounterProps } from 'react-countup/build/types'
 
 import { UI_PREFIX } from '../../constants'
-import Circle from './Circle'
+import { Circle } from './Circle'
 
-interface ProgressCircleProps extends ComponentProps<typeof Circle> {
+export interface ProgressCircleProps extends ComponentProps<typeof Circle> {
 	size?: 'small' | 'medium' | 'large'
 	defaultMolecule?: number
 	molecule?: number
@@ -17,7 +17,7 @@ interface ProgressCircleProps extends ComponentProps<typeof Circle> {
 	format?: ((props: RenderCounterProps) => ReactNode) | null
 }
 
-const ProgressCircle = (props: ProgressCircleProps, propRef: ForwardedRef<HTMLDivElement>) => {
+const _ProgressCircle = (props: ProgressCircleProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		className,
 		size = 'medium',
@@ -58,5 +58,5 @@ const ProgressCircle = (props: ProgressCircleProps, propRef: ForwardedRef<HTMLDi
 		</Circle>
 	)
 }
-ProgressCircle.displayName = 'ProgressCircle'
-export default forwardRef(ProgressCircle)
+_ProgressCircle.displayName = 'ProgressCircle'
+export const ProgressCircle = forwardRef(_ProgressCircle)

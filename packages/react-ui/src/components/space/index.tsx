@@ -5,14 +5,14 @@ import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 
-interface SpaceProps extends HTMLAttributes<HTMLElement> {
+export interface SpaceProps extends HTMLAttributes<HTMLElement> {
 	size?: 'small' | 'medium' | 'large'
 	align?: 'start' | 'end' | 'center' | 'baseline'
 	direction?: 'horizontal' | 'vertical'
 	wrap?: boolean
 }
 
-const Space = (props: SpaceProps, propRef: ForwardedRef<HTMLDivElement>) => {
+const _Space = (props: SpaceProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		children,
 		className,
@@ -55,5 +55,5 @@ const Space = (props: SpaceProps, propRef: ForwardedRef<HTMLDivElement>) => {
 		</div>
 	)
 }
-Space.displayName = 'Space'
-export default forwardRef(Space)
+_Space.displayName = 'Space'
+export const Space = forwardRef(_Space)

@@ -6,16 +6,16 @@ import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode, useState } from 'r
 import { TbX } from 'react-icons/tb'
 
 import { UI_PREFIX } from '../../constants'
-import Space from '../space'
+import { Space } from '../space'
 
-interface TabOption<T> {
+export interface TabOption<T> {
 	key: T
 	name: ReactNode
 	disabled?: boolean
 	closable?: boolean
 }
 
-interface TabsProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'onChange' | 'defaultValue'> {
+export interface TabsProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'onChange' | 'defaultValue'> {
 	type?: 'line' | 'round' | 'segment'
 	tabList?: TabOption<T>[]
 	onTabListChange?: (tabList: TabOption<T>[]) => void
@@ -24,7 +24,7 @@ interface TabsProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'onChange' | 'd
 	onChange?: (value: T) => void
 }
 
-const Tabs = <T extends string | number>(props: TabsProps<T>, propRef: ForwardedRef<HTMLDivElement>) => {
+const _Tabs = <T extends string | number>(props: TabsProps<T>, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		className,
 		type = 'line',
@@ -140,6 +140,6 @@ const Tabs = <T extends string | number>(props: TabsProps<T>, propRef: Forwarded
 		</div>
 	)
 }
-Tabs.displayName = 'Tabs'
+_Tabs.displayName = 'Tabs'
 
-export default forwardRef(Tabs)
+export const Tabs = forwardRef(_Tabs)

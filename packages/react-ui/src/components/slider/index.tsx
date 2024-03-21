@@ -14,13 +14,13 @@ import {
 } from 'react'
 
 import { UI_PREFIX } from '../../constants'
-import Tooltip from '../tooltip'
+import { Tooltip } from '../tooltip'
 
 const toPercent = (num: number) => {
 	return `${Math.round(num * 100)}%`
 }
 
-interface SliderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface SliderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
 	disabled?: boolean
 	vertical?: boolean
 	tooltipFormatter?: (value: number) => string
@@ -32,7 +32,7 @@ interface SliderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
 	onChange?: (value: number) => void
 }
 
-const Slider = (props: SliderProps, propRef: ForwardedRef<HTMLDivElement>) => {
+const _Slider = (props: SliderProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		className,
 		vertical = false,
@@ -243,6 +243,6 @@ const Slider = (props: SliderProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	)
 }
 
-Slider.displayName = 'Slider'
+_Slider.displayName = 'Slider'
 
-export default forwardRef(Slider)
+export const Slider = forwardRef(_Slider)

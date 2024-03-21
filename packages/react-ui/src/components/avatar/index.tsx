@@ -4,11 +4,11 @@ import { cls, is } from '@youknown/utils/src'
 import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode, useContext } from 'react'
 
 import { UI_PREFIX } from '../../constants'
-import Image from '../image/Image'
+import { Image } from '../image/Image'
 import { AvatarCtx } from './avatarCtx'
-import AvatarGroup from './avatarGroup'
+import { AvatarGroup } from './avatarGroup'
 
-interface AvatarProps extends HTMLAttributes<HTMLElement> {
+export interface AvatarProps extends HTMLAttributes<HTMLElement> {
 	size?: 'small' | 'medium' | 'large' | number
 	round?: boolean
 	bordered?: boolean
@@ -18,7 +18,7 @@ interface AvatarProps extends HTMLAttributes<HTMLElement> {
 	canPreview?: boolean
 }
 
-const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLDivElement>) => {
+const _Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const avatarCtx = useContext(AvatarCtx)
 
 	const {
@@ -76,12 +76,10 @@ const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLDivElement>) => {
 		</div>
 	)
 }
-Avatar.displayName = 'Avatar'
+_Avatar.displayName = 'Avatar'
 
-const RefAvatar = forwardRef(Avatar)
-const ExportAvatar = RefAvatar as typeof RefAvatar & {
+const RefAvatar = forwardRef(_Avatar)
+export const Avatar = RefAvatar as typeof RefAvatar & {
 	Group: typeof AvatarGroup
 }
-ExportAvatar.Group = AvatarGroup
-
-export default ExportAvatar
+Avatar.Group = AvatarGroup

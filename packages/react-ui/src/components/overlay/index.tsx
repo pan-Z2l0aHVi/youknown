@@ -8,9 +8,9 @@ import { createPortal } from 'react-dom'
 import { UI_PREFIX } from '../../constants'
 import { useEscape } from '../../hooks/useEscape'
 import { useZIndex } from '../../hooks/useZIndex'
-import Motion from '../motion'
+import { Motion } from '../motion'
 
-interface OverlayProps extends HTMLAttributes<HTMLElement> {
+export interface OverlayProps extends HTMLAttributes<HTMLElement> {
 	open?: boolean
 	overlayClosable?: boolean
 	escClosable?: boolean
@@ -21,7 +21,7 @@ interface OverlayProps extends HTMLAttributes<HTMLElement> {
 	afterClose?: () => void
 }
 
-const Overlay = (props: OverlayProps, ref: ForwardedRef<HTMLDivElement>) => {
+const _Overlay = (props: OverlayProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const {
 		children,
 		className,
@@ -86,5 +86,5 @@ const Overlay = (props: OverlayProps, ref: ForwardedRef<HTMLDivElement>) => {
 
 	return appendTo ? createPortal(ele, appendTo) : ele
 }
-Overlay.displayName = 'Overlay'
-export default forwardRef(Overlay)
+_Overlay.displayName = 'Overlay'
+export const Overlay = forwardRef(_Overlay)

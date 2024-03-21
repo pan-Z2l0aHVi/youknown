@@ -7,11 +7,11 @@ import { createPortal } from 'react-dom'
 import { UI_PREFIX } from '../../constants'
 import { useEscape } from '../../hooks/useEscape'
 import { useZIndex } from '../../hooks/useZIndex'
-import CloseIcon from '../close-icon'
-import Motion from '../motion'
-import Overlay from '../overlay'
+import { CloseIcon } from '../close-icon'
+import { Motion } from '../motion'
+import { Overlay } from '../overlay'
 
-interface DrawerProps extends HTMLAttributes<HTMLElement> {
+export interface DrawerProps extends HTMLAttributes<HTMLElement> {
 	open?: boolean
 	placement?: 'left' | 'top' | 'right' | 'bottom'
 	width?: number | string
@@ -26,7 +26,7 @@ interface DrawerProps extends HTMLAttributes<HTMLElement> {
 	onCancel?: () => void
 }
 
-const Drawer: FC<DrawerProps> = props => {
+export const Drawer: FC<DrawerProps> = props => {
 	const {
 		children,
 		className,
@@ -85,4 +85,3 @@ const Drawer: FC<DrawerProps> = props => {
 	return appendTo ? createPortal(ele, appendTo) : ele
 }
 Drawer.displayName = 'Drawer'
-export default Drawer

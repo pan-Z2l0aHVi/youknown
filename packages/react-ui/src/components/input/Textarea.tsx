@@ -17,7 +17,7 @@ import TextareaAutosize, { TextareaHeightChangeMeta } from 'react-textarea-autos
 
 import { UI_PREFIX } from '../../constants'
 
-interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
+export interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
 	autosize?: boolean
 	minRows?: number
 	maxRows?: number
@@ -30,7 +30,7 @@ interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>
 	onEnter?: (value: string) => void
 }
 
-const Textarea = (props: TextareaProps, propRef: ForwardedRef<HTMLTextAreaElement>) => {
+const _Textarea = (props: TextareaProps, propRef: ForwardedRef<HTMLTextAreaElement>) => {
 	const {
 		className,
 		autosize = false,
@@ -124,6 +124,6 @@ const Textarea = (props: TextareaProps, propRef: ForwardedRef<HTMLTextAreaElemen
 		</label>
 	)
 }
-Textarea.displayName = 'Textarea'
+_Textarea.displayName = 'Textarea'
 
-export default forwardRef(Textarea)
+export const Textarea = forwardRef(_Textarea)

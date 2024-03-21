@@ -5,12 +5,12 @@ import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 
-interface DividerProps extends HTMLAttributes<HTMLDivElement> {
+export interface DividerProps extends HTMLAttributes<HTMLDivElement> {
 	size?: 'small' | 'medium' | 'large'
 	direction?: 'horizontal' | 'vertical'
 }
 
-const Divider = (props: DividerProps, propRef: ForwardedRef<HTMLDivElement>) => {
+export const _Divider = (props: DividerProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const { children, className, size = 'medium', direction = 'horizontal', ...rest } = props
 	const prefixCls = `${UI_PREFIX}-divider`
 	return (
@@ -23,6 +23,6 @@ const Divider = (props: DividerProps, propRef: ForwardedRef<HTMLDivElement>) => 
 		</div>
 	)
 }
-Divider.displayName = 'Divider'
+_Divider.displayName = 'Divider'
 
-export default forwardRef(Divider)
+export const Divider = forwardRef(_Divider)

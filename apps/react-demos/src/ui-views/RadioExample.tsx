@@ -4,16 +4,16 @@ import { useEffect, useRef, useState } from 'react'
 export default () => {
 	const [val, setVal] = useState(false)
 	const defaultGroupVal = 2
-	const [groupVal, setGroupVal] = useState<string | number>(defaultGroupVal)
+	const [groupVal, setGroupVal] = useState(defaultGroupVal)
 	const radioRef = useRef<HTMLInputElement>(null)
 	const defaultHorizontalVal = 1
-	const [horizontalVal, setHorizontalVal] = useState<string | number>(defaultHorizontalVal)
+	const [horizontalVal, setHorizontalVal] = useState(defaultHorizontalVal)
 	const defaultVerticalVal = 0
-	const [verticalVal, setVerticalVal] = useState<string | number>(defaultVerticalVal)
+	const [verticalVal, setVerticalVal] = useState(defaultVerticalVal)
 	const defaultDisabledVal = 2
-	const [disabledGroupVal, setDisabledGroupVal] = useState<string | number>(defaultDisabledVal)
+	const [disabledGroupVal, setDisabledGroupVal] = useState(defaultDisabledVal)
 	const defaultJsxGroupVal = 2
-	const [jsxGroupVal, setJsxGroupVal] = useState<string | number>(defaultJsxGroupVal)
+	const [jsxGroupVal, setJsxGroupVal] = useState(defaultJsxGroupVal)
 	useEffect(() => {
 		setTimeout(() => {
 			console.log('radioRef.current.checked', radioRef.current?.checked)

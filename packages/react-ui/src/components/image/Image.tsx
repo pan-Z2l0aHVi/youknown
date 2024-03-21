@@ -14,7 +14,7 @@ export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement>, Omit<Ar
 	canPreview?: boolean
 }
 
-const Image = (props: ImageProps, propRef: ForwardedRef<HTMLImageElement>) => {
+const _Image = (props: ImageProps, propRef: ForwardedRef<HTMLImageElement>) => {
 	const {
 		className,
 		src = '',
@@ -34,9 +34,7 @@ const Image = (props: ImageProps, propRef: ForwardedRef<HTMLImageElement>) => {
 	const imgRef = useComposeRef(propRef, innerRef)
 	const [isError, setIsError] = useState(false)
 	useEffect(() => {
-		if (src) {
-			setIsError(false)
-		}
+		setIsError(!src)
 	}, [src])
 
 	const showDetail = useEvent((url: string) => {
@@ -81,5 +79,5 @@ const Image = (props: ImageProps, propRef: ForwardedRef<HTMLImageElement>) => {
 		/>
 	)
 }
-Image.displayName = 'Image'
-export default forwardRef(Image)
+_Image.displayName = 'Image'
+export const Image = forwardRef(_Image)

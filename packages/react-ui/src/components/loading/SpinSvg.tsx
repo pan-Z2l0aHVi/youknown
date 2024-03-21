@@ -1,6 +1,6 @@
 import { ForwardedRef, forwardRef, SVGAttributes } from 'react'
 
-const SpinSvg = (props: SVGAttributes<SVGSVGElement>, propRef: ForwardedRef<SVGSVGElement>) => {
+const _SpinSvg = (props: SVGAttributes<SVGSVGElement>, propRef: ForwardedRef<SVGSVGElement>) => {
 	const { style, ...rest } = props
 	return (
 		<svg
@@ -57,5 +57,5 @@ const SpinSvg = (props: SVGAttributes<SVGSVGElement>, propRef: ForwardedRef<SVGS
 		</svg>
 	)
 }
-SpinSvg.displayName = 'SpinSvg'
-export default forwardRef(SpinSvg)
+_SpinSvg.displayName = 'SpinSvg'
+export const SpinSvg = forwardRef(_SpinSvg)

@@ -16,18 +16,18 @@ import {
 } from 'react-icons/tb'
 
 import { UI_PREFIX } from '../../constants'
-import Button from '../button'
-import Loading from '../loading'
-import Motion from '../motion'
-import Overlay from '../overlay'
-import Space from '../space'
-import Tooltip from '../tooltip'
+import { Button } from '../button'
+import { Loading } from '../loading'
+import { Motion } from '../motion'
+import { Overlay } from '../overlay'
+import { Space } from '../space'
+import { Tooltip } from '../tooltip'
 
 type Coordinate = {
 	x: number
 	y: number
 } | null
-interface ImagePreviewProps {
+export interface ImagePreviewProps {
 	src?: string
 	toolbarVisible?: boolean
 	minZoom?: number
@@ -46,7 +46,7 @@ interface ImagePreviewProps {
 
 const is_touch_device = checkTouchDevice()
 
-const ImagePreview = (props: ImagePreviewProps) => {
+export const ImagePreview = (props: ImagePreviewProps) => {
 	const {
 		src = '',
 		open = false,

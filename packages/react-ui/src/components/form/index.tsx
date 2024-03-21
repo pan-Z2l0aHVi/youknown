@@ -5,15 +5,15 @@ import { cls, omit } from '@youknown/utils/src'
 import { FormEvent, FormHTMLAttributes, ForwardedRef, forwardRef } from 'react'
 
 import { UI_PREFIX } from '../../constants'
-import Field from './Field'
+import { Field } from './Field'
 import { FormContext, FormCtx } from './FormCtx'
 
-interface FormProps extends FormHTMLAttributes<HTMLFormElement>, Omit<Partial<FormContext>, 'labelAlign'> {
+export interface FormProps extends FormHTMLAttributes<HTMLFormElement>, Omit<Partial<FormContext>, 'labelAlign'> {
 	form: FormInstance
 	layout?: 'horizontal' | 'vertical' | 'inline'
 }
 
-const Form = (props: FormProps, propRef: ForwardedRef<HTMLFormElement>) => {
+const _Form = (props: FormProps, propRef: ForwardedRef<HTMLFormElement>) => {
 	const {
 		className,
 		children,
@@ -62,13 +62,12 @@ const Form = (props: FormProps, propRef: ForwardedRef<HTMLFormElement>) => {
 		</FormCtx.Provider>
 	)
 }
-Form.displayName = 'Form'
+_Form.displayName = 'Form'
 
-const RefForm = forwardRef(Form)
-const ExportForm = RefForm as typeof RefForm & {
+const RefForm = forwardRef(_Form)
+export const Form = RefForm as typeof RefForm & {
 	Field: typeof Field
 	useForm: typeof useForm
 }
-ExportForm.Field = Field
-ExportForm.useForm = useForm
-export default ExportForm
+Form.Field = Field
+Form.useForm = useForm

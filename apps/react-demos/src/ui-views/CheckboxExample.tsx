@@ -4,14 +4,14 @@ import { useEffect, useRef, useState } from 'react'
 export default () => {
 	const [val, setVal] = useState(false)
 	const defaultGroupVal = [2]
-	const [groupVal, setGroupVal] = useState<(string | number)[]>(defaultGroupVal)
+	const [groupVal, setGroupVal] = useState(defaultGroupVal)
 	const checkboxRef = useRef<HTMLInputElement>(null)
 	const defaultHorizontalVal = [0, 1]
-	const [horizontalVal, setHorizontalVal] = useState<(string | number)[]>(defaultHorizontalVal)
+	const [horizontalVal, setHorizontalVal] = useState(defaultHorizontalVal)
 	const defaultVerticalVal = [1]
-	const [verticalVal, setVerticalVal] = useState<(string | number)[]>(defaultVerticalVal)
+	const [verticalVal, setVerticalVal] = useState(defaultVerticalVal)
 	const defaultJsxGroupVal = [2, 3]
-	const [jsxGroupVal, setJsxGroupVal] = useState<(string | number)[]>(defaultJsxGroupVal)
+	const [jsxGroupVal, setJsxGroupVal] = useState(defaultJsxGroupVal)
 	useEffect(() => {
 		setTimeout(() => {
 			console.log('checkboxRef.current.checked', checkboxRef.current?.checked)

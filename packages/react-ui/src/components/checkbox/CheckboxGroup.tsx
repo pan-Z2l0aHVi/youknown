@@ -14,24 +14,27 @@ import {
 } from 'react'
 
 import { UI_PREFIX } from '../../constants'
-import Space from '../space'
-import Checkbox from './'
+import { Space } from '../space'
+import { Checkbox } from './'
 
-interface CheckboxGroupProps extends Omit<HTMLAttributes<HTMLElement>, 'onChange' | 'defaultValue'> {
-	defaultValue?: (string | number)[]
-	value?: (string | number)[]
+export interface CheckboxGroupProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'onChange' | 'defaultValue'> {
+	defaultValue?: T[]
+	value?: T[]
 	options?: {
-		label: string | number
+		label: T
 		child: ReactNode
 		disabled?: boolean
 	}[]
 	size?: 'small' | 'medium' | 'large'
 	direction?: 'horizontal' | 'vertical'
 	disabled?: boolean
-	onChange?: (value: (string | number)[]) => void
+	onChange?: (value: T[]) => void
 }
 
-const CheckboxGroup = (props: CheckboxGroupProps, propRef: ForwardedRef<HTMLDivElement>) => {
+const _CheckboxGroup = <T extends string | number>(
+	props: CheckboxGroupProps<T>,
+	propRef: ForwardedRef<HTMLDivElement>
+) => {
 	const {
 		children,
 		className,
@@ -42,11 +45,11 @@ const CheckboxGroup = (props: CheckboxGroupProps, propRef: ForwardedRef<HTMLDivE
 		...rest
 	} = omit(props, 'defaultValue', 'value', 'onChange')
 
-	const [value, setValue] = useControllable<(string | number)[]>(props, {
+	const [value, setValue] = useControllable<T[]>(props, {
 		defaultValue: []
 	})
 
-	const getHandleSubChange = (label?: string | number) => (subChecked: boolean) => {
+	const getHandleSubChange = (label?: T) => (subChecked: boolean) => {
 		if (is.undefined(label)) {
 			return
 		}
@@ -96,8 +99,8 @@ const CheckboxGroup = (props: CheckboxGroupProps, propRef: ForwardedRef<HTMLDivE
 						? cloneElement(child, {
 								size,
 								disabled: disabled || child.props.disabled,
-								value: child.props.label != null && value.includes(child.props.label),
-								onChange: getHandleSubChange(child.props.label)
+								value: child.props.label != null && value.includes(child.props.label as T),
+								onChange: getHandleSubChange(child.props.label as T)
 							})
 						: child
 				)}
@@ -105,5 +108,5 @@ const CheckboxGroup = (props: CheckboxGroupProps, propRef: ForwardedRef<HTMLDivE
 		</div>
 	)
 }
-CheckboxGroup.displayName = 'CheckboxGroup'
-export default forwardRef(CheckboxGroup)
+_CheckboxGroup.displayName = 'CheckboxGroup'
+export const CheckboxGroup = forwardRef(_CheckboxGroup)

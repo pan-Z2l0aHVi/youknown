@@ -7,12 +7,12 @@ import { UI_PREFIX } from '../../constants'
 import { clickOutside } from './clickOutside'
 import { MenuCtx } from './MenuCtx'
 
-interface DropdownMenuProps extends HTMLAttributes<HTMLElement> {
+export interface DropdownMenuProps extends HTMLAttributes<HTMLElement> {
 	closeAfterItemClick?: boolean
 	closeDropdown?: () => void
 }
 
-const DropdownMenu = (props: DropdownMenuProps, ref: ForwardedRef<HTMLDivElement>) => {
+const _DropdownMenu = (props: DropdownMenuProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const { className, children, closeAfterItemClick = false, closeDropdown = clickOutside, ...rest } = props
 
 	const prefixCls = `${UI_PREFIX}-dropdown-menu`
@@ -30,5 +30,5 @@ const DropdownMenu = (props: DropdownMenuProps, ref: ForwardedRef<HTMLDivElement
 		</MenuCtx.Provider>
 	)
 }
-DropdownMenu.displayName = 'DropdownMenu'
-export default forwardRef(DropdownMenu)
+_DropdownMenu.displayName = 'DropdownMenu'
+export const DropdownMenu = forwardRef(_DropdownMenu)

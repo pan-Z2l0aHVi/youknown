@@ -10,11 +10,12 @@ import { LuChevronLeft, LuChevronRight, LuChevronsLeft, LuChevronsRight } from '
 import { TbCalendar } from 'react-icons/tb'
 
 import { UI_PREFIX } from '../../constants'
-import Button from '../button'
-import Divider from '../divider'
-import Popover from '../popover'
+import { Button } from '../button'
+import { Divider } from '../divider'
+import { Popover } from '../popover'
 
-interface DatePickerProps extends Omit<ComponentPropsWithoutRef<typeof Button>, 'defaultValue' | 'value' | 'onChange'> {
+export interface DatePickerProps
+	extends Omit<ComponentPropsWithoutRef<typeof Button>, 'defaultValue' | 'value' | 'onChange'> {
 	size?: 'small' | 'medium' | 'large'
 	disabled?: boolean
 	icon?: ReactNode
@@ -25,7 +26,7 @@ interface DatePickerProps extends Omit<ComponentPropsWithoutRef<typeof Button>, 
 	onChange?: (value: Dayjs) => void
 }
 
-const DatePicker = (props: DatePickerProps, ref: ForwardedRef<HTMLButtonElement>) => {
+const _DatePicker = (props: DatePickerProps, ref: ForwardedRef<HTMLButtonElement>) => {
 	const { t } = useTranslation()
 	const prefixCls = `${UI_PREFIX}-date-picker`
 	const {
@@ -193,5 +194,5 @@ const DatePicker = (props: DatePickerProps, ref: ForwardedRef<HTMLButtonElement>
 		</Popover>
 	)
 }
-DatePicker.displayName = 'DatePicker'
-export default forwardRef(DatePicker)
+_DatePicker.displayName = 'DatePicker'
+export const DatePicker = forwardRef(_DatePicker)

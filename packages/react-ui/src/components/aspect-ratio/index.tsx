@@ -5,11 +5,11 @@ import { FC, HTMLAttributes } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 
-interface AspectRatioProps extends HTMLAttributes<HTMLElement> {
+export interface AspectRatioProps extends HTMLAttributes<HTMLElement> {
 	ratio: number
 }
 
-const AspectRatio: FC<AspectRatioProps> = props => {
+export const AspectRatio: FC<AspectRatioProps> = props => {
 	const { className, ratio = 1, children, style, ...rest } = props
 
 	const prefixCls = `${UI_PREFIX}-aspect-ratio`
@@ -25,4 +25,3 @@ const AspectRatio: FC<AspectRatioProps> = props => {
 	)
 }
 AspectRatio.displayName = 'AspectRatio'
-export default AspectRatio

@@ -14,24 +14,24 @@ import {
 } from 'react'
 
 import { UI_PREFIX } from '../../constants'
-import Space from '../space'
-import Radio from './'
+import { Space } from '../space'
+import { Radio } from './'
 
-interface RadioGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {
+export interface RadioGroupProps<T> extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {
 	size?: 'small' | 'medium' | 'large'
-	defaultValue?: string | number
-	value?: string | number
+	defaultValue?: T
+	value?: T
 	options?: {
-		label: string | number
+		label: T
 		child: ReactNode
 		disabled?: boolean
 	}[]
 	direction?: 'horizontal' | 'vertical'
 	disabled?: boolean
-	onChange?: (value: string | number) => void
+	onChange?: (value: T) => void
 }
 
-const RadioGroup = (props: RadioGroupProps, propRef: ForwardedRef<HTMLDivElement>) => {
+const _RadioGroup = <T extends string | number>(props: RadioGroupProps<T>, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		children,
 		className,
@@ -42,9 +42,9 @@ const RadioGroup = (props: RadioGroupProps, propRef: ForwardedRef<HTMLDivElement
 		...rest
 	} = omit(props, 'defaultValue', 'value', 'onChange')
 
-	const [value, setValue] = useControllable(props)
+	const [value, setValue] = useControllable<T>(props)
 
-	const getHandleSubChange = (label?: string | number) => (subChecked: boolean) => {
+	const getHandleSubChange = (label?: T) => (subChecked: boolean) => {
 		if (is.undefined(label)) {
 			return
 		}
@@ -77,7 +77,7 @@ const RadioGroup = (props: RadioGroupProps, propRef: ForwardedRef<HTMLDivElement
 							size,
 							disabled: disabled || child.props.disabled,
 							value: value === child.props.label,
-							onChange: getHandleSubChange(child.props.label)
+							onChange: getHandleSubChange(child.props.label as T)
 						})
 					: child
 			)}
@@ -96,5 +96,5 @@ const RadioGroup = (props: RadioGroupProps, propRef: ForwardedRef<HTMLDivElement
 		</div>
 	)
 }
-RadioGroup.displayName = 'RadioGroup'
-export default forwardRef(RadioGroup)
+_RadioGroup.displayName = 'RadioGroup'
+export const RadioGroup = forwardRef(_RadioGroup)

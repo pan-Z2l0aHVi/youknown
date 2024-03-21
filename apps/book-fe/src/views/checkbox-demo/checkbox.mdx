@@ -157,7 +157,7 @@ import { Checkbox } from '@youknown/react-ui'
 import { useState } from 'react'
 
 export default () => {
-  const [groupVal, setGroupVal] = useState<(string | number)[]>([2])
+  const [groupVal, setGroupVal] = useState([2])
   const [dir, setDir] = useState<'horizontal' | 'vertical'>('horizontal')
   return (
     <Checkbox.Group
@@ -263,7 +263,7 @@ import { Checkbox } from '@youknown/react-ui'
 import { useState } from 'react'
 
 export default () => {
-  const [groupVal, setGroupVal] = useState<number[]>([2, 3])
+  const [groupVal, setGroupVal] = useState([2, 3])
   return (
     <>
       <Checkbox.Group

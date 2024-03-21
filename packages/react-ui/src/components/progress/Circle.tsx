@@ -5,7 +5,7 @@ import { ForwardedRef, forwardRef, HTMLAttributes, useEffect, useRef } from 'rea
 
 import { UI_PREFIX } from '../../constants'
 
-interface CircleProps extends HTMLAttributes<HTMLElement> {
+export interface CircleProps extends HTMLAttributes<HTMLElement> {
 	size?: 'small' | 'medium' | 'large'
 	defaultMolecule?: number
 	molecule?: number
@@ -23,7 +23,7 @@ interface SizeData {
 	strokeWidth: number
 }
 
-const Circle = (props: CircleProps, propRef: ForwardedRef<HTMLDivElement>) => {
+const _Circle = (props: CircleProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		children,
 		className,
@@ -107,6 +107,6 @@ const Circle = (props: CircleProps, propRef: ForwardedRef<HTMLDivElement>) => {
 		</div>
 	)
 }
-Circle.displayName = 'Circle'
+_Circle.displayName = 'Circle'
 
-export default forwardRef(Circle)
+export const Circle = forwardRef(_Circle)

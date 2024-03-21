@@ -4,7 +4,7 @@ import { cloneElement, ForwardedRef, forwardRef, HTMLAttributes, isValidElement,
 import { Transition } from 'react-transition-group'
 import { TransitionProps } from 'react-transition-group/Transition'
 
-interface StretchProps
+export interface StretchProps
 	extends Pick<
 			TransitionProps,
 			| 'in'
@@ -120,7 +120,7 @@ const Disappearance = (props: DisappearanceProps, ref: ForwardedRef<HTMLElement>
 }
 Disappearance.displayName = 'Disappearance'
 
-const Motion = {
+export const Motion = {
 	Fade,
 	Grow,
 	Slide,
@@ -129,4 +129,3 @@ const Motion = {
 	Stretch: forwardRef(Stretch),
 	Disappearance: forwardRef(Disappearance)
 }
-export default Motion

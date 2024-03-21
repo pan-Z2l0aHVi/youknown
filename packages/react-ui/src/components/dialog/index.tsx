@@ -1,9 +1,9 @@
 import { confirm } from './confirm'
-import Dialog from './Dialog'
+import { Dialog as _Dialog } from './Dialog'
+export type { DialogProps } from './Dialog'
 
 interface DialogCommand {
 	confirm: typeof confirm
 }
-const ExportDialog = Dialog as typeof Dialog & DialogCommand
-ExportDialog.confirm = confirm
-export default ExportDialog
+export const Dialog = _Dialog as typeof _Dialog & DialogCommand
+Dialog.confirm = confirm

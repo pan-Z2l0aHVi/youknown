@@ -7,7 +7,7 @@ import { UI_PREFIX } from '../../constants'
 
 type DropdownTitleProps = HTMLAttributes<HTMLElement>
 
-const DropdownTitle = (props: DropdownTitleProps, ref: ForwardedRef<HTMLDivElement>) => {
+const _DropdownTitle = (props: DropdownTitleProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const { className, children, ...rest } = props
 
 	const prefixCls = `${UI_PREFIX}-dropdown-title`
@@ -18,5 +18,5 @@ const DropdownTitle = (props: DropdownTitleProps, ref: ForwardedRef<HTMLDivEleme
 		</div>
 	)
 }
-DropdownTitle.displayName = 'DropdownTitle'
-export default forwardRef(DropdownTitle)
+_DropdownTitle.displayName = 'DropdownTitle'
+export const DropdownTitle = forwardRef(_DropdownTitle)

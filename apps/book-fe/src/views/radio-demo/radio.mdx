@@ -158,7 +158,7 @@ import { useState } from 'react'
 import { Radio } from '@youknown/react-ui'
 
 export default () => {
-  const [groupVal, setGroupVal] = useState<string | number>(2)
+  const [groupVal, setGroupVal] = useState(2)
   const [dir, setDir] = useState<'horizontal' | 'vertical'>('horizontal')
   return (
     <Radio.Group
@@ -258,7 +258,7 @@ export function RadioJSX() {
 
 ```tsx
 export default () => {
-  const [groupVal, setGroupVal] = useState<number[]>(3)
+  const [groupVal, setGroupVal] = useState(3)
   return (
     <>
       <Radio.Group

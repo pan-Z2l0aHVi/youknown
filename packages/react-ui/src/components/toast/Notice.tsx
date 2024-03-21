@@ -14,14 +14,14 @@ import {
 
 import { UI_PREFIX } from '../../constants'
 
-interface NoticeProps extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
+export interface NoticeProps extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
 	content?: ReactNode
 	icon?: ReactNode
 	duration?: number
 	onClose?: () => void
 }
 
-const Notice = (props: NoticeProps, propRef: ForwardedRef<HTMLDivElement>) => {
+const _Notice = (props: NoticeProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const { className, content, icon, duration = 2000, onClose, onMouseEnter, onMouseLeave, ...rest } = props
 
 	const timer = useRef(0)
@@ -84,5 +84,5 @@ const Notice = (props: NoticeProps, propRef: ForwardedRef<HTMLDivElement>) => {
 		</div>
 	)
 }
-Notice.displayName = 'Notice'
-export default forwardRef(Notice)
+_Notice.displayName = 'Notice'
+export const Notice = forwardRef(_Notice)

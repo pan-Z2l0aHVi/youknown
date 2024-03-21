@@ -6,13 +6,13 @@ import { FC, HTMLAttributes } from 'react'
 import { UI_PREFIX } from '../../constants'
 import { AvatarCtx } from './avatarCtx'
 
-interface AvatarGroupProps extends HTMLAttributes<HTMLElement> {
+export interface AvatarGroupProps extends HTMLAttributes<HTMLElement> {
 	size?: 'small' | 'medium' | 'large' | number
 	round?: boolean
 	bordered?: boolean
 }
 
-const AvatarGroup: FC<AvatarGroupProps> = props => {
+export const AvatarGroup: FC<AvatarGroupProps> = props => {
 	const { children, className, size, round = true, bordered = false, ...rest } = props
 
 	const prefixCls = `${UI_PREFIX}-avatar-group`
@@ -25,4 +25,3 @@ const AvatarGroup: FC<AvatarGroupProps> = props => {
 	)
 }
 AvatarGroup.displayName = 'AvatarGroup'
-export default AvatarGroup

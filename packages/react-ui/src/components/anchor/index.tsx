@@ -32,7 +32,7 @@ export interface AnchorProps extends HTMLAttributes<HTMLDivElement> {
 	offsetY?: number
 }
 
-const Anchor = (props: AnchorProps, ref: ForwardedRef<HTMLDivElement>) => {
+const _Anchor = (props: AnchorProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const { className, items = [], container = window, offsetY = 0, ...rest } = props
 	const [selection, setSelection] = useState('')
 	const flattenItems = useMemo(() => flattenArray(items), [items])
@@ -150,6 +150,6 @@ const Anchor = (props: AnchorProps, ref: ForwardedRef<HTMLDivElement>) => {
 	)
 }
 
-Anchor.displayName = 'Anchor'
+_Anchor.displayName = 'Anchor'
 
-export default forwardRef(Anchor)
+export const Anchor = forwardRef(_Anchor)

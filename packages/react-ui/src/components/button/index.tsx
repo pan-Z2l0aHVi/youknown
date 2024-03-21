@@ -4,9 +4,9 @@ import { cls } from '@youknown/utils/src'
 import { ButtonHTMLAttributes, ForwardedRef, forwardRef, ReactNode } from 'react'
 
 import { UI_PREFIX } from '../../constants'
-import Loading from '../loading'
+import { Loading } from '../loading'
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	size?: 'small' | 'medium' | 'large'
 	primary?: boolean
 	danger?: boolean
@@ -20,7 +20,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	suffixIcon?: ReactNode
 }
 
-const Button = (props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
+const _Button = (props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
 	const {
 		children,
 		className,
@@ -105,5 +105,5 @@ const Button = (props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
 		</button>
 	)
 }
-Button.displayName = 'Button'
-export default forwardRef(Button)
+_Button.displayName = 'Button'
+export const Button = forwardRef(_Button)

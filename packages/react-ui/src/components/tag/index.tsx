@@ -6,9 +6,9 @@ import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
 import { TbX } from 'react-icons/tb'
 
 import { UI_PREFIX } from '../../constants'
-import Loading from '../loading'
+import { Loading } from '../loading'
 
-interface TagProps extends HTMLAttributes<HTMLDivElement> {
+export interface TagProps extends HTMLAttributes<HTMLDivElement> {
 	size?: 'small' | 'medium' | 'large'
 	round?: boolean
 	bordered?: boolean
@@ -19,7 +19,7 @@ interface TagProps extends HTMLAttributes<HTMLDivElement> {
 	onClose?: () => void | Promise<void>
 }
 
-const Tag = (props: TagProps, propRef: ForwardedRef<HTMLDivElement>) => {
+const _Tag = (props: TagProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		children,
 		className,
@@ -77,5 +77,5 @@ const Tag = (props: TagProps, propRef: ForwardedRef<HTMLDivElement>) => {
 		</div>
 	)
 }
-Tag.displayName = 'Tag'
-export default forwardRef(Tag)
+_Tag.displayName = 'Tag'
+export const Tag = forwardRef(_Tag)

@@ -5,16 +5,16 @@ import { cls, is, omit } from '@youknown/utils/src'
 import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, HTMLAttributes, isValidElement } from 'react'
 
 import { UI_PREFIX } from '../../constants'
-import CollapsePanel from './CollapsePanel'
+import { CollapsePanel } from './CollapsePanel'
 
-interface CollapseProps<T> extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface CollapseProps<T> extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
 	accordion?: boolean
 	defaultActives?: T[]
 	actives?: T[]
 	onChange?: (actives: T[]) => void
 }
 
-const Collapse = <T extends string | number>(props: CollapseProps<T>, propRef: ForwardedRef<HTMLDivElement>) => {
+const _Collapse = <T extends string | number>(props: CollapseProps<T>, propRef: ForwardedRef<HTMLDivElement>) => {
 	const { className, children, accordion = false, ...rest } = omit(props, 'defaultActives', 'actives', 'onChange')
 	const [actives, setActives] = useControllable<T[]>(props, {
 		defaultValue: [],
@@ -48,12 +48,10 @@ const Collapse = <T extends string | number>(props: CollapseProps<T>, propRef: F
 		</div>
 	)
 }
-Collapse.displayName = 'Collapse'
+_Collapse.displayName = 'Collapse'
 
-const RefCollapse = forwardRef(Collapse)
-const ExportCollapse = RefCollapse as typeof RefCollapse & {
+const RefCollapse = forwardRef(_Collapse)
+export const Collapse = RefCollapse as typeof RefCollapse & {
 	Panel: typeof CollapsePanel
 }
-ExportCollapse.Panel = CollapsePanel
-
-export default ExportCollapse
+Collapse.Panel = CollapsePanel

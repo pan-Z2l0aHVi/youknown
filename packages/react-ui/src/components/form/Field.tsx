@@ -16,10 +16,10 @@ import {
 import { TransitionGroup } from 'react-transition-group'
 
 import { UI_PREFIX } from '../../constants'
-import Motion from '../motion'
+import { Motion } from '../motion'
 import { FormContext, FormCtx } from './FormCtx'
 
-interface FieldProps
+export interface FieldProps
 	extends Omit<LabelHTMLAttributes<HTMLLabelElement> & HTMLAttributes<HTMLDivElement>, 'form'>,
 		Partial<FormContext> {
 	label?: string
@@ -28,7 +28,7 @@ interface FieldProps
 	validators?: ((value: any) => Promise<string | void>)[]
 }
 
-const Field = (props: FieldProps, propRef: ForwardedRef<HTMLLabelElement & HTMLDivElement>) => {
+const _Field = (props: FieldProps, propRef: ForwardedRef<HTMLLabelElement & HTMLDivElement>) => {
 	const { className, children, form, label, labelText, labelWidth, labelAlign, labelSuffix, validators, ...rest } =
 		props
 
@@ -91,5 +91,5 @@ const Field = (props: FieldProps, propRef: ForwardedRef<HTMLLabelElement & HTMLD
 		</div>
 	)
 }
-Field.displayName = 'Field'
-export default forwardRef(Field)
+_Field.displayName = 'Field'
+export const Field = forwardRef(_Field)

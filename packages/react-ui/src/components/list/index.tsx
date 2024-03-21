@@ -5,14 +5,14 @@ import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 import { ListCtx } from './ListCtx'
-import ListItem from './ListItem'
+import { ListItem } from './ListItem'
 
-interface ListProps extends HTMLAttributes<HTMLDivElement> {
+export interface ListProps extends HTMLAttributes<HTMLDivElement> {
 	size?: 'small' | 'medium' | 'large'
 	bordered?: boolean
 }
 
-const List = (props: ListProps, propRef: ForwardedRef<HTMLDivElement>) => {
+const _List = (props: ListProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const { className, children, size = 'medium', bordered = true, ...rest } = props
 
 	const prefixCls = `${UI_PREFIX}-list`
@@ -31,12 +31,10 @@ const List = (props: ListProps, propRef: ForwardedRef<HTMLDivElement>) => {
 		</ListCtx.Provider>
 	)
 }
-List.displayName = 'List'
+_List.displayName = 'List'
 
-const RefList = forwardRef(List)
-const ExportList = RefList as typeof RefList & {
+const RefList = forwardRef(_List)
+export const List = RefList as typeof RefList & {
 	Item: typeof ListItem
 }
-ExportList.Item = ListItem
-
-export default ExportList
+List.Item = ListItem

@@ -6,14 +6,14 @@ import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode, useContext } from 
 import { UI_PREFIX } from '../../constants'
 import { ListCtx } from './ListCtx'
 
-interface ListItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'prefix'> {
+export interface ListItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'prefix'> {
 	prefix?: ReactNode
 	suffix?: ReactNode
 	size?: 'small' | 'medium' | 'large'
 	bordered?: boolean
 }
 
-const ListItem = (props: ListItemProps, propRef: ForwardedRef<HTMLDivElement>) => {
+const _ListItem = (props: ListItemProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const listCtx = useContext(ListCtx)
 	const {
 		className,
@@ -41,5 +41,5 @@ const ListItem = (props: ListItemProps, propRef: ForwardedRef<HTMLDivElement>) =
 		</div>
 	)
 }
-ListItem.displayName = 'ListItem'
-export default forwardRef(ListItem)
+_ListItem.displayName = 'ListItem'
+export const ListItem = forwardRef(_ListItem)

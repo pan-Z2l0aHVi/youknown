@@ -4,10 +4,10 @@ import { cls } from '@youknown/utils/src'
 import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode } from 'react'
 
 import { UI_PREFIX } from '../../constants'
-import Motion from '../motion'
-import SpinSvg from './SpinSvg'
+import { Motion } from '../motion'
+import { SpinSvg } from './SpinSvg'
 
-interface LoadingProps extends HTMLAttributes<HTMLElement> {
+export interface LoadingProps extends HTMLAttributes<HTMLElement> {
 	spinning?: boolean
 	bordered?: boolean
 	size?: 'small' | 'medium' | 'large'
@@ -15,7 +15,7 @@ interface LoadingProps extends HTMLAttributes<HTMLElement> {
 	description?: ReactNode
 }
 
-const Loading = (props: LoadingProps, propRef: ForwardedRef<HTMLDivElement>) => {
+const _Loading = (props: LoadingProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		className,
 		children,
@@ -63,5 +63,5 @@ const Loading = (props: LoadingProps, propRef: ForwardedRef<HTMLDivElement>) => 
 		</Motion.Zoom>
 	)
 }
-Loading.displayName = 'Loading'
-export default forwardRef(Loading)
+_Loading.displayName = 'Loading'
+export const Loading = forwardRef(_Loading)

@@ -32,7 +32,7 @@ import { createPortal } from 'react-dom'
 
 import { UI_PREFIX } from '../../constants'
 import { useZIndex } from '../../hooks/useZIndex'
-import Motion from '../motion'
+import { Motion } from '../motion'
 
 export const EventsByTriggerNeed = [
 	'onClick',
@@ -54,7 +54,7 @@ export const EventsByTriggerNeed = [
 	| 'onKeyDown'
 )[]
 
-interface TriggerProps extends HTMLAttributes<HTMLElement> {
+export interface TriggerProps extends HTMLAttributes<HTMLElement> {
 	open?: boolean
 	defaultOpen?: boolean
 	popup?: ReactNode
@@ -73,7 +73,7 @@ interface TriggerProps extends HTMLAttributes<HTMLElement> {
 	onOpenChange?: (open: boolean) => void
 }
 
-const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
+const _Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 	const {
 		children,
 		popup,
@@ -241,5 +241,5 @@ const Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
 		</>
 	)
 }
-Trigger.displayName = 'Trigger'
-export default forwardRef(Trigger)
+_Trigger.displayName = 'Trigger'
+export const Trigger = forwardRef(_Trigger)

@@ -17,9 +17,9 @@ import {
 import { IoMdCloseCircle } from 'react-icons/io'
 
 import { UI_PREFIX } from '../../constants'
-import Textarea from './Textarea'
+import { Textarea } from './Textarea'
 
-interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'prefix' | 'size'> {
+export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'prefix' | 'size'> {
 	type?: string
 	value?: string
 	size?: 'small' | 'medium' | 'large'
@@ -35,7 +35,7 @@ interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChan
 	onEnter?: (value: string) => void
 }
 
-const Input = (props: InputProps, propRef: ForwardedRef<HTMLInputElement>) => {
+const _Input = (props: InputProps, propRef: ForwardedRef<HTMLInputElement>) => {
 	const {
 		className,
 		prefix,
@@ -150,12 +150,10 @@ const Input = (props: InputProps, propRef: ForwardedRef<HTMLInputElement>) => {
 		</label>
 	)
 }
-Input.displayName = 'Input'
+_Input.displayName = 'Input'
 
-const RefInput = forwardRef(Input)
-const ExportInput = RefInput as typeof RefInput & {
+const RefInput = forwardRef(_Input)
+export const Input = RefInput as typeof RefInput & {
 	Textarea: typeof Textarea
 }
-ExportInput.Textarea = Textarea
-
-export default ExportInput
+Input.Textarea = Textarea

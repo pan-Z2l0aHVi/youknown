@@ -29,14 +29,14 @@ import {
 
 import { UI_PREFIX } from '../../constants'
 import { cropImageToBase64 } from '../../utils/image64'
-import Button from '../button'
-import Card from '../card'
-import CloseIcon from '../close-icon'
-import Overlay from '../overlay'
-import Slider from '../slider'
-import Space from '../space'
-import Tooltip from '../tooltip'
-interface ImageCropperProps {
+import { Button } from '../button'
+import { Card } from '../card'
+import { CloseIcon } from '../close-icon'
+import { Overlay } from '../overlay'
+import { Slider } from '../slider'
+import { Space } from '../space'
+import { Tooltip } from '../tooltip'
+export interface ImageCropperProps {
 	file: File
 	title?: ReactNode
 	unmountOnExit?: boolean
@@ -60,7 +60,7 @@ interface ImageCropperRef {
 	cancel: () => void
 	crop: () => Promise<void>
 }
-function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRef>) {
+function _ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRef>) {
 	const { t } = useTranslation()
 	const {
 		title = t('react_ui.title.crop'),
@@ -246,5 +246,5 @@ function ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperRe
 		</Overlay>
 	)
 }
-ImageCropper.displayName = 'ImageCropper'
-export default forwardRef(ImageCropper)
+_ImageCropper.displayName = 'ImageCropper'
+export const ImageCropper = forwardRef(_ImageCropper)

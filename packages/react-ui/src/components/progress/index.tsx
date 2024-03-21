@@ -6,9 +6,9 @@ import CountUp from 'react-countup'
 import { RenderCounterProps } from 'react-countup/build/types'
 
 import { UI_PREFIX } from '../../constants'
-import ProgressCircle from './ProgressCircle'
+import { ProgressCircle } from './ProgressCircle'
 
-interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
+export interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
 	size?: 'small' | 'medium' | 'large'
 	defaultPercent?: number
 	percent?: number
@@ -18,7 +18,7 @@ interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
 	format?: ((ref: RenderCounterProps) => ReactNode) | null
 }
 
-const Progress = (props: ProgressProps, propRef: ForwardedRef<HTMLDivElement>) => {
+const _Progress = (props: ProgressProps, propRef: ForwardedRef<HTMLDivElement>) => {
 	const {
 		className,
 		size = 'medium',
@@ -79,11 +79,10 @@ const Progress = (props: ProgressProps, propRef: ForwardedRef<HTMLDivElement>) =
 		</div>
 	)
 }
-Progress.displayName = 'Progress'
+_Progress.displayName = 'Progress'
 
-const RefProgress = forwardRef(Progress)
-const ExportProgress = RefProgress as typeof RefProgress & {
+const RefProgress = forwardRef(_Progress)
+export const Progress = RefProgress as typeof RefProgress & {
 	Circle: typeof ProgressCircle
 }
-ExportProgress.Circle = ProgressCircle
-export default ExportProgress
+Progress.Circle = ProgressCircle

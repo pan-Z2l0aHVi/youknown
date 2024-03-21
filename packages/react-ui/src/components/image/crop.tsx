@@ -1,7 +1,7 @@
 import { ComponentProps } from 'react'
 
 import { render as renderReactRoot } from '../../utils/renderReactRoot'
-import ImageCropper from './ImageCropper'
+import { ImageCropper } from './ImageCropper'
 
 type ImageCropperProps = ComponentProps<typeof ImageCropper>
 type CropConfig = Omit<ImageCropperProps, 'open' | 'onClose'> & {

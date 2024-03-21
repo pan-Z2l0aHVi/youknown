@@ -4,14 +4,14 @@ import { pick, pickDataAttrs } from '@youknown/utils/src'
 import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, isValidElement, ReactNode } from 'react'
 
 import { UI_PREFIX } from '../../constants'
-import Trigger, { EventsByTriggerNeed } from '../trigger'
+import { EventsByTriggerNeed, Trigger } from '../trigger'
 
-interface PopoverProps
+export interface PopoverProps
 	extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'growTransformOrigin' | 'motion' | 'content'> {
 	content?: ReactNode
 }
 
-const Popover = (props: PopoverProps, propRef: ForwardedRef<HTMLElement>) => {
+const _Popover = (props: PopoverProps, propRef: ForwardedRef<HTMLElement>) => {
 	const {
 		children,
 		content,
@@ -67,6 +67,6 @@ const Popover = (props: PopoverProps, propRef: ForwardedRef<HTMLElement>) => {
 		</Trigger>
 	)
 }
-Popover.displayName = 'Popover'
+_Popover.displayName = 'Popover'
 
-export default forwardRef(Popover)
+export const Popover = forwardRef(_Popover)
