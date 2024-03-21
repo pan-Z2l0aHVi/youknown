@@ -1,4 +1,4 @@
-import { createElement, lazy, ReactNode } from 'react'
+import { createElement, lazy, ReactNode, StrictMode } from 'react'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 
 import App from '@/app'
@@ -246,7 +246,11 @@ const routes = [
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <App />,
+		element: (
+			<StrictMode>
+				<App />
+			</StrictMode>
+		),
 		children: routes
 	}
 ])

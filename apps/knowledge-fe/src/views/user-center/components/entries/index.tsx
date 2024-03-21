@@ -22,7 +22,7 @@ export default function Entires() {
 	]
 
 	return (
-		<div className="flex items-center mt-24px mb-24px">
+		<div className="flex items-center bg-bg-0 rd-radius-l p-4px mb-16px">
 			{entry_list.map(entry => (
 				<Button
 					key={entry.path}

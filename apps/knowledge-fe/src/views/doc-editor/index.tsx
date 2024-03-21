@@ -44,6 +44,9 @@ export default function Doc() {
 	const { t } = useTranslation()
 	const navigate = useTransitionNavigate()
 	const { space_id } = useParams()
+	if (!space_id) {
+		throw new Error('Space ID not found.')
+	}
 	const [search_params] = useSearchParams()
 	const doc_id = search_params.get('doc_id') as string
 	const recording = useRecordStore(state => state.recording)
@@ -189,6 +192,11 @@ export default function Doc() {
 			Toast.error(err.cause.msg)
 		}
 	})
+	useEffect(() => {
+		if (doc_state) {
+			set_doc_info(doc_state)
+		}
+	}, [doc_state, set_doc_info])
 
 	if (!editor) return null
 
@@ -202,7 +210,10 @@ export default function Doc() {
 			target_id: '',
 			obj_type: 'record.doc',
 			obj: new_doc.title,
-			obj_id: new_doc.doc_id
+			obj_id: new_doc.doc_id,
+			obj_ext: {
+				space_id
+			}
 		})
 	}
 

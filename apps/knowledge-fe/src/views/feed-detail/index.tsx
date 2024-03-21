@@ -73,13 +73,13 @@ export default function FeedDetail() {
 		refreshDeps: [feed_id],
 		onSuccess(data) {
 			record_read_feed(data)
-			window.scrollTo({
-				top: 0,
-				left: 0,
-				behavior: 'instant'
-			})
 		}
 	})
+	useEffect(() => {
+		if (feed_state) {
+			set_detail(feed_state)
+		}
+	}, [feed_state, set_detail])
 
 	const [collect_loading, set_collect_loading] = useState(false)
 	const [cancel_collect_loading, set_cancel_collect_loading] = useState(false)

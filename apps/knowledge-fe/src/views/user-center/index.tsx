@@ -263,7 +263,7 @@ export default function UserCenter() {
 			{header}
 			{banner}
 
-			<div className="relative sm:p-32px <sm:p-[32px_16px] sm:w-720px sm:m-[0_auto]">
+			<div className="relative sm:p-32px <sm:p-[32px_0] sm:w-720px sm:m-[0_auto]">
 				{follow_btn}
 
 				{is_self && !has_login ? (
@@ -280,14 +280,14 @@ export default function UserCenter() {
 					<>
 						{is_editing ? (
 							<Upload
-								className="absolute! top--45px"
+								className="absolute! top--45px <sm:left-16px"
 								circle
 								accept={IMAGE_ACCEPT}
 								action={upload_avatar}
 							/>
 						) : (
 							<Avatar
-								className="absolute! top--45px shadow-shadow-l"
+								className="absolute! top--45px <sm:left-16px shadow-shadow-l"
 								size={90}
 								round
 								bordered
@@ -299,24 +299,24 @@ export default function UserCenter() {
 				)}
 
 				{is_editing ? (
-					<Input className="mt-24px" value={nickname_val} onChange={set_nickname_val} />
+					<Input className="<sm:ml-16px mt-24px" value={nickname_val} onChange={set_nickname_val} />
 				) : (
-					<div className="text-22px line-height-32px font-600 mt-24px break-all line-clamp-2">
+					<div className="<sm:ml-16px text-22px line-height-32px font-600 mt-24px break-all line-clamp-2">
 						{user_info?.nickname ?? '--'}
 					</div>
 				)}
 
-				<div className="text-12px color-text-3 mt-8px">
+				<div className="text-12px color-text-3 mt-8px <sm:p-[0_16px_16px_16px]">
 					{t('time.join')}
 					{format_time(user_info?.creation_time ?? '--')}
 				</div>
-				<Divider />
+				{is_mobile || <Divider />}
 
 				{is_mobile && is_self && (
-					<>
+					<div className="p-16px bg-bg-2">
 						<Entires />
 						<MyOptions />
-					</>
+					</div>
 				)}
 			</div>
 

@@ -26,12 +26,38 @@ export default function RecordItem(props: RecordItemProps) {
 			target_user_id: record.target_id
 		}
 	})
-	const feed_url = QS.stringify({
-		base: '/browse/feed-detail',
-		query: {
-			feed_id: record.obj_id
-		}
-	})
+
+	let obj_url = ''
+	if ('record.doc' === record.obj_type) {
+		const { space_id } = record.obj_ext ?? {}
+		obj_url = QS.stringify({
+			base: `/library/${space_id}/editor`,
+			query: {
+				doc_id: record.obj_id
+			}
+		})
+	} else if ('record.public_doc' === record.obj_type) {
+		obj_url = QS.stringify({
+			base: '/user-center',
+			query: {
+				target_user_id: record.obj_id
+			}
+		})
+	} else if ('record.user' === record.obj_type) {
+		obj_url = QS.stringify({
+			base: '/user-center',
+			query: {
+				target_user_id: record.obj_id
+			}
+		})
+	} else if ('record.wallpaper' === record.obj_type) {
+		obj_url = QS.stringify({
+			base: '/wallpapers',
+			query: {
+				keywords: `id:${record.obj_id}`
+			}
+		})
+	}
 
 	const [menu_open, set_menu_open] = useState(false)
 	const ctx_menu = ContextMenu.useContextMenu(menu_open, set_menu_open)
@@ -91,7 +117,7 @@ export default function RecordItem(props: RecordItemProps) {
 								{t(record.obj_type)}
 								<TransitionLink
 									className="inline-block sm:max-w-200px <sm:max-w-80px truncate color-blue! [@media(hover:hover)]-hover-underline!"
-									to={feed_url}
+									to={obj_url}
 								>
 									{record.obj}
 								</TransitionLink>

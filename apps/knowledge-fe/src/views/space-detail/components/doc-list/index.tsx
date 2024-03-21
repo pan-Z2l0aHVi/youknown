@@ -130,7 +130,10 @@ export default function DocList(props: DocListProps) {
 				target_id: '',
 				obj_type: 'record.doc',
 				obj: item.title,
-				obj_id: item.doc_id
+				obj_id: item.doc_id,
+				obj_ext: {
+					space_id
+				}
 			})
 		})
 	}
@@ -142,7 +145,10 @@ export default function DocList(props: DocListProps) {
 			target_id: '',
 			obj_type: 'record.doc',
 			obj: doc_info.title,
-			obj_id: doc_info.doc_id
+			obj_id: doc_info.doc_id,
+			obj_ext: {
+				space_id
+			}
 		})
 	}
 
@@ -153,7 +159,10 @@ export default function DocList(props: DocListProps) {
 			target_id: '',
 			obj_type: 'record.doc',
 			obj: doc_info.title,
-			obj_id: doc_info.doc_id
+			obj_id: doc_info.doc_id,
+			obj_ext: {
+				space_id
+			}
 		})
 	}
 

@@ -15,9 +15,10 @@ export default function MyOptions() {
 	const navigate = useTransitionNavigate()
 
 	return (
-		<List className="overflow-hidden">
+		<List className="overflow-hidden bg-bg-0!" bordered={false}>
 			<List.Item
 				className="active-bg-active"
+				bordered
 				prefix={<LuSettings2 className="text-16px" />}
 				suffix={<TbChevronRight className="color-text-2" />}
 				onClick={open_preferences_modal}
@@ -28,6 +29,7 @@ export default function MyOptions() {
 			{has_login ? (
 				<List.Item
 					className="active-bg-active"
+					bordered
 					prefix={<TbLogout className="text-16px color-danger" />}
 					suffix={<TbChevronRight className="color-text-2" />}
 					onClick={() => {
@@ -40,6 +42,7 @@ export default function MyOptions() {
 			) : (
 				<List.Item
 					className="active-bg-active"
+					bordered
 					prefix={<TbLogin className="text-16px color-primary" />}
 					suffix={<TbChevronRight className="color-text-2" />}
 					onClick={open_login_modal}

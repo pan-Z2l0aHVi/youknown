@@ -5,9 +5,9 @@ $prefix: '#{$ui-prefix}-list';
 	@include basic;
 
 	background: $bg-1;
+	border-radius: $radius-l;
 
 	&-bordered {
 		border: 1px solid $divider;
-		border-radius: $radius-l;
 	}
 }

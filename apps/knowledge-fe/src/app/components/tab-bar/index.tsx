@@ -66,7 +66,13 @@ export default function TabBar() {
 							<div
 								className={cls(
 									'min-w-80px text-center text-12px scale-80',
-									is_dark_theme ? 'color-#fff' : 'color-#414647'
+									is_dark_theme
+										? is_active
+											? 'color-#fff'
+											: 'color-#ccc'
+										: is_active
+											? 'color-#1f2329'
+											: 'color-#414647'
 								)}
 							>
 								{tab.title}

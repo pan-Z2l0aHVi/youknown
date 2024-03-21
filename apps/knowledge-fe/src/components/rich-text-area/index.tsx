@@ -13,7 +13,7 @@ import Heading from './components/heading'
 interface RichTextAreaProps extends HTMLAttributes<HTMLDivElement> {
 	html: string
 }
-const RichTextArea = forwardRef((props: RichTextAreaProps, ref: ForwardedRef<HTMLDivElement>) => {
+const RichTextArea = (props: RichTextAreaProps, ref: ForwardedRef<HTMLDivElement>) => {
 	const { className, html } = props
 
 	const is_mobile = useUIStore(state => state.is_mobile)
@@ -96,6 +96,6 @@ const RichTextArea = forwardRef((props: RichTextAreaProps, ref: ForwardedRef<HTM
 			{rich_text_content}
 		</div>
 	)
-})
+}
 
-export default RichTextArea
+export default forwardRef(RichTextArea)

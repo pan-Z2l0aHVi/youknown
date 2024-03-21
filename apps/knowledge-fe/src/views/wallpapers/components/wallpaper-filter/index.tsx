@@ -145,7 +145,7 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 	return (
 		<>
 			<div className="flex flex-row-reverse ml-16px mr-16px">
-				<Space className="<sm:flex-1">
+				<Space className="<sm:flex-1" wrap={false}>
 					<Input
 						className="<sm:w-100%!"
 						ref={keywords_input_ref}

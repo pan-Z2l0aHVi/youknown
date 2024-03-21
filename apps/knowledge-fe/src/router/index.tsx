@@ -1,3 +1,4 @@
+import { StrictMode } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
 import App from '@/app'
@@ -8,7 +9,11 @@ import { routes } from './routes'
 const router = createBrowserRouter([
 	{
 		path: '*',
-		element: <App />,
+		element: (
+			<StrictMode>
+				<App />
+			</StrictMode>
+		),
 		children: routes,
 		errorElement: <ErrorBoundary />
 	}

@@ -1,7 +1,7 @@
 import './image-preview.scss'
 
 import { useBoolean, useEvent, useLatestRef } from '@youknown/react-hook/src'
-import { cls, downloadFile, setRootStyle } from '@youknown/utils/src'
+import { checkTouchDevice, cls, downloadFile, setRootStyle } from '@youknown/utils/src'
 import { MouseEventHandler, ReactEventHandler, TouchEventHandler, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
@@ -43,6 +43,8 @@ interface ImagePreviewProps {
 	onDownloadSuccess?: () => void
 	onDownloadError?: (err: string | Event) => void
 }
+
+const is_touch_device = checkTouchDevice()
 
 const ImagePreview = (props: ImagePreviewProps) => {
 	const {
@@ -398,6 +400,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
 					<img
 						ref={imgDetailRef}
 						className={cls(`${prefixCls}-pic`, {
+							'with-transition': !is_touch_device,
 							[`${prefixCls}-pic-loaded`]: !detailLoading
 						})}
 						src={src}

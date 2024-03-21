@@ -43,3 +43,7 @@ export function onDarkModeChange(callback: (event: MediaQueryListEvent) => void)
 		mediaQueryList.removeEventListener('change', callback)
 	}
 }
+
+export function checkTouchDevice() {
+	return 'ontouchstart' in window || navigator.maxTouchPoints > 0
+}

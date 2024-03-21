@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 
 import { useRouteKeepAlive } from './use-route-keep-alive'
 
-const block_list: string[] = []
+const BLOCK_LIST: string[] = []
 
 export function useRouteScrollTop() {
 	const is_keep_alive = useRouteKeepAlive()
@@ -12,7 +12,7 @@ export function useRouteScrollTop() {
 		if (is_keep_alive) {
 			return
 		}
-		if (block_list.includes(location.pathname)) {
+		if (BLOCK_LIST.includes(location.pathname)) {
 			return
 		}
 		window.scrollTo({

@@ -6,9 +6,11 @@ export interface RecordValue {
 	action: string
 	target: string
 	target_id: string
+	target_ext?: Record<string, string>
 	obj: string
 	obj_type: string
 	obj_id: string
+	obj_ext?: Record<string, string>
 	id: string
 	creation_time: Date
 }

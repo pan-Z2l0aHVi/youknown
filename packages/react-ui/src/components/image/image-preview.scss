@@ -51,6 +51,10 @@ $prefix: '#{$ui-prefix}-image-preview';
 			cursor: grabbing;
 		}
 
+		&.with-transition {
+			transition: transform 100ms;
+		}
+
 		&-loaded {
 			opacity: 1;
 		}
