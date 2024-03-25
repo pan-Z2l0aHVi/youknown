@@ -86,6 +86,7 @@ export default function Searcher(props: SearcherProps) {
 						set_selection={set_selection}
 						go_detail={route => {
 							if (!route) return
+							on_close(false)
 							navigate(route.path)
 						}}
 					/>

@@ -2,7 +2,7 @@ import { useBoolean, useContextMenu, useFetch } from '@youknown/react-hook/src'
 import { ContextMenu, Dialog, Dropdown, Image, Loading, Motion, Tag, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls, downloadFile, QS } from '@youknown/utils/src'
 import copy from 'copy-to-clipboard'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, memo, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CgSpinner } from 'react-icons/cg'
 import { FiDownloadCloud, FiInfo } from 'react-icons/fi'
@@ -24,7 +24,7 @@ interface WallpaperCardProps {
 	on_removed?: () => void
 }
 
-export default function WallpaperCard(props: WallpaperCardProps) {
+function WallpaperCard(props: WallpaperCardProps) {
 	const { className, wallpaper, on_removed } = props
 
 	const { t } = useTranslation()
@@ -376,3 +376,5 @@ export default function WallpaperCard(props: WallpaperCardProps) {
 		</>
 	)
 }
+
+export default memo(WallpaperCard)

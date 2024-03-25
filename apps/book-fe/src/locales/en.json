@@ -1,15 +1,10 @@
 {
-  "and": "and",
-  "atleast": "At least",
   "cancel": {
     "text": "Cancel"
   },
-  "cate": "Category",
   "clear": {
-    "text": "Clear",
-    "history": "Clear history"
+    "text": "Clear"
   },
-  "compare": "Compare between",
   "copy": {
     "share_link": {
       "success": "Share link copied"
@@ -24,12 +19,6 @@
     "fail": "Delete failed",
     "batching": "Batch delete"
   },
-  "detail": "Details",
-  "download": {
-    "to": "Download as",
-    "fail_and_copy": "Download failed. Please copy the original image link and open it in the browser",
-    "original_img": "Download original image"
-  },
   "edit": {
     "text": "Edit"
   },
@@ -42,58 +31,12 @@
     "similar": "Find similar"
   },
   "fold": "Collapse",
-  "form": {
-    "cover": "Cover: ",
-    "title": "Title: ",
-    "feed_setting": "Feed settings: ",
-    "public": "Public",
-    "private": "Private",
-    "creation_time": "Creation date",
-    "update_time": "Update date",
-    "edit_time": "Edit date",
-    "order_by": "Sort by",
-    "order": "Order",
-    "keywords": "Keywords",
-    "new": "Newest first",
-    "old": "Oldest first",
-    "ai": "Include AI works",
-    "no_ai": "Exclude AI works",
-    "general": "Normal",
-    "anime": "Anime",
-    "people": "People",
-    "top_list": "Top list",
-    "views": "Views",
-    "relevance": "Relevance",
-    "date_added": "Date added",
-    "random": "Random",
-    "desc": "Descending",
-    "asc": "Ascending",
-    "hot": "Hot",
-    "favorites": "Favorites"
-  },
   "heading": {
-    "doc": "Document",
-    "doc_setting": "Document settings",
-    "delete_doc": "Delete document",
-    "cover": "Set cover",
-    "batching_delete_doc": "Batch delete documents",
-    "knowledge_base": "My knowledge base",
-    "delete_space": "Delete space",
-    "set_avatar": "Set avatar",
-    "preference": "Preferences",
-    "user_login": "User login",
-    "clear_history": "Clear history? Are you sure?",
-    "delete_feed": "Delete the feed",
-    "delete_comment": "Delete the comment"
+    "preference": "Preferences"
   },
-  "history": {
-    "clear_tip": "Once you perform this operation, all your history will be cleared from the current device."
-  },
-  "introduction": "Introduction",
   "keyboard": {
     "tip": "Support ↑↓ keys for selection, Enter key to open, double-click to open"
   },
-  "latest": "Latest",
   "load": {
     "ing": "Loading...",
     "no_more": "No more content"
@@ -154,14 +97,6 @@
     "success": "Save successful",
     "fail": "Save failed"
   },
-  "seen": "Viewed",
-  "select": {
-    "text": "Select",
-    "all": "Select all",
-    "cancel": "Cancel selection",
-    "cancel_all": "Cancel all",
-    "choosing": "Selected: "
-  },
   "setting": {
     "text": "Settings",
     "right_angle": "Right angle",
@@ -178,8 +113,6 @@
   "share": {
     "text": "Share"
   },
-  "size": "Size",
-  "tag": "Tags",
   "time": {
     "join": "Joined on: ",
     "today": "Today",
@@ -200,7 +133,6 @@
     "hours_ago": "{{count}} hours ago"
   },
   "unfold": "Expand",
-  "unnamed": "Unnamed",
   "update": {
     "text": "Update",
     "success": "Update successful",
@@ -217,19 +149,11 @@
     "array_required": "Choose at least one",
     "max_len": "Length cannot exceed {{max}} characters",
     "letters_and_numbers": "Can only contain letters and numbers",
-    "phone": "Not a valid phone number",
-    "cover_required": "Cover is required when publishing publicly",
-    "title_required": "Title cannot be empty"
-  },
-  "view": {
-    "detail": "Detailed information",
-    "introduction": "View introduction",
-    "full_text": "Read full"
+    "phone": "Not a valid phone number"
   },
   "tab": {
     "home": "Guide"
   },
-  "author": "Author: ",
   "last_update_at": "Last updated at: ",
   "route_error": "The page is wrong!",
   "reload&retry": "Reload and retry",

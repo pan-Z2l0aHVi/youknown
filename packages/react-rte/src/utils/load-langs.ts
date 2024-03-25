@@ -16,7 +16,7 @@ function registerLangAlias(lang: string, alias: string[]) {
 }
 
 export async function loadLanguages() {
-	await Promise.allSettled([
+	const langList = [
 		import('highlight.js/lib/languages/bash').then(langFactory('bash')),
 		import('highlight.js/lib/languages/c').then(langFactory('c')),
 		import('highlight.js/lib/languages/cpp').then(langFactory('cpp')),
@@ -50,7 +50,12 @@ export async function loadLanguages() {
 		import('highlight.js/lib/languages/wasm').then(langFactory('wasm')),
 		import('highlight.js/lib/languages/xml').then(langFactory('xml')),
 		import('highlight.js/lib/languages/yaml').then(langFactory('yaml'))
-	])
+	]
+	if (Promise.allSettled as unknown) {
+		await Promise.allSettled(langList)
+	} else {
+		await Promise.all(langList)
+	}
 	registerLangAlias('markdown', ['md'])
 	registerLangAlias('html', ['vue'])
 	registerLangAlias('javascript', ['js', 'jsx'])

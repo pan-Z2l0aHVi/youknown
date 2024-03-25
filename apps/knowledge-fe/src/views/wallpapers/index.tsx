@@ -1,7 +1,7 @@
 import { useEvent, useInfinity, useMount, useUnmount, useUpdate } from '@youknown/react-hook/src'
 import { Divider, Form } from '@youknown/react-ui/src'
 import { storage } from '@youknown/utils/src'
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
@@ -54,7 +54,7 @@ export default function Wallpapers() {
 			purity: [PURITY.SFW],
 			atleast: '0x0',
 			ratios: '',
-			sorting: 'views',
+			sorting: 'toplist',
 			topRange: '1M',
 			order: ORDER.DESC
 		},
@@ -107,6 +107,7 @@ export default function Wallpapers() {
 		if (state.purity.includes(PURITY.NSFW)) {
 			purity_arr[2] = SWITCH.ON
 		}
+		console.log('keywords: ', keywords)
 		set_params({
 			...state,
 			keywords,
@@ -192,6 +193,7 @@ export default function Wallpapers() {
 	}
 	useMount(() => {
 		if (keywords_query_initial) {
+			form.setState({ sorting: 'relevance' })
 			reload_wallpapers()
 			return
 		}
@@ -203,9 +205,10 @@ export default function Wallpapers() {
 		storage.session.set(WALLPAPERS_KEY, wallpapers)
 	})
 
+	const wallpapers_memo = useMemo(() => wallpapers, [wallpapers])
 	const wallpaper_list = (
 		<div ref={wrapper_ref} className="m--8px text-center">
-			{wallpapers.map((wallpaper, index) => (
+			{wallpapers_memo.map((wallpaper, index) => (
 				<Fragment key={wallpaper.id}>
 					<WallpaperCard wallpaper={wallpaper} />
 					{(index + 1) % PAGE_SIZE === 0 && <Divider />}

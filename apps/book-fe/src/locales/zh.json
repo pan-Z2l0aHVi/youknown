@@ -1,15 +1,10 @@
 {
-  "and": "与",
-  "atleast": "至少",
   "cancel": {
     "text": "取消"
   },
-  "cate": "类别",
   "clear": {
-    "text": "清除",
-    "history": "清除历史记录"
+    "text": "清除"
   },
-  "compare": "对比",
   "copy": {
     "share_link": {
       "success": "已复制分享链接"
@@ -24,12 +19,6 @@
     "fail": "删除失败",
     "batching": "批量删除"
   },
-  "detail": "详情",
-  "download": {
-    "to": "下载为",
-    "fail_and_copy": "下载失败，请复制原图链接然后在浏览器中打开",
-    "original_img": "下载原图"
-  },
   "edit": {
     "text": "编辑"
   },
@@ -42,58 +31,12 @@
     "similar": "查找相似"
   },
   "fold": "收起",
-  "form": {
-    "cover": "封面：",
-    "title": "标题：",
-    "feed_setting": "动态设置：",
-    "public": "公开发布",
-    "private": "不公开",
-    "creation_time": "创建日期",
-    "update_time": "更新日期",
-    "edit_time": "编辑日期",
-    "order_by": "排序方式",
-    "order": "顺序",
-    "keywords": "关键词",
-    "new": "最新的排在前",
-    "old": "最旧的的排在前",
-    "ai": "含AI作品",
-    "no_ai": "不含AI作品",
-    "general": "寻常",
-    "anime": "二次元",
-    "people": "人物",
-    "top_list": "排行榜",
-    "views": "访问量",
-    "relevance": "相关性",
-    "date_added": "最新",
-    "random": "随机",
-    "desc": "降序",
-    "asc": "升序",
-    "hot": "热门",
-    "favorites": "收藏次数"
-  },
   "heading": {
-    "doc": "文档",
-    "doc_setting": "文档设置",
-    "delete_doc": "删除文档",
-    "cover": "设置封面",
-    "batching_delete_doc": "批量删除文档",
-    "knowledge_base": "我的知识库",
-    "delete_space": "删除空间",
-    "set_avatar": "设置头像",
-    "preference": "偏好设置",
-    "user_login": "用户登录",
-    "clear_history": "确认清除历史记录吗？",
-    "delete_feed": "删除动态",
-    "delete_comment": "删除评论"
+    "preference": "偏好设置"
   },
-  "history": {
-    "clear_tip": "一旦执行该操作，你的所有历史记录将从当前设备中清除。"
-  },
-  "introduction": "简介",
   "keyboard": {
     "tip": "支持 ↑↓ 键选择、Enter 键打开、双击打开"
   },
-  "latest": "最新",
   "load": {
     "ing": "加载中...",
     "no_more": "没有更多内容了"
@@ -154,14 +97,6 @@
     "success": "保存成功",
     "fail": "保存失败"
   },
-  "seen": "看过",
-  "select": {
-    "text": "选择",
-    "all": "全选",
-    "cancel": "取消选择",
-    "cancel_all": "取消全选",
-    "choosing": "已选中："
-  },
   "setting": {
     "text": "偏好设置",
     "right_angle": "直角",
@@ -178,8 +113,6 @@
   "share": {
     "text": "分享"
   },
-  "size": "大小",
-  "tags": "标签",
   "time": {
     "join": "加入时间：",
     "today": "今天",
@@ -200,7 +133,6 @@
     "hours_ago": "{{count}}小时前"
   },
   "unfold": "展开",
-  "unnamed": "未命名",
   "update": {
     "text": "更新",
     "success": "更新成功",
@@ -217,19 +149,11 @@
     "array_required": "至少选择一项",
     "max_len": "长度不能超过{{max}}字",
     "letters_and_numbers": "只能包含字母和数字",
-    "phone": "不是有效的手机号码",
-    "cover_required": "公开发布时，封面必填",
-    "title_required": "标题不能为空"
-  },
-  "view": {
-    "detail": "详细信息",
-    "introduction": "查看简介",
-    "full_text": "阅读全文"
+    "phone": "不是有效的手机号码"
   },
   "tab": {
     "home": "指南"
   },
-  "author": "作者：",
   "last_update_at": "最后更新于：",
   "route_error": "页面出错啦！",
   "reload&retry": "刷新重试",

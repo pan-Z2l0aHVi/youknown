@@ -269,24 +269,24 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 										value: 'views'
 									},
 									{
-										label: t('form.hot'),
-										value: 'hot'
-									},
-									{
 										label: t('form.favorites'),
 										value: 'favorites'
+									},
+									{
+										label: t('form.hot'),
+										value: 'hot'
 									},
 									{
 										label: t('form.date_added'),
 										value: 'date_added'
 									},
 									{
-										label: t('form.random'),
-										value: 'random'
-									},
-									{
 										label: t('form.relevance'),
 										value: 'relevance'
+									},
+									{
+										label: t('form.random'),
+										value: 'random'
 									}
 								]}
 							/>
@@ -326,21 +326,23 @@ function WallpaperFilter(props: WallpaperFilerProps, ref: Ref<ImperativeHandle>)
 							</Form.Field>
 						)}
 
-						<Form.Field label="order">
-							<Select
-								className="w-240px!"
-								menuList={[
-									{
-										label: t('form.desc'),
-										value: ORDER.DESC
-									},
-									{
-										label: t('form.asc'),
-										value: ORDER.ASC
-									}
-								]}
-							/>
-						</Form.Field>
+						{sorting === 'random' || (
+							<Form.Field label="order">
+								<Select
+									className="w-240px!"
+									menuList={[
+										{
+											label: t('form.desc'),
+											value: ORDER.DESC
+										},
+										{
+											label: t('form.asc'),
+											value: ORDER.ASC
+										}
+									]}
+								/>
+							</Form.Field>
+						)}
 					</Form>
 
 					<Space size="large">

@@ -29,6 +29,7 @@
 	$y-width: 4px
 ) {
 	&::-webkit-scrollbar {
+		display: none;
 		width: $x-width; // y轴滚动条宽度
 		height: $y-width; // x轴滚动条高度
 		border-radius: $round;
@@ -48,6 +49,12 @@
 	&::-webkit-scrollbar-track {
 		background: $track-color;
 		border-radius: $round;
+	}
+
+	&:hover {
+		&::-webkit-scrollbar {
+			display: initial;
+		}
 	}
 }
 

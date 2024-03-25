@@ -135,6 +135,7 @@ export default function Searcher(props: SearcherProps) {
 							set_selection={set_selection}
 							go_detail={feed => {
 								if (!feed) return
+								on_close(false)
 								go_feed_detail(feed)
 							}}
 							footer={no_more || (has_keywords && <MoreLoading ref={loading_ref} />)}

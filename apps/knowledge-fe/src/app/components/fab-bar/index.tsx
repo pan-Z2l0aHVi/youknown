@@ -45,7 +45,8 @@ export default function FabBar() {
 					scrollIntoView(container, {
 						scrollMode: 'if-needed',
 						block: 'nearest',
-						inline: 'nearest'
+						inline: 'nearest',
+						behavior: 'instant'
 					})
 				}
 				const comment_input = document.querySelector<HTMLInputElement>('#feed-comment-area .tiptap.ProseMirror')

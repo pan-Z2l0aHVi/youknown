@@ -7,10 +7,12 @@ interface Params {
 interface TrackerOptions {
 	url: string
 	batchingDelay: number
+	formatter: (paramsList: Params[]) => unknown
 }
 
 const DEFAULT_OPTIONS = {
-	batchingDelay: 200
+	batchingDelay: 200,
+	formatter: (x: Params[]) => x
 }
 
 export default class Tracker<S extends Params> {
@@ -68,7 +70,7 @@ export default class Tracker<S extends Params> {
 	private request(paramsList: S[]) {
 		const { url } = this.options
 		try {
-			navigator.sendBeacon(url, JSON.stringify(paramsList))
+			navigator.sendBeacon(url, JSON.stringify(this.options.formatter(paramsList)))
 		} catch (error) {
 			console.error('sendBeacon error: ', error)
 		}
