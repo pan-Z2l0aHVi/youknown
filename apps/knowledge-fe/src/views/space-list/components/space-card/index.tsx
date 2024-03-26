@@ -55,8 +55,8 @@ export default function SpaceCard(props: SpaceCardProps) {
 
 	const show_delete_dialog = () => {
 		Dialog.confirm({
-			title: t('heading.delete_space'),
-			content: t('space.if_delete', { name: info.name }),
+			title: t('heading.delete_space', { name: info.name }),
+			content: t('space.if_delete'),
 			overlayClassName: cls(
 				'backdrop-blur-xl',
 				is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'

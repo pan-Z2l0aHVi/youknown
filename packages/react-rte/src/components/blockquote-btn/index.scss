@@ -1,0 +1,7 @@
+@use '../../styles/mixins.scss' as *;
+
+/* Empty block */
+$prefix: '#{$ui-editor-prefix}-blockquote-btn';
+.#{$prefix} {
+	/* Empty block */
+}

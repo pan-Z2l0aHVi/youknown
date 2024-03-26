@@ -4,7 +4,7 @@ import parse, { DOMNode, domToReact, Element, Text } from 'html-react-parser'
 import { ForwardedRef, forwardRef, HTMLAttributes, useMemo, useRef } from 'react'
 
 import { useUIStore } from '@/stores'
-import { DEFAULT_NODE_ID } from '@/utils'
+import { BASE_NODE_ID } from '@/utils'
 
 import CodeBlock from './components/code-block'
 import GIFLazyImage from './components/gif-lazy-img'
@@ -17,12 +17,12 @@ const RichTextArea = (props: RichTextAreaProps, ref: ForwardedRef<HTMLDivElement
 	const { className, html } = props
 
 	const is_mobile = useUIStore(state => state.is_mobile)
-	const node_id_ref = useRef(DEFAULT_NODE_ID)
+	const node_id_ref = useRef(BASE_NODE_ID)
 
 	const classnames = cls(className, 'rich-text-container')
 
 	const rich_text_content = useMemo(() => {
-		node_id_ref.current = DEFAULT_NODE_ID
+		node_id_ref.current = BASE_NODE_ID
 		return parse(html, {
 			replace(node) {
 				if (!(node instanceof Element)) {
@@ -41,37 +41,25 @@ const RichTextArea = (props: RichTextAreaProps, ref: ForwardedRef<HTMLDivElement
 				}
 
 				if (node.name === 'img') {
-					const { src, width, height } = node.attribs
+					const { src } = node.attribs
+					const width = parseFloat(node.attribs.width)
+					const height = parseFloat(node.attribs.height)
+					const has_w_h = !Number.isNaN(width) && !Number.isNaN(height)
+
 					if (src.endsWith('.gif')) {
-						return (
-							<GIFLazyImage
-								src={src}
-								style={
-									is_mobile
-										? {
-												width: '100%',
-												aspectRatio: parseFloat(width) / parseFloat(height)
-											}
-										: {
-												width: parseFloat(width),
-												height: parseFloat(height)
-											}
-								}
-							/>
-						)
+						const style = has_w_h
+							? is_mobile
+								? {
+										width: '100%',
+										aspectRatio: width / height
+									}
+								: { width, height }
+							: {}
+						return <GIFLazyImage src={src} style={style} />
 					}
 
-					return (
-						<Image
-							canPreview
-							previewSrc={src}
-							src={src}
-							style={{
-								width: parseFloat(width),
-								height: parseFloat(height)
-							}}
-						/>
-					)
+					const style = has_w_h ? { width, height } : {}
+					return <Image canPreview previewSrc={src} src={src} style={style} />
 				}
 
 				if (node.name === 'pre' && node.firstChild instanceof Element && node.firstChild.name === 'code') {

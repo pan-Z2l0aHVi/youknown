@@ -8,7 +8,6 @@ import Image from '@youknown/react-rte/src/extensions/image'
 import Italic from '@youknown/react-rte/src/extensions/italic'
 import Link from '@youknown/react-rte/src/extensions/link'
 import Strike from '@youknown/react-rte/src/extensions/strike'
-import TextColor from '@youknown/react-rte/src/extensions/text-color'
 import { useRTE } from '@youknown/react-rte/src/hooks/useRTE'
 import { Avatar, Button, Image as ImageUI, Space, Toast } from '@youknown/react-ui/src'
 import { ReactNode, useEffect } from 'react'
@@ -54,7 +53,6 @@ export default function CommentEditor(props: CommentEditorProps) {
 			Italic,
 			Strike,
 			Code,
-			TextColor,
 			Link,
 			Blockquote,
 			CodeBlock,
@@ -118,7 +116,7 @@ export default function CommentEditor(props: CommentEditorProps) {
 							<div className="pl-8px pr-8px">
 								<RTEMenuBar
 									editor={editor}
-									list={['|', 'heading', 'bold', 'italic', 'strike', 'code', '|', 'link', 'color']}
+									list={['|', 'heading', 'bold', 'italic', 'strike', 'code', '|', 'link']}
 									insertList={['image', 'blockquote', 'codeBlock']}
 								/>
 							</div>
@@ -127,6 +125,7 @@ export default function CommentEditor(props: CommentEditorProps) {
 							className="comment-rich-text-reset text-14px"
 							editor={editor}
 							bubble={!is_mobile}
+							bubbleList={['bold', 'italic', 'underline', 'strike', 'code', 'link']}
 							floating={false}
 						/>
 						<div className="flex justify-end pb-12px pr-12px">

@@ -30,7 +30,7 @@ export default function RelatedArea(props: RelatedAreaProps) {
 		)
 	}
 
-	const list_ref = useRef<HTMLDivElement>(null)
+	const related_container_ref = useRef<HTMLDivElement>(null)
 	const loading_ref = useRef<HTMLDivElement>(null)
 	const [feeds_total, set_feeds_total] = useState(0)
 
@@ -51,39 +51,46 @@ export default function RelatedArea(props: RelatedAreaProps) {
 	} = useInfinity(fetcher, {
 		target: loading_ref,
 		observerInit: {
-			root: list_ref.current
+			root: related_container_ref.current
 		}
 	})
 
 	// 获取关联列表需滤除当前动态
-	const related_total = feeds_total - 1
+	const related_total = Math.max(0, feeds_total - 1)
 	const related_feeds = feeds.filter(item => item.id !== feed.id)
+	const has_related_feeds = related_total > 0
 
 	const related_list = (
-		<List className="max-h-224px overflow-y-auto " ref={list_ref}>
-			{related_feeds.map(feed_info => {
-				const { subject } = feed_info
-				return (
-					<List.Item
-						key={subject.doc_id}
-						prefix={<Image className="w-40px h-32px rd-radius-m" src={subject.cover} />}
-						suffix={<TbChevronRight className="color-text-3 text-16px" />}
-						className="active-bg-active [@media(hover:hover)]-hover-not-active-bg-hover cursor-pointer"
-						onClick={() => go_feed_detail(feed_info)}
-					>
-						<div className="truncate">{subject.title}</div>
-					</List.Item>
-				)
-			})}
+		<div className="max-h-224px overflow-y-auto " ref={related_container_ref}>
+			{has_related_feeds && (
+				<List className="overflow-hidden">
+					{related_feeds.map(feed_info => {
+						const { subject } = feed_info
+						return (
+							<List.Item
+								key={subject.doc_id}
+								prefix={<Image className="w-40px h-32px rd-radius-m" src={subject.cover} />}
+								suffix={<TbChevronRight className="color-text-3 text-16px" />}
+								className="active-bg-active [@media(hover:hover)]-hover-not-active-bg-hover cursor-pointer"
+								onClick={() => go_feed_detail(feed_info)}
+							>
+								<div className="truncate">{subject.title}</div>
+							</List.Item>
+						)
+					})}
+				</List>
+			)}
 			{no_more || <MoreLoading ref={loading_ref} />}
-		</List>
+		</div>
 	)
 
 	return (
-		<div className={cls('mt-32px mb-32px', !related_total && 'hidden')}>
-			<div className="font-700 text-18px mb-24px">
-				{related_total} {t('related.feed_count')}
-			</div>
+		<div className={cls(has_related_feeds && 'mt-32px mb-32px')}>
+			{has_related_feeds && (
+				<div className="font-700 text-18px mb-24px">
+					{related_total} {t('related.feed_count')}
+				</div>
+			)}
 			{related_list}
 		</div>
 	)

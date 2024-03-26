@@ -63,7 +63,7 @@
     },
     "setting": "Document settings",
     "words_len": "Word count",
-    "delete_tip": "Once you perform this operation, the data cannot be recovered. Are you sure you want to delete?",
+    "delete_tip": "Once this operation is performed, the published feed data will also be completely deleted. Is it confirmed to be deleted?",
     "delete": {
       "text": "Delete document",
       "success": "Document deleted successfully",
@@ -156,7 +156,7 @@
     "cover": "Set cover",
     "batching_delete_doc": "Batch delete documents",
     "knowledge_base": "My knowledge base",
-    "delete_space": "Delete space",
+    "delete_space": "Delete space \"{{name}}\"",
     "set_avatar": "Set avatar",
     "preference": "Preferences",
     "user_login": "User login",
@@ -274,7 +274,7 @@
     "create": "Create space",
     "empty_tip": "It's empty here, create your exclusive knowledge space now~",
     "manage": "Manage space",
-    "if_delete": "Delete space '{{name}}'?"
+    "if_delete": "Once this operation is performed, the document and the published feed data will also be completely deleted. Is it confirmed to be deleted?"
   },
   "tag": "Tags",
   "time": {

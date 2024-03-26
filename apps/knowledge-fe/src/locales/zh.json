@@ -63,7 +63,7 @@
     },
     "setting": "文档设置",
     "words_len": "正文字数",
-    "delete_tip": "一旦执行该操作数据将无法恢复，是否确认删除？",
+    "delete_tip": "一旦执行该操作，已发布的动态数据也将被彻底删除，是否确认删除？",
     "delete": {
       "text": "删除文档",
       "success": "删除文档成功",
@@ -156,7 +156,7 @@
     "cover": "设置封面",
     "batching_delete_doc": "批量删除文档",
     "knowledge_base": "我的知识库",
-    "delete_space": "删除空间",
+    "delete_space": "删除空间「{{name}}」",
     "set_avatar": "设置头像",
     "preference": "偏好设置",
     "user_login": "用户登录",
@@ -274,7 +274,7 @@
     "create": "新建空间",
     "empty_tip": "空空如也，快来创建你的专属知识空间吧~",
     "manage": "管理空间",
-    "if_delete": "是否删除空间「{{name}}」"
+    "if_delete": "一旦执行该操作，文档与已发布的动态数据也将被彻底删除，是否确认删除？"
   },
   "tags": "标签",
   "time": {

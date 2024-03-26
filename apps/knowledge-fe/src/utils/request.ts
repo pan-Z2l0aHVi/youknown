@@ -22,9 +22,8 @@ export class NetFetchError extends Error {
 		this.cause = cause
 	}
 }
-
 export const net = Net.create({
-	timeout: 10000
+	timeout: import.meta.env.DEV ? 30000 : 10000
 })
 	.use(async (ctx, next) => {
 		const token = get_local_token()

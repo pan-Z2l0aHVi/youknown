@@ -42,10 +42,12 @@ export function RTEMenuBar(props: RTEMenuBarProps) {
 			'underline',
 			'strike',
 			'code',
-			'link',
 			'|',
 			'highlight',
 			'color',
+			'|',
+			'link',
+			'blockquote',
 			'|',
 			'textAlign'
 		]
@@ -57,7 +59,9 @@ export function RTEMenuBar(props: RTEMenuBarProps) {
 	}
 
 	const prefixCls = `${UI_EDITOR_PREFIX}-menu-bar`
-	const verticalDivider = <Divider className={`${prefixCls}-divider`} direction="vertical" style={{ height: 20 }} />
+	const verticalDivider = (
+		<Divider className={`${prefixCls}-divider`} size="small" direction="vertical" style={{ height: 20 }} />
+	)
 
 	const extensions = editor.extensionManager.extensions.filter(ext => ext.options.menu)
 	const ele = btnList.map((btn, index) => {

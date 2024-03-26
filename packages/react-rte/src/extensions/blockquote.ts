@@ -1,5 +1,6 @@
 import TiptapBlockquote, { BlockquoteOptions } from '@tiptap/extension-blockquote'
 
+import BlockquoteBtn from '../components/blockquote-btn'
 import BlockquoteItem from '../components/blockquote-item'
 
 export default TiptapBlockquote.extend<
@@ -11,6 +12,7 @@ export default TiptapBlockquote.extend<
 	addOptions() {
 		return {
 			...this.parent?.(),
+			menu: BlockquoteBtn,
 			insert: BlockquoteItem,
 			floating: BlockquoteItem
 		}

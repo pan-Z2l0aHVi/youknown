@@ -1,7 +1,8 @@
-import { useInfinity } from '@youknown/react-hook/src'
-import { useEffect, useRef } from 'react'
+import { useInfinity, useUnmount } from '@youknown/react-hook/src'
+import { storage } from '@youknown/utils/src'
+import { useEffect, useRef, useState } from 'react'
 
-import { get_feed_list, GetFeedListParams } from '@/apis/feed'
+import { Feed, get_feed_list, GetFeedListParams } from '@/apis/feed'
 import MoreLoading from '@/components/more-loading'
 import NoMore from '@/components/no-more'
 import { useUserStore } from '@/stores'
@@ -15,11 +16,14 @@ export const enum FEED_TAB {
 interface FeedProps {
 	feed_tab: FEED_TAB
 }
+const FEED_LIST_CACHE_KEY = 'feed_list_cache'
+const PAGE_SIZE = 10
 
 export default function FeedList(props: FeedProps) {
 	const { feed_tab } = props
 	const profile = useUserStore(state => state.profile)
 	const loading_ref = useRef<HTMLDivElement>(null)
+	const [feed_list_cache] = useState(() => storage.session.get<Feed[]>(FEED_LIST_CACHE_KEY) ?? [])
 
 	const feeds_fetcher = async () => {
 		const params: GetFeedListParams = {
@@ -41,11 +45,18 @@ export default function FeedList(props: FeedProps) {
 		pageSize: page_size,
 		reload
 	} = useInfinity(feeds_fetcher, {
-		initialPageSize: 10,
+		initialData: feed_list_cache,
+		initialPageSize: PAGE_SIZE,
 		manual: true,
 		target: loading_ref,
 		observerInit: {
 			rootMargin: '0px 0px 200px 0px'
+		}
+	})
+
+	useUnmount(() => {
+		if (feed_tab === FEED_TAB.LATEST) {
+			storage.session.set(FEED_LIST_CACHE_KEY, feed_list.slice(0, PAGE_SIZE))
 		}
 	})
 
