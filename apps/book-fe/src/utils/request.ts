@@ -1,5 +1,6 @@
 import { Toast } from '@youknown/react-ui/src'
-import { ArgumentType, Net } from '@youknown/utils/src'
+import type { ArgumentType } from '@youknown/utils/src'
+import { Net } from '@youknown/utils/src'
 
 import { B_CODE } from '@/consts'
 

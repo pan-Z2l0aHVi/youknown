@@ -1,4 +1,5 @@
-import { createElement, lazy, ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import { createElement, lazy } from 'react'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 
 import App from '@/app'

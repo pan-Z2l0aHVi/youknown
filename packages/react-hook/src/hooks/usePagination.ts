@@ -1,8 +1,10 @@
 import { is, omit } from '@youknown/utils/src'
-import { SetStateAction, useState } from 'react'
+import type { SetStateAction } from 'react'
+import { useState } from 'react'
 
 import { useEvent } from './useEvent'
-import { FetchOptions, useFetch } from './useFetch'
+import type { FetchOptions } from './useFetch'
+import { useFetch } from './useFetch'
 import { useUpdateEffect } from './useUpdateEffect'
 
 interface PaginationOptions<T, S> extends FetchOptions<T, S> {

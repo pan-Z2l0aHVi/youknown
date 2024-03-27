@@ -1,4 +1,5 @@
-import { RouteItem, routes } from '@/router/routes'
+import type { RouteItem } from '@/router/routes'
+import { routes } from '@/router/routes'
 
 function find_matched_routes(keywords: string, route_list: RouteItem[], result: RouteItem[], path_prefix: string) {
 	route_list.forEach(route => {

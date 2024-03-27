@@ -1,5 +1,6 @@
 import { Image, Progress, Upload } from '@youknown/react-ui/src'
-import { ComponentProps, useState } from 'react'
+import type { ComponentProps } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { IMAGE_ACCEPT } from '@/consts'

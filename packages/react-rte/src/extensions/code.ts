@@ -1,4 +1,5 @@
-import TiptapCode, { CodeOptions } from '@tiptap/extension-code'
+import type { CodeOptions } from '@tiptap/extension-code'
+import TiptapCode from '@tiptap/extension-code'
 
 import CodeBtn from '../components/code-btn'
 

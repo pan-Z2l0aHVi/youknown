@@ -1,5 +1,6 @@
 import { is } from '@youknown/utils/src'
-import { SetStateAction, useRef, useState } from 'react'
+import type { SetStateAction } from 'react'
+import { useRef, useState } from 'react'
 
 import { useEvent } from './useEvent'
 import { useUpdate } from './useUpdate'

@@ -7,7 +7,8 @@ import { createElement, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { HiPlusSm } from 'react-icons/hi'
 
-import { ButtonProps, UI_EDITOR_PREFIX } from '../../common'
+import type { ButtonProps } from '../../common'
+import { UI_EDITOR_PREFIX } from '../../common'
 import CommandBtn from '../command-btn'
 
 export type insertListItem =

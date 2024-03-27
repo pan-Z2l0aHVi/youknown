@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa6'
 import { FiArrowRightCircle } from 'react-icons/fi'
 
-import { Feed } from '@/apis/feed'
+import type { Feed } from '@/apis/feed'
 import TransitionLink from '@/components/transition-link'
 import { useFeedLike } from '@/hooks/use-feed-like'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'

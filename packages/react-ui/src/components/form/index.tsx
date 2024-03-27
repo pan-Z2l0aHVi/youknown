@@ -1,12 +1,15 @@
 import './form.scss'
 
-import { FormInstance, useForm } from '@youknown/react-hook/src'
+import type { FormInstance } from '@youknown/react-hook/src'
+import { useForm } from '@youknown/react-hook/src'
 import { cls, omit } from '@youknown/utils/src'
-import { FormEvent, FormHTMLAttributes, ForwardedRef, forwardRef } from 'react'
+import type { FormEvent, FormHTMLAttributes, ForwardedRef } from 'react'
+import { forwardRef } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 import { Field } from './Field'
-import { FormContext, FormCtx } from './FormCtx'
+import type { FormContext } from './FormCtx'
+import { FormCtx } from './FormCtx'
 
 export interface FormProps extends FormHTMLAttributes<HTMLFormElement>, Omit<Partial<FormContext>, 'labelAlign'> {
 	form: FormInstance

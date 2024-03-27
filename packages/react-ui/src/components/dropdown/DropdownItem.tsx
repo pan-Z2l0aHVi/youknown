@@ -1,7 +1,8 @@
 import './dropdown-item.scss'
 
 import { cls } from '@youknown/utils/src'
-import { ForwardedRef, forwardRef, HTMLAttributes, MouseEventHandler, ReactNode, useContext } from 'react'
+import type { ForwardedRef, HTMLAttributes, MouseEventHandler, ReactNode } from 'react'
+import { forwardRef, useContext } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 import { MenuCtx } from './MenuCtx'

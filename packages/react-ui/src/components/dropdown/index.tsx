@@ -1,5 +1,6 @@
 import { pick, pickDataAttrs } from '@youknown/utils/src'
-import { Children, cloneElement, ComponentProps, ForwardedRef, forwardRef, isValidElement, ReactNode } from 'react'
+import type { ComponentProps, ForwardedRef, ReactNode } from 'react'
+import { Children, cloneElement, forwardRef, isValidElement } from 'react'
 
 import { EventsByTriggerNeed, Trigger } from '../trigger'
 import { clickOutside } from './clickOutside'

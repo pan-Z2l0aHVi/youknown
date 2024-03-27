@@ -1,7 +1,8 @@
 import './space.scss'
 
 import { cls } from '@youknown/utils/src'
-import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
+import type { ForwardedRef, HTMLAttributes } from 'react'
+import { forwardRef } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 

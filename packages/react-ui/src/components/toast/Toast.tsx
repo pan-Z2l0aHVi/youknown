@@ -1,7 +1,8 @@
 import './toast.scss'
 
 import { cls } from '@youknown/utils/src'
-import { ComponentProps, ForwardedRef, forwardRef } from 'react'
+import type { ComponentProps, ForwardedRef } from 'react'
+import { forwardRef } from 'react'
 import { TransitionGroup } from 'react-transition-group'
 
 import { UI_PREFIX } from '../../constants'

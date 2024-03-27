@@ -1,6 +1,6 @@
 import './index.scss'
 
-import { HeadingOptions, Level } from '@tiptap/extension-heading'
+import type { HeadingOptions, Level } from '@tiptap/extension-heading'
 import { useBoolean } from '@youknown/react-hook/src'
 import { Dropdown } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
@@ -8,7 +8,8 @@ import { createElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbCheck } from 'react-icons/tb'
 
-import { ButtonProps, UI_EDITOR_PREFIX } from '../../common'
+import type { ButtonProps } from '../../common'
+import { UI_EDITOR_PREFIX } from '../../common'
 import CommandBtn from '../command-btn'
 
 interface Option {

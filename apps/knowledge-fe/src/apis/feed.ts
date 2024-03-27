@@ -1,6 +1,6 @@
 import { net } from '@/utils/request'
 
-import { Doc } from './doc'
+import type { Doc } from './doc'
 
 export interface Feed {
 	id: string

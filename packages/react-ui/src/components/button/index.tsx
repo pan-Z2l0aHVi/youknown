@@ -1,7 +1,8 @@
 import './button.scss'
 
 import { cls } from '@youknown/utils/src'
-import { ButtonHTMLAttributes, ForwardedRef, forwardRef, ReactNode } from 'react'
+import type { ButtonHTMLAttributes, ForwardedRef, ReactNode } from 'react'
+import { forwardRef } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 import { Loading } from '../loading'

@@ -1,7 +1,8 @@
 import './index.scss'
 
 import { useEffect } from 'react'
-import { Location, Outlet, useLocation } from 'react-router-dom'
+import type { Location } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 
 export let preLocation: Location
 

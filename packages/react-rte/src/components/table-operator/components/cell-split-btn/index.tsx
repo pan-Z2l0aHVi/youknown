@@ -4,7 +4,8 @@ import { cls } from '@youknown/utils/src'
 import { useTranslation } from 'react-i18next'
 import { CgArrowsShrinkH } from 'react-icons/cg'
 
-import { ButtonProps, UI_EDITOR_PREFIX } from '../../../../common'
+import type { ButtonProps } from '../../../../common'
+import { UI_EDITOR_PREFIX } from '../../../../common'
 import CommandBtn from '../../../command-btn'
 
 export default function CellSplitBtn(props: ButtonProps) {

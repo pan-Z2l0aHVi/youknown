@@ -2,15 +2,8 @@ import './upload.scss'
 
 import { useComposeRef, useControllable } from '@youknown/react-hook/src'
 import { cls, omit, uuid } from '@youknown/utils/src'
-import {
-	ChangeEventHandler,
-	ForwardedRef,
-	forwardRef,
-	InputHTMLAttributes,
-	LabelHTMLAttributes,
-	useRef,
-	useState
-} from 'react'
+import type { ChangeEventHandler, ForwardedRef, InputHTMLAttributes, LabelHTMLAttributes } from 'react'
+import { forwardRef, useRef, useState } from 'react'
 import { TbPlus } from 'react-icons/tb'
 
 import { UI_PREFIX } from '../../constants'

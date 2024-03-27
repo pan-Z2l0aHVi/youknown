@@ -1,4 +1,4 @@
-import { Editor } from '@tiptap/react'
+import type { Editor } from '@tiptap/react'
 
 import LinkPicker from '../../../link-picker'
 import LinkCopyBtn from './components/link-copy-btn'

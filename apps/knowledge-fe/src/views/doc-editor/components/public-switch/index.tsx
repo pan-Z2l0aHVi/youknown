@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbWorld, TbWorldOff } from 'react-icons/tb'
 
-import { Doc, update_doc } from '@/apis/doc'
+import type { Doc } from '@/apis/doc'
+import { update_doc } from '@/apis/doc'
 import { is_dark_theme_getter, useUIStore } from '@/stores'
 import { with_api } from '@/utils/request'
 

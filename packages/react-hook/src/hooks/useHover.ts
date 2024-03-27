@@ -1,4 +1,5 @@
-import { cloneElement, ReactElement, useState } from 'react'
+import type { ReactElement } from 'react'
+import { cloneElement, useState } from 'react'
 
 export function useHover(tar: ReactElement | ((hovering: boolean) => ReactElement)): [ReactElement, boolean] {
 	const [hovered, setHovered] = useState(false)

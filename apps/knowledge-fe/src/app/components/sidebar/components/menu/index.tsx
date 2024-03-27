@@ -5,7 +5,8 @@ import { BiChevronDown } from 'react-icons/bi'
 import { TbNotes } from 'react-icons/tb'
 
 import TransitionNavLink from '@/components/transition-nav-link'
-import { RouteItem, routes } from '@/router/routes'
+import type { RouteItem } from '@/router/routes'
+import { routes } from '@/router/routes'
 import { is_dark_theme_getter, useSpaceStore, useUIStore } from '@/stores'
 
 const OPEN_MAP_KEY = 'sub-menu-open-map'

@@ -1,4 +1,5 @@
-import TiptapHorizontalRule, { HorizontalRuleOptions } from '@tiptap/extension-horizontal-rule'
+import type { HorizontalRuleOptions } from '@tiptap/extension-horizontal-rule'
+import TiptapHorizontalRule from '@tiptap/extension-horizontal-rule'
 
 import HorizontalRuleItem from '../components/horizontal-rule-item'
 

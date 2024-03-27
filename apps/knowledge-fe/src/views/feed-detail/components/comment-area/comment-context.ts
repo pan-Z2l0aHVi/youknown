@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-import { Comment, SubComment } from '@/apis/feed'
+import type { Comment, SubComment } from '@/apis/feed'
 
 export interface CommentContextValue {
 	on_comment_created?: (new_comment: Comment) => void

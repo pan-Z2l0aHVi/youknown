@@ -2,7 +2,8 @@ import './image-preview.scss'
 
 import { useBoolean, useEvent, useLatestRef } from '@youknown/react-hook/src'
 import { checkTouchDevice, cls, downloadFile, setRootStyle } from '@youknown/utils/src'
-import { MouseEventHandler, ReactEventHandler, TouchEventHandler, useEffect, useRef, useState } from 'react'
+import type { MouseEventHandler, ReactEventHandler, TouchEventHandler } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
 	TbDownload,

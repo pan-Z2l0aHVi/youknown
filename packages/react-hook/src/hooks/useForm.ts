@@ -1,5 +1,7 @@
-import { is, ValueOf } from '@youknown/utils/src'
-import { ChangeEvent, FormEventHandler, useRef, useState } from 'react'
+import type { ValueOf } from '@youknown/utils/src'
+import { is } from '@youknown/utils/src'
+import type { ChangeEvent, FormEventHandler } from 'react'
+import { useRef, useState } from 'react'
 
 import { useEvent } from './useEvent'
 

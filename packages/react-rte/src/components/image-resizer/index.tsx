@@ -1,6 +1,6 @@
 import './index.scss'
 
-import { Editor } from '@tiptap/react'
+import type { Editor } from '@tiptap/react'
 import { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom'
 

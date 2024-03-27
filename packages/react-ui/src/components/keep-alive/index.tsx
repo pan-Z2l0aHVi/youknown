@@ -1,4 +1,5 @@
-import { FC, ReactNode, Suspense, useEffect, useRef } from 'react'
+import type { FC, ReactNode } from 'react'
+import { Suspense, useEffect, useRef } from 'react'
 
 export interface RepeaterProps {
 	children: ReactNode

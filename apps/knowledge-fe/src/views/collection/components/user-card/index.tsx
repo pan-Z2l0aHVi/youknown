@@ -4,7 +4,8 @@ import { cls, QS } from '@youknown/utils/src'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Profile, unfollow_user } from '@/apis/user'
+import type { Profile } from '@/apis/user'
+import { unfollow_user } from '@/apis/user'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { with_api } from '@/utils/request'
 

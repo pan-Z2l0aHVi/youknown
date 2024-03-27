@@ -5,7 +5,8 @@ import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbChevronRight } from 'react-icons/tb'
 
-import { Feed, get_related_feeds } from '@/apis/feed'
+import type { Feed } from '@/apis/feed'
+import { get_related_feeds } from '@/apis/feed'
 import MoreLoading from '@/components/more-loading'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 

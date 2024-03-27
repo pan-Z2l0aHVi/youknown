@@ -1,5 +1,6 @@
 import { Motion, Tooltip } from '@youknown/react-ui/src'
-import { cls, DeepRequired, pick, storage } from '@youknown/utils/src'
+import type { DeepRequired } from '@youknown/utils/src'
+import { cls, pick, storage } from '@youknown/utils/src'
 import { Fragment, MouseEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import { BiChevronDown } from 'react-icons/bi'
 

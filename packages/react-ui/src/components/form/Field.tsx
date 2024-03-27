@@ -2,17 +2,8 @@ import './field.scss'
 
 import { FormInstance, useUpdate } from '@youknown/react-hook/src'
 import { cls } from '@youknown/utils/src'
-import {
-	Children,
-	cloneElement,
-	ForwardedRef,
-	forwardRef,
-	HTMLAttributes,
-	isValidElement,
-	LabelHTMLAttributes,
-	useContext,
-	useState
-} from 'react'
+import type { ForwardedRef, HTMLAttributes, LabelHTMLAttributes } from 'react'
+import { Children, cloneElement, forwardRef, isValidElement, useContext, useState } from 'react'
 import { TransitionGroup } from 'react-transition-group'
 
 import { UI_PREFIX } from '../../constants'

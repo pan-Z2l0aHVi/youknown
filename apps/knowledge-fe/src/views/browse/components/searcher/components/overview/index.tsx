@@ -2,7 +2,7 @@ import { Avatar, Image } from '@youknown/react-ui/src'
 import { useTranslation } from 'react-i18next'
 import { RiHistoryFill } from 'react-icons/ri'
 
-import { Feed } from '@/apis/feed'
+import type { Feed } from '@/apis/feed'
 import { format_time } from '@/utils'
 
 interface OverviewProps {

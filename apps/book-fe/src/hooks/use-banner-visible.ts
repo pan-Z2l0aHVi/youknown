@@ -1,5 +1,6 @@
 import { storage } from '@youknown/utils/src'
-import dayjs, { Dayjs } from 'dayjs'
+import type { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 import { useCallback, useEffect, useState } from 'react'
 
 const CLOSED_KEY = 'banner-closed'

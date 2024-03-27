@@ -1,4 +1,4 @@
-import { Card, CloseIcon, Dialog, Motion, Overlay } from '@youknown/react-ui/src'
+import { CloseIcon, Dialog } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import { useTranslation } from 'react-i18next'
 

@@ -1,5 +1,5 @@
 import { Button, Space, Tooltip } from '@youknown/react-ui/src'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GrGithub } from 'react-icons/gr'
 import { RiBookOpenLine } from 'react-icons/ri'

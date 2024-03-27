@@ -1,18 +1,8 @@
 import './image-cropper.scss'
 
 import { base64ToFile } from 'file64'
-import {
-	Dispatch,
-	ForwardedRef,
-	forwardRef,
-	ReactNode,
-	SetStateAction,
-	useCallback,
-	useImperativeHandle,
-	useMemo,
-	useRef,
-	useState
-} from 'react'
+import type { Dispatch, ForwardedRef, ReactNode, SetStateAction } from 'react'
+import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import type { Area, Point } from 'react-easy-crop'
 import Cropper from 'react-easy-crop'
 import { useTranslation } from 'react-i18next'

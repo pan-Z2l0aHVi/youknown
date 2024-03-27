@@ -1,5 +1,4 @@
 import { lazy, Suspense } from 'react'
-import { useMatch } from 'react-router-dom'
 
 import { useInitApp } from '@/hooks/use-init-app'
 import { useRouteScrollTop } from '@/hooks/use-route-scroll-top'

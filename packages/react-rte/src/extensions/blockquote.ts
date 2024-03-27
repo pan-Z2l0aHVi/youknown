@@ -1,4 +1,5 @@
-import TiptapBlockquote, { BlockquoteOptions } from '@tiptap/extension-blockquote'
+import type { BlockquoteOptions } from '@tiptap/extension-blockquote'
+import TiptapBlockquote from '@tiptap/extension-blockquote'
 
 import BlockquoteBtn from '../components/blockquote-btn'
 import BlockquoteItem from '../components/blockquote-item'

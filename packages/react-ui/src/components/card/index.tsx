@@ -1,7 +1,8 @@
 import './card.scss'
 
 import { cls, is } from '@youknown/utils/src'
-import { ForwardedRef, forwardRef, HTMLAttributes, isValidElement, ReactNode } from 'react'
+import type { ForwardedRef, HTMLAttributes, ReactNode } from 'react'
+import { forwardRef, isValidElement } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 

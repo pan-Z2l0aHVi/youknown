@@ -1,6 +1,6 @@
 import { net } from '@/utils/request'
 
-import { Profile } from './user'
+import type { Profile } from './user'
 
 export interface Doc {
 	doc_id: string

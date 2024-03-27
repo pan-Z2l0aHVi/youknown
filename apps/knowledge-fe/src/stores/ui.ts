@@ -1,6 +1,7 @@
 import { checkDarkMode, checkMobile, delay, onDarkModeChange, onMobileChange, setRootStyle } from '@youknown/utils/src'
 import { cloneDeep } from 'lodash-es'
-import { create, StateCreator } from 'zustand'
+import type { StateCreator } from 'zustand'
+import { create } from 'zustand'
 import { createJSONStorage, persist, subscribeWithSelector } from 'zustand/middleware'
 
 import { change_i18n_lang } from '@/utils/i18n'

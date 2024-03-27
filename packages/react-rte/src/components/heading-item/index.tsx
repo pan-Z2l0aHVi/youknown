@@ -1,15 +1,16 @@
 import './index.scss'
 
-import { HeadingOptions, Level } from '@tiptap/extension-heading'
+import type { HeadingOptions, Level } from '@tiptap/extension-heading'
 import { Dropdown } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import { useTranslation } from 'react-i18next'
-import { IconType } from 'react-icons'
+import type { IconType } from 'react-icons'
 import { PiTextHFourBold, PiTextHOneBold, PiTextHThreeBold, PiTextHTwoBold, PiTextTBold } from 'react-icons/pi'
 import { RiHeading } from 'react-icons/ri'
 import { TbChevronRight } from 'react-icons/tb'
 
-import { ButtonProps, UI_EDITOR_PREFIX } from '../../common'
+import type { ButtonProps } from '../../common'
+import { UI_EDITOR_PREFIX } from '../../common'
 
 interface Option<T> {
 	value: T

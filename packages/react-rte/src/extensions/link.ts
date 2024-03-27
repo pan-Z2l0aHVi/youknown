@@ -1,4 +1,5 @@
-import TiptapLink, { LinkOptions } from '@tiptap/extension-link'
+import type { LinkOptions } from '@tiptap/extension-link'
+import TiptapLink from '@tiptap/extension-link'
 
 import LinkPicker from '../components/link-picker'
 import { linkSelectionPlugin } from '../plugins/link-selection-plugin'

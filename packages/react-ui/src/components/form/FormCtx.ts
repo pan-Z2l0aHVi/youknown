@@ -1,4 +1,4 @@
-import { FormInstance } from '@youknown/react-hook/src'
+import type { FormInstance } from '@youknown/react-hook/src'
 import { createContext } from 'react'
 
 export interface FormContext {

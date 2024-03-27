@@ -1,4 +1,5 @@
-import TiptapOrderedList, { OrderedListOptions } from '@tiptap/extension-ordered-list'
+import type { OrderedListOptions } from '@tiptap/extension-ordered-list'
+import TiptapOrderedList from '@tiptap/extension-ordered-list'
 
 import OrderedListItem from '../components/ordered-list-item'
 

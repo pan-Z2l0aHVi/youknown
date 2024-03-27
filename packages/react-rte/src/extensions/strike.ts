@@ -1,4 +1,5 @@
-import TiptapStrike, { StrikeOptions } from '@tiptap/extension-strike'
+import type { StrikeOptions } from '@tiptap/extension-strike'
+import TiptapStrike from '@tiptap/extension-strike'
 
 import StrikeBtn from '../components/strike-btn'
 

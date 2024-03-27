@@ -1,8 +1,10 @@
 import './image.scss'
 
 import { useComposeRef, useEvent } from '@youknown/react-hook/src'
-import { ArgumentType, cls, is } from '@youknown/utils/src'
-import { ForwardedRef, forwardRef, ImgHTMLAttributes, useEffect, useRef, useState } from 'react'
+import type { ArgumentType } from '@youknown/utils/src'
+import { cls, is } from '@youknown/utils/src'
+import type { ForwardedRef, ImgHTMLAttributes } from 'react'
+import { forwardRef, useEffect, useRef, useState } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 import crackImage from './crack-image'

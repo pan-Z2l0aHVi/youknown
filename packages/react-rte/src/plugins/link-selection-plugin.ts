@@ -1,6 +1,6 @@
 import { getMarkRange } from '@tiptap/core'
 import { Plugin, PluginKey, TextSelection } from '@tiptap/pm/state'
-import { EditorView } from '@tiptap/pm/view'
+import type { EditorView } from '@tiptap/pm/view'
 
 export const linkSelectionPluginKey = new PluginKey('linkSelection')
 export const linkSelectionPlugin = () =>

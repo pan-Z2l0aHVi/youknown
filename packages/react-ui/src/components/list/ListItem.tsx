@@ -1,7 +1,8 @@
 import './list-item.scss'
 
 import { cls } from '@youknown/utils/src'
-import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode, useContext } from 'react'
+import type { ForwardedRef, HTMLAttributes, ReactNode } from 'react'
+import { forwardRef, useContext } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 import { ListCtx } from './ListCtx'

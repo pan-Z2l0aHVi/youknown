@@ -2,7 +2,8 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 import Unocss from 'unocss/vite'
-import { defineConfig, loadEnv, PluginOption } from 'vite'
+import type { PluginOption } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import eslintPlugin from 'vite-plugin-eslint'
 
 export default defineConfig(({ mode }) => {

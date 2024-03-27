@@ -1,4 +1,5 @@
-import TiptapColor, { ColorOptions } from '@tiptap/extension-color'
+import type { ColorOptions } from '@tiptap/extension-color'
+import TiptapColor from '@tiptap/extension-color'
 import TiptapTextStyle from '@tiptap/extension-text-style'
 
 import TextColorPicker from '../components/text-color-picker'

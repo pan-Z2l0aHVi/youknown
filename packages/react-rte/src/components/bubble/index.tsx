@@ -1,6 +1,7 @@
 import './index.scss'
 
-import { BubbleMenu, Editor } from '@tiptap/react'
+import type { Editor } from '@tiptap/react'
+import { BubbleMenu } from '@tiptap/react'
 import { Divider, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import { cloneElement, createElement, useMemo, useState } from 'react'

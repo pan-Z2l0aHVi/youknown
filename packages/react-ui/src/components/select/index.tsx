@@ -2,18 +2,8 @@ import './select.scss'
 
 import { useBoolean, useControllable, useEvent, useIntersection, useLatestRef } from '@youknown/react-hook/src'
 import { cls, is, omit } from '@youknown/utils/src'
-import {
-	ComponentProps,
-	CSSProperties,
-	HTMLAttributes,
-	KeyboardEvent,
-	MouseEventHandler,
-	ReactNode,
-	useEffect,
-	useLayoutEffect,
-	useRef,
-	useState
-} from 'react'
+import type { ComponentProps, CSSProperties, HTMLAttributes, KeyboardEvent, MouseEventHandler, ReactNode } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbCheck, TbSelector } from 'react-icons/tb'
 

@@ -1,4 +1,5 @@
-import { ForwardedRef, forwardRef, SVGAttributes } from 'react'
+import type { ForwardedRef, SVGAttributes } from 'react'
+import { forwardRef } from 'react'
 
 const _SpinSvg = (props: SVGAttributes<SVGSVGElement>, propRef: ForwardedRef<SVGSVGElement>) => {
 	const { style, ...rest } = props

@@ -2,18 +2,8 @@ import './anchor.scss'
 
 import { useComposeRef, useEvent } from '@youknown/react-hook/src'
 import { cls, is } from '@youknown/utils/src'
-import {
-	ForwardedRef,
-	forwardRef,
-	Fragment,
-	HTMLAttributes,
-	MouseEventHandler,
-	ReactNode,
-	useEffect,
-	useMemo,
-	useRef,
-	useState
-} from 'react'
+import type { ForwardedRef, HTMLAttributes, MouseEventHandler, ReactNode } from 'react'
+import { forwardRef, Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import scrollIntoView from 'scroll-into-view-if-needed'
 
 import { UI_PREFIX } from '../../constants'

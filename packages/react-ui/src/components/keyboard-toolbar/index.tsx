@@ -1,5 +1,6 @@
 import { checkIOS, cls } from '@youknown/utils/src'
-import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode, useLayoutEffect, useState } from 'react'
+import type { ForwardedRef, HTMLAttributes, ReactNode } from 'react'
+import { forwardRef, useLayoutEffect, useState } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 

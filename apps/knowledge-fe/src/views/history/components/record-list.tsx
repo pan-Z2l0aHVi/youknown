@@ -1,9 +1,10 @@
 import { memo } from 'react'
 import AutoSizer from 'react-virtualized-auto-sizer'
-import { FixedSizeList, ListChildComponentProps } from 'react-window'
+import type { ListChildComponentProps } from 'react-window'
+import { FixedSizeList } from 'react-window'
 
 import { useBannerVisible } from '@/hooks/use-banner-visible'
-import { RecordValue } from '@/utils/idb'
+import type { RecordValue } from '@/utils/idb'
 
 import RecordItem from './record-item'
 

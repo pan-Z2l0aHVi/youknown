@@ -1,7 +1,7 @@
 import './drawer.scss'
 
 import { cls } from '@youknown/utils/src'
-import { CSSProperties, FC, HTMLAttributes } from 'react'
+import type { CSSProperties, FC, HTMLAttributes } from 'react'
 import { createPortal } from 'react-dom'
 
 import { UI_PREFIX } from '../../constants'

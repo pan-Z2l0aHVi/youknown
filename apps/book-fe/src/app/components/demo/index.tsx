@@ -1,8 +1,9 @@
+import type { AnchorItem } from '@youknown/react-ui/src'
 import { Anchor } from '@youknown/react-ui/src'
-import { AnchorItem } from '@youknown/react-ui/src/components/anchor'
 import { cls, uuid } from '@youknown/utils/src'
-import { MDXComponents } from 'mdx/types'
-import { ComponentType, isValidElement, memo, ReactNode, useRef, useState } from 'react'
+import type { MDXComponents } from 'mdx/types'
+import type { ComponentType, ReactNode } from 'react'
+import { isValidElement, memo, useRef, useState } from 'react'
 
 import CodeBlock from '@/components/code-block'
 import Heading from '@/components/heading'

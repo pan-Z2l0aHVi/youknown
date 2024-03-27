@@ -1,4 +1,5 @@
-import TiptapHeading, { HeadingOptions } from '@tiptap/extension-heading'
+import type { HeadingOptions } from '@tiptap/extension-heading'
+import TiptapHeading from '@tiptap/extension-heading'
 
 import HeadingItem from '../components/heading-item'
 import HeadingPicker from '../components/heading-picker'

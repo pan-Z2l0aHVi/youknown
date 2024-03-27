@@ -2,7 +2,8 @@ import './context-menu.scss'
 
 import { useContextMenu, useControllable } from '@youknown/react-hook/src'
 import { cls, getViewportHeight, getViewportWidth, omit } from '@youknown/utils/src'
-import { HTMLAttributes, useEffect, useRef, useState } from 'react'
+import type { HTMLAttributes } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 import { Overlay } from '../overlay'

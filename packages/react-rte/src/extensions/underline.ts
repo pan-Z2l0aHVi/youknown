@@ -1,4 +1,5 @@
-import TiptapUnderline, { UnderlineOptions } from '@tiptap/extension-underline'
+import type { UnderlineOptions } from '@tiptap/extension-underline'
+import TiptapUnderline from '@tiptap/extension-underline'
 
 import UnderlineBtn from '../components/underline-btn'
 

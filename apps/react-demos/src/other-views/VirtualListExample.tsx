@@ -1,5 +1,6 @@
 import AutoSizer from 'react-virtualized-auto-sizer'
-import { FixedSizeList, ListChildComponentProps } from 'react-window'
+import type { ListChildComponentProps } from 'react-window'
+import { FixedSizeList } from 'react-window'
 
 export default () => {
 	const data = Array.from({ length: 10000 }, (_, index) => `Item ${index + 1}`)

@@ -1,6 +1,7 @@
 import { useBoolean, useIntersection } from '@youknown/react-hook/src'
 import { cls } from '@youknown/utils/src'
-import { HTMLAttributes, useCallback, useEffect, useRef, useState } from 'react'
+import type { HTMLAttributes } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { parseGIFFrame } from '@/utils/gif'
 

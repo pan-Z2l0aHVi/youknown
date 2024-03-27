@@ -2,19 +2,16 @@ import './input.scss'
 
 import { useBoolean, useComposeRef, useControllable } from '@youknown/react-hook/src'
 import { cls, omit } from '@youknown/utils/src'
-import {
+import type {
 	ChangeEventHandler,
 	FocusEventHandler,
 	ForwardedRef,
-	forwardRef,
 	InputHTMLAttributes,
 	KeyboardEventHandler,
 	MouseEventHandler,
-	ReactNode,
-	useEffect,
-	useLayoutEffect,
-	useRef
+	ReactNode
 } from 'react'
+import { forwardRef, useEffect, useLayoutEffect, useRef } from 'react'
 import { IoMdCloseCircle } from 'react-icons/io'
 
 import { UI_PREFIX } from '../../constants'

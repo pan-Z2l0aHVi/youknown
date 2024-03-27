@@ -1,7 +1,8 @@
 import './circle.scss'
 
 import { cls, is } from '@youknown/utils/src'
-import { ForwardedRef, forwardRef, HTMLAttributes, useEffect, useRef } from 'react'
+import type { ForwardedRef, HTMLAttributes } from 'react'
+import { forwardRef, useEffect, useRef } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 

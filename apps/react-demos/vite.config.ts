@@ -5,7 +5,8 @@ import { resolve } from 'path'
 import remarkGfm from 'remark-gfm'
 import { visualizer } from 'rollup-plugin-visualizer'
 import unocss from 'unocss/vite'
-import { defineConfig, loadEnv, PluginOption, splitVendorChunkPlugin } from 'vite'
+import type { PluginOption } from 'vite'
+import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(({ mode }) => {

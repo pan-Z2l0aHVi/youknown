@@ -1,7 +1,9 @@
 import { Image } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import parse, { DOMNode, domToReact, Element, Text } from 'html-react-parser'
-import { ForwardedRef, forwardRef, HTMLAttributes, useMemo, useRef } from 'react'
+import type { DOMNode } from 'html-react-parser'
+import parse, { domToReact, Element, Text } from 'html-react-parser'
+import type { ForwardedRef, HTMLAttributes } from 'react'
+import { forwardRef, useMemo, useRef } from 'react'
 
 import { useUIStore } from '@/stores'
 import { BASE_NODE_ID } from '@/utils'

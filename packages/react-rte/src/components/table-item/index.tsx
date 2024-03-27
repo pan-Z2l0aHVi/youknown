@@ -1,6 +1,6 @@
 import './index.scss'
 
-import { Editor } from '@tiptap/react'
+import type { Editor } from '@tiptap/react'
 import { Dropdown } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import { useMemo, useState } from 'react'

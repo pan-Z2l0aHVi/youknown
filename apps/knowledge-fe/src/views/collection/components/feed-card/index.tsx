@@ -6,7 +6,7 @@ import { LuHeartOff } from 'react-icons/lu'
 import { RiHistoryFill } from 'react-icons/ri'
 import { TbUser } from 'react-icons/tb'
 
-import { Feed } from '@/apis/feed'
+import type { Feed } from '@/apis/feed'
 import { cancel_collect_feed } from '@/apis/user'
 import More from '@/components/more'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'

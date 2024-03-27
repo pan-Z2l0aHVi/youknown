@@ -2,7 +2,8 @@ import './overlay.scss'
 
 import { FloatingOverlay } from '@floating-ui/react'
 import { cls } from '@youknown/utils/src'
-import { ForwardedRef, forwardRef, HTMLAttributes, useRef } from 'react'
+import type { ForwardedRef, HTMLAttributes } from 'react'
+import { forwardRef, useRef } from 'react'
 import { createPortal } from 'react-dom'
 
 import { UI_PREFIX } from '../../constants'

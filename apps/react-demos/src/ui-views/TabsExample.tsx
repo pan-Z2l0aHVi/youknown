@@ -1,5 +1,6 @@
 import { Divider, Space, Tabs } from '@youknown/react-ui/src'
-import { ComponentPropsWithRef, useState } from 'react'
+import type { ComponentPropsWithRef } from 'react'
+import { useState } from 'react'
 
 export default () => {
 	const [tabsType, setTabsType] = useState<'line' | 'round' | 'segment'>('line')

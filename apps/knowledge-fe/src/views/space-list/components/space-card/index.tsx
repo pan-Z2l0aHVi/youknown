@@ -7,7 +7,7 @@ import { FcFolder } from 'react-icons/fc'
 import { LuSettings2 } from 'react-icons/lu'
 import { PiTrashSimpleBold } from 'react-icons/pi'
 
-import { DocSpace } from '@/apis/space'
+import type { DocSpace } from '@/apis/space'
 import More from '@/components/more'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { is_dark_theme_getter, useSpaceStore, useUIStore } from '@/stores'

@@ -1,7 +1,8 @@
 import './collapse-panel.scss'
 
 import { cls, omit } from '@youknown/utils/src'
-import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode } from 'react'
+import type { ForwardedRef, HTMLAttributes, ReactNode } from 'react'
+import { forwardRef } from 'react'
 import { TbChevronDown } from 'react-icons/tb'
 
 import { UI_PREFIX } from '../../constants'

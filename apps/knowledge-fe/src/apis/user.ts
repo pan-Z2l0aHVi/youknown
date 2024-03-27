@@ -1,8 +1,8 @@
 import { LOGIN_TYPE } from '@/consts'
 import { net } from '@/utils/request'
 
-import { Feed } from './feed'
-import { Wallpaper } from './wallpaper'
+import type { Feed } from './feed'
+import type { Wallpaper } from './wallpaper'
 
 export interface Profile {
 	user_id: string

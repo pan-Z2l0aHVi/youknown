@@ -1,9 +1,11 @@
 import { checkElementInContainer } from '@youknown/utils/src'
-import { computed, nextTick, Ref, ref } from 'vue'
+import type { Ref } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 
 import { omit } from '@/utils/object'
 
-import { FetchOptions, useFetch } from './useFetch'
+import type { FetchOptions } from './useFetch'
+import { useFetch } from './useFetch'
 import useIntersection from './useIntersection'
 
 interface InfinityOptions<T, S> extends FetchOptions<T, S> {

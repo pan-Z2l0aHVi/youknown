@@ -1,4 +1,5 @@
-import { create, StateCreator } from 'zustand'
+import type { StateCreator } from 'zustand'
+import { create } from 'zustand'
 
 import { create_doc_space, delete_doc_space, DocSpace, get_spaces, update_doc_space } from '@/apis/space'
 

@@ -1,10 +1,10 @@
 import './trigger.scss'
 
+import type { Placement } from '@floating-ui/react'
 import {
 	autoUpdate,
 	flip,
 	offset,
-	Placement,
 	safePolygon,
 	shift,
 	useClick,
@@ -18,16 +18,8 @@ import {
 } from '@floating-ui/react'
 import { useControllable } from '@youknown/react-hook/src'
 import { checkHoverSupported, omit } from '@youknown/utils/src'
-import {
-	Children,
-	cloneElement,
-	ForwardedRef,
-	forwardRef,
-	HTMLAttributes,
-	isValidElement,
-	ReactNode,
-	useRef
-} from 'react'
+import type { ForwardedRef, HTMLAttributes, ReactNode } from 'react'
+import { Children, cloneElement, forwardRef, isValidElement, useRef } from 'react'
 import { createPortal } from 'react-dom'
 
 import { UI_PREFIX } from '../../constants'

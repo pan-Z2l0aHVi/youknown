@@ -2,19 +2,17 @@ import './textarea.scss'
 
 import { useBoolean, useComposeRef, useControllable } from '@youknown/react-hook/src'
 import { cls, omit } from '@youknown/utils/src'
-import {
+import type {
 	ChangeEventHandler,
 	ComponentProps,
 	FocusEventHandler,
 	ForwardedRef,
-	forwardRef,
 	KeyboardEventHandler,
-	TextareaHTMLAttributes,
-	useLayoutEffect,
-	useRef,
-	useState
+	TextareaHTMLAttributes
 } from 'react'
-import TextareaAutosize, { TextareaHeightChangeMeta } from 'react-textarea-autosize'
+import { forwardRef, useLayoutEffect, useRef, useState } from 'react'
+import type { TextareaHeightChangeMeta } from 'react-textarea-autosize'
+import TextareaAutosize from 'react-textarea-autosize'
 
 import { UI_PREFIX } from '../../constants'
 

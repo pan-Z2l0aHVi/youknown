@@ -1,9 +1,11 @@
 import { checkElementInContainer, is, omit } from '@youknown/utils/src'
-import { MutableRefObject, SetStateAction, useState } from 'react'
+import type { MutableRefObject, SetStateAction } from 'react'
+import { useState } from 'react'
 import { flushSync } from 'react-dom'
 
 import { useEvent } from './useEvent'
-import { FetchOptions, useFetch } from './useFetch'
+import type { FetchOptions } from './useFetch'
+import { useFetch } from './useFetch'
 import { useIntersection } from './useIntersection'
 
 interface InfinityOptions<T, S> extends FetchOptions<T, S> {

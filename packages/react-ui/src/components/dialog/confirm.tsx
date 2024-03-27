@@ -1,8 +1,9 @@
 import { omit } from '@youknown/utils/src'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import { render as renderReactRoot } from '../../utils/renderReactRoot'
-import { Dialog, DialogProps } from './Dialog'
+import type { DialogProps } from './Dialog'
+import { Dialog } from './Dialog'
 
 interface ConfirmConfig
 	extends Pick<

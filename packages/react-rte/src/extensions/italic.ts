@@ -1,4 +1,5 @@
-import TiptapItalic, { ItalicOptions } from '@tiptap/extension-italic'
+import type { ItalicOptions } from '@tiptap/extension-italic'
+import TiptapItalic from '@tiptap/extension-italic'
 
 import ItalicBtn from '../components/italic-btn'
 

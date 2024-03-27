@@ -1,7 +1,8 @@
 import { useComposeRef, useEvent } from '@youknown/react-hook/src'
 import { Button } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import { forwardRef, ReactNode, useEffect, useRef } from 'react'
+import type { ReactNode } from 'react'
+import { forwardRef, useEffect, useRef } from 'react'
 import { TbArrowBack } from 'react-icons/tb'
 import scrollIntoView from 'scroll-into-view-if-needed'
 

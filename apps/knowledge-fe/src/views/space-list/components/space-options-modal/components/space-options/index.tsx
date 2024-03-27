@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { get_space_info } from '@/apis/space'
 import { validate_max_length, validate_required } from '@/utils/validators'
 
-const SPACE_NAME_MAX_LEN = 20
+const SPACE_NAME_MAX_LEN = 30
 const SPACE_DESC_MAX_LEN = 120
 
 interface SpaceOptionsProps {

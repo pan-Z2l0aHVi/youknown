@@ -2,7 +2,8 @@ import './dialog.scss'
 
 import { useEvent } from '@youknown/react-hook/src'
 import { cls, is } from '@youknown/utils/src'
-import { ComponentProps, ForwardedRef, forwardRef, isValidElement, ReactNode, useRef } from 'react'
+import type { ComponentProps, ForwardedRef, ReactNode } from 'react'
+import { forwardRef, isValidElement, useRef } from 'react'
 
 import { UI_PREFIX } from '../../constants'
 import { Button } from '../button'

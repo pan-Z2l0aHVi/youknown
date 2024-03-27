@@ -1,4 +1,4 @@
-import { FormInstance } from '@youknown/react-hook/src'
+import type { FormInstance } from '@youknown/react-hook/src'
 import { Button, Form, Input, Select, Space } from '@youknown/react-ui/src'
 import { useTranslation } from 'react-i18next'
 

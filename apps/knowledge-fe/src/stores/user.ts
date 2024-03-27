@@ -1,7 +1,9 @@
-import { create, StateCreator } from 'zustand'
+import type { StateCreator } from 'zustand'
+import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { get_profile, login as request_login, Profile } from '@/apis/user'
+import type { Profile } from '@/apis/user'
+import { get_profile, login as request_login } from '@/apis/user'
 import { remove_local_token, set_local_token } from '@/utils/local'
 import { with_api } from '@/utils/request'
 

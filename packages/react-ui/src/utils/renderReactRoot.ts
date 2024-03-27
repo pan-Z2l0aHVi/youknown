@@ -1,5 +1,5 @@
 import { is } from '@youknown/utils/src'
-import { ReactElement } from 'react'
+import type { ReactElement } from 'react'
 import ReactDOM from 'react-dom'
 
 type CreateRootFnType = (container: Element | DocumentFragment) => {

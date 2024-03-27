@@ -1,4 +1,5 @@
-import { asyncCompose, Middleware, Next } from '../compose'
+import type { Middleware, Next } from '../compose'
+import { asyncCompose } from '../compose'
 import { headers2Obj } from '../data'
 import { pick } from '../object'
 import QS from '../qs'

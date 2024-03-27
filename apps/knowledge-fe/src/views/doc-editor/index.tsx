@@ -27,7 +27,8 @@ import { useTranslation } from 'react-i18next'
 import { TbChecklist, TbCloudCheck } from 'react-icons/tb'
 import { useLocation, useParams, useSearchParams } from 'react-router-dom'
 
-import { Doc, get_doc_drafts, get_doc_info, update_doc, update_doc_drafts } from '@/apis/doc'
+import type { Doc } from '@/apis/doc'
+import { get_doc_drafts, get_doc_info, update_doc, update_doc_drafts } from '@/apis/doc'
 import Header from '@/app/components/header'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { useRecordStore, useUIStore } from '@/stores'
@@ -40,6 +41,7 @@ import DocHistoryDrawer from './components/doc-history-drawer'
 import DocOptionsDropdown from './components/doc-options-dropdown'
 import DocTitle from './components/doc-title'
 import PublicSwitch from './components/public-switch'
+
 export default function Doc() {
 	const { t } = useTranslation()
 	const navigate = useTransitionNavigate()

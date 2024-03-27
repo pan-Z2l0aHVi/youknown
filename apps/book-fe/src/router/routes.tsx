@@ -1,5 +1,5 @@
-const { t } = await import('i18next')
-import { createElement, lazy, ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import { createElement, lazy } from 'react'
 import {
 	TbAdjustmentsHorizontal,
 	TbAnchor,
@@ -37,6 +37,8 @@ import {
 	TbWebhook
 } from 'react-icons/tb'
 import { Navigate } from 'react-router-dom'
+
+const { t } = await import('i18next')
 
 export interface RouteItem {
 	path: string

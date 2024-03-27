@@ -1,5 +1,6 @@
 import { cls } from '@youknown/utils/src'
-import { ComponentProps, forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import { forwardRef } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'

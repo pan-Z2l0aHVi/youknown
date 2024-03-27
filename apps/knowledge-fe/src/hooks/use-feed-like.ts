@@ -1,7 +1,8 @@
 import { useFetch } from '@youknown/react-hook/src'
 import { useEffect, useState } from 'react'
 
-import { Feed, like_feed } from '@/apis/feed'
+import type { Feed } from '@/apis/feed'
+import { like_feed } from '@/apis/feed'
 import { useModalStore, useRecordStore, useUserStore } from '@/stores'
 
 export function useFeedLike(feed: Feed) {

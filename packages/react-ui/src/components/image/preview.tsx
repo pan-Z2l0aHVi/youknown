@@ -1,4 +1,4 @@
-import { ComponentProps } from 'react'
+import type { ComponentProps } from 'react'
 
 import { render as renderReactRoot } from '../../utils/renderReactRoot'
 import ImagePreview from './ImagePreview'

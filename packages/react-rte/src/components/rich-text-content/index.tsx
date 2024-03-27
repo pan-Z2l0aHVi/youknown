@@ -3,11 +3,13 @@ import '@youknown/css/src/rte.scss'
 
 import { EditorContent } from '@tiptap/react'
 import { cls } from '@youknown/utils/src'
-import { ComponentProps } from 'react'
+import type { ComponentProps } from 'react'
 
 import { UI_EDITOR_PREFIX } from '../../common'
-import { Bubble, BubbleListItem } from '../bubble'
-import { Floating, FloatingListItem } from '../floating'
+import type { BubbleListItem } from '../bubble'
+import { Bubble } from '../bubble'
+import type { FloatingListItem } from '../floating'
+import { Floating } from '../floating'
 import ImageResizer from '../image-resizer'
 
 interface RTEContentProps extends ComponentProps<typeof EditorContent> {

@@ -1,7 +1,8 @@
 import { uuid } from '@youknown/utils/src'
 import { create, StateCreator } from 'zustand'
 
-import { clear_records, delete_record, find_records, insert_record, RecordValue } from '@/utils/idb'
+import type { RecordValue } from '@/utils/idb'
+import { clear_records, delete_record, find_records, insert_record } from '@/utils/idb'
 
 export interface RecordState {
 	record_list: RecordValue[]

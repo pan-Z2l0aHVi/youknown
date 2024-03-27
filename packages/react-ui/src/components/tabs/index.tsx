@@ -2,7 +2,8 @@ import './tabs.scss'
 
 import { useControllable, useNextTickState } from '@youknown/react-hook/src'
 import { cls, omit } from '@youknown/utils/src'
-import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode, useState } from 'react'
+import type { ForwardedRef, HTMLAttributes, ReactNode } from 'react'
+import { forwardRef, useState } from 'react'
 import { TbX } from 'react-icons/tb'
 
 import { UI_PREFIX } from '../../constants'

@@ -5,10 +5,12 @@ import Gapcursor from '@tiptap/extension-gapcursor'
 import History from '@tiptap/extension-history'
 import ListItem from '@tiptap/extension-list-item'
 import Paragraph from '@tiptap/extension-paragraph'
-import Placeholder, { PlaceholderOptions } from '@tiptap/extension-placeholder'
+import type { PlaceholderOptions } from '@tiptap/extension-placeholder'
+import Placeholder from '@tiptap/extension-placeholder'
 import Text from '@tiptap/extension-text'
-import { EditorOptions, useEditor } from '@tiptap/react'
-import { DependencyList } from 'react'
+import type { EditorOptions } from '@tiptap/react'
+import { useEditor } from '@tiptap/react'
+import type { DependencyList } from 'react'
 
 interface RTEOptions extends Partial<EditorOptions> {
 	placeholder?: PlaceholderOptions['placeholder']

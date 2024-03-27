@@ -2,7 +2,8 @@ import { Toast } from '@youknown/react-ui/src'
 import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { comment, Feed } from '@/apis/feed'
+import type { Feed } from '@/apis/feed'
+import { comment } from '@/apis/feed'
 import { useRecordStore } from '@/stores'
 import { with_api } from '@/utils/request'
 

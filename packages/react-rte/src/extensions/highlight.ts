@@ -1,4 +1,5 @@
-import TiptapHighlight, { HighlightOptions } from '@tiptap/extension-highlight'
+import type { HighlightOptions } from '@tiptap/extension-highlight'
+import TiptapHighlight from '@tiptap/extension-highlight'
 
 import HighlightPicker from '../components/highlight-picker'
 
