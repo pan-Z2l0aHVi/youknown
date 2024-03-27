@@ -12,6 +12,7 @@ import {
 	MouseEventHandler,
 	ReactNode,
 	useEffect,
+	useLayoutEffect,
 	useRef
 } from 'react'
 import { IoMdCloseCircle } from 'react-icons/io'
@@ -56,16 +57,13 @@ const _Input = (props: InputProps, propRef: ForwardedRef<HTMLInputElement>) => {
 	} = omit(props, 'defaultValue', 'value', 'onChange')
 
 	const ref = useRef<HTMLInputElement>(null)
-	const hasFocusedRef = useRef(false)
-	const inputRef = useComposeRef(ref, propRef, node => {
-		// 当输入元素被渲染后，聚焦
-		if (autoFocus && !hasFocusedRef.current) {
-			hasFocusedRef.current = true
-			setTimeout(() => {
-				node?.focus()
-			})
+	const inputRef = useComposeRef(ref, propRef)
+	useLayoutEffect(() => {
+		if (autoFocus) {
+			ref.current?.focus()
 		}
-	})
+	}, [autoFocus])
+
 	const [focus, { setTrue: setFocus, setFalse: setBlur }] = useBoolean(false)
 	const [clearVisible, { setTrue: showClear, setFalse: hideClear, setBool: setClearVisible }] = useBoolean(false)
 	const [value, setValue] = useControllable(props, {

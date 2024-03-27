@@ -2,8 +2,8 @@ import { Divider, Select, Space } from '@youknown/react-ui/src'
 import { useState } from 'react'
 
 export default () => {
-	const [selection, setSelection] = useState(0)
-	const [multipleSelection, setMultipleSelection] = useState([0])
+	const [selection, setSelection] = useState<0 | 1 | 2>(0)
+	const [multipleSelection, setMultipleSelection] = useState<(0 | 1 | 2)[]>([0])
 	return (
 		<div>
 			<h1>Select</h1>
@@ -53,11 +53,7 @@ export default () => {
 			<Space>
 				<Select
 					value={selection}
-					onChange={val => {
-						if (!Array.isArray(val)) {
-							setSelection(val)
-						}
-					}}
+					onChange={setSelection}
 					menuList={[
 						{
 							value: 0,
@@ -76,11 +72,7 @@ export default () => {
 				<Select
 					multiple
 					value={multipleSelection}
-					onChange={val => {
-						if (Array.isArray(val)) {
-							setMultipleSelection(val)
-						}
-					}}
+					onChange={setMultipleSelection}
 					menuList={[
 						{
 							value: 0,

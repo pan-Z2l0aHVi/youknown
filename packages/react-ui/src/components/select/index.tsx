@@ -26,12 +26,12 @@ import { Loading } from '../loading'
 import { Space } from '../space'
 import { Tag } from '../tag'
 
-export interface Option<T> {
+export interface Option<U> {
 	label: ReactNode
-	value: T
+	value: U
 	disabled?: boolean
 }
-export interface SelectProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
+export interface SelectProps<T, U> extends Omit<HTMLAttributes<HTMLElement>, 'defaultValue' | 'onChange'> {
 	multiple?: boolean
 	disabled?: boolean
 	placement?: ComponentProps<typeof Dropdown>['placement']
@@ -39,14 +39,14 @@ export interface SelectProps<T> extends Omit<HTMLAttributes<HTMLElement>, 'defau
 	placeholder?: string
 	allowClear?: boolean
 	noMore?: boolean
-	value?: T | T[]
-	defaultValue?: T | T[]
-	menuList?: (Option<T> | '-' | string)[]
-	onChange?: (value: T | T[]) => void
+	value?: T
+	defaultValue?: T
+	menuList?: (Option<U> | '-' | string)[]
+	onChange?: (value: T) => void
 	onLoad?: () => void
 }
 
-export const Select = <T extends string | number>(props: SelectProps<T>) => {
+export const Select = <T extends U | U[], U extends string | number>(props: SelectProps<T, U>) => {
 	const { t } = useTranslation()
 	const {
 		className,
@@ -71,7 +71,7 @@ export const Select = <T extends string | number>(props: SelectProps<T>) => {
 	] = useBoolean(false)
 
 	const [value, setValue] = useControllable(props, {
-		defaultValue: (multiple ? [] : undefined) as T | T[]
+		defaultValue: (multiple ? [] : undefined) as unknown as T
 	})
 	const _valueRef = useLatestRef(value)
 
@@ -106,9 +106,9 @@ export const Select = <T extends string | number>(props: SelectProps<T>) => {
 
 	const prefixCls = `${UI_PREFIX}-select`
 
-	const checkOption = (opt: string | Option<T>): opt is Option<T> => is.object(opt)
+	const checkOption = (opt: string | Option<U>): opt is Option<U> => is.object(opt)
 	const options = menuList.filter(checkOption)
-	const checkOptionFiltered = (opt: Option<T>) => {
+	const checkOptionFiltered = (opt: Option<U>) => {
 		if (!filter) {
 			return true
 		}
@@ -116,17 +116,17 @@ export const Select = <T extends string | number>(props: SelectProps<T>) => {
 	}
 	const filteredOptions = options.filter(checkOptionFiltered)
 
-	const handleSelect = (val: T) => {
+	const handleSelect = (val: U) => {
 		if (multiple) {
-			let selection = [...(_valueRef.current as T[])]
+			let selection = [...(_valueRef.current as U[])]
 			if (selection.includes(val)) {
 				selection = selection.filter(item => item !== val)
 			} else {
 				selection.push(val)
 			}
-			setValue(selection)
+			setValue(selection as unknown as T)
 		} else {
-			setValue(val)
+			setValue(val as unknown as T)
 			if (filter) {
 				inputRef.current?.blur()
 			} else {
@@ -172,12 +172,12 @@ export const Select = <T extends string | number>(props: SelectProps<T>) => {
 		</>
 	)
 
-	const renderOption = (opt: Option<T>) => {
+	const renderOption = (opt: Option<U>) => {
 		let isActive: boolean
 		if (multiple) {
-			isActive = (value as (string | number)[]).includes(opt.value)
+			isActive = (value as U[]).includes(opt.value)
 		} else {
-			isActive = opt.value === value
+			isActive = opt.value === (value as unknown as U)
 		}
 		return (
 			<Dropdown.Item
@@ -254,7 +254,7 @@ export const Select = <T extends string | number>(props: SelectProps<T>) => {
 					? is.array.empty(value)
 						? placeholder
 						: ''
-					: String(options.find(opt => opt.value === value)?.label) || placeholder
+					: String(options.find(opt => opt.value === (value as unknown as U))?.label) || placeholder
 			}
 			allowClear={allowClear}
 			value={filterVal}
@@ -266,9 +266,9 @@ export const Select = <T extends string | number>(props: SelectProps<T>) => {
 				if (event.key === 'Backspace' && !filterVal) {
 					event.preventDefault()
 					setValue(p => {
-						const selection = [...(p as T[])]
+						const selection = [...(p as U[])]
 						selection.pop()
-						return selection
+						return selection as T
 					})
 				}
 			}}
@@ -297,7 +297,7 @@ export const Select = <T extends string | number>(props: SelectProps<T>) => {
 				? filterEle
 				: is.undefined(value)
 					? placeholderEle
-					: options.find(opt => opt.value === value)?.label}
+					: options.find(opt => opt.value === (value as unknown as U))?.label}
 		</div>
 	)
 

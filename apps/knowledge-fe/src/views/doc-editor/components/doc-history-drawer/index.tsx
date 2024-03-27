@@ -2,7 +2,7 @@ import './html-diff.scss'
 
 import { useInfinity } from '@youknown/react-hook/src'
 import { Button, Drawer, Select } from '@youknown/react-ui/src'
-import { cls, is } from '@youknown/utils/src'
+import { cls } from '@youknown/utils/src'
 import dayjs from 'dayjs'
 import diff from 'html-diff-ts'
 import { useEffect, useMemo, useState } from 'react'
@@ -105,11 +105,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
 						className="sm:w-200px!"
 						noMore={no_more}
 						value={selection}
-						onChange={val => {
-							if (!is.array(val)) {
-								set_selection(val)
-							}
-						}}
+						onChange={set_selection}
 						menuList={options}
 						placeholder={t('placeholder.history')}
 						onLoad={load_more}

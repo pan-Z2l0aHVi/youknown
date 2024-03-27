@@ -10,6 +10,7 @@ import {
 	forwardRef,
 	KeyboardEventHandler,
 	TextareaHTMLAttributes,
+	useLayoutEffect,
 	useRef,
 	useState
 } from 'react'
@@ -48,16 +49,13 @@ const _Textarea = (props: TextareaProps, propRef: ForwardedRef<HTMLTextAreaEleme
 	} = omit(props, 'defaultValue', 'value', 'onChange')
 
 	const innerRef = useRef<HTMLTextAreaElement>(null)
-	const hasFocusedRef = useRef(false)
-	const textareaRef = useComposeRef(propRef, innerRef, node => {
-		// 当输入元素被渲染后，聚焦
-		if (autoFocus && !hasFocusedRef.current) {
-			hasFocusedRef.current = true
-			setTimeout(() => {
-				node?.focus()
-			})
+	const textareaRef = useComposeRef(propRef, innerRef)
+	useLayoutEffect(() => {
+		if (autoFocus) {
+			innerRef.current?.focus()
 		}
-	})
+	}, [autoFocus])
+
 	const [focus, { setTrue: setFocus, setFalse: setBlur }] = useBoolean(false)
 	const [lockScroll, setLockScroll] = useState(false)
 	const [value, setValue] = useControllable(props, {

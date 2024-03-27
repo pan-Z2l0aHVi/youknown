@@ -2,7 +2,7 @@ import { Anchor } from '@youknown/react-ui/src'
 import { AnchorItem } from '@youknown/react-ui/src/components/anchor'
 import { cls, uuid } from '@youknown/utils/src'
 import { MDXComponents } from 'mdx/types'
-import { ComponentType, isValidElement, ReactNode, useMemo, useRef } from 'react'
+import { ComponentType, isValidElement, memo, ReactNode, useRef, useState } from 'react'
 
 import CodeBlock from '@/components/code-block'
 import Heading from '@/components/heading'
@@ -21,21 +21,21 @@ export default function Demo(props: DemoProps) {
 	const is_mobile = useUIStore(state => state.is_mobile)
 	const anchor_items_ref = useRef<AnchorItem[]>([])
 
-	const components: MDXComponents = useMemo(() => {
-		anchor_items_ref.current = []
-		return {
-			pre: props => {
-				if (isValidElement(props.children)) {
-					const { className = '', children = '' } = props.children.props
-					let language = ''
-					if (className) {
-						;[, language] = className.split('language-')
-					}
-					return <CodeBlock language={language} code={children} />
+	const [components] = useState<MDXComponents>(() => ({
+		pre: ({ children }) => {
+			if (isValidElement(children)) {
+				const { className = '' } = children.props
+				let language = ''
+				if (className) {
+					;[, language] = className.split('language-')
 				}
-			},
-			h1: ({ children }) => <Heading level={1}>{children}</Heading>,
-			h2: ({ children }) => {
+				return <CodeBlock language={language} code={children.props.children} />
+			}
+		},
+		h1: ({ children }) => <Heading level={1}>{children}</Heading>,
+		// memo(component, () => true) 强制只渲染一次
+		h2: memo(
+			({ children }) => {
 				const labelledby = uuid()
 				anchor_items_ref.current.push({
 					labelledby,
@@ -48,7 +48,10 @@ export default function Demo(props: DemoProps) {
 					</Heading>
 				)
 			},
-			h3: ({ children }) => {
+			() => true
+		),
+		h3: memo(
+			({ children }) => {
 				const len = anchor_items_ref.current.length
 				const parent = anchor_items_ref.current[len - 1]
 				const labelledby = uuid()
@@ -62,9 +65,10 @@ export default function Demo(props: DemoProps) {
 					</Heading>
 				)
 			},
-			h4: ({ children }) => <Heading level={4}>{children}</Heading>
-		}
-	}, [])
+			() => true
+		),
+		h4: ({ children }) => <Heading level={4}>{children}</Heading>
+	}))
 
 	const with_anchor = anchor_visible && !is_mobile
 
