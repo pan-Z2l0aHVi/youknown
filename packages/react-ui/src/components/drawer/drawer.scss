@@ -2,62 +2,62 @@
 
 $prefix: '#{$ui-prefix}-drawer';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	&-overlay {
-		background: rgba($color: #000, $alpha: 0.5);
-	}
+  &-overlay {
+    background: rgba($color: #000, $alpha: 0.5);
+  }
 
-	&-wrap {
-		position: fixed;
-		background: $bg-0;
-		border: 1px solid $pop-bd;
+  &-wrap {
+    position: fixed;
+    background: $bg-0;
+    border: 1px solid $pop-bd;
 
-		&-left {
-			top: 0;
-			left: 0;
-			height: 100%;
-			box-shadow:
-				6px 0 16px 0 rgba(0, 0, 0, 0.08),
-				3px 0 6px -4px rgba(0, 0, 0, 0.12),
-				9px 0 28px 8px rgba(0, 0, 0, 0.05);
-		}
+    &-left {
+      top: 0;
+      left: 0;
+      height: 100%;
+      box-shadow:
+        6px 0 16px 0 rgba(0, 0, 0, 0.08),
+        3px 0 6px -4px rgba(0, 0, 0, 0.12),
+        9px 0 28px 8px rgba(0, 0, 0, 0.05);
+    }
 
-		&-top {
-			top: 0;
-			left: 0;
-			width: 100%;
-			box-shadow:
-				0 6px 16px 0 rgba(0, 0, 0, 0.08),
-				0 3px 6px -4px rgba(0, 0, 0, 0.12),
-				0 9px 28px 8px rgba(0, 0, 0, 0.05);
-		}
+    &-top {
+      top: 0;
+      left: 0;
+      width: 100%;
+      box-shadow:
+        0 6px 16px 0 rgba(0, 0, 0, 0.08),
+        0 3px 6px -4px rgba(0, 0, 0, 0.12),
+        0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    }
 
-		&-right {
-			top: 0;
-			right: 0;
-			height: 100%;
-			box-shadow:
-				-6px 0 16px 0 rgba(0, 0, 0, 0.08),
-				-3px 0 6px -4px rgba(0, 0, 0, 0.12),
-				-9px 0 28px 8px rgba(0, 0, 0, 0.05);
-		}
+    &-right {
+      top: 0;
+      right: 0;
+      height: 100%;
+      box-shadow:
+        -6px 0 16px 0 rgba(0, 0, 0, 0.08),
+        -3px 0 6px -4px rgba(0, 0, 0, 0.12),
+        -9px 0 28px 8px rgba(0, 0, 0, 0.05);
+    }
 
-		&-bottom {
-			bottom: 0;
-			left: 0;
-			width: 100%;
-			box-shadow:
-				0 -6px 16px 0 rgba(0, 0, 0, 0.08),
-				0 -3px 6px -4px rgba(0, 0, 0, 0.12),
-				0 -9px 28px 8px rgba(0, 0, 0, 0.05);
-		}
-	}
+    &-bottom {
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      box-shadow:
+        0 -6px 16px 0 rgba(0, 0, 0, 0.08),
+        0 -3px 6px -4px rgba(0, 0, 0, 0.12),
+        0 -9px 28px 8px rgba(0, 0, 0, 0.05);
+    }
+  }
 
-	&-close-icon {
-		position: fixed;
-		z-index: 100;
-		top: 16px;
-		right: 16px;
-	}
+  &-close-icon {
+    position: fixed;
+    z-index: 100;
+    top: 16px;
+    right: 16px;
+  }
 }

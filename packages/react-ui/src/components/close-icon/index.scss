@@ -2,26 +2,26 @@
 
 $prefix: '#{$ui-prefix}-close-icon';
 .#{$prefix} {
-	@include flex-center;
+  @include flex-center;
 
-	cursor: pointer;
-	user-select: none;
-	position: relative;
-	width: 24px;
-	height: 24px;
-	font-size: 16px;
-	color: $text-2;
-	background-color: $bg-3;
-	border-radius: $round;
-	transition: background-color $duration-f;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+  color: $text-2;
+  background-color: $bg-3;
+  border-radius: $round;
+  transition: background-color $duration-f;
 
-	&:hover {
-		@media (hover: hover) {
-			background-color: $color-secondary-hover;
-		}
-	}
+  &:hover {
+    @media (hover: hover) {
+      background-color: $color-secondary-hover;
+    }
+  }
 
-	&:active {
-		background-color: $color-secondary-active;
-	}
+  &:active {
+    background-color: $color-secondary-active;
+  }
 }

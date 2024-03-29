@@ -2,52 +2,52 @@
 
 $prefix: '#{$ui-editor-prefix}-text-align-picker';
 .#{$prefix} {
-	/* Empty block */
+  /* Empty block */
 }
 
 .#{$prefix}-popup {
-	display: flex;
+  display: flex;
 
-	.#{$prefix}-icon-wrapper {
-		user-select: none;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 32px;
-		height: 32px;
-		padding: 4px;
-		font-size: 18px;
-		background-color: transparent;
-		border: 0;
-		border-radius: $radius-m;
-		outline: none;
+  .#{$prefix}-icon-wrapper {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    font-size: 18px;
+    background-color: transparent;
+    border: 0;
+    border-radius: $radius-m;
+    outline: none;
 
-		&:focus-visible {
-			@include focus-outline;
-		}
+    &:focus-visible {
+      @include focus-outline;
+    }
 
-		& + .#{$prefix}-icon-wrapper {
-			margin-left: 4px;
-		}
+    & + .#{$prefix}-icon-wrapper {
+      margin-left: 4px;
+    }
 
-		&.disabled {
-			opacity: 0.4;
-		}
+    &.disabled {
+      opacity: 0.4;
+    }
 
-		&:not(.disabled) {
-			&:hover {
-				@media (hover: hover) {
-					background: $color-hover;
-				}
-			}
+    &:not(.disabled) {
+      &:hover {
+        @media (hover: hover) {
+          background: $color-hover;
+        }
+      }
 
-			&:active {
-				background: $color-active;
-			}
+      &:active {
+        background: $color-active;
+      }
 
-			&.active {
-				background: $color-hover;
-			}
-		}
-	}
+      &.active {
+        background: $color-hover;
+      }
+    }
+  }
 }

@@ -2,41 +2,41 @@
 @use '@youknown/css/src/theme-base' as *;
 
 .light-theme {
-	--ui-bg-0: #fff;
-	--ui-bg-1: #fff;
-	--ui-bg-2: #f4f4f4;
-	--ui-bg-3: #eee;
-	--ui-divider: #dee0e3;
-	--ui-pop-bd: transparent;
-	--ui-scrollbar: 27, 27, 27;
-	--ui-text-1: #1f2329;
-	--ui-text-2: #646a73;
-	--ui-text-3: #999;
-	--ui-color-hover: #f5f5f4;
-	--ui-color-active: #e7e5e4;
-	--ui-color-secondary-hover: #e4e6e7;
-	--ui-color-secondary-active: #cfd2d2;
-	--ui-color-focus: #000;
+  --ui-bg-0: #fff;
+  --ui-bg-1: #fff;
+  --ui-bg-2: #f4f4f4;
+  --ui-bg-3: #eee;
+  --ui-divider: #dee0e3;
+  --ui-pop-bd: transparent;
+  --ui-scrollbar: 27, 27, 27;
+  --ui-text-1: #1f2329;
+  --ui-text-2: #646a73;
+  --ui-text-3: #999;
+  --ui-color-hover: #f5f5f4;
+  --ui-color-active: #e7e5e4;
+  --ui-color-secondary-hover: #e4e6e7;
+  --ui-color-secondary-active: #cfd2d2;
+  --ui-color-focus: #000;
 
-	@include meta.load-css('highlight.js/styles/github.min.css');
+  @include meta.load-css('highlight.js/styles/github.min.css');
 }
 
 .dark-theme {
-	--ui-bg-0: #101014;
-	--ui-bg-1: #232429;
-	--ui-bg-2: #18181c;
-	--ui-bg-3: #303033;
-	--ui-divider: #424248;
-	--ui-pop-bd: #424248;
-	--ui-scrollbar: 200, 200, 200;
-	--ui-text-1: #fff;
-	--ui-text-2: #ccc;
-	--ui-text-3: #999;
-	--ui-color-hover: #323232;
-	--ui-color-active: #424547;
-	--ui-color-secondary-hover: #3d3d3e;
-	--ui-color-secondary-active: #444;
-	--ui-color-focus: #fff;
+  --ui-bg-0: #101014;
+  --ui-bg-1: #232429;
+  --ui-bg-2: #18181c;
+  --ui-bg-3: #303033;
+  --ui-divider: #424248;
+  --ui-pop-bd: #424248;
+  --ui-scrollbar: 200, 200, 200;
+  --ui-text-1: #fff;
+  --ui-text-2: #ccc;
+  --ui-text-3: #999;
+  --ui-color-hover: #323232;
+  --ui-color-active: #424547;
+  --ui-color-secondary-hover: #3d3d3e;
+  --ui-color-secondary-active: #444;
+  --ui-color-focus: #fff;
 
-	@include meta.load-css('highlight.js/styles/github-dark.min.css');
+  @include meta.load-css('highlight.js/styles/github-dark.min.css');
 }

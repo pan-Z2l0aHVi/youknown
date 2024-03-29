@@ -2,11 +2,11 @@
 
 $prefix: '#{$ui-prefix}-content-menu';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	position: absolute;
+  position: absolute;
 
-	&-overlay {
-		background-color: transparent;
-	}
+  &-overlay {
+    background-color: transparent;
+  }
 }

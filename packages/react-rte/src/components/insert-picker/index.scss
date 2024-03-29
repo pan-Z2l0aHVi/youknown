@@ -2,17 +2,17 @@
 
 $prefix: '#{$ui-editor-prefix}-insert-picker';
 .#{$prefix} {
-	&-label {
-		/* Empty block */
-	}
+  &-label {
+    /* Empty block */
+  }
 
-	&-icon {
-		display: inline-block;
-		background-color: $color-primary;
-		border-radius: $round;
-	}
+  &-icon {
+    display: inline-block;
+    background-color: $color-primary;
+    border-radius: $round;
+  }
 
-	&-dropdown {
-		min-width: 160px;
-	}
+  &-dropdown {
+    min-width: 160px;
+  }
 }

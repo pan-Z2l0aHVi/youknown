@@ -3,98 +3,98 @@
 $prefix: '#{$ui-prefix}-date-picker';
 
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: max-content;
-	min-width: 160px;
-	color: $text-2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: max-content;
+  min-width: 160px;
+  color: $text-2;
 
-	&-clear-icon {
-		cursor: pointer;
-		color: $text-3;
-	}
+  &-clear-icon {
+    cursor: pointer;
+    color: $text-3;
+  }
 }
 
 .#{$prefix}-calendar {
-	@include basic;
+  @include basic;
 
-	user-select: none;
+  user-select: none;
 
-	&-header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-		&-month {
-			width: 88px;
-			font-weight: 600;
-			text-align: center;
-		}
-	}
+    &-month {
+      width: 88px;
+      font-weight: 600;
+      text-align: center;
+    }
+  }
 
-	&-body {
-		$cell: 28px;
+  &-body {
+    $cell: 28px;
 
-		display: grid;
-		grid-template-columns: repeat(7, $cell);
-		gap: 4px;
-		text-align: center;
+    display: grid;
+    grid-template-columns: repeat(7, $cell);
+    gap: 4px;
+    text-align: center;
 
-		.#{$prefix}-calendar-week {
-			height: $cell;
-			line-height: $cell;
-			color: $text-2;
-		}
+    .#{$prefix}-calendar-week {
+      height: $cell;
+      line-height: $cell;
+      color: $text-2;
+    }
 
-		.#{$prefix}-calendar-day {
-			cursor: pointer;
-			height: $cell;
-			line-height: $cell;
-			border-radius: $radius-m;
+    .#{$prefix}-calendar-day {
+      cursor: pointer;
+      height: $cell;
+      line-height: $cell;
+      border-radius: $radius-m;
 
-			&:hover {
-				@media (hover: hover) {
-					background-color: $color-hover;
-				}
-			}
+      &:hover {
+        @media (hover: hover) {
+          background-color: $color-hover;
+        }
+      }
 
-			&:active {
-				background-color: $color-active;
-			}
+      &:active {
+        background-color: $color-active;
+      }
 
-			&-selected {
-				color: #fff;
-				background-color: $color-primary;
+      &-selected {
+        color: #fff;
+        background-color: $color-primary;
 
-				&:hover {
-					@media (hover: hover) {
-						background-color: $color-primary-hover;
-					}
-				}
+        &:hover {
+          @media (hover: hover) {
+            background-color: $color-primary-hover;
+          }
+        }
 
-				&:active {
-					background-color: $color-primary-active;
-				}
-			}
+        &:active {
+          background-color: $color-primary-active;
+        }
+      }
 
-			&-today {
-				border: 1px solid $color-primary;
-			}
-		}
+      &-today {
+        border: 1px solid $color-primary;
+      }
+    }
 
-		.#{$prefix}-calendar-placeholder {
-			height: $cell;
-		}
-	}
+    .#{$prefix}-calendar-placeholder {
+      height: $cell;
+    }
+  }
 
-	&-footer {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		color: $color-primary;
-	}
+  &-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: $color-primary;
+  }
 }

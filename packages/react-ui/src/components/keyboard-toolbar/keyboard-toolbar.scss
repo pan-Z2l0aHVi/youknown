@@ -2,9 +2,9 @@
 
 $prefix: '#{$ui-prefix}-keyboard-toolbar';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	&-placeholder {
-		// BLOCK
-	}
+  &-placeholder {
+    // BLOCK
+  }
 }

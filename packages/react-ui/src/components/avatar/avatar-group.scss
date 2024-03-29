@@ -2,14 +2,14 @@
 
 $prefix: '#{$ui-prefix}-avatar-group';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	display: flex;
-	flex-wrap: nowrap;
-	align-items: center;
-	width: max-content;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: max-content;
 
-	> .#{'#{$ui-prefix}-avatar'} {
-		border: 2px solid $bg-0;
-	}
+  > .#{'#{$ui-prefix}-avatar'} {
+    border: 2px solid $bg-0;
+  }
 }

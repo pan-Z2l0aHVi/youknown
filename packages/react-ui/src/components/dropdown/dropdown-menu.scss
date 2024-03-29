@@ -2,24 +2,24 @@
 
 $prefix: '#{$ui-prefix}-dropdown-menu';
 .#{$prefix} {
-	@include basic;
-	@include scrollbar;
+  @include basic;
+  @include scrollbar;
 
-	overflow-y: hidden;
-	max-height: 280px;
-	padding: 8px 0;
-	background: $bg-1;
-	border: 1px solid $pop-bd;
-	border-radius: $radius-l;
-	box-shadow: $shadow-m;
+  overflow-y: hidden;
+  max-height: 280px;
+  padding: 8px 0;
+  background: $bg-1;
+  border: 1px solid $pop-bd;
+  border-radius: $radius-l;
+  box-shadow: $shadow-m;
 
-	@media (hover: hover) {
-		&:hover {
-			@include scroll-y;
-		}
-	}
+  @media (hover: hover) {
+    &:hover {
+      @include scroll-y;
+    }
+  }
 
-	@media (hover: none) {
-		@include scroll-y;
-	}
+  @media (hover: none) {
+    @include scroll-y;
+  }
 }

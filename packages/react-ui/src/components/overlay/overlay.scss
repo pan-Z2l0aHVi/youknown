@@ -2,10 +2,10 @@
 
 $prefix: '#{$ui-prefix}-overlay';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	z-index: 1000;
-	display: flex;
-	justify-content: center;
-	background: rgba($color: #000, $alpha: 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  background: rgba($color: #000, $alpha: 0.5);
 }

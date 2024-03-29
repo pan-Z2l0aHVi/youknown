@@ -2,10 +2,10 @@
 
 $prefix: '#{$ui-editor-prefix}-heading-item';
 .#{$prefix} {
-	@include icon;
+  @include icon;
 }
 
 .#{$prefix}-chevron-icon {
-	margin-right: -4px;
-	font-size: $font-size-l;
+  margin-right: -4px;
+  font-size: $font-size-l;
 }

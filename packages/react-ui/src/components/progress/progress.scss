@@ -2,91 +2,91 @@
 
 $prefix: '#{$ui-prefix}-progress';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 
-	&-track {
-		background: $bg-3;
-		border-radius: $round;
-	}
+  &-track {
+    background: $bg-3;
+    border-radius: $round;
+  }
 
-	&-inset {
-		background: $color-primary;
-		border-radius: $round;
-		transition: all $duration-f;
-	}
+  &-inset {
+    background: $color-primary;
+    border-radius: $round;
+    transition: all $duration-f;
+  }
 
-	&-horizontal {
-		flex-direction: row;
-		width: 100%;
+  &-horizontal {
+    flex-direction: row;
+    width: 100%;
 
-		.#{$prefix}-track {
-			width: 100%;
+    .#{$prefix}-track {
+      width: 100%;
 
-			&.#{$prefix}-track-spacing {
-				margin-right: 12px;
-			}
-		}
+      &.#{$prefix}-track-spacing {
+        margin-right: 12px;
+      }
+    }
 
-		.#{$prefix}-text {
-			min-width: 56px;
-		}
-	}
+    .#{$prefix}-text {
+      min-width: 56px;
+    }
+  }
 
-	&-vertical {
-		flex-direction: column;
-		height: 100%;
+  &-vertical {
+    flex-direction: column;
+    height: 100%;
 
-		.#{$prefix}-track {
-			height: 100%;
+    .#{$prefix}-track {
+      height: 100%;
 
-			&.#{$prefix}-track-spacing {
-				margin-bottom: 12px;
-			}
-		}
-	}
+      &.#{$prefix}-track-spacing {
+        margin-bottom: 12px;
+      }
+    }
+  }
 
-	&-small {
-		&.#{$prefix}-horizontal {
-			.#{$prefix}-inset {
-				height: 4px;
-			}
-		}
+  &-small {
+    &.#{$prefix}-horizontal {
+      .#{$prefix}-inset {
+        height: 4px;
+      }
+    }
 
-		&.#{$prefix}-vertical {
-			.#{$prefix}-inset {
-				width: 4px;
-			}
-		}
-	}
+    &.#{$prefix}-vertical {
+      .#{$prefix}-inset {
+        width: 4px;
+      }
+    }
+  }
 
-	&-medium {
-		&.#{$prefix}-horizontal {
-			.#{$prefix}-inset {
-				height: 6px;
-			}
-		}
+  &-medium {
+    &.#{$prefix}-horizontal {
+      .#{$prefix}-inset {
+        height: 6px;
+      }
+    }
 
-		&.#{$prefix}-vertical {
-			.#{$prefix}-inset {
-				width: 6px;
-			}
-		}
-	}
+    &.#{$prefix}-vertical {
+      .#{$prefix}-inset {
+        width: 6px;
+      }
+    }
+  }
 
-	&-large {
-		&.#{$prefix}-horizontal {
-			.#{$prefix}-inset {
-				height: 8px;
-			}
-		}
+  &-large {
+    &.#{$prefix}-horizontal {
+      .#{$prefix}-inset {
+        height: 8px;
+      }
+    }
 
-		&.#{$prefix}-vertical {
-			.#{$prefix}-inset {
-				width: 8px;
-			}
-		}
-	}
+    &.#{$prefix}-vertical {
+      .#{$prefix}-inset {
+        width: 8px;
+      }
+    }
+  }
 }

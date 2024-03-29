@@ -2,46 +2,46 @@
 
 $prefix: '#{$ui-prefix}-card';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	display: flex;
-	flex-direction: column;
-	width: max-content;
-	height: max-content;
-	background: $bg-1;
-	border-radius: $radius-l;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  height: max-content;
+  background: $bg-1;
+  border-radius: $radius-l;
 
-	&-bordered {
-		border: 1px solid $divider;
-	}
+  &-bordered {
+    border: 1px solid $divider;
+  }
 
-	&-shadow {
-		box-shadow: $shadow-l;
-	}
+  &-shadow {
+    box-shadow: $shadow-l;
+  }
 
-	&-header {
-		padding: 24px 24px 0;
-		font-size: 16px;
-		font-weight: 600;
-	}
+  &-header {
+    padding: 24px 24px 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
 
-	&-content {
-		padding: 24px;
-	}
+  &-content {
+    padding: 24px;
+  }
 
-	&-footer {
-		padding: 0 24px 24px;
-	}
+  &-footer {
+    padding: 0 24px 24px;
+  }
 
-	&-cover {
-		overflow: hidden;
-		width: 100%;
-		border-top-left-radius: 6px;
-		border-top-right-radius: 6px;
+  &-cover {
+    overflow: hidden;
+    width: 100%;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
 
-		img {
-			display: block;
-			width: 100%;
-		}
-	}
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
 }

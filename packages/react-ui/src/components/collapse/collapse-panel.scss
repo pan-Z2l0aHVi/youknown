@@ -2,47 +2,47 @@
 
 $prefix: '#{$ui-prefix}-collapse-panel';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	&-header {
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		min-height: 32px;
-		padding: 4px 8px;
+  &-header {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 32px;
+    padding: 4px 8px;
 
-		&-icon {
-			font-size: $font-size-l;
-			color: $text-2;
-			background-color: inherit;
+    &-icon {
+      font-size: $font-size-l;
+      color: $text-2;
+      background-color: inherit;
 
-			> svg {
-				transition: transform $duration-n;
-			}
-		}
-	}
+      > svg {
+        transition: transform $duration-n;
+      }
+    }
+  }
 
-	&-box {
-		overflow: hidden;
-		transition:
-			max-height $duration-n cubic-bezier(0.075, 0.82, 0.165, 1),
-			opacity $duration-n ease-out;
+  &-box {
+    overflow: hidden;
+    transition:
+      max-height $duration-n cubic-bezier(0.075, 0.82, 0.165, 1),
+      opacity $duration-n ease-out;
 
-		&-entered {
-			opacity: 1;
-		}
+    &-entered {
+      opacity: 1;
+    }
 
-		&-exited {
-			opacity: 0;
-		}
-	}
+    &-exited {
+      opacity: 0;
+    }
+  }
 
-	&-bordered {
-		border-bottom: 1px solid $divider;
-	}
+  &-bordered {
+    border-bottom: 1px solid $divider;
+  }
 
-	&-default {
-		padding: 4px;
-	}
+  &-default {
+    padding: 4px;
+  }
 }

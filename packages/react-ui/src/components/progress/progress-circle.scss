@@ -2,51 +2,51 @@
 
 $prefix: '#{$ui-prefix}-progress-circle';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	&-detail {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		white-space: nowrap;
-	}
+  &-detail {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+  }
 
-	&-small {
-		.#{$prefix}-detail {
-			&-num {
-				font-size: $font-size-m;
-			}
+  &-small {
+    .#{$prefix}-detail {
+      &-num {
+        font-size: $font-size-m;
+      }
 
-			&-suffix {
-				font-size: 10px;
-			}
-		}
-	}
+      &-suffix {
+        font-size: 10px;
+      }
+    }
+  }
 
-	&-medium {
-		.#{$prefix}-detail {
-			&-num {
-				font-size: 18px;
-			}
+  &-medium {
+    .#{$prefix}-detail {
+      &-num {
+        font-size: 18px;
+      }
 
-			&-suffix {
-				padding-left: 2px;
-				font-size: 12px;
-			}
-		}
-	}
+      &-suffix {
+        padding-left: 2px;
+        font-size: 12px;
+      }
+    }
+  }
 
-	&-large {
-		.#{$prefix}-detail {
-			&-num {
-				font-size: 22px;
-			}
+  &-large {
+    .#{$prefix}-detail {
+      &-num {
+        font-size: 22px;
+      }
 
-			&-suffix {
-				padding-left: 2px;
-				font-size: $font-size-m;
-			}
-		}
-	}
+      &-suffix {
+        padding-left: 2px;
+        font-size: $font-size-m;
+      }
+    }
+  }
 }

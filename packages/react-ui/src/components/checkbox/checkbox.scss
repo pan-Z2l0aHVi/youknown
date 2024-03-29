@@ -2,92 +2,92 @@
 
 $prefix: '#{$ui-prefix}-checkbox';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	cursor: pointer;
-	user-select: none;
-	position: relative;
-	display: flex;
-	align-items: center;
-	width: max-content;
-	transition: filter $duration-f;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  transition: filter $duration-f;
 
-	&:has(:focus-visible) {
-		.#{$prefix}-icon {
-			@include focus-outline;
-		}
-	}
+  &:has(:focus-visible) {
+    .#{$prefix}-icon {
+      @include focus-outline;
+    }
+  }
 
-	&-input {
-		display: none;
-	}
+  &-input {
+    display: none;
+  }
 
-	&-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 1em;
-		height: 1em;
-		margin-right: 8px;
-		background: $bg-1;
-		border: 1px solid $divider;
-		border-radius: $radius-s;
-		transition: all ease-out $duration-f;
+  &-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+    margin-right: 8px;
+    background: $bg-1;
+    border: 1px solid $divider;
+    border-radius: $radius-s;
+    transition: all ease-out $duration-f;
 
-		&-inner {
-			transform: scale(0);
-			color: #fff;
-			transition: all ease-out $duration-f;
-		}
-	}
+    &-inner {
+      transform: scale(0);
+      color: #fff;
+      transition: all ease-out $duration-f;
+    }
+  }
 
-	&-checked {
-		.#{$prefix}-icon {
-			background-color: $color-primary;
-			border-color: $color-primary;
+  &-checked {
+    .#{$prefix}-icon {
+      background-color: $color-primary;
+      border-color: $color-primary;
 
-			&-inner {
-				transform: scale(1);
-			}
-		}
-	}
+      &-inner {
+        transform: scale(1);
+      }
+    }
+  }
 
-	&-disabled {
-		cursor: not-allowed;
-		opacity: $opacity-disabled;
-	}
+  &-disabled {
+    cursor: not-allowed;
+    opacity: $opacity-disabled;
+  }
 
-	&:not(&-checked, &-disabled) {
-		&:hover {
-			@media (hover: hover) {
-				.#{$prefix}-icon {
-					background-color: $color-hover;
-				}
-			}
-		}
+  &:not(&-checked, &-disabled) {
+    &:hover {
+      @media (hover: hover) {
+        .#{$prefix}-icon {
+          background-color: $color-hover;
+        }
+      }
+    }
 
-		&:active {
-			.#{$prefix}-icon {
-				background-color: $color-active;
-			}
-		}
-	}
+    &:active {
+      .#{$prefix}-icon {
+        background-color: $color-active;
+      }
+    }
+  }
 
-	&-small {
-		.#{$prefix}-icon {
-			font-size: 12px;
-		}
-	}
+  &-small {
+    .#{$prefix}-icon {
+      font-size: 12px;
+    }
+  }
 
-	&-medium {
-		.#{$prefix}-icon {
-			font-size: 16px;
-		}
-	}
+  &-medium {
+    .#{$prefix}-icon {
+      font-size: 16px;
+    }
+  }
 
-	&-large {
-		.#{$prefix}-icon {
-			font-size: 20px;
-		}
-	}
+  &-large {
+    .#{$prefix}-icon {
+      font-size: 20px;
+    }
+  }
 }

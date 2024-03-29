@@ -2,82 +2,82 @@
 
 $prefix: '#{$ui-prefix}-upload';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	cursor: pointer;
-	user-select: none;
-	position: relative;
-	display: flex;
-	width: max-content;
-	padding: 8px;
-	background-color: $bg-2;
-	border: 1px dashed $divider;
-	border-radius: $radius-m;
-	transition: all $duration-f;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  display: flex;
+  width: max-content;
+  padding: 8px;
+  background-color: $bg-2;
+  border: 1px dashed $divider;
+  border-radius: $radius-m;
+  transition: all $duration-f;
 
-	&-headless {
-		display: contents;
-	}
+  &-headless {
+    display: contents;
+  }
 
-	&-circle {
-		border-radius: $round;
+  &-circle {
+    border-radius: $round;
 
-		.#{$prefix}-thumb {
-			border-radius: $round;
-		}
+    .#{$prefix}-thumb {
+      border-radius: $round;
+    }
 
-		.#{$prefix}-thumb-default-loading {
-			overflow: hidden;
-			border-radius: $round;
-		}
-	}
+    .#{$prefix}-thumb-default-loading {
+      overflow: hidden;
+      border-radius: $round;
+    }
+  }
 
-	&:not(&-disabled) {
-		&:has(:focus-visible) {
-			@include focus-outline;
-		}
+  &:not(&-disabled) {
+    &:has(:focus-visible) {
+      @include focus-outline;
+    }
 
-		&:hover {
-			@media (hover: hover) {
-				border-color: $color-primary;
-			}
-		}
-	}
+    &:hover {
+      @media (hover: hover) {
+        border-color: $color-primary;
+      }
+    }
+  }
 
-	&-disabled {
-		cursor: not-allowed;
-		opacity: $opacity-disabled;
-	}
+  &-disabled {
+    cursor: not-allowed;
+    opacity: $opacity-disabled;
+  }
 
-	&-inner {
-		display: none;
-	}
+  &-inner {
+    display: none;
+  }
 
-	&-plus-icon {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		font-size: 24px;
-		color: $text-3;
-	}
+  &-plus-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: $text-3;
+  }
 
-	&-thumb-default {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 72px;
-		height: 72px;
+  &-thumb-default {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
 
-		&-loading {
-			width: 100%;
-			height: 100%;
-		}
-	}
+    &-loading {
+      width: 100%;
+      height: 100%;
+    }
+  }
 
-	&-thumb {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
+  &-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }

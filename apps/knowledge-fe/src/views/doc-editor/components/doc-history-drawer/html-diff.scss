@@ -1,31 +1,31 @@
 ins.diffmod,
 ins.diffins {
-	display: inline-block;
-	padding-right: 4px;
-	color: #1f2329;
-	text-decoration: none;
-	background-color: #ddf5ea;
+  display: inline-block;
+  padding-right: 4px;
+  color: #1f2329;
+  text-decoration: none;
+  background-color: #ddf5ea;
 
-	&::before {
-		content: '+';
-		padding: 0 4px;
-		font-weight: 400;
-		color: #8a8f8d;
-	}
+  &::before {
+    content: '+';
+    padding: 0 4px;
+    font-weight: 400;
+    color: #8a8f8d;
+  }
 }
 
 del.diffmod,
 del.diffdel {
-	display: inline-block;
-	padding-right: 4px;
-	color: #1f2329;
-	text-decoration: none;
-	background-color: #fbe4e7;
+  display: inline-block;
+  padding-right: 4px;
+  color: #1f2329;
+  text-decoration: none;
+  background-color: #fbe4e7;
 
-	&::before {
-		content: '-';
-		padding: 0 4px;
-		font-weight: 400;
-		color: #8a8f8d;
-	}
+  &::before {
+    content: '-';
+    padding: 0 4px;
+    font-weight: 400;
+    color: #8a8f8d;
+  }
 }

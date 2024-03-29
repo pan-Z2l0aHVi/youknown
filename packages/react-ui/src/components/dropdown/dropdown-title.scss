@@ -2,11 +2,11 @@
 
 $prefix: '#{$ui-prefix}-dropdown-title';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	margin: 0 8px;
-	padding: 4px 8px;
-	font-size: $font-size-s;
-	font-weight: 600;
-	color: $text-3;
+  margin: 0 8px;
+  padding: 4px 8px;
+  font-size: $font-size-s;
+  font-weight: 600;
+  color: $text-3;
 }

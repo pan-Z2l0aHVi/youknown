@@ -2,11 +2,11 @@
 
 $prefix: '#{$ui-prefix}-radio-group';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	width: max-content;
+  width: max-content;
 
-	&-disabled {
-		cursor: not-allowed;
-	}
+  &-disabled {
+    cursor: not-allowed;
+  }
 }

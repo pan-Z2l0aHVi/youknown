@@ -2,53 +2,53 @@
 
 $prefix: '#{$ui-prefix}-tag';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	display: flex;
-	align-items: center;
-	width: max-content;
-	background: $bg-3;
-	border-radius: $radius-m;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  background: $bg-3;
+  border-radius: $radius-m;
 
-	&-close {
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-	}
+  &-close {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
 
-	&-round {
-		border-radius: $round;
-	}
+  &-round {
+    border-radius: $round;
+  }
 
-	&-bordered {
-		background: $bg-1;
-		border: 1px solid $divider;
-	}
+  &-bordered {
+    background: $bg-1;
+    border: 1px solid $divider;
+  }
 
-	&-small {
-		padding: 2px 8px;
-		font-size: $font-size-s;
+  &-small {
+    padding: 2px 8px;
+    font-size: $font-size-s;
 
-		.#{$prefix}-close {
-			margin-left: 6px;
-		}
-	}
+    .#{$prefix}-close {
+      margin-left: 6px;
+    }
+  }
 
-	&-medium {
-		padding: 4px 10px;
-		font-size: $font-size-m;
+  &-medium {
+    padding: 4px 10px;
+    font-size: $font-size-m;
 
-		.#{$prefix}-close {
-			margin-left: 8px;
-		}
-	}
+    .#{$prefix}-close {
+      margin-left: 8px;
+    }
+  }
 
-	&-large {
-		padding: 6px 12px;
-		font-size: $font-size-l;
+  &-large {
+    padding: 6px 12px;
+    font-size: $font-size-l;
 
-		.#{$prefix}-close {
-			margin-left: 10px;
-		}
-	}
+    .#{$prefix}-close {
+      margin-left: 10px;
+    }
+  }
 }

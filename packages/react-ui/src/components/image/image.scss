@@ -2,11 +2,11 @@
 
 $prefix: '#{$ui-prefix}-image';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	object-fit: cover;
+  object-fit: cover;
 
-	&-can-preview {
-		cursor: pointer;
-	}
+  &-can-preview {
+    cursor: pointer;
+  }
 }

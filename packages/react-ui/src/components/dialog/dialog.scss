@@ -2,38 +2,38 @@
 
 $prefix: '#{$ui-prefix}-dialog';
 .#{$prefix} {
-	@include basic;
+  @include basic;
 
-	position: relative;
-	margin: 16px;
-	margin-top: 15vh;
-	border: 1px solid $pop-bd;
+  position: relative;
+  margin: 16px;
+  margin-top: 15vh;
+  border: 1px solid $pop-bd;
 
-	&-close-icon {
-		position: absolute;
-		top: 24px;
-		right: 24px;
-	}
+  &-close-icon {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+  }
 
-	&-header {
-		display: flex;
-		align-items: baseline;
-		justify-content: space-between;
-		padding: 24px 24px 0;
+  &-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 24px 24px 0;
 
-		&-title {
-			padding-right: 40px;
-			font-size: 20px;
-		}
-	}
+    &-title {
+      padding-right: 40px;
+      font-size: 20px;
+    }
+  }
 
-	&-content {
-		/* Empty block */
-	}
+  &-content {
+    /* Empty block */
+  }
 
-	&-footer {
-		display: flex;
-		flex-direction: row-reverse;
-		padding: 0 24px 24px;
-	}
+  &-footer {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 0 24px 24px;
+  }
 }

@@ -2,67 +2,67 @@
 
 $prefix: '#{$ui-editor-prefix}-text-color-picker';
 .#{$prefix} {
-	display: flex;
+  display: flex;
 
-	.#{$prefix}-setter {
-		flex-direction: column;
-		border-radius: $radius-m 0 0 $radius-m;
+  .#{$prefix}-setter {
+    flex-direction: column;
+    border-radius: $radius-m 0 0 $radius-m;
 
-		.#{$prefix}-line {
-			width: 14px;
-			height: 3px;
-			margin: 0 2px;
-			border: 1px solid rgba($color: #000, $alpha: 0.15);
-			border-radius: 1px;
-		}
-	}
+    .#{$prefix}-line {
+      width: 14px;
+      height: 3px;
+      margin: 0 2px;
+      border: 1px solid rgba($color: #000, $alpha: 0.15);
+      border-radius: 1px;
+    }
+  }
 
-	.#{$prefix}-arrow-btn {
-		@include icon;
-		@include interactive;
+  .#{$prefix}-arrow-btn {
+    @include icon;
+    @include interactive;
 
-		user-select: none;
-		height: 26px;
-		padding: 4px 0;
-		font-size: 14px;
-		color: $text-2;
-		background-color: $bg-0;
-		border: 0;
-		border-top-right-radius: $radius-m;
-		border-bottom-right-radius: $radius-m;
-		outline: 0;
+    user-select: none;
+    height: 26px;
+    padding: 4px 0;
+    font-size: 14px;
+    color: $text-2;
+    background-color: $bg-0;
+    border: 0;
+    border-top-right-radius: $radius-m;
+    border-bottom-right-radius: $radius-m;
+    outline: 0;
 
-		&:focus-visible {
-			@include focus-outline;
-		}
-	}
+    &:focus-visible {
+      @include focus-outline;
+    }
+  }
 }
 
 .#{$prefix}-popup {
-	.#{$prefix}-wrapper {
-		display: grid;
-		grid-template-columns: repeat(6, auto);
-		grid-template-rows: repeat(3, auto);
-		gap: 6px;
+  .#{$prefix}-wrapper {
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    grid-template-rows: repeat(3, auto);
+    gap: 6px;
 
-		.#{$prefix}-item {
-			cursor: pointer;
-			width: 24px;
-			height: 24px;
-			border: 1px solid rgba($color: #000, $alpha: 0.1);
-			border-radius: $radius-m;
+    .#{$prefix}-item {
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      border: 1px solid rgba($color: #000, $alpha: 0.1);
+      border-radius: $radius-m;
 
-			&.active {
-				border: 1px solid #fff;
-				box-shadow: 0 0 0 2px var(--ui-color-primary);
-			}
+      &.active {
+        border: 1px solid #fff;
+        box-shadow: 0 0 0 2px var(--ui-color-primary);
+      }
 
-			&:hover {
-				@media (hover: hover) {
-					border: 1px solid #fff;
-					box-shadow: 0 0 0 2px var(--ui-color-primary);
-				}
-			}
-		}
-	}
+      &:hover {
+        @media (hover: hover) {
+          border: 1px solid #fff;
+          box-shadow: 0 0 0 2px var(--ui-color-primary);
+        }
+      }
+    }
+  }
 }
