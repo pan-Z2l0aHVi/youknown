@@ -104,7 +104,7 @@ function _ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperR
   const handleCrop = useCallback(async () => {
     setLoading(true)
     try {
-      const base64 = await cropImageToBase64({ file, ...cropPixelsRef.current })
+      const base64 = await cropImageToBase64({ file, pixelCrop: cropPixelsRef.current, rotation })
       const result = await base64ToFile(base64, file.name)
       onCrop?.(result)
       onClose?.()
@@ -113,7 +113,7 @@ function _ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperR
     } finally {
       setLoading(false)
     }
-  }, [file, onClose, onCrop])
+  }, [file, onClose, onCrop, rotation])
 
   useImperativeHandle(ref, () => ({
     rotate: setRotation,

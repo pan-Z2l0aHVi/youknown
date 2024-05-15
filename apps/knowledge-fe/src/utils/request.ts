@@ -54,7 +54,6 @@ export const net = Net.create({
         useUserStore.getState().do_logout()
         Toast.error(t('login.no_auth'))
         useModalStore.getState().open_login_modal()
-        useSpaceStore.getState().clear_space_list()
         break
 
       default:
