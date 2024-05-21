@@ -9,7 +9,11 @@ export interface ThrottleOptions {
   leading?: boolean
   trailing?: boolean
 }
-export function useThrottle<T extends noop>(fn: T, wait = 1000, options?: ThrottleOptions) {
+export function useThrottle<T extends noop>(
+  fn: T,
+  wait = 1000,
+  options?: ThrottleOptions
+): (...args: Parameters<T>) => ReturnType<T> {
   const fnRef = useLatestRef(fn)
 
   const throttled = useMemo(
@@ -21,7 +25,7 @@ export function useThrottle<T extends noop>(fn: T, wait = 1000, options?: Thrott
         wait,
         options
       ),
-    []
+    [fnRef, options, wait]
   )
 
   useUnmount(() => {
