@@ -389,7 +389,11 @@
     "comment": "评论",
     "comment_in_it": "上的评论回复",
     "edit": "编辑",
-    "reply": "回复"
+    "reply": "回复",
+    "period": "。",
+    "action_prefix": "你",
+    "action_suffix": "了",
+    "target_suffix": "的"
   },
   "related": {
     "feed_count": "条相关内容"

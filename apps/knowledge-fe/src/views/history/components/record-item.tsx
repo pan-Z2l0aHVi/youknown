@@ -38,9 +38,9 @@ export default function RecordItem(props: RecordItemProps) {
     })
   } else if ('record.public_doc' === record.obj_type) {
     obj_url = QS.stringify({
-      base: '/user-center',
+      base: '/browse/feed-detail',
       query: {
-        target_user_id: record.obj_id
+        feed_id: record.obj_id
       }
     })
   } else if ('record.user' === record.obj_type) {
@@ -97,8 +97,10 @@ export default function RecordItem(props: RecordItemProps) {
           <div
             className={cls('absolute left--8px w-14px h-14px bg-primary rd-full b-4 b-solid b-[rgba(255,255,255,0.8)]')}
           ></div>
-          <div className="flex-1 flex flex-wrap items-center text-text-2 whitespace-nowrap [@media(hover:hover)]-group-hover-text-text-1 transition-colors">
-            你<span className="color-orange">{t(record.action)}</span>了
+          <div className="flex-1 flex flex-wrap items-center text-text-2 whitespace-pre [@media(hover:hover)]-group-hover-text-text-1 transition-colors">
+            <span>{t('record.action_prefix')}</span>
+            <span className="color-orange">{t(record.action)}</span>
+            <span>{t('record.action_suffix')}</span>
             {record.target && (
               <>
                 <TransitionLink
@@ -107,21 +109,21 @@ export default function RecordItem(props: RecordItemProps) {
                 >
                   {record.target}
                 </TransitionLink>
-                的
+                {t('record.target_suffix')}
               </>
             )}
             {record.obj && (
               <>
-                {t(record.obj_type)}
+                <span>{t(record.obj_type)}</span>
                 <TransitionLink
-                  className="inline-block sm:max-w-200px <sm:max-w-80px truncate color-blue! [@media(hover:hover)]-hover-underline!"
+                  className="inline-block sm:max-w-200px <sm:max-w-80px truncate italic color-blue! [@media(hover:hover)]-hover-underline!"
                   to={obj_url}
                 >
                   {record.obj}
                 </TransitionLink>
               </>
             )}
-            。
+            <span>{t('record.period')}</span>
           </div>
           <Dropdown trigger="click" placement="bottom-end" content={get_dropdown_menu()} onOpenChange={set_more_open}>
             <More className="ml-24px" active={more_open} />

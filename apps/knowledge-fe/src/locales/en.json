@@ -389,7 +389,11 @@
     "comment": "Comment",
     "comment_in_it": "Comments in it",
     "edit": "Edit",
-    "reply": "Reply"
+    "reply": "Reply",
+    "period": ".",
+    "action_prefix": "You ",
+    "action_suffix": " ",
+    "target_suffix": "'s "
   },
   "related": {
     "feed_count": "Related content"
