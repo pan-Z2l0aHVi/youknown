@@ -1,5 +1,5 @@
 <template>
-  <div class="p-8px">
+  <div class="bg-#fff min-h-[calc(100vh-48px)] p-8px">
     <input class="mb-16px" type="file" multiple @change="handleFileChange" />
     <van-button @click="images = []">clear</van-button>
 

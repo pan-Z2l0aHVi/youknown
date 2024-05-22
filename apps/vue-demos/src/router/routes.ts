@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 
 export const navTabRoutes: (RouteRecordRaw & {
+  name: string
   meta: {
     title: string
   }
@@ -60,6 +61,31 @@ export const navTabRoutes: (RouteRecordRaw & {
     meta: {
       title: 'TabBar'
     }
+  },
+  {
+    path: '/route-transition',
+    name: 'route-transition',
+    meta: {
+      title: 'Route transition'
+    },
+    redirect: '/route-transition/list',
+    children: [
+      {
+        path: 'list',
+        name: 'route-transition-list',
+        component: () => import('@/views/list/index.vue')
+      },
+      {
+        path: 'detail',
+        name: 'route-transition-detail',
+        component: () => import('@/views/detail/index.vue')
+      },
+      {
+        path: 'other',
+        name: 'route-transition-other',
+        component: () => import('@/views/other/index.vue')
+      }
+    ]
   }
 ]
 

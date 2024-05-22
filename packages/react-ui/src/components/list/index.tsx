@@ -11,15 +11,16 @@ import { ListItem } from './ListItem'
 export interface ListProps extends HTMLAttributes<HTMLDivElement> {
   size?: 'small' | 'medium' | 'large'
   bordered?: boolean
+  clickable?: boolean
 }
 
 const _List = (props: ListProps, propRef: ForwardedRef<HTMLDivElement>) => {
-  const { className, children, size = 'medium', bordered = true, ...rest } = props
+  const { className, children, size = 'medium', bordered = true, clickable = false, ...rest } = props
 
   const prefixCls = `${UI_PREFIX}-list`
 
   return (
-    <ListCtx.Provider value={{ size, bordered }}>
+    <ListCtx.Provider value={{ size, bordered, clickable }}>
       <div
         ref={propRef}
         className={cls(className, prefixCls, {

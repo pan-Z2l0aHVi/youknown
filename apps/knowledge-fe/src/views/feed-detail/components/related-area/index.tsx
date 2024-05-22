@@ -72,7 +72,7 @@ export default function RelatedArea(props: RelatedAreaProps) {
                 key={subject.doc_id}
                 prefix={<Image className="w-40px h-32px rd-radius-m" src={subject.cover} />}
                 suffix={<TbChevronRight className="color-text-3 text-16px" />}
-                className="active-bg-active [@media(hover:hover)]-hover-not-active-bg-hover cursor-pointer"
+                clickable
                 onClick={() => go_feed_detail(feed_info)}
               >
                 <div className="truncate">{subject.title}</div>

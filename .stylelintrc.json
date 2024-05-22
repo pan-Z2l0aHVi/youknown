@@ -2,6 +2,7 @@
   "extends": [
     "stylelint-config-clean-order",
     "stylelint-config-standard-scss",
+    "stylelint-config-standard-vue",
     "stylelint-prettier/recommended"
   ],
   "rules": {

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center h-300px p-16px">
+  <div class="bg-#fff min-h-[calc(100vh-48px)] flex items-center justify-center h-300px p-16px">
     <div class="break-all">
       <p>待加密的明文：{{ plaintext }}</p>
       <p>加密后的密文：{{ ciphertext }}</p>

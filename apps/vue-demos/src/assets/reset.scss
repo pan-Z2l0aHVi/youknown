@@ -1,3 +1,8 @@
 body {
+  scrollbar-width: thin;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  -moz-osx-font-smoothing: auto;
+  -webkit-font-smoothing: auto;
   background-color: #f5f5f5;
+  -webkit-tap-highlight-color: transparent;
 }

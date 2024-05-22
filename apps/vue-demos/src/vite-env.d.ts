@@ -8,3 +8,13 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv
 }
+
+import 'vue-router'
+declare module 'vue-router' {
+  interface RouteMeta {
+    transitionName?: string
+  }
+  interface RouteLocationNormalizedLoaded {
+    name: string | null | undefined
+  }
+}

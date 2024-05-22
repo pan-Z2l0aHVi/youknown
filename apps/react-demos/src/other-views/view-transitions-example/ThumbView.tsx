@@ -27,7 +27,7 @@ export default () => {
     <>
       <h2>Thumb View</h2>
 
-      <List className="gallery">
+      <List className="gallery" clickable>
         {list.map(item => (
           <List.Item
             key={item.id}

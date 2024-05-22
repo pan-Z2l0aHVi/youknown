@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="bg-#fff min-h-[calc(100vh-48px)] relative">
     <div class="fixed box-border w-100% p-8px bg-orange">
       <div class="flex items-center h-32px pl-16px rd-full bg-#fff color-#999">搜索</div>
     </div>

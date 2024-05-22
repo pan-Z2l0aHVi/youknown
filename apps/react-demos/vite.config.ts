@@ -35,7 +35,7 @@ export default defineConfig(({ mode }) => {
       target: 'es2015'
     },
     server: {
-      host: '0.0.0.0',
+      host: true,
       open: true,
       cors: true,
       proxy: {

@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
       }
     },
     server: {
-      host: '0.0.0.0',
+      host: true,
       open: true,
       cors: true,
       proxy: {

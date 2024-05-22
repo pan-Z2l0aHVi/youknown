@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-100vh flex flex-col items-center justify-center">
+  <div class="bg-#fff min-h-[calc(100vh-48px)] flex flex-col items-center justify-center">
     <div class="flex">
       <button @click="doFetch">Fetch</button>
       <button class="ml-8px" @click="cancel">Cancel</button>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center mt-24px">
+  <div class="bg-#fff min-h-[calc(100vh-48px)] flex flex-col items-center">
     <button @click="reload">Reload</button>
     <div ref="containerRef" class="max-h-480px w-100% overflow-auto bg-#fff">
       <ul v-if="data" class="p-16px">

@@ -57,7 +57,7 @@ export default defineConfig(({ mode, command }) => {
       reportCompressedSize: false
     },
     server: {
-      host: '0.0.0.0',
+      host: true,
       open: true,
       cors: true,
       proxy: {

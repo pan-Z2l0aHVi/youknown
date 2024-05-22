@@ -12,6 +12,7 @@ export interface ListItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'pre
   suffix?: ReactNode
   size?: 'small' | 'medium' | 'large'
   bordered?: boolean
+  clickable?: boolean
 }
 
 const _ListItem = (props: ListItemProps, propRef: ForwardedRef<HTMLDivElement>) => {
@@ -23,6 +24,7 @@ const _ListItem = (props: ListItemProps, propRef: ForwardedRef<HTMLDivElement>) 
     suffix,
     size = listCtx.size ?? 'medium',
     bordered = listCtx.bordered ?? true,
+    clickable = listCtx.clickable ?? false,
     ...rest
   } = props
 
@@ -32,7 +34,8 @@ const _ListItem = (props: ListItemProps, propRef: ForwardedRef<HTMLDivElement>) 
     <div
       ref={propRef}
       className={cls(className, prefixCls, `${prefixCls}-${size}`, {
-        [`${prefixCls}-bordered`]: bordered
+        [`${prefixCls}-bordered`]: bordered,
+        [`${prefixCls}-clickable`]: clickable
       })}
       {...rest}
     >

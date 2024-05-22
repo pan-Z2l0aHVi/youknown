@@ -1,5 +1,5 @@
 <template>
-  <div class="p-16px flex flex-col items-center">
+  <div class="bg-#fff min-h-[calc(100vh-48px)] p-16px flex flex-col items-center">
     <h1>Login</h1>
     <van-button @click="handleLoginGithub">Github</van-button>
     <div></div>

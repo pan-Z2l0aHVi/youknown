@@ -62,7 +62,7 @@ export default defineConfig(({ mode, command }) => {
       reportCompressedSize: false
     },
     server: {
-      host: '0.0.0.0',
+      host: true,
       open: env.VITE_ROUTER_BASENAME,
       cors: true,
       proxy: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="rich-text-editor-page">
+  <div class="bg-#fff min-h-[calc(100vh-48px)] rich-text-editor-page">
     <editor-content class="rich-text-container" :editor="editor" />
   </div>
 </template>

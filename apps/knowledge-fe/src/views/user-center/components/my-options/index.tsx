@@ -15,9 +15,8 @@ export default function MyOptions() {
   const navigate = useTransitionNavigate()
 
   return (
-    <List className="overflow-hidden bg-bg-0!" bordered={false}>
+    <List className="overflow-hidden bg-bg-0!" bordered={false} clickable>
       <List.Item
-        className="active-bg-active"
         bordered
         prefix={<LuSettings2 className="text-16px" />}
         suffix={<TbChevronRight className="color-text-2" />}
@@ -28,7 +27,6 @@ export default function MyOptions() {
 
       {has_login ? (
         <List.Item
-          className="active-bg-active"
           bordered
           prefix={<TbLogout className="text-16px color-danger" />}
           suffix={<TbChevronRight className="color-text-2" />}
@@ -41,7 +39,6 @@ export default function MyOptions() {
         </List.Item>
       ) : (
         <List.Item
-          className="active-bg-active"
           bordered
           prefix={<TbLogin className="text-16px color-primary" />}
           suffix={<TbChevronRight className="color-text-2" />}
