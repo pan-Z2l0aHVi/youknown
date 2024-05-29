@@ -20,12 +20,12 @@ import TextAlign from '@youknown/react-rte/src/extensions/text-align'
 import TextColor from '@youknown/react-rte/src/extensions/text-color'
 import Underline from '@youknown/react-rte/src/extensions/underline'
 import { useRTE } from '@youknown/react-rte/src/hooks/useRTE'
-import { Button, Image as ImageUI, Loading, Space, Toast } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
+import { Button, Image as ImageUI, Loading, Popover, PopoverProps, Space, Toast } from '@youknown/react-ui/src'
+import { cls, shakePage } from '@youknown/utils/src'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbChecklist, TbCloudCheck } from 'react-icons/tb'
-import { useLocation, useParams, useSearchParams } from 'react-router-dom'
+import { useBlocker, useLocation, useParams, useSearchParams } from 'react-router-dom'
 
 import type { Doc } from '@/apis/doc'
 import { get_doc_drafts, get_doc_info, update_doc, update_doc_drafts } from '@/apis/doc'
@@ -42,7 +42,7 @@ import DocOptionsDropdown from './components/doc-options-dropdown'
 import DocTitle from './components/doc-title'
 import PublicSwitch from './components/public-switch'
 
-export default function Doc() {
+export default function DocEditor() {
   const { t } = useTranslation()
   const navigate = useTransitionNavigate()
   const { space_id } = useParams()
@@ -168,16 +168,13 @@ export default function Doc() {
   } = useFetch(get_doc_info, {
     initialData: doc_state,
     ready: doc_ready,
-    params: [
-      {
-        doc_id
-      }
-    ],
+    params: [{ doc_id }],
     refreshDeps: [doc_id],
     onSuccess(res) {
       editor?.commands.setContent(res.content)
     }
   })
+
   const { data: [draft] = [], mutate: set_draft } = useFetch(get_doc_drafts, {
     ready: doc_ready,
     params: [
@@ -192,11 +189,40 @@ export default function Doc() {
       Toast.error(err.cause.msg)
     }
   })
+
   useEffect(() => {
     if (doc_state) {
       set_doc_info(doc_state)
     }
   }, [doc_state, set_doc_info])
+
+  const [leaving_tip_visible, { setTrue: show_leaving_tip, setFalse: hide_leaving_tip }] = useBoolean(false)
+
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      currentLocation.pathname !== nextLocation.pathname && doc_info?.content !== editor?.getHTML()
+  )
+  const is_blocked = blocker.state === 'blocked'
+
+  useEffect(() => {
+    // 不能使用 is_blocked，必须将 blocker 加入依赖数组使其多次触发
+    if (blocker.state === 'blocked') {
+      shakePage()
+    }
+  }, [blocker])
+
+  useEffect(() => {
+    if (is_blocked && !saving) {
+      show_leaving_tip()
+    }
+  }, [is_blocked, saving, show_leaving_tip])
+
+  const proceed_blocker = () => {
+    hide_leaving_tip()
+    if (is_blocked) {
+      blocker.proceed()
+    }
+  }
 
   if (!editor) return null
 
@@ -233,6 +259,7 @@ export default function Doc() {
     editor.commands.setContent(res.content)
     record_update_doc(res)
     Toast.success(t('update.success'))
+    proceed_blocker()
     navigate(`/library/${space_id}`)
   }
 
@@ -254,6 +281,34 @@ export default function Doc() {
     </>
   )
 
+  const leaving_tip_props: PopoverProps = {
+    open: leaving_tip_visible,
+    trigger: 'manual',
+    placement: 'bottom-end',
+    content: (
+      <div className="min-w-240px">
+        <div className="mb-8px font-600 color-orange">{t('leaving_prompt')}</div>
+        <div className="flex justify-end">
+          <Button size="small" danger onClick={proceed_blocker}>
+            {t('change.give_up')}
+          </Button>
+          <Button
+            className="ml-8px"
+            size="small"
+            onClick={() => {
+              hide_leaving_tip()
+              if (is_blocked) {
+                blocker.reset()
+              }
+            }}
+          >
+            {t('change.continue')}
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
   const header = (
     <Header heading={t('heading.doc')} bordered="visible">
       {is_mobile || (
@@ -269,9 +324,11 @@ export default function Doc() {
             <Button square onClick={show_history_drawer}>
               <TbCloudCheck className="color-primary text-16px" />
             </Button>
-            <Button square disabled={editor.isEmpty} loading={saving} primary onClick={save_doc}>
-              <TbChecklist className="text-16px" />
-            </Button>
+            <Popover {...leaving_tip_props}>
+              <Button square disabled={editor.isEmpty} loading={saving} primary onClick={save_doc}>
+                <TbChecklist className="text-16px" />
+              </Button>
+            </Popover>
           </>
         ) : (
           <>
@@ -279,9 +336,11 @@ export default function Doc() {
             <Button onClick={show_history_drawer} prefixIcon={<TbCloudCheck className="color-primary text-16px" />}>
               {t('draft.text')}
             </Button>
-            <Button disabled={editor.isEmpty} loading={saving} primary onClick={save_doc}>
-              {t('save.text')}
-            </Button>
+            <Popover {...leaving_tip_props}>
+              <Button disabled={editor.isEmpty} loading={saving} primary onClick={save_doc}>
+                {t('save.text')}
+              </Button>
+            </Popover>
           </>
         )}
 

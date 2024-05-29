@@ -408,5 +408,10 @@
   },
   "file": {
     "uploading": "文件上传中..."
+  },
+  "leaving_prompt": "注意！您尚未保存变更！",
+  "change": {
+    "give_up": "放弃",
+    "continue": "继续"
   }
 }

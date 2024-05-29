@@ -408,5 +408,10 @@
   },
   "file": {
     "uploading": "File uploading..."
+  },
+  "leaving_prompt": "Attention! You haven't saved the changes yet!",
+  "change": {
+    "give_up": "Give up",
+    "continue": "Continue"
   }
 }
