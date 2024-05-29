@@ -1,4 +1,5 @@
 import mdx from '@mdx-js/rollup'
+import basicSsl from '@vitejs/plugin-basic-ssl'
 import react from '@vitejs/plugin-react-swc'
 import { excludeDeps } from '@youknown/img-wasm'
 import { resolve } from 'path'
@@ -7,6 +8,7 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import unocss from 'unocss/vite'
 import type { PluginOption } from 'vite'
 import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
+import http2Proxy from 'vite-plugin-http2-proxy'
 import { VitePWA } from 'vite-plugin-pwa'
 import topLevelAwait from 'vite-plugin-top-level-await'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -17,6 +19,14 @@ export default defineConfig(({ mode, command }) => {
   return {
     base: isBuild ? env.VITE_CDN_BASE_URL : '',
     plugins: [
+      basicSsl(),
+      http2Proxy({
+        '/proxy': {
+          target: env.VITE_LOCAL_PROXY_BASE_URL,
+          secure: false,
+          rewrite: path => path.replace(/^\/proxy/, '')
+        }
+      }),
       mdx({
         remarkPlugins: [remarkGfm]
       }),
@@ -65,14 +75,7 @@ export default defineConfig(({ mode, command }) => {
       host: true,
       open: env.VITE_ROUTER_BASENAME,
       cors: true,
-      proxy: {
-        '/proxy': {
-          target: env.VITE_LOCAL_PROXY_BASE_URL,
-          changeOrigin: true,
-          secure: false,
-          rewrite: path => path.replace(/^\/proxy/, '')
-        }
-      }
+      https: true
     }
   }
 })
