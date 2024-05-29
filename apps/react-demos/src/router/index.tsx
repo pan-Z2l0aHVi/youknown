@@ -230,6 +230,28 @@ export const componentRoutes: RouteItem[] = [
     name: 'MDX',
     path: 'mdx',
     element: createElement(lazy(() => import('@/other-views/mdx-example')))
+  },
+  {
+    name: 'Route transition',
+    path: 'route_transition',
+    children: [
+      {
+        path: '',
+        element: <Navigate to="list" replace />
+      },
+      {
+        path: 'list',
+        element: createElement(lazy(() => import('@/other-views/route-transition/List')))
+      },
+      {
+        path: 'detail',
+        element: createElement(lazy(() => import('@/other-views/route-transition/Detail')))
+      },
+      {
+        path: 'other',
+        element: createElement(lazy(() => import('@/other-views/route-transition/Other')))
+      }
+    ]
   }
 ]
 

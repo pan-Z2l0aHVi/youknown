@@ -14,7 +14,7 @@ export default function Banner() {
   return (
     <div
       className={cls(
-        'relative flex justify-center items-center flex-wrap break-all p-[4px_40px] min-h-40px color-primary',
+        'relative flex justify-center items-center flex-wrap break-all p-[4px_40px] min-h-40px bg-bg-0 color-primary',
         'before:content-empty before:absolute before:left-0 before-top-0 before:w-100% before:h-100% before:opacity-30 before:bg-primary'
       )}
     >

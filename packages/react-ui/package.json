@@ -46,11 +46,9 @@
         "modern-css-reset": "^1.4.0",
         "react-countup": "^6.5.3",
         "react-easy-crop": "^5.0.7",
-        "react-textarea-autosize": "^8.5.3",
-        "react-transition-group": "^4.4.5"
+        "react-textarea-autosize": "^8.5.3"
     },
     "devDependencies": {
-        "@types/react-transition-group": "^4.4.10"
     },
     "lint-staged": {
         "**/*.{js,ts,jsx,tsx}": "eslint --cache --fix",

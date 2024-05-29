@@ -21,24 +21,13 @@ const initCDNToken = async () => {
 
   const data = await net.fetch<{
     token: string
-  }>('/proxy/bucket/token')
+  }>('/proxy/common/qiniu_token')
   storage.session.set('cdn_token', data.token)
   token = data.token
 }
 initCDNToken()
 
 const images = ref<string[]>([])
-
-const uploadMaterial = async (url = '') => {
-  await net.fetch('/proxy/material/upload', {
-    method: 'post',
-    payload: {
-      type: 1,
-      url
-    }
-  })
-  images.value.push(url)
-}
 
 const uploadFile = async (file: File) => {
   const qiniu = await import('qiniu-js')
@@ -64,7 +53,8 @@ const uploadFile = async (file: File) => {
       console.log('complete res: ', res)
       // ...
       const url = `${import.meta.env.VITE_CDN_BASE_URL}/${res.hash}`
-      uploadMaterial(url)
+      images.value.push(url)
+      alert(url)
     }
   })
 }

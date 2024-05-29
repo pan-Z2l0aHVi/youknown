@@ -21,7 +21,7 @@ export default function App() {
 
   const global_els = (
     <>
-      <PageProgress />
+      {is_mobile || <PageProgress />}
       <Suspense>
         <PreferencesModal />
       </Suspense>

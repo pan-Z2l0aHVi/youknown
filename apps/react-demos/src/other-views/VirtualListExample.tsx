@@ -15,7 +15,7 @@ export default () => {
   }
 
   return (
-    <>
+    <div className="h-600px">
       <AutoSizer>
         {({ height, width }) => {
           return (
@@ -25,6 +25,6 @@ export default () => {
           )
         }}
       </AutoSizer>
-    </>
+    </div>
   )
 }

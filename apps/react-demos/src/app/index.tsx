@@ -1,16 +1,20 @@
 import { useBoolean } from '@youknown/react-hook/src'
-import { Button, Loading, Space, Tooltip } from '@youknown/react-ui/src'
-import { cls } from '@youknown/utils/src'
-import { Suspense, useEffect } from 'react'
+import { Button, Drawer, Loading, Space, Tooltip } from '@youknown/react-ui/src'
+import { checkMobile, cls, onMobileChange } from '@youknown/utils/src'
+import { Suspense, useEffect, useState } from 'react'
 import { CgDarkMode } from 'react-icons/cg'
 import { TbMenu2 } from 'react-icons/tb'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, useOutlet } from 'react-router-dom'
 
 import { componentRoutes } from '@/router'
 
+import TransitionView from './components/transition-view'
+
 const App = () => {
   const [isDark, { setReverse: toggleDark }] = useBoolean(false)
-  const [sidebarVisible, { setReverse: toggleSidebar }] = useBoolean(false)
+  const [sidebarVisible, { setReverse: toggleSidebar, setFalse: hideSidebar, setTrue: showSidebar }] = useBoolean(false)
+  const outlet = useOutlet()
+  const [isMobile, setIsMobile] = useState(checkMobile())
 
   useEffect(() => {
     const root = document.querySelector<HTMLElement>(':root')
@@ -23,6 +27,23 @@ const App = () => {
       root.classList.remove('dark-theme')
     }
   }, [isDark])
+
+  useEffect(() => {
+    const off = onMobileChange(() => {
+      setIsMobile(checkMobile())
+    })
+    return () => {
+      off()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isMobile) {
+      hideSidebar()
+    } else {
+      showSidebar()
+    }
+  }, [hideSidebar, isMobile, showSidebar])
 
   const navEle = (
     <Space direction="vertical" size="small">
@@ -39,6 +60,7 @@ const App = () => {
               }
             )
           }
+          onClick={isMobile ? hideSidebar : undefined}
         >
           <div className="wrap">{name}</div>
         </NavLink>
@@ -46,11 +68,12 @@ const App = () => {
     </Space>
   )
 
-  return (
-    <main className="min-h-screen flex bg-bg-0 color-text-1">
-      <Button className="z-1 fixed left-8px top-8px" square onClick={toggleSidebar}>
-        <TbMenu2 />
-      </Button>
+  const sidebarEle = isMobile ? (
+    <Drawer className="w-70%" open={sidebarVisible} placement="left" onCancel={hideSidebar}>
+      <div className="h-100% p-[16px_8px] bg-bg2 overflow-y-auto">{navEle}</div>
+    </Drawer>
+  ) : (
+    <>
       {sidebarVisible && (
         // 外层 relative 撑起容器高度
         <div className="relative">
@@ -64,6 +87,39 @@ const App = () => {
           </div>
         </div>
       )}
+    </>
+  )
+
+  const contentEle = (
+    <>
+      {isMobile ? (
+        <TransitionView>
+          <Suspense
+            fallback={
+              <div className="min-h-[calc(100vh-48px)] bg-bg-0 flex items-center justify-center">
+                <Loading spinning />
+              </div>
+            }
+          >
+            <div className="min-h-[calc(100vh-48px)] bg-bg-0 pl-16px pr-16px">{outlet}</div>
+          </Suspense>
+        </TransitionView>
+      ) : (
+        <Suspense fallback={<Loading spinning />}>
+          <div className="bg-bg-0 pl-24px pr-24px">{outlet}</div>
+        </Suspense>
+      )}
+    </>
+  )
+
+  return (
+    <main className="min-h-screen flex bg-bg-0 color-text-1">
+      <Button className="z-1 fixed left-8px top-8px" square onClick={toggleSidebar}>
+        <TbMenu2 />
+      </Button>
+
+      {sidebarEle}
+
       <div className="flex-1 flex flex-col">
         <div className="p-[8px_64px]">
           <Tooltip placement="bottom" title={`切换${isDark ? '亮色' : '暗色'}模式`}>
@@ -72,11 +128,8 @@ const App = () => {
             </Button>
           </Tooltip>
         </div>
-        <div className="flex-1 p-[0_64px]">
-          <Suspense fallback={<Loading spinning />}>
-            <Outlet />
-          </Suspense>
-        </div>
+
+        {contentEle}
       </div>
     </main>
   )

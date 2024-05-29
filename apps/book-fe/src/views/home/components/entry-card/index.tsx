@@ -22,7 +22,7 @@ export function EntryCard(props: EntryCardProps) {
   }
   return (
     <TransitionNavLink
-      className="inline-block decoration-none m-24px hover-translate-y--12px transition-transform"
+      className="inline-block decoration-none m-24px [@media(hover:hover)]-hover-translate-y--12px transition-transform"
       to={href}
     >
       <Card shadow header={title}>

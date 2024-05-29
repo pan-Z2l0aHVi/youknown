@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <Header heading={t('page.title.home')}></Header>
 
-      <div className="<sm:flex <sm:flex-wrap <sm:justify-center <sm:p-[32px_0] sm:p-32px">
+      <div className="<sm:flex <sm:flex-wrap <sm:justify-center <sm:p-[32px_0] sm:p-32px bg-bg-0">
         <EntryCard
           href="/rich_text_editor"
           title="React RTE"

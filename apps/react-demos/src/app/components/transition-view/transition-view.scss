@@ -1,0 +1,65 @@
+$page-shadow: -4px 0 24px -4px rgba(0, 0, 0, 0.1);
+$bezier: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+@mixin active-transition {
+  pointer-events: none;
+
+  /* 确保旧页面在新页面滑入后才消失 */
+  position: absolute;
+  width: 100%;
+  transition:
+    transform 0.3s $bezier,
+    filter 0.3s $bezier;
+}
+
+.slide-forward {
+  &-enter {
+    transform: translateX(100%);
+  }
+
+  &-enter-active {
+    @include active-transition;
+
+    z-index: 1;
+    transform: translateX(0);
+    box-shadow: $page-shadow;
+  }
+
+  &-exit {
+    transform: translateX(0);
+    filter: brightness(1);
+  }
+
+  &-exit-active {
+    @include active-transition;
+
+    transform: translateX(-20%);
+    filter: brightness(0.95);
+  }
+}
+
+.slide-back {
+  &-enter {
+    transform: translateX(-20%);
+    filter: brightness(0.95);
+  }
+
+  &-enter-active {
+    @include active-transition;
+
+    transform: translateX(0);
+    filter: brightness(1);
+  }
+
+  &-exit {
+    transform: translateX(0);
+  }
+
+  &-exit-active {
+    @include active-transition;
+
+    z-index: 1;
+    transform: translateX(100%);
+    box-shadow: $page-shadow;
+  }
+}

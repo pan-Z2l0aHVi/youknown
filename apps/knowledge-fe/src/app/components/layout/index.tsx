@@ -1,11 +1,12 @@
 import { Loading } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import { Suspense } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useOutlet } from 'react-router-dom'
 
 import Banner from '../banner'
 import KeepAliveOutlet from '../keep-alive-outlet'
 import Sidebar from '../sidebar'
+import TransitionView from '../transition-view'
 
 export function DesktopLayout() {
   return (
@@ -34,19 +35,22 @@ export function DesktopLayout() {
 }
 
 export function MobileLayout() {
+  const outlet = useOutlet()
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen flex justify-center items-center">
-          <Loading spinning size="large" />
+    <TransitionView>
+      <Suspense
+        fallback={
+          <div className="min-h-screen flex justify-center items-center bg-bg-0">
+            <Loading spinning size="large" />
+          </div>
+        }
+      >
+        <div className="min-h-screen bg-bg-0">
+          <Banner />
+          {outlet}
         </div>
-      }
-    >
-      <div className="min-h-screen">
-        <Banner />
-        <KeepAliveOutlet />
-      </div>
-    </Suspense>
+      </Suspense>
+    </TransitionView>
   )
 }
 

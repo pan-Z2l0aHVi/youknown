@@ -11,11 +11,7 @@
       <van-tab v-for="tab in tabList" :key="tab.name" :title="tab.meta.title" :to="tab.path"></van-tab>
     </van-tabs>
   </header>
-  <router-view v-slot="{ Component }">
-    <transition :name="route.meta.transitionName">
-      <component :is="Component" />
-    </transition>
-  </router-view>
+  <TransitionRouterView />
 </template>
 
 <script setup lang="ts">
@@ -23,6 +19,7 @@ import { watchEffect } from 'vue'
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
+import TransitionRouterView from '@/components/TransitionRouterView.vue'
 import { navTabRoutes } from '@/router/routes'
 
 const route = useRoute()
@@ -32,76 +29,9 @@ const active = ref(0)
 watchEffect(() => {
   const routeName = route.name
   if (routeName) {
-    active.value = tabList.value.findIndex(tab => {
-      console.log('tab: ', routeName, tab.name)
-      return routeName.startsWith(tab.name)
-    })
+    active.value = tabList.value.findIndex(tab => routeName.startsWith(tab.name))
   }
 })
 </script>
 
-<style lang="scss" scoped>
-$page-shadow: 0 0 24px -12px rgba(0, 0, 0, 0.1);
-$bezier: cubic-bezier(0.25, 0.1, 0.25, 1);
-@mixin active-transition {
-  transition:
-    transform 0.3s $bezier,
-    filter 0.3s $bezier;
-  /* 确保旧页面在新页面滑入后才消失 */
-  position: absolute;
-  width: 100%;
-}
-
-.slide-forward {
-  &-enter-active,
-  &-leave-active {
-    @include active-transition;
-  }
-  &-enter-active {
-    box-shadow: $page-shadow;
-  }
-
-  &-enter-from {
-    transform: translateX(100%);
-  }
-  &-enter-to {
-    transform: translateX(0);
-  }
-
-  &-leave-from {
-    transform: translateX(0);
-    filter: brightness(1);
-  }
-  &-leave-to {
-    transform: translateX(-20%);
-    filter: brightness(0.95);
-  }
-}
-
-.slide-back {
-  &-enter-active,
-  &-leave-active {
-    @include active-transition;
-  }
-  &-leave-active {
-    z-index: 1;
-    box-shadow: $page-shadow;
-  }
-
-  &-enter-from {
-    transform: translateX(-20%);
-    filter: brightness(0.95);
-  }
-  &-enter-to {
-    transform: translateX(0);
-    filter: brightness(1);
-  }
-
-  &-leave-from {
-    transform: translateX(0%);
-  }
-  &-leave-to {
-    transform: translateX(100%);
-  }
-}
-</style>
+<style lang="scss" scoped></style>
