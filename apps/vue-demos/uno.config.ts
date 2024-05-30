@@ -1,13 +1,10 @@
-import presetRemToPx from '@unocss/preset-rem-to-px'
-import { defineConfig, presetUno } from 'unocss'
-import presetAutoprefixer from 'unocss-preset-autoprefixer'
+import { defineConfig } from 'unocss'
 
-import { theme } from '../../build/unocss'
+import { presets, shortcuts, theme } from '../../build/unocss'
 
 export default defineConfig({
-  presets: [presetUno(), presetAutoprefixer(), presetRemToPx()],
+  presets,
   rules: [],
-  theme: {
-    ...theme
-  }
+  shortcuts,
+  theme
 })

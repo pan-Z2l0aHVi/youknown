@@ -6,10 +6,8 @@ import { resolve } from 'path'
 import remarkGfm from 'remark-gfm'
 import { visualizer } from 'rollup-plugin-visualizer'
 import unocss from 'unocss/vite'
-import type { PluginOption } from 'vite'
-import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
+import { defineConfig, loadEnv, PluginOption, splitVendorChunkPlugin } from 'vite'
 import http2Proxy from 'vite-plugin-http2-proxy'
-import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd())
@@ -28,10 +26,9 @@ export default defineConfig(({ mode }) => {
         remarkPlugins: [remarkGfm]
       }),
       splitVendorChunkPlugin(),
-      tsconfigPaths(),
       react(),
       unocss(),
-      visualizer() as PluginOption
+      visualizer() as unknown as PluginOption
     ],
     optimizeDeps: {
       exclude: [...excludeDeps]

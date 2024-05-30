@@ -2,14 +2,10 @@ import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import styleInject from 'vite-plugin-css-injected-by-js'
-import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
   base: '',
-  plugins: [tsconfigPaths(), react(), styleInject()],
-  resolve: {
-    alias: {}
-  },
+  plugins: [react(), styleInject()],
   build: {
     target: 'es2015',
     lib: {

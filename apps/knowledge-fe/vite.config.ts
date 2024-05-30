@@ -9,7 +9,6 @@ import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
 import http2Proxy from 'vite-plugin-http2-proxy'
 import { VitePWA } from 'vite-plugin-pwa'
 import topLevelAwait from 'vite-plugin-top-level-await'
-import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(({ mode, command }) => {
   const env = loadEnv(mode, process.cwd())
@@ -48,11 +47,10 @@ export default defineConfig(({ mode, command }) => {
         }
       }),
       splitVendorChunkPlugin(),
-      tsconfigPaths(),
       topLevelAwait(),
       react(),
       unocss(),
-      visualizer() as PluginOption
+      visualizer() as unknown as PluginOption
     ],
     optimizeDeps: {
       exclude: [...excludeDeps]

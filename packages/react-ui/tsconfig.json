@@ -2,14 +2,22 @@
 	"extends": "../../tsconfig.base.json",
 	"compilerOptions": {
 		"baseUrl": ".",
-		"paths": {
-		},
+		"paths": {},
 		"jsx": "react-jsx",
 		"target": "ESNext",
 		"module": "ESNext",
 		"outDir": "./types",
 		"emitDeclarationOnly": true
 	},
-	"include": ["./src/**/*"],
-	"exclude": ["./dist/**/*", "./types/**/*", "**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx", "**/*.spec.tsx"]
+	"include": [
+		"./src/**/*"
+	],
+	"exclude": [
+		"./dist/**/*",
+		"./types/**/*",
+		"**/*.test.ts",
+		"**/*.spec.ts",
+		"**/*.test.tsx",
+		"**/*.spec.tsx"
+	]
 }

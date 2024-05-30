@@ -3,9 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 import Unocss from 'unocss/vite'
-import type { PluginOption } from 'vite'
-import { defineConfig, loadEnv } from 'vite'
-import eslintPlugin from 'vite-plugin-eslint'
+import { defineConfig, loadEnv, PluginOption } from 'vite'
 import http2Proxy from 'vite-plugin-http2-proxy'
 
 export default defineConfig(({ mode }) => {
@@ -21,11 +19,8 @@ export default defineConfig(({ mode }) => {
         }
       }),
       vue(),
-      eslintPlugin({
-        include: ['src/**/*.js', 'src/**/*.ts', 'src/**/*.vue', 'src/*.js', 'src/*.ts', 'src/*.vue']
-      }),
       Unocss(),
-      visualizer() as PluginOption
+      visualizer() as unknown as PluginOption
     ],
     build: {
       target: 'es2015'

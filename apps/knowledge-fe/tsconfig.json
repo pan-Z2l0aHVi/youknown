@@ -9,11 +9,20 @@
 		"declaration": false,
 		"noEmit": true,
 		"paths": {
-			"@/*": ["src/*"]
+			"@/*": [
+				"src/*"
+			]
 		},
 		/* Using vite */
-		"types": ["vite/client"]
+		"types": [
+			"vite/client"
+		]
 	},
-	"include": ["./src/**/*"],
-	"exclude": ["./dist/**/*", "**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx", "**/*.spec.tsx"]
+	"exclude": [
+		"./dist/**/*",
+		"**/*.test.ts",
+		"**/*.spec.ts",
+		"**/*.test.tsx",
+		"**/*.spec.tsx"
+	]
 }

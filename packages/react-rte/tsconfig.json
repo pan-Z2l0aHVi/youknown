@@ -7,9 +7,17 @@
 		"module": "ESNext",
 		"outDir": "./types",
 		"emitDeclarationOnly": true,
-		"paths": {
-		}
+		"paths": {}
 	},
-	"include": ["./src/**/*"],
-	"exclude": ["./dist/**/*", "./types/**/*", "**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx", "**/*.spec.tsx"]
+	"include": [
+		"./src/**/*"
+	],
+	"exclude": [
+		"./dist/**/*",
+		"./types/**/*",
+		"**/*.test.ts",
+		"**/*.spec.ts",
+		"**/*.test.tsx",
+		"**/*.spec.tsx"
+	]
 }

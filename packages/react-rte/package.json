@@ -79,7 +79,7 @@
         "@youknown/react-ui": "workspace:*",
         "@youknown/utils": "workspace:*",
         "lowlight": "^3.1.0",
-        "react-moveable": "^0.55.0"
+        "react-moveable": "^0.56.0"
     },
     "lint-staged": {
         "**/*.{js,ts,jsx,tsx}": "eslint --cache --fix",
