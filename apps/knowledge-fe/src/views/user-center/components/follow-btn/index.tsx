@@ -1,9 +1,11 @@
 import { Button, Toast } from '@youknown/react-ui/src'
-import { Dispatch, SetStateAction, useState } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RiUserFollowLine, RiUserUnfollowLine } from 'react-icons/ri'
 
-import { follow_user, Profile, unfollow_user } from '@/apis/user'
+import type { Profile } from '@/apis/user'
+import { follow_user, unfollow_user } from '@/apis/user'
 import { useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
 import { with_api } from '@/utils/request'
 

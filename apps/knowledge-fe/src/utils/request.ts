@@ -3,14 +3,14 @@ import type { ArgumentType } from '@youknown/utils/src'
 import { headers2Obj, Net } from '@youknown/utils/src'
 
 import { B_CODE } from '@/consts'
-import { useModalStore, useSpaceStore, useUserStore } from '@/stores'
+import { useModalStore, useUserStore } from '@/stores'
 import { get_local_token } from '@/utils/local'
 
 const { t } = await import('i18next')
 
 interface Cause {
   code: number
-  data: any
+  data: unknown
   msg: string
 }
 
@@ -65,9 +65,8 @@ export const net = Net.create({
     }
   })
 
-type Fetcher = (...args: any[]) => Promise<any>
 export const with_api =
-  <T extends Fetcher>(fetcher: T) =>
+  <T extends (...args: any[]) => Promise<any>>(fetcher: T) =>
   async (...args: ArgumentType<T>[]): Promise<[null, Awaited<ReturnType<T>>] | [NetFetchError, null]> => {
     try {
       const res: Awaited<ReturnType<T>> = await fetcher(...args)

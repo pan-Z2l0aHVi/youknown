@@ -1,5 +1,6 @@
 import { useBoolean } from '@youknown/react-hook/src'
 import { Input, Toast } from '@youknown/react-ui/src'
+import { shakePage } from '@youknown/utils/src'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -30,13 +31,16 @@ export default function DocTitle(props: DocTitleProps) {
   }, [doc_title])
 
   const update_doc_title = async () => {
-    blur_title()
     if (!title_val) {
       Toast.warning(t('validate.title_required'))
-      set_title_val(doc_title)
+      console.log('title_input_ref.current', title_input_ref.current)
+      shakePage(() => {
+        title_input_ref.current?.focus()
+      })
       return
     }
     if (title_val === doc_info?.title) {
+      blur_title()
       return
     }
     const payload = {
@@ -44,8 +48,10 @@ export default function DocTitle(props: DocTitleProps) {
       title: title_val
     }
     const [err, res] = await with_api(update_doc)(payload)
+    blur_title()
     if (err) {
       set_title_val(doc_title)
+      Toast.error(t('update.title.fail'))
       return
     }
     on_updated(res)
@@ -64,6 +70,9 @@ export default function DocTitle(props: DocTitleProps) {
             onChange={set_title_val}
             autoFocus
             placeholder={t('placeholder.title')}
+            onFocus={() => {
+              title_input_ref.current?.select()
+            }}
             onBlur={update_doc_title}
           />
         </div>

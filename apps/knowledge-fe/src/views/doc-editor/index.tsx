@@ -23,6 +23,7 @@ import { useRTE } from '@youknown/react-rte/src/hooks/useRTE'
 import { Button, Image as ImageUI, Loading, Popover, PopoverProps, Space, Toast } from '@youknown/react-ui/src'
 import { cls, shakePage } from '@youknown/utils/src'
 import { useEffect, useState } from 'react'
+import { flushSync } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import { TbChecklist, TbCloudCheck } from 'react-icons/tb'
 import { useBlocker, useLocation, useParams, useSearchParams } from 'react-router-dom'
@@ -212,10 +213,10 @@ export default function DocEditor() {
   }, [blocker])
 
   useEffect(() => {
-    if (is_blocked && !saving) {
+    if (is_blocked) {
       show_leaving_tip()
     }
-  }, [is_blocked, saving, show_leaving_tip])
+  }, [is_blocked, show_leaving_tip])
 
   const proceed_blocker = () => {
     hide_leaving_tip()
@@ -255,10 +256,13 @@ export default function DocEditor() {
     if (err) {
       return
     }
-    set_doc_info(res)
+    Toast.success(t('update.success'))
+    // 防止 blocker 拦截，doc_info 立即生效
+    flushSync(() => {
+      set_doc_info(res)
+    })
     editor.commands.setContent(res.content)
     record_update_doc(res)
-    Toast.success(t('update.success'))
     proceed_blocker()
     navigate(`/library/${space_id}`)
   }

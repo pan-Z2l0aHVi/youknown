@@ -1,12 +1,14 @@
 import { useBoolean } from '@youknown/react-hook/src'
-import { Button, Popover, PopoverProps, Space, Toast } from '@youknown/react-ui/src'
+import type { PopoverProps } from '@youknown/react-ui/src'
+import { Button, Popover, Space, Toast } from '@youknown/react-ui/src'
 import { shakePage } from '@youknown/utils/src'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbUserCheck, TbUserEdit, TbX } from 'react-icons/tb'
 import { useBlocker } from 'react-router-dom'
 
-import { Profile, update_profile } from '@/apis/user'
+import type { Profile } from '@/apis/user'
+import { update_profile } from '@/apis/user'
 import { useUIStore } from '@/stores'
 import { with_api } from '@/utils/request'
 
@@ -39,10 +41,10 @@ export default function ProfileSaveBtn(props: ProfileSaveBtnProps) {
   }, [blocker])
 
   useEffect(() => {
-    if (is_blocked && !saving) {
+    if (is_blocked) {
       show_leaving_tip()
     }
-  }, [is_blocked, saving, show_leaving_tip])
+  }, [is_blocked, show_leaving_tip])
 
   const stop_edit_profile = () => {
     stop_edit()

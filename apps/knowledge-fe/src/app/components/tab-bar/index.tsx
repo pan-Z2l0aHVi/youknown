@@ -1,9 +1,8 @@
 import { cls } from '@youknown/utils/src'
 import { useTranslation } from 'react-i18next'
 import { TbBook2, TbInnerShadowBottom, TbSmartHome, TbVersions } from 'react-icons/tb'
-import { useMatches } from 'react-router-dom'
+import { NavLink, useMatches } from 'react-router-dom'
 
-import TransitionNavLink from '@/components/transition-nav-link'
 import { is_dark_theme_getter, useUIStore } from '@/stores'
 
 export default function TabBar() {
@@ -46,10 +45,14 @@ export default function TabBar() {
         {tab_list.map(tab => {
           const is_active = matches.some(match => match.pathname === tab.path)
           return (
-            <TransitionNavLink
+            <NavLink
               key={tab.path}
               to={tab.path}
               className={cls('flex flex-col items-center decoration-none select-none')}
+              onClick={e => {
+                e.preventDefault()
+                location.href = tab.path
+              }}
             >
               <tab.Icon
                 className={cls(
@@ -71,7 +74,7 @@ export default function TabBar() {
               >
                 {tab.title}
               </div>
-            </TransitionNavLink>
+            </NavLink>
           )
         })}
       </div>
