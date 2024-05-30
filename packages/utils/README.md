@@ -1,9 +1,9 @@
-[English](./README.EN.md) | 简体中文
+English | [简体中文](./README.CN.md)
 
-# 工具库
+# Utils
 
-## 线上地址
+## Online website
 
-开发文档：[https://youknown.cc/book/](https://youknown.cc/book/)
+Development documents: [https://youknown.cc/book/](https://youknown.cc/book/)
 
-案例：[https://youknown.cc](https://youknown.cc)
+Case: [https://youknown.cc](https://youknown.cc)

@@ -1,9 +1,9 @@
-[English](./README.EN.md) | 简体中文
+English | [简体中文](./README.CN.md)
 
-# React Hook 库
+# React hooks library
 
-## 线上地址
+## Online website
 
-开发文档：[https://youknown.cc/book/hooks](https://youknown.cc/book/hooks)
+Development documents: [https://youknown.cc/book/hooks](https://youknown.cc/book/hooks)
 
-案例：[https://youknown.cc](https://youknown.cc)
+Case: [https://youknown.cc](https://youknown.cc)
