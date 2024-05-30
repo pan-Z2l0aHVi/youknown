@@ -33,14 +33,14 @@ $bezier: cubic-bezier(0.25, 0.1, 0.25, 1);
   &-exit-active {
     @include active-transition;
 
-    transform: translateX(-20%);
+    transform: translateX(-40%);
     filter: brightness(0.95);
   }
 }
 
 .slide-back {
   &-enter {
-    transform: translateX(-20%);
+    transform: translateX(-40%);
     filter: brightness(0.95);
   }
 

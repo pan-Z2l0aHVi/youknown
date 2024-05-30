@@ -1,4 +1,5 @@
 import { useBoolean, useIntersection } from '@youknown/react-hook/src'
+import { Image } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import type { HTMLAttributes } from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -68,7 +69,7 @@ function GIFLazyImage(props: GIFLazyImageProps) {
 
   return finalSrc ? (
     <div ref={containerRef} className="relative w-max cursor-pointer" onClick={togglePlay}>
-      <img loading="lazy" {...rest} src={finalSrc} />
+      <Image loading="lazy" {...rest} src={finalSrc} />
       {playing || (
         <div
           className={cls(

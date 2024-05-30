@@ -3,7 +3,7 @@ import AutoSizer from 'react-virtualized-auto-sizer'
 import type { ListChildComponentProps } from 'react-window'
 import { FixedSizeList } from 'react-window'
 
-import { useBannerVisible } from '@/hooks/use-banner-visible'
+import { useUIStore } from '@/stores'
 import type { RecordValue } from '@/utils/idb'
 
 import RecordItem from './record-item'
@@ -13,7 +13,7 @@ interface RecordListProps {
 }
 function RecordList(props: RecordListProps) {
   const { list } = props
-  const [bannerVisible] = useBannerVisible()
+  const banner_visible = useUIStore(state => state.banner_visible)
   const BANNER_HEIGHT = 40
   const RECORD_ITEM_HEIGHT = 80
 
@@ -33,7 +33,7 @@ function RecordList(props: RecordListProps) {
           <FixedSizeList
             style={{ paddingBottom: 40 }}
             width={width}
-            height={bannerVisible ? height - BANNER_HEIGHT : height}
+            height={banner_visible ? height - BANNER_HEIGHT : height}
             itemCount={list.length}
             itemSize={RECORD_ITEM_HEIGHT}
           >

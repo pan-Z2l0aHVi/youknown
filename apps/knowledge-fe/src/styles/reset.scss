@@ -2,10 +2,10 @@ body {
   scrollbar-width: thin;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: var(--ui-font-size-m);
-  color: var(--ui-text-1);
-  background-color: var(--ui-bg-0);
   -moz-osx-font-smoothing: auto;
   -webkit-font-smoothing: auto;
+  color: var(--ui-text-1);
+  background-color: var(--ui-bg-0);
   -webkit-tap-highlight-color: transparent;
 
   // 完全重置默认样式 button -> div
@@ -28,11 +28,5 @@ body {
     border: none;
     border-radius: 0;
     outline: none;
-  }
-
-  &.webkit-scrollbar-hidden {
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
 }

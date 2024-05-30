@@ -25,6 +25,7 @@ export interface UIState {
   theme: THEME
   i18n_lang: I18N_LANG
   menu_drawer_open: boolean
+  banner_visible: boolean
   set_is_mobile: (is_mobile: boolean) => void
   set_progress_percent: (percent: number) => void
   show_progress: () => void
@@ -36,6 +37,7 @@ export interface UIState {
   set_theme: (theme: THEME) => void
   set_i18n_lang: (lang: I18N_LANG) => void
   set_menu_drawer_open: (open: boolean) => void
+  set_banner_visible: (banner_visible: boolean) => void
 }
 
 const ui_state_creator: StateCreator<UIState> = (set, get) => ({
@@ -47,6 +49,7 @@ const ui_state_creator: StateCreator<UIState> = (set, get) => ({
   theme: THEME.SYSTEM,
   i18n_lang: I18N_LANG.SYSTEM,
   menu_drawer_open: false,
+  banner_visible: false,
 
   set_is_mobile: (is_mobile: boolean) =>
     set({
@@ -94,7 +97,8 @@ const ui_state_creator: StateCreator<UIState> = (set, get) => ({
   set_radius: radius => set({ radius }),
   set_theme: theme => set({ theme }),
   set_i18n_lang: lang => set({ i18n_lang: lang }),
-  set_menu_drawer_open: open => set({ menu_drawer_open: open })
+  set_menu_drawer_open: open => set({ menu_drawer_open: open }),
+  set_banner_visible: (banner_visible: boolean) => set({ banner_visible })
 })
 
 const compute_is_dark_theme = (theme: THEME) => {

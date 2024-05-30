@@ -7,6 +7,7 @@ import { forwardRef, useRef, useState } from 'react'
 import { TbPlus } from 'react-icons/tb'
 
 import { UI_PREFIX } from '../../constants'
+import { Image } from '../image/Image'
 import { Loading } from '../loading'
 
 interface UploadAttr {
@@ -125,7 +126,7 @@ const _Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) =>
             <div className={`${prefixCls}-thumb-default`}>
               {(lastPreviewURL || lastPicURL) && (
                 <Loading spinning={uploading} className={`${prefixCls}-thumb-default-loading`}>
-                  <img className={cls(`${prefixCls}-thumb`)} alt="Preview" src={lastPicURL || lastPreviewURL} />
+                  <Image className={cls(`${prefixCls}-thumb`)} alt="Preview" src={lastPicURL || lastPreviewURL} />
                 </Loading>
               )}
             </div>

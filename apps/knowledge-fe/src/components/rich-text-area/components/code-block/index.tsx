@@ -26,7 +26,7 @@ export default function CodeBlock(props: CodeBlockProps) {
   const update_copy_status = () => {
     set_copied(true)
     clearTimeout(timer.current)
-    timer.current = setTimeout(() => {
+    timer.current = window.setTimeout(() => {
       set_copied(false)
     }, 2000)
   }

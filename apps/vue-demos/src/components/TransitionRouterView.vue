@@ -99,7 +99,7 @@ $bezier: cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
   &-leave-to {
-    transform: translateX(-20%);
+    transform: translateX(-40%);
     filter: brightness(0.95);
   }
 }
@@ -116,7 +116,7 @@ $bezier: cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
   &-enter-from {
-    transform: translateX(-20%);
+    transform: translateX(-40%);
     filter: brightness(0.95);
   }
 

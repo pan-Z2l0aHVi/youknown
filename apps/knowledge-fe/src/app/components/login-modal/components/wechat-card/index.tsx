@@ -47,7 +47,7 @@ export default function WeChatCard() {
         return
       }
       clearTimeout(timer.current)
-      timer.current = setTimeout(() => {
+      timer.current = window.setTimeout(() => {
         if (!has_user_login) {
           check_status()
         }

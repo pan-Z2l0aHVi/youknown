@@ -1,5 +1,5 @@
 import { useBoolean, useIntersection } from '@youknown/react-hook/src'
-import { Loading } from '@youknown/react-ui/src'
+import { Image, Loading, Motion } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import type { HTMLAttributes } from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -61,8 +61,8 @@ export default function GIFLazyImage(props: GIFLazyImageProps) {
 
   return final_src ? (
     <div ref={container_ref} className="relative sm:w-max <sm:w-100% max-w-full cursor-pointer" onClick={toggle_play}>
-      <img loading="lazy" src={final_src} className={className} {...rest} />
-      {playing || (
+      <Image loading="lazy" src={final_src} className={className} {...rest} />
+      <Motion.Zoom in={!playing}>
         <div
           className={cls(
             'absolute left-50% top-50% translate-x--50% translate-y--50%',
@@ -72,7 +72,7 @@ export default function GIFLazyImage(props: GIFLazyImageProps) {
         >
           GIF
         </div>
-      )}
+      </Motion.Zoom>
     </div>
   ) : (
     <div

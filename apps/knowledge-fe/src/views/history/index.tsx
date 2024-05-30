@@ -1,7 +1,7 @@
 import { useEvent } from '@youknown/react-hook/src'
 import { Button, Dialog, Input, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import { useDeferredValue, useEffect, useMemo, useState } from 'react'
+import { useDeferredValue, useLayoutEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbSearch, TbTrash } from 'react-icons/tb'
 
@@ -61,13 +61,11 @@ export default function History() {
     })
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const pre_body_overflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
-    document.body.classList.add('webkit-scrollbar-hidden')
     return () => {
       document.body.style.overflow = pre_body_overflow
-      document.body.classList.remove('webkit-scrollbar-hidden')
     }
   }, [])
 

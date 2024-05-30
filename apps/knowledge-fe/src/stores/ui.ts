@@ -24,6 +24,7 @@ export interface UIState {
   radius: number[]
   theme: THEME
   i18n_lang: I18N_LANG
+  banner_visible: boolean
   set_is_mobile: (is_mobile: boolean) => void
   set_progress_percent: (percent: number) => void
   show_progress: () => void
@@ -34,6 +35,7 @@ export interface UIState {
   set_radius: (radius: number[]) => void
   set_theme: (theme: THEME) => void
   set_i18n_lang: (lang: I18N_LANG) => void
+  set_banner_visible: (banner_visible: boolean) => void
 }
 
 const ui_state_creator: StateCreator<UIState> = (set, get) => ({
@@ -44,6 +46,7 @@ const ui_state_creator: StateCreator<UIState> = (set, get) => ({
   radius: [4, 8, 12],
   theme: THEME.SYSTEM,
   i18n_lang: I18N_LANG.SYSTEM,
+  banner_visible: false,
 
   set_is_mobile: (is_mobile: boolean) =>
     set({
@@ -90,7 +93,8 @@ const ui_state_creator: StateCreator<UIState> = (set, get) => ({
   set_primary_color: primary_color => set({ primary_color }),
   set_radius: radius => set({ radius }),
   set_theme: theme => set({ theme }),
-  set_i18n_lang: lang => set({ i18n_lang: lang })
+  set_i18n_lang: lang => set({ i18n_lang: lang }),
+  set_banner_visible: (banner_visible: boolean) => set({ banner_visible })
 })
 
 const compute_is_dark_theme = (theme: THEME) => {
