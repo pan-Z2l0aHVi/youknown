@@ -21,7 +21,8 @@ export interface LoginPayload {
 export const login = (payload: LoginPayload) =>
   net.fetch<Profile & { token: string }>('/proxy/user/sign_in', {
     method: 'post',
-    payload
+    payload,
+    global: true
   })
 
 export interface GetUserInfo {
@@ -36,7 +37,7 @@ export const get_user_info = (params?: GetUserInfo) =>
     params
   })
 
-export const get_profile = () => net.fetch<Profile>('/proxy/user/profile')
+export const get_profile = () => net.fetch<Profile>('/proxy/user/profile', { global: true })
 
 export interface UpdateProfilePayload {
   nickname?: string
@@ -52,7 +53,7 @@ export const get_yd_qrcode = () =>
   net.fetch<{
     qrcode_url: string
     temp_user_id: string
-  }>('/proxy/user/yd_qrcode')
+  }>('/proxy/user/yd_qrcode', { global: true })
 
 export interface CheckYDLoginStatusParams {
   temp_user_id: string
@@ -61,7 +62,8 @@ export const check_yd_login_status = (params?: CheckYDLoginStatusParams) =>
   net.fetch<{
     has_login: boolean
   }>('/proxy/user/yd_login_status', {
-    params
+    params,
+    global: true
   })
 
 export const get_collected_feed_list = () => net.fetch<Feed[]>('/proxy/user/collected_feeds')

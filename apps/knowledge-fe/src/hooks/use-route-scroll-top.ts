@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 
 import { useRouteKeepAlive } from './use-route-keep-alive'
 
-const BLOCK_LIST = ['/wallpapers']
+const BLOCK_LIST = ['/browse', '/wallpapers']
 
 export function useRouteScrollTop() {
   const is_keep_alive = useRouteKeepAlive()

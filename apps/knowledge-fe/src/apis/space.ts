@@ -48,7 +48,8 @@ export const get_spaces = (params?: GetSpacesQuery) =>
       page: 1,
       page_size: 50,
       ...params
-    }
+    },
+    global: true
   })
 
 export interface GetSpaceInfoQuery {

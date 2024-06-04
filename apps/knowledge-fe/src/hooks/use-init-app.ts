@@ -8,6 +8,7 @@ import { useRouteMeta } from '@/hooks/use-route-meta'
 import { useModalStore, useRecordStore, useSpaceStore, useUserStore } from '@/stores'
 import { get_local_token } from '@/utils/local'
 import { report } from '@/utils/report'
+import { cancel_requests } from '@/utils/request'
 
 export function useInitApp() {
   const { t } = useTranslation()
@@ -42,6 +43,7 @@ export function useInitApp() {
     }
   }, [title])
 
+  // 上报 PV
   const location = useLocation()
   useEffect(() => {
     report({
@@ -57,6 +59,12 @@ export function useInitApp() {
       close_login_modal()
     }
   }, [close_login_modal, close_preferences_modal, location])
+
+  // 切页面时取消非当前页面的请求
+  const { pathname } = useLocation()
+  useEffect(() => {
+    cancel_requests(pathname)
+  }, [pathname])
 
   useEffect(() => {
     init_records()

@@ -23,6 +23,26 @@ export class NetFetchError extends Error {
     this.cause = cause
   }
 }
+
+interface CancelListItem {
+  key: string
+  controller: AbortController
+}
+let cancel_list: CancelListItem[] = []
+
+export const cancel_requests = (pathname: string) => {
+  const next_cancel_list: CancelListItem[] = []
+  cancel_list.forEach(item => {
+    const { key, controller } = item
+    if (key === pathname) {
+      next_cancel_list.push(item)
+    } else {
+      controller.abort()
+    }
+  })
+  return next_cancel_list
+}
+
 export const net = Net.create({
   timeout: import.meta.env.DEV ? 30000 : 10000
 })
@@ -36,11 +56,27 @@ export const net = Net.create({
     await next()
   })
   .use(async (ctx, next) => {
+    const global: boolean = ctx.req.configure?.global ?? false
+    if (global) {
+      await next()
+    } else {
+      const controller = new AbortController()
+      ctx.req.configure.signal = controller.signal
+      const request_key = location.pathname
+      cancel_list.push({ key: request_key, controller })
+      await next()
+      cancel_list = cancel_list.filter(item => item.key === request_key)
+    }
+  })
+  .use(async (ctx, next) => {
     const silent: boolean = ctx.req.configure?.silent ?? false
 
     await next()
 
     if (ctx.err) {
+      if (ctx.err.name === 'AbortError') {
+        return
+      }
       Toast.error(t('network.error'))
       return
     }

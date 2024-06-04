@@ -115,8 +115,11 @@ export class Net {
       'body',
       'cache',
       'credentials',
+      'integrity',
+      'keepalive',
       'redirect',
-      'referrerPolicy'
+      'referrerPolicy',
+      'signal'
     )
     return fetch(reqInfo, reqInit)
   }

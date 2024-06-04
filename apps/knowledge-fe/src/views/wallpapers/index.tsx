@@ -107,7 +107,6 @@ export default function Wallpapers() {
     if (state.purity.includes(PURITY.NSFW)) {
       purity_arr[2] = SWITCH.ON
     }
-    console.log('keywords: ', keywords)
     set_params({
       ...state,
       keywords,
