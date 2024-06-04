@@ -51,13 +51,13 @@ export default function GIFLazyImage(props: GIFLazyImageProps) {
         })
         .catch(err => {
           console.error('get gif first frame error: ', err)
-          set_final_src(src)
+          start_play()
         })
         .finally(() => {
           loaded_ref.current = true
         })
     }
-  }, [fetch_gif_first_frame, is_intersection, src])
+  }, [fetch_gif_first_frame, is_intersection, start_play])
 
   return final_src ? (
     <div ref={container_ref} className="relative sm:w-max <sm:w-100% max-w-full cursor-pointer" onClick={start_play}>

@@ -36,7 +36,8 @@ export default function TransitionView(props: TransitionViewProps) {
   const { children } = props
   const hasChildren = Children.count(children) > 0
   const location = useLocation()
-  const { key, state } = location
+  const { pathname, state } = location
+  const key = pathname
   const instant = !!state?.instant
   const fullPath = `${location.pathname}${location.search}${location.hash}`
   const action = useNavigationType()

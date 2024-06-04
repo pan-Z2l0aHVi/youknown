@@ -33,19 +33,19 @@ const pageStack: string[] = storage.session.get(PAGE_STACK_KEY) ?? []
 const transitionName = ref('')
 
 watch(
-  () => route.fullPath,
-  fullPath => {
+  () => route.path,
+  path => {
     // Init
     if (!pageStack.length) {
-      pageStack.push(fullPath)
+      pageStack.push(path)
       transitionName.value = ''
     }
     // Refresh
-    else if (pageStack[pageStack.length - 1] === fullPath) {
+    else if (pageStack[pageStack.length - 1] === path) {
       transitionName.value = ''
     }
     // Back
-    else if (pageStack[pageStack.length - 2] === fullPath) {
+    else if (pageStack[pageStack.length - 2] === path) {
       if (needAnimation) {
         transitionName.value = 'slide-back'
       }
@@ -53,7 +53,7 @@ watch(
     }
     // Forward
     else {
-      pageStack.push(fullPath)
+      pageStack.push(path)
       transitionName.value = 'slide-forward'
     }
     storage.session.set(PAGE_STACK_KEY, pageStack)
@@ -67,12 +67,13 @@ $bezier: cubic-bezier(0.25, 0.1, 0.25, 1);
 
 @mixin active-transition {
   pointer-events: none;
-  transition:
-    transform 0.3s $bezier,
-    filter 0.3s $bezier;
+
   /* 确保旧页面在新页面滑入后才消失 */
   position: absolute;
   width: 100%;
+  transition:
+    transform 0.3s $bezier,
+    filter 0.3s $bezier;
 }
 
 .slide-forward {

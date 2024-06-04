@@ -19,7 +19,10 @@ export default defineConfig(({ mode }) => {
         '/proxy': {
           target: env.VITE_LOCAL_PROXY_BASE_URL,
           secure: false,
-          rewrite: path => path.replace(/^\/proxy/, '')
+          rewrite: path => path.replace(/^\/proxy/, ''),
+          headers: {
+            'Access-Control-Allow-Origin': '*'
+          }
         }
       }),
       mdx({
