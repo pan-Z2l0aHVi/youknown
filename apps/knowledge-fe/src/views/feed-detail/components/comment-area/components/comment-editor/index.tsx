@@ -9,12 +9,12 @@ import Italic from '@youknown/react-rte/src/extensions/italic'
 import Link from '@youknown/react-rte/src/extensions/link'
 import Strike from '@youknown/react-rte/src/extensions/strike'
 import { useRTE } from '@youknown/react-rte/src/hooks/useRTE'
-import { Avatar, Button, Image as ImageUI, Space, Toast } from '@youknown/react-ui/src'
+import { Avatar, Button, Space } from '@youknown/react-ui/src'
 import { ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
-import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
+import { onCustomUpload } from '@/utils/rte-custom-upload'
 
 interface CommentEditorProps {
   auto_focus?: boolean
@@ -48,44 +48,7 @@ export default function CommentEditor(props: CommentEditorProps) {
   const open_login_modal = useModalStore(state => state.open_login_modal)
 
   const editor = useRTE({
-    extensions: [
-      Bold,
-      Italic,
-      Strike,
-      Code,
-      Link,
-      Blockquote,
-      CodeBlock,
-      Image.configure({
-        onCustomUpload: file =>
-          new Promise((resolve, reject) => {
-            ImageUI.crop({
-              file,
-              onCancel: reject,
-              async onCrop(result) {
-                try {
-                  const { compressImage } = await import('@youknown/img-wasm/src')
-                  const compressed_file = await compressImage(result, 1600, 1200)
-                  upload_cloudflare_r2(compressed_file, {
-                    complete(url) {
-                      resolve({
-                        src: url
-                      })
-                    },
-                    error(err) {
-                      Toast.error(t('upload.img.fail'))
-                      reject(err)
-                    }
-                  })
-                } catch (err) {
-                  Toast.error(t('upload.img.fail'))
-                  reject(err)
-                }
-              }
-            })
-          })
-      })
-    ],
+    extensions: [Bold, Italic, Strike, Code, Link, Blockquote, CodeBlock, Image.configure({ onCustomUpload })],
     autofocus: auto_focus ? 'end' : false,
     placeholder: () => placeholder,
     content: value,

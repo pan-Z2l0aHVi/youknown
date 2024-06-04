@@ -21,7 +21,7 @@ function GIFLazyImage(props: GIFLazyImageProps) {
   const { src, ...rest } = props
   const [finalSrc, setFinalSrc] = useState('')
   const [firstFrame, setFirstFrame] = useState('')
-  const [playing, { setReverse: togglePlay }] = useBoolean(false)
+  const [playing, { setTrue: startPlay }] = useBoolean(false)
 
   const fetchGIFFirstFrame = useCallback(async (): Promise<string> => {
     const response = await fetch(src)
@@ -68,8 +68,8 @@ function GIFLazyImage(props: GIFLazyImageProps) {
   }, [fetchGIFFirstFrame, isIntersection, src])
 
   return finalSrc ? (
-    <div ref={containerRef} className="relative w-max cursor-pointer" onClick={togglePlay}>
-      <Image loading="lazy" {...rest} src={finalSrc} />
+    <div ref={containerRef} className="relative w-max cursor-pointer" onClick={startPlay}>
+      <Image loading="lazy" {...rest} src={finalSrc} canPreview={playing} />
       {playing || (
         <div
           className={cls(

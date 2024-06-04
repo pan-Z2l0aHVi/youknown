@@ -154,6 +154,9 @@ export function Bubble(props: BubbleProps) {
         }
       }}
       shouldShow={({ editor }) => {
+        if (!editor.isEditable) {
+          return false
+        }
         if (editor.isActive('image')) {
           return false
         }

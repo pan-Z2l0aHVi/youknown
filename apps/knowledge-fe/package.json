@@ -41,7 +41,7 @@
     "not dead"
   ],
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.577.0",
+    "@aws-sdk/client-s3": "^3.588.0",
     "@types/chroma-js": "^2.4.4",
     "@types/mime-types": "^2.1.4",
     "@types/omggif": "^1.0.5",

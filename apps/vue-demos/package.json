@@ -22,7 +22,7 @@
     "@youknown/utils": "workspace:*",
     "crypto-js": "^4.2.0",
     "qiniu-js": "^3.4.2",
-    "vant": "^4.9.0"
+    "vant": "^4.9.1"
   },
   "lint-staged": {
     "**/*.{js,ts,jsx,tsx,md,mdx,vue}": "eslint --cache --fix",

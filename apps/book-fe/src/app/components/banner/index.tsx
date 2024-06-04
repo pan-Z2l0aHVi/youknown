@@ -1,5 +1,5 @@
 import { cls, storage } from '@youknown/utils/src'
-import { useCallback, useEffect } from 'react'
+import { useEffect } from 'react'
 import { TbX } from 'react-icons/tb'
 
 import { useUIStore } from '@/stores'
@@ -11,28 +11,15 @@ export default function Banner() {
   const banner_visible = useUIStore(state => state.banner_visible)
   const set_banner_visible = useUIStore(state => state.set_banner_visible)
 
-  const update_visible_status = useCallback(() => {
+  useEffect(() => {
     const closed = storage.local.get(CLOSED_KEY)
     set_banner_visible(!closed)
   }, [set_banner_visible])
 
-  useEffect(() => {
-    update_visible_status()
-    const storage_handler = (event: StorageEvent) => {
-      if (event.key === CLOSED_KEY) {
-        update_visible_status()
-      }
-    }
-    window.addEventListener('storage', storage_handler)
-    return () => {
-      window.removeEventListener('storage', storage_handler)
-    }
-  }, [update_visible_status])
-
-  const hide = useCallback(() => {
+  const hide = () => {
     storage.local.set(CLOSED_KEY, 1, 7 * 24 * 60 * 60 * 1000)
     set_banner_visible(false)
-  }, [set_banner_visible])
+  }
 
   if (!banner_visible) {
     return null

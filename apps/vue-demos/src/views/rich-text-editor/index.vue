@@ -26,14 +26,16 @@ const editor = useEditor({
 
 <style lang="scss" scoped>
 .rich-text-editor-page {
+  /* stylelint-disable-next-line selector-class-pattern */
   :deep(.ProseMirror) {
     outline: none;
+
     p.is-editor-empty:first-child::before {
-      color: #adb5bd;
+      pointer-events: none;
       content: attr(data-placeholder);
       float: left;
       height: 0;
-      pointer-events: none;
+      color: #adb5bd;
     }
   }
 }

@@ -20,7 +20,7 @@ import TextAlign from '@youknown/react-rte/src/extensions/text-align'
 import TextColor from '@youknown/react-rte/src/extensions/text-color'
 import Underline from '@youknown/react-rte/src/extensions/underline'
 import { useRTE } from '@youknown/react-rte/src/hooks/useRTE'
-import { Button, Image as ImageUI, Loading, Popover, PopoverProps, Space, Toast } from '@youknown/react-ui/src'
+import { Button, Loading, Popover, PopoverProps, Space, Toast } from '@youknown/react-ui/src'
 import { cls, shakePage } from '@youknown/utils/src'
 import { useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
@@ -34,8 +34,8 @@ import Header from '@/app/components/header'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { useRecordStore, useUIStore } from '@/stores'
 import { format_time } from '@/utils'
-import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { NetFetchError, with_api } from '@/utils/request'
+import { onCustomUpload } from '@/utils/rte-custom-upload'
 
 import CoverUpload from './components/cover-upload'
 import DocHistoryDrawer from './components/doc-history-drawer'
@@ -76,53 +76,7 @@ export default function DocEditor() {
       OrderedList,
       CodeBlock,
       HorizontalRule,
-      Image.configure({
-        onCustomUpload: file =>
-          new Promise((resolve, reject) => {
-            ImageUI.crop({
-              file,
-              fileTypeExcludes: ['image/gif'],
-              onCancel: reject,
-              async onCrop(result) {
-                try {
-                  const { compressImage } = await import('@youknown/img-wasm/src')
-                  const compressed_file = await compressImage(result, 1600, 1200)
-                  const toast = Toast.info({
-                    content: t('file.uploading'),
-                    duration: Infinity
-                  })
-                  upload_cloudflare_r2(compressed_file, {
-                    progress(progress) {
-                      toast.update({
-                        duration: Infinity,
-                        content: (
-                          <>
-                            <span className="color-primary">{`(${Math.floor(progress.percent)}%)`}</span>
-                            {t('file.uploading')}
-                          </>
-                        )
-                      })
-                    },
-                    complete(url) {
-                      toast.close()
-                      resolve({
-                        src: url
-                      })
-                    },
-                    error(err) {
-                      toast.close()
-                      Toast.error(t('upload.img.fail'))
-                      reject(err)
-                    }
-                  })
-                } catch (err) {
-                  Toast.error(t('upload.img.fail'))
-                  reject(err)
-                }
-              }
-            })
-          })
-      })
+      Image.configure({ onCustomUpload })
     ],
     autofocus: 'end',
     placeholder: ({ node }) => {

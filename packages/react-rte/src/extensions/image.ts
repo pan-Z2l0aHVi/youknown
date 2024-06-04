@@ -1,18 +1,21 @@
 import { mergeAttributes, Node, nodeInputRule } from '@tiptap/core'
+import type { Editor } from '@tiptap/react'
 
 import ImageItem from '../components/image-item'
+
+export interface ImageAttrs {
+  src: string
+  alt?: string
+  title?: string
+  width?: number
+  height?: number
+}
 
 export interface ImageOptions {
   inline: boolean
   allowBase64: boolean
   HTMLAttributes: Record<string, any>
-  onCustomUpload?: (image: File) => Promise<{
-    src: string
-    alt?: string
-    title?: string
-    width?: number
-    height?: number
-  }>
+  onCustomUpload?: (image: File, editor: Editor) => Promise<ImageAttrs>
   insert: typeof ImageItem
   floating: typeof ImageItem
 }

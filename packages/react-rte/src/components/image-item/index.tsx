@@ -17,7 +17,7 @@ interface UploadResult {
 }
 interface ImageItemProps {
   editor: Editor
-  onCustomUpload?: (file: File) => Promise<UploadResult>
+  onCustomUpload?: (file: File, editor: Editor) => Promise<UploadResult>
 }
 export default function ImageItem(props: ImageItemProps) {
   const { editor, onCustomUpload } = props
@@ -35,7 +35,7 @@ export default function ImageItem(props: ImageItemProps) {
     }
     for await (const file of files) {
       try {
-        const imgRes = await onCustomUpload(file)
+        const imgRes = await onCustomUpload(file, editor)
         editor.chain().focus().setImage(imgRes).setTextSelection(editor.state.selection.to).run()
       } catch (error) {
         console.error('onCustomUpload error: ', error)

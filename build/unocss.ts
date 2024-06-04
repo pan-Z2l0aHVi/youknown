@@ -1,4 +1,3 @@
-import presetRemToPx from '@unocss/preset-rem-to-px'
 import type { UserConfig } from 'unocss'
 import { presetUno } from 'unocss'
 import presetAutoprefixer from 'unocss-preset-autoprefixer'
@@ -8,7 +7,6 @@ import { presetScrollbarHide } from 'unocss-preset-scrollbar-hide'
 export const presets: UserConfig['presets'] = [
   presetUno(),
   presetAutoprefixer(),
-  presetRemToPx(),
   presetScrollbar(),
   presetScrollbarHide()
 ]

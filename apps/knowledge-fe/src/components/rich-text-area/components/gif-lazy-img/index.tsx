@@ -13,7 +13,7 @@ export default function GIFLazyImage(props: GIFLazyImageProps) {
   const { src, className, ...rest } = props
   const [final_src, set_final_src] = useState('')
   const [first_frame, set_first_frame] = useState('')
-  const [playing, { setReverse: toggle_play }] = useBoolean(false)
+  const [playing, { setTrue: start_play }] = useBoolean(false)
 
   const fetch_gif_first_frame = useCallback(async (): Promise<string> => {
     const response = await fetch(src)
@@ -60,8 +60,8 @@ export default function GIFLazyImage(props: GIFLazyImageProps) {
   }, [fetch_gif_first_frame, is_intersection, src])
 
   return final_src ? (
-    <div ref={container_ref} className="relative sm:w-max <sm:w-100% max-w-full cursor-pointer" onClick={toggle_play}>
-      <Image loading="lazy" src={final_src} className={className} {...rest} />
+    <div ref={container_ref} className="relative sm:w-max <sm:w-100% max-w-full cursor-pointer" onClick={start_play}>
+      <Image loading="lazy" src={final_src} className={className} canPreview={playing} {...rest} />
       <Motion.Zoom in={!playing}>
         <div
           className={cls(

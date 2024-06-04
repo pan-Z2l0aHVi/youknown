@@ -8,6 +8,7 @@
   "rules": {
     "declaration-block-no-redundant-longhand-properties": null,
     "color-function-notation": "legacy",
-    "alpha-value-notation": "number"
+    "alpha-value-notation": "number",
+    "no-empty-source": null
   }
 }
