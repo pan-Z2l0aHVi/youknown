@@ -136,6 +136,30 @@ export default function DocCard(props: DocCardProps) {
       )}
     </div>
   )
+
+  const badge = (
+    <>
+      {info.public && (
+        <div
+          className="absolute top-0 left-12px w-20px h-24px bg-primary text-center"
+          style={{ clipPath: 'polygon(0% 0%, 100% 0, 100% 75%, 50% 100%, 0% 75%)' }}
+        >
+          <TbWorld className="color-#fff text-16px mt-2px" />
+        </div>
+      )}
+      {choosing && selected && (
+        <div
+          className={cls(
+            'absolute top-8px right-8px flex items-center justify-center w-24px h-24px',
+            'rd-full b-4px b-solid b-[rgba(255,255,255,0.8)] bg-primary'
+          )}
+        >
+          <GoCheck className="text-14px color-#fff" />
+        </div>
+      )}
+    </>
+  )
+
   return (
     <>
       <div
@@ -154,24 +178,7 @@ export default function DocCard(props: DocCardProps) {
           ctx_menu.onContextMenu(event)
         }}
       >
-        {info.public && (
-          <div
-            className="absolute top-0 left-12px w-20px h-24px bg-primary text-center"
-            style={{ clipPath: 'polygon(0% 0%, 100% 0, 100% 75%, 50% 100%, 0% 75%)' }}
-          >
-            <TbWorld className="color-#fff text-16px mt-2px" />
-          </div>
-        )}
-        {choosing && selected && (
-          <div
-            className={cls(
-              'absolute top-8px right-8px flex items-center justify-center w-24px h-24px',
-              'rd-full b-4px b-solid b-[rgba(255,255,255,0.8)] bg-primary'
-            )}
-          >
-            <GoCheck className="text-14px color-#fff" />
-          </div>
-        )}
+        {badge}
 
         <div
           className="flex-1 flex flex-col justify-end bg-cover bg-center"

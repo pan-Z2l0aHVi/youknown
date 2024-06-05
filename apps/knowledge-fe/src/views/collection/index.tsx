@@ -114,7 +114,7 @@ export default function Collection() {
 
   const login_guidance = (
     <>
-      {!has_login && (
+      {has_login || (
         <div className="flex flex-col items-center mt-40px">
           <span className="mb-24px color-text-2">{t('collect.login_tip')}</span>
           <Button primary onClick={open_login_modal}>
@@ -125,49 +125,49 @@ export default function Collection() {
     </>
   )
 
-  const collection_list = (
+  const collection_list = [
+    {
+      key: COLLECTION_TYPE.FEED,
+      title: t('collect.feed'),
+      title_icon: <FcDocument className="text-20px" />,
+      ele: <FeedCollapsePanel />
+    },
+    {
+      key: COLLECTION_TYPE.USER,
+      title: t('follow.user'),
+      title_icon: <FcBusinessContact className="text-20px" />,
+      ele: <UserCollapsePanel />
+    },
+    {
+      key: COLLECTION_TYPE.WALLPAPER,
+      title: t('collect.wallpaper'),
+      title_icon: <FcPicture className="text-20px" />,
+      ele: <WallpaperCollapsePanel />
+    }
+  ]
+
+  const panels = (
     <>
       {has_login && (
         <Collapse defaultActives={[COLLECTION_TYPE.FEED]}>
-          <Collapse.Panel
-            className="bg-bg-2 rd-radius-m"
-            itemKey={COLLECTION_TYPE.FEED}
-            title={
-              <div className="flex items-center h-32px select-none">
-                <FcDocument className="text-20px ml-4px mr-8px" />
-                <span className="color-text-2 font-600">{t('collect.feed')}</span>
-              </div>
-            }
-            bordered={false}
-          >
-            <FeedCollapsePanel />
-          </Collapse.Panel>
-          <Collapse.Panel
-            className="bg-bg-2 rd-radius-m"
-            itemKey={COLLECTION_TYPE.USER}
-            title={
-              <div className="flex items-center h-32px select-none">
-                <FcBusinessContact className="text-20px ml-4px mr-8px" />
-                <span className="color-text-2 font-600">{t('follow.user')}</span>
-              </div>
-            }
-            bordered={false}
-          >
-            <UserCollapsePanel />
-          </Collapse.Panel>
-          <Collapse.Panel
-            className="bg-bg-2 rd-radius-m"
-            itemKey={COLLECTION_TYPE.WALLPAPER}
-            title={
-              <div className="flex items-center h-32px select-none">
-                <FcPicture className="text-20px ml-4px mr-8px" />
-                <span className="color-text-2 font-600">{t('collect.wallpaper')}</span>
-              </div>
-            }
-            bordered={false}
-          >
-            <WallpaperCollapsePanel />
-          </Collapse.Panel>
+          {collection_list.map(({ key, title, title_icon, ele }) => {
+            return (
+              <Collapse.Panel
+                className="bg-bg-2 rd-radius-m"
+                key={key}
+                itemKey={key}
+                bordered={false}
+                title={
+                  <div className="flex items-center h-32px select-none pl-4px">
+                    {title_icon}
+                    <span className="color-text-2 font-600 ml-8px">{title}</span>
+                  </div>
+                }
+              >
+                {ele}
+              </Collapse.Panel>
+            )
+          })}
         </Collapse>
       )}
     </>
@@ -179,7 +179,7 @@ export default function Collection() {
 
       <div className="sm:p-32px <sm:p-16px">
         {login_guidance}
-        {collection_list}
+        {panels}
       </div>
     </>
   )

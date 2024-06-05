@@ -83,7 +83,7 @@ export default function DocList(props: DocListProps) {
   })
 
   const [create_loading, set_create_loading] = useState(false)
-  const [selection, set_selection] = useState<typeof doc_list>([])
+  const [selection, set_selection] = useState<Doc[]>([])
   const has_selection = selection.length > 0
 
   useEffect(() => {

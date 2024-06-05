@@ -59,7 +59,7 @@ export default function SpaceDetail() {
           ) : (
             <>
               <Button onClick={do_choosing} prefixIcon={<TbCheckbox className="text-16px color-primary" />}>
-                {t('select.text')}
+                {t('select.multi')}
               </Button>
               <Button prefixIcon={<TbFilter className="text-16px color-primary" />} onClick={open_filter}>
                 {t('filter.text')}

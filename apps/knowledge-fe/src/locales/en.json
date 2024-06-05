@@ -247,6 +247,7 @@
   "seen": "Viewed",
   "select": {
     "text": "Select",
+    "multi": "Select multiple",
     "all": "Select all",
     "cancel": "Cancel selection",
     "cancel_all": "Cancel all",

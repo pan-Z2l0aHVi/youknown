@@ -61,6 +61,7 @@ export default function History() {
     })
   }
 
+  // 当前页面用了虚拟滚动容器，所以禁止 body 滚动
   useLayoutEffect(() => {
     const pre_body_overflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'

@@ -247,6 +247,7 @@
   "seen": "看过",
   "select": {
     "text": "选择",
+    "multi": "批量选择",
     "all": "全选",
     "cancel": "取消选择",
     "cancel_all": "取消全选",
