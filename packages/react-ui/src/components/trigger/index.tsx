@@ -101,7 +101,12 @@ const _Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
     trigger: 'onOpenChange'
   })
 
-  const { refs, context, floatingStyles } = useFloating({
+  const {
+    refs,
+    context,
+    floatingStyles,
+    placement: finalPlacement
+  } = useFloating({
     transform: false,
     open,
     onOpenChange: setOpen,
@@ -164,7 +169,7 @@ const _Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
       else portalEle = <div style={{ width: 'max-content', display: open ? 'initial' : 'none' }}>{popupEle}</div>
       break
     case 'stretch':
-      const [stretchDirection] = placement.split('-') as ('left' | 'top' | 'right' | 'bottom')[]
+      const [stretchDirection] = finalPlacement.split('-') as ('left' | 'top' | 'right' | 'bottom')[]
       portalEle = (
         <Motion.Stretch in={open} mountOnEnter unmountOnExit={unmountOnExit} direction={stretchDirection}>
           {popupEle}
@@ -186,7 +191,7 @@ const _Trigger = (props: TriggerProps, propRef: ForwardedRef<HTMLElement>) => {
         right: 'left',
         'right-end': 'bottom left'
       }
-      const transformOrigin = growOriginMap[placement] ?? 'center'
+      const transformOrigin = growOriginMap[finalPlacement] ?? 'center'
       portalEle = (
         <Motion.Grow in={open} mountOnEnter unmountOnExit={unmountOnExit} style={{ transformOrigin }}>
           {popupEle}

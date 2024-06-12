@@ -1,4 +1,4 @@
-.rich-text-container {
+@mixin rich-text {
   --ui-color-link: #40a9ff;
   --ui-color-link-hover: #0069c2;
   --ui-heading-letter-spacing: -0.5;
@@ -61,11 +61,11 @@
 
   /* ----------------------- CODEBLOCK ------------------------- */
   pre {
+    overflow: auto;
     border: 1px solid var(--ui-divider);
     border-radius: var(--ui-radius-m);
 
     code {
-      overflow-x: auto;
       display: block;
       padding: 1em;
       font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
@@ -125,9 +125,5 @@
         background-color: var(--ui-bg-2);
       }
     }
-  }
-
-  @media (width <= 640px) {
-    padding: 0;
   }
 }

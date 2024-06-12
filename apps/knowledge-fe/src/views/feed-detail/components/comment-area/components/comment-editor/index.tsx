@@ -75,15 +75,13 @@ export default function CommentEditor(props: CommentEditorProps) {
         <>
           {avatar_visible && <Avatar className="mr-16px" size={32} round src={profile?.avatar} />}
           <div className="flex-1 pt-8px b-1 b-solid b-divider rd-radius-m">
-            {is_mobile || (
-              <div className="pl-8px pr-8px">
-                <RTEMenuBar
-                  editor={editor}
-                  list={['|', 'heading', 'bold', 'italic', 'strike', 'code', '|', 'link']}
-                  insertList={['image', 'blockquote', 'codeBlock']}
-                />
-              </div>
-            )}
+            <div className="pl-8px pr-8px">
+              <RTEMenuBar
+                editor={editor}
+                list={['|', 'heading', 'bold', 'italic', 'strike', 'code', '|', 'link']}
+                insertList={['image', 'blockquote', 'codeBlock']}
+              />
+            </div>
             <RTEContent
               className="comment-rich-text-reset text-14px"
               editor={editor}

@@ -57,7 +57,9 @@ const _Input = (props: InputProps, propRef: ForwardedRef<HTMLInputElement>) => {
   const inputRef = useComposeRef(ref, propRef)
   useLayoutEffect(() => {
     if (autoFocus) {
-      ref.current?.focus()
+      setTimeout(() => {
+        ref.current?.focus()
+      })
     }
   }, [autoFocus])
 

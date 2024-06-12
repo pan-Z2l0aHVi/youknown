@@ -78,10 +78,7 @@ export default function CodeBlock(props: CodeBlockProps) {
   )
 
   return (
-    <div
-      className={cls('bg-bg-1 b-1 b-solid b-divider rd-radius-m overflow-hidden', expand && 'shadow-lg', className)}
-      {...rest}
-    >
+    <div className={cls('bg-bg-1 b-1 b-solid b-divider rd-radius-m', expand && 'shadow-lg', className)} {...rest}>
       <Collapse.Panel bordered={false} custom={action_bar} expand={expand}>
         <pre className="m-0 b-0!">
           <code className="bg-bg-1!" ref={code_ref}>

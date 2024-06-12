@@ -50,7 +50,9 @@ const _Textarea = (props: TextareaProps, propRef: ForwardedRef<HTMLTextAreaEleme
   const textareaRef = useComposeRef(propRef, innerRef)
   useLayoutEffect(() => {
     if (autoFocus) {
-      innerRef.current?.focus()
+      setTimeout(() => {
+        innerRef.current?.focus()
+      })
     }
   }, [autoFocus])
 

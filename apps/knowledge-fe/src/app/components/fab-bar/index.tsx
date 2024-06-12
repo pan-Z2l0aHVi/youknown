@@ -55,8 +55,11 @@ export default function FabBar() {
     })
   }
   return (
-    <Space className="z-9 fixed sm:bottom-32px sm:right-48px <sm:right-8px <sm:bottom-80px" direction="vertical">
-      <BackTop />
+    <Space
+      className="z-9 fixed sm:bottom-32px sm:right-48px <sm:right-8px <sm:bottom-80px pointer-events-none"
+      direction="vertical"
+    >
+      <BackTop className="pointer-events-auto" />
 
       {fab_list.map(item => (
         <Tooltip key={item.id} title={item.title} disabled={!item.title}>
@@ -64,7 +67,7 @@ export default function FabBar() {
             aria-label={item.title || 'fab'}
             circle
             size="large"
-            className="shadow-shadow-m"
+            className="pointer-events-auto shadow-shadow-m"
             onClick={item.handler}
           >
             {item.icon}

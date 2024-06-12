@@ -92,7 +92,10 @@ export default function Header(props: HeaderProps) {
           placeholder={t('placeholder.search')}
           outline={false}
           onClick={show_search_modal}
-          onEnter={show_search_modal}
+          onInput={e => {
+            e.currentTarget.value = ''
+            show_search_modal()
+          }}
         />
       )}
     </>

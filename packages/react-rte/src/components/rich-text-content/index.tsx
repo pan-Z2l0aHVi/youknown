@@ -1,5 +1,4 @@
 import './index.scss'
-import '@youknown/css/src/rte.scss'
 
 import { EditorContent } from '@tiptap/react'
 import { cls } from '@youknown/utils/src'

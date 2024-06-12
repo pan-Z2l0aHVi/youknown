@@ -3,8 +3,7 @@
 @use '@youknown/css/src/rte.scss' as *;
 
 .#{$ui-editor-prefix}-content {
-  /* stylelint-disable-next-line scss/at-extend-no-missing-placeholder */
-  @extend .rich-text-container;
+  @include rich-text;
 
   position: relative;
   padding: 8px 8px 8px 16px;

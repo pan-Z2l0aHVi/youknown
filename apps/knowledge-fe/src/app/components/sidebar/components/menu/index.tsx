@@ -155,10 +155,12 @@ export default function Menu({ expand }: MenuProps) {
                     })}
                   >
                     {children.map(child => {
+                      const { title, icon } = child.meta
+                      const sub_nav_title = title()
                       return (
                         <Tooltip
                           key={child.path}
-                          title={child.meta.title()}
+                          title={sub_nav_title}
                           placement="right"
                           spacing={20}
                           disabled={expand}
@@ -175,9 +177,11 @@ export default function Menu({ expand }: MenuProps) {
                               )
                             }
                           >
-                            <div className="leading-0 text-18px color-primary">{child.meta.icon}</div>
+                            <div className="leading-0 text-18px color-primary">{icon}</div>
                             <Motion.Fade in={expand} mountOnEnter unmountOnExit>
-                              <div className="flex-1 break-all ws-nowrap truncate ml-8px">{child.meta.title()}</div>
+                              <div className="flex-1 break-all ws-nowrap truncate ml-8px" title={sub_nav_title}>
+                                {sub_nav_title}
+                              </div>
                             </Motion.Fade>
                           </TransitionNavLink>
                         </Tooltip>

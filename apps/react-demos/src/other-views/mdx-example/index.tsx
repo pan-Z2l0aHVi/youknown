@@ -1,5 +1,3 @@
-import '@youknown/css/src/rte.scss'
-
 import type { MDXComponents } from 'mdx/types'
 import { isValidElement } from 'react'
 
