@@ -3,6 +3,32 @@ import { TbUser } from 'react-icons/tb'
 
 export default () => {
   const picSrc = 'https://iph.href.lu/200x200'
+  const items = [
+    {
+      name: 11,
+      src: picSrc
+    },
+    {
+      name: 22,
+      src: picSrc
+    },
+    {
+      name: 33,
+      src: picSrc
+    },
+    {
+      name: 44,
+      src: picSrc
+    },
+    {
+      name: 55,
+      src: picSrc
+    },
+    {
+      name: 66,
+      src: picSrc
+    }
+  ]
   return (
     <div>
       <h1>Avatar</h1>
@@ -27,29 +53,17 @@ export default () => {
       <Divider />
       <Avatar badge="99+" src={picSrc} />
       <Divider />
-      <Avatar.Group size="small">
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-      </Avatar.Group>
-      <Divider />
-      <Avatar.Group size="medium">
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-      </Avatar.Group>
-      <Divider />
-      <Avatar.Group size="large">
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-      </Avatar.Group>
+      <Avatar.Group
+        round
+        max={4}
+        items={items}
+        renderAvatar={({ src }) => <Avatar src={src} />}
+        renderRest={restItems => (
+          <div className="relative flex items-center justify-center w-40px h-40px rd-full bg-#999 color-#fff b-2 b-solid b-#fff">
+            +{restItems.length}
+          </div>
+        )}
+      />
     </div>
   )
 }

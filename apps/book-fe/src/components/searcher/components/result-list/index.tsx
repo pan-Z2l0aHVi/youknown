@@ -3,7 +3,7 @@ import { Button } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import type { ReactNode } from 'react'
 import { forwardRef, useEffect, useRef } from 'react'
-import { TbArrowBack } from 'react-icons/tb'
+import { TbArrowRight } from 'react-icons/tb'
 import scrollIntoView from 'scroll-into-view-if-needed'
 
 import { RouteItem } from '@/router/routes'
@@ -90,7 +90,7 @@ const ResultList = forwardRef<HTMLDivElement, ResultListProps>((props, prop_ref)
               <div className="line-clamp-1 font-600 color-text-2">{item.meta?.title?.()}</div>
             </div>
             <Button text square onClick={() => go_detail(item)}>
-              <TbArrowBack className="color-primary text-16px" />
+              <TbArrowRight className="color-primary text-16px" />
             </Button>
           </div>
         )

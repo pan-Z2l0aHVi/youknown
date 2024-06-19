@@ -1,7 +1,7 @@
 import { useEvent } from '@youknown/react-hook/src'
 import { Button, Dialog, Input, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
-import { useDeferredValue, useLayoutEffect, useMemo, useState } from 'react'
+import { useDeferredValue, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbSearch, TbTrash } from 'react-icons/tb'
 
@@ -60,15 +60,6 @@ export default function History() {
       closeIcon: null
     })
   }
-
-  // 当前页面用了虚拟滚动容器，所以禁止 body 滚动
-  useLayoutEffect(() => {
-    const pre_body_overflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = pre_body_overflow
-    }
-  }, [])
 
   return (
     <>

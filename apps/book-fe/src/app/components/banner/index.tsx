@@ -17,7 +17,7 @@ export default function Banner() {
   }, [set_banner_visible])
 
   const hide = () => {
-    storage.local.set(CLOSED_KEY, 1, 7 * 24 * 60 * 60 * 1000)
+    storage.local.set(CLOSED_KEY, 1, 30 * 24 * 60 * 60 * 1000)
     set_banner_visible(false)
   }
 

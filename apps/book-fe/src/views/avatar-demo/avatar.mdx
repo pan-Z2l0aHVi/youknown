@@ -103,16 +103,6 @@ export function AvatarSize() {
           <span className="text-12px">Text</span>
         </Avatar>
       </Space>
-      <Divider />
-      <Space>
-        <Avatar.Group size={size}>
-          <Avatar round src={picSrc} />
-          <Avatar round src={picSrc} />
-          <Avatar round src={picSrc} />
-          <Avatar round src={picSrc} />
-          <Avatar round src={picSrc} />
-        </Avatar.Group>
-      </Space>
     </>
   )
 }
@@ -164,15 +154,39 @@ export default () => {
 ### 头像组
 
 export function AvatarGroup() {
-  return (
-    <Avatar.Group>
-      <Avatar round src={picSrc} />
-      <Avatar round src={picSrc} />
-      <Avatar round src={picSrc} />
-      <Avatar round src={picSrc} />
-      <Avatar round src={picSrc} />
-    </Avatar.Group>
+  const items = [
+    {
+      name: 11,
+      src: picSrc
+    },
+    {
+      name: 22,
+      src: picSrc
+    },
+    {
+      name: 33,
+      src: picSrc
+    },
+    {
+      name: 44,
+      src: picSrc
+    },
+    {
+      name: 55,
+      src: picSrc
+    },
+    {
+      name: 66,
+      src: picSrc
+    }
+  ]
+  const renderAvatar = ({ src }) => <Avatar src={src} />
+  const renderRest = restItems => (
+    <div className="relative flex items-center justify-center w-40px h-40px rd-full bg-#999 color-#fff b-2 b-solid b-#fff">
+      +{restItems.length}
+    </div>
   )
+  return <Avatar.Group round max={4} items={items} renderAvatar={renderAvatar} renderRest={renderRest} />
 }
 
 <AvatarGroup />
@@ -184,21 +198,45 @@ import { Avatar } from '@youknown/react-ui'
 
 export default () => {
   const picSrc = 'https://iph.href.lu/200x200'
-  return (
-    <>
-      <Avatar.Group>
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-        <Avatar round src={picSrc} />
-      </Avatar.Group>
-    </>
+  const items = [
+    {
+      name: 11,
+      src: picSrc
+    },
+    {
+      name: 22,
+      src: picSrc
+    },
+    {
+      name: 33,
+      src: picSrc
+    },
+    {
+      name: 44,
+      src: picSrc
+    },
+    {
+      name: 55,
+      src: picSrc
+    },
+    {
+      name: 66,
+      src: picSrc
+    }
+  ]
+  const renderAvatar = ({ src }) => <Avatar src={src} />
+  const renderRest = restItems => (
+    <div className="relative flex items-center justify-center w-40px h-40px rd-full bg-#999 color-#fff b-2 b-solid b-#fff">
+      +{restItems.length}
+    </div>
   )
+  return <Avatar.Group round max={4} items={items} renderAvatar={renderAvatar} renderRest={renderRest} />
 }
 ```
 
 ## API
+
+### Avatar Props
 
 | 属性       | 说明           | 类型                                       | 默认值             |
 | ---------- | -------------- | ------------------------------------------ | ------------------ |
@@ -209,3 +247,24 @@ export default () => {
 | src        | 图像地址       | `string`                                   | `''`               |
 | color      | 背景色         | `string`                                   | `'var(--ui-bg-3)'` |
 | badge      | 角标           | `React.ReactNode`                          | -                  |
+
+### Avatar.Group Props
+
+| 属性         | 说明           | 类型                                         | 默认值     |
+| ------------ | -------------- | -------------------------------------------- | ---------- |
+| bordered     | 有边框         | `boolean`                                    | `false`    |
+| size         | 大小           | `number \| 'small' \| 'medium' \| 'large'`   | `'medium'` |
+| round        | 大圆角形状     | `boolean`                                    | `false`    |
+| max          | 最大数量       | `number`                                     | `Infinity` |
+| offset       | 偏移量         | `number`                                     | `12`       |
+| items        | 头像配置项列表 | `AvatarOption[]`                             | `[]`       |
+| renderAvatar | 头像渲染函数   | `(item: AvatarOption) => React.ReactNode`    | -          |
+| renderRest   | 剩余项渲染函数 | `(items: AvatarOption[]) => React.ReactNode` | -          |
+
+### AvatarOption
+
+name 必传，对象的其他属性透传
+
+| 参数 | 说明     | 类型     |
+| ---- | -------- | -------- |
+| name | 头像 key | `string` |

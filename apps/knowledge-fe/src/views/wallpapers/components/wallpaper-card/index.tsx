@@ -1,8 +1,8 @@
 import { useBoolean, useContextMenu, useFetch } from '@youknown/react-hook/src'
-import { ContextMenu, Dialog, Dropdown, Image, Loading, Motion, Tag, Toast, Tooltip } from '@youknown/react-ui/src'
+import { ContextMenu, Dialog, Dropdown, Image, Loading, Motion, Toast, Tooltip } from '@youknown/react-ui/src'
 import { cls, downloadFile, QS } from '@youknown/utils/src'
 import copy from 'copy-to-clipboard'
-import { Fragment, memo, useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CgSpinner } from 'react-icons/cg'
 import { FiDownloadCloud, FiInfo } from 'react-icons/fi'
@@ -12,12 +12,13 @@ import { RxDotsHorizontal } from 'react-icons/rx'
 import { TbEyeCheck, TbPhotoSearch } from 'react-icons/tb'
 
 import { cancel_collect_wallpaper, collect_wallpaper } from '@/apis/user'
-import type { Wallpaper, WallpaperTag } from '@/apis/wallpaper'
+import type { Wallpaper } from '@/apis/wallpaper'
 import { get_wallpaper_info } from '@/apis/wallpaper'
 import { is_dark_theme_getter, useModalStore, useRecordStore, useUIStore, useUserStore } from '@/stores'
-import { format_file_size, format_time } from '@/utils'
 import { find_wallpaper_seen, insert_wallpaper_seen } from '@/utils/idb'
 import { with_api } from '@/utils/request'
+
+import WallpaperDetail from '../wallpaper-detail'
 
 interface WallpaperCardProps {
   className?: string
@@ -116,82 +117,12 @@ function WallpaperCard(props: WallpaperCardProps) {
   const [menu_open, set_menu_open] = useState(false)
   const ctx_menu = useContextMenu(menu_open, set_menu_open)
 
-  const render_detail_content = (detail: Wallpaper) => {
-    const format_tag_color_cls = (tag: WallpaperTag) => {
-      return (
-        {
-          sfw: 'color-emerald!',
-          sketchy: 'color-yellow!',
-          nsfw: 'color-red!'
-        }[tag.purity] ?? ''
-      )
-    }
-    const format_cate = () => {
-      return {
-        general: t('form.general'),
-        anime: t('form.anime'),
-        people: t('form.people')
-      }[detail.category]
-    }
-
-    const info_list = [
-      {
-        label: t('created_at'),
-        value: format_time(detail.created_at)
-      },
-      {
-        label: t('size'),
-        value: format_file_size(detail.file_size)
-      },
-      {
-        label: t('cate'),
-        value: format_cate()
-      },
-      {
-        label: t('form.views'),
-        value: detail.views
-      },
-      {
-        label: t('form.favorites'),
-        value: detail.favorites
-      }
-    ]
-
-    return (
-      <div className="p-24px">
-        <div className="text-center font-600 text-18px mb-16px">
-          {detail.dimension_x} x {detail.dimension_y}
-        </div>
-
-        <div className="grid grid-cols-2 items-center gap-x-12px gap-y-4px text-12px mb-8px">
-          {info_list.map(item => (
-            <Fragment key={item.label}>
-              <div className="w2-50% text-right color-text-3">{item.label}</div>
-              <div className="w2-50% text-left color-text-2">{item.value}</div>
-            </Fragment>
-          ))}
-        </div>
-
-        <div className="font-600 text-16px mb-8px">{t('tags')}</div>
-        <div className="flex flex-wrap m--4px">
-          {detail.tags?.map(tag => {
-            return (
-              <Tag key={tag.id} className={cls('m-4px', format_tag_color_cls(tag))}>
-                {tag.name}
-              </Tag>
-            )
-          })}
-        </div>
-      </div>
-    )
-  }
-
   const { run: fetch_detail, loading } = useFetch(get_wallpaper_info, {
     params: [{ url: wallpaper.url }],
     manual: true,
     onSuccess(data) {
       Dialog.confirm({
-        content: render_detail_content(data),
+        content: <WallpaperDetail wallpaper={data} />,
         footer: null,
         header: null,
         className: 'w-480px! max-w-[calc(100vw-32px)]',
@@ -271,59 +202,51 @@ function WallpaperCard(props: WallpaperCardProps) {
     )
   }
 
-  const seen_ele = (
+  const seen_ele = seen ? (
+    <Tooltip placement="bottom" title={t('seen')}>
+      <div
+        className={cls(
+          'absolute top-8px right-8px flex items-center justify-center',
+          'leading-none w-24px h-24px rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl'
+        )}
+      >
+        <TbEyeCheck className="text-16px color-#fff" />
+      </div>
+    </Tooltip>
+  ) : null
+
+  const operator_bar = img_loaded ? (
     <>
-      {seen && (
-        <Tooltip placement="bottom" title={t('seen')}>
+      <Motion.Fade in={hovered && !more_open}>
+        <div
+          className={cls(
+            'absolute bottom-8px left-8px',
+            'rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl',
+            'flex items-center h-24px leading-none pl-6px pr-6px text-12px color-#fff',
+            'pointer-events-none'
+          )}
+        >
+          {wallpaper.dimension_x} X {wallpaper.dimension_y}
+        </div>
+      </Motion.Fade>
+
+      <Dropdown trigger="click" spacing={4} content={get_dropdown_menu()} onOpenChange={set_more_open}>
+        <Motion.Fade in={hovered || more_open}>
           <div
             className={cls(
-              'absolute top-8px right-8px flex items-center justify-center',
-              'leading-none w-24px h-24px rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl'
+              'absolute bottom-8px right-8px',
+              'rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl',
+              '[@media(hover:hover)]-hover-bg-primary active-bg-primary',
+              'flex items-center justify-center w-24px h-24px cursor-pointer select-none'
             )}
+            onClick={start_hover}
           >
-            <TbEyeCheck className="text-16px color-#fff" />
+            <RxDotsHorizontal className="color-#fff text-16px" />
           </div>
-        </Tooltip>
-      )}
+        </Motion.Fade>
+      </Dropdown>
     </>
-  )
-
-  const operator_bar = (
-    <>
-      {img_loaded && (
-        <>
-          <Motion.Fade in={hovered && !more_open}>
-            <div
-              className={cls(
-                'absolute bottom-8px left-8px',
-                'rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl',
-                'flex items-center h-24px leading-none pl-6px pr-6px text-12px color-#fff',
-                'pointer-events-none'
-              )}
-            >
-              {wallpaper.dimension_x} X {wallpaper.dimension_y}
-            </div>
-          </Motion.Fade>
-
-          <Dropdown trigger="click" spacing={4} content={get_dropdown_menu()} onOpenChange={set_more_open}>
-            <Motion.Fade in={hovered || more_open}>
-              <div
-                className={cls(
-                  'absolute bottom-8px right-8px',
-                  'rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl',
-                  '[@media(hover:hover)]-hover-bg-primary active-bg-primary',
-                  'flex items-center justify-center w-24px h-24px cursor-pointer select-none'
-                )}
-                onClick={start_hover}
-              >
-                <RxDotsHorizontal className="color-#fff text-16px" />
-              </div>
-            </Motion.Fade>
-          </Dropdown>
-        </>
-      )}
-    </>
-  )
+  ) : null
 
   const BASE_PIXEL = 320
   let image_w: number

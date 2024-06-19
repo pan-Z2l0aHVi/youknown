@@ -1,9 +1,8 @@
-import { useBoolean, useHover } from '@youknown/react-hook/src'
+import { useBoolean } from '@youknown/react-hook/src'
 import { Avatar, Button, Dialog, Tooltip } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import { useTranslation } from 'react-i18next'
 import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa6'
-import { TbDots } from 'react-icons/tb'
 
 import type { Feed } from '@/apis/feed'
 import { useFeedLike } from '@/hooks/use-feed-like'
@@ -19,12 +18,12 @@ export default function LikeArea(props: LikeAreaProps) {
   const is_dark_theme = useUIStore(is_dark_theme_getter)
   const is_mobile = useUIStore(state => state.is_mobile)
   const { like_list, like_count, toggle_like, liked } = useFeedLike(feed)
-  const [open, { setTrue: show, setFalse: hide }] = useBoolean(false)
+  const [liked_members_open, { setTrue: show_liked_members, setFalse: hide_liked_members }] = useBoolean(false)
 
-  const like_list_modal = (
+  const liked_members_modal = (
     <Dialog
-      open={open}
-      onCancel={hide}
+      open={liked_members_open}
+      onCancel={hide_liked_members}
       header={null}
       footer={null}
       closeIcon={null}
@@ -43,14 +42,11 @@ export default function LikeArea(props: LikeAreaProps) {
     </Dialog>
   )
 
-  const [like_action_btn] = useHover(hovered => {
-    const icon_cls = hovered ? 'text-20px' : 'text-20px color-primary'
-    return (
-      <Button className="b-primary! b-2!" size="large" circle primary={hovered} onClick={toggle_like}>
-        {liked ? <FaThumbsUp className={icon_cls} /> : <FaRegThumbsUp className={icon_cls} />}
-      </Button>
-    )
-  })
+  const like_action_btn = (
+    <Button size="large" circle primary onClick={toggle_like}>
+      {liked ? <FaThumbsUp className="text-20px" /> : <FaRegThumbsUp className="text-20px" />}
+    </Button>
+  )
 
   return (
     <>
@@ -61,19 +57,30 @@ export default function LikeArea(props: LikeAreaProps) {
 
       {like_list.length > 0 && (
         <>
-          <div className="flex items-center w-max m-[0_auto] mt-16px">
-            <Avatar.Group size={36}>
-              {like_list.slice(0, 10).map(user => (
-                <Tooltip key={user.user_id} trigger={is_mobile ? 'click' : 'hover'} title={user.nickname}>
-                  <Avatar round src={user.avatar} />
+          <div className="flex items-center w-max m-[0_auto]">
+            <Avatar.Group
+              max={10}
+              items={like_list.map(like_item => ({
+                ...like_item,
+                name: like_item.user_id,
+                src: like_item.avatar
+              }))}
+              renderAvatar={item => (
+                <Tooltip key={item.name} trigger={is_mobile ? 'click' : 'hover'} title={item.nickname}>
+                  <Avatar round src={item.src} />
                 </Tooltip>
-              ))}
-            </Avatar.Group>
-            <Button className="p-0! ml-4px" circle onClick={show}>
-              <TbDots className="text-16px" />
-            </Button>
+              )}
+              renderRest={rest_items => (
+                <div
+                  className="relative flex items-center justify-center w-40px h-40px rd-full bg-#999 color-#fff b-2 b-solid b-#fff cursor-pointer"
+                  onClick={show_liked_members}
+                >
+                  +{rest_items.length}
+                </div>
+              )}
+            />
           </div>
-          {like_list_modal}
+          {liked_members_modal}
         </>
       )}
     </>

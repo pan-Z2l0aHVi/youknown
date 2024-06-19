@@ -1,7 +1,10 @@
 @use '@youknown/css/src/rte.scss' as *;
 
-body {
+html {
   scrollbar-width: thin;
+}
+
+body {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: var(--ui-font-size-m);
   -moz-osx-font-smoothing: auto;

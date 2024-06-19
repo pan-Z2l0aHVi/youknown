@@ -69,7 +69,7 @@ export default function Menu({ expand }: MenuProps) {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide select-none p-[12px_12px_40px]">
+    <div className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide select-none p-12px">
       {nav_list.map(menu_item => {
         const { path, meta } = menu_item
         const { children = [] } = menu_item

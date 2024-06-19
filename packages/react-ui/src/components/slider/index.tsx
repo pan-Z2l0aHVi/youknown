@@ -1,7 +1,7 @@
 import './slider.scss'
 
 import { useBoolean, useComposeRef, useControllable, useEvent, useLatestRef } from '@youknown/react-hook/src'
-import { cls, omit } from '@youknown/utils/src'
+import { checkTouchable, cls, omit } from '@youknown/utils/src'
 import type { ForwardedRef, HTMLAttributes, KeyboardEventHandler, MouseEventHandler } from 'react'
 import { forwardRef, useLayoutEffect, useRef, useState } from 'react'
 
@@ -40,20 +40,36 @@ const _Slider = (props: SliderProps, propRef: ForwardedRef<HTMLDivElement>) => {
   const [value, setValue] = useControllable(props, {
     defaultValue: min
   })
-  const [dragging, { setTrue: start_drag, setFalse: stop_drag }] = useBoolean(false)
-  const draggingRef = useLatestRef(dragging)
   const defaultPercent = toPercent(value / (max - min))
   const [left, setLeft] = useState(defaultPercent)
   const [bottom, setBottom] = useState(defaultPercent)
   const trackRef = useRef<HTMLDivElement>(null)
   const ref = useComposeRef(trackRef, propRef)
+  const handleRef = useRef<HTMLButtonElement>(null)
+  // 触控事件时 hover 失效，tooltip 手动控制
+  const canTouch = checkTouchable()
+  const [sliding, { setTrue: startSliding, setFalse: stopSliding }] = useBoolean(false)
+  const slidingRef = useLatestRef(sliding)
+
+  const timerRef = useRef(0)
+  const flashTooltip = () => {
+    startSliding()
+    clearTimeout(timerRef.current)
+    timerRef.current = window.setTimeout(() => {
+      stopSliding()
+    }, 500)
+  }
+
+  const focusHandle = () => {
+    handleRef.current?.focus()
+  }
 
   const handleMousedown = useEvent(() => {
     if (disabled) {
       return
     }
     const handleMousemove = (event: MouseEvent) => {
-      if (!draggingRef.current) return
+      if (!slidingRef.current) return
       if (vertical) {
         updateBottomByClientY(event.clientY)
       } else {
@@ -69,10 +85,11 @@ const _Slider = (props: SliderProps, propRef: ForwardedRef<HTMLDivElement>) => {
       document.removeEventListener('mouseup', handleMouseup)
     }
     const handleMouseup = () => {
-      stop_drag()
+      stopSliding()
       offMouseEvents()
     }
-    start_drag()
+    focusHandle()
+    startSliding()
     onMouseEvents()
   })
 
@@ -81,7 +98,7 @@ const _Slider = (props: SliderProps, propRef: ForwardedRef<HTMLDivElement>) => {
     if (event.touches.length !== 1) return
 
     const handleTouchmove = (event: TouchEvent) => {
-      if (!draggingRef.current) return
+      if (!slidingRef.current) return
       if (event.touches.length !== 1) return
       const [touch] = event.touches
       if (vertical) {
@@ -101,10 +118,11 @@ const _Slider = (props: SliderProps, propRef: ForwardedRef<HTMLDivElement>) => {
       document.removeEventListener('touchcancel', handleTouchStop)
     }
     const handleTouchStop = () => {
-      stop_drag()
+      stopSliding()
       offTouchEvents()
     }
-    start_drag()
+    focusHandle()
+    startSliding()
     onTouchEvents()
   })
 
@@ -158,36 +176,51 @@ const _Slider = (props: SliderProps, propRef: ForwardedRef<HTMLDivElement>) => {
     updateBottom(1 - offsetY / height)
   }
 
-  const handleClick: MouseEventHandler<HTMLDivElement> = event => {
+  const handleOffsetClick: MouseEventHandler<HTMLDivElement> = event => {
     if (disabled) {
       return
     }
     onClick?.(event)
+    focusHandle()
     if (vertical) {
       updateBottomByClientY(event.clientY)
     } else {
       updateLeftByClientX(event.clientX)
     }
+    flashTooltip()
   }
 
   const handleKeydown: KeyboardEventHandler<HTMLButtonElement> = event => {
-    if (!trackRef.current) return
+    if (disabled) {
+      return
+    }
+    if (!trackRef.current) {
+      return
+    }
+    flashTooltip()
     const percent = (value - min) / (max - min)
-    switch (event.code) {
-      case 'ArrowLeft':
-        updateLeft(percent - step / 100)
-        break
-      case 'ArrowRight':
-        updateLeft(percent + step / 100)
-        break
-      case 'ArrowUp':
-        updateBottom(percent + step / 100)
-        break
-      case 'ArrowDown':
-        updateBottom(percent - step / 100)
-        break
-      default:
-        break
+    if (vertical) {
+      switch (event.code) {
+        case 'ArrowUp':
+          updateBottom(percent + step / 100)
+          break
+        case 'ArrowDown':
+          updateBottom(percent - step / 100)
+          break
+        default:
+          break
+      }
+    } else {
+      switch (event.code) {
+        case 'ArrowLeft':
+          updateLeft(percent - step / 100)
+          break
+        case 'ArrowRight':
+          updateLeft(percent + step / 100)
+          break
+        default:
+          break
+      }
     }
   }
 
@@ -208,7 +241,8 @@ const _Slider = (props: SliderProps, propRef: ForwardedRef<HTMLDivElement>) => {
   } else {
     handleStyle = { left }
   }
-  const tooltipProps = dragging ? { open: dragging } : {}
+
+  const tooltipProps = canTouch ? { open: sliding } : {}
   const prefixCls = `${UI_PREFIX}-slider`
 
   return (
@@ -218,16 +252,24 @@ const _Slider = (props: SliderProps, propRef: ForwardedRef<HTMLDivElement>) => {
         [`${prefixCls}-disabled`]: disabled,
         [`${prefixCls}-vertical`]: vertical
       })}
-      onClick={handleClick}
+      onClick={handleOffsetClick}
       {...rest}
     >
       <div className={cls(`${prefixCls}-offset`)} style={offsetStyle}></div>
-      <Tooltip title={tooltipFormatter(value)} {...tooltipProps}>
+      <Tooltip
+        ref={handleRef}
+        trigger={canTouch ? 'manual' : 'hover'}
+        placement={vertical ? 'right' : 'top'}
+        title={tooltipFormatter(value)}
+        {...tooltipProps}
+      >
         <button
+          type="button"
           className={cls(`${prefixCls}-handle`)}
           style={handleStyle}
           onMouseDown={handleMousedown}
           onTouchStart={handleTouchStart}
+          onTouchEnd={stopSliding}
           onKeyDown={handleKeydown}
         ></button>
       </Tooltip>

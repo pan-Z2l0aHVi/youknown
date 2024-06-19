@@ -9,7 +9,7 @@ $prefix: '#{$ui-prefix}-avatar-group';
   align-items: center;
   width: max-content;
 
-  > .#{'#{$ui-prefix}-avatar'} {
+  .#{'#{$ui-prefix}-avatar'} {
     border: 2px solid $bg-0;
   }
 }
