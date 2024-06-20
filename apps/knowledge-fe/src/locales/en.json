@@ -264,7 +264,8 @@
     "language": "Language",
     "system": "System default",
     "light": "Light",
-    "dark": "Dark"
+    "dark": "Dark",
+    "compress_upload": "Image compress before upload"
   },
   "share": {
     "text": "Share"

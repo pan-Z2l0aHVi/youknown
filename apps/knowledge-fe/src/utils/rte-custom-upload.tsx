@@ -3,6 +3,7 @@ import type { ImageAttrs } from '@youknown/react-rte/src/extensions/image'
 import { Image, Toast } from '@youknown/react-ui/src'
 
 import { upload_cloudflare_r2 } from './cloudflare-r2'
+import { compress_image } from './compress'
 
 const { t } = await import('i18next')
 
@@ -25,8 +26,7 @@ export function onCustomUpload(file: File, editor: Editor) {
           editor.setEditable(true)
         }
         try {
-          const { compressImage } = await import('@youknown/img-wasm/src')
-          const compressed_file = await compressImage(result, 1600, 1200)
+          const compressed_file = await compress_image(result, 1600, 1200)
           upload_cloudflare_r2(compressed_file, {
             progress(progress) {
               toast.update({

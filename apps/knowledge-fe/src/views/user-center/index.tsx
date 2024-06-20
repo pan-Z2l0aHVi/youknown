@@ -12,6 +12,7 @@ import { GENERAL_IMAGE_ACCEPT } from '@/consts'
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
+import { compress_image } from '@/utils/compress'
 
 import Entires from './components/entries'
 import FollowBtn from './components/follow-btn'
@@ -48,8 +49,7 @@ export default function UserCenter() {
         onCancel: reject,
         async onCrop(result) {
           try {
-            const { compressImage } = await import('@youknown/img-wasm/src')
-            const compressed_file = await compressImage(result, 520, 520)
+            const compressed_file = await compress_image(result, 520, 520)
             upload_cloudflare_r2(compressed_file, {
               complete(url) {
                 resolve(url)

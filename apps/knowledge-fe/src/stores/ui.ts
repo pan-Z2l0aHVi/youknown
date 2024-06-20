@@ -24,6 +24,7 @@ export interface UIState {
   radius: number[]
   theme: THEME
   i18n_lang: I18N_LANG
+  compress_upload: boolean
   banner_visible: boolean
   set_is_mobile: (is_mobile: boolean) => void
   set_progress_percent: (percent: number) => void
@@ -35,6 +36,7 @@ export interface UIState {
   set_radius: (radius: number[]) => void
   set_theme: (theme: THEME) => void
   set_i18n_lang: (lang: I18N_LANG) => void
+  set_compress_upload: (compress_upload: boolean) => void
   set_banner_visible: (banner_visible: boolean) => void
 }
 
@@ -46,6 +48,7 @@ const ui_state_creator: StateCreator<UIState> = (set, get) => ({
   radius: [4, 8, 12],
   theme: THEME.SYSTEM,
   i18n_lang: I18N_LANG.SYSTEM,
+  compress_upload: true,
   banner_visible: false,
 
   set_is_mobile: (is_mobile: boolean) =>
@@ -94,6 +97,7 @@ const ui_state_creator: StateCreator<UIState> = (set, get) => ({
   set_radius: radius => set({ radius }),
   set_theme: theme => set({ theme }),
   set_i18n_lang: lang => set({ i18n_lang: lang }),
+  set_compress_upload: (compress_upload: boolean) => set({ compress_upload }),
   set_banner_visible: (banner_visible: boolean) => set({ banner_visible })
 })
 

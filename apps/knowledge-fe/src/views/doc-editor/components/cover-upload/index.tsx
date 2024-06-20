@@ -11,6 +11,7 @@ import { update_doc } from '@/apis/doc'
 import { GENERAL_IMAGE_ACCEPT } from '@/consts'
 import { useUIStore } from '@/stores'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
+import { compress_image } from '@/utils/compress'
 import { with_api } from '@/utils/request'
 
 type UploadFiles = Required<ComponentProps<typeof Upload>>['value']
@@ -50,8 +51,7 @@ export default function CoverUpload(props: CoverUploadProps) {
         async onCrop(result) {
           start_updating()
           try {
-            const { compressImage } = await import('@youknown/img-wasm/src')
-            const compressed_file = await compressImage(result, 1600, 1200)
+            const compressed_file = await compress_image(result, 1600, 1200)
             upload_cloudflare_r2(compressed_file, {
               complete(url) {
                 save_doc_cover(url).finally(() => {

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import { GENERAL_IMAGE_ACCEPT } from '@/consts'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
+import { compress_image } from '@/utils/compress'
 
 type UploadFiles = Required<ComponentProps<typeof Upload>>['value']
 interface PicUploadProps {
@@ -40,8 +41,7 @@ export default function PicUpload(props: PicUploadProps) {
         async onCrop(result) {
           set_uploading(true)
           try {
-            const { compressImage } = await import('@youknown/img-wasm/src')
-            const compressed_file = await compressImage(result, 1600, 1200)
+            const compressed_file = await compress_image(result, 1600, 1200)
             upload_cloudflare_r2(compressed_file, {
               progress(progress) {
                 set_progress(progress.percent)

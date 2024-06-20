@@ -264,7 +264,8 @@
     "language": "语言",
     "system": "跟随系统",
     "light": "亮色",
-    "dark": "暗色"
+    "dark": "暗色",
+    "compress_upload": "图片压缩上传"
   },
   "share": {
     "text": "分享"
