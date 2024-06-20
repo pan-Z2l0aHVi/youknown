@@ -22,8 +22,9 @@
     },
     "dependencies": {
         "@jsquash/jpeg": "^1.4.0",
-        "@jsquash/oxipng": "^2.2.0",
-        "@jsquash/png": "^2.2.0",
+        "@jsquash/oxipng": "^2.3.0",
+        "@jsquash/png": "^3.0.1",
+        "@jsquash/resize": "^2.0.0",
         "@jsquash/webp": "^1.4.0"
     },
     "lint-staged": {

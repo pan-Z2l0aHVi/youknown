@@ -1,12 +1,12 @@
 import { Image, Progress, Upload } from '@youknown/react-ui/src'
 import type { ComponentProps } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { IMAGE_ACCEPT } from '@/consts'
+import { GENERAL_IMAGE_ACCEPT } from '@/consts'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 
-type UploadFile = Required<ComponentProps<typeof Upload>>['value']
+type UploadFiles = Required<ComponentProps<typeof Upload>>['value']
 interface PicUploadProps {
   value?: string
   onChange?: (value: string) => void
@@ -17,8 +17,15 @@ export default function PicUpload(props: PicUploadProps) {
   const { value = '', onChange, uploading, set_uploading } = props
   const { t } = useTranslation()
   const [progress, set_progress] = useState(0)
-  const [file_list, set_file_list] = useState<UploadFile>([])
+  const [file_list, set_file_list] = useState<UploadFiles>([])
   const preview_url = file_list[file_list.length - 1]?.previewURL ?? ''
+
+  useEffect(
+    () => () => {
+      set_uploading(false)
+    },
+    [set_uploading]
+  )
 
   const upload_cover = (file: File) =>
     new Promise<string>((resolve, reject) => {
@@ -61,7 +68,7 @@ export default function PicUpload(props: PicUploadProps) {
     })
 
   return (
-    <Upload accept={IMAGE_ACCEPT} action={upload_cover} value={file_list} onChange={set_file_list}>
+    <Upload accept={GENERAL_IMAGE_ACCEPT} action={upload_cover} value={file_list} onChange={set_file_list}>
       <div className="relative flex items-center justify-center sm:w-200px sm:h-120px <sm:w-120px <sm:h-72px">
         {uploading ? (
           <>

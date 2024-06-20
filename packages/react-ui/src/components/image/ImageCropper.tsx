@@ -105,7 +105,7 @@ function _ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperR
     setLoading(true)
     try {
       const base64 = await cropImageToBase64({ file, pixelCrop: cropPixelsRef.current, rotation })
-      const result = await base64ToFile(base64, file.name)
+      const result = await base64ToFile(base64, file.name, { type: file.type })
       onCrop?.(result)
       onClose?.()
     } catch (error) {

@@ -11,4 +11,5 @@ export const enum LOGIN_TYPE {
   WECHAT = 2
 }
 
-export const IMAGE_ACCEPT = 'image/*'
+export const ALL_IMAGE_ACCEPT = 'image/*'
+export const GENERAL_IMAGE_ACCEPT = 'image/jpeg, image/png, image/webp'

@@ -8,7 +8,7 @@ import { useSearchParams } from 'react-router-dom'
 import { get_user_info } from '@/apis/user'
 import Header from '@/app/components/header'
 import TabBar from '@/app/components/tab-bar'
-import { IMAGE_ACCEPT } from '@/consts'
+import { GENERAL_IMAGE_ACCEPT } from '@/consts'
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
@@ -128,7 +128,12 @@ export default function UserCenter() {
       ) : (
         <>
           {is_editing ? (
-            <Upload className="absolute! top--45px <sm:left-16px" circle accept={IMAGE_ACCEPT} action={upload_avatar} />
+            <Upload
+              className="absolute! top--45px <sm:left-16px"
+              circle
+              accept={GENERAL_IMAGE_ACCEPT}
+              action={upload_avatar}
+            />
           ) : (
             <Avatar
               className="absolute! top--45px <sm:left-16px shadow-shadow-l"

@@ -4,8 +4,8 @@ import type { Editor } from '@tiptap/react'
 import { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom'
 
-const isReact18 = Number(ReactDOM.version?.split('.')[0]) > 17
-const flushSyncProps = isReact18 ? { flushSync: ReactDOM.flushSync } : {}
+const overReact18 = Number(ReactDOM.version?.split('.')[0]) > 17
+const flushSyncProps = overReact18 ? { flushSync: ReactDOM.flushSync } : {}
 const Moveable = lazy(() => import('react-moveable'))
 
 export default function ImageResizer({ editor }: { editor: Editor }) {

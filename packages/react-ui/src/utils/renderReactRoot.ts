@@ -26,7 +26,7 @@ let copyRender: (
   _unmount: () => void
 }
 
-const isReact18 = Number(CopyReactDOM.version?.split('.')[0]) > 17
+const overReact18 = Number(CopyReactDOM.version?.split('.')[0]) > 17
 
 const updateUsingClientEntryPoint = (skipWarning?: boolean) => {
   // https://github.com/facebook/react/blob/17806594cc28284fe195f918e8d77de3516848ec/packages/react-dom/npm/client.js#L10
@@ -43,7 +43,7 @@ try {
   //
 }
 
-if (isReact18) {
+if (overReact18) {
   copyRender = (app: ReactElement, container: Element | DocumentFragment) => {
     updateUsingClientEntryPoint(true)
     const root = createRoot(container)

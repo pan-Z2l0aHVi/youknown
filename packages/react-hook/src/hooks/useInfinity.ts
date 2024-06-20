@@ -1,12 +1,15 @@
 import { checkElementInContainer, is, omit } from '@youknown/utils/src'
 import type { MutableRefObject, SetStateAction } from 'react'
 import { useState } from 'react'
-import { flushSync } from 'react-dom'
+import ReactDOM from 'react-dom'
 
 import { useEvent } from './useEvent'
 import type { FetchOptions } from './useFetch'
 import { useFetch } from './useFetch'
 import { useIntersection } from './useIntersection'
+
+const overReact18 = Number(ReactDOM.version?.split('.')[0]) > 17
+const flushSync = overReact18 ? ReactDOM.flushSync : (fn: () => void) => fn()
 
 interface InfinityOptions<T, S> extends FetchOptions<T, S> {
   initialPage?: number
@@ -50,16 +53,23 @@ export function useInfinity<T extends any[], S extends any[]>(
         }
       })
       // 拉取数据未填满屏幕时，继续拉取下一页
-      if (!noMoreData && opts.target) {
-        const targetEle = opts.target?.current
-        const container = (opts.observerInit?.root as HTMLElement) ?? null
-        const rootMargin = opts.observerInit?.rootMargin
-        if (targetEle) {
-          const notEnough = checkElementInContainer(targetEle, container, rootMargin)
-          if (notEnough) {
-            loadMore()
+      const loadScreenData = () => {
+        if (!noMoreData && opts.target) {
+          const targetEle = opts.target?.current
+          const container = (opts.observerInit?.root as HTMLElement) ?? null
+          const rootMargin = opts.observerInit?.rootMargin
+          if (targetEle) {
+            const notEnough = checkElementInContainer(targetEle, container, rootMargin)
+            if (notEnough) {
+              loadMore()
+            }
           }
         }
+      }
+      if (overReact18) {
+        loadScreenData()
+      } else {
+        setTimeout(loadScreenData)
       }
     }
   })
@@ -96,11 +106,24 @@ export function useInfinity<T extends any[], S extends any[]>(
         return (p?.slice(0, initialPageSize) ?? []) as T
       })
     })
-    const root = opts.observerInit?.root
-    if (root instanceof HTMLElement) {
-      root.scrollTo(0, 0)
+
+    const resetScroll = () => {
+      const root = opts.observerInit?.root
+      if (root instanceof HTMLElement) {
+        root.scrollTo(0, 0)
+      }
     }
-    await loadMore()
+    if (overReact18) {
+      resetScroll()
+      await loadMore()
+    } else {
+      await new Promise<void>((resolve, reject) => {
+        setTimeout(() => {
+          resetScroll()
+          loadMore().then(resolve).catch(reject)
+        })
+      })
+    }
   })
 
   return {

@@ -71,11 +71,13 @@ export default defineConfig(({ mode, command }) => {
     build: {
       target: 'es2015'
     },
+    worker: {
+      format: 'es'
+    },
     server: {
       host: true,
       open: env.VITE_ROUTER_BASENAME,
-      cors: true,
-      https: true
+      cors: true
     }
   }
 })

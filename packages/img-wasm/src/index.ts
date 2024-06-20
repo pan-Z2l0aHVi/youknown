@@ -16,7 +16,7 @@ export async function compressImage(file: File, maxWidth: number, maxHeight: num
   }
   const fileBuffer = await file.arrayBuffer()
   const imageData = await decode(imageType, fileBuffer)
-  const imageBuffer = await encode(imageType, resizeImageData(imageData, width, height))
+  const imageBuffer = await encode(imageType, await resizeImageData(imageData, width, height))
   const imageBlob = new Blob([imageBuffer], { type: `image/${imageType}` })
   return new File([imageBlob], name, { type })
 }
@@ -73,7 +73,7 @@ function getImageDimensions(file: File): Promise<Dimensions> {
   })
 }
 
-function resizeImageData(input: ImageData, width: number, height: number): ImageData {
+function resizeImageDataByCanvas(input: ImageData, width: number, height: number): ImageData {
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
   canvas.width = width
@@ -89,6 +89,20 @@ function resizeImageData(input: ImageData, width: number, height: number): Image
   const output = ctx.getImageData(0, 0, width, height)
   return output
 }
+
+// `WebAssembly.instantiateStreaming` failed because your server does not serve wasm with `application / wasm` MIME type.
+// Falling back to `WebAssembly.instantiate` which is slower.
+async function resizeImageDataByWasm(input: ImageData, width: number, height: number): Promise<ImageData> {
+  const resize = (await import('@jsquash/resize')).default
+  const output = await resize(input, {
+    width,
+    height
+  })
+  return output
+}
+
+// const resizeImageData = resizeImageDataByWasm
+const resizeImageData: typeof resizeImageDataByWasm = async (...args) => resizeImageDataByCanvas(...args)
 
 async function decode(type: string, fileBuffer: ArrayBuffer): Promise<ImageData> {
   switch (type) {
@@ -117,9 +131,8 @@ async function encode(type: string, imageData: ImageData): Promise<ArrayBuffer> 
     }
     case 'png': {
       const { encode } = await import('@jsquash/png')
-      // const { optimise } = await import('@jsquash/oxipng')
-      // return await optimise(await encode(imageData), { level: 3 })
-      return await encode(imageData)
+      const { optimise } = await import('@jsquash/oxipng')
+      return await optimise(await encode(imageData), { level: 3 })
     }
     case 'webp': {
       const { encode } = await import('@jsquash/webp')
@@ -130,4 +143,4 @@ async function encode(type: string, imageData: ImageData): Promise<ArrayBuffer> 
   }
 }
 
-export const excludeDeps = ['@jsquash/jpeg', '@jsquash/webp', '@jsquash/png', '@jsquash/oxipng']
+export const excludeDeps = ['@jsquash/jpeg', '@jsquash/webp', '@jsquash/png', '@jsquash/oxipng', '@jsquash/resize']

@@ -66,6 +66,9 @@ export default defineConfig(({ mode, command }) => {
     build: {
       target: 'es2015'
     },
+    worker: {
+      format: 'es'
+    },
     server: {
       host: true,
       open: true,

@@ -16,7 +16,7 @@ export default defineConfig({
     },
     rollupOptions: {
       plugins: [],
-      external: ['react']
+      external: ['react', 'react-dom']
     }
   }
 })

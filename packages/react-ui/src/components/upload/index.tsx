@@ -70,9 +70,9 @@ const _Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) =>
       })
       .catch(() => {
         file.status = 'error'
-        delete file.previewURL
       })
       .finally(() => {
+        delete file.previewURL
         setUploading(false)
       })
   }
@@ -124,7 +124,7 @@ const _Upload = (props: UploadProps, propRef: ForwardedRef<HTMLInputElement>) =>
           <TbPlus className={`${prefixCls}-plus-icon`} />
           {children || (
             <div className={`${prefixCls}-thumb-default`}>
-              {(lastPreviewURL || lastPicURL) && (
+              {(lastPicURL || lastPreviewURL) && (
                 <Loading spinning={uploading} className={`${prefixCls}-thumb-default-loading`}>
                   <Image className={cls(`${prefixCls}-thumb`)} alt="Preview" src={lastPicURL || lastPreviewURL} />
                 </Loading>

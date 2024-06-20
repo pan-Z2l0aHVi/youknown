@@ -67,9 +67,9 @@ $bezier: cubic-bezier(0.25, 0.1, 0.25, 1);
 
 @mixin active-transition {
   pointer-events: none;
+  position: absolute;
 
   /* 确保旧页面在新页面滑入后才消失 */
-  position: absolute;
   width: 100%;
   transition:
     transform 0.3s $bezier,

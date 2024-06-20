@@ -28,6 +28,9 @@ export default defineConfig(({ mode }) => {
     build: {
       target: 'es2015'
     },
+    worker: {
+      format: 'es'
+    },
     resolve: {
       alias: {
         '@': resolve(__dirname, 'src')

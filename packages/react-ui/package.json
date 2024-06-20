@@ -1,6 +1,6 @@
 {
     "name": "@youknown/react-ui",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "",
     "type": "module",
     "main": "dist/main.es.js",
@@ -38,8 +38,8 @@
     "dependencies": {
         "@emotion/react": "^11.11.4",
         "@emotion/styled": "^11.11.5",
-        "@floating-ui/react": "^0.26.16",
-        "@mui/material": "^5.15.19",
+        "@floating-ui/react": "^0.26.17",
+        "@mui/material": "^5.15.20",
         "@youknown/css": "workspace:*",
         "@youknown/react-hook": "workspace:*",
         "@youknown/utils": "workspace:*",
@@ -47,8 +47,6 @@
         "react-countup": "^6.5.3",
         "react-easy-crop": "^5.0.7",
         "react-textarea-autosize": "^8.5.3"
-    },
-    "devDependencies": {
     },
     "lint-staged": {
         "**/*.{js,ts,jsx,tsx}": "eslint --cache --fix",

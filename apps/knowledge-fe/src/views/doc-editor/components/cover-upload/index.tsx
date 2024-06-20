@@ -8,12 +8,12 @@ import { TbPhotoEdit, TbPhotoPlus } from 'react-icons/tb'
 
 import type { Doc } from '@/apis/doc'
 import { update_doc } from '@/apis/doc'
-import { IMAGE_ACCEPT } from '@/consts'
+import { GENERAL_IMAGE_ACCEPT } from '@/consts'
 import { useUIStore } from '@/stores'
 import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
 import { with_api } from '@/utils/request'
 
-type UploadFiles = ComponentProps<typeof Upload>['value']
+type UploadFiles = Required<ComponentProps<typeof Upload>>['value']
 interface CoverUploadProps {
   doc_id: string
   on_updated: (doc: Doc) => void
@@ -25,6 +25,7 @@ export default function CoverUpload(props: CoverUploadProps) {
   const is_mobile = useUIStore(state => state.is_mobile)
   const [file_list, set_file_list] = useState<UploadFiles>([])
   const [updating, { setTrue: start_updating, setFalse: stop_updating }] = useBoolean(false)
+
   const save_doc_cover = async (cover_url: string) => {
     const [err, res] = await with_api(update_doc)({
       doc_id,
@@ -73,7 +74,7 @@ export default function CoverUpload(props: CoverUploadProps) {
       })
     })
 
-  const preview_cover = file_list?.[file_list.length - 1]?.previewURL ?? ''
+  const preview_cover = file_list[file_list.length - 1]?.previewURL ?? ''
   const upload_ref = useRef<HTMLInputElement>(null)
   const final_cover = preview_cover || cover
 
@@ -90,7 +91,7 @@ export default function CoverUpload(props: CoverUploadProps) {
           />
           <Space className="[@media(hover:hover)]-group-hover-display-flex! sm:display-none! absolute right-16px bottom-16px">
             <Upload
-              accept={IMAGE_ACCEPT}
+              accept={GENERAL_IMAGE_ACCEPT}
               ref={upload_ref}
               headless
               action={upload_cover}
@@ -120,7 +121,7 @@ export default function CoverUpload(props: CoverUploadProps) {
           </Space>
         </div>
       ) : (
-        <Upload accept={IMAGE_ACCEPT} headless action={upload_cover} value={file_list} onChange={set_file_list}>
+        <Upload accept={GENERAL_IMAGE_ACCEPT} headless action={upload_cover} value={file_list} onChange={set_file_list}>
           <div className="flex items-center w-max p-[4px_12px] bg-bg-2 rd-full color-text-2 [@media(hover:hover)]-hover-color-primary">
             <TbPhotoPlus className="mr-8px text-16px" />
             {t('cover.add')}
