@@ -23,11 +23,12 @@ import WallpaperDetail from '../wallpaper-detail'
 interface WallpaperCardProps {
   className?: string
   wallpaper: Wallpaper
+  wallpaper_path_list: string[]
   on_removed?: () => void
 }
 
 function WallpaperCard(props: WallpaperCardProps) {
-  const { className, wallpaper, on_removed } = props
+  const { className, wallpaper, wallpaper_path_list = [], on_removed } = props
 
   const { t } = useTranslation()
   const is_dark_theme = useUIStore(is_dark_theme_getter)
@@ -100,7 +101,8 @@ function WallpaperCard(props: WallpaperCardProps) {
 
   const preview_picture = async () => {
     Image.preview({
-      url: wallpaper.path,
+      url: wallpaper_path_list,
+      index: wallpaper_path_list.findIndex(path => path === wallpaper.path),
       downloadFileName: wallpaper.id,
       onDownloadError() {
         toast_download_err()

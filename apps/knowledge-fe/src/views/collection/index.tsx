@@ -82,8 +82,10 @@ function UserCollapsePanel() {
 
 function WallpaperCollapsePanel() {
   const { t } = useTranslation()
-  const { data: wallpaper_list, mutate: set_wallpaper_list, loading } = useFetch(get_collected_wallpaper_list)
+  const { data: wallpaper_list = [], mutate: set_wallpaper_list, loading } = useFetch(get_collected_wallpaper_list)
   const empty_visible = !loading && wallpaper_list?.length === 0
+  const wallpaper_path_list = wallpaper_list.map(wallpaper => wallpaper.path)
+
   return (
     <Loading
       spinning={loading}
@@ -91,11 +93,12 @@ function WallpaperCollapsePanel() {
         'justify-center': loading || empty_visible
       })}
     >
-      {wallpaper_list?.map(wallpaper => {
+      {wallpaper_list.map(wallpaper => {
         return (
           <WallpaperCard
             key={wallpaper.id}
             wallpaper={wallpaper}
+            wallpaper_path_list={wallpaper_path_list}
             on_removed={() => {
               set_wallpaper_list(p => p?.filter(item => item.id !== wallpaper.id))
             }}

@@ -4,8 +4,8 @@ import { render as renderReactRoot } from '../../utils/renderReactRoot'
 import ImagePreview from './ImagePreview'
 
 type ImagePreviewProps = ComponentProps<typeof ImagePreview>
-interface PreviewConfig extends Omit<ImagePreviewProps, 'open' | 'onClose'> {
-  url: string
+interface PreviewConfig extends Omit<ImagePreviewProps, 'open' | 'onClose' | 'defaultIndex'> {
+  index?: number
 }
 
 export const preview = (config: PreviewConfig) => {
@@ -25,7 +25,7 @@ export const preview = (config: PreviewConfig) => {
 
   const imagePreviewProps: ComponentProps<typeof ImagePreview> = {
     ...config,
-    src: config.url,
+    defaultIndex: config.index,
     open: false,
     onClose: close,
     afterClose() {

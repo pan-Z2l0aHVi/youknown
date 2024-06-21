@@ -205,11 +205,12 @@ export default function Wallpapers() {
   })
 
   const wallpapers_memo = useMemo(() => wallpapers, [wallpapers])
+  const wallpaper_path_list = useMemo(() => wallpapers.map(wallpaper => wallpaper.path), [wallpapers])
   const wallpaper_list = (
     <div ref={wrapper_ref} className="m--8px text-center">
       {wallpapers_memo.map((wallpaper, index) => (
         <Fragment key={wallpaper.id}>
-          <WallpaperCard wallpaper={wallpaper} />
+          <WallpaperCard wallpaper={wallpaper} wallpaper_path_list={wallpaper_path_list} />
           {(index + 1) % PAGE_SIZE === 0 && <Divider />}
         </Fragment>
       ))}

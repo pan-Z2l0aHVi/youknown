@@ -125,6 +125,82 @@ export default () => {
 }
 ```
 
+### 多张图片
+
+export function MultiImage() {
+  const imageList = [
+    'https://iph.href.lu/200x100',
+    'https://iph.href.lu/400x200',
+    'https://iph.href.lu/800x400',
+    'https://iph.href.lu/1600x800'
+  ]
+  return (
+    <Space>
+      <Button
+        onClick={() => {
+          Image.preview({
+            url: imageList
+          })
+        }}
+      >
+        Preview multiple images
+      </Button>
+      <Button
+        onClick={() => {
+          Image.preview({
+            url: imageList,
+            index: 2
+          })
+        }}
+      >
+        Preview index 2
+      </Button>
+    </Space>
+  )
+}
+
+<MultiImage />
+
+---
+
+```tsx
+import { Image } from '@youknown/react-ui'
+
+export default () => {
+  const imageList = [
+    'https://iph.href.lu/200x100',
+    'https://iph.href.lu/400x200',
+    'https://iph.href.lu/800x400',
+    'https://iph.href.lu/1600x800'
+  ]
+  return (
+    <Space>
+      <Button
+        onClick={() => {
+          Image.preview({
+            url: imageList
+          })
+        }}
+      >
+        Preview multiple images
+      </Button>
+      <Button
+        onClick={() => {
+          Image.preview({
+            url: imageList,
+            index: 2
+          })
+        }}
+      >
+        Preview index 2
+      </Button>
+    </Space>
+  )
+}
+```
+
+---
+
 ### 图片裁剪
 
 export function ImageCrop() {

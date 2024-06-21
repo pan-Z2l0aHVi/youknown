@@ -1,11 +1,13 @@
 import './image-preview.scss'
 
 import { useBoolean, useEvent, useLatestRef } from '@youknown/react-hook/src'
-import { checkTouchDevice, cls, downloadFile, setRootStyle } from '@youknown/utils/src'
+import { checkTouchDevice, cls, downloadFile, is, setRootStyle } from '@youknown/utils/src'
 import type { MouseEventHandler, ReactEventHandler, TouchEventHandler } from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
+  TbArrowLeft,
+  TbArrowRight,
   TbDownload,
   TbPhotoX,
   TbRelationOneToOne,
@@ -23,13 +25,15 @@ import { Motion } from '../motion'
 import { Overlay } from '../overlay'
 import { Space } from '../space'
 import { Tooltip } from '../tooltip'
+import { useAutoHideTip } from './hook'
 
 type Coordinate = {
   x: number
   y: number
 } | null
 export interface ImagePreviewProps {
-  src?: string
+  url?: string | string[]
+  defaultIndex?: number
   toolbarVisible?: boolean
   minZoom?: number
   maxZoom?: number
@@ -49,7 +53,8 @@ const is_touch_device = checkTouchDevice()
 
 export const ImagePreview = (props: ImagePreviewProps) => {
   const {
-    src = '',
+    url = [],
+    defaultIndex = 0,
     open = false,
     toolbarVisible = true,
     minZoom = 1,
@@ -66,6 +71,7 @@ export const ImagePreview = (props: ImagePreviewProps) => {
   } = props
 
   const { t } = useTranslation()
+
   const imgDetailRef = useRef<HTMLImageElement>(null)
   const [detailError, setDetailError] = useState(false)
 
@@ -74,12 +80,30 @@ export const ImagePreview = (props: ImagePreviewProps) => {
   const [zoom, setZoom] = useState(1)
   const [rotate, setRotate] = useState(0)
   const [offset, setOffset] = useState<Coordinate>(null)
-  const [ratioVisible, { setTrue: showRatio, setFalse: hideRatio }] = useBoolean(false)
-  const delayTimerRef = useRef(0)
+  const [ratioTipVisible, showRatioTip] = useAutoHideTip()
+  const [indexTipVisible, showIndexTip] = useAutoHideTip()
 
-  const [detailLoaded, { setTrue: setDetailLoaded }] = useBoolean(false)
+  const [detailLoaded, { setFalse: setDetailNotLoaded, setTrue: setDetailLoaded }] = useBoolean(false)
   const [dragging, setDragging] = useState(false)
   const draggingRef = useLatestRef(dragging)
+
+  const [currentIndex, setCurrentIndex] = useState(defaultIndex)
+  const isMulti = is.array(url) && url.length > 1
+  const src = (is.array(url) ? url[currentIndex] : url) || ''
+  const urlNum = isMulti ? url.length : 1
+
+  const switchPrev = useEvent(() => {
+    setDetailNotLoaded()
+    handleReset()
+    setCurrentIndex(p => (p > 0 ? p - 1 : urlNum - 1))
+    setTimeout(showIndexTip)
+  })
+  const switchNext = useEvent(() => {
+    setDetailNotLoaded()
+    handleReset()
+    setCurrentIndex(p => (p < urlNum - 1 ? p + 1 : 0))
+    setTimeout(showIndexTip)
+  })
 
   const handleDetailError = () => {
     setDetailLoaded()
@@ -198,28 +222,18 @@ export const ImagePreview = (props: ImagePreviewProps) => {
     setOffset(null)
   })
 
-  const handleShowRatio = useEvent(() => {
-    showRatio()
-
-    const ONE_SECOND = 1000
-    clearTimeout(delayTimerRef.current)
-    delayTimerRef.current = window.setTimeout(() => {
-      hideRatio()
-    }, ONE_SECOND)
-  })
-
   const updateZoom = (nextZoom: number) => {
     if (!detailLoaded) return
     setZoom(Math.max(minZoom, Math.min(maxZoom, nextZoom)))
-    handleShowRatio()
+    showRatioTip()
   }
 
-  const handleZoomIn = () => {
+  const handleZoomIn = useEvent(() => {
     updateZoom(zoom + (20 * zoomSpeed) / 200)
-  }
-  const handleZoomOut = () => {
+  })
+  const handleZoomOut = useEvent(() => {
     updateZoom(zoom + (-20 * zoomSpeed) / 200)
-  }
+  })
 
   const handleLeftRotate = () => {
     if (!detailLoaded) return
@@ -271,6 +285,46 @@ export const ImagePreview = (props: ImagePreviewProps) => {
     }
   }, [open, handleReset])
 
+  // keyboard event
+  useEffect(() => {
+    if (open) {
+      const keydownHandler = (event: KeyboardEvent) => {
+        switch (event.key) {
+          case 'ArrowLeft':
+            if (isMulti) {
+              event.preventDefault()
+              switchPrev()
+            }
+            break
+
+          case 'ArrowRight':
+            if (isMulti) {
+              event.preventDefault()
+              switchNext()
+            }
+            break
+
+          case 'ArrowUp':
+            event.preventDefault()
+            handleZoomIn()
+            break
+
+          case 'ArrowDown':
+            event.preventDefault()
+            handleZoomOut()
+            break
+
+          default:
+            break
+        }
+      }
+      document.addEventListener('keydown', keydownHandler)
+      return () => {
+        document.removeEventListener('keydown', keydownHandler)
+      }
+    }
+  }, [handleZoomIn, handleZoomOut, isMulti, open, switchNext, switchPrev])
+
   const setImageRect: ReactEventHandler<HTMLImageElement> = useEvent(event => {
     const { naturalWidth, naturalHeight } = event.currentTarget
     const { innerWidth, innerHeight } = window
@@ -297,7 +351,6 @@ export const ImagePreview = (props: ImagePreviewProps) => {
   })
 
   const prefixCls = `${UI_PREFIX}-image-preview`
-  const scalePercent = `${Math.round(zoom * 100)}%`
 
   const toolbarList = [
     {
@@ -370,6 +423,74 @@ export const ImagePreview = (props: ImagePreviewProps) => {
     </Motion.Slide>
   )
 
+  const switchBtnEle = isMulti ? (
+    <>
+      <Button className={`${prefixCls}-prev-btn`} size="large" circle onClick={switchPrev}>
+        <TbArrowLeft size={18} />
+      </Button>
+      <Button className={`${prefixCls}-next-btn`} size="large" circle onClick={switchNext}>
+        <TbArrowRight size={18} />
+      </Button>
+    </>
+  ) : null
+
+  const detailEle = detailError ? (
+    <a className={`${prefixCls}-fallback`} target="_blank" href={src}>
+      <TbPhotoX />
+    </a>
+  ) : (
+    <img
+      ref={imgDetailRef}
+      className={cls(`${prefixCls}-pic`, {
+        'with-transition': !is_touch_device,
+        [`${prefixCls}-pic-loaded`]: !detailLoading
+      })}
+      src={src}
+      alt="Preview"
+      draggable={false}
+      style={{
+        width,
+        height,
+        transform: `scale(${zoom}) rotate(${rotate}deg)`,
+        ...(offset
+          ? {
+              position: 'fixed',
+              left: offset.x,
+              top: offset.y
+            }
+          : {})
+      }}
+      onMouseDown={handleMouseDragStart}
+      onLoad={event => {
+        onLoad?.(event)
+        setDetailLoaded()
+        setImageRect(event)
+      }}
+      onError={event => {
+        onError?.(event)
+        handleDetailError()
+      }}
+      onClick={() => {
+        if (detailLoading) {
+          onClose?.()
+        }
+      }}
+    />
+  )
+
+  const topLevelTipsEle = (
+    <>
+      <Motion.Fade in={isMulti && indexTipVisible} unmountOnExit>
+        <div className={`${prefixCls}-index`}>
+          {currentIndex + 1} / {urlNum}
+        </div>
+      </Motion.Fade>
+      <Motion.Fade in={ratioTipVisible} unmountOnExit>
+        <div className={`${prefixCls}-ratio`}>{Math.round(zoom * 100)}%</div>
+      </Motion.Fade>
+    </>
+  )
+
   return (
     <Overlay
       ref={overlayRef}
@@ -392,53 +513,12 @@ export const ImagePreview = (props: ImagePreviewProps) => {
         <div className={`${prefixCls}-loading-icon`}>
           <Loading spinning={detailLoading} bordered size="large" />
         </div>
-
-        {detailError ? (
-          <a className={`${prefixCls}-fallback`} target="_blank" href={src}>
-            <TbPhotoX />
-          </a>
-        ) : (
-          <img
-            ref={imgDetailRef}
-            className={cls(`${prefixCls}-pic`, {
-              'with-transition': !is_touch_device,
-              [`${prefixCls}-pic-loaded`]: !detailLoading
-            })}
-            src={src}
-            alt="Preview"
-            draggable={false}
-            style={{
-              width,
-              height,
-              transform: `scale(${zoom}) rotate(${rotate}deg)`,
-              ...(offset
-                ? {
-                    position: 'fixed',
-                    left: offset.x,
-                    top: offset.y
-                  }
-                : {})
-            }}
-            onMouseDown={handleMouseDragStart}
-            onLoad={event => {
-              onLoad?.(event)
-              setDetailLoaded()
-              setImageRect(event)
-            }}
-            onError={event => {
-              onError?.(event)
-              handleDetailError()
-            }}
-            onClick={() => {
-              if (detailLoading) {
-                onClose?.()
-              }
-            }}
-          />
-        )}
+        {detailEle}
       </div>
-      {ratioVisible && <div className={`${prefixCls}-ratio`}>{scalePercent}</div>}
+
+      {topLevelTipsEle}
       {toolbarEle}
+      {switchBtnEle}
     </Overlay>
   )
 }
