@@ -29,7 +29,6 @@
         "css",
         "scss",
         "less",
-        "vue",
-        "html"
+        "vue"
     ]
 }
