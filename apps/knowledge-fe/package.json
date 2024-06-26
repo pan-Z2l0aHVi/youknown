@@ -15,6 +15,7 @@
   "author": "Grey",
   "license": "MIT",
   "dependencies": {
+    "@tiptap-pro/extension-file-handler": "^2.8.9",
     "@youknown/css": "workspace:*",
     "@youknown/img-wasm": "workspace:*",
     "@youknown/react-hook": "workspace:*",

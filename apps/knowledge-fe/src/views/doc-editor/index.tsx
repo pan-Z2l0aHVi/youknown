@@ -1,3 +1,4 @@
+import FileHandler from '@tiptap-pro/extension-file-handler'
 import { useBoolean, useDebounce, useFetch } from '@youknown/react-hook/src'
 import type { Editor } from '@youknown/react-rte/src'
 import { RTEMenuBar } from '@youknown/react-rte/src/components/menu-bar'
@@ -35,7 +36,7 @@ import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { useRecordStore, useUIStore } from '@/stores'
 import { format_time } from '@/utils'
 import { NetFetchError, with_api } from '@/utils/request'
-import { onCustomUpload } from '@/utils/rte-custom-upload'
+import { onCustomDrop, onCustomPaste, onCustomUpload } from '@/utils/rte-custom'
 
 import CoverUpload from './components/cover-upload'
 import DocHistoryDrawer from './components/doc-history-drawer'
@@ -76,7 +77,12 @@ export default function DocEditor() {
       OrderedList,
       CodeBlock,
       HorizontalRule,
-      Image.configure({ onCustomUpload })
+      Image.configure({ onCustomUpload }),
+      FileHandler.configure({
+        allowedMimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+        onPaste: onCustomPaste,
+        onDrop: onCustomDrop
+      })
     ],
     autofocus: 'end',
     placeholder: ({ node }) => {

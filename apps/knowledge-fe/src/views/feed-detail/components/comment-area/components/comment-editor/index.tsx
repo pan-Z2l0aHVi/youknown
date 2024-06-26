@@ -1,3 +1,4 @@
+import FileHandler from '@tiptap-pro/extension-file-handler'
 import { RTEMenuBar } from '@youknown/react-rte/src/components/menu-bar'
 import { RTEContent } from '@youknown/react-rte/src/components/rich-text-content'
 import Blockquote from '@youknown/react-rte/src/extensions/blockquote'
@@ -14,7 +15,7 @@ import { ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
-import { onCustomUpload } from '@/utils/rte-custom-upload'
+import { onCustomDrop, onCustomPaste, onCustomUpload } from '@/utils/rte-custom'
 
 interface CommentEditorProps {
   auto_focus?: boolean
@@ -48,7 +49,21 @@ export default function CommentEditor(props: CommentEditorProps) {
   const open_login_modal = useModalStore(state => state.open_login_modal)
 
   const editor = useRTE({
-    extensions: [Bold, Italic, Strike, Code, Link, Blockquote, CodeBlock, Image.configure({ onCustomUpload })],
+    extensions: [
+      Bold,
+      Italic,
+      Strike,
+      Code,
+      Link,
+      Blockquote,
+      CodeBlock,
+      Image.configure({ onCustomUpload }),
+      FileHandler.configure({
+        allowedMimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+        onPaste: onCustomPaste,
+        onDrop: onCustomDrop
+      })
+    ],
     autofocus: auto_focus ? 'end' : false,
     placeholder: () => placeholder,
     content: value,

@@ -52,3 +52,21 @@ export function onCustomUpload(file: File, editor: Editor) {
     })
   })
 }
+
+export function onCustomPaste(editor: Editor, files: File[]) {
+  const [file] = files
+  if (file) {
+    onCustomUpload(file, editor).then(res => {
+      editor.chain().focus().setImage(res).setTextSelection(editor.state.selection.to).run()
+    })
+  }
+}
+
+export function onCustomDrop(editor: Editor, files: File[]) {
+  const [file] = files
+  if (file) {
+    onCustomUpload(file, editor).then(res => {
+      editor.chain().focus().setImage(res).setTextSelection(editor.state.selection.to).run()
+    })
+  }
+}

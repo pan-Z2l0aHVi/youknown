@@ -41,13 +41,15 @@ export default () => {
       TextAlign,
       Blockquote,
       Image.configure({
-        onCustomUpload: async () => {
+        onCustomUpload: async (_, editor) => {
+          editor.setEditable(false)
           await delay(Math.random() * 3000)
+          editor.setEditable(true)
           index++
           const imgList = [
-            'http://jdvip-management.ac010.cn/uploads/attachment/20211101/10472062598268f11c2c4c48944cf8bc.png',
-            'http://pic.5tu.cn/uploads/allimg/2010/pic_5tu_big_202009292005352919.jpg',
-            'http://jdvip-management.ac010.cn/uploads/attachment/20211101/9eb077548fa6404ba0dd4e704ef196d5.gif'
+            'https://cdn.youknown.cc/0_TIpEV0K3CNndMVp3.jpg',
+            'https://cdn.youknown.cc/1_8-TebwsnSySykwhgbbXUQQ.jpg',
+            'https://cdn.youknown.cc/1_moJeTvW97yShLB7URRj5Kg.png'
           ]
           if (index > imgList.length - 1) {
             index = 0
