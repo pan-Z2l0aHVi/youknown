@@ -1,6 +1,6 @@
 {
     "name": "@youknown/react-rte",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "",
     "type": "module",
     "main": "dist/main.es.js",

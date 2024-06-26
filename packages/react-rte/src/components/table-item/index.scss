@@ -10,8 +10,8 @@ $prefix: '#{$ui-editor-prefix}-table-item';
 
   .#{$prefix}-list {
     display: grid;
-    grid-template-columns: repeat(10, auto);
-    grid-template-rows: repeat(10, auto);
+    grid-template-columns: repeat(6, auto);
+    grid-template-rows: repeat(6, auto);
     background-color: $bg-1;
     border-top: 1px solid $divider;
     border-left: 1px solid $divider;

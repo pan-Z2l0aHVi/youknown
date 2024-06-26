@@ -87,6 +87,7 @@ export default function HeadingPicker(props: ButtonProps<HeadingOptions>) {
         tooltipDisabled={!tooltip}
         className={cls(prefixCls)}
         active={open}
+        disabled={!editor.isEditable || !editor.can().setHeading({ level: 1 })}
         arrow
       >
         <div className={`${prefixCls}-label`}>{selection.label}</div>

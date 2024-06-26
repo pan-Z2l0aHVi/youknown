@@ -18,7 +18,7 @@ export default function CodeBtn(props: ButtonProps) {
       tooltip={t('react_rte.code')}
       tooltipDisabled={!tooltip}
       active={editor.isActive('code')}
-      disabled={!editor.can().toggleCode()}
+      disabled={!editor.isEditable || !editor.can().toggleCode()}
       onCommand={() => {
         editor.chain().focus().toggleCode().run()
       }}

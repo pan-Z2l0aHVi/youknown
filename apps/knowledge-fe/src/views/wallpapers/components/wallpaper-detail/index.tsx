@@ -87,7 +87,7 @@ export default function WallpaperDetail(props: WallpaperDetailProps) {
         {tags.map(tag => (
           <Tag
             key={tag.id}
-            className={cls('m-4px cursor-pointer', format_tag_color_cls(tag))}
+            className={cls('m-4px cursor-pointer [@media(hover:hover)]-hover-underline', format_tag_color_cls(tag))}
             onClick={() => search_tag(tag)}
           >
             {tag.name}

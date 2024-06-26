@@ -18,7 +18,7 @@ export default function UnderlineBtn(props: ButtonProps) {
       tooltip={t('react_rte.underline')}
       tooltipDisabled={!tooltip}
       active={editor.isActive('underline')}
-      disabled={!editor.can().toggleUnderline()}
+      disabled={!editor.isEditable || !editor.can().toggleUnderline()}
       onCommand={() => {
         editor.chain().focus().toggleUnderline().run()
       }}

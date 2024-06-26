@@ -17,7 +17,7 @@ export default function EraserBtn(props: ButtonProps) {
       className={cls(prefixCls)}
       tooltip={t('react_rte.clear_format')}
       tooltipDisabled={!tooltip}
-      disabled={!editor.can().unsetAllMarks()}
+      disabled={!editor.isEditable || !editor.can().unsetAllMarks()}
       onCommand={() => {
         editor.chain().focus().clearNodes().unsetAllMarks().run()
       }}

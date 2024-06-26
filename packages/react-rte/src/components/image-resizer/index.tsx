@@ -9,8 +9,9 @@ const flushSyncProps = overReact18 ? { flushSync: ReactDOM.flushSync } : {}
 const Moveable = lazy(() => import('react-moveable'))
 
 export default function ImageResizer({ editor }: { editor: Editor }) {
+  const IMAGE_SELECTOR = 'img.ProseMirror-selectednode'
   const updateMediaSize = () => {
-    const imageInfo = document.querySelector('.ProseMirror-selectednode') as HTMLImageElement
+    const imageInfo = document.querySelector(IMAGE_SELECTOR) as HTMLImageElement
     if (imageInfo) {
       const selection = editor.state.selection
       editor.commands.setImage({
@@ -27,7 +28,7 @@ export default function ImageResizer({ editor }: { editor: Editor }) {
       <Moveable
         {...flushSyncProps}
         className="image-resizer-moveable"
-        target={document.querySelector('.ProseMirror-selectednode') as HTMLImageElement}
+        target={document.querySelector(IMAGE_SELECTOR) as HTMLImageElement}
         container={null}
         origin={false}
         /* Resize event edges */
@@ -44,9 +45,7 @@ export default function ImageResizer({ editor }: { editor: Editor }) {
           delta[1] && (target.style.height = `${height}px`)
         }}
         // { target, isDrag, clientX, clientY }: any
-        onResizeEnd={() => {
-          updateMediaSize()
-        }}
+        onResizeEnd={updateMediaSize}
         /* scalable */
         /* Only one of resizable, scalable, warpable can be used. */
         scalable={true}

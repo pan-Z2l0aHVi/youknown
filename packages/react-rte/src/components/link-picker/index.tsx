@@ -38,7 +38,7 @@ export default function LinkPicker(props: LinkPickerProps) {
     editor.chain().focus().setLink({ href }).run()
     onOpenChange?.(false)
   }
-  const disabled = !editor.can().toggleLink({ href: '' })
+  const disabled = !editor.isEditable || !editor.can().toggleLink({ href: '' })
 
   const prefixCls = `${UI_EDITOR_PREFIX}-link-picker`
   const linkPopup = (

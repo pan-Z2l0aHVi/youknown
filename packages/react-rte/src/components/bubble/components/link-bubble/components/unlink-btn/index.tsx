@@ -17,7 +17,7 @@ export default function UnLinkBtn(props: ButtonProps) {
       className={cls(prefixCls)}
       tooltip={t('react_rte.link.cancel')}
       tooltipDisabled={!tooltip}
-      disabled={!editor.can().unsetLink()}
+      disabled={!editor.isEditable || !editor.can().unsetLink()}
       onCommand={() => {
         editor.chain().unsetLink().focus().run()
       }}

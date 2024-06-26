@@ -7,7 +7,9 @@ import { cls } from '@youknown/utils/src'
 import { cloneElement, createElement, useMemo, useState } from 'react'
 
 import { UI_EDITOR_PREFIX } from '../../common'
+import type { ShouldShowProps } from '../table-menus/types'
 import LinkBubble from './components/link-bubble'
+import { isCustomNodeSelected, isTextSelected } from './utils'
 
 export type BubbleListItem =
   | '|' // divider
@@ -44,6 +46,8 @@ export function Bubble(props: BubbleProps) {
   const prefixCls = `${UI_EDITOR_PREFIX}-bubble`
   const verticalDivider = <Divider className={`${prefixCls}-divider`} size="small" direction="vertical" />
 
+  const extensions = editor.extensionManager.extensions.filter(ext => ext.options.bubble)
+
   const renderBubbleContent = () => {
     if (editor.isActive('link')) {
       return (
@@ -61,7 +65,6 @@ export function Bubble(props: BubbleProps) {
     }
 
     const btnListWithTable = editor.isActive('table') ? ['table', '|', ...btnList] : btnList
-    const extensions = editor.extensionManager.extensions.filter(ext => ext.options.bubble)
 
     return btnListWithTable.map((btn, index) => {
       if (btn === '|') {
@@ -141,6 +144,7 @@ export function Bubble(props: BubbleProps) {
   return (
     <BubbleMenu
       editor={editor}
+      pluginKey="commonBubble"
       tippyOptions={{
         duration: 300,
         zIndex: 9,
@@ -153,8 +157,8 @@ export function Bubble(props: BubbleProps) {
           setHighlightPickerOpen(false)
         }
       }}
-      shouldShow={({ editor }) => {
-        if (!editor.isEditable) {
+      shouldShow={({ view, from }: ShouldShowProps) => {
+        if (!view) {
           return false
         }
         if (editor.isActive('image')) {
@@ -163,7 +167,14 @@ export function Bubble(props: BubbleProps) {
         if (editor.isActive('codeBlock')) {
           return false
         }
-        return editor.view.state.selection.content().size > 0
+        const domAtPos = view.domAtPos(from || 0).node as HTMLElement
+        const nodeDOM = view.nodeDOM(from || 0) as HTMLElement
+        const node = nodeDOM || domAtPos
+
+        if (isCustomNodeSelected(editor, node)) {
+          return false
+        }
+        return isTextSelected({ editor })
       }}
     >
       <Space className={cls(prefixCls)} size="small" align="center">

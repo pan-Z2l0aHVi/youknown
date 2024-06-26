@@ -17,7 +17,7 @@ export default function UndoBtn(props: ButtonProps) {
       tooltip={t('react_rte.undo')}
       tooltipDisabled={!tooltip}
       className={cls(prefixCls)}
-      disabled={!editor.can().undo()}
+      disabled={!editor.isEditable || !editor.can().undo()}
       onCommand={() => {
         editor.chain().focus().undo().run()
       }}

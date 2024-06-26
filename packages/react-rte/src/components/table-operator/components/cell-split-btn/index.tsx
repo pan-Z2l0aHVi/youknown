@@ -11,7 +11,7 @@ import CommandBtn from '../../../command-btn'
 export default function CellSplitBtn(props: ButtonProps) {
   const { editor, tooltip = true } = props
   const { t } = useTranslation()
-  const disabled = !editor.can().splitCell()
+  const disabled = !editor.isEditable || !editor.can().splitCell()
   if (disabled) {
     return null
   }

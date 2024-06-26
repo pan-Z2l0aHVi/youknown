@@ -12,20 +12,23 @@ export default function OrderedListItem(props: { editor: Editor }) {
   const { editor } = props
   const { t } = useTranslation()
   const prefixCls = `${UI_EDITOR_PREFIX}-ordered-list-item`
+  const disabled = !editor.isEditable || !editor.can().toggleOrderedList()
   return (
     <Dropdown.Item
       prefix={
         <div
           className={cls(prefixCls, {
             active: editor.isActive('orderedlist'),
-            disabled: !editor.can().toggleOrderedList()
+            disabled
           })}
         >
           <TbListNumbers />
         </div>
       }
       closeAfterItemClick
+      disabled={disabled}
       onClick={() => {
+        if (disabled) return
         editor.chain().focus().toggleOrderedList().run()
       }}
     >

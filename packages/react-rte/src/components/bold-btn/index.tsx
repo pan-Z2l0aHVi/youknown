@@ -18,7 +18,7 @@ export default function BoldBtn(props: ButtonProps) {
       tooltip={t('react_rte.bold')}
       tooltipDisabled={!tooltip}
       active={editor.isActive('bold')}
-      disabled={!editor.can().toggleBold()}
+      disabled={!editor.isEditable || !editor.can().toggleBold()}
       onCommand={() => {
         editor.chain().focus().toggleBold().run()
       }}

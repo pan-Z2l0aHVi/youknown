@@ -18,7 +18,7 @@ export default function ItalicBtn(props: ButtonProps) {
       tooltipDisabled={!tooltip}
       className={cls(prefixCls)}
       active={editor.isActive('italic')}
-      disabled={!editor.can().toggleItalic()}
+      disabled={!editor.isEditable || !editor.can().toggleItalic()}
       onCommand={() => {
         editor.chain().focus().toggleItalic().run()
       }}

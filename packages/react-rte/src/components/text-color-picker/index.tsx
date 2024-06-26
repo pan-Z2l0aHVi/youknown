@@ -57,7 +57,7 @@ export default function TextColorPicker(props: TextColorPickerProps) {
     editor.chain().focus().unsetColor().run()
   }
 
-  const setColorDisabled = !editor.can().setColor(inkColor)
+  const setColorDisabled = !editor.isEditable || !editor.can().setColor(inkColor)
   const prefixCls = `${UI_EDITOR_PREFIX}-text-color-picker`
 
   const contentEle = (

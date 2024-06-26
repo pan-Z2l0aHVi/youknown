@@ -16,6 +16,7 @@ export interface SliderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onCha
   disabled?: boolean
   vertical?: boolean
   tooltipFormatter?: (value: number) => string
+  tooltipDisabled?: boolean
   min?: number
   max?: number
   step?: number
@@ -30,6 +31,7 @@ const _Slider = (props: SliderProps, propRef: ForwardedRef<HTMLDivElement>) => {
     vertical = false,
     disabled = false,
     tooltipFormatter = (x: number) => String(Math.round(x)),
+    tooltipDisabled = false,
     min = 0,
     max = 100,
     step = 5,
@@ -261,6 +263,8 @@ const _Slider = (props: SliderProps, propRef: ForwardedRef<HTMLDivElement>) => {
         trigger={canTouch ? 'manual' : 'hover'}
         placement={vertical ? 'right' : 'top'}
         title={tooltipFormatter(value)}
+        appendTo={null}
+        disabled={tooltipDisabled}
         {...tooltipProps}
       >
         <button

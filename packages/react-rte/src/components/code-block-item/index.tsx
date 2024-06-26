@@ -12,20 +12,23 @@ export default function CodeBlockItem(props: { editor: Editor }) {
   const { editor } = props
   const { t } = useTranslation()
   const prefixCls = `${UI_EDITOR_PREFIX}-code-block-btn`
+  const disabled = !editor.isEditable || !editor.can().toggleCodeBlock()
   return (
     <Dropdown.Item
       prefix={
         <div
           className={cls(prefixCls, {
             active: editor.isActive('codeBlock'),
-            disabled: !editor.can().toggleCodeBlock()
+            disabled
           })}
         >
           <PiCodeBlockBold />
         </div>
       }
+      disabled={disabled}
       closeAfterItemClick
       onClick={() => {
+        if (disabled) return
         editor.chain().focus().toggleCodeBlock().run()
       }}
     >

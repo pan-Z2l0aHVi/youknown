@@ -20,4 +20,8 @@ $prefix: '#{$ui-editor-prefix}-command-btn';
     font-size: 14px;
     color: $text-2;
   }
+
+  &.disabled {
+    cursor: not-allowed;
+  }
 }

@@ -38,6 +38,9 @@ function CommandBtn(props: CommandBtnProps, ref: ForwardedRef<HTMLButtonElement>
           disabled
         })}
         onClick={event => {
+          if (disabled) {
+            return
+          }
           onClick?.(event)
           onCommand?.()
         }}

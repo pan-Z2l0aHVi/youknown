@@ -11,7 +11,7 @@ import CommandBtn from '../../../command-btn'
 export default function CellMergeBtn(props: ButtonProps) {
   const { editor, tooltip = true } = props
   const { t } = useTranslation()
-  const disabled = !editor.can().deleteTable()
+  const disabled = !editor.isEditable || !editor.can().deleteTable()
   if (disabled) {
     return null
   }

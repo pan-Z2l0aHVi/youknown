@@ -44,6 +44,8 @@ export default function ImageItem(props: ImageItemProps) {
   }
 
   const prefixCls = `${UI_EDITOR_PREFIX}-img-item`
+  const disabled = !editor.isEditable || !editor.can().setImage({ src: '' })
+
   return (
     <Dropdown.Item
       prefix={
@@ -51,6 +53,7 @@ export default function ImageItem(props: ImageItemProps) {
           <TbPhotoPlus />
         </div>
       }
+      disabled={disabled}
       onClick={() => {
         const input = document.createElement('input')
         input.type = 'file'

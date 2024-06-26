@@ -265,7 +265,7 @@
     "system": "System default",
     "light": "Light",
     "dark": "Dark",
-    "compress_upload": "Image compress before upload"
+    "compress_upload": "Image upload optimization"
   },
   "share": {
     "text": "Share"

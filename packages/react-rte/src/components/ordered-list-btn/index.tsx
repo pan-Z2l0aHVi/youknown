@@ -18,7 +18,7 @@ export default function OrderedListBtn(props: ButtonProps) {
       tooltip={t('react_rte.orderlist')}
       tooltipDisabled={!tooltip}
       active={editor.isActive('orderlist')}
-      disabled={!editor.can().toggleOrderedList()}
+      disabled={!editor.isEditable || !editor.can().toggleOrderedList()}
       onCommand={() => {
         editor.chain().focus().toggleOrderedList().run()
       }}

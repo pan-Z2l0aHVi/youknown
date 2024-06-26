@@ -74,6 +74,7 @@ export default () => {
             const inst = Toast({
               content: 'Click me',
               duration: 10000,
+              className: 'cursor-pointer',
               onClick() {
                 console.log('clicked')
                 inst.close()
@@ -91,10 +92,12 @@ export default () => {
             const inst = Toast({
               content: 'Click me',
               duration: 5000,
+              className: 'cursor-pointer',
               onClick() {
                 console.log('clicked')
                 inst.update({
-                  content: 'Hello'
+                  content: 'Hello',
+                  className: ''
                 })
               },
               onClose() {

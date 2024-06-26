@@ -55,7 +55,7 @@ export default function TextAlignPicker(props: ButtonProps) {
     editor.chain().focus().setTextAlign(opt.value).run()
   }
 
-  const textAlginDisabled = options.some(opt => !editor.can().setTextAlign(opt.value))
+  const textAlginDisabled = options.some(opt => !editor.isEditable || !editor.can().setTextAlign(opt.value))
   const prefixCls = `${UI_EDITOR_PREFIX}-text-align-picker`
 
   return (
@@ -71,7 +71,7 @@ export default function TextAlignPicker(props: ButtonProps) {
                 <button
                   className={cls(`${prefixCls}-icon-wrapper`, {
                     active: editor.isActive({ textAlign: opt.value }),
-                    disabled: !editor.can().setTextAlign(opt.value)
+                    disabled: !editor.isEditable || !editor.can().setTextAlign(opt.value)
                   })}
                   onClick={() => handleSelect(opt)}
                 >

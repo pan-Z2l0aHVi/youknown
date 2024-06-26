@@ -1,22 +1,24 @@
 import type { TableOptions } from '@tiptap/extension-table'
 import TiptapTable from '@tiptap/extension-table'
-import TiptapTableCell from '@tiptap/extension-table-cell'
-import TiptapTableHeader from '@tiptap/extension-table-header'
-import TiptapTableRow from '@tiptap/extension-table-row'
 
-import TableItem from '../components/table-item'
-import TableOperator from '../components/table-operator'
+import TableItem from '../../components/table-item'
+import TableOperator from '../../components/table-operator'
+import { TableCell } from './cell'
+import { TableHeader } from './header'
+import { TableRow } from './row'
 
-export default TiptapTable.extend<
+export const Table = TiptapTable.extend<
   TableOptions & {
     insert: typeof TableItem
     floating: typeof TableItem
+    bubble: typeof TableOperator
   }
 >({
   addOptions() {
     return {
       ...this.parent?.(),
       resizable: true,
+      lastColumnResizable: false,
       insert: TableItem,
       floating: TableItem,
       bubble: TableOperator
@@ -24,6 +26,6 @@ export default TiptapTable.extend<
   },
 
   addExtensions() {
-    return [TiptapTableHeader, TiptapTableRow, TiptapTableCell]
+    return [TableHeader, TableRow, TableCell]
   }
 })

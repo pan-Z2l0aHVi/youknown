@@ -56,7 +56,7 @@ export default function HighlightPicker(props: HighlightPickerProps) {
     editor.chain().focus().unsetHighlight().run()
   }
 
-  const highlightDisabled = !editor.can().toggleHighlight()
+  const highlightDisabled = !editor.isEditable || !editor.can().toggleHighlight()
   const prefixCls = `${UI_EDITOR_PREFIX}-highlight-picker`
 
   const popContentEle = (

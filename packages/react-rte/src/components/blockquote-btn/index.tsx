@@ -18,7 +18,7 @@ export default function BlockquoteBtn(props: ButtonProps) {
       tooltip={t('react_rte.blockquote')}
       tooltipDisabled={!tooltip}
       active={editor.isActive('blockquote')}
-      disabled={!editor.can().toggleBlockquote()}
+      disabled={!editor.isEditable || !editor.can().toggleBlockquote()}
       onCommand={() => {
         editor.chain().focus().toggleBlockquote().run()
       }}

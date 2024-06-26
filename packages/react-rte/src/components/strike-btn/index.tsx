@@ -18,7 +18,7 @@ export default function StrikeBtn(props: ButtonProps) {
       tooltip={t('react_rte.strike')}
       tooltipDisabled={!tooltip}
       active={editor.isActive('strike')}
-      disabled={!editor.can().toggleStrike()}
+      disabled={!editor.isEditable || !editor.can().toggleStrike()}
       onCommand={() => {
         editor.chain().focus().toggleStrike().run()
       }}

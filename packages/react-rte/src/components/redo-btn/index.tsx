@@ -17,7 +17,7 @@ export default function RedoBtn(props: ButtonProps) {
       className={cls(prefixCls)}
       tooltip={t('react_rte.redo')}
       tooltipDisabled={!tooltip}
-      disabled={!editor.can().redo()}
+      disabled={!editor.isEditable || !editor.can().redo()}
       onCommand={() => {
         editor.chain().focus().redo().run()
       }}

@@ -1,0 +1,161 @@
+/* stylelint-disable selector-class-pattern */
+@use '../../styles/mixins.scss' as *;
+
+@mixin table-style {
+  .tableWrapper {
+    margin-top: 48px;
+    margin-bottom: 48px;
+  }
+
+  table {
+    border-collapse: collapse;
+    box-sizing: border-box;
+    width: 100%;
+
+    th {
+      font-weight: bold;
+      background-color: $bg-2;
+    }
+
+    td,
+    th {
+      position: relative;
+      min-width: 80px;
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+
+      &:first-of-type:not(a) {
+        margin-top: 0;
+      }
+
+      p {
+        margin: 0;
+
+        & + p {
+          margin-top: 12px;
+        }
+      }
+    }
+
+    .column-resize-handle {
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: $color-primary;
+    }
+
+    .selectedCell::after {
+      pointer-events: none;
+      content: '';
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(200, 200, 255, 0.4);
+    }
+
+    .grip-column,
+    .grip-row {
+      cursor: pointer;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: inherit;
+      background-color: $bg-3;
+      border-radius: 0;
+    }
+
+    .grip-column {
+      top: -12px;
+      left: 0;
+      width: calc(100% + 1px);
+      height: 12px;
+      margin-left: -1px;
+      border-left: 1px solid $divider;
+
+      &:hover,
+      &.selected {
+        &::before {
+          content: '';
+          width: 10px;
+        }
+      }
+
+      &:hover {
+        background-color: $color-secondary-hover;
+
+        &::before {
+          border-bottom: 2px dotted $text-2;
+        }
+      }
+
+      &.first {
+        border-color: transparent;
+        border-top-left-radius: 2px;
+      }
+
+      &.last {
+        border-top-right-radius: 2px;
+      }
+
+      &.selected {
+        background-color: $color-secondary-active;
+        border-color: $color-secondary-active;
+
+        &::before {
+          border-bottom: 2px dotted $text-1;
+        }
+      }
+    }
+
+    .grip-row {
+      top: 0;
+      left: -12px;
+      width: 12px;
+      height: calc(100% + 1px);
+      margin-top: -1px;
+      border-top: 1px solid $divider;
+
+      &:hover,
+      &.selected {
+        &::before {
+          content: '';
+          height: 10px;
+        }
+      }
+
+      &:hover {
+        background-color: $color-secondary-hover;
+
+        &::before {
+          border-left: 2px dotted $text-2;
+        }
+      }
+
+      &.first {
+        border-color: transparent;
+        border-top-left-radius: 2px;
+      }
+
+      &.last {
+        border-bottom-left-radius: 2px;
+      }
+
+      &.selected {
+        background-color: $color-secondary-active;
+        border-color: $color-secondary-active;
+
+        &::before {
+          border-left: 2px dotted $text-1;
+        }
+      }
+    }
+  }
+}

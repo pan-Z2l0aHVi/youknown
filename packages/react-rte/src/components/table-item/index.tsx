@@ -15,11 +15,13 @@ export default function TableItem(props: { editor: Editor }) {
   const [rows, setRows] = useState(3)
   const [cols, setCols] = useState(3)
 
-  const insertDisabled = !editor.can().insertTable({
-    rows,
-    cols,
-    withHeaderRow: false
-  })
+  const insertDisabled =
+    !editor.isEditable ||
+    !editor.can().insertTable({
+      rows,
+      cols,
+      withHeaderRow: false
+    })
 
   const handleSelect = () => {
     editor
@@ -38,7 +40,7 @@ export default function TableItem(props: { editor: Editor }) {
     setCols(3)
   }
 
-  const tableList = useMemo(() => Array.from(Array(10)).map(() => Array.from(Array(10))), [])
+  const tableList = useMemo(() => Array.from(Array(6)).map(() => Array.from(Array(6))), [])
 
   const prefixCls = `${UI_EDITOR_PREFIX}-table-item`
 

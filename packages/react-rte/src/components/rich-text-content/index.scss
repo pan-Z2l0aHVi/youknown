@@ -1,6 +1,7 @@
 /* stylelint-disable selector-class-pattern */
 @use '../../styles/mixins.scss' as *;
 @use '@youknown/css/src/rte.scss' as *;
+@use './table.scss' as *;
 
 .#{$ui-editor-prefix}-content {
   @include rich-text;
@@ -36,48 +37,7 @@
     }
 
     /* ----------------------- TABLE ------------------------- */
-    table {
-      overflow: hidden;
-      table-layout: fixed;
-      border-collapse: collapse;
-      max-width: 100%;
-      margin: 0;
-
-      td,
-      th {
-        position: relative;
-      }
-
-      p {
-        margin: 0;
-      }
-
-      .selectedCell::after {
-        pointer-events: none;
-        content: '';
-        position: absolute;
-        z-index: 2;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: rgba(200, 200, 255, 0.4);
-      }
-
-      .column-resize-handle {
-        pointer-events: none;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: 3px;
-        background-color: $color-primary;
-      }
-    }
-
-    .tableWrapper {
-      overflow-x: auto;
-    }
+    @include table-style;
 
     /* ----------------------- IMAGE ------------------------- */
     img {
