@@ -19,7 +19,7 @@ const mockRequest = () =>
     id: number
     content: string
   }>(resolve => {
-    const duration = Math.random() * 3000
+    const duration = Math.random() * 2000
     const currentID = ++reqID
     setTimeout(() => {
       const res = {

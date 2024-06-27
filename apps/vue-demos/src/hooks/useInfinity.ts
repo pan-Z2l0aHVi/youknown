@@ -39,22 +39,19 @@ export function useInfinity<T extends any[], S extends any[]>(
     ...fetchOpts,
     ready: fetchReady,
     onSuccess(res, params) {
-      if (noMore.value) {
-        return
-      }
       fetchOpts.onSuccess?.(res, params)
+      const noMoreData = !res.length
+      noMore.value = noMoreData
       if (page.value <= initialPage) {
         data.value = res
       } else {
         data.value = [...data.value, ...res] as T
       }
-      if (res.length < pageSize.value) {
-        noMore.value = true
-      } else {
+      if (!noMoreData) {
         page.value++
       }
 
-      if (target)
+      if (!noMoreData && target)
         nextTick(() => {
           const targetEle = target.value
           const container = (observerInit?.().root as HTMLElement) ?? null

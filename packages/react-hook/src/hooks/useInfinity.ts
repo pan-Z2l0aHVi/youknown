@@ -39,16 +39,15 @@ export function useInfinity<T extends any[], S extends any[]>(
     ready,
     onSuccess(data, params) {
       fetchOpts.onSuccess?.(data, params)
-      const noMoreData = data.length < pageSize
+      const noMoreData = !data.length
       flushSync(() => {
+        setNoMore(noMoreData)
         if (page <= 1) {
           setData(data)
-        } else if (!noMore) {
+        } else if (!noMoreData) {
           setData(p => [...p, ...data] as T)
         }
-        if (data.length < pageSize) {
-          setNoMore(true)
-        } else {
+        if (!noMoreData) {
           setPage(p => p + 1)
         }
       })

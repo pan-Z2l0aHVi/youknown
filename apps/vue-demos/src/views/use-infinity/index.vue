@@ -31,7 +31,7 @@ function mockFetchInfinity(params: { page: number; page_size: number }) {
       content: string
     }[]
   >(resolve => {
-    const span = 2000 * Math.random()
+    const span = 1000 * Math.random()
     setTimeout(() => {
       const { page, page_size } = params
       const begin = (page - 1) * page_size

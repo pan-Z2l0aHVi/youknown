@@ -2,6 +2,7 @@ import type { Ref } from 'vue'
 import { ref, watch } from 'vue'
 
 export interface FetchOptions<T, S> {
+  initialData?: T
   manual?: Ref<boolean>
   ready?: Ref<boolean>
   loadingDelay?: Ref<number>
@@ -14,6 +15,7 @@ export interface FetchOptions<T, S> {
 
 export function useFetch<T, S extends any[]>(fetcher: (...args: S) => Promise<T>, opts?: FetchOptions<T, S>) {
   const {
+    initialData,
     manual = ref(false),
     ready = ref(true),
     loadingDelay = ref(0),
@@ -23,7 +25,7 @@ export function useFetch<T, S extends any[]>(fetcher: (...args: S) => Promise<T>
     onError,
     onFinally
   } = opts ?? {}
-  const data = ref<T>()
+  const data = ref(initialData) as Ref<T>
   const loading = ref(false)
   const error = ref<Error>()
   let timer = 0

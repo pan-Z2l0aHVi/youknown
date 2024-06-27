@@ -268,7 +268,7 @@ return (
 ---
 
 ```tsx
-import FileHandler from '@tiptap-pro/extension-file-handler'
+// import FileHandler from '@tiptap-pro/extension-file-handler'
 import {
   Blockquote,
   Bold,
@@ -331,25 +331,25 @@ export default () => {
       Image.configure({
         onCustomUpload: fakeUpload
       }),
-      FileHandler.configure({
-        allowedMimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
-        onPaste: (editor, files) => {
-          const [file] = files
-          if (file) {
-            fakeUpload(file, editor).then(res => {
-              editor.chain().focus().setImage(res).setTextSelection(editor.state.selection.to).run()
-            })
-          }
-        },
-        onDrop: (editor, files) => {
-          const [file] = files
-          if (file) {
-            fakeUpload(file, editor).then(res => {
-              editor.chain().focus().setImage(res).setTextSelection(editor.state.selection.to).run()
-            })
-          }
-        }
-      }),
+      // FileHandler.configure({
+      //   allowedMimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+      //   onPaste: (editor, files) => {
+      //     const [file] = files
+      //     if (file) {
+      //       fakeUpload(file, editor).then(res => {
+      //         editor.chain().focus().setImage(res).setTextSelection(editor.state.selection.to).run()
+      //       })
+      //     }
+      //   },
+      //   onDrop: (editor, files) => {
+      //     const [file] = files
+      //     if (file) {
+      //       fakeUpload(file, editor).then(res => {
+      //         editor.chain().focus().setImage(res).setTextSelection(editor.state.selection.to).run()
+      //       })
+      //     }
+      //   }
+      // }),
       Table,
       BulletList,
       OrderedList,
