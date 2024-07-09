@@ -1,11 +1,10 @@
 import type { Editor } from '@youknown/react-rte/src'
 import type { ImageAttrs } from '@youknown/react-rte/src/extensions/image'
 import { Image, Toast } from '@youknown/react-ui/src'
+import { t } from 'i18next'
 
 import { upload_cloudflare_r2 } from './cloudflare-r2'
 import { compress_image } from './compress'
-
-const { t } = await import('i18next')
 
 export function onCustomUpload(file: File, editor: Editor) {
   return new Promise<ImageAttrs>((resolve, reject) => {

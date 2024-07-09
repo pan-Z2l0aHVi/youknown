@@ -1,4 +1,6 @@
+const { Emoji } = await import('@tiptap-pro/extension-emoji')
 import FileHandler from '@tiptap-pro/extension-file-handler'
+import { useUpdate } from '@youknown/react-hook/src'
 import { RTEMenuBar } from '@youknown/react-rte/src/components/menu-bar'
 import { RTEContent } from '@youknown/react-rte/src/components/rich-text-content'
 import Blockquote from '@youknown/react-rte/src/extensions/blockquote'
@@ -15,7 +17,10 @@ import { ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
+import { customEmojis, defaultEmojis } from '@/utils/emojis'
 import { onCustomDrop, onCustomPaste, onCustomUpload } from '@/utils/rte-custom'
+
+import EmojiPicker from '../emoji-picker'
 
 interface CommentEditorProps {
   auto_focus?: boolean
@@ -43,6 +48,7 @@ export default function CommentEditor(props: CommentEditorProps) {
   } = props
 
   const { t } = useTranslation()
+  const update = useUpdate()
   const is_mobile = useUIStore(state => state.is_mobile)
   const profile = useUserStore(state => state.profile)
   const has_login = useUserStore(state => state.has_login)
@@ -62,7 +68,8 @@ export default function CommentEditor(props: CommentEditorProps) {
         allowedMimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
         onPaste: onCustomPaste,
         onDrop: onCustomDrop
-      })
+      }),
+      Emoji.configure({ emojis: defaultEmojis.concat(customEmojis) })
     ],
     autofocus: auto_focus ? 'end' : false,
     placeholder: () => placeholder,
@@ -80,7 +87,8 @@ export default function CommentEditor(props: CommentEditorProps) {
 
   useEffect(() => {
     editor?.setEditable(!send_loading)
-  }, [editor, send_loading])
+    update()
+  }, [editor, send_loading, update])
 
   if (!editor) return null
 
@@ -93,9 +101,11 @@ export default function CommentEditor(props: CommentEditorProps) {
             <div className="pl-8px pr-8px">
               <RTEMenuBar
                 editor={editor}
-                list={['|', 'heading', 'bold', 'italic', 'strike', 'code', '|', 'link']}
+                list={['|', 'heading', 'bold', 'italic', 'strike', 'code', '|', 'slot', 'link']}
                 insertList={['image', 'blockquote', 'codeBlock']}
-              />
+              >
+                <EmojiPicker editor={editor} />
+              </RTEMenuBar>
             </div>
             <RTEContent
               className="comment-rich-text-reset text-14px"

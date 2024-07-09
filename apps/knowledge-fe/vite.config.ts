@@ -5,7 +5,7 @@ import { resolve } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 import unocss from 'unocss/vite'
 import type { PluginOption } from 'vite'
-import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import http2Proxy from 'vite-plugin-http2-proxy'
 import { VitePWA } from 'vite-plugin-pwa'
 import topLevelAwait from 'vite-plugin-top-level-await'
@@ -49,7 +49,6 @@ export default defineConfig(({ mode, command }) => {
           ]
         }
       }),
-      splitVendorChunkPlugin(),
       topLevelAwait(),
       react(),
       unocss(),
@@ -64,7 +63,15 @@ export default defineConfig(({ mode, command }) => {
       }
     },
     build: {
-      target: 'es2015'
+      target: 'es2015',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'react-vendor': ['react', 'react-dom', 'react-router-dom', 'react-transition-group'],
+            'i18next-vendor': ['i18next', 'react-i18next']
+          }
+        }
+      }
     },
     worker: {
       format: 'es'

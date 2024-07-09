@@ -1,6 +1,5 @@
-const { del, delMany, get, getMany, keys, set } = await import('idb-keyval')
-
 import { is } from '@youknown/utils/src'
+import { del, delMany, get, getMany, keys, set } from 'idb-keyval'
 
 export interface RecordValue {
   action: string

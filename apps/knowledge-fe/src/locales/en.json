@@ -415,5 +415,8 @@
   "change": {
     "give_up": "Give up",
     "continue": "Continue"
+  },
+  "emoji": {
+    "text": "Emoji"
   }
 }

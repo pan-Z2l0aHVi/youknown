@@ -1,12 +1,11 @@
 import { Toast } from '@youknown/react-ui/src'
 import type { ArgumentType } from '@youknown/utils/src'
 import { headers2Obj, Net } from '@youknown/utils/src'
+import { t } from 'i18next'
 
 import { B_CODE } from '@/consts'
 import { useModalStore, useUserStore } from '@/stores'
 import { get_local_token } from '@/utils/local'
-
-const { t } = await import('i18next')
 
 interface Cause {
   code: number

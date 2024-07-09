@@ -19,6 +19,46 @@
     border-bottom: 1px solid var(--ui-divider);
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    letter-spacing: var(--ui-heading-letter-spacing);
+    word-break: break-word;
+
+    &:first-of-type {
+      margin-top: 8px;
+    }
+  }
+
+  p {
+    margin: 16px 0;
+  }
+
+  li > p {
+    margin: 0;
+  }
+
+  /* ----------------------- IMAGE ------------------------- */
+  img {
+    max-width: 100%;
+    border-radius: var(--ui-radius-m);
+  }
+
+  /* ----------------------- CUSTOM EMOJI ------------------------- */
+  [data-type='emoji'] {
+    > img {
+      display: inline;
+      width: 40px;
+      height: 40px;
+      vertical-align: bottom;
+    }
+  }
+
   /* ----------------------- HORIZONTAL RULE ------------------------- */
   [data-type='horizontalRule'] {
     cursor: pointer;
@@ -43,30 +83,6 @@
       height: 0;
       margin: 0;
     }
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-    letter-spacing: var(--ui-heading-letter-spacing);
-    word-break: break-word;
-
-    &:first-of-type {
-      margin-top: 8px;
-    }
-  }
-
-  p {
-    margin: 16px 0;
-  }
-
-  li > p {
-    margin: 0;
   }
 
   /* ----------------------- BLOCKQUOTE ------------------------- */
@@ -131,12 +147,7 @@
     }
   }
 
-  /* ----------------------- IMAGE ------------------------- */
-  img {
-    max-width: 100%;
-    border-radius: var(--ui-radius-m);
-  }
-
+  /* ----------------------- LINK ------------------------- */
   a {
     cursor: pointer;
     color: var(--ui-color-link);

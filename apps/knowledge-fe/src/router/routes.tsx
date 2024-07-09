@@ -1,11 +1,10 @@
+import { t } from 'i18next'
 import type { ReactNode } from 'react'
 import { createElement, lazy } from 'react'
 import { TbBook2, TbFolderHeart, TbHistory, TbSmartHome, TbVersions } from 'react-icons/tb'
 import { Navigate } from 'react-router-dom'
 
 import Browse from '@/views/browse'
-
-const { t } = await import('i18next')
 
 export interface RouteItem {
   path: string

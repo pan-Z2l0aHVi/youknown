@@ -1,9 +1,8 @@
 import { QS, storage, uuid } from '@youknown/utils/src'
 import dayjs from 'dayjs'
+import { t } from 'i18next'
 
 import { open_login_window } from './correspond'
-
-const { t } = await import('i18next')
 
 export const go_github_login = async () => {
   const state = uuid()

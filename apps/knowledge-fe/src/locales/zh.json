@@ -415,5 +415,8 @@
   "change": {
     "give_up": "放弃",
     "continue": "继续"
+  },
+  "emoji": {
+    "text": "表情"
   }
 }

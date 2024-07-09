@@ -1,4 +1,4 @@
-const { t } = await import('i18next')
+import { t } from 'i18next'
 
 type Validator<T> = (value: T) => Promise<string | void>
 

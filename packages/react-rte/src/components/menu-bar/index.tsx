@@ -3,6 +3,7 @@ import './index.scss'
 import type { Editor } from '@tiptap/react'
 import { Divider, Space } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+import type { ReactNode } from 'react'
 import { cloneElement, createElement, useMemo } from 'react'
 
 import { UI_EDITOR_PREFIX } from '../../common'
@@ -14,6 +15,7 @@ import UndoBtn from '../undo-btn'
 
 type MenuListItem =
   | '|' // divider
+  | 'slot' // children slot
   | 'heading'
   | 'bold'
   | 'italic'
@@ -26,13 +28,14 @@ type MenuListItem =
   | 'textAlign'
 interface RTEMenuBarProps {
   editor: Editor | null
+  children?: ReactNode
   className?: string
   tooltip?: boolean
   list?: MenuListItem[]
   insertList?: insertListItem[]
 }
 export function RTEMenuBar(props: RTEMenuBarProps) {
-  const { editor, className, tooltip = true, list, insertList } = props
+  const { editor, children, className, tooltip = true, list, insertList } = props
 
   const btnList = useMemo(() => {
     const defaultList = [
@@ -50,7 +53,8 @@ export function RTEMenuBar(props: RTEMenuBarProps) {
       'link',
       'blockquote',
       '|',
-      'textAlign'
+      'textAlign',
+      'slot'
     ]
     return list ?? defaultList
   }, [list])
@@ -68,6 +72,9 @@ export function RTEMenuBar(props: RTEMenuBarProps) {
   const ele = btnList.map((btn, index) => {
     if (btn === '|') {
       return cloneElement(verticalDivider, { key: index })
+    }
+    if (btn === 'slot') {
+      return children
     }
     const extension = extensions.find(ext => ext.name === btn)
     if (extension) {
