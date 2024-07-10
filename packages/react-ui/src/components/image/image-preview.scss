@@ -3,6 +3,8 @@
 $prefix: '#{$ui-prefix}-image-preview';
 
 .#{$prefix} {
+  @include basic;
+
   @mixin top-level-tip {
     pointer-events: none;
     position: fixed;
@@ -117,6 +119,4 @@ $prefix: '#{$ui-prefix}-image-preview';
   &-index {
     @include top-level-tip;
   }
-
-  @include basic;
 }

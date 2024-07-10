@@ -41,6 +41,8 @@ $prefix: '#{$ui-prefix}-loading';
     }
 
     &-custom {
+      animation: loading 1s linear infinite;
+
       @keyframes loading {
         from {
           transform: rotate(0deg);
@@ -50,8 +52,6 @@ $prefix: '#{$ui-prefix}-loading';
           transform: rotate(360deg);
         }
       }
-
-      animation: loading 1s linear infinite;
     }
   }
 

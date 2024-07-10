@@ -19,7 +19,6 @@ $prefix: '#{$ui-editor-prefix}-text-color-picker';
 
   .#{$prefix}-arrow-btn {
     @include icon;
-    @include interactive;
 
     user-select: none;
     height: 26px;
@@ -31,6 +30,8 @@ $prefix: '#{$ui-editor-prefix}-text-color-picker';
     border-top-right-radius: $radius-m;
     border-bottom-right-radius: $radius-m;
     outline: 0;
+
+    @include interactive;
 
     &:focus-visible {
       @include focus-outline;

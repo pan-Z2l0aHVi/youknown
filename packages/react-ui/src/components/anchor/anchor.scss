@@ -3,10 +3,11 @@
 $prefix: '#{$ui-prefix}-anchor';
 .#{$prefix} {
   @include basic;
-  @include scrollbar;
 
   padding: 0 0 0 4px;
   font-size: $font-size-s;
+
+  @include scrollbar;
 
   &-list {
     padding: 0 0 0 4px;

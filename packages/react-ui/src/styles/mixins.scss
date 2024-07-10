@@ -1,5 +1,5 @@
 @use './vars.scss' as *;
-@forward './vars.scss';
+@forward './vars';
 
 @mixin basic {
   font-size: $font-size-m;

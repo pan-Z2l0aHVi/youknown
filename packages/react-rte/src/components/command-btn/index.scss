@@ -3,7 +3,6 @@
 $prefix: '#{$ui-editor-prefix}-command-btn';
 .#{$prefix} {
   @include icon;
-  @include interactive;
 
   user-select: none;
   padding: 4px;
@@ -11,6 +10,8 @@ $prefix: '#{$ui-editor-prefix}-command-btn';
   border: 0;
   border-radius: $radius-m;
   outline: none;
+
+  @include interactive;
 
   &:focus-visible {
     @include focus-outline;

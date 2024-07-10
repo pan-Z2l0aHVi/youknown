@@ -4,11 +4,11 @@
 @use './table.scss' as *;
 
 .#{$ui-editor-prefix}-content {
-  @include rich-text;
-
   position: relative;
   padding: 8px 8px 8px 16px;
   font-size: 16px;
+
+  @include rich-text;
 
   .ProseMirror {
     outline: none;

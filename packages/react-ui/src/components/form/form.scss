@@ -16,9 +16,9 @@ $prefix: '#{$ui-prefix}-form';
   }
 
   &-inline {
-    @include polyfills.flex-gap(32px, 'row nowrap');
-
     display: flex;
     flex-wrap: wrap;
+
+    @include polyfills.flex-gap(32px, 'row nowrap');
   }
 }

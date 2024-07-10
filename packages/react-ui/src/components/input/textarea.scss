@@ -16,8 +16,6 @@ $prefix: '#{$ui-prefix}-textarea';
   }
 
   &-inner {
-    @include scrollbar;
-
     resize: none;
     flex: 1;
     min-height: 22px;
@@ -28,6 +26,8 @@ $prefix: '#{$ui-prefix}-textarea';
     background: transparent;
     border: 0;
     outline: 0;
+
+    @include scrollbar;
 
     &::placeholder {
       color: $text-3;

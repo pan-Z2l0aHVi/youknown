@@ -3,7 +3,6 @@
 $prefix: '#{$ui-prefix}-dropdown-menu';
 .#{$prefix} {
   @include basic;
-  @include scrollbar;
 
   overflow-y: hidden;
   max-height: 280px;
@@ -12,6 +11,8 @@ $prefix: '#{$ui-prefix}-dropdown-menu';
   border: 1px solid $pop-bd;
   border-radius: $radius-l;
   box-shadow: $shadow-m;
+
+  @include scrollbar;
 
   @media (hover: hover) {
     &:hover {
