@@ -67,7 +67,7 @@ export default defineConfig(({ mode, command }) => {
       rollupOptions: {
         output: {
           manualChunks: {
-            'react-vendor': ['react', 'react-dom', 'react-router-dom', 'react-transition-group'],
+            'react-vendor': ['react', 'react-dom', 'react-router-dom'],
             'i18next-vendor': ['i18next', 'react-i18next']
           }
         }

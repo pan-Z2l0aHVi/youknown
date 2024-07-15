@@ -43,7 +43,7 @@ const RichTextArea = (props: RichTextAreaProps, ref: ForwardedRef<HTMLDivElement
         }
 
         if (node.name === 'img') {
-          const { src } = node.attribs
+          const { src, alt = 'RichTextImage' } = node.attribs
           const width = parseFloat(node.attribs.width)
           const height = parseFloat(node.attribs.height)
           const has_w_h = !Number.isNaN(width) && !Number.isNaN(height)
@@ -57,11 +57,11 @@ const RichTextArea = (props: RichTextAreaProps, ref: ForwardedRef<HTMLDivElement
                   }
                 : { width, height }
               : {}
-            return <GIFLazyImage src={src} style={style} />
+            return <GIFLazyImage src={src} alt={alt} style={style} />
           }
 
           const style = has_w_h ? { width, height } : {}
-          return <Image canPreview previewSrc={src} src={src} style={style} />
+          return <Image canPreview previewSrc={src} src={src} alt={alt} style={style} />
         }
 
         if (node.name === 'pre' && node.firstChild instanceof Element && node.firstChild.name === 'code') {

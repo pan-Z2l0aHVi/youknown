@@ -1,6 +1,6 @@
 import { cls, is } from '@youknown/utils/src'
 import type { ComponentProps } from 'react'
-import { forwardRef } from 'react'
+import { forwardRef, memo } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
@@ -40,4 +40,4 @@ const TransitionNavLink = forwardRef<HTMLAnchorElement, ComponentProps<typeof Na
     />
   )
 })
-export default TransitionNavLink
+export default memo(TransitionNavLink)

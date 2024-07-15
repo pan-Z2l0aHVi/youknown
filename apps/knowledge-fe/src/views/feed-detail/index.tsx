@@ -1,5 +1,6 @@
 import { useFetch } from '@youknown/react-hook/src'
-import { Anchor, Image, Loading } from '@youknown/react-ui/src'
+import { Anchor, AspectRatio, Image, Loading } from '@youknown/react-ui/src'
+import { cls } from '@youknown/utils/src'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Location } from 'react-router-dom'
@@ -27,6 +28,7 @@ export default function FeedDetail() {
   const location: Location<Feed> = useLocation()
   const { pathname, state: feed_state } = location
   const last_pathname = useRef('')
+  const [loaded, setLoaded] = useState(false)
 
   const record_read_feed = (feed_info: Feed) => {
     recording({
@@ -74,15 +76,18 @@ export default function FeedDetail() {
   }, [doc_content])
 
   const feed_content = (
-    <div className="flex-1 sm:w-720px <sm:w-0">
+    <div className="<sm:flex-1 <sm:w-0 sm:w-720px">
       {detail?.subject.cover && (
-        <Image
-          className="w-100% max-h-30vh min-h-80px b-1 b-solid b-divider rd-radius-m mb-16px"
-          src={detail.subject.cover}
-          previewSrc={detail.subject.cover}
-          canPreview
-          alt="Cover"
-        />
+        <AspectRatio ratio={16 / 9}>
+          <Image
+            className={cls('w-100% h-100% rd-radius-m mb-16px', loaded ? 'b-1 b-solid b-divider' : 'bg-bg-2')}
+            src={detail.subject.cover}
+            previewSrc={detail.subject.cover}
+            canPreview
+            alt="Cover"
+            onLoad={() => setLoaded(true)}
+          />
+        </AspectRatio>
       )}
       <RichTextArea ref={rich_text_container_ref} className="text-16px" html={doc_content} />
       {detail && (

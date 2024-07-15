@@ -93,7 +93,7 @@ export default function UserCenter() {
 
   const banner = (
     <Loading className="w-100%!" spinning={!user_info}>
-      <AspectRatio ratio={is_mobile ? 0.4 : 0.2}>
+      <AspectRatio ratio={is_mobile ? 2.5 : 5}>
         <div
           className={cls(
             'relative w-100% h-100%',

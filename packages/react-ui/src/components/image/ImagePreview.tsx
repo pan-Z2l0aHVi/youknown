@@ -3,7 +3,7 @@ import './image-preview.scss'
 import { useBoolean, useEvent, useLatestRef } from '@youknown/react-hook/src'
 import { checkTouchDevice, cls, downloadFile, is, setRootStyle } from '@youknown/utils/src'
 import type { MouseEventHandler, ReactEventHandler, TouchEventHandler } from 'react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   TbArrowLeft,

@@ -1,5 +1,6 @@
 import { cls } from '@youknown/utils/src'
 import type { ComponentProps } from 'react'
+import { memo } from 'react'
 import { forwardRef } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -34,4 +35,4 @@ const TransitionLink = forwardRef<HTMLAnchorElement, ComponentProps<typeof Link>
     />
   )
 })
-export default TransitionLink
+export default memo(TransitionLink)

@@ -43,7 +43,7 @@ export default function LikeArea(props: LikeAreaProps) {
   )
 
   const like_action_btn = (
-    <Button size="large" circle primary onClick={toggle_like}>
+    <Button aria-label={liked ? t('like.ok') : t('like.text')} size="large" circle primary onClick={toggle_like}>
       {liked ? <FaThumbsUp className="text-20px" /> : <FaRegThumbsUp className="text-20px" />}
     </Button>
   )

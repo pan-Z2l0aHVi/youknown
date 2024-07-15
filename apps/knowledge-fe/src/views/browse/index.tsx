@@ -58,7 +58,7 @@ export default function Browse() {
 
       <Searcher open={search_modal_open} on_close={hide_search_modal} />
 
-      <div className="flex justify-center sm:p-32px <sm:p-16px">
+      <div className="sm:p-32px <sm:p-16px sm:m-[0_auto] <sm:w-100% sm:w-960px sm:max-w-100%">
         <FeedList feed_tab={feed_tab} />
       </div>
 

@@ -8,6 +8,7 @@ import { parse_gif_frame } from '@/utils/gif'
 
 interface GIFLazyImageProps extends HTMLAttributes<HTMLElement> {
   src: string
+  alt: string
 }
 export default function GIFLazyImage(props: GIFLazyImageProps) {
   const { src, className, ...rest } = props
