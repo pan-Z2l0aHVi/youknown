@@ -7,6 +7,7 @@ import { forwardRef, useMemo, useRef } from 'react'
 
 import { useUIStore } from '@/stores'
 import { BASE_NODE_ID } from '@/utils'
+import { transform_img_cdn } from '@/utils/cloudflare'
 
 import CodeBlock from './components/code-block'
 import GIFLazyImage from './components/gif-lazy-img'
@@ -61,7 +62,15 @@ const RichTextArea = (props: RichTextAreaProps, ref: ForwardedRef<HTMLDivElement
           }
 
           const style = has_w_h ? { width, height } : {}
-          return <Image canPreview previewSrc={src} src={src} alt={alt} style={style} />
+          return (
+            <Image
+              canPreview
+              previewSrc={src}
+              src={transform_img_cdn(src, { w: is_mobile ? 400 : 720 })}
+              alt={alt}
+              style={style}
+            />
+          )
         }
 
         if (node.name === 'pre' && node.firstChild instanceof Element && node.firstChild.name === 'code') {

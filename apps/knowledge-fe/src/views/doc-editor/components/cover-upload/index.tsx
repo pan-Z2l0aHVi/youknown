@@ -1,5 +1,5 @@
 import { useBoolean } from '@youknown/react-hook/src'
-import { Button, Image, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
+import { AspectRatio, Button, Image, Loading, Space, Toast, Upload } from '@youknown/react-ui/src'
 import type { ComponentProps } from 'react'
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -10,7 +10,7 @@ import type { Doc } from '@/apis/doc'
 import { update_doc } from '@/apis/doc'
 import { GENERAL_IMAGE_ACCEPT } from '@/consts'
 import { useUIStore } from '@/stores'
-import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
+import { transform_img_cdn, upload_cloudflare_r2 } from '@/utils/cloudflare'
 import { compress_image } from '@/utils/compress'
 import { with_api } from '@/utils/request'
 
@@ -82,13 +82,15 @@ export default function CoverUpload(props: CoverUploadProps) {
     <Loading className="w-100%!" spinning={updating}>
       {final_cover ? (
         <div className="group relative">
-          <Image
-            className="w-100% max-h-30vh min-h-80px b-1 b-solid b-divider rd-radius-m"
-            src={final_cover}
-            previewSrc={final_cover}
-            canPreview
-            alt="Cover"
-          />
+          <AspectRatio ratio={16 / 9}>
+            <Image
+              className="w-100% h-100% b-1 b-solid b-divider rd-radius-m"
+              src={transform_img_cdn(final_cover, { w: 720 })}
+              previewSrc={final_cover}
+              canPreview
+              alt="Cover"
+            />
+          </AspectRatio>
           <Space className="[@media(hover:hover)]-group-hover-display-flex! sm:display-none! absolute right-16px bottom-16px">
             <Upload
               accept={GENERAL_IMAGE_ACCEPT}

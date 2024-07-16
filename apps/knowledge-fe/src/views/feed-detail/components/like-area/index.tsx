@@ -7,6 +7,7 @@ import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa6'
 import type { Feed } from '@/apis/feed'
 import { useFeedLike } from '@/hooks/use-feed-like'
 import { is_dark_theme_getter, useUIStore } from '@/stores'
+import { transform_img_cdn } from '@/utils/cloudflare'
 
 interface LikeAreaProps {
   feed: Feed
@@ -35,7 +36,12 @@ export default function LikeArea(props: LikeAreaProps) {
       <div className="flex flex-wrap p-16px select-none">
         {like_list.map(user => (
           <Tooltip key={user.user_id} trigger={is_mobile ? 'click' : 'hover'} placement="bottom" title={user.nickname}>
-            <Avatar className="m-4px" round src={user.avatar} />
+            <Avatar
+              className="m-4px"
+              round
+              src={transform_img_cdn(user.avatar, { w: 40, h: 40, fit: 'cover' })}
+              previewSrc={user.avatar}
+            />
           </Tooltip>
         ))}
       </div>
@@ -67,7 +73,11 @@ export default function LikeArea(props: LikeAreaProps) {
               }))}
               renderAvatar={item => (
                 <Tooltip key={item.name} trigger={is_mobile ? 'click' : 'hover'} title={item.nickname}>
-                  <Avatar round src={item.src} />
+                  <Avatar
+                    round
+                    src={transform_img_cdn(item.src, { w: 40, h: 40, fit: 'cover' })}
+                    previewSrc={item.src}
+                  />
                 </Tooltip>
               )}
               renderRest={rest_items => (

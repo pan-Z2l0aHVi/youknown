@@ -11,7 +11,7 @@ import TabBar from '@/app/components/tab-bar'
 import { GENERAL_IMAGE_ACCEPT } from '@/consts'
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
-import { upload_cloudflare_r2 } from '@/utils/cloudflare-r2'
+import { transform_img_cdn, upload_cloudflare_r2 } from '@/utils/cloudflare'
 import { compress_image } from '@/utils/compress'
 
 import Entires from './components/entries'
@@ -102,7 +102,12 @@ export default function UserCenter() {
           )}
         >
           {(!is_self || (is_self && has_login)) && (
-            <Image className="w-100% h-100%" src={user_info?.avatar ?? ''} alt="Banner" />
+            <Image
+              className="w-100% h-100%"
+              src={transform_img_cdn(user_info?.avatar ?? '', { w: 1920 })}
+              previewSrc={user_info?.avatar ?? ''}
+              alt="Banner"
+            />
           )}
         </div>
       </AspectRatio>
@@ -141,7 +146,8 @@ export default function UserCenter() {
               round
               bordered
               canPreview
-              src={user_info?.avatar}
+              src={transform_img_cdn(user_info?.avatar, { w: 90, h: 90, fit: 'cover' })}
+              previewSrc={user_info?.avatar}
             />
           )}
         </>

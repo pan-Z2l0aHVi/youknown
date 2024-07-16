@@ -11,6 +11,7 @@ import { cancel_collect_feed } from '@/apis/user'
 import More from '@/components/more'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { format_time } from '@/utils'
+import { transform_img_cdn } from '@/utils/cloudflare'
 import { with_api } from '@/utils/request'
 
 interface FeedCardProps {
@@ -84,7 +85,13 @@ export default function FeedCard(props: FeedCardProps) {
         onClick={go_feed_detail}
         onContextMenu={ctx_menu.onContextMenu}
       >
-        <Image className="w-160px h-100%" loading="lazy" src={feed.subject.cover} alt="Cover" />
+        <Image
+          className="w-160px h-100%"
+          loading="lazy"
+          src={transform_img_cdn(feed.subject.cover, { w: 160, h: 120, fit: 'cover' })}
+          previewSrc={feed.subject.cover}
+          alt="Cover"
+        />
         <div className="flex-1 flex flex-col justify-between w-0 h-100% p-[16px]">
           <div>
             <div className="flex items-center">

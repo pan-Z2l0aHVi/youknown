@@ -17,6 +17,7 @@ import More from '@/components/more'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { is_dark_theme_getter, useModalStore, useUIStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
+import { transform_img_cdn } from '@/utils/cloudflare'
 import { with_api } from '@/utils/request'
 
 interface DocCardProps {
@@ -182,7 +183,7 @@ export default function DocCard(props: DocCardProps) {
 
         <div
           className="flex-1 flex flex-col justify-end bg-cover bg-center"
-          style={{ backgroundImage: `url("${info.cover}")` }}
+          style={{ backgroundImage: `url("${transform_img_cdn(info.cover, { h: 224 })}")` }}
           onClick={select_doc}
         >
           <div

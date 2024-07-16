@@ -4,6 +4,7 @@ import { RiHistoryFill } from 'react-icons/ri'
 
 import type { Feed } from '@/apis/feed'
 import { format_time } from '@/utils'
+import { transform_img_cdn } from '@/utils/cloudflare'
 
 interface OverviewProps {
   selection: Feed
@@ -16,7 +17,7 @@ export default function Overview(props: OverviewProps) {
       {selection.subject.cover ? (
         <Image
           className="min-w-144px w-144px h-144px rd-radius-m shadow-shadow-l b-1 b-solid b-divider"
-          src={selection.subject.cover}
+          src={transform_img_cdn(selection.subject.cover, { w: 144, h: 144, fit: 'cover' })}
           previewSrc={selection.subject.cover}
           canPreview
           alt="Cover"
@@ -28,7 +29,12 @@ export default function Overview(props: OverviewProps) {
       )}
       <div className="w-100% mt-16px line-clamp-2 text-center text-16px font-600">{selection.subject.title}</div>
       <div className="flex items-center justify-center w-100% mt-16px">
-        <Avatar size="small" round src={selection.creator.avatar} />
+        <Avatar
+          size="small"
+          round
+          src={transform_img_cdn(selection.creator.avatar, { w: 24, h: 24, fit: 'cover' })}
+          previewSrc={selection.creator.avatar}
+        />
         <span className="ml-8px truncate color-text-2">{selection.creator.nickname}</span>
       </div>
       <div className="flex items-center mt-16px text-center color-text-3 text-12px">

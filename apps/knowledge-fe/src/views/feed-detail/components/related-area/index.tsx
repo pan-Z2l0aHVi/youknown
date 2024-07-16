@@ -9,6 +9,7 @@ import type { Feed } from '@/apis/feed'
 import { get_related_feeds } from '@/apis/feed'
 import MoreLoading from '@/components/more-loading'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
+import { transform_img_cdn } from '@/utils/cloudflare'
 
 interface RelatedAreaProps {
   feed: Feed
@@ -70,7 +71,13 @@ export default function RelatedArea(props: RelatedAreaProps) {
             return (
               <List.Item
                 key={subject.doc_id}
-                prefix={<Image className="w-40px h-32px rd-radius-m" src={subject.cover} />}
+                prefix={
+                  <Image
+                    className="w-40px h-32px rd-radius-m"
+                    src={transform_img_cdn(subject.cover, { w: 40, h: 32, fit: 'cover' })}
+                    previewSrc={subject.cover}
+                  />
+                }
                 suffix={<TbChevronRight className="color-text-3 text-16px" />}
                 clickable
                 onClick={() => go_feed_detail(feed_info)}

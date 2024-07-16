@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import type { Profile } from '@/apis/user'
 import { unfollow_user } from '@/apis/user'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
+import { transform_img_cdn } from '@/utils/cloudflare'
 import { with_api } from '@/utils/request'
 
 interface UserCardProps {
@@ -79,7 +80,13 @@ export default function UserCard(props: UserCardProps) {
       onClick={go_user_center}
     >
       <div className="relative flex flex-col items-center p-[16px_8px]">
-        <Avatar className="b-1 b-solid b-divider mb-4px" size="large" round src={user_info.avatar} />
+        <Avatar
+          className="b-1 b-solid b-divider mb-4px"
+          size="large"
+          round
+          src={transform_img_cdn(user_info.avatar, { w: 56, h: 56, fit: 'cover' })}
+          previewSrc={user_info.avatar}
+        />
         <div className="color-text-1 font-600 truncate mb-12px">{user_info.nickname}</div>
         {follow_btn}
       </div>

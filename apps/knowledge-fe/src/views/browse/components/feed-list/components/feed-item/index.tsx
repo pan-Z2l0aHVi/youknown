@@ -9,7 +9,9 @@ import type { Feed } from '@/apis/feed'
 import TransitionLink from '@/components/transition-link'
 import { useFeedLike } from '@/hooks/use-feed-like'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
+import { useUIStore } from '@/stores'
 import { format_time } from '@/utils'
+import { transform_img_cdn } from '@/utils/cloudflare'
 
 interface FeedItemProps {
   feed: Feed
@@ -19,6 +21,7 @@ export default function FeedItem(props: FeedItemProps) {
   const { id, subject } = feed
   const { title, cover, summary } = subject
   const { t } = useTranslation()
+  const is_mobile = useUIStore(state => state.is_mobile)
   const navigate = useTransitionNavigate()
   const { like_count, toggle_like, liked } = useFeedLike(feed)
 
@@ -46,7 +49,14 @@ export default function FeedItem(props: FeedItemProps) {
 
   const header_area = (
     <div className="flex items-center mb-16px">
-      <Avatar className=" cursor-pointer" size="small" round src={feed.creator.avatar} onClick={go_user_center} />
+      <Avatar
+        className=" cursor-pointer"
+        size="small"
+        round
+        src={transform_img_cdn(feed.creator.avatar, { w: 24, h: 24, fit: 'cover' })}
+        previewSrc={feed.creator.avatar}
+        onClick={go_user_center}
+      />
 
       <div className="flex items-center">
         <div
@@ -90,7 +100,8 @@ export default function FeedItem(props: FeedItemProps) {
         <TransitionLink className="sm:ml-48px <sm:ml-8px" to={doc_detail_url} state={feed}>
           <Image
             className={cls('b-divider b-1 b-solid rd-radius-m', 'sm:w-160px sm:h-108px <sm:w-80px <sm:h-60px ')}
-            src={cover}
+            src={transform_img_cdn(cover, { w: is_mobile ? 80 : 160, h: is_mobile ? 60 : 108, fit: 'cover' })}
+            previewSrc={cover}
             loading="lazy"
             alt="Cover"
           />

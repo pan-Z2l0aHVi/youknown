@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import type { Feed } from '@/apis/feed'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { format_time } from '@/utils'
+import { transform_img_cdn } from '@/utils/cloudflare'
 
 interface DescAreaProps {
   feed: Feed
@@ -33,7 +34,8 @@ export default function DescArea(props: DescAreaProps) {
         className="mr-4px cursor-pointer"
         size={20}
         round
-        src={feed.subject.author.avatar}
+        src={transform_img_cdn(feed.subject.author.avatar, { w: 20, h: 20, fit: 'cover' })}
+        previewSrc={feed.subject.author.avatar}
         onClick={go_user_center}
       />
       <span className="max-w-120px truncate mr-24px color-text-2 cursor-pointer" onClick={go_user_center}>

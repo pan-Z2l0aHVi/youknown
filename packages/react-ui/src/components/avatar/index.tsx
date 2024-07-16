@@ -15,6 +15,7 @@ export interface AvatarProps extends HTMLAttributes<HTMLElement> {
   bordered?: boolean
   color?: string
   src?: string
+  previewSrc?: string
   badge?: ReactNode
   canPreview?: boolean
 }
@@ -26,6 +27,7 @@ const _Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLDivElement>) => {
     children,
     className,
     src = '',
+    previewSrc = src,
     size = avatarCtx.size ?? 'medium',
     round = avatarCtx.round ?? false,
     bordered = avatarCtx.bordered ?? false,
@@ -44,7 +46,7 @@ const _Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLDivElement>) => {
       src={src}
       alt="Avatar"
       canPreview={canPreview}
-      previewSrc={src}
+      previewSrc={previewSrc}
     />
   )
 

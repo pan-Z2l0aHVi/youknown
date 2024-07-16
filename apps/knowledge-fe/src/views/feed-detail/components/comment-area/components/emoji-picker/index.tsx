@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { BiSolidChevronDown } from 'react-icons/bi'
 import { HiOutlineEmojiHappy } from 'react-icons/hi'
 
+import { transform_img_cdn } from '@/utils/cloudflare'
 import { customEmojis, defaultEmojis } from '@/utils/emojis'
 
 interface EmojiPickerProps {
@@ -26,7 +27,8 @@ export default function EmojiPicker(props: EmojiPickerProps) {
         return (
           <Image
             key={emoji.name}
-            src={emoji.fallbackImage!}
+            src={transform_img_cdn(emoji.fallbackImage!, { w: 48, h: 48, fit: 'cover' })}
+            previewSrc={emoji.fallbackImage!}
             className="w-48px h-48px rd-radius-m p-4px
             cursor-pointer [@media(hover:hover)]-hover-bg-hover active-bg-active! custom-focus-outline select-none"
             onClick={() => {

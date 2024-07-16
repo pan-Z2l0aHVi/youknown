@@ -17,6 +17,7 @@ import { ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
+import { transform_img_cdn } from '@/utils/cloudflare'
 import { customEmojis, defaultEmojis } from '@/utils/emojis'
 import { onCustomDrop, onCustomPaste, onCustomUpload } from '@/utils/rte-custom'
 
@@ -96,7 +97,15 @@ export default function CommentEditor(props: CommentEditorProps) {
     <div className="flex items-start mt-8px mb-16px">
       {has_login ? (
         <>
-          {avatar_visible && <Avatar className="mr-16px" size={32} round src={profile?.avatar} />}
+          {avatar_visible && (
+            <Avatar
+              className="mr-16px"
+              size={32}
+              round
+              src={transform_img_cdn(profile?.avatar, { w: 32, h: 32, fit: 'cover' })}
+              previewSrc={profile?.avatar}
+            />
+          )}
           <div className="flex-1 pt-8px b-1 b-solid b-divider rd-radius-m">
             <div className="pl-8px pr-8px">
               <RTEMenuBar

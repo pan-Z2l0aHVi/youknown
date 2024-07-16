@@ -12,6 +12,7 @@ import RichTextArea from '@/components/rich-text-area'
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { is_dark_theme_getter, useRecordStore, useUIStore, useUserStore } from '@/stores'
 import { format_time } from '@/utils'
+import { transform_img_cdn } from '@/utils/cloudflare'
 import { with_api } from '@/utils/request'
 
 import { CommentContext } from '../../comment-context'
@@ -125,7 +126,13 @@ export default function SubCommentItem(props: SubCommentItemProps) {
 
   return (
     <div className="flex items-start mb-16px last:mb-0">
-      <Avatar round size={32} src={commentator.avatar} onClick={() => go_user_center(commentator.id)} />
+      <Avatar
+        round
+        size={32}
+        src={transform_img_cdn(commentator.avatar, { w: 32, h: 32, fit: 'cover' })}
+        previewSrc={commentator.avatar}
+        onClick={() => go_user_center(commentator.id)}
+      />
 
       <div className="flex-1 w-0 pl-16px">
         <div>

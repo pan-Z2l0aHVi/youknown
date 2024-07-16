@@ -3,7 +3,7 @@ import type { ImageAttrs } from '@youknown/react-rte/src/extensions/image'
 import { Image, Toast } from '@youknown/react-ui/src'
 import { t } from 'i18next'
 
-import { upload_cloudflare_r2 } from './cloudflare-r2'
+import { upload_cloudflare_r2 } from './cloudflare'
 import { compress_image } from './compress'
 
 export function onCustomUpload(file: File, editor: Editor) {

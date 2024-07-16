@@ -6,6 +6,7 @@ import { TbLogin, TbLogout, TbUser } from 'react-icons/tb'
 
 import { useTransitionNavigate } from '@/hooks/use-transition-navigate'
 import { useModalStore, useUserStore } from '@/stores'
+import { transform_img_cdn } from '@/utils/cloudflare'
 
 interface MyProps {
   expand: boolean
@@ -70,7 +71,12 @@ export default function My({ expand }: MyProps) {
             )}
           >
             {has_login ? (
-              <Avatar round size={36} src={profile?.avatar} />
+              <Avatar
+                round
+                size={36}
+                src={transform_img_cdn(profile?.avatar, { w: 36, h: 36, fit: 'cover' })}
+                previewSrc={profile?.avatar}
+              />
             ) : (
               <div className="flex justify-center items-center w-36px min-w-36px h-36px rd-full bg-primary color-#fff text-13px font-500">
                 {t('login.shortcut')}

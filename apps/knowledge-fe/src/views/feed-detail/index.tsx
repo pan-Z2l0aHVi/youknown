@@ -12,6 +12,7 @@ import Header from '@/app/components/header'
 import RichTextArea from '@/components/rich-text-area'
 import { useRecordStore, useUIStore } from '@/stores'
 import { HeadingLeaf, prase_heading_tree } from '@/utils'
+import { transform_img_cdn } from '@/utils/cloudflare'
 
 import ActionBtn from './components/action-btn'
 import CommentArea from './components/comment-area'
@@ -81,7 +82,7 @@ export default function FeedDetail() {
         <AspectRatio ratio={16 / 9}>
           <Image
             className={cls('w-100% h-100% rd-radius-m mb-16px', loaded ? 'b-1 b-solid b-divider' : 'bg-bg-2')}
-            src={detail.subject.cover}
+            src={transform_img_cdn(detail.subject.cover, { w: 720 })}
             previewSrc={detail.subject.cover}
             canPreview
             alt="Cover"
