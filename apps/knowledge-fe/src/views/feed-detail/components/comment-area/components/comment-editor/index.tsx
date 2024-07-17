@@ -1,16 +1,6 @@
-const { Emoji } = await import('@tiptap-pro/extension-emoji')
-import FileHandler from '@tiptap-pro/extension-file-handler'
 import { useUpdate } from '@youknown/react-hook/src'
 import { RTEMenuBar } from '@youknown/react-rte/src/components/menu-bar'
 import { RTEContent } from '@youknown/react-rte/src/components/rich-text-content'
-import Blockquote from '@youknown/react-rte/src/extensions/blockquote'
-import Bold from '@youknown/react-rte/src/extensions/bold'
-import Code from '@youknown/react-rte/src/extensions/code'
-import CodeBlock from '@youknown/react-rte/src/extensions/code-block'
-import Image from '@youknown/react-rte/src/extensions/image'
-import Italic from '@youknown/react-rte/src/extensions/italic'
-import Link from '@youknown/react-rte/src/extensions/link'
-import Strike from '@youknown/react-rte/src/extensions/strike'
 import { useRTE } from '@youknown/react-rte/src/hooks/useRTE'
 import { Avatar, Button, Space } from '@youknown/react-ui/src'
 import { ReactNode, useEffect } from 'react'
@@ -18,8 +8,7 @@ import { useTranslation } from 'react-i18next'
 
 import { useModalStore, useUIStore, useUserStore } from '@/stores'
 import { transform_img_cdn } from '@/utils/cloudflare'
-import { customEmojis, defaultEmojis } from '@/utils/emojis'
-import { onCustomDrop, onCustomPaste, onCustomUpload } from '@/utils/rte-custom'
+import { COMMENT_EDITOR_KIT } from '@/utils/rte-kit'
 
 import EmojiPicker from '../emoji-picker'
 
@@ -56,22 +45,7 @@ export default function CommentEditor(props: CommentEditorProps) {
   const open_login_modal = useModalStore(state => state.open_login_modal)
 
   const editor = useRTE({
-    extensions: [
-      Bold,
-      Italic,
-      Strike,
-      Code,
-      Link,
-      Blockquote,
-      CodeBlock,
-      Image.configure({ onCustomUpload }),
-      FileHandler.configure({
-        allowedMimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
-        onPaste: onCustomPaste,
-        onDrop: onCustomDrop
-      }),
-      Emoji.configure({ emojis: defaultEmojis.concat(customEmojis) })
-    ],
+    extensions: COMMENT_EDITOR_KIT,
     autofocus: auto_focus ? 'end' : false,
     placeholder: () => placeholder,
     content: value,
@@ -110,7 +84,7 @@ export default function CommentEditor(props: CommentEditorProps) {
             <div className="pl-8px pr-8px">
               <RTEMenuBar
                 editor={editor}
-                list={['|', 'heading', 'bold', 'italic', 'strike', 'code', '|', 'slot', 'link']}
+                list={['|', 'heading', 'bold', 'italic', 'underline', 'strike', 'code', '|', 'slot', 'link']}
                 insertList={['image', 'blockquote', 'codeBlock']}
               >
                 <EmojiPicker editor={editor} />

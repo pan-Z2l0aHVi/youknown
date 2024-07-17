@@ -1,5 +1,6 @@
 import type { EmojiItem } from '@tiptap-pro/extension-emoji'
-const { emojis } = await import('@tiptap-pro/extension-emoji')
+import { emojis } from '@tiptap-pro/extension-emoji'
+// const { emojis } = await import('@tiptap-pro/extension-emoji')
 
 export const defaultEmojis: EmojiItem[] = emojis
 
