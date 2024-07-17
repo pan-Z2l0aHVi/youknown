@@ -75,12 +75,18 @@ function getImageDimensions(file: File): Promise<Dimensions> {
 
 function resizeImageDataByCanvas(input: ImageData, width: number, height: number): ImageData {
   const canvas = document.createElement('canvas')
-  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+  const ctx = canvas.getContext('2d', {
+    // https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently
+    willReadFrequently: true
+  }) as CanvasRenderingContext2D
   canvas.width = width
   canvas.height = height
 
   const inputCanvas = document.createElement('canvas')
-  const inputCtx = inputCanvas.getContext('2d') as CanvasRenderingContext2D
+  const inputCtx = inputCanvas.getContext('2d', {
+    // https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently
+    willReadFrequently: true
+  }) as CanvasRenderingContext2D
   inputCanvas.width = input.width
   inputCanvas.height = input.height
   inputCtx.putImageData(input, 0, 0)

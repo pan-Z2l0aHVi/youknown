@@ -13,7 +13,10 @@ export async function cropImageToBase64({ file, pixelCrop, rotation = 0 }: CropI
   try {
     const image = await fileToImage(file)
     const canvas = document.createElement('canvas')
-    const ctx = canvas.getContext('2d')
+    const ctx = canvas.getContext('2d', {
+      // https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently
+      willReadFrequently: true
+    })
     if (!ctx) {
       return Promise.reject('Canvas context not supported.')
     }
@@ -34,7 +37,10 @@ export async function cropImageToBase64({ file, pixelCrop, rotation = 0 }: CropI
     ctx.drawImage(image, 0, 0)
 
     const croppedCanvas = document.createElement('canvas')
-    const croppedCtx = croppedCanvas.getContext('2d')
+    const croppedCtx = croppedCanvas.getContext('2d', {
+      // https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently
+      willReadFrequently: true
+    })
     if (!croppedCtx) {
       return Promise.reject('Canvas context not supported.')
     }
