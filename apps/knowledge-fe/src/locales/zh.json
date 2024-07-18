@@ -56,7 +56,7 @@
   "doc": {
     "public": "已发布，对所有人可见",
     "private": "仅自己可见",
-    "draft_auto_save": "草稿自动保存于",
+    "auto_save": "自动保存于",
     "publish": {
       "ok": "发布成功",
       "cancel": "已取消发布"

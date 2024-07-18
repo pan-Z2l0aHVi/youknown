@@ -1,9 +1,10 @@
 import './index.scss'
 
 import { EditorContent } from '@tiptap/react'
+import { useComposeRef } from '@youknown/react-hook/src'
 import { cls } from '@youknown/utils/src'
 import type { ComponentProps } from 'react'
-import { ForwardedRef, forwardRef } from 'react'
+import { ForwardedRef, forwardRef, useMemo, useRef } from 'react'
 
 import { UI_EDITOR_PREFIX } from '../../common'
 import type { BubbleListItem } from '../bubble'
@@ -21,17 +22,19 @@ interface RTEContentProps extends ComponentProps<typeof EditorContent> {
   bubbleList?: BubbleListItem[]
   floatingList?: FloatingListItem[]
 }
-function _RTEContent(props: RTEContentProps, ref: ForwardedRef<HTMLDivElement>) {
+function _RTEContent(props: RTEContentProps, propRef: ForwardedRef<HTMLDivElement>) {
   const prefixCls = `${UI_EDITOR_PREFIX}-content`
   const { editor, className, tooltip = true, bubble = true, floating = true, floatingList, bubbleList, ...rest } = props
-  const hasImageExt = editor && editor.extensionManager.extensions.some(ext => ext.name === 'image')
-  const hasTableExt = editor && editor.extensionManager.extensions.some(ext => ext.name === 'table')
+  const hasImageExt = useMemo(() => editor?.extensionManager.extensions.some(ext => ext.name === 'image'), [editor])
+  const hasTableExt = useMemo(() => editor?.extensionManager.extensions.some(ext => ext.name === 'table'), [editor])
+  const containerRef = useRef(null)
+  const ref = useComposeRef(containerRef, propRef)
   return (
     <div ref={ref} className={cls(prefixCls, className)}>
       {floating && <Floating editor={editor} tooltip={tooltip} list={floatingList} />}
       {bubble && <Bubble editor={editor} tooltip={tooltip} list={bubbleList} />}
-      {hasImageExt && <ImageResizer editor={editor} />}
-      {hasTableExt && <TableMenus editor={editor} />}
+      {editor && hasTableExt && <TableMenus editor={editor} />}
+      {editor && hasImageExt && <ImageResizer editor={editor} />}
       <EditorContent editor={editor} {...rest} />
     </div>
   )

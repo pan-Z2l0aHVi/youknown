@@ -40,7 +40,7 @@ const TableRowMenu = memo(({ editor }: MenuProps) => {
       updateDelay={0}
       tippyOptions={{
         placement: 'left',
-        zIndex: 8,
+        zIndex: 14,
         offset: [0, 15],
         popperOptions: {
           modifiers: [{ name: 'flip', enabled: false }]

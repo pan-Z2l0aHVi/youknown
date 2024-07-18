@@ -8,6 +8,7 @@ import { cls, shakePage } from '@youknown/utils/src'
 import { useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { useTranslation } from 'react-i18next'
+import { CgSpinner } from 'react-icons/cg'
 import { TbChecklist, TbCloudCheck } from 'react-icons/tb'
 import { useBlocker, useLocation, useParams, useSearchParams } from 'react-router-dom'
 
@@ -40,6 +41,7 @@ export default function DocEditor() {
 
   const [history_drawer_open, { setTrue: show_history_drawer, setFalse: hide_history_drawer }] = useBoolean(false)
   const [saving, set_saving] = useState(false)
+  const [backing_up, set_backing_up] = useState(false)
 
   const editor = useRTE({
     extensions: DOC_EDITOR_KIT,
@@ -56,10 +58,12 @@ export default function DocEditor() {
   })
 
   const update_drafts = async (content: string) => {
+    set_backing_up(true)
     const [err, res] = await with_api(update_doc_drafts)({
       doc_id,
       content
     })
+    set_backing_up(false)
     if (err) {
       return
     }
@@ -198,7 +202,7 @@ export default function DocEditor() {
     <>
       {draft && (
         <div className="text-text-3 text-12px">
-          {t('doc.draft_auto_save')} {format_time(draft.creation_time)}
+          {t('doc.auto_save')} {format_time(draft.creation_time)}
         </div>
       )}
     </>
@@ -232,6 +236,12 @@ export default function DocEditor() {
     )
   }
 
+  const draft_btn_icon = backing_up ? (
+    <Loading icon={<CgSpinner className="color-primary text-16px" />} spinning />
+  ) : (
+    <TbCloudCheck className="color-primary text-16px" />
+  )
+
   const header = (
     <Header heading={t('heading.doc')} bordered="visible">
       {is_mobile || (
@@ -245,7 +255,7 @@ export default function DocEditor() {
         {is_mobile ? (
           <>
             <Button square onClick={show_history_drawer}>
-              <TbCloudCheck className="color-primary text-16px" />
+              {draft_btn_icon}
             </Button>
             <Popover {...leaving_tip_props}>
               <Button square disabled={editor.isEmpty} loading={saving} primary onClick={save_doc}>
@@ -256,7 +266,7 @@ export default function DocEditor() {
         ) : (
           <>
             {doc_tips}
-            <Button onClick={show_history_drawer} prefixIcon={<TbCloudCheck className="color-primary text-16px" />}>
+            <Button onClick={show_history_drawer} prefixIcon={draft_btn_icon}>
               {t('draft.text')}
             </Button>
             <Popover {...leaving_tip_props}>

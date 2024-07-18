@@ -56,7 +56,7 @@
   "doc": {
     "public": "Published, visible to everyone",
     "private": "Visible to yourself only",
-    "draft_auto_save": "Draft auto-saved on",
+    "auto_save": "Auto-saved on",
     "publish": {
       "ok": "Published successfully",
       "cancel": "Publication canceled"

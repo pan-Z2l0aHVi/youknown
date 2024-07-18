@@ -144,17 +144,17 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 
   const doc_detail_ele = doc_info ? (
     <>
-      <div className="flex items-center justify-between pl-16px pr-16px text-12px line-height-28px select-none">
+      <div className="flex items-center justify-between pl-16px pr-16px text-12px line-height-24px select-none">
         <span className="color-text-2">{t('doc.words_len')}</span>
-        <span className="color-text-3 scale-90 origin-r">{text_len}</span>
+        <span className="color-text-3 ml-16px">{text_len}</span>
       </div>
-      <div className="flex items-center justify-between pl-16px pr-16px text-12px line-height-28px select-none">
+      <div className="flex items-center justify-between pl-16px pr-16px text-12px line-height-24px select-none">
         <span className="color-text-2">{t('time.update')}</span>
-        <span className="color-text-3 scale-90 origin-r">{format_time(doc_info.update_time)}</span>
+        <span className="color-text-3 ml-16px">{format_time(doc_info.update_time)}</span>
       </div>
-      <div className="flex items-center justify-between pl-16px pr-16px text-12px line-height-28px select-none">
+      <div className="flex items-center justify-between pl-16px pr-16px text-12px line-height-24px select-none">
         <span className="color-text-2">{t('time.create')}</span>
-        <span className="color-text-3 scale-90 origin-r">{format_time(doc_info.creation_time)}</span>
+        <span className="color-text-3 ml-16px">{format_time(doc_info.creation_time)}</span>
       </div>
     </>
   ) : null

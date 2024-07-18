@@ -1,8 +1,7 @@
 import type { Editor } from '@tiptap/react'
-import { lazy, Suspense } from 'react'
 
-const TableColumnMenu = lazy(() => import('./table-column'))
-const TableRowMenu = lazy(() => import('./table-row'))
+import TableColumnMenu from './table-column'
+import TableRowMenu from './table-row'
 
 interface TableMenusProps {
   editor: Editor
@@ -10,9 +9,9 @@ interface TableMenusProps {
 export default function TableMenus(props: TableMenusProps) {
   const { editor } = props
   return (
-    <Suspense>
+    <>
       <TableRowMenu editor={editor} />
       <TableColumnMenu editor={editor} />
-    </Suspense>
+    </>
   )
 }
