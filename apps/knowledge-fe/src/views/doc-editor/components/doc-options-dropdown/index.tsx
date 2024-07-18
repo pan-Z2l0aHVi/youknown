@@ -1,12 +1,13 @@
 import { useBoolean } from '@youknown/react-hook/src'
 import type { Editor } from '@youknown/react-rte/src'
-import { Dialog, Divider, Dropdown, Toast } from '@youknown/react-ui/src'
+import { Dialog, Divider, Dropdown, Switch, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
 import copy from 'copy-to-clipboard'
 import hljs from 'highlight.js/lib/core'
+import type { Dispatch, SetStateAction } from 'react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { LuLogOut, LuSettings2 } from 'react-icons/lu'
+import { LuLogOut } from 'react-icons/lu'
 import { MdOutlineIosShare } from 'react-icons/md'
 import { PiTrashSimpleBold } from 'react-icons/pi'
 import { TbChevronRight } from 'react-icons/tb'
@@ -25,16 +26,19 @@ interface DocOptionsDropdownProps {
   doc_id: string
   doc_info?: Doc
   editor: Editor
+  is_fixed_width: boolean
+  set_is_fixed_width: Dispatch<SetStateAction<boolean>>
   on_updated: (doc: Doc) => void
 }
 export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
-  const { doc_id, doc_info, editor, on_updated } = props
+  const { doc_id, doc_info, is_fixed_width, editor, on_updated, set_is_fixed_width } = props
   const text_len = editor.storage.characterCount.characters()
 
   const { t } = useTranslation()
   const navigate = useTransitionNavigate()
   const { space_id } = useParams()
   const is_dark_theme = useUIStore(is_dark_theme_getter)
+  const is_mobile = useUIStore(state => state.is_mobile)
   const [doc_options_modal_open, { setTrue: show_doc_options_modal, setFalse: hide_doc_options_modal }] =
     useBoolean(false)
   const [deleting, set_deleting] = useState(false)
@@ -103,7 +107,7 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
       `<body>
 				<article class="rich-text-container max-w-720px p-[8px_8px_8px_16px] m-[0_auto]">
 					<h1 class="text-center">${doc_info?.title ?? ''}</h1>
-					<img class="w-100% aspect-ratio-16/9 object-cover b-1 b-solid b-divider rd-radius-m mb-40px" src=${doc_info?.cover}>
+					${doc_info?.cover ? `<img class="w-100% aspect-ratio-16/9 object-cover b-1 b-solid b-divider rd-radius-m mb-40px" src=${doc_info.cover}>` : ''}
 					${get_highlighted_html()}
 				</article>
 			</body>`
@@ -119,14 +123,35 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
   }
   const get_print_script_str = () => {
     return `<script>
-			const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+			const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
 			window.addEventListener("afterprint", function() {
 				if (isSafari) {
-					window.alert("Accomplish.");
+					window.alert("Accomplish.")
 				}
-				window.close();
+				window.close()
 			})
-			window.print();
+      // 等待所有图片加载完成
+      const images = document.images
+      let loadedImagesCount = 0
+      const totalImages = images.length
+
+      for (let i = 0; i < totalImages; i++) {
+        images[i].onload = function() {
+          loadedImagesCount++;
+          if (loadedImagesCount === totalImages) {
+            window.focus()
+            window.print()
+          }
+        };
+        images[i].onerror = function() {
+          // 即使某些图片加载失败，也继续计数
+          loadedImagesCount++;
+          if (loadedImagesCount === totalImages) {
+            window.focus()
+            window.print()
+          }
+        }
+      }
 		</script>`
   }
 
@@ -144,28 +169,33 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
 
   const doc_detail_ele = doc_info ? (
     <>
-      <div className="flex items-center justify-between pl-16px pr-16px text-12px line-height-24px select-none">
-        <span className="color-text-2">{t('doc.words_len')}</span>
-        <span className="color-text-3 ml-16px">{text_len}</span>
+      <div className="flex items-center justify-between pl-16px pr-16px text-12px color-text-3 line-height-24px select-none">
+        <span>{t('doc.words_len')}</span>
+        <span className="ml-16px">{text_len}</span>
       </div>
-      <div className="flex items-center justify-between pl-16px pr-16px text-12px line-height-24px select-none">
-        <span className="color-text-2">{t('time.update')}</span>
-        <span className="color-text-3 ml-16px">{format_time(doc_info.update_time)}</span>
+      <div className="flex items-center justify-between pl-16px pr-16px text-12px color-text-3 line-height-24px select-none">
+        <span>{t('time.update')}</span>
+        <span className="ml-16px">{format_time(doc_info.update_time)}</span>
       </div>
-      <div className="flex items-center justify-between pl-16px pr-16px text-12px line-height-24px select-none">
-        <span className="color-text-2">{t('time.create')}</span>
-        <span className="color-text-3 ml-16px">{format_time(doc_info.creation_time)}</span>
+      <div className="flex items-center justify-between pl-16px pr-16px text-12px color-text-3 line-height-24px select-none">
+        <span>{t('time.create')}</span>
+        <span className="ml-16px">{format_time(doc_info.creation_time)}</span>
       </div>
     </>
   ) : null
 
   const dropdown_content = (
     <Dropdown.Menu className="min-w-200px max-h-unset!" closeAfterItemClick>
-      {doc_detail_ele}
-      <Divider size="small" />
-      <Dropdown.Item prefix={<LuSettings2 className="text-16px" />} onClick={show_doc_options_modal}>
-        {t('doc.setting')}
-      </Dropdown.Item>
+      {is_mobile || (
+        <Dropdown.Item
+          closeAfterItemClick={false}
+          suffix={<Switch className="pointer-events-none" value={is_fixed_width} />}
+          onClick={() => set_is_fixed_width(p => !p)}
+        >
+          {t('doc.fixed_w')}
+        </Dropdown.Item>
+      )}
+      <Dropdown.Item onClick={show_doc_options_modal}>{t('doc.setting')}</Dropdown.Item>
       <Divider size="small" />
       {doc_info?.public && (
         <Dropdown.Item prefix={<MdOutlineIosShare className="text-16px" />} onClick={copy_share_url}>
@@ -195,6 +225,8 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
       <Dropdown.Item prefix={<PiTrashSimpleBold className="text-16px color-danger" />} onClick={show_doc_delete_dialog}>
         <span className="color-danger">{t('delete.text')}</span>
       </Dropdown.Item>
+      <Divider size="small" />
+      {doc_detail_ele}
     </Dropdown.Menu>
   )
 

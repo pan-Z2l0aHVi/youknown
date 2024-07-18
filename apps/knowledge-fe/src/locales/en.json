@@ -73,7 +73,8 @@
       "text": "Create document",
       "success": "Document created successfully",
       "fail": "Document creation failed"
-    }
+    },
+    "fixed_w": "Fixed width"
   },
   "download": {
     "to": "Download as",

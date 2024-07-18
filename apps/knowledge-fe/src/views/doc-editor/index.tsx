@@ -42,6 +42,7 @@ export default function DocEditor() {
   const [history_drawer_open, { setTrue: show_history_drawer, setFalse: hide_history_drawer }] = useBoolean(false)
   const [saving, set_saving] = useState(false)
   const [backing_up, set_backing_up] = useState(false)
+  const [is_fixed_width, set_is_fixed_width] = useState(true)
 
   const editor = useRTE({
     extensions: DOC_EDITOR_KIT,
@@ -277,7 +278,14 @@ export default function DocEditor() {
           </>
         )}
 
-        <DocOptionsDropdown editor={editor} doc_id={doc_id} doc_info={doc_info} on_updated={set_doc_info} />
+        <DocOptionsDropdown
+          editor={editor}
+          doc_id={doc_id}
+          doc_info={doc_info}
+          on_updated={set_doc_info}
+          is_fixed_width={is_fixed_width}
+          set_is_fixed_width={set_is_fixed_width}
+        />
       </Space>
     </Header>
   )
@@ -304,7 +312,10 @@ export default function DocEditor() {
       </div>
 
       <Loading
-        className="can-print w-720px! max-w-100% pt-24px pb-24px <sm:pl-16px <sm-pr-16px sm:m-[0_auto]"
+        className={cls(
+          'can-print max-w-100% pt-24px pb-24px <sm:pl-16px <sm-pr-16px sm:m-[0_auto]',
+          is_fixed_width ? 'w-720px!' : 'w-[calc(100%-96px)]!'
+        )}
         spinning={!doc_state && loading}
         size="large"
       >
