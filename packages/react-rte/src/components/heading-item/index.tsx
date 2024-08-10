@@ -65,6 +65,7 @@ export default function HeadingPicker(props: ButtonProps<HeadingOptions>) {
     }
   }
   const prefixCls = `${UI_EDITOR_PREFIX}-heading-item`
+  const disabled = !editor.isEditable || !editor.can().setHeading({ level: 1 })
 
   const contentEle = (
     <Dropdown.Menu closeAfterItemClick>
@@ -77,8 +78,16 @@ export default function HeadingPicker(props: ButtonProps<HeadingOptions>) {
   )
 
   return (
-    <Dropdown trigger="hover" spacing={-2} placement="right-start" content={contentEle} appendTo={null}>
+    <Dropdown
+      trigger="hover"
+      disabled={disabled}
+      spacing={-2}
+      placement="right-start"
+      content={contentEle}
+      appendTo={null}
+    >
       <Dropdown.Item
+        disabled={disabled}
         prefix={
           <div className={cls(prefixCls)}>
             <RiHeading />

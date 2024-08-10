@@ -15,3 +15,23 @@ export async function downloadFile(arg: File | string, filename = 'picture') {
   a.click()
   window.URL.revokeObjectURL(url)
 }
+
+export function getFileImageInfo(file: File): Promise<{
+  width: number
+  height: number
+}> {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    const objectURL = URL.createObjectURL(file)
+    img.onload = function () {
+      const width = img.width
+      const height = img.height
+      URL.revokeObjectURL(objectURL)
+      resolve({ width, height })
+    }
+    img.onerror = function (err) {
+      reject(err)
+    }
+    img.src = objectURL
+  })
+}

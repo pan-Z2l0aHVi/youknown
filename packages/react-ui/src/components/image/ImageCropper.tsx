@@ -1,8 +1,9 @@
 import './image-cropper.scss'
 
+import { getFileImageInfo } from '@youknown/utils/src'
 import { base64ToFile } from 'file64'
 import type { Dispatch, ForwardedRef, ReactNode, SetStateAction } from 'react'
-import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import type { Area, Point } from 'react-easy-crop'
 import Cropper from 'react-easy-crop'
 import { useTranslation } from 'react-i18next'
@@ -61,7 +62,7 @@ function _ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperR
     file,
     onCrop,
     onCancel,
-    initialAspectRatio = 4 / 3,
+    initialAspectRatio,
     aspectRatioFixed = false,
     cropShape = 'rect',
     showGrid = true,
@@ -77,12 +78,23 @@ function _ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperR
     width: 0,
     height: 0
   }
-  const [aspectRatio, setAspectRatio] = useState(initialAspectRatio)
+
+  const [aspectRatio, setAspectRatio] = useState<number>()
   const [crop, setCrop] = useState<Point>(initialCrop)
   const [rotation, setRotation] = useState(0)
   const [zoom, setZoom] = useState(1)
   const cropPixelsRef = useRef<Area>(initialArea)
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (initialAspectRatio) {
+      setAspectRatio(initialAspectRatio)
+    } else {
+      getFileImageInfo(file).then(({ width, height }) => {
+        setAspectRatio(width / height)
+      })
+    }
+  }, [file, initialAspectRatio])
 
   const onCropComplete = (_: Area, areaPixels: Area) => {
     cropPixelsRef.current = areaPixels
@@ -118,7 +130,7 @@ function _ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperR
   useImperativeHandle(ref, () => ({
     rotate: setRotation,
     scale: setZoom,
-    changeAspectRatio: setAspectRatio,
+    changeAspectRatio: setAspectRatio as Dispatch<SetStateAction<number>>,
     reset: handleReset,
     cancel: handleCancel,
     crop: handleCrop
@@ -160,13 +172,14 @@ function _ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperR
         </Tooltip>
       </Space>
 
-      {aspectRatioFixed || (
+      {aspectRatioFixed || !aspectRatio || (
         <Space size="large" align="center" wrap={false}>
           <Tooltip title={t('react_ui.narrower')}>
             <Button circle text disabled={aspectRatio <= 0.25}>
-              <TbViewportNarrow size={18} onClick={() => setAspectRatio(p => p - 0.01)} />
+              <TbViewportNarrow size={18} onClick={() => setAspectRatio(p => p! - 0.01)} />
             </Button>
           </Tooltip>
+
           <Slider
             tooltipFormatter={val => val.toFixed(2)}
             min={0.25}
@@ -176,7 +189,7 @@ function _ImageCropper(props: ImageCropperProps, ref: ForwardedRef<ImageCropperR
           />
           <Tooltip title={t('react_ui.wider')}>
             <Button circle text disabled={aspectRatio >= 4}>
-              <TbViewportWide size={18} onClick={() => setAspectRatio(p => p + 0.01)} />
+              <TbViewportWide size={18} onClick={() => setAspectRatio(p => p! + 0.01)} />
             </Button>
           </Tooltip>
         </Space>
