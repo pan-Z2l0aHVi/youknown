@@ -1,0 +1,11 @@
+.multi-text-without-stroke {
+  position: relative;
+
+  &::after {
+    content: attr(data-content);
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-text-stroke: 0;
+  }
+}

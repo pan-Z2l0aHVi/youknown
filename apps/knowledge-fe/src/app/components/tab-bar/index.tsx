@@ -1,8 +1,10 @@
 import { cls } from '@youknown/utils/src'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TbBook2, TbInnerShadowBottom, TbSmartHome, TbVersions } from 'react-icons/tb'
+import { TbBook2, TbFolderHeart, TbInnerShadowBottom, TbSmartHome, TbVersions } from 'react-icons/tb'
 import { NavLink, useMatches } from 'react-router-dom'
 
+import { useWallpaperAccessible } from '@/hooks/use-wallpaper'
 import { is_dark_theme_getter, useUIStore } from '@/stores'
 
 export default function TabBar() {
@@ -10,28 +12,39 @@ export default function TabBar() {
   const is_dark_theme = useUIStore(is_dark_theme_getter)
   const matches = useMatches()
 
-  const tab_list = [
-    {
-      Icon: TbSmartHome,
-      title: t('tab.browse'),
-      path: '/browse'
-    },
-    {
-      Icon: TbBook2,
-      title: t('tab.library'),
-      path: '/library'
-    },
-    {
-      Icon: TbVersions,
-      title: t('tab.wallpaper'),
-      path: '/wallpapers'
-    },
-    {
-      Icon: TbInnerShadowBottom,
-      title: t('tab.mine'),
-      path: '/user-center'
-    }
-  ]
+  const wallpaper_accessible = useWallpaperAccessible()
+
+  const tab_list = useMemo(
+    () => [
+      {
+        Icon: TbSmartHome,
+        title: t('tab.browse'),
+        path: '/browse'
+      },
+      {
+        Icon: TbBook2,
+        title: t('tab.library'),
+        path: '/library'
+      },
+      wallpaper_accessible
+        ? {
+            Icon: TbVersions,
+            title: t('tab.wallpaper'),
+            path: '/wallpapers'
+          }
+        : {
+            title: t('tab.collection'),
+            Icon: TbFolderHeart,
+            path: '/collection'
+          },
+      {
+        Icon: TbInnerShadowBottom,
+        title: t('tab.mine'),
+        path: '/user-center'
+      }
+    ],
+    [t, wallpaper_accessible]
+  )
   return (
     <>
       <div className="h-48px"></div>

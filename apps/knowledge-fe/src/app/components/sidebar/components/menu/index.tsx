@@ -5,6 +5,7 @@ import { BiChevronDown } from 'react-icons/bi'
 import { TbNotes } from 'react-icons/tb'
 
 import TransitionNavLink from '@/components/transition-nav-link'
+import { useWallpaperAccessible } from '@/hooks/use-wallpaper'
 import type { RouteItem } from '@/router/routes'
 import { routes } from '@/router/routes'
 import { is_dark_theme_getter, useSpaceStore, useUIStore } from '@/stores'
@@ -26,6 +27,7 @@ export default function Menu({ expand }: MenuProps) {
     const route = routes.find(route => route.path === path)!
     return pick(route, 'path', 'meta')
   }
+
   const get_library_nav = useCallback(() => {
     const route = routes.find(route => route.path === 'library')!
     return {
@@ -42,17 +44,15 @@ export default function Menu({ expand }: MenuProps) {
     }
   }, [space_list])
 
-  const nav_list = useMemo(
-    () =>
-      [
-        get_nav('browse'),
-        get_library_nav(),
-        get_nav('wallpapers'),
-        get_nav('collection'),
-        get_nav('history')
-      ] as MenuRouteItem[],
-    [get_library_nav]
-  )
+  const wallpaper_accessible = useWallpaperAccessible()
+
+  const nav_list = useMemo(() => {
+    const result = [get_nav('browse'), get_library_nav(), get_nav('collection'), get_nav('history')]
+    if (wallpaper_accessible) {
+      result.splice(2, 0, get_nav('wallpapers'))
+    }
+    return result as MenuRouteItem[]
+  }, [get_library_nav, wallpaper_accessible])
 
   const [open_map, set_open_map] = useState<Record<string, boolean>>(
     () => storage.local.get<Record<string, boolean>>(OPEN_MAP_KEY) ?? {}

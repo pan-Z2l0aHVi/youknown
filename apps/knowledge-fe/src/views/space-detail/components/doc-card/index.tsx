@@ -1,3 +1,5 @@
+import './index.scss'
+
 import { useBoolean } from '@youknown/react-hook/src'
 import { ContextMenu, Dialog, Dropdown, Toast } from '@youknown/react-ui/src'
 import { cls, QS } from '@youknown/utils/src'
@@ -193,9 +195,10 @@ export default function DocCard(props: DocCardProps) {
           >
             <span
               className={cls(
-                'font-600 select-none',
-                info.cover ? 'color-#fff text-shadow-[0px_0px_4px_#000]' : 'color-text-1'
+                'select-none font-500',
+                info.cover ? 'color-#fff text-stroke-#444 text-stroke-3px multi-text-without-stroke' : 'color-text-1'
               )}
+              data-content={info.title}
             >
               {info.title}
             </span>

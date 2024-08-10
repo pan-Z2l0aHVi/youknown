@@ -12,7 +12,6 @@ export default function KeepAliveOutlet() {
   const is_keep_alive = useRouteKeepAlive()
 
   useLayoutEffect(() => {
-    console.log('is_keep_alive: ', pathname, is_keep_alive)
     if (is_keep_alive) {
       if (!outlet_cache.has(pathname)) {
         outlet_cache.set(pathname, outlet)

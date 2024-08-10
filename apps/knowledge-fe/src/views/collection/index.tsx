@@ -1,12 +1,14 @@
 import { useFetch } from '@youknown/react-hook/src'
 import { Button, Collapse, Loading } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FcBusinessContact, FcDocument, FcPicture } from 'react-icons/fc'
 import { GoInbox } from 'react-icons/go'
 
 import { get_collected_feed_list, get_collected_wallpaper_list, get_followed_users } from '@/apis/user'
 import Header from '@/app/components/header'
+import { useWallpaperAccessible } from '@/hooks/use-wallpaper'
 import { useModalStore, useUserStore } from '@/stores'
 
 import WallpaperCard from '../wallpapers/components/wallpaper-card'
@@ -128,26 +130,32 @@ export default function Collection() {
     </>
   )
 
-  const collection_list = [
-    {
-      key: COLLECTION_TYPE.FEED,
-      title: t('collect.feed'),
-      title_icon: <FcDocument className="text-20px" />,
-      ele: <FeedCollapsePanel />
-    },
-    {
-      key: COLLECTION_TYPE.USER,
-      title: t('follow.user'),
-      title_icon: <FcBusinessContact className="text-20px" />,
-      ele: <UserCollapsePanel />
-    },
-    {
-      key: COLLECTION_TYPE.WALLPAPER,
-      title: t('collect.wallpaper'),
-      title_icon: <FcPicture className="text-20px" />,
-      ele: <WallpaperCollapsePanel />
+  const wallpaper_accessible = useWallpaperAccessible()
+  const collection_list = useMemo(() => {
+    const result = [
+      {
+        key: COLLECTION_TYPE.FEED,
+        title: t('collect.feed'),
+        title_icon: <FcDocument className="text-20px" />,
+        ele: <FeedCollapsePanel />
+      },
+      {
+        key: COLLECTION_TYPE.USER,
+        title: t('follow.user'),
+        title_icon: <FcBusinessContact className="text-20px" />,
+        ele: <UserCollapsePanel />
+      }
+    ]
+    if (wallpaper_accessible) {
+      result.push({
+        key: COLLECTION_TYPE.WALLPAPER,
+        title: t('collect.wallpaper'),
+        title_icon: <FcPicture className="text-20px" />,
+        ele: <WallpaperCollapsePanel />
+      })
     }
-  ]
+    return result
+  }, [t, wallpaper_accessible])
 
   const panels = (
     <>
