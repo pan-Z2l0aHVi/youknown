@@ -6,7 +6,7 @@
       <span class="color-blue text-20px ml-40px" @click="router.forward">></span>
     </div>
   </div>
-  <header v-else class="z-20 sticky top-0 w-100% h-48px bg-#fff">
+  <header v-else class="z-20 sticky top-0 w-100% h-48px">
     <van-tabs v-if="route.name" v-model:active="active" swipeable>
       <van-tab v-for="tab in tabList" :key="tab.name" :title="tab.meta.title" :to="tab.path"></van-tab>
     </van-tabs>
