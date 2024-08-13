@@ -24,7 +24,10 @@ function GIFLazyImage(props: GIFLazyImageProps) {
   const [playing, { setTrue: startPlay }] = useBoolean(false)
 
   const fetchGIFFirstFrame = useCallback(async (): Promise<string> => {
-    const response = await fetch(src)
+    const response = await fetch(src, {
+      mode: 'cors',
+      credentials: 'omit'
+    })
     const buff = await response.arrayBuffer()
     const firstFrameBase64 = await new Promise<string>((resolve, reject) => {
       try {
