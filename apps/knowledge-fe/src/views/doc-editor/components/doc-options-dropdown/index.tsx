@@ -123,35 +123,43 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
   }
   const get_print_script_str = () => {
     return `<script>
-			const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
-			window.addEventListener("afterprint", function() {
-				if (isSafari) {
-					window.alert("Accomplish.")
-				}
-				window.close()
-			})
-      // 等待所有图片加载完成
-      const images = document.images
-      let loadedImagesCount = 0
-      const totalImages = images.length
-
-      for (let i = 0; i < totalImages; i++) {
-        images[i].onload = function() {
-          loadedImagesCount++;
-          if (loadedImagesCount === totalImages) {
-            window.focus()
-            window.print()
+			(function() {
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+        window.addEventListener("afterprint", function() {
+          if (isSafari) {
+            window.alert("Accomplish.")
           }
-        };
-        images[i].onerror = function() {
-          // 即使某些图片加载失败，也继续计数
-          loadedImagesCount++;
-          if (loadedImagesCount === totalImages) {
-            window.focus()
-            window.print()
+          window.close()
+        })
+        // 等待所有图片加载完成
+        const images = document.images
+        let loadedImagesCount = 0
+        const totalImages = images.length
+
+        if (!totalImages) {
+          window.focus()
+          window.print()
+          return
+        }
+
+        for (let i = 0; i < totalImages; i++) {
+          images[i].onload = function() {
+            loadedImagesCount++;
+            if (loadedImagesCount === totalImages) {
+              window.focus()
+              window.print()
+            }
+          };
+          images[i].onerror = function() {
+            // 即使某些图片加载失败，也继续计数
+            loadedImagesCount++;
+            if (loadedImagesCount === totalImages) {
+              window.focus()
+              window.print()
+            }
           }
         }
-      }
+      })()
 		</script>`
   }
 
