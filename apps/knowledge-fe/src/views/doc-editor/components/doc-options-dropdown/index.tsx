@@ -114,11 +114,20 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
     )
     return html
   }
+  const get_title_str = () => {
+    return `<script>
+				(function(){
+          document.title = "${doc_info?.title}"
+        })()
+			</script>`
+  }
   const get_theme_script_str = () => {
     return `<script>
-				const root = document.querySelector(':root')
-				root.classList.add('light-theme')
-				root.classList.remove('dark-theme')
+				(function(){
+          const root = document.querySelector(':root')
+				  root.classList.add('light-theme')
+				  root.classList.remove('dark-theme')
+        })()
 			</script>`
   }
   const get_print_script_str = () => {
@@ -164,14 +173,14 @@ export default function DocOptionsDropdown(props: DocOptionsDropdownProps) {
   }
 
   const on_export_html = () => {
-    const html = get_html_body_str() + get_theme_script_str()
+    const html = get_html_body_str() + get_title_str() + get_theme_script_str()
     const filename = doc_info?.title + '.html'
     download_html(html, filename)
     Toast.success(t('export.html.success'))
   }
 
   const on_export_pdf = () => {
-    const html = get_html_body_str() + get_theme_script_str() + get_print_script_str()
+    const html = get_html_body_str() + get_title_str() + get_theme_script_str() + get_print_script_str()
     open_html(html)
   }
 

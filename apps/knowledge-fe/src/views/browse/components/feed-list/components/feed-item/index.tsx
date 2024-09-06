@@ -80,10 +80,11 @@ export default function FeedItem(props: FeedItemProps) {
           <div
             className={cls(
               'inline text-16px font-600 cursor-pointer',
-              'transition-property-[background-size] transition-duration-300ms ease-out',
+              'transition-duration-300ms ease-out',
               'bg-gradient-to-tr from-primary to-primary bg-no-repeat bg-right-bottom bg-[length:0%_2px]',
               '[@media(hover:hover)]-group-hover-bg-left-bottom [@media(hover:hover)]-group-hover-bg-[length:100%_2px]'
             )}
+            style={{ transitionProperty: 'background-size' }}
           >
             {title}
           </div>

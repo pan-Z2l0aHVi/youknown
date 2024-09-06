@@ -1,3 +1,8 @@
+function hasURLExtension(url: string): boolean {
+  const fileExtensionPattern = /\.\w+$/
+  return fileExtensionPattern.test(url)
+}
+
 export function downloadFile(file: File, filename: string): Promise<void>
 export function downloadFile(src: string, filename: string): Promise<void>
 export async function downloadFile(arg: File | string, filename = 'picture') {
@@ -8,11 +13,20 @@ export async function downloadFile(arg: File | string, filename = 'picture') {
     const response = await fetch(arg)
     const blob = await response.blob()
     url = window.URL.createObjectURL(blob)
+
+    if (hasURLExtension(arg)) {
+      const srcArr = arg.split('.')
+      const suffix = srcArr[srcArr.length - 1]
+      if (suffix) {
+        filename = `${filename}.${suffix}`
+      }
+    }
   }
   const a = document.createElement('a')
   a.href = url
   a.download = filename
   a.click()
+  a.remove()
   window.URL.revokeObjectURL(url)
 }
 
