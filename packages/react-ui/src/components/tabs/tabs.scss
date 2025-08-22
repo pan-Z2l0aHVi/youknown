@@ -145,7 +145,7 @@ $prefix: '#{$ui-prefix}-tabs';
           z-index: 1;
           color: $text-1;
           background-color: $bg-0;
-          box-shadow: 0 1px 4px rgba($color: #000, $alpha: 0.1);
+          box-shadow: 0 1px 4px rgb($color: #000, $alpha: 0.1);
         }
 
         .#{$prefix}-tab-item-close-icon {

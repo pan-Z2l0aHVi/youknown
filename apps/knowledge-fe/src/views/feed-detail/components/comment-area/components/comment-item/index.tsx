@@ -82,10 +82,7 @@ export default function CommentItem(props: CommentItemProps) {
     Dialog.confirm({
       title: t('heading.delete_comment'),
       content: t('comment.delete.tip'),
-      overlayClassName: cls(
-        'backdrop-blur-xl',
-        is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
-      ),
+      overlayClassName: cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgb(0,0,0,0.2)]' : '!bg-[rgb(255,255,255,0.2)]'),
       async onOk() {
         await delete_comment()
       },

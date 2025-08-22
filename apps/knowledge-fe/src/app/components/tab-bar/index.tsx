@@ -51,7 +51,7 @@ export default function TabBar() {
       <div
         className={cls(
           'z-20 fixed bottom-0 w-100% h-48px flex items-center justify-around',
-          is_dark_theme ? 'bg-[rgba(40,40,40,0.7)]' : '!bg-[rgba(240,240,240,0.7)]',
+          is_dark_theme ? 'bg-[rgb(40,40,40,0.7)]' : '!bg-[rgb(240,240,240,0.7)]',
           'backdrop-blur-lg'
         )}
       >

@@ -21,10 +21,7 @@ export default function SpaceOptionsModal(props: SpaceOptionsModalProps) {
   return (
     <Dialog
       className="w-428px! max-w-[calc(100vw-32px)]"
-      overlayClassName={cls(
-        'backdrop-blur-xl',
-        is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
-      )}
+      overlayClassName={cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgb(0,0,0,0.2)]' : '!bg-[rgb(255,255,255,0.2)]')}
       open={open}
       onCancel={hide_modal}
       unmountOnExit

@@ -95,7 +95,7 @@ export default function RecordItem(props: RecordItemProps) {
         </div>
         <div className="group relative flex-1 flex items-center sm:pl-32px sm:ml-32px <sm:pl-16px <sm:ml-16px min-h-80px b-l-2 b-l-solid b-l-divider">
           <div
-            className={cls('absolute left--8px w-14px h-14px bg-primary rd-full b-4 b-solid b-[rgba(255,255,255,0.8)]')}
+            className={cls('absolute left--8px w-14px h-14px bg-primary rd-full b-4 b-solid b-[rgb(255,255,255,0.8)]')}
           ></div>
           <div className="flex-1 flex flex-wrap items-center text-text-2 whitespace-pre [@media(hover:hover)]-group-hover-text-text-1 transition-colors">
             <span>{t('record.action_prefix')}</span>

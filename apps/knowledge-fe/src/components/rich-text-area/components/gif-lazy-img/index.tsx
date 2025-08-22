@@ -75,7 +75,7 @@ export default function GIFLazyImage(props: GIFLazyImageProps) {
         <div
           className={cls(
             'absolute left-50% top-50% translate-x--50% translate-y--50%',
-            'flex justify-center items-center w-40px h-40px bg-[rgba(0,0,0,0.6)] backdrop-blur-xl',
+            'flex justify-center items-center w-40px h-40px bg-[rgb(0,0,0,0.6)] backdrop-blur-xl',
             'color-#fff text-16px font-600 rd-full'
           )}
         >

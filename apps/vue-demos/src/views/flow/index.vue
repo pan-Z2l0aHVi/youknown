@@ -1,38 +1,48 @@
 <template>
-  <div ref="containerRef" class="relative" :style="{ height: containerHeight }">
+  <div ref="containerRef" :style="{ height: containerHeight }">
     <div
-      v-for="item in list"
-      :key="item.id"
-      class="absolute rd-10px cursor-pointer"
+      class="relative mx-auto"
       :style="{
-        width: `${CARD_W}px`,
-        height: `${item.height}px`,
-        'background-color': item.bg,
-        top: `${item.top}px`,
-        left: `${item.left}px`
+        width: `${cardContainerW}px`,
+        height: `${cardContainerH}px`
       }"
-      @click="e => handleSelectCard(e, item)"
-    ></div>
-  </div>
-
-  <Teleport to="body">
-    <Transition name="fade">
-      <div v-if="detailVisible" class="z-2000 fixed inset-0 bg-[rgba(0,0,0,0.4)]"></div>
-    </Transition>
-    <div v-if="visibleDelayed" class="z-2000 fixed inset-0" @click.self="detailVisible = false">
+    >
       <div
-        v-if="detailRect"
-        class="absolute rd-10px bg-#fff transition-all-500 transition-ease-out"
+        v-for="item in list"
+        :key="item.id"
+        class="absolute rd-10px cursor-pointer"
         :style="{
-          width: `${detailRect.width}px`,
-          height: `${detailRect.height}px`,
-          top: `${detailRect.top}px`,
-          left: `${detailRect.left}px`,
-          'background-color': selection.bg
+          width: `${CARD_W}px`,
+          height: `${item.height}px`,
+          'background-color': item.bg,
+          top: `${item.top}px`,
+          left: `${item.left}px`
         }"
+        @click="e => handleSelectCard(e, item)"
       ></div>
     </div>
-  </Teleport>
+
+    <div>123123123</div>
+
+    <Teleport to="body">
+      <Transition name="fade">
+        <div v-if="detailVisible" class="z-2000 fixed inset-0 bg-[rgb(0,0,0,0.4)]"></div>
+      </Transition>
+      <div v-if="visibleDelayed" class="z-2000 fixed inset-0" @click.self="detailVisible = false">
+        <div
+          v-if="detailRect"
+          class="absolute rd-10px bg-#fff transition-all-500 transition-ease-out"
+          :style="{
+            width: `${detailRect.width}px`,
+            height: `${detailRect.height}px`,
+            top: `${detailRect.top}px`,
+            left: `${detailRect.left}px`,
+            'background-color': selection.bg
+          }"
+        ></div>
+      </div>
+    </Teleport>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -78,22 +88,24 @@ const list = ref<Item[]>(
     }))
 )
 
+const trackList = ref<number[]>([])
+
 const computeMasonry = () => {
   if (containerRef.value) {
     const { width } = containerRef.value.getBoundingClientRect()
-    const trackList = Array(Math.floor(width / CARD_W)).fill(0)
+    trackList.value = Array(Math.floor((width + GAP) / (CARD_W + GAP))).fill(0)
     list.value = list.value.map(item => {
       let lowestIndex = 0
-      let lowestHeight = trackList[lowestIndex]
-      trackList.forEach((height, index) => {
+      let lowestHeight = trackList.value[lowestIndex]
+      trackList.value.forEach((height, index) => {
         if (lowestHeight > height) {
           lowestHeight = height
           lowestIndex = index
         }
       })
-      const top = trackList[lowestIndex]
+      const top = trackList.value[lowestIndex]
       const left = lowestIndex * (CARD_W + GAP)
-      trackList[lowestIndex] += item.height + GAP
+      trackList.value[lowestIndex] += item.height + GAP
 
       return {
         ...item,
@@ -101,7 +113,7 @@ const computeMasonry = () => {
         left
       }
     })
-    track.value = trackList
+    track.value = trackList.value
   }
 }
 
@@ -157,6 +169,14 @@ const toRect = computed(() => {
     left,
     top
   }
+})
+
+const cardContainerW = computed(() => {
+  const len = trackList.value.length
+  return CARD_W * len + GAP * (len - 1)
+})
+const cardContainerH = computed(() => {
+  return Math.max(...trackList.value) - GAP
 })
 
 const handleSelectCard = (e: MouseEvent, item: Item) => {

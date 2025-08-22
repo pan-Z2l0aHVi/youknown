@@ -28,10 +28,7 @@ export default function LikeArea(props: LikeAreaProps) {
       header={null}
       footer={null}
       closeIcon={null}
-      overlayClassName={cls(
-        'backdrop-blur-xl',
-        is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
-      )}
+      overlayClassName={cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgb(0,0,0,0.2)]' : '!bg-[rgb(255,255,255,0.2)]')}
     >
       <div className="flex flex-wrap p-16px select-none">
         {like_list.map(user => (

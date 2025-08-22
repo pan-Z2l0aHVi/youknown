@@ -88,10 +88,7 @@ export default function DocCard(props: DocCardProps) {
     Dialog.confirm({
       title: t('heading.delete_doc'),
       content: t('doc.delete_tip'),
-      overlayClassName: cls(
-        'backdrop-blur-xl',
-        is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
-      ),
+      overlayClassName: cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgb(0,0,0,0.2)]' : '!bg-[rgb(255,255,255,0.2)]'),
       okDanger: true,
       okText: t('delete.text'),
       cancelText: t('cancel.text'),
@@ -154,7 +151,7 @@ export default function DocCard(props: DocCardProps) {
         <div
           className={cls(
             'absolute top-8px right-8px flex items-center justify-center w-24px h-24px',
-            'rd-full b-4px b-solid b-[rgba(255,255,255,0.8)] bg-primary'
+            'rd-full b-4px b-solid b-[rgb(255,255,255,0.8)] bg-primary'
           )}
         >
           <GoCheck className="text-14px color-#fff" />
@@ -190,7 +187,7 @@ export default function DocCard(props: DocCardProps) {
         >
           <div
             className={cls('flex items-end min-h-60% max-h-100% p-[0_8px_8px_12px]', {
-              'bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.5)]': info.cover
+              'bg-gradient-to-b from-transparent to-[rgb(0,0,0,0.5)]': info.cover
             })}
           >
             <span

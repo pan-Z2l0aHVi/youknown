@@ -103,10 +103,7 @@ export default function Searcher(props: SearcherProps) {
   return (
     <Dialog
       className="w-640px! max-w-[calc(100vw-32px)] overflow-hidden"
-      overlayClassName={cls(
-        'backdrop-blur-xl',
-        is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
-      )}
+      overlayClassName={cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgb(0,0,0,0.2)]' : '!bg-[rgb(255,255,255,0.2)]')}
       open={open}
       onCancel={() => on_close(false)}
       unmountOnExit

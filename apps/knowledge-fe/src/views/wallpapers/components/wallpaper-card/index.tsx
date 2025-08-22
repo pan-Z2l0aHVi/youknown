@@ -128,10 +128,7 @@ function WallpaperCard(props: WallpaperCardProps) {
         footer: null,
         header: null,
         className: 'w-480px! max-w-[calc(100vw-32px)]',
-        overlayClassName: cls(
-          'backdrop-blur-xl',
-          is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
-        )
+        overlayClassName: cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgb(0,0,0,0.2)]' : '!bg-[rgb(255,255,255,0.2)]')
       })
       Dropdown.close()
       set_menu_open(false)
@@ -209,7 +206,7 @@ function WallpaperCard(props: WallpaperCardProps) {
       <div
         className={cls(
           'absolute top-8px right-8px flex items-center justify-center',
-          'leading-none w-24px h-24px rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl'
+          'leading-none w-24px h-24px rd-full bg-[rgb(120,120,120,0.4)] backdrop-blur-xl'
         )}
       >
         <TbEyeCheck className="text-16px color-#fff" />
@@ -223,7 +220,7 @@ function WallpaperCard(props: WallpaperCardProps) {
         <div
           className={cls(
             'absolute bottom-8px left-8px',
-            'rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl',
+            'rd-full bg-[rgb(120,120,120,0.4)] backdrop-blur-xl',
             'flex items-center h-24px leading-none pl-6px pr-6px text-12px color-#fff',
             'pointer-events-none'
           )}
@@ -237,7 +234,7 @@ function WallpaperCard(props: WallpaperCardProps) {
           <div
             className={cls(
               'absolute bottom-8px right-8px',
-              'rd-full bg-[rgba(120,120,120,0.4)] backdrop-blur-xl',
+              'rd-full bg-[rgb(120,120,120,0.4)] backdrop-blur-xl',
               '[@media(hover:hover)]-hover-bg-primary active-bg-primary',
               'flex items-center justify-center w-24px h-24px cursor-pointer select-none'
             )}

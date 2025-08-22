@@ -37,10 +37,10 @@
   --ui-color-secondary-hover: #3f3f3f;
   --ui-color-secondary-active: #494949;
   --ui-color-focus: #fff;
-  --ui-shadow-s: 0px 2px 1px -1px rgba(0, 0, 0, 0.4), 0px 1px 1px 0px rgba(0, 0, 0, 0.28),
-    0px 1px 3px 0px rgba(0, 0, 0, 0.24);
-  --ui-shadow-m: 0 6px 16px 0 rgba(0, 0, 0, 0.16), 0 3px 6px -4px rgba(0, 0, 0, 0.24), 0 9px 28px 8px rgba(0, 0, 0, 0.1);
-  --ui-shadow-l: rgba(14, 18, 22, 0.7) 0px 10px 38px -10px, rgba(14, 18, 22, 0.4) 0px 10px 20px -15px;
+  --ui-shadow-s:
+    0px 2px 1px -1px rgb(0, 0, 0, 0.4), 0px 1px 1px 0px rgb(0, 0, 0, 0.28), 0px 1px 3px 0px rgb(0, 0, 0, 0.24);
+  --ui-shadow-m: 0 6px 16px 0 rgb(0, 0, 0, 0.16), 0 3px 6px -4px rgb(0, 0, 0, 0.24), 0 9px 28px 8px rgb(0, 0, 0, 0.1);
+  --ui-shadow-l: rgb(14, 18, 22, 0.7) 0px 10px 38px -10px, rgb(14, 18, 22, 0.4) 0px 10px 20px -15px;
 
   @include meta.load-css('highlight.js/styles/github-dark.min.css');
 }

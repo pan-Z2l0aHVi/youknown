@@ -35,7 +35,7 @@ export default function SpaceCard(props: SpaceCardProps) {
       footer: null,
       header: null,
       closeIcon: null,
-      overlayClassName: cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]')
+      overlayClassName: cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgb(0,0,0,0.2)]' : '!bg-[rgb(255,255,255,0.2)]')
     })
   }
 
@@ -54,10 +54,7 @@ export default function SpaceCard(props: SpaceCardProps) {
     Dialog.confirm({
       title: t('heading.delete_space', { name: info.name }),
       content: t('space.if_delete'),
-      overlayClassName: cls(
-        'backdrop-blur-xl',
-        is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
-      ),
+      overlayClassName: cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgb(0,0,0,0.2)]' : '!bg-[rgb(255,255,255,0.2)]'),
       okDanger: true,
       okText: t('delete.text'),
       cancelText: t('cancel.text'),

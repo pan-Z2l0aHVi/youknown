@@ -23,11 +23,10 @@
   --ui-color-danger: #f53f3f;
   --ui-color-danger-hover: #f76560;
   --ui-color-danger-active: #cb272d;
-  --ui-shadow-s: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-  --ui-shadow-m: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12),
-    0 9px 28px 8px rgba(0, 0, 0, 0.05);
-  --ui-shadow-l: rgba(14, 18, 22, 0.35) 0px 10px 38px -10px, rgba(14, 18, 22, 0.2) 0px 10px 20px -15px;
+  --ui-shadow-s:
+    0px 2px 1px -1px rgb(0, 0, 0, 0.2), 0px 1px 1px 0px rgb(0, 0, 0, 0.14), 0px 1px 3px 0px rgb(0, 0, 0, 0.12);
+  --ui-shadow-m: 0 6px 16px 0 rgb(0, 0, 0, 0.08), 0 3px 6px -4px rgb(0, 0, 0, 0.12), 0 9px 28px 8px rgb(0, 0, 0, 0.05);
+  --ui-shadow-l: rgb(14, 18, 22, 0.35) 0px 10px 38px -10px, rgb(14, 18, 22, 0.2) 0px 10px 20px -15px;
   --ui-duration-f: 150ms;
   --ui-duration-n: 225ms;
   --ui-duration-s: 350ms;

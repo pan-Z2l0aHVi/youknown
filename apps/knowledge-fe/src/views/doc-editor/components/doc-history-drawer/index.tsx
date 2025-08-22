@@ -82,10 +82,7 @@ export default function DocHistoryDrawer(props: DocHistoryDrawerProps) {
   return (
     <Drawer
       className="sm:w-760px sm:max-w-100% <sm:w-100% overflow-y-auto shadow-shadow-l"
-      overlayClassName={cls(
-        'backdrop-blur-xl',
-        is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
-      )}
+      overlayClassName={cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgb(0,0,0,0.2)]' : '!bg-[rgb(255,255,255,0.2)]')}
       open={open}
       onCancel={on_close}
       placement="right"

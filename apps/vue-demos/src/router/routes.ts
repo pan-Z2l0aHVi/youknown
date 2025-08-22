@@ -88,21 +88,12 @@ export const navTabRoutes: (RouteRecordRaw & {
     ]
   },
   {
-    path: '/flow',
+    path: '/flow/:id?',
     name: 'flow',
     meta: {
       title: 'Flow'
     },
-    children: [
-      {
-        path: '',
-        component: () => import('@/views/flow/index.vue')
-      },
-      {
-        path: ':id',
-        component: () => import('@/views/flow/index.vue')
-      }
-    ]
+    component: () => import('@/views/flow/index.vue')
   }
 ]
 

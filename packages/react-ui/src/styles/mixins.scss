@@ -22,8 +22,8 @@
 
 @mixin scrollbar(
   $round: 2px,
-  $thumb-color: rgba($scrollbar, 0.3),
-  $thumb-color-hover: rgba($scrollbar, 0.5),
+  $thumb-color: rgb($scrollbar, 0.3),
+  $thumb-color-hover: rgb($scrollbar, 0.5),
   $track-color: transparent,
   $x-width: 4px,
   $y-width: 4px

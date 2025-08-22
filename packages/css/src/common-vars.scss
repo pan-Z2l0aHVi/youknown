@@ -20,7 +20,7 @@ $bg-2: var(--ui-bg-2, #f4f4f4);
 $bg-3: var(--ui-bg-3, #eee);
 $divider: var(--ui-divider, #dee0e3);
 $pop-bd: var(--ui-pop-bd, transparent);
-$overlay: var(--ui-overlay, rgba(0, 0, 0, 0.4));
+$overlay: var(--ui-overlay, rgb(0, 0, 0, 0.4));
 $scrollbar: var(--ui-scrollbar, 27, 27, 27);
 $font-size-s: var(--ui-font-size-s, 12px);
 $font-size-m: var(--ui-font-size-m, 14px);
@@ -28,17 +28,17 @@ $font-size-l: var(--ui-font-size-l, 16px);
 $font-size-xl: var(--ui-font-size-xl, 18px);
 $shadow-s: var(
   --ui-shadow-s,
-  0 2px 1px -1px rgba(0, 0, 0, 0.2),
-  0 1px 1px 0 rgba(0, 0, 0, 0.14),
-  0 1px 3px 0 rgba(0, 0, 0, 0.12)
+  0 2px 1px -1px rgb(0, 0, 0, 0.2),
+  0 1px 1px 0 rgb(0, 0, 0, 0.14),
+  0 1px 3px 0 rgb(0, 0, 0, 0.12)
 );
 $shadow-m: var(
   --ui-shadow-m,
-  0 6px 16px 0 rgba(0, 0, 0, 0.08),
-  0 3px 6px -4px rgba(0, 0, 0, 0.12),
-  0 9px 28px 8px rgba(0, 0, 0, 0.05)
+  0 6px 16px 0 rgb(0, 0, 0, 0.08),
+  0 3px 6px -4px rgb(0, 0, 0, 0.12),
+  0 9px 28px 8px rgb(0, 0, 0, 0.05)
 );
-$shadow-l: var(--ui-shadow-l, rgba(14, 18, 22, 0.35) 0 10px 38px -10px, rgba(14, 18, 22, 0.2) 0 10px 20px -15px);
+$shadow-l: var(--ui-shadow-l, rgb(14, 18, 22, 0.35) 0 10px 38px -10px, rgb(14, 18, 22, 0.2) 0 10px 20px -15px);
 $radius-s: var(--ui-radius-s, 2px);
 $radius-m: var(--ui-radius-m, 4px);
 $radius-l: var(--ui-radius-l, 8px);

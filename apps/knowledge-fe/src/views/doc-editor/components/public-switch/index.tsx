@@ -54,7 +54,7 @@ export default function PublicSwitch(props: PublicSwitchProps) {
               content: t('feed.delete_tip'),
               overlayClassName: cls(
                 'backdrop-blur-xl',
-                is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+                is_dark_theme ? '!bg-[rgb(0,0,0,0.2)]' : '!bg-[rgb(255,255,255,0.2)]'
               ),
               okDanger: true,
               okText: t('confirm'),

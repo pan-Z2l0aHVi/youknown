@@ -74,7 +74,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
           content: t('feed.delete_tip'),
           overlayClassName: cls(
             'backdrop-blur-xl',
-            is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
+            is_dark_theme ? '!bg-[rgb(0,0,0,0.2)]' : '!bg-[rgb(255,255,255,0.2)]'
           ),
           okDanger: true,
           okText: t('confirm'),
@@ -154,10 +154,7 @@ export default function DocOptionsModal(props: DocOptionsModalProps) {
   return (
     <Dialog
       className="!w-480px"
-      overlayClassName={cls(
-        'backdrop-blur-xl',
-        is_dark_theme ? '!bg-[rgba(0,0,0,0.2)]' : '!bg-[rgba(255,255,255,0.2)]'
-      )}
+      overlayClassName={cls('backdrop-blur-xl', is_dark_theme ? '!bg-[rgb(0,0,0,0.2)]' : '!bg-[rgb(255,255,255,0.2)]')}
       open={open}
       onCancel={hide_modal}
       unmountOnExit
