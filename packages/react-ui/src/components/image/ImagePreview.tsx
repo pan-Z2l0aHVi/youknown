@@ -93,12 +93,14 @@ export const ImagePreview = (props: ImagePreviewProps) => {
   const urlNum = isMulti ? url.length : 1
 
   const switchPrev = useEvent(() => {
+    setDetailError(false)
     setDetailNotLoaded()
     handleReset()
     setCurrentIndex(p => (p > 0 ? p - 1 : urlNum - 1))
     setTimeout(showIndexTip)
   })
   const switchNext = useEvent(() => {
+    setDetailError(false)
     setDetailNotLoaded()
     handleReset()
     setCurrentIndex(p => (p < urlNum - 1 ? p + 1 : 0))
