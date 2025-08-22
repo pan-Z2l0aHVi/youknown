@@ -78,6 +78,13 @@ export default defineConfig(({ mode, command }) => {
       host: true,
       open: env.VITE_ROUTER_BASENAME,
       cors: true
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler' // or "modern"
+        }
+      }
     }
   }
 })

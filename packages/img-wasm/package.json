@@ -21,11 +21,11 @@
         "test": "jest --detectOpenHandles --passWithNoTests"
     },
     "dependencies": {
-        "@jsquash/jpeg": "^1.4.0",
+        "@jsquash/jpeg": "^1.6.0",
         "@jsquash/oxipng": "^2.3.0",
-        "@jsquash/png": "^3.0.1",
-        "@jsquash/resize": "^2.0.0",
-        "@jsquash/webp": "^1.4.0"
+        "@jsquash/png": "^3.1.1",
+        "@jsquash/resize": "^2.1.0",
+        "@jsquash/webp": "^1.5.0"
     },
     "lint-staged": {
         "**/*.{js,ts,jsx,tsx}": "eslint --cache --fix",

@@ -1,6 +1,10 @@
+import type { ComponentType } from 'react'
 import AutoSizer from 'react-virtualized-auto-sizer'
-import type { ListChildComponentProps } from 'react-window'
-import { FixedSizeList } from 'react-window'
+// FIXME: https://github.com/bvaughn/react-window/issues/654
+import type { FixedSizeListProps, ListChildComponentProps } from 'react-window'
+import { FixedSizeList as _FixedSizeList } from 'react-window'
+
+const FixedSizeList = _FixedSizeList as unknown as ComponentType<FixedSizeListProps>
 
 export default () => {
   const data = Array.from({ length: 10000 }, (_, index) => `Item ${index + 1}`)

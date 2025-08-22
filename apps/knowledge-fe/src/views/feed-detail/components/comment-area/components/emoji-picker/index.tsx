@@ -7,7 +7,9 @@ import { BiSolidChevronDown } from 'react-icons/bi'
 import { HiOutlineEmojiHappy } from 'react-icons/hi'
 
 import { transform_img_cdn } from '@/utils/cloudflare'
-import { customEmojis, defaultEmojis } from '@/utils/emojis'
+import { customEmojis } from '@/utils/emojis'
+
+const { emojis } = await import('@tiptap/extension-emoji')
 
 interface EmojiPickerProps {
   editor: Editor
@@ -19,7 +21,7 @@ export default function EmojiPicker(props: EmojiPickerProps) {
 
   const [open, setOpen] = useState(false)
 
-  const setEmojiDisabled = !editor.isEditable || !editor.can().setEmoji(defaultEmojis[0]?.name)
+  const setEmojiDisabled = !editor.isEditable || !editor.can().setEmoji(emojis[0]?.name)
 
   const contentEle = (
     <div className="flex flex-wrap w-256px max-h-280px scrollbar scrollbar-rounded">
@@ -38,7 +40,7 @@ export default function EmojiPicker(props: EmojiPickerProps) {
         )
       })}
       {customEmojis.length > 0 && <Divider size="small" />}
-      {defaultEmojis.map(emoji => {
+      {emojis.map(emoji => {
         return (
           <Button
             key={emoji.name}

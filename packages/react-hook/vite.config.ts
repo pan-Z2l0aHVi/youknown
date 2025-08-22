@@ -18,5 +18,12 @@ export default defineConfig({
       plugins: [],
       external: ['react', 'react-dom']
     }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler' // or "modern"
+      }
+    }
   }
 })

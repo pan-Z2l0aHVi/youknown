@@ -48,6 +48,13 @@ export default defineConfig(({ mode }) => {
       host: true,
       open: true,
       cors: true
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler' // or "modern"
+        }
+      }
     }
   }
 })

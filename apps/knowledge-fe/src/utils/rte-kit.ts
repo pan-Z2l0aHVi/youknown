@@ -1,5 +1,4 @@
-import Emoji from '@tiptap-pro/extension-emoji'
-import FileHandler from '@tiptap-pro/extension-file-handler'
+import FileHandler from '@tiptap/extension-file-handler'
 import type { Extensions } from '@youknown/react-rte/src'
 import Blockquote from '@youknown/react-rte/src/extensions/blockquote'
 import Bold from '@youknown/react-rte/src/extensions/bold'
@@ -21,7 +20,8 @@ import Underline from '@youknown/react-rte/src/extensions/underline'
 
 import { onCustomDrop, onCustomPaste, onCustomUpload } from '@/utils/rte-custom'
 
-import { customEmojis, defaultEmojis } from './emojis'
+import { customEmojis } from './emojis'
+const { Emoji, emojis } = await import('@tiptap/extension-emoji')
 
 export const DOC_EDITOR_KIT: Extensions = [
   Heading,
@@ -63,5 +63,5 @@ export const COMMENT_EDITOR_KIT: Extensions = [
     onPaste: onCustomPaste,
     onDrop: onCustomDrop
   }),
-  Emoji.configure({ emojis: defaultEmojis.concat(customEmojis) })
+  Emoji.configure({ emojis: emojis.concat(customEmojis) })
 ]

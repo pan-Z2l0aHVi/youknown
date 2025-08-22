@@ -15,18 +15,18 @@
   "author": "Grey",
   "license": "MIT",
   "dependencies": {
-    "@tiptap-pro/extension-emoji": "^2.9.3",
-    "@tiptap-pro/extension-file-handler": "^2.9.3",
+    "@tiptap/extension-emoji": "^2.26.1",
+    "@tiptap/extension-file-handler": "^2.26.1",
     "@youknown/css": "workspace:*",
     "@youknown/img-wasm": "workspace:*",
     "@youknown/react-hook": "workspace:*",
     "@youknown/react-rte": "workspace:*",
     "@youknown/react-ui": "workspace:*",
     "@youknown/utils": "workspace:*",
-    "chroma-js": "^2.4.2",
+    "chroma-js": "^2.6.0",
     "html-diff-ts": "^1.4.2",
-    "html-react-parser": "^5.1.10",
-    "idb-keyval": "^6.2.1",
+    "html-react-parser": "^5.2.6",
+    "idb-keyval": "^6.2.2",
     "omggif": "^1.0.10"
   },
   "lint-staged": {
@@ -39,8 +39,8 @@
     "not dead"
   ],
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.613.0",
-    "@types/chroma-js": "^2.4.4",
+    "@aws-sdk/client-s3": "^3.873.0",
+    "@types/chroma-js": "^2.4.5",
     "@types/mime-types": "^2.1.4",
     "@types/omggif": "^1.0.5",
     "@types/react-window": "^1.8.8",
