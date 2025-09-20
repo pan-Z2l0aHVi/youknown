@@ -1,6 +1,3 @@
-import type { Ref } from 'vue'
-import { ref, watch } from 'vue'
-
 export interface FetchOptions<T, S> {
   initialData?: T
   manual?: Ref<boolean>

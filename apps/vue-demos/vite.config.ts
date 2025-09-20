@@ -3,6 +3,9 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 import Unocss from 'unocss/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
 import { defineConfig, loadEnv, PluginOption } from 'vite'
 import http2Proxy from 'vite-plugin-http2-proxy'
 
@@ -22,6 +25,16 @@ export default defineConfig(({ mode }) => {
         }
       }),
       vue(),
+      AutoImport({
+        dts: true,
+        eslintrc: {
+          enabled: true
+        },
+        imports: ['vue']
+      }),
+      Components({
+        resolvers: [NaiveUiResolver()]
+      }),
       Unocss(),
       visualizer() as unknown as PluginOption
     ],

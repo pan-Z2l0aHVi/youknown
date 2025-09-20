@@ -14,13 +14,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@atlaskit/pragmatic-drag-and-drop": "^1.7.7",
     "@tiptap/extension-placeholder": "^2.26.1",
     "@tiptap/pm": "^2.26.1",
     "@tiptap/starter-kit": "^2.26.1",
     "@tiptap/vue-3": "^2.26.1",
     "@youknown/css": "workspace:*",
+    "@youknown/game-hud": "workspace:*",
     "@youknown/utils": "workspace:*",
     "crypto-js": "^4.2.0",
+    "naive-ui": "^2.43.1",
     "vant": "^4.9.21"
   },
   "lint-staged": {

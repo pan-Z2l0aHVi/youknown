@@ -12,8 +12,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
 import { useFetch } from '@/hooks'
 import uuid from '@/utils/uuid'
 

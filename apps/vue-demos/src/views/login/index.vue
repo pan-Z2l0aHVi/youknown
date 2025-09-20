@@ -8,8 +8,6 @@
 
 <script setup lang="ts">
 import { QS, uuid } from '@youknown/utils/src'
-import { computed } from 'vue'
-import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 const CLIENT_ID = '623037fcf1a6cb4ad6d8'
 const getLoginURL = () => {

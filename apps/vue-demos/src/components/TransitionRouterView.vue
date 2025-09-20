@@ -8,7 +8,6 @@
 
 <script setup lang="ts">
 import { storage } from '@youknown/utils/src'
-import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 const route = useRoute()
 

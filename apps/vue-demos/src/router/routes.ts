@@ -94,6 +94,14 @@ export const navTabRoutes: (RouteRecordRaw & {
       title: 'Flow'
     },
     component: () => import('@/views/flow/index.vue')
+  },
+  {
+    path: '/hud',
+    name: 'hud',
+    component: () => import('@/views/hud/index.vue'),
+    meta: {
+      title: 'HUD'
+    }
   }
 ]
 

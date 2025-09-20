@@ -1,6 +1,4 @@
 import { checkElementInContainer } from '@youknown/utils/src'
-import type { Ref } from 'vue'
-import { computed, nextTick, ref } from 'vue'
 
 import { omit } from '@/utils/object'
 

@@ -11,7 +11,6 @@
 
 <script setup lang="ts">
 import { storage } from '@youknown/utils/src'
-import { ref } from 'vue'
 
 import { net } from '@/utils/request'
 

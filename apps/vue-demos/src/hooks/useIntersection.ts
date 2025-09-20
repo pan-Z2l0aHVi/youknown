@@ -1,6 +1,3 @@
-import type { Ref } from 'vue'
-import { ref, watchPostEffect } from 'vue'
-
 /**
  * @param target
  */

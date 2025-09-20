@@ -1,6 +1,6 @@
 {
-    "name": "@youknown/react-ui",
-    "version": "1.0.11",
+    "name": "@youknown/game-hud",
+    "version": "1.0.0",
     "description": "",
     "type": "module",
     "main": "dist/main.es.js",
@@ -19,11 +19,6 @@
         "watch": "concurrently --kill-others \"tsc -w\" \"vite build --watch\"",
         "deploy": "npm publish"
     },
-    "keywords": [
-        "react",
-        "ui",
-        "component"
-    ],
     "author": "Grey",
     "private": false,
     "publishConfig": {
@@ -36,17 +31,7 @@
     },
     "license": "MIT",
     "dependencies": {
-        "@emotion/react": "^11.14.0",
-        "@emotion/styled": "^11.14.1",
-        "@floating-ui/react": "^0.26.28",
-        "@mui/material": "^5.18.0",
-        "@youknown/css": "workspace:*",
-        "@youknown/react-hook": "workspace:*",
-        "@youknown/utils": "workspace:*",
-        "modern-css-reset": "^1.4.0",
-        "react-countup": "^6.5.3",
-        "react-easy-crop": "^5.5.1",
-        "react-textarea-autosize": "^8.5.9"
+        "@youknown/utils": "workspace:*"
     },
     "lint-staged": {
         "**/*.{js,ts,jsx,tsx}": "eslint --cache --fix",

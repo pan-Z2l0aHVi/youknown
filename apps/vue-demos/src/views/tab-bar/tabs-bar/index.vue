@@ -7,8 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-
 interface TabItem {
   name: string | number
   title: string

@@ -9,8 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
 import uuid from '@/utils/uuid'
 
 let reqID = 0

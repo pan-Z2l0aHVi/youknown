@@ -1,5 +1,14 @@
 html {
   scrollbar-width: thin;
+
+  /* WebKit 内核浏览器（Chrome/Safari）的抗锯齿设置 */
+  -webkit-font-smoothing: antialiased;
+
+  /* Firefox 浏览器的抗锯齿设置 */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* 浏览器会启用次像素渲染（如果支持），提升文字清晰度 */
+  text-rendering: optimizelegibility;
 }
 
 body {

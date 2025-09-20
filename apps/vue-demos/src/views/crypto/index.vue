@@ -10,7 +10,6 @@
 
 <script setup lang="ts">
 import CryptoJS from 'crypto-js'
-import { ref } from 'vue'
 
 import { decrypt, encrypt } from '@/utils/ase'
 
