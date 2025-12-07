@@ -78,6 +78,8 @@
           />
         </div>
       </GrayEllipseContainer>
+
+      <Package />
     </div>
 
     <div class="fixed right-20px top-64px flex flex-col">
@@ -195,6 +197,7 @@ import Crosshair from './crosshair.vue'
 import EnergyBar, { EnergyBarExposed } from './energy-bar.vue'
 import GrayEllipseContainer from './gray-ellipse-container.vue'
 import HealthBar, { HealthBarExposed } from './health-bar.vue'
+import Package from './package.vue'
 import StaminaBar, { StaminaBarExposed } from './stamina-bar.vue'
 
 const BG_RATIO = 16 / 9
