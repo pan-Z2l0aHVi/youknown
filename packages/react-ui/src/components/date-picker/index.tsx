@@ -16,8 +16,10 @@ import { Button } from '../button'
 import { Divider } from '../divider'
 import { Popover } from '../popover'
 
-export interface DatePickerProps
-  extends Omit<ComponentPropsWithoutRef<typeof Button>, 'defaultValue' | 'value' | 'onChange'> {
+export interface DatePickerProps extends Omit<
+  ComponentPropsWithoutRef<typeof Button>,
+  'defaultValue' | 'value' | 'onChange'
+> {
   size?: 'small' | 'medium' | 'large'
   disabled?: boolean
   icon?: ReactNode

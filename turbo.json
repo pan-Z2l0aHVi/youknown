@@ -1,15 +1,29 @@
 {
-  "$schema": "https://turborepo.org/schema.json",
+  "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {
       "dependsOn": [
         "^build"
       ],
       "outputs": [
-        "dist/*"
+        "dist/**"
       ]
     },
-    "lint": {},
+    // 普通校验：开启缓存，极大提升 CI 速度
+    "lint": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "**/*.{js,jsx,ts,tsx,vue,mdx}",
+        "eslint.config.js",
+        "eslint.config.mjs"
+      ]
+    },
+    // 自动修复：关闭缓存，因为它会修改源代码
+    "lint:fix": {
+      "cache": false
+    },
     "test": {
       "dependsOn": [
         "^build"

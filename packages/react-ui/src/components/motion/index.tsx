@@ -6,7 +6,8 @@ import { Transition } from 'react-transition-group'
 import type { TransitionProps } from 'react-transition-group/Transition'
 
 export interface StretchProps
-  extends Pick<
+  extends
+    Pick<
       TransitionProps,
       | 'in'
       | 'timeout'

@@ -1,93 +1,94 @@
 {
-    "name": "@youknown/react-rte",
-    "version": "1.0.11",
-    "description": "",
-    "type": "module",
-    "main": "dist/main.es.js",
-    "module": "dist/main.es.js",
-    "types": "types/index.d.ts",
-    "files": [
-        "src",
-        "dist",
-        "types"
-    ],
-    "engines": {
-        "node": ">=18.12.0"
-    },
-    "scripts": {
-        "build": "rm -rf ./types && tsc && vite build",
-        "watch": "concurrently --kill-others \"tsc -w\" \"vite build --watch\"",
-        "deploy": "npm publish"
-    },
-    "keywords": [
-        "editor",
-        "Rich Text Editor",
-        "react",
-        "rte",
-        "component"
-    ],
-    "author": "Grey",
-    "private": false,
-    "publishConfig": {
-        "access": "public",
-        "registry": "https://registry.npmjs.org/"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/pan-Z2l0aHVi/youknown.git"
-    },
-    "license": "MIT",
-    "dependencies": {
-        "@tiptap/core": "^2.27.1",
-        "@tiptap/extension-blockquote": "^2.27.1",
-        "@tiptap/extension-bold": "^2.27.1",
-        "@tiptap/extension-bubble-menu": "^2.27.1",
-        "@tiptap/extension-bullet-list": "^2.27.1",
-        "@tiptap/extension-character-count": "^2.27.1",
-        "@tiptap/extension-code": "^2.27.1",
-        "@tiptap/extension-code-block-lowlight": "^2.27.1",
-        "@tiptap/extension-color": "^2.27.1",
-        "@tiptap/extension-document": "^2.27.1",
-        "@tiptap/extension-dropcursor": "^2.27.1",
-        "@tiptap/extension-gapcursor": "^2.27.1",
-        "@tiptap/extension-hard-break": "^2.27.1",
-        "@tiptap/extension-heading": "^2.27.1",
-        "@tiptap/extension-highlight": "^2.27.1",
-        "@tiptap/extension-history": "^2.27.1",
-        "@tiptap/extension-horizontal-rule": "^2.27.1",
-        "@tiptap/extension-image": "^2.27.1",
-        "@tiptap/extension-italic": "^2.27.1",
-        "@tiptap/extension-link": "^2.27.1",
-        "@tiptap/extension-list-item": "^2.27.1",
-        "@tiptap/extension-ordered-list": "^2.27.1",
-        "@tiptap/extension-paragraph": "^2.27.1",
-        "@tiptap/extension-placeholder": "^2.27.1",
-        "@tiptap/extension-strike": "^2.27.1",
-        "@tiptap/extension-table": "^2.27.1",
-        "@tiptap/extension-table-cell": "^2.27.1",
-        "@tiptap/extension-table-header": "^2.27.1",
-        "@tiptap/extension-table-row": "^2.27.1",
-        "@tiptap/extension-text": "^2.27.1",
-        "@tiptap/extension-text-align": "^2.27.1",
-        "@tiptap/extension-text-style": "^2.27.1",
-        "@tiptap/extension-typography": "^2.27.1",
-        "@tiptap/extension-underline": "^2.27.1",
-        "@tiptap/pm": "^2.27.1",
-        "@tiptap/react": "^2.27.1",
-        "@youknown/css": "workspace:*",
-        "@youknown/react-hook": "workspace:*",
-        "@youknown/react-ui": "workspace:*",
-        "@youknown/utils": "workspace:*",
-        "lowlight": "^3.3.0",
-        "react-moveable": "^0.56.0"
-    },
-    "lint-staged": {
-        "**/*.{js,ts,jsx,tsx}": "eslint --cache --fix",
-        "**/*.{css,scss,less}": "stylelint --fix"
-    },
-    "browserslist": [
-        "last 1 version",
-        "> 1%",
-        "not dead"
-    ]
+  "name": "@youknown/react-rte",
+  "version": "1.0.11",
+  "description": "",
+  "type": "module",
+  "main": "dist/main.es.js",
+  "module": "dist/main.es.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "src",
+    "dist",
+    "types"
+  ],
+  "engines": {
+    "node": ">=18.12.0"
+  },
+  "scripts": {
+    "lint:fix": "eslint . --fix",
+    "build": "rm -rf ./types && tsc && vite build",
+    "watch": "concurrently --kill-others \"tsc -w\" \"vite build --watch\"",
+    "deploy": "npm publish"
+  },
+  "keywords": [
+    "editor",
+    "Rich Text Editor",
+    "react",
+    "rte",
+    "component"
+  ],
+  "author": "Grey",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pan-Z2l0aHVi/youknown.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@tiptap/core": "^2.27.1",
+    "@tiptap/extension-blockquote": "^2.27.1",
+    "@tiptap/extension-bold": "^2.27.1",
+    "@tiptap/extension-bubble-menu": "^2.27.1",
+    "@tiptap/extension-bullet-list": "^2.27.1",
+    "@tiptap/extension-character-count": "^2.27.1",
+    "@tiptap/extension-code": "^2.27.1",
+    "@tiptap/extension-code-block-lowlight": "^2.27.1",
+    "@tiptap/extension-color": "^2.27.1",
+    "@tiptap/extension-document": "^2.27.1",
+    "@tiptap/extension-dropcursor": "^2.27.1",
+    "@tiptap/extension-gapcursor": "^2.27.1",
+    "@tiptap/extension-hard-break": "^2.27.1",
+    "@tiptap/extension-heading": "^2.27.1",
+    "@tiptap/extension-highlight": "^2.27.1",
+    "@tiptap/extension-history": "^2.27.1",
+    "@tiptap/extension-horizontal-rule": "^2.27.1",
+    "@tiptap/extension-image": "^2.27.1",
+    "@tiptap/extension-italic": "^2.27.1",
+    "@tiptap/extension-link": "^2.27.1",
+    "@tiptap/extension-list-item": "^2.27.1",
+    "@tiptap/extension-ordered-list": "^2.27.1",
+    "@tiptap/extension-paragraph": "^2.27.1",
+    "@tiptap/extension-placeholder": "^2.27.1",
+    "@tiptap/extension-strike": "^2.27.1",
+    "@tiptap/extension-table": "^2.27.1",
+    "@tiptap/extension-table-cell": "^2.27.1",
+    "@tiptap/extension-table-header": "^2.27.1",
+    "@tiptap/extension-table-row": "^2.27.1",
+    "@tiptap/extension-text": "^2.27.1",
+    "@tiptap/extension-text-align": "^2.27.1",
+    "@tiptap/extension-text-style": "^2.27.1",
+    "@tiptap/extension-typography": "^2.27.1",
+    "@tiptap/extension-underline": "^2.27.1",
+    "@tiptap/pm": "^2.27.1",
+    "@tiptap/react": "^2.27.1",
+    "@youknown/css": "workspace:*",
+    "@youknown/react-hook": "workspace:*",
+    "@youknown/react-ui": "workspace:*",
+    "@youknown/utils": "workspace:*",
+    "lowlight": "^3.3.0",
+    "react-moveable": "^0.56.0"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,jsx,tsx}": "eslint --cache --fix",
+    "**/*.{css,scss,less}": "stylelint --fix"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "not dead"
+  ]
 }

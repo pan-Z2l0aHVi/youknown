@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Image, List } from '@youknown/react-ui/src'
 import { cls } from '@youknown/utils/src'
 import { useState } from 'react'

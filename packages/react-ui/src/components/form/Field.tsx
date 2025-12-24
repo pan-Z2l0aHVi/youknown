@@ -11,8 +11,7 @@ import { Motion } from '../motion'
 import { FormContext, FormCtx } from './FormCtx'
 
 export interface FieldProps
-  extends Omit<LabelHTMLAttributes<HTMLLabelElement> & HTMLAttributes<HTMLDivElement>, 'form'>,
-    Partial<FormContext> {
+  extends Omit<LabelHTMLAttributes<HTMLLabelElement> & HTMLAttributes<HTMLDivElement>, 'form'>, Partial<FormContext> {
   label?: string
   labelText?: string | number
   form?: FormInstance

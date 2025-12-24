@@ -8,8 +8,10 @@ import { DropdownItem } from './DropdownItem'
 import { DropdownMenu } from './DropdownMenu'
 import { DropdownTitle } from './DropdownTitle'
 
-export interface DropdownProps
-  extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'growTransformOrigin' | 'content' | 'motion'> {
+export interface DropdownProps extends Omit<
+  ComponentProps<typeof Trigger>,
+  'popup' | 'growTransformOrigin' | 'content' | 'motion'
+> {
   content?: ReactNode
 }
 

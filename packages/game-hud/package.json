@@ -1,45 +1,46 @@
 {
-    "name": "@youknown/game-hud",
-    "version": "1.0.0",
-    "description": "",
-    "type": "module",
-    "main": "dist/main.es.js",
-    "module": "dist/main.es.js",
-    "types": "types/index.d.ts",
-    "files": [
-        "src",
-        "dist",
-        "types"
-    ],
-    "engines": {
-        "node": ">=18.12.0"
-    },
-    "scripts": {
-        "build": "rm -rf ./types && tsc && vite build",
-        "watch": "concurrently --kill-others \"tsc -w\" \"vite build --watch\"",
-        "deploy": "npm publish"
-    },
-    "author": "Grey",
-    "private": false,
-    "publishConfig": {
-        "access": "public",
-        "registry": "https://registry.npmjs.org/"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/pan-Z2l0aHVi/youknown.git"
-    },
-    "license": "MIT",
-    "dependencies": {
-        "@youknown/utils": "workspace:*"
-    },
-    "lint-staged": {
-        "**/*.{js,ts,jsx,tsx}": "eslint --cache --fix",
-        "**/*.{css,scss,less}": "stylelint --fix"
-    },
-    "browserslist": [
-        "last 1 version",
-        "> 1%",
-        "not dead"
-    ]
+  "name": "@youknown/game-hud",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/main.es.js",
+  "module": "dist/main.es.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "src",
+    "dist",
+    "types"
+  ],
+  "engines": {
+    "node": ">=18.12.0"
+  },
+  "scripts": {
+    "lint:fix": "eslint . --fix",
+    "build": "rm -rf ./types && tsc && vite build",
+    "watch": "concurrently --kill-others \"tsc -w\" \"vite build --watch\"",
+    "deploy": "npm publish"
+  },
+  "author": "Grey",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pan-Z2l0aHVi/youknown.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@youknown/utils": "workspace:*"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,jsx,tsx}": "eslint --cache --fix",
+    "**/*.{css,scss,less}": "stylelint --fix"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "not dead"
+  ]
 }

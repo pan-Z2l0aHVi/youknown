@@ -28,7 +28,9 @@ export default defineConfig(({ mode }) => {
       AutoImport({
         dts: true,
         eslintrc: {
-          enabled: true
+          enabled: true,
+          filepath: './.eslintrc-auto-import.js', // 修改后缀为 .mjs 或 .js
+          globalsPropValue: true
         },
         imports: ['vue']
       }),

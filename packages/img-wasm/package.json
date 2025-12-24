@@ -1,39 +1,40 @@
 {
-    "name": "@youknown/img-wasm",
-    "version": "1.0.0",
-    "description": "",
-    "author": "Grey",
-    "license": "MIT",
-    "type": "module",
-    "main": "dist/index.js",
-    "module": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "files": [
-        "src",
-        "dist"
-    ],
-    "engines": {
-        "node": ">=18.12.0"
-    },
-    "scripts": {
-        "build": "rm -rf ./dist && tsc",
-        "watch": "tsc -w",
-        "test": "jest --detectOpenHandles --passWithNoTests"
-    },
-    "dependencies": {
-        "@jsquash/jpeg": "^1.6.0",
-        "@jsquash/oxipng": "^2.3.0",
-        "@jsquash/png": "^3.1.1",
-        "@jsquash/resize": "^2.1.0",
-        "@jsquash/webp": "^1.5.0"
-    },
-    "lint-staged": {
-        "**/*.{js,ts,jsx,tsx}": "eslint --cache --fix",
-        "**/*.{css,scss,less}": "stylelint --fix"
-    },
-    "browserslist": [
-        "last 1 version",
-        "> 1%",
-        "not dead"
-    ]
+  "name": "@youknown/img-wasm",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Grey",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18.12.0"
+  },
+  "scripts": {
+    "lint:fix": "eslint . --fix",
+    "build": "rm -rf ./dist && tsc",
+    "watch": "tsc -w",
+    "test": "jest --detectOpenHandles --passWithNoTests"
+  },
+  "dependencies": {
+    "@jsquash/jpeg": "^1.6.0",
+    "@jsquash/oxipng": "^2.3.0",
+    "@jsquash/png": "^3.1.1",
+    "@jsquash/resize": "^2.1.0",
+    "@jsquash/webp": "^1.5.0"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,jsx,tsx}": "eslint --cache --fix",
+    "**/*.{css,scss,less}": "stylelint --fix"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "not dead"
+  ]
 }

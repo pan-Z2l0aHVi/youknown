@@ -7,6 +7,7 @@
     "node": ">=18.12.0"
   },
   "scripts": {
+    "lint:fix": "eslint . --fix",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
@@ -23,7 +24,7 @@
     "@youknown/react-rte": "workspace:*",
     "@youknown/react-ui": "workspace:*",
     "@youknown/utils": "workspace:*",
-    "chroma-js": "^2.6.0",
+    "chroma-js": "^3.2.0",
     "html-diff-ts": "^1.4.2",
     "html-react-parser": "^5.2.11",
     "idb-keyval": "^6.2.2",

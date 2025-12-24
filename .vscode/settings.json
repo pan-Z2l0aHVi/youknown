@@ -1,37 +1,47 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib",
-    "cSpell.words": [
-        "atleast",
-        "ciphertext",
-        "commitlint",
-        "healsing",
-        "qiniu",
-        "reduxjs",
-        "regen",
-        "stylelint",
-        "Tiptap",
-        "unfollow",
-        "Unocss",
-        "vueuse",
-        "youknown",
-        "zustand"
-    ],
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit"
-    },
-    "editor.formatOnSave": false,
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "vue",
-        "mdx"
-    ],
-    "stylelint.validate": [
-        "css",
-        "scss",
-        "less",
-        "vue"
-    ]
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "cSpell.words": [
+    "atleast",
+    "ciphertext",
+    "commitlint",
+    "healsing",
+    "qiniu",
+    "reduxjs",
+    "regen",
+    "stylelint",
+    "Tiptap",
+    "unfollow",
+    "Unocss",
+    "vueuse",
+    "youknown",
+    "zustand"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.formatOnSave": false,
+  "eslint.useFlatConfig": true,
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "markdown",
+    "mdx"
+  ],
+  "stylelint.validate": [
+    "css",
+    "scss",
+    "less",
+    "vue"
+  ],
+  "[vue]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  }
 }

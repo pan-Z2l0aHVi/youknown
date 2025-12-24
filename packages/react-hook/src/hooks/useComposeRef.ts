@@ -23,5 +23,6 @@ export function composeRef<T>(...refs: Ref<T>[]): Ref<T> {
 }
 
 export function useComposeRef<T>(...refs: Ref<T>[]): Ref<T> {
+  // eslint-disable-next-line react-hooks/use-memo
   return useMemo(() => composeRef(...refs), refs)
 }

@@ -3,6 +3,7 @@ import './index.scss'
 import type { Editor } from '@tiptap/react'
 import { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom'
+import type { OnResize } from 'react-moveable'
 
 const overReact18 = Number(ReactDOM.version?.split('.')[0]) > 17
 const flushSyncProps = overReact18 ? { flushSync: ReactDOM.flushSync } : {}
@@ -10,6 +11,12 @@ const Moveable = lazy(() => import('react-moveable'))
 
 export default function ImageResizer({ editor }: { editor: Editor }) {
   const IMAGE_SELECTOR = 'img.ProseMirror-selectednode'
+
+  const handleResize = ({ target, width, height, delta: [dx, dy] }: OnResize) => {
+    if (dx) target.style.width = `${width}px`
+    if (dy) target.style.height = `${height}px`
+  }
+
   const updateMediaSize = () => {
     const imageInfo = document.querySelector(IMAGE_SELECTOR) as HTMLImageElement
     if (imageInfo) {
@@ -40,10 +47,7 @@ export default function ImageResizer({ editor }: { editor: Editor }) {
         /* Only one of resizable, scalable, warpable can be used. */
         resizable={true}
         throttleResize={0}
-        onResize={({ target, width, height, delta }) => {
-          delta[0] && (target.style.width = `${width}px`)
-          delta[1] && (target.style.height = `${height}px`)
-        }}
+        onResize={handleResize}
         // { target, isDrag, clientX, clientY }: any
         onResizeEnd={updateMediaSize}
         /* scalable */

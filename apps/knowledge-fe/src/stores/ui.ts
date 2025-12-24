@@ -117,8 +117,8 @@ const primary_color_effect = async (primary_color: UIState['primary_color']) => 
   })
   const { mix } = await import('chroma-js')
   setRootStyle({
-    '--ui-color-primary-hover': mix(primary_color, '#fff', 0.1).hex(),
-    '--ui-color-primary-active': mix(primary_color, '#000', 0.2).hex()
+    '--ui-color-primary-hover': mix(primary_color, '#fff', 0.1, 'oklch').hex(),
+    '--ui-color-primary-active': mix(primary_color, '#000', 0.2, 'oklch').hex()
   })
 }
 const radius_effect = (radius: UIState['radius']) => {

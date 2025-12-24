@@ -1,12 +1,13 @@
 {
   "recommendations": [
     "streetsidesoftware.code-spell-checker",
-    "esbenp.prettier-vscode",
     "stylelint.vscode-stylelint",
-    "dbaeumer.vscode-eslint",
-    "Vue.volar",
     "mrmlnc.vscode-scss",
-    "antfu.unocss",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "vue.volar", //
+    "antfu.unocss", //
+    "ms-vscode.vscode-typescript-next",
     "unifiedjs.vscode-mdx"
   ]
 }

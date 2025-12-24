@@ -60,24 +60,37 @@ export function useForm<S extends State>(opts: Options<S>): FormInstance<S> {
     })
   })
 
-  const reset = useEvent(() => {
-    setState(defaultState)
+  const validateField = useEvent(async (field: Field<S>) => {
+    const { validators = [] } = field.options
+    const results = await Promise.allSettled(
+      validators.map(validator => {
+        const value = getState()[field.label]
+        return validator(value)
+      })
+    )
+    const explains = results
+      .map<string>(res => {
+        if (res.status === 'rejected') {
+          return res.reason
+        }
+        return ''
+      })
+      .filter(Boolean)
+    field.options.onExplainsChange?.(explains)
+    return explains
   })
 
-  const submit = useEvent(async () => {
-    const explainsMap = await validate()
-    const isValid = !Object.values(explainsMap).flat().length
-    if (isValid) {
-      opts.onFulfilled?.(state.current)
-    } else {
-      opts.onFailed?.(explainsMap)
+  const validate = useEvent(async (...labels: (keyof S)[]) => {
+    const isValidateAll = is.array.empty(labels)
+    const toBeVerifiedFields = isValidateAll
+      ? fields.current
+      : fields.current.filter(field => labels.includes(field.label))
+    const result = {} as Record<keyof S, string[]>
+    for (const field of toBeVerifiedFields) {
+      const explains = await validateField(field)
+      result[field.label] = explains
     }
-  })
-
-  const onSubmit: FormEventHandler = useEvent(event => {
-    event.preventDefault()
-    event.stopPropagation()
-    submit()
+    return result
   })
 
   const subscribe = useEvent((label: keyof S, options: FieldOptions<S>) => {
@@ -115,37 +128,24 @@ export function useForm<S extends State>(opts: Options<S>): FormInstance<S> {
     delete controllerMap.current[label]
   })
 
-  const validateField = useEvent(async (field: Field<S>) => {
-    const { validators = [] } = field.options
-    const results = await Promise.allSettled(
-      validators.map(validator => {
-        const value = getState()[field.label]
-        return validator(value)
-      })
-    )
-    const explains = results
-      .map<string>(res => {
-        if (res.status === 'rejected') {
-          return res.reason
-        }
-        return ''
-      })
-      .filter(Boolean)
-    field.options.onExplainsChange?.(explains)
-    return explains
+  const reset = useEvent(() => {
+    setState(defaultState)
   })
 
-  const validate = useEvent(async (...labels: (keyof S)[]) => {
-    const isValidateAll = is.array.empty(labels)
-    const toBeVerifiedFields = isValidateAll
-      ? fields.current
-      : fields.current.filter(field => labels.includes(field.label))
-    const result = {} as Record<keyof S, string[]>
-    for (const field of toBeVerifiedFields) {
-      const explains = await validateField(field)
-      result[field.label] = explains
+  const submit = useEvent(async () => {
+    const explainsMap = await validate()
+    const isValid = !Object.values(explainsMap).flat().length
+    if (isValid) {
+      opts.onFulfilled?.(state.current)
+    } else {
+      opts.onFailed?.(explainsMap)
     }
-    return result
+  })
+
+  const onSubmit: FormEventHandler = useEvent(event => {
+    event.preventDefault()
+    event.stopPropagation()
+    submit()
   })
 
   const [form] = useState({

@@ -55,6 +55,7 @@ function ToLowerLoadMore() {
   const fetcher = (): ReturnType<typeof mockFetchInfinity> =>
     mockFetchInfinity({
       page,
+      // eslint-disable-next-line react-hooks/immutability
       page_size: pageSize
     })
 

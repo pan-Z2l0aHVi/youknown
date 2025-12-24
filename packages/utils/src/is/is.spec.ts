@@ -70,5 +70,3 @@ describe('all', () => {
     expect(is.all.array([[], [1, 2], Array(1)])).toBe(true)
   })
 })
-
-is.all.object

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/refs */
 import { is } from '@youknown/utils/src'
 import type { SetStateAction } from 'react'
 import { useRef, useState } from 'react'

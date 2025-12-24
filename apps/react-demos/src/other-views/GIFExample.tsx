@@ -19,7 +19,6 @@ interface GIFLazyImageProps extends HTMLAttributes<HTMLDivElement> {
 }
 function GIFLazyImage(props: GIFLazyImageProps) {
   const { src, ...rest } = props
-  const [finalSrc, setFinalSrc] = useState('')
   const [firstFrame, setFirstFrame] = useState('')
   const [playing, { setTrue: startPlay }] = useBoolean(false)
 
@@ -43,13 +42,7 @@ function GIFLazyImage(props: GIFLazyImageProps) {
     return firstFrameBase64
   }, [src])
 
-  useEffect(() => {
-    if (playing) {
-      setFinalSrc(src)
-    } else {
-      setFinalSrc(firstFrame)
-    }
-  }, [firstFrame, playing, src])
+  const finalSrc = playing ? src : firstFrame
 
   const containerRef = useRef<HTMLDivElement>(null)
   const loadedRef = useRef(false)
@@ -62,7 +55,6 @@ function GIFLazyImage(props: GIFLazyImageProps) {
         })
         .catch(err => {
           console.error('get gif first frame error: ', err)
-          setFinalSrc(src)
         })
         .finally(() => {
           loadedRef.current = true

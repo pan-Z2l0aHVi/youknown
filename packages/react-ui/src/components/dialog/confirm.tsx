@@ -5,27 +5,26 @@ import { render as renderReactRoot } from '../../utils/renderReactRoot'
 import type { DialogProps } from './Dialog'
 import { Dialog } from './Dialog'
 
-interface ConfirmConfig
-  extends Pick<
-    DialogProps,
-    | 'title'
-    | 'header'
-    | 'footer'
-    | 'hasCancel'
-    | 'closeIcon'
-    | 'overlayClosable'
-    | 'unmountOnExit'
-    | 'className'
-    | 'overlayClassName'
-    | 'style'
-    | 'okText'
-    | 'cancelText'
-    | 'okDanger'
-    | 'okLoading'
-    | 'onCancel'
-    | 'onOk'
-    | 'afterClose'
-  > {
+interface ConfirmConfig extends Pick<
+  DialogProps,
+  | 'title'
+  | 'header'
+  | 'footer'
+  | 'hasCancel'
+  | 'closeIcon'
+  | 'overlayClosable'
+  | 'unmountOnExit'
+  | 'className'
+  | 'overlayClassName'
+  | 'style'
+  | 'okText'
+  | 'cancelText'
+  | 'okDanger'
+  | 'okLoading'
+  | 'onCancel'
+  | 'onOk'
+  | 'afterClose'
+> {
   content?: ReactNode
 }
 interface DialogInstance {

@@ -60,6 +60,5 @@ export default class QS {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   static delete() {}
 }

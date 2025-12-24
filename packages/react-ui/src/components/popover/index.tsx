@@ -7,8 +7,10 @@ import { Children, cloneElement, forwardRef, isValidElement } from 'react'
 import { UI_PREFIX } from '../../constants'
 import { EventsByTriggerNeed, Trigger } from '../trigger'
 
-export interface PopoverProps
-  extends Omit<ComponentProps<typeof Trigger>, 'popup' | 'growTransformOrigin' | 'motion' | 'content'> {
+export interface PopoverProps extends Omit<
+  ComponentProps<typeof Trigger>,
+  'popup' | 'growTransformOrigin' | 'motion' | 'content'
+> {
   content?: ReactNode
 }
 

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
 export function isFunction(arg: unknown): arg is Function {
   return typeof arg === 'function'
 }
