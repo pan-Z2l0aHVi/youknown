@@ -1,13 +1,22 @@
 import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
-import { defineConfig } from 'vite'
+import { dirname, resolve } from 'path'
+import { fileURLToPath } from 'url'
+import type { UserConfig } from 'vite'
 import styleInject from 'vite-plugin-css-injected-by-js'
 
-export default defineConfig({
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+export default {
   base: '',
-  plugins: [react(), styleInject()],
+  plugins: [
+    react(),
+    styleInject({
+      topExecutionPriority: true
+    })
+  ],
   build: {
-    target: 'es2015',
+    target: 'esnext',
     lib: {
       formats: ['es'],
       entry: resolve(__dirname, 'src/index.ts'),
@@ -15,15 +24,20 @@ export default defineConfig({
       fileName: format => `main.${format}.js`
     },
     rollupOptions: {
-      plugins: [],
-      external: ['react', 'react-dom']
+      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      output: {
+        exports: 'named'
+      }
+    }
+  },
+  server: {
+    fs: {
+      allow: ['..']
     }
   },
   css: {
     preprocessorOptions: {
-      scss: {
-        api: 'modern-compiler' // or "modern"
-      }
+      scss: {}
     }
   }
-})
+} satisfies UserConfig

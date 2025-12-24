@@ -7,12 +7,9 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import globals from 'globals'
 
 export default [
-  // 1. 全局忽略设置 (替代旧版的 .eslintignore)
   {
     ignores: ['**/dist/**', '**/dev-dist/**', '**/node_modules/**', '**/coverage/**']
   },
-
-  // 2. 基础通用配置 (替代 env, parserOptions)
   {
     files: ['**/*.{js,mjs,cjs,ts,tsx,vue}'],
     languageOptions: {
@@ -36,30 +33,33 @@ export default [
       prettier: prettierPlugin
     },
     rules: {
-      // 继承推荐规则的替代方案：手动解构或直接使用插件提供的 flat 配置
       ...tsPlugin.configs.recommended.rules,
       ...prettierPlugin.configs.recommended.rules,
-
-      // 自定义规则
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': 'warn',
-
-      // 关闭与 Prettier 冲突的规则 (必须放在最后)
       ...prettierConfig.rules
     }
   },
 
-  // 3. MDX 特殊处理 (替代旧版的 overrides)
+  // 3. MDX 特殊处理
   {
     files: ['**/*.mdx'],
-    ...mdx.flat, // 使用 mdx 提供的扁平配置
+    ...mdx.flat,
     processor: mdx.createRemarkProcessor({
       lintCodeBlocks: true
     }),
+    plugins: {
+      mdx,
+      prettier: prettierPlugin
+    },
     settings: {
       'mdx/code-blocks': true
+    },
+    rules: {
+      'prettier/prettier': ['error', { parser: 'mdx' }],
+      ...prettierConfig.rules
     }
   }
 ]

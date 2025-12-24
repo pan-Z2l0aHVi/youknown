@@ -2,15 +2,20 @@ import mdx from '@mdx-js/rollup'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 import react from '@vitejs/plugin-react-swc'
 import { excludeDeps } from '@youknown/img-wasm'
-import { resolve } from 'path'
+import { dirname, resolve } from 'path'
 import remarkGfm from 'remark-gfm'
 import { visualizer } from 'rollup-plugin-visualizer'
 import unocss from 'unocss/vite'
-import { defineConfig, loadEnv, PluginOption, splitVendorChunkPlugin } from 'vite'
+import { fileURLToPath } from 'url'
+import { defineConfig, loadEnv } from 'vite'
 import http2Proxy from 'vite-plugin-http2-proxy'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd())
+
   return {
     base: '/',
     plugins: [
@@ -28,10 +33,12 @@ export default defineConfig(({ mode }) => {
       mdx({
         remarkPlugins: [remarkGfm]
       }),
-      splitVendorChunkPlugin(),
       react(),
       unocss(),
-      visualizer() as unknown as PluginOption
+      visualizer({
+        filename: 'stats.html',
+        gzipSize: true
+      })
     ],
     optimizeDeps: {
       exclude: [...excludeDeps]
@@ -42,18 +49,19 @@ export default defineConfig(({ mode }) => {
       }
     },
     build: {
-      target: 'es2015'
+      target: 'es2017'
     },
     server: {
       host: true,
       open: true,
-      cors: true
+      cors: true,
+      fs: {
+        allow: ['..']
+      }
     },
     css: {
       preprocessorOptions: {
-        scss: {
-          api: 'modern-compiler' // or "modern"
-        }
+        scss: {}
       }
     }
   }

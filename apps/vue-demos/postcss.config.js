@@ -1,5 +1,5 @@
-import postcssPresetEnv from 'postcss-preset-env'
+import baseConfig from '../../postcss.config.js'
 
 export default {
-  plugins: [postcssPresetEnv()]
+  ...baseConfig
 }

@@ -1,21 +1,21 @@
 {
-    "compilerOptions": {
-        "jsx": "react-jsx",
-        "target": "ESNext",
-        "lib": [
-            "ESNext",
-            "DOM",
-            "DOM.Iterable"
-        ],
-        "module": "ESNext",
-        "moduleResolution": "bundler",
-        "strict": true,
-        "resolveJsonModule": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "noImplicitThis": false,
-        "sourceMap": false,
-        "declaration": true
-    }
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "target": "ESNext",
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitThis": false,
+    "sourceMap": false,
+    "declaration": true
+  }
 }

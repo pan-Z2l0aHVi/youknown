@@ -63,7 +63,7 @@ export default defineConfig(({ mode, command }) => {
       }
     },
     build: {
-      target: 'es2015',
+      target: 'es2017',
       rollupOptions: {
         output: {
           manualChunks: {
@@ -83,9 +83,7 @@ export default defineConfig(({ mode, command }) => {
     },
     css: {
       preprocessorOptions: {
-        scss: {
-          api: 'modern-compiler' // or "modern"
-        }
+        scss: {}
       }
     }
   }

@@ -1,6 +1,5 @@
-import postcss100vhFix from 'postcss-100vh-fix'
-import postcssPresetEnv from 'postcss-preset-env'
+import baseConfig from '../../postcss.config.js'
 
 export default {
-  plugins: [postcss100vhFix(), postcssPresetEnv()]
+  ...baseConfig
 }
